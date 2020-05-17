@@ -1,0 +1,15 @@
+{
+  "name": "shicka",
+  "version": "0.0.0",
+  "description": "Bot for the official Super Bear Adventure Discord server",
+  "main": "shicka.js",
+  "repository": "https://github.com/SuperBearAdventure/shicka",
+  "author": "Tristan LE GODAIS",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "jsdom": "^16.2.2",
+    "node-fetch": "^2.6.0"
+  }
+}
