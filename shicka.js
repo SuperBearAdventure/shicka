@@ -9,13 +9,14 @@ const commands = [
 	{
 		pattern: /^!count *$/isu,
 		async execute(message) {
-			await message.channel.send(`There are ${message.guild.memberCount} members on the official *Super Bear Adventure* *Discord* server`);
+			const {memberCount} = message.guild;
+			await message.channel.send(`There are ${memberCount} members on the official *Super Bear Adventure* *Discord* server!`);
 		},
 	},
 	{
 		pattern: /^!trailer *$/isu,
 		async execute(message) {
-			await message.channel.send(`Watch the official trailer of *Super Bear Adventure* on *Earthkwak Games* *YouTube* channel:\nhttps://youtu.be/L00uorYTYgE`);
+			await message.channel.send(`Watch the official trailer of *Super Bear Adventure* on *Earthkwak Games* *YouTube* channel!\nhttps://youtu.be/L00uorYTYgE`);
 		},
 	},
 	{
@@ -31,8 +32,8 @@ const commands = [
 				if (dateElement === null) {
 					throw new Error("No date found");
 				}
-				const version = Util.escapeMarkdown(versionElement.textContent);
-				const date = Util.escapeMarkdown(dateElement.textContent);
+				const version = `**${Util.escapeMarkdown(versionElement.textContent)}**`;
+				const date = `*${Util.escapeMarkdown(dateElement.textContent)}*`;
 				await message.channel.send(`The last update of the game is ${version} (${date})`);
 			} catch (error) {
 				console.warn(error);
@@ -81,7 +82,7 @@ const commands = [
 						}).join("");
 						if (!leaderboards.has(leaderboardId)) {
 							leaderboards.set(leaderboardId,  variables.map((variable) => {
-								return `${variable.name}: ${variable.values.values[values[variable.id]].label}`;
+								return `${variable.values.values[values[variable.id]].label}`;
 							}).join(", "));
 						}
 					}
@@ -99,15 +100,18 @@ const commands = [
 						if (Date.parse(status["verify-date"]) <= previousCheck) {
 							continue;
 						}
-						const player = Util.escapeMarkdown(players.data[0].names.international);
+						const player = players.data[0];
+						const flag = player.location.country.code.toLowerCase();
+						const name = player.names.international;
+						const user = `*:flag_${Util.escapeMarkdown(flag)}: ${Util.escapeMarkdown(name)}*`;
 						const {primary_t} = times;
 						const minutes = `${primary_t / 60 | 0}`.padStart(2, "0");
 						const seconds = `${primary_t % 60 | 0}`.padStart(2, "0");
 						const centiseconds = `${primary_t % 1 * 100 | 0}`.padStart(2, "0");
-						const category = Util.escapeMarkdown(categoryName);
-						const leaderboard = leaderboardName && ` (${Util.escapeMarkdown(leaderboardName)})`;
+						const time = `**${Util.escapeMarkdown(`${minutes}:${seconds}.${centiseconds}`)}**`;
+						const category = `*${Util.escapeMarkdown(`${categoryName} ${leaderboardName && ` - ${leaderboardName}`}`)}*`;
 						const video = Util.escapeMarkdown(videos.links[0].uri);
-						await message.channel.send(`${player} set a new world record (${minutes}:${seconds}.${centiseconds}) in the ${category} category${leaderboard}:\n${video}`);
+						await message.channel.send(`${user} set a new world record in the ${category} category: ${time}!\n${video}`);
 						if (!found) {
 							found = true;
 						}
@@ -118,26 +122,30 @@ const commands = [
 				}
 			} catch (error) {
 				console.warn(error);
-				await message.channel.send("You can check and watch the latest speedruns here:\nhttps://www.speedrun.com/super_bear_adventure");
+				await message.reply("You can check and watch the latest speedruns here:\nhttps://www.speedrun.com/super_bear_adventure");
 			}
 		},
 	},
 	{
-		pattern: /\b(?:multi-?player|pc|ios|ipad|iphone)\b/isu,
+		pattern: /\b(?:ios|ipad|iphone|multi-?player|online|pc)\b/isu,
 		async execute(message) {
-			try {
-				const emoji = message.guild.emojis.cache.find((emoji) => {
-					return emoji.name === "RULE7";
-				});
-				if (typeof emoji === "undefined") {
-					throw new Error("No emoji found");
-				}
-				await message.react(emoji);
+			const emoji = message.guild.emojis.cache.find((emoji) => {
+				return emoji.name === "RULE7";
+			});
+			if (typeof emoji !== "undefined") {
 				await message.channel.send(`${emoji}`);
-			} catch (error) {
-				console.warn(error);
-				await message.channel.send("Please read and respect rule 7");
 			}
+			const channel = message.guild.channels.cache.find((channel) => {
+				return channel.name === "❗rules❗";
+			});
+			if (typeof channel !== "undefined") {
+				await message.reply(`Please read and respect the ${channel}!`);
+			}
+			await message.react("🇷");
+			await message.react("🇺");
+			await message.react("🇱");
+			await message.react("🇪");
+			await message.react("7️⃣");
 		},
 	},
 ];

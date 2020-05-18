@@ -10,7 +10,7 @@ $ node shicka.js <your-token-here>
 
 ## Supported commands
 
-- `!count` gives the number of members on the guild
+- `!count` gives the number of members of the guild
 
 - `!trailer` gives the link to the trailer of the game
 
