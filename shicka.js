@@ -34,7 +34,7 @@ const commands = [
 				}
 				const version = `**${Util.escapeMarkdown(versionElement.textContent)}**`;
 				const date = `*${Util.escapeMarkdown(dateElement.textContent)}*`;
-				await message.channel.send(`The last update of the game is ${version} (${date})`);
+				await message.channel.send(`The last update of the game is ${version} (${date}).`);
 			} catch (error) {
 				console.warn(error);
 				await message.channel.send("You can check and download the latest update of the game here:\nhttps://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
@@ -107,9 +107,9 @@ const commands = [
 						const {primary_t} = times;
 						const minutes = `${primary_t / 60 | 0}`.padStart(2, "0");
 						const seconds = `${primary_t % 60 | 0}`.padStart(2, "0");
-						const centiseconds = `${primary_t % 1 * 100 | 0}`.padStart(2, "0");
+						const centiseconds = `${primary_t * 100 % 100 | 0}`.padStart(2, "0");
 						const time = `**${Util.escapeMarkdown(`${minutes}:${seconds}.${centiseconds}`)}**`;
-						const category = `*${Util.escapeMarkdown(`${categoryName} ${leaderboardName && ` - ${leaderboardName}`}`)}*`;
+						const category = `*${Util.escapeMarkdown(`${categoryName}${leaderboardName && ` - ${leaderboardName}`}`)}*`;
 						const video = Util.escapeMarkdown(videos.links[0].uri);
 						await message.channel.send(`${user} set a new world record in the ${category} category: ${time}!\n${video}`);
 						if (!found) {
