@@ -4,6 +4,19 @@ import {Command} from "./command.js";
 const {Util} = discord;
 const pattern = /^!speedrun *$/isu;
 async function execute(previousCheck, message) {
+	const options = {
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+		hour: "numeric",
+		minute: "numeric",
+		second: "numeric",
+		timeZoneName: "short",
+		timeZone: "UTC",
+		hour12: false,
+	};
+	const date = new Date(previousCheck);
+	const localeDate = date.toLocaleDateString("en-US", options);
 	try {
 		const categories = new Map();
 		loop: for (let i = 0;; i += 20) {
@@ -58,6 +71,10 @@ async function execute(previousCheck, message) {
 				if (Date.parse(status["verify-date"]) <= previousCheck) {
 					continue;
 				}
+				if (!found) {
+					found = true;
+					await message.channel.send(`These are the world records found since the previous request (${localeDate}):`);
+				}
 				const player = players.data[0];
 				const flag = player.location.country.code.toLowerCase();
 				const name = player.names.international;
@@ -69,18 +86,15 @@ async function execute(previousCheck, message) {
 				const time = `**${Util.escapeMarkdown(`${minutes}:${seconds}.${centiseconds}`)}**`;
 				const category = `*${Util.escapeMarkdown(`${categoryName}${leaderboardName && ` - ${leaderboardName}`}`)}*`;
 				const video = Util.escapeMarkdown(videos.links[0].uri);
-				await message.channel.send(`${user} set a new world record in the ${category} category: ${time}!\n${video}`);
-				if (!found) {
-					found = true;
-				}
+				message.channel.send(`${user} set a new world record in the ${category} category: ${time}!\n${video}`);
 			}
 		}
 		if (!found) {
-			throw new Error("No new world record found");
+			await message.channel.send(`No new world records were found since the previous request (${localeDate}).\nYou can check and watch the latest speedruns here:\nhttps://www.speedrun.com/super_bear_adventure`);
 		}
 	} catch (error) {
 		console.warn(error);
-		await message.reply("You can check and watch the latest speedruns here:\nhttps://www.speedrun.com/super_bear_adventure");
+		await message.channel.send("You can check and watch the latest speedruns here:\nhttps://www.speedrun.com/super_bear_adventure");
 	}
 }
 export class SpeedrunCommand extends Command {
