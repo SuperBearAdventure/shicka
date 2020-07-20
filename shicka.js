@@ -3,7 +3,7 @@ import jsdom from "jsdom";
 import fetch from "node-fetch";
 const {Client, Util} = discord;
 const {JSDOM} = jsdom;
-const token = process.argv[2];
+const token = process.env.DISCORD_TOKEN;
 let currentCheck = Date.now();
 const commands = [
 	{

@@ -2,10 +2,16 @@
 
 Bot for the official *Super Bear Adventure* *Discord* server
 
+## Providing the Discord token
+
+```shell
+export DISCORD_TOKEN=<your-token-here>
+```
+
 ## Starting the bot
 
 ```shell
-$ node shicka.js <your-token-here>
+$ node shicka.js
 ```
 
 ## Supported commands
