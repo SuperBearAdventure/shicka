@@ -20,11 +20,14 @@ async function execute(message) {
 		await message.channel.send(`The last update of the game is ${version} (${date}).`);
 	} catch (error) {
 		console.warn(error);
-		await message.channel.send("You can check and download the latest update of the game here:\nhttps://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
+		await message.channel.send("You can check and download the latest update of the game there:\nhttps://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
 	}
 }
 export class UpdateCommand extends Command {
 	constructor() {
 		super(pattern, execute);
+	}
+	toString() {
+		return "Type `!update` to check the latest release of the game";
 	}
 }

@@ -90,20 +90,23 @@ async function execute(previousCheck, message) {
 			}
 		}
 		if (!found) {
-			await message.channel.send(`No new world records were found since the previous request (${localeDate}).\nYou can check and watch the latest speedruns here:\nhttps://www.speedrun.com/super_bear_adventure`);
+			await message.channel.send(`No new world records were found since the previous request (${localeDate}).\nYou can check and watch the latest speedruns there:\nhttps://www.speedrun.com/super_bear_adventure`);
 		}
 	} catch (error) {
 		console.warn(error);
-		await message.channel.send("You can check and watch the latest speedruns here:\nhttps://www.speedrun.com/super_bear_adventure");
+		await message.channel.send("You can check and watch the latest speedruns there:\nhttps://www.speedrun.com/super_bear_adventure");
 	}
 }
 export class SpeedrunCommand extends Command {
 	constructor() {
-		super(pattern, (message, ...parameters) => {
-			const previousCheck = this._currentCheck;
-			this._currentCheck = Date.now();
-			execute(previousCheck, message, ...parameters);
+		let currentCheck = Date.now();
+		super(pattern, async (message, ...parameters) => {
+			const previousCheck = currentCheck;
+			currentCheck = Date.now();
+			await execute(previousCheck, message, ...parameters);
 		});
-		this._currentCheck = Date.now();
+	}
+	toString() {
+		return "Type `!speedrun` to check the latest world records of the game";
 	}
 }

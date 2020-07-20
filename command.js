@@ -14,4 +14,7 @@ export class Command {
 	async execute(message, ...parameters) {
 		await this._execute(message, ...parameters);
 	}
+	toString() {
+		return "";
+	}
 }

@@ -1,18 +1,23 @@
 import discord from "discord.js";
+import {HelpCommand} from "./help.js";
 import {CountCommand} from "./count.js";
 import {TrailerCommand} from "./trailer.js";
 import {UpdateCommand} from "./update.js";
 import {SpeedrunCommand} from "./speedrun.js";
+import {AboutCommand} from "./about.js";
 import {Rule7Command} from "./rule7.js";
 const {Client} = discord;
 const {DISCORD_TOKEN} = process.env;
-const commands = [
+const commands = [];
+commands.push(
+	new HelpCommand(commands),
 	new CountCommand(),
 	new TrailerCommand(),
 	new UpdateCommand(),
 	new SpeedrunCommand(),
+	new AboutCommand(),
 	new Rule7Command(),
-];
+);
 const client = new Client();
 client.once("ready", async () => {
 	await client.user.setPresence({

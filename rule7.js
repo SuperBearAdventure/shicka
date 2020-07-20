@@ -23,4 +23,7 @@ export class Rule7Command extends Command {
 	constructor() {
 		super(pattern, execute);
 	}
+	toString() {
+		return "Some words that violate the rule 7 will be flagged as such";
+	}
 }

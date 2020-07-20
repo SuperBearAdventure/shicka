@@ -8,4 +8,7 @@ export class CountCommand extends Command {
 	constructor() {
 		super(pattern, execute);
 	}
+	toString() {
+		return "Type `!count` to know the number of members on the server";
+	}
 }

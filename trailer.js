@@ -7,4 +7,7 @@ export class TrailerCommand extends Command {
 	constructor() {
 		super(pattern, execute);
 	}
+	toString() {
+		return "Type `!trailer` to watch the trailer of the game";
+	}
 }
