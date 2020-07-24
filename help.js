@@ -5,7 +5,7 @@ async function execute(commands, message) {
 	const help = commands.map((command) => {
 		return `- ${command.toString().replace(newline, " ")}`;
 	}).join("\n");
-	await message.channel.send(`Hey <@${message.author.id}>, there you are!\nI can give you some advice about the server:\n${help}`);
+	await message.channel.send(`Hey ${message.author}, there you are!\nI can give you some advice about the server:\n${help}`);
 }
 export class HelpCommand extends Command {
 	constructor(commands) {

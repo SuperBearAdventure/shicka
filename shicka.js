@@ -31,6 +31,9 @@ client.once("ready", async () => {
 	console.log("Ready!");
 });
 client.on("message", async (message) => {
+	if (message.author.bot) {
+		return;
+	}
 	const {content} = message;
 	for (const command of commands) {
 		const parameters = command.test(content);
