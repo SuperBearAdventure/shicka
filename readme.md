@@ -5,7 +5,7 @@ Bot for the official *Super Bear Adventure* *Discord* server
 ## Providing the Discord token
 
 ```shell
-export DISCORD_TOKEN=<your-token-here>
+$ export DISCORD_TOKEN=<your-token-here>
 ```
 
 ## Starting the bot

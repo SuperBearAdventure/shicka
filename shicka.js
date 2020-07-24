@@ -18,15 +18,16 @@ commands.push(
 	new AboutCommand(),
 	new Rule7Command(),
 );
-const client = new Client();
-client.once("ready", async () => {
-	await client.user.setPresence({
+const client = new Client({
+	presence: {
 		activity: {
 			name: "Super Bear Adventure",
 			type: "PLAYING",
 		},
 		status: "online",
-	});
+	},
+});
+client.once("ready", async () => {
 	console.log("Ready!");
 });
 client.on("message", async (message) => {
