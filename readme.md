@@ -2,10 +2,11 @@
 
 Bot for the official *Super Bear Adventure* *Discord* server
 
-## Providing the Discord token
+## Configuring the bot
 
 ```shell
-$ export DISCORD_TOKEN=<your-token-here>
+$ export SHICKA_DISCORD_TOKEN=<your-token-here>
+$ export SHICKA_PREFIX="?"
 ```
 
 ## Starting the bot
@@ -16,17 +17,17 @@ $ node shicka.js
 
 ## Supported commands
 
-- `!help` gives the list of features of this bot
+- `?help` gives the list of features of this bot
 
-- `!count` gives the number of members of the guild
+- `?count` gives the number of members of the guild
 
-- `!trailer` gives the link to the trailer of the game
+- `?trailer` gives the link to the trailer of the game
 
-- `!update` checks the latest release of the game on `play.google.com`
+- `?update` checks the latest release of the game on `play.google.com`
 
-- `!speedrun` checks the latest world records of the game on `speedrun.com`
+- `?speedrun` checks the latest world records of the game on `speedrun.com`
 
-- `!about` gives the link to this repository
+- `?about` gives the link to this repository
 
 ## Taboos
 
