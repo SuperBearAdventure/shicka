@@ -93,7 +93,7 @@ export default class RecordFeed extends Feed {
 					const centiseconds = `${primary_t * 100 % 100 | 0}`.padStart(2, "0");
 					const time = `**${Util.escapeMarkdown(`${minutes}:${seconds}.${centiseconds}`)}**`;
 					const category = `*${Util.escapeMarkdown(`${categoryName}${leaderboardName && ` - ${leaderboardName}`}`)}*`;
-					const video = Util.escapeMarkdown(videos.links[0].uri);
+					const video = videos.links[0].uri;
 					messages.push(`${user} set a new world record in the ${category} category: ${time}!\n${video}`);
 				}
 			}
