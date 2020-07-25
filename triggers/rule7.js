@@ -29,6 +29,9 @@ export default class Rule7Trigger extends Trigger {
 		await message.react("🇱");
 		await message.react("🇪");
 		await message.react("7️⃣");
+		if (typeof emoji !== "undefined") {
+			await message.react(emoji);
+		}
 	}
 	async describe(message) {
 		return "I will *gently* reprimand you if you write words which violate the rule 7";

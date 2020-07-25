@@ -1,6 +1,7 @@
 import discord from "discord.js";
 import {load} from "./loader.js";
-const {Client} = discord;
+const {Client, Util} = discord;
+const bigNumbers = ["0️⃣", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣"];
 const outerSpace = /^[\n ]+|[\n ]+$/gu;
 const innerSpace = /[\n ]+/gu;
 const client = new Client({
@@ -17,6 +18,33 @@ client.once("ready", async () => {
 	for (const feed of client.feeds.values()) {
 		feed.schedule(client);
 	}
+});
+client.on("guildMemberAdd", async (member) => {
+	const {systemChannel} = member.guild;
+	const greeting = `${member} entered the server!`;
+	const counting = memberCount % 10 ? "" : `\nWe are now ${memberCount} members!`;
+	const message = await systemChannel.send(`${greeting}${counting}`);
+	await message.react("🇭");
+	await message.react("🇪");
+	await message.react("🇾");
+	await message.react("👋");
+	if (memberCount % 1000) {
+		return;
+	}
+	const memberString = `${memberCount / 1000}`;
+	for (const memberCharacter of memberString) {
+		await message.react(bigNumbers[memberCharacter])
+	}
+	await message.react("🇰");
+	await message.react("🎉");
+	await message.react("🥳");
+});
+client.on("guildMemberRemove", async (member) => {
+	const message = await member.guild.systemChannel.send(`**${Util.escapeMarkdown(member.user.username)}** exited the server...`);
+	await message.react("🇧");
+	await message.react("🇾");
+	await message.react("🇪");
+	await message.react("👋");
 });
 client.on("message", async (message) => {
 	if (message.author.bot || message.channel.type !== "text") {
