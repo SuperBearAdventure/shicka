@@ -14,6 +14,9 @@ const client = new Client({
 });
 client.once("ready", async () => {
 	console.log("Ready!");
+	for (const feed of client.feeds.values()) {
+		feed.schedule(client);
+	}
 });
 client.on("message", async (message) => {
 	if (message.author.bot || message.channel.type !== "text") {
@@ -48,9 +51,10 @@ client.on("message", async (message) => {
 		SHICKA_DISCORD_TOKEN: discordToken,
 		SHICKA_PREFIX: prefix,
 	} = process.env;
-	const [commands, triggers] = await load(["commands", "triggers"]);
+	const [commands, feeds, triggers] = await load(["commands", "feeds", "triggers"]);
 	client.prefix = prefix;
 	client.commands = commands;
+	client.feeds = feeds;
 	client.triggers = triggers;
 	client.login(discordToken);
 })();

@@ -1,6 +1,6 @@
 export default class Command {
 	async execute(message, parameters) {}
-	async describe() {
-		return ``;
+	async describe(message) {
+		return "";
 	}
 }

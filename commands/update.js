@@ -23,7 +23,7 @@ export default class UpdateCommand extends Command {
 			await message.channel.send("You can check and download the latest update of the game there:\nhttps://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
 		}
 	}
-	async describe(command) {
-		return `Type \`${command}\` to check the latest release of the game`;
+	async describe(message, command) {
+		return `Type \`${command}\` to check the latest update of the game`;
 	}
 }

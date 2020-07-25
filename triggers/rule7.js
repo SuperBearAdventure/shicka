@@ -24,7 +24,7 @@ export default class Rule7Trigger extends Trigger {
 		await message.react("🇪");
 		await message.react("7️⃣");
 	}
-	async describe() {
-		return `Some words that violate the rule 7 will be flagged as such`;
+	async describe(message) {
+		return "I will *gently* reprimand you if you write words which violate the rule 7";
 	}
 }
