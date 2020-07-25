@@ -1,8 +1,14 @@
 import Trigger from "../trigger.js";
-const pattern = /\b(?:ios|ipad|iphone|multi-?player|online|pc)\b/isu;
+const pattern = /\b(?:console|multi-?player|online|pc|playstation|ps[45]|switch|xbox)\b/isu;
+const roles = new Set(["Cookie!", "Game Developer", "Moderator"]);
 export default class Rule7Trigger extends Trigger {
 	async execute(message) {
 		if (!message.content.match(pattern)) {
+			return;
+		}
+		if (message.member.roles.cache.some((role) => {
+			return roles.has(role.name);
+		})) {
 			return;
 		}
 		const {guild} = message;
