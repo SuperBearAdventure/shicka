@@ -1,7 +1,8 @@
 import discord from "discord.js";
-import {load} from "./loader.js";
+import {loadActions, loadGreetings} from "./loader.js";
 const {Client, Util} = discord;
 const bigNumbers = ["0️⃣", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣"];
+const capture = /^.*$/isu;
 const outerSpace = /^[\n ]+|[\n ]+$/gu;
 const innerSpace = /[\n ]+/gu;
 const client = new Client({
@@ -20,8 +21,10 @@ client.once("ready", async () => {
 	}
 });
 client.on("guildMemberAdd", async (member) => {
-	const {systemChannel} = member.guild;
-	const greeting = `${member} entered the server!`;
+	const {memberCount, systemChannel} = member.guild;
+	const name = `${member}`;
+	const greetings = member.client.greetings.hey;
+	const greeting = name.replace(capture, greetings[Math.random() * greetings.length | 0]);
 	const counting = memberCount % 10 ? "" : `\nWe are now ${memberCount} members!`;
 	const message = await systemChannel.send(`${greeting}${counting}`);
 	await message.react("🇭");
@@ -40,7 +43,11 @@ client.on("guildMemberAdd", async (member) => {
 	await message.react("🥳");
 });
 client.on("guildMemberRemove", async (member) => {
-	const message = await member.guild.systemChannel.send(`**${Util.escapeMarkdown(member.user.username)}** exited the server...`);
+	const {systemChannel} = member.guild;
+	const name = `**${Util.escapeMarkdown(member.user.username)}**`;
+	const greetings = member.client.greetings.bye;
+	const greeting = name.replace(capture, greetings[Math.random() * greetings.length | 0]);
+	const message = await systemChannel.send(greeting);
 	await message.react("🇧");
 	await message.react("🇾");
 	await message.react("🇪");
@@ -79,10 +86,12 @@ client.on("message", async (message) => {
 		SHICKA_DISCORD_TOKEN: discordToken,
 		SHICKA_PREFIX: prefix,
 	} = process.env;
-	const [commands, feeds, triggers] = await load(["commands", "feeds", "triggers"]);
+	const [commands, feeds, triggers] = await loadActions(["commands", "feeds", "triggers"]);
+	const greetings = await loadGreetings();
 	client.prefix = prefix;
 	client.commands = commands;
 	client.feeds = feeds;
 	client.triggers = triggers;
+	client.greetings = greetings;
 	client.login(discordToken);
 })();

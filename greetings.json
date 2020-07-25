@@ -1,0 +1,8 @@
+{
+	"hey": [
+		"$& joined the server!"
+	],
+	"bye": [
+		"$& left the server..."
+	]
+}
