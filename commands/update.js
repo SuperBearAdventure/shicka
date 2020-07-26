@@ -17,7 +17,7 @@ export default class UpdateCommand extends Command {
 			}
 			const version = `**${Util.escapeMarkdown(versionElement.textContent)}**`;
 			const date = `*${Util.escapeMarkdown(dateElement.textContent)}*`;
-			await message.channel.send(`The last update of the game is ${version} (${date}).`);
+			await message.channel.send(`The latest update of the game is ${version} (${date}).`);
 		} catch (error) {
 			console.warn(error);
 			await message.channel.send("You can check and download the latest update of the game there:\nhttps://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
