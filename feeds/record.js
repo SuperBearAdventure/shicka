@@ -64,7 +64,7 @@ export default class RecordFeed extends Feed {
 						return `var-${variableId}=${values[variableId]}&`;
 					}).join("");
 					if (!leaderboards.has(leaderboardId)) {
-						leaderboards.set(leaderboardId,  variables.map((variable) => {
+						leaderboards.set(leaderboardId, variables.map((variable) => {
 							return `${variable.values.values[values[variable.id]].label}`;
 						}).join(", "));
 					}
