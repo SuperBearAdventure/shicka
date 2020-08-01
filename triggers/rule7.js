@@ -1,5 +1,5 @@
 import Trigger from "../trigger.js";
-const pattern = /\b(?:console|multi-?player|online|pc|playstation|ps[45]|switch|xbox)\b/isu;
+const pattern = /\b(?:consoles?|multi-?player|online|pc|playstation|ps[45]|switch|xbox)\b/isu;
 const roles = new Set(["Cookie!", "Game Developer", "Moderator"]);
 export default class Rule7Trigger extends Trigger {
 	async execute(message) {
