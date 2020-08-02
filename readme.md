@@ -31,6 +31,8 @@ $ node shicka.js
 
 - `?speedrun` gives the link to the game on `speedrun.com`
 
+- `?tracker` gives the link to the issue tracker of the game
+
 - `?trailer` gives the link to the trailer of the game
 
 - `?update` checks the latest release of the game on `play.google.com`
