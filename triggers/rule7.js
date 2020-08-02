@@ -3,12 +3,12 @@ const pattern = /\b(?:consoles?|multi-?player|online|pc|playstation|ps[45]|switc
 const roles = new Set(["Cookie!", "Game Developer", "Moderator"]);
 export default class Rule7Trigger extends Trigger {
 	async execute(message) {
-		if (!message.content.match(pattern)) {
-			return;
-		}
 		if (message.member.roles.cache.some((role) => {
 			return roles.has(role.name);
 		})) {
+			return;
+		}
+		if (message.content.match(pattern) === null) {
 			return;
 		}
 		const {guild} = message;
