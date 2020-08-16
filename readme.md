@@ -25,7 +25,7 @@ $ node shicka.js
 
 - `?about` gives the link to this repository
 
-- `?chat <channel> <text>` writes the given text in the given channel (only available in the `#moderation` channel)
+- `?chat <channel> <text>` writes the given text in the given channel (only available in the `#bot` and `#moderation` channels)
 
 - `?count` gives the number of members of the guild
 

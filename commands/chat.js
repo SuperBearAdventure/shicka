@@ -1,5 +1,8 @@
+import discord from "discord.js";
 import Command from "../command.js";
-const pattern = /^<#(\d{17,19})>$/;
+const {MessageMentions} = discord;
+const {source} = MessageMentions.CHANNELS_PATTERN;
+const pattern = new RegExp(`^(?:${source})$`, "");
 const channels = new Set(["bot", "moderation"]);
 export default class ChatCommand extends Command {
 	async execute(message, parameters) {
