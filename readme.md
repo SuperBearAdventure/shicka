@@ -31,6 +31,8 @@ $ node shicka.js
 
 - `?help` gives the list of features of this bot
 
+- `?mission` gives the schedule of the next three missions
+
 - `?speedrun` gives the link to the game on `speedrun.com`
 
 - `?tracker` gives the link to the issue tracker of the game
