@@ -6,7 +6,7 @@ const {Util} = discord;
 export default class RecordFeed extends Feed {
 	schedule(client) {
 		schedule.scheduleJob("1 3/6 * * *", async () => {
-			const middle = (Date.now() / 21600000 | 0) * 21600000;
+			const middle = Math.floor(Date.now() / 21600000) * 21600000;
 			const start = middle - 10800000;
 			const end = middle + 10800000;
 			const messages = await this.execute(start, end);
