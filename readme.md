@@ -39,7 +39,7 @@ $ node shicka.js
 
 - `?trailer` gives the link to the trailer of the game
 
-- `?update` checks the latest release of the game on `play.google.com`
+- `?update` checks the latest release of the game on `play.google.com` and `itunes.apple.com`
 
 ### Feeds
 

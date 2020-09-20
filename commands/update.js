@@ -1,8 +1,13 @@
 import discord from "discord.js";
+import fetch from "node-fetch";
 import jsdom from "jsdom";
 import Command from "../command.js";
 const {Util} = discord;
 const {JSDOM} = jsdom;
+const dateFormat = new Intl.DateTimeFormat("en-US", {
+	dateStyle: "long",
+	timeZone: "UTC",
+});
 export default class UpdateCommand extends Command {
 	async execute(message, parameters) {
 		try {
@@ -15,12 +20,20 @@ export default class UpdateCommand extends Command {
 			if (dateElement === null) {
 				throw new Error("No date found");
 			}
-			const version = `**${Util.escapeMarkdown(versionElement.textContent)}**`;
-			const date = `*${Util.escapeMarkdown(dateElement.textContent)}*`;
-			await message.channel.send(`The latest update of the game is ${version} (${date}).`);
+			const response = await fetch("https://itunes.apple.com/lookup?id=1531842415&entity=software");
+			const {resultCount, results} = await response.json();
+			if (resultCount === 0) {
+				throw new Error("No result found");
+			}
+			const result = results[0];
+			const androidVersion = `**${Util.escapeMarkdown(versionElement.textContent)}**`;
+			const androidDate = `*${Util.escapeMarkdown(dateElement.textContent)}*`;
+			const iosVersion = `**${Util.escapeMarkdown(result.version)}**`;
+			const iosDate = `*${Util.escapeMarkdown(dateFormat.format(new Date (result.currentVersionReleaseDate)))}*`;
+			await message.channel.send(`The latest update of the game is :\n- ${androidVersion} (${androidDate}) on Android\n- ${iosVersion} (${iosDate}) on iOS`);
 		} catch (error) {
 			console.warn(error);
-			await message.channel.send("You can check and download the latest update of the game there:\nhttps://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
+			await message.channel.send("You can check and download the latest update of the game there:\n- https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer (Android)\n- https://apps.apple.com/app/id1531842415 (iOS)");
 		}
 	}
 	async describe(message, command) {
