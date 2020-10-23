@@ -463,5 +463,20 @@
 		"name": "Cartoon Eyes",
 		"rarity": "rare",
 		"type": "head"
+	},
+	{
+		"name": "Vampire Head",
+		"rarity": "epic",
+		"type": "head"
+	},
+	{
+		"name": "Witch hat",
+		"rarity": "epic",
+		"type": "head"
+	},
+	{
+		"name": "Dice",
+		"rarity": "tristopio",
+		"type": "head"
 	}
 ]
