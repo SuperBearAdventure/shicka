@@ -18,8 +18,8 @@ const listFormat = new Intl.ListFormat("en-US", {
 	type: "conjunction",
 });
 function shuffle(generator, items) {
-	for (let i = 0, li = items.length - 1; i < li; ++i) {
-		const j = Number(generator.next().value * BigInt(i) >> 32n);
+	for (let i = items.length - 1; i > 0; --i) {
+		const j = Number(generator.next().value * BigInt(i + 1) >> 32n);
 		[items[i], items[j]] = [items[j], items[i]];
 	}
 }
