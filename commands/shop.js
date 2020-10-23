@@ -17,8 +17,51 @@ const listFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-function choice(generator, items) {
-	return items[Number(generator.next().value * BigInt(items.length) >> 32n)];
+function shuffle(generator, items) {
+	for (let i = 0, li = items.length - 1; i < li; ++i) {
+		const j = Number(generator.next().value * BigInt(i) >> 32n);
+		[items[i], items[j]] = [items[j], items[i]];
+	}
+}
+function sliceItems(generator, items, itemsPerSlice, slicesPerRarity) {
+	items = items.slice();
+	const slices = [];
+	const stash = new Set();
+	const itemsPerShuffle = items.length;
+	const slicesPerShuffle = Math.floor(itemsPerShuffle / itemsPerSlice);
+	const remainingItemsCount = itemsPerShuffle % itemsPerSlice;
+	for (let i = 0; i < slicesPerRarity; i += slicesPerShuffle) {
+		shuffle(generator, items);
+		const overflow = [];
+		const remainingSlicesCount = Math.min(slicesPerRarity - i, slicesPerShuffle);
+		let j = 0;
+		for (let k = 0; k < remainingSlicesCount - 1; ++k) {
+			while (overflow.length < remainingItemsCount && !stash.has(items[j])) {
+				overflow.push(items[j++]);
+			}
+			const slice = [];
+			for (let l = 0; l < itemsPerSlice; ++l) {
+				const item = items[j++];
+				slice.push(item)
+				stash.delete(item);
+			}
+			slices.push(slice);
+		}
+		const slice = [...stash.keys()];
+		while (slice.length < itemsPerSlice) {
+			const item = items[j++];
+			if (!stash.has(item)) {
+				slice.push(item);
+			}
+		}
+		stash.clear();
+		slices.push(slice);
+		for (const item of overflow) {
+			stash.add(item);
+		}
+	}
+	shuffle(generator, slices);
+	return slices;
 }
 export default class ShopCommand extends Command {
 	constructor() {
@@ -72,28 +115,40 @@ export default class ShopCommand extends Command {
 	async execute(message, parameters) {
 		await this._initialize();
 		const itemsByRarity = this._itemsByRarity;
+		const slicesByRarityBySeed = new Map();
+		const count = Math.ceil(Math.max(
+			itemsByRarity.common.length / 4,
+			itemsByRarity.rare.length / 2,
+			itemsByRarity.epic.length,
+			itemsByRarity.tristopio.length,
+		));
 		const now = Math.floor(Date.now() / 21600000);
 		const sample = [];
 		for (let k = -2; k < 4; ++k) {
 			const date = now + k;
-			const generator = xorShift32(BigInt(date));
-			const items = Array.from({length: 8});
-			items[0] = choice(generator, itemsByRarity.common);
-			do {
-				items[1] = choice(generator, itemsByRarity.common);
-			} while (items[0] === items[1]);
-			do {
-				items[2] = choice(generator, itemsByRarity.common);
-			} while (items[0] === items[2] || items[1] === items[2]);
-			do {
-				items[3] = choice(generator, itemsByRarity.common);
-			} while (items[0] === items[3] || items[1] === items[3] || items[2] === items[3]);
-			items[4] = choice(generator, itemsByRarity.rare);
-			do {
-				items[5] = choice(generator, itemsByRarity.rare);
-			} while (items[4] === items[5]);
-			items[6] = choice(generator, itemsByRarity.epic);
-			items[7] = choice(generator, itemsByRarity.tristopio);
+			const seed = Math.floor(date / count);
+			if (!slicesByRarityBySeed.has(seed)) {
+				const generator = xorShift32(BigInt(seed));
+				const slicesByRarity = {
+					common: sliceItems(generator, itemsByRarity.common, 4, count),
+					rare: sliceItems(generator, itemsByRarity.rare, 2, count),
+					epic: sliceItems(generator, itemsByRarity.epic, 1, count),
+					tristopio: sliceItems(generator, itemsByRarity.tristopio, 1, count),
+				};
+				slicesByRarityBySeed.set(seed, slicesByRarity);
+			}
+			const slicesByRarity = slicesByRarityBySeed.get(seed);
+			const index = date - seed * count;
+			const items = [
+				slicesByRarity.common[index][0],
+				slicesByRarity.common[index][1],
+				slicesByRarity.common[index][2],
+				slicesByRarity.common[index][3],
+				slicesByRarity.rare[index][0],
+				slicesByRarity.rare[index][1],
+				slicesByRarity.epic[index][0],
+				slicesByRarity.tristopio[index][0],
+			];
 			const names = items.map((item) => {
 				return `**${Util.escapeMarkdown(item.name)}**`;
 			});
