@@ -8,6 +8,7 @@ const {readFile} = fs.promises;
 const {Util} = discord;
 const here = import.meta.url;
 const root = here.slice(0, here.lastIndexOf("/"));
+const channels = new Set(["bot", "moderation"]);
 const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeStyle: "short",
@@ -113,7 +114,11 @@ export default class ShopCommand extends Command {
 		// this._itemsByRarityByType = itemsByRarityByType;
 	}
 	async execute(message, parameters) {
+		if (!channels.has(message.channel.name)) {
+			return;
+		}
 		await this._initialize();
+		const salt = message.client.salt;
 		const itemsByRarity = this._itemsByRarity;
 		const slicesByRarityBySeed = new Map();
 		const count = Math.ceil(Math.max(
@@ -128,7 +133,7 @@ export default class ShopCommand extends Command {
 			const date = now + k;
 			const seed = Math.floor(date / count);
 			if (!slicesByRarityBySeed.has(seed)) {
-				const generator = xorShift32(BigInt(seed));
+				const generator = xorShift32(BigInt(seed) + BigInt(salt));
 				const slicesByRarity = {
 					common: sliceItems(generator, itemsByRarity.common, 4, count),
 					rare: sliceItems(generator, itemsByRarity.rare, 2, count),
@@ -160,6 +165,9 @@ export default class ShopCommand extends Command {
 		await message.channel.send(schedule);
 	}
 	async describe(message, command) {
+		if (!channels.has(message.channel.name)) {
+			return "";
+		}
 		return `Type \`${command}\` to know what is for sale in the shop`;
 	}
 }

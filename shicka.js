@@ -85,9 +85,11 @@ client.on("message", async (message) => {
 	const {
 		SHICKA_DISCORD_TOKEN: discordToken,
 		SHICKA_PREFIX: prefix,
+		SHICKA_SALT: salt,
 	} = process.env;
 	const [commands, feeds, triggers] = await loadActions(["commands", "feeds", "triggers"]);
 	const greetings = await loadGreetings();
+	client.salt = salt;
 	client.prefix = prefix;
 	client.commands = commands;
 	client.feeds = feeds;
