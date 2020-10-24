@@ -1,0 +1,482 @@
+[
+	{
+		"name": "Default",
+		"rarity": "default",
+		"type": "head"
+	},
+	{
+		"name": "Default",
+		"rarity": "default",
+		"type": "body"
+	},
+	{
+		"name": "Default",
+		"rarity": "default",
+		"type": "skin"
+	},
+	{
+		"name": "Default",
+		"rarity": "default",
+		"type": "shicka"
+	},
+	{
+		"name": "Bandit mask",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Red cap",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Blue cap",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Unicorn",
+		"rarity": "rare",
+		"type": "head"
+	},
+	{
+		"name": "Punk hair",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Fez",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Crown",
+		"rarity": "epic",
+		"type": "head"
+	},
+	{
+		"name": "White eyes",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "BIG EYES",
+		"rarity": "rare",
+		"type": "head"
+	},
+	{
+		"name": "BIG EARS",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Long hair",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Gas mask",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Swollen head",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Polar bear",
+		"rarity": "common",
+		"type": "skin"
+	},
+	{
+		"name": "Fat bear",
+		"rarity": "common",
+		"type": "body"
+	},
+	{
+		"name": "Muscular bear",
+		"rarity": "common",
+		"type": "body"
+	},
+	{
+		"name": "Bowtie",
+		"rarity": "common",
+		"type": "body"
+	},
+	{
+		"name": "Golden bear",
+		"rarity": "epic",
+		"type": "skin"
+	},
+	{
+		"name": "Golden Shicka",
+		"rarity": "epic",
+		"type": "shicka"
+	},
+	{
+		"name": "Red Shicka",
+		"rarity": "common",
+		"type": "shicka"
+	},
+	{
+		"name": "Green Shicka",
+		"rarity": "common",
+		"type": "shicka"
+	},
+	{
+		"name": "Pink bear",
+		"rarity": "rare",
+		"type": "skin"
+	},
+	{
+		"name": "Glasses",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Capitalus suit",
+		"rarity": "rare",
+		"type": "body"
+	},
+	{
+		"name": "Angel ring",
+		"rarity": "rare",
+		"type": "head"
+	},
+	{
+		"name": "Santa Hat",
+		"rarity": "rare",
+		"type": "head"
+	},
+	{
+		"name": "Beard",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Reversed head",
+		"rarity": "rare",
+		"type": "head"
+	},
+	{
+		"name": "Dark Shicka",
+		"rarity": "rare",
+		"type": "shicka"
+	},
+	{
+		"name": "White beard",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "White hair",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Santa head",
+		"rarity": "epic",
+		"type": "head"
+	},
+	{
+		"name": "Business bear",
+		"rarity": "common",
+		"type": "body"
+	},
+	{
+		"name": "Red shirt",
+		"rarity": "common",
+		"type": "body"
+	},
+	{
+		"name": "Retro bear",
+		"rarity": "rare",
+		"type": "skin"
+	},
+	{
+		"name": "Retro shicka",
+		"rarity": "rare",
+		"type": "shicka"
+	},
+	{
+		"name": "Banana hat",
+		"rarity": "rare",
+		"type": "head"
+	},
+	{
+		"name": "Santa suit",
+		"rarity": "rare",
+		"type": "body"
+	},
+	{
+		"name": "Desert bear",
+		"rarity": "common",
+		"type": "skin"
+	},
+	{
+		"name": "Crocodile bear",
+		"rarity": "common",
+		"type": "skin"
+	},
+	{
+		"name": "Fennec head",
+		"rarity": "rare",
+		"type": "head"
+	},
+	{
+		"name": "Ghost Shicka",
+		"rarity": "rare",
+		"type": "shicka"
+	},
+	{
+		"name": "Rainbow bear",
+		"rarity": "epic",
+		"type": "skin"
+	},
+	{
+		"name": "Bear Mask",
+		"rarity": "rare",
+		"type": "head"
+	},
+	{
+		"name": "Neutral Face",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Headless",
+		"rarity": "rare",
+		"type": "head"
+	},
+	{
+		"name": "King Shirt",
+		"rarity": "donator",
+		"type": "body"
+	},
+	{
+		"name": "Panda",
+		"rarity": "donator",
+		"type": "skin"
+	},
+	{
+		"name": "Capitalus' head",
+		"rarity": "donator",
+		"type": "head"
+	},
+	{
+		"name": "Rainbow trails",
+		"rarity": "donator",
+		"type": "body"
+	},
+	{
+		"name": "Outline",
+		"rarity": "rare",
+		"type": "head"
+	},
+	{
+		"name": "Skeleton body",
+		"rarity": "common",
+		"type": "body"
+	},
+	{
+		"name": "Spooky shirt",
+		"rarity": "rare",
+		"type": "body"
+	},
+	{
+		"name": "Axe head",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Pumpkin",
+		"rarity": "rare",
+		"type": "head"
+	},
+	{
+		"name": "Jack O'Lantern",
+		"rarity": "epic",
+		"type": "head"
+	},
+	{
+		"name": "Skull",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Donator crown",
+		"rarity": "donator",
+		"type": "head"
+	},
+	{
+		"name": "Egg head",
+		"rarity": "rare",
+		"type": "head"
+	},
+	{
+		"name": "Egg hat",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Easter egg",
+		"rarity": "epic",
+		"type": "head"
+	},
+	{
+		"name": "Fried egg",
+		"rarity": "rare",
+		"type": "head"
+	},
+	{
+		"name": "Rabbit head",
+		"rarity": "rare",
+		"type": "head"
+	},
+	{
+		"name": "Chocolate body",
+		"rarity": "common",
+		"type": "body"
+	},
+	{
+		"name": "Pacifier",
+		"rarity": "common",
+		"type": "head"
+	},
+	{
+		"name": "Diaper",
+		"rarity": "common",
+		"type": "body"
+	},
+	{
+		"name": "Lab coat",
+		"rarity": "common",
+		"type": "body"
+	},
+	{
+		"name": "Invisible Shicka",
+		"rarity": "common",
+		"type": "shicka"
+	},
+	{
+		"name": "8-bit Shicka",
+		"rarity": "epic",
+		"type": "shicka"
+	},
+	{
+		"name": "8-bit Bear",
+		"rarity": "epic",
+		"type": "skin"
+	},
+	{
+		"name": "Sackbear",
+		"rarity": "common",
+		"type": "skin"
+	},
+	{
+		"name": "Tower of Hanoi",
+		"rarity": "rare",
+		"type": "head"
+	},
+	{
+		"name": "Black Bear",
+		"rarity": "common",
+		"type": "skin"
+	},
+	{
+		"name": "Dark Bear",
+		"rarity": "common",
+		"type": "skin"
+	},
+	{
+		"name": "Brown coat",
+		"rarity": "rare",
+		"type": "body"
+	},
+	{
+		"name": "Jean coat",
+		"rarity": "rare",
+		"type": "body"
+	},
+	{
+		"name": "Penguin Shicka",
+		"rarity": "rare",
+		"type": "shicka"
+	},
+	{
+		"name": "Bear Shicka",
+		"rarity": "rare",
+		"type": "shicka"
+	},
+	{
+		"name": "Shicka Bear",
+		"rarity": "epic",
+		"type": "skin"
+	},
+	{
+		"name": "Rainbow Shicka",
+		"rarity": "epic",
+		"type": "shicka"
+	},
+	{
+		"name": "VR Headset",
+		"rarity": "epic",
+		"type": "head"
+	},
+	{
+		"name": "Cosmic Bear",
+		"rarity": "tristopio",
+		"type": "skin"
+	},
+	{
+		"name": "Football cap",
+		"rarity": "tristopio",
+		"type": "head"
+	},
+	{
+		"name": "Bobble head",
+		"rarity": "tristopio",
+		"type": "head"
+	},
+	{
+		"name": "Bobble Shicka",
+		"rarity": "tristopio",
+		"type": "shicka"
+	},
+	{
+		"name": "Brittany hat",
+		"rarity": "tristopio",
+		"type": "head"
+	},
+	{
+		"name": "Red Cape",
+		"rarity": "tristopio",
+		"type": "body"
+	},
+	{
+		"name": "Bear Cape",
+		"rarity": "tristopio",
+		"type": "body"
+	},
+	{
+		"name": "Cartoon Eyes",
+		"rarity": "rare",
+		"type": "head"
+	},
+	{
+		"name": "Vampire Head",
+		"rarity": "epic",
+		"type": "head"
+	},
+	{
+		"name": "Witch hat",
+		"rarity": "epic",
+		"type": "head"
+	},
+	{
+		"name": "Dice",
+		"rarity": "tristopio",
+		"type": "head"
+	}
+]

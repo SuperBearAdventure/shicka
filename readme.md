@@ -33,6 +33,8 @@ $ node shicka.js
 
 - `?mission` gives the schedule of the next three missions
 
+- `?shop` gives the schedule of the next six sets of items in the shop (only available in the `#bot` and `#moderation` channels for now)
+
 - `?speedrun` gives the link to the game on `speedrun.com`
 
 - `?tracker` gives the link to the issue tracker of the game
