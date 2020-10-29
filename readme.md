@@ -11,6 +11,7 @@ The bot uses *Discord.js 12* and requires *Node.js 12.17.0* or more
 ```shell
 $ export SHICKA_DISCORD_TOKEN=<your-token-here>
 $ export SHICKA_PREFIX="?"
+$ export SHICKA_SALT="0"
 ```
 
 ## Starting the bot
@@ -32,6 +33,8 @@ $ node shicka.js
 - `?help` gives the list of features of this bot
 
 - `?mission` gives the schedule of the next three missions
+
+- `?roadmap` gives the link to todo list of the game
 
 - `?shop` gives the schedule of the next six sets of items in the shop (only available in the `#bot` and `#moderation` channels for now)
 

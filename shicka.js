@@ -1,6 +1,11 @@
 import discord from "discord.js";
 import {loadActions, loadGreetings} from "./loader.js";
 const {Client, Util} = discord;
+const {
+	SHICKA_DISCORD_TOKEN: discordToken,
+	SHICKA_PREFIX: prefix,
+	SHICKA_SALT: salt,
+} = process.env;
 const bigNumbers = ["0️⃣", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣"];
 const capture = /^.*$/isu;
 const outerSpace = /^[\n ]+|[\n ]+$/gu;
@@ -8,7 +13,7 @@ const innerSpace = /[\n ]+/gu;
 const client = new Client({
 	presence: {
 		activity: {
-			name: "Super Bear Adventure",
+			name: `${prefix}help - Super Bear Adventure`,
 			type: "PLAYING",
 		},
 		status: "online",
@@ -82,15 +87,10 @@ client.on("message", async (message) => {
 	}
 });
 (async () => {
-	const {
-		SHICKA_DISCORD_TOKEN: discordToken,
-		SHICKA_PREFIX: prefix,
-		SHICKA_SALT: salt,
-	} = process.env;
 	const [commands, feeds, triggers] = await loadActions(["commands", "feeds", "triggers"]);
 	const greetings = await loadGreetings();
-	client.salt = salt;
 	client.prefix = prefix;
+	client.salt = salt;
 	client.commands = commands;
 	client.feeds = feeds;
 	client.triggers = triggers;
