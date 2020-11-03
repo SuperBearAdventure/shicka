@@ -1,5 +1,5 @@
 import Command from "../command.js";
-export default class TrackerCommand extends Command {
+export default class RoadmapCommand extends Command {
 	async execute(message, parameters) {
 		const channel = message.guild.channels.cache.find((channel) => {
 			return channel.name === "🤔suggestions";

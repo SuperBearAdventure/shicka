@@ -24,7 +24,7 @@ $ node shicka.js
 
 ### Commands
 
-- `?about` gives the link to this repository
+- `?about` gives the link to this repository on `github.com`
 
 - `?chat <channel> <text>` writes the given text in the given channel (only available in the `#bot` and `#moderation` channels)
 
@@ -34,17 +34,19 @@ $ node shicka.js
 
 - `?mission` gives the schedule of the next three missions
 
-- `?roadmap` gives the link to todo list of the game
+- `?roadmap` gives the link to the todo list of the game on `trello.com`
 
 - `?shop` gives the schedule of the next six sets of items in the shop (only available in the `#bot` and `#moderation` channels for now)
 
 - `?speedrun` gives the link to the game on `speedrun.com`
 
-- `?tracker` gives the link to the issue tracker of the game
+- `?tracker` gives the link to the issue tracker of the game on `trello.com`
 
-- `?trailer` gives the link to the trailer of the game
+- `?trailer` gives the link to the trailer of the game on `youtube.com`
 
 - `?update` checks the latest release of the game on `play.google.com` and `itunes.apple.com`
+
+- `?wiki` gives the link to the community wiki on `fandom.com`
 
 ### Feeds
 
