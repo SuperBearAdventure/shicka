@@ -12,6 +12,13 @@ const listFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
+const rarities = ["common", "rare", "epic", "tristopio"];
+const itemsPerSlicePerRarity = Object.assign(Object.create(null), {
+	"common": 4,
+	"rare": 2,
+	"epic": 1,
+	"tristopio": 1,
+});
 function shuffle(generator, items) {
 	for (let i = items.length - 1; i > 0; --i) {
 		const j = Number(generator.next().value * BigInt(i + 1) >> 32n);
@@ -64,40 +71,29 @@ export default class ShopCommand extends Command {
 			return;
 		}
 		const {salt, itemsByRarity} = message.client;
-		const slicesByRarityBySeed = new Map();
-		const count = Math.ceil(Math.max(
-			itemsByRarity.common.length / 4,
-			itemsByRarity.rare.length / 2,
-			itemsByRarity.epic.length,
-			itemsByRarity.tristopio.length,
-		));
+		const slicesByRarityBySeed = Object.create(null);
+		const slicesPerRarity = Math.ceil(Math.max(...rarities.map((rarity) => {
+			return itemsByRarity[rarity].length / itemsPerSlicePerRarity[rarity];
+		})));
 		const now = Math.floor(Date.now() / 21600000);
 		const sample = [];
 		for (let k = -2; k < 4; ++k) {
 			const date = now + k;
-			const seed = Math.floor(date / count);
-			if (!slicesByRarityBySeed.has(seed)) {
+			const seed = Math.floor(date / slicesPerRarity);
+			if (!(seed in slicesByRarityBySeed)) {
 				const generator = xorShift32(BigInt(seed) + BigInt(salt));
-				const slicesByRarity = {
-					common: sliceItems(generator, itemsByRarity.common, 4, count),
-					rare: sliceItems(generator, itemsByRarity.rare, 2, count),
-					epic: sliceItems(generator, itemsByRarity.epic, 1, count),
-					tristopio: sliceItems(generator, itemsByRarity.tristopio, 1, count),
+				const slicesByRarity = Object.create(null);
+				for (const rarity of rarities) {
+					slicesByRarity[rarity] = sliceItems(generator, itemsByRarity[rarity], itemsPerSlicePerRarity[rarity], slicesPerRarity);
 				};
-				slicesByRarityBySeed.set(seed, slicesByRarity);
+				slicesByRarityBySeed[seed] = slicesByRarity;
 			}
-			const slicesByRarity = slicesByRarityBySeed.get(seed);
-			const index = date - seed * count;
-			const items = [
-				slicesByRarity.common[index][0],
-				slicesByRarity.common[index][1],
-				slicesByRarity.common[index][2],
-				slicesByRarity.common[index][3],
-				slicesByRarity.rare[index][0],
-				slicesByRarity.rare[index][1],
-				slicesByRarity.epic[index][0],
-				slicesByRarity.tristopio[index][0],
-			];
+			const slicesByRarity = slicesByRarityBySeed[seed];
+			const index = date - seed * slicesPerRarity;
+			const items = [];
+			for (const rarity of rarities) {
+				items.push(...slicesByRarity[rarity][index]);
+			}
 			const names = items.map((item) => {
 				return `**${Util.escapeMarkdown(item.name)}**`;
 			});
