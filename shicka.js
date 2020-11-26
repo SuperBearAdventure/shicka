@@ -1,5 +1,5 @@
 import discord from "discord.js";
-import {loadActions, loadGreetings} from "./loader.js";
+import {loadActions, loadGreetings, loadItems} from "./loader.js";
 const {Client, Util} = discord;
 const {
 	SHICKA_DISCORD_TOKEN: discordToken,
@@ -89,11 +89,15 @@ client.on("message", async (message) => {
 (async () => {
 	const [commands, feeds, triggers] = await loadActions(["commands", "feeds", "triggers"]);
 	const greetings = await loadGreetings();
+	const {items, itemsByRarity, itemsByRarityByType} = await loadItems();
 	client.prefix = prefix;
 	client.salt = salt;
 	client.commands = commands;
 	client.feeds = feeds;
 	client.triggers = triggers;
 	client.greetings = greetings;
+	client.items = items;
+	client.itemsByRarity = itemsByRarity;
+	client.itemsByRarityByType = itemsByRarityByType;
 	client.login(discordToken);
 })();

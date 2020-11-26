@@ -1,13 +1,7 @@
-import url from "url";
-import fs from "fs";
 import discord from "discord.js";
 import Command from "../command.js";
 import {xorShift32} from "../random.js";
-const {fileURLToPath} = url;
-const {readFile} = fs.promises;
 const {Util} = discord;
-const here = import.meta.url;
-const root = here.slice(0, here.lastIndexOf("/"));
 const channels = new Set(["bot", "moderation"]);
 const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
@@ -65,61 +59,11 @@ function sliceItems(generator, items, itemsPerSlice, slicesPerRarity) {
 	return slices;
 }
 export default class ShopCommand extends Command {
-	constructor() {
-		super();
-		this._initialized = false;
-		// this._items = null;
-		this._itemsByRarity = null;
-		// this._itemsByRarityByType = null;
-	}
-	async _initialize() {
-		if (this._initialized) {
-			return;
-		}
-		const items = JSON.parse(await readFile(fileURLToPath(`${root}/../items.json`)));
-		const itemsByRarity = Object.create(null);
-		// const itemsByRarityByType = Object.create(null);
-		for (const item of items) {
-			const {rarity, type} = item;
-			if (!(rarity in itemsByRarity)) {
-				itemsByRarity[rarity] = [];
-			}
-			itemsByRarity[rarity].push(item);
-			// if (!(type in itemsByRarityByType)) {
-			// 	itemsByRarityByType[type] = {};
-			// }
-			// if (!(rarity in itemsByRarityByType[type])) {
-			// 	itemsByRarityByType[type][rarity] = [];
-			// }
-			// itemsByRarityByType[type][rarity].push(item);
-		}
-		// for (const type in itemsByRarityByType) {
-		// 	for (const rarity in itemsByRarityByType[type]) {
-		// 		itemsByRarityByType[type][rarity].sort((a, b) => {
-		// 			const aName = a.name.toLowerCase();
-		// 			const bName = b.name.toLowerCase();
-		// 			if (aName > bName) {
-		// 				return 1;
-		// 			}
-		// 			if (aName < bName) {
-		// 				return -1;
-		// 			}
-		// 			return 0;
-		// 		});
-		// 	}
-		// }
-		this._initialized = true;
-		// this._items = items;
-		this._itemsByRarity = itemsByRarity;
-		// this._itemsByRarityByType = itemsByRarityByType;
-	}
 	async execute(message, parameters) {
 		if (!channels.has(message.channel.name)) {
 			return;
 		}
-		await this._initialize();
-		const salt = message.client.salt;
-		const itemsByRarity = this._itemsByRarity;
+		const {salt, itemsByRarity} = message.client;
 		const slicesByRarityBySeed = new Map();
 		const count = Math.ceil(Math.max(
 			itemsByRarity.common.length / 4,
