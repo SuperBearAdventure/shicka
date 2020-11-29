@@ -31,7 +31,7 @@ export default class MissionCommand extends Command {
 			const date = now + k;
 			const mission = missions[(date % missionCount + missionCount) % missionCount];
 			const day = dateFormat.format(new Date(date * 86400000));
-			sample.push(`*${Util.escapeMarkdown(day)}*: ${mission}`);
+			sample.push(`- *${Util.escapeMarkdown(day)}*: ${mission}`);
 		}
 		const schedule = sample.join("\n");
 		await message.channel.send(`Each mission starts at *${Util.escapeMarkdown(time)}* (local time):\n${schedule}`);

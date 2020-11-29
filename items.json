@@ -432,32 +432,38 @@
 	{
 		"name": "Football cap",
 		"rarity": "tristopio",
-		"type": "head"
+		"type": "head",
+		"cost": 0
 	},
 	{
 		"name": "Bobble head",
 		"rarity": "tristopio",
-		"type": "head"
+		"type": "head",
+		"cost": 0
 	},
 	{
 		"name": "Bobble Shicka",
 		"rarity": "tristopio",
-		"type": "shicka"
+		"type": "shicka",
+		"cost": 0
 	},
 	{
 		"name": "Brittany hat",
 		"rarity": "tristopio",
-		"type": "head"
+		"type": "head",
+		"cost": 0
 	},
 	{
 		"name": "Red Cape",
 		"rarity": "tristopio",
-		"type": "body"
+		"type": "body",
+		"cost": 0
 	},
 	{
 		"name": "Bear Cape",
 		"rarity": "tristopio",
-		"type": "body"
+		"type": "body",
+		"cost": 0
 	},
 	{
 		"name": "Cartoon Eyes",
@@ -477,6 +483,7 @@
 	{
 		"name": "Dice",
 		"rarity": "tristopio",
-		"type": "head"
+		"type": "head",
+		"cost": 0
 	}
 ]

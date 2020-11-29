@@ -14,10 +14,15 @@ const listFormat = new Intl.ListFormat("en-US", {
 });
 const rarities = ["common", "rare", "epic", "tristopio"];
 const itemsPerSlicePerRarity = Object.assign(Object.create(null), {
-	"common": 4,
-	"rare": 2,
-	"epic": 1,
-	"tristopio": 1,
+	common: 4,
+	rare: 2,
+	epic: 1,
+	tristopio: 1,
+});
+const costsPerRarity = Object.assign(Object.create(null), {
+	common: 100,
+	rare: 300,
+	epic: 1500,
 });
 function shuffle(generator, items) {
 	for (let i = items.length - 1; i > 0; --i) {
@@ -76,6 +81,8 @@ export default class ShopCommand extends Command {
 			return itemsByRarity[rarity].length / itemsPerSlicePerRarity[rarity];
 		})));
 		const now = Math.floor(Date.now() / 21600000);
+		const search = parameters.slice(1).join(" ").toLowerCase();
+		if (search === "") {
 		const sample = [];
 		for (let k = -2; k < 4; ++k) {
 			const date = now + k;
@@ -99,15 +106,56 @@ export default class ShopCommand extends Command {
 			});
 			const dateTime = dateTimeFormat.format(new Date(date * 21600000));
 			const list = listFormat.format(names);
-			sample.push(`*${Util.escapeMarkdown(dateTime)}* (local time): ${list}`);
+			sample.push(`- *${Util.escapeMarkdown(dateTime)}* (local time): ${list}`);
 		}
 		const schedule = sample.join("\n");
 		await message.channel.send(schedule);
+		return;
+		}
+		const target = message.client.items.find((item) => {
+			return item.rarity in itemsPerSlicePerRarity && item.name.toLowerCase() === search;
+		});
+		if (typeof target === "undefined") {
+			await message.channel.send(`I do not know any outfit with this name.`);
+			return;
+		}
+		const sample = [];
+		outer: for (let k = -2;; ++k) {
+			const date = now + k;
+			const seed = Math.floor(date / slicesPerRarity);
+			if (!(seed in slicesByRarityBySeed)) {
+				const generator = xorShift32(BigInt(seed) + BigInt(salt));
+				const slicesByRarity = Object.create(null);
+				for (const rarity of rarities) {
+					slicesByRarity[rarity] = sliceItems(generator, itemsByRarity[rarity], itemsPerSlicePerRarity[rarity], slicesPerRarity);
+				};
+				slicesByRarityBySeed[seed] = slicesByRarity;
+			}
+			const slicesByRarity = slicesByRarityBySeed[seed];
+			const index = date - seed * slicesPerRarity;
+			inner: for (const rarity of rarities) {
+				for (const item of slicesByRarity[rarity][index]) {
+					if (item !== target) {
+						continue;
+					}
+					const dateTime = dateTimeFormat.format(new Date(date * 21600000));
+					sample.push(`- *${Util.escapeMarkdown(dateTime)}* (local time)`);
+					if (k < 4 || sample.length < 2) {
+						break inner;
+					}
+					break outer;
+				}
+			}
+		}
+		const name = `**${Util.escapeMarkdown(target.name)}**`;
+		const cost = `**${Util.escapeMarkdown(target.rarity === "tristopio" ? `${target.cost} Tristopio tokens` : `${costsPerRarity[target.rarity]} coins`)}**`;
+		const schedule = sample.join("\n");
+		await message.channel.send(`${name} will be for sale in the shop for ${cost} for 6 hours starting:\n${schedule}`);
 	}
 	async describe(message, command) {
 		if (!channels.has(message.channel.name)) {
 			return "";
 		}
-		return `Type \`${command}\` to know what is for sale in the shop`;
+		return `Type \`${command}\` to know what is for sale in the shop\nType \`${command} Item\` to know when the outfit \`Item\` is for sale in the shop`;
 	}
 }

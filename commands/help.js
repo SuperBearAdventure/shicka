@@ -1,5 +1,4 @@
 import Command from "../command.js";
-const newline = /\n/g;
 export default class HelpCommand extends Command {
 	async execute(message, parameters) {
 		const {author, client} = message;
@@ -17,12 +16,13 @@ export default class HelpCommand extends Command {
 			Promise.all(commandPromises),
 			Promise.all(feedPromises),
 			Promise.all(triggerPromises),
-		])).flat().filter((description) => {
-			return description !== "";
-		}).map((description) => {
-			const item = description.replace(newline, " ");
-			return `- ${item}`;
-		}).join("\n");
+		])).flat().map((description) => {
+			return description.split("\n").filter((item) => {
+				return item !== "";
+			}).map((item) => {
+				return `- ${item}`;
+			});
+		}).flat().join("\n");
 		await message.channel.send(`Hey ${author}, there you are!\nI can give you some advice about the server:\n${help}`);
 	}
 	async describe(message, command) {
