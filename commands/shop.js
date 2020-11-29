@@ -119,6 +119,7 @@ export default class ShopCommand extends Command {
 			await message.channel.send(`I do not know any outfit with this name.`);
 			return;
 		}
+		const {rarity} = target;
 		const sample = [];
 		outer: for (let k = -2;; ++k) {
 			const date = now + k;
@@ -133,18 +134,16 @@ export default class ShopCommand extends Command {
 			}
 			const slicesByRarity = slicesByRarityBySeed[seed];
 			const index = date - seed * slicesPerRarity;
-			inner: for (const rarity of rarities) {
-				for (const item of slicesByRarity[rarity][index]) {
-					if (item !== target) {
-						continue;
-					}
-					const dateTime = dateTimeFormat.format(new Date(date * 21600000));
-					sample.push(`- *${Util.escapeMarkdown(dateTime)}* (local time)`);
-					if (k < 4 || sample.length < 2) {
-						break inner;
-					}
-					break outer;
+			inner: for (const item of slicesByRarity[rarity][index]) {
+				if (item !== target) {
+					continue;
 				}
+				const dateTime = dateTimeFormat.format(new Date(date * 21600000));
+				sample.push(`- *${Util.escapeMarkdown(dateTime)}* (local time)`);
+				if (k < 4 || sample.length < 2) {
+					break inner;
+				}
+				break outer;
 			}
 		}
 		const name = `**${Util.escapeMarkdown(target.name)}**`;
