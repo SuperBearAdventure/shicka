@@ -65,7 +65,7 @@
 		"type": "head"
 	},
 	{
-		"name": "BIG EARS",
+		"name": "Big ears",
 		"rarity": "common",
 		"type": "head"
 	},
@@ -90,12 +90,12 @@
 		"type": "skin"
 	},
 	{
-		"name": "Fat bear",
+		"name": "Fat body",
 		"rarity": "common",
 		"type": "body"
 	},
 	{
-		"name": "Muscular bear",
+		"name": "Muscular body",
 		"rarity": "common",
 		"type": "body"
 	},
@@ -145,7 +145,7 @@
 		"type": "head"
 	},
 	{
-		"name": "Santa Hat",
+		"name": "Santa hat",
 		"rarity": "rare",
 		"type": "head"
 	},
@@ -180,7 +180,7 @@
 		"type": "head"
 	},
 	{
-		"name": "Business bear",
+		"name": "Business suit",
 		"rarity": "common",
 		"type": "body"
 	},
@@ -235,12 +235,12 @@
 		"type": "skin"
 	},
 	{
-		"name": "Bear Mask",
+		"name": "Bear mask",
 		"rarity": "rare",
 		"type": "head"
 	},
 	{
-		"name": "Neutral Face",
+		"name": "Neutral face",
 		"rarity": "common",
 		"type": "head"
 	},
@@ -250,7 +250,7 @@
 		"type": "head"
 	},
 	{
-		"name": "King Shirt",
+		"name": "King shirt",
 		"rarity": "donator",
 		"type": "body"
 	},
@@ -365,7 +365,7 @@
 		"type": "shicka"
 	},
 	{
-		"name": "8-bit Bear",
+		"name": "8-bit bear",
 		"rarity": "epic",
 		"type": "skin"
 	},
@@ -380,12 +380,12 @@
 		"type": "head"
 	},
 	{
-		"name": "Black Bear",
+		"name": "Black bear",
 		"rarity": "common",
 		"type": "skin"
 	},
 	{
-		"name": "Dark Bear",
+		"name": "Dark bear",
 		"rarity": "common",
 		"type": "skin"
 	},
@@ -410,7 +410,7 @@
 		"type": "shicka"
 	},
 	{
-		"name": "Shicka Bear",
+		"name": "Shicka bear",
 		"rarity": "epic",
 		"type": "skin"
 	},
@@ -420,58 +420,59 @@
 		"type": "shicka"
 	},
 	{
-		"name": "VR Headset",
+		"name": "VR headset",
 		"rarity": "epic",
 		"type": "head"
 	},
 	{
-		"name": "Cosmic Bear",
+		"name": "Cosmic bear",
 		"rarity": "tristopio",
-		"type": "skin"
+		"type": "skin",
+		"cost": 5
 	},
 	{
 		"name": "Football cap",
 		"rarity": "tristopio",
 		"type": "head",
-		"cost": 0
+		"cost": 10
 	},
 	{
 		"name": "Bobble head",
 		"rarity": "tristopio",
 		"type": "head",
-		"cost": 0
+		"cost": 1
 	},
 	{
 		"name": "Bobble Shicka",
 		"rarity": "tristopio",
 		"type": "shicka",
-		"cost": 0
+		"cost": 1
 	},
 	{
 		"name": "Brittany hat",
 		"rarity": "tristopio",
 		"type": "head",
-		"cost": 0
+		"cost": 2
 	},
 	{
 		"name": "Red Cape",
 		"rarity": "tristopio",
 		"type": "body",
-		"cost": 0
+		"cost": 1
 	},
 	{
-		"name": "Bear Cape",
+		"name": "Bear cape",
 		"rarity": "tristopio",
 		"type": "body",
-		"cost": 0
+		"cost": 4
 	},
 	{
-		"name": "Cartoon Eyes",
+		"name": "Cartoon eyes",
 		"rarity": "rare",
 		"type": "head"
 	},
 	{
-		"name": "Vampire Head",
+		"name": "Vampire head",
 		"rarity": "epic",
 		"type": "head"
 	},
@@ -484,6 +485,6 @@
 		"name": "Dice",
 		"rarity": "tristopio",
 		"type": "head",
-		"cost": 0
+		"cost": 4
 	}
 ]

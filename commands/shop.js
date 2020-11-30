@@ -1,6 +1,5 @@
 import discord from "discord.js";
 import Command from "../command.js";
-import {xorShift32} from "../random.js";
 const {Util} = discord;
 const channels = new Set(["bot", "moderation"]);
 const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
@@ -24,6 +23,18 @@ const costsPerRarity = Object.assign(Object.create(null), {
 	rare: 300,
 	epic: 1500,
 });
+function knuth(state) {
+	return BigInt.asUintN(32, state * 2654435761n);
+}
+function* xorShift32(seed) {
+	let t = BigInt.asUintN(32, seed);
+	for (;;) {
+		t = BigInt.asUintN(32, t ^ BigInt.asUintN(32, t << 13n));
+		t = BigInt.asUintN(32, t ^ BigInt.asUintN(32, t >> 17n));
+		t = BigInt.asUintN(32, t ^ BigInt.asUintN(32, t << 5n));
+		yield t;
+	}
+}
 function shuffle(generator, items) {
 	for (let i = items.length - 1; i > 0; --i) {
 		const j = Number(generator.next().value * BigInt(i + 1) >> 32n);
@@ -88,7 +99,7 @@ export default class ShopCommand extends Command {
 			const date = now + k;
 			const seed = Math.floor(date / slicesPerRarity);
 			if (!(seed in slicesByRarityBySeed)) {
-				const generator = xorShift32(BigInt(seed) + BigInt(salt));
+				const generator = xorShift32(knuth(BigInt(seed) + BigInt(salt)) || BigInt(salt));
 				const slicesByRarity = Object.create(null);
 				for (const rarity of rarities) {
 					slicesByRarity[rarity] = sliceItems(generator, itemsByRarity[rarity], itemsPerSlicePerRarity[rarity], slicesPerRarity);
@@ -106,10 +117,10 @@ export default class ShopCommand extends Command {
 			});
 			const dateTime = dateTimeFormat.format(new Date(date * 21600000));
 			const list = listFormat.format(names);
-			sample.push(`- *${Util.escapeMarkdown(dateTime)}* (local time): ${list}`);
+			sample.push(`- *${Util.escapeMarkdown(dateTime)}*: ${list}`);
 		}
 		const schedule = sample.join("\n");
-		await message.channel.send(schedule);
+		await message.channel.send(`Outfits for sale in the shop change every 6 hours:\n${schedule}`);
 		return;
 		}
 		const target = message.client.items.find((item) => {
@@ -125,7 +136,7 @@ export default class ShopCommand extends Command {
 			const date = now + k;
 			const seed = Math.floor(date / slicesPerRarity);
 			if (!(seed in slicesByRarityBySeed)) {
-				const generator = xorShift32(BigInt(seed) + BigInt(salt));
+				const generator = xorShift32(knuth(BigInt(seed) + BigInt(salt)) || BigInt(salt));
 				const slicesByRarity = Object.create(null);
 				for (const rarity of rarities) {
 					slicesByRarity[rarity] = sliceItems(generator, itemsByRarity[rarity], itemsPerSlicePerRarity[rarity], slicesPerRarity);
@@ -139,7 +150,7 @@ export default class ShopCommand extends Command {
 					continue;
 				}
 				const dateTime = dateTimeFormat.format(new Date(date * 21600000));
-				sample.push(`- *${Util.escapeMarkdown(dateTime)}* (local time)`);
+				sample.push(`- *${Util.escapeMarkdown(dateTime)}*`);
 				if (k < 4 || sample.length < 2) {
 					break inner;
 				}

@@ -34,7 +34,7 @@ export default class MissionCommand extends Command {
 			sample.push(`- *${Util.escapeMarkdown(day)}*: ${mission}`);
 		}
 		const schedule = sample.join("\n");
-		await message.channel.send(`Each mission starts at *${Util.escapeMarkdown(time)}* (local time):\n${schedule}`);
+		await message.channel.send(`Each mission starts at *${Util.escapeMarkdown(time)}*:\n${schedule}`);
 	}
 	async describe(message, command) {
 		return `Type \`${command}\` to know the schedule of missions`;
