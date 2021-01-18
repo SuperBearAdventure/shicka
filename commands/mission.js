@@ -12,7 +12,7 @@ const timeFormat = new Intl.DateTimeFormat("en-US", {
 const time = timeFormat.format(new Date(36000000));
 const missions = [
 	"**Floor is lava** in **Turtle Village**",
-	"**Rally** in **Beemothep Desert**",
+	"**Paper plane flight** in **Beemothep Desert**",
 	"**Egg hunt** in **Snow Valley**",
 	"**Parkour** in **Beemothep Desert**",
 	"**Electricity issue** in **Giant House**",
@@ -21,6 +21,7 @@ const missions = [
 	"**Flooding** in **Beemothep Desert**",
 	"**Paper plane flight** in **Giant House**",
 	"**Parkour** in **Snow Valley**",
+	"**Rally** in **Beemothep Desert**",
 ];
 const missionCount = missions.length;
 export default class MissionCommand extends Command {
