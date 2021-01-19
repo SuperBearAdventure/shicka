@@ -48,9 +48,6 @@ export default class RecordFeed extends Feed {
 						categories: Object.create(null),
 					});
 					const categoryData = category.data;
-					if (categoryData.miscellaneous) {
-						continue;
-					}
 					const categoryId = categoryData.id;
 					const {leaderboards} = categories[categoryId] ?? (categories[categoryId] = {
 						categoryName: categoryData.name,
