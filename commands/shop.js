@@ -1,7 +1,6 @@
 import discord from "discord.js";
 import Command from "../command.js";
 const {Util} = discord;
-const channels = new Set(["bot", "moderation"]);
 const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeStyle: "short",
@@ -83,9 +82,6 @@ function sliceItems(generator, items, itemsPerSlice, slicesPerRarity) {
 }
 export default class ShopCommand extends Command {
 	async execute(message, parameters) {
-		if (!channels.has(message.channel.name)) {
-			return;
-		}
 		const {salt, itemsByRarity} = message.client;
 		const slicesByRarityBySeed = Object.create(null);
 		const slicesPerRarity = Math.ceil(Math.max(...rarities.map((rarity) => {
@@ -163,9 +159,6 @@ export default class ShopCommand extends Command {
 		await message.channel.send(`${name} will be for sale in the shop for ${cost} for 6 hours starting:\n${schedule}`);
 	}
 	async describe(message, command) {
-		if (!channels.has(message.channel.name)) {
-			return "";
-		}
 		return `Type \`${command}\` to know what is for sale in the shop\nType \`${command} Item\` to know when the outfit \`Item\` is for sale in the shop`;
 	}
 }

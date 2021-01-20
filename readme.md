@@ -4,7 +4,7 @@ Bot for the official *Super Bear Adventure* *Discord* server
 
 ## Dependencies
 
-The bot uses *Discord.js 12* and requires *Node.js 12.17.0* or more
+The bot uses *Discord.js 12* and requires *Node.js 14.15.0* or more
 
 ## Configuring the bot
 
@@ -38,9 +38,9 @@ $ node shicka.js
 
 - `?roadmap` gives the link to the todo list of the game on `trello.com`
 
-- `?shop` gives the schedule of the next six sets of items in the shop (only available in the `#bot` and `#moderation` channels for now)
+- `?shop` gives the schedule of the next six sets of items in the shop
 
-- `?shop <item>` gives the schedule of at least the next two occurrences of the given item in the shop (only available in the `#bot` and `#moderation` channels for now)
+- `?shop <item>` gives the schedule of at least the next two occurrences of the given item in the shop
 
 - `?speedrun` gives the link to the game on `speedrun.com`
 
