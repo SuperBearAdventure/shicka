@@ -9,7 +9,7 @@ export default class RecordFeed extends Feed {
 			const middle = Math.floor(Date.now() / 21600000) * 21600000;
 			const start = middle - 10800000;
 			const end = middle + 10800000;
-			const messages = await this.execute(start, end);
+			const records = await this.execute(start, end);
 			for (const guild of client.guilds.cache.values()) {
 				const channel = guild.channels.cache.find((channel) => {
 					return channel.name === "🏅records";
@@ -17,14 +17,15 @@ export default class RecordFeed extends Feed {
 				if (typeof channel === "undefined") {
 					continue;
 				}
-				for (const message of messages) {
-					await channel.send(message);
+				for (const record of records) {
+					const message = await channel.send(record);
+					await message.react("🎉");
 				}
 			}
 		});
 	}
 	async execute(start, end) {
-		const messages = [];
+		const records = [];
 		try {
 			const levels = Object.create(null);
 			loop: for (let i = 0;; i += 20) {
@@ -89,9 +90,9 @@ export default class RecordFeed extends Feed {
 							continue;
 						}
 						const player = players.data[0];
-						const flag = "location" in player ? `:flag_${player.location.country.code.toLowerCase()}: ` : "";
+						const flag = "location" in player ? `:flag_${Util.escapeMarkdown(player.location.country.code.toLowerCase())}: ` : "";
 						const name = "names" in player ? player.names.international : player.name;
-						const user = `*${Util.escapeMarkdown(flag)}${Util.escapeMarkdown(name)}*`;
+						const user = `*${flag}${Util.escapeMarkdown(name)}*`;
 						const {primary_t} = times;
 						const minutes = `${primary_t / 60 | 0}`.padStart(2, "0");
 						const seconds = `${primary_t % 60 | 0}`.padStart(2, "0");
@@ -100,14 +101,14 @@ export default class RecordFeed extends Feed {
 						const category = `*${Util.escapeMarkdown(`${levelName}${categoryName}${leaderboardName}`)}*`;
 						const links = "links" in videos ? videos.links : [];
 						const video = links.length ? `\n${links[0].uri}` : "";
-						messages.push(`${user} set a new world record in the ${category} category: ${time}!${video}`);
+						records.push(`${user} set a new world record in the ${category} category: ${time}!${video}`);
 					}
 				}
 			}
 		} catch (error) {
 			console.warn(error);
 		}
-		return messages;
+		return records;
 	}
 	async describe(message) {
 		const channel = message.guild.channels.cache.find((channel) => {
