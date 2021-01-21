@@ -50,8 +50,6 @@ $ node shicka.js
 
 - `?update` checks the latest release of the game on `play.google.com` and `itunes.apple.com`
 
-- `?wiki` gives the link to the community wiki on `fandom.com`
-
 ### Feeds
 
 - The latest world records of the game on `speedrun.com` are regularly published in the dedicated channel
