@@ -1,0 +1,703 @@
+[
+	{
+		"version": "1.0.0",
+		"date": {
+			"android": "2017-06-10",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.0.1",
+		"date": {
+			"android": "2017-06-10",
+			"ios": null
+		},
+		"notes": [
+			"Collecting coins underwater gives you oxygen",
+			"Fixed some text mistakes"
+		]
+	},
+	{
+		"version": "1.0.2",
+		"date": {
+			"android": "2017-06-17",
+			"ios": null
+		},
+		"notes": [
+			"Added time challenges for each bear",
+			"Improved hub",
+			"Added death animation for each enemy",
+			"Added more colors of flowers",
+			"Fixed moving platforms bug",
+			"Fixed minor bugs"
+		]
+	},
+	{
+		"version": "1.1.0",
+		"date": {
+			"android": "2017-07-13",
+			"ios": null
+		},
+		"notes": [
+			"Level 1 enlarged: new zones and 8 bears to release",
+			"Improved graphics of water, seaweeds, waterfalls and caves",
+			"New camera system",
+			"Added Jump Pads",
+			"Fixed a lot of bugs and many gameplay tweaks"
+		]
+	},
+	{
+		"version": "1.1.1",
+		"date": {
+			"android": "2017-08-02",
+			"ios": null
+		},
+		"notes": [
+			"Added sharing button to show your best scores",
+			"Added decorative birds and fish in higher graphics settings",
+			"Characters now look at the player"
+		]
+	},
+	{
+		"version": "1.1.2",
+		"date": {
+			"android": "2017-08-19",
+			"ios": null
+		},
+		"notes": [
+			"Added 2 new hats: Gas mask and Swollen head",
+			"Added rewarded ads to get boosters, revive and more",
+			"Hats are no longer free: you have to collect coins to unlock them"
+		]
+	},
+	{
+		"version": "1.1.3",
+		"date": {
+			"android": "2017-09-10",
+			"ios": null
+		},
+		"notes": [
+			"Fixed the joystick on Android 6.0",
+			"Added keyboard controls",
+			"Added a confirmation when exiting the game",
+			"Fixed bugs"
+		]
+	},
+	{
+		"version": "1.2.0",
+		"date": {
+			"android": "2017-11-02",
+			"ios": null
+		},
+		"notes": [
+			"Added a new level: Snow Valley",
+			"The level features new gameplay elements and a new boss fight",
+			"Fixed the joystick on screens with high resolution",
+			"Lot of small gameplay tweaks and improvements",
+			"Bug fixes"
+		]
+	},
+	{
+		"version": "1.2.1",
+		"date": {
+			"android": "2017-11-05",
+			"ios": null
+		},
+		"notes": [
+			"Improved pause menu",
+			"Gameplay tweaks"
+		]
+	},
+	{
+		"version": "1.3.0",
+		"date": {
+			"android": "2017-12-02",
+			"ios": null
+		},
+		"notes": [
+			"New hub world",
+			"New cosmetics system: you can now unlock hats, costumes and skins for Baaren and Shicka",
+			"Cosmetics are now obtainable through cases that can be bought with in-game coins",
+			"Improved some animations",
+			"Baaren's movement is less slippery",
+			"Added spanish language and fixed text in english and french"
+		]
+	},
+	{
+		"version": "1.3.1",
+		"date": {
+			"android": "2017-12-03",
+			"ios": null
+		},
+		"notes": [
+			"Bug fixes"
+		]
+	},
+	{
+		"version": "1.3.2",
+		"date": {
+			"android": "2017-12-09",
+			"ios": null
+		},
+		"notes": [
+			"Bug fixes",
+			"New cosmetics",
+			"Added a mailbox in the hub so I can post news about the developpment of the game"
+		]
+	},
+	{
+		"version": "1.3.3",
+		"date": {
+			"android": "2017-12-16",
+			"ios": null
+		},
+		"notes": [
+			"Added the test world, a new area to test feature of upcoming update",
+			"Added a vehicle in the test world",
+			"Added language support for portuguese, russian and dutch"
+		]
+	},
+	{
+		"version": "1.3.4",
+		"date": {
+			"android": "2017-12-29",
+			"ios": null
+		},
+		"notes": [
+			"Added an early version of the desert in the test world",
+			"Improved UI",
+			"Improved introduction",
+			"Improved enemies (bees now fly and penguins throws snowballs)",
+			"Improved vehicle physics and controls",
+			"Improved water physics",
+			"The coin door now costs 60 coins to open (80 before)",
+			"Lot of small improvements",
+			"Added language support for german"
+		]
+	},
+	{
+		"version": "1.3.4.1",
+		"date": {
+			"android": "2017-12-29",
+			"ios": null
+		},
+		"notes": [
+			"Fixed yeti boss"
+		]
+	},
+	{
+		"version": "1.3.4.2",
+		"date": {
+			"android": "2018-01-02",
+			"ios": null
+		},
+		"notes": [
+			"Fixed german language and added a rate game button"
+		]
+	},
+	{
+		"version": "1.3.5",
+		"date": {
+			"android": "2018-01-14",
+			"ios": null
+		},
+		"notes": [
+			"Added gamepad support (tested with Xbox360 controller and Dualshock 4)",
+			"Added ledge grabing mechanic",
+			"Fixed boss exploits",
+			"Lot of small improvements"
+		]
+	},
+	{
+		"version": "1.4.0",
+		"date": {
+			"android": "2018-04-08",
+			"ios": null
+		},
+		"notes": [
+			"New desert level with 8 new bears to save, a new boss fight, new enemies, new gameplay mechanics and a lore",
+			"New original musics (6 new tracks)",
+			"Improved joystick and buttons",
+			"New cosmetics",
+			"Lot a small tweaks and improvements"
+		]
+	},
+	{
+		"version": "1.4.1",
+		"date": {
+			"android": "2018-04-28",
+			"ios": null
+		},
+		"notes": [
+			"Improved options menu",
+			"Each enemy now have distinct sounds",
+			"Lot of bug fixes and small changes"
+		]
+	},
+	{
+		"version": "1.4.2",
+		"date": {
+			"android": "2018-05-10",
+			"ios": null
+		},
+		"notes": [
+			"Added a new booster: coin detector",
+			"Bug fixes and small changes"
+		]
+	},
+	{
+		"version": "1.5.0",
+		"date": {
+			"android": "2018-07-01",
+			"ios": null
+		},
+		"notes": [
+			"Added Google Play Games services: cloud saves, achievements, leaderboards for each bear",
+			"Added the Arcade world where you can play mini-games to earn coins",
+			"New save system with up to 3 saves on the same device",
+			"Added a main menu",
+			"Visual and gameplay improvements",
+			"Updated game engine"
+		]
+	},
+	{
+		"version": "1.5.1",
+		"date": {
+			"android": "2018-07-14",
+			"ios": null
+		},
+		"notes": [
+			"Improved options menu",
+			"Lots of bug fixes and small gameplay changes",
+			"Added Greek translations"
+		]
+	},
+	{
+		"version": "1.6.0",
+		"date": {
+			"android": "2018-09-15",
+			"ios": null
+		},
+		"notes": [
+			"Added the hive with a final boss fight and ending",
+			"Added hearts to regen health (coins no longer heal you)",
+			"Added Shicka's tips",
+			"Tons and tons of bug fixes and gameplay changes"
+		]
+	},
+	{
+		"version": "1.6.1",
+		"date": {
+			"android": "2018-09-30",
+			"ios": null
+		},
+		"notes": [
+			"Added the ability to resume the level after saving a bear",
+			"Added speedrun mode",
+			"Bug fixes and new options in the pause menu"
+		]
+	},
+	{
+		"version": "1.6.2",
+		"date": {
+			"android": "2018-10-14",
+			"ios": null
+		},
+		"notes": [
+			"Added the donor status",
+			"Added spooky new items",
+			"Bug fixes and gameplay tweaks"
+		]
+	},
+	{
+		"version": "1.6.2.1",
+		"date": {
+			"android": "2018-10-16",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.6.3",
+		"date": {
+			"android": "2018-11-02",
+			"ios": null
+		},
+		"notes": [
+			"Improved camera",
+			"Added objects grabbing",
+			"Bug fixes"
+		]
+	},
+	{
+		"version": "1.6.4",
+		"date": {
+			"android": "2018-11-21",
+			"ios": null
+		},
+		"notes": [
+			"Overhauled cosmetic unlocking system",
+			"Bug fixes and gameplay changes"
+		]
+	},
+	{
+		"version": "1.6.4.1",
+		"date": {
+			"android": "2018-11-22",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.6.4.2",
+		"date": {
+			"android": "2018-11-29",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.6.5",
+		"date": {
+			"android": "2019-03-10",
+			"ios": null
+		},
+		"notes": [
+			"Major changes to player movement and added diving",
+			"Press B while in the air to dive and slide",
+			"Lots of bug fixes and improved performance"
+		]
+	},
+	{
+		"version": "1.6.5.1",
+		"date": {
+			"android": "2019-03-16",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.6.5.2",
+		"date": {
+			"android": "2019-03-16",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.6.6",
+		"date": {
+			"android": "2019-04-21",
+			"ios": null
+		},
+		"notes": [
+			"Easter update (easter cosmetics and easter eggs to find in the hub)",
+			"Bug fixes"
+		]
+	},
+	{
+		"version": "1.6.6.1",
+		"date": {
+			"android": "2019-04-29",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.6.6.2",
+		"date": {
+			"android": "2019-05-04",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.7.0",
+		"date": {
+			"android": "2019-08-03",
+			"ios": null
+		},
+		"notes": [
+			"NEW LEVEL: Giant House!",
+			"New move: belly stomp (hold B mid-air)",
+			"Improved hub, bug fixes, new cosmetics, gameplay tweaks"
+		]
+	},
+	{
+		"version": "1.7.0.1",
+		"date": {
+			"android": "2019-08-04",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.7.0.2",
+		"date": {
+			"android": "2019-08-05",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.7.1",
+		"date": {
+			"android": "2019-08-09",
+			"ios": null
+		},
+		"notes": [
+			"Improved the arcade world and fixed bugs"
+		]
+	},
+	{
+		"version": "1.7.2",
+		"date": {
+			"android": "2019-08-28",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.7.2.1",
+		"date": {
+			"android": "2019-08-29",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.7.2.2",
+		"date": {
+			"android": "2019-09-08",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.8.0",
+		"date": {
+			"android": "2020-02-29",
+			"ios": null
+		},
+		"notes": [
+			"Graphics overhaul! The game now looks very different.",
+			"Updated engine, bug fixes",
+			"New loading screen",
+			"New NPC behavior"
+		]
+	},
+	{
+		"version": "1.8.0.1",
+		"date": {
+			"android": "2020-03-01",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.8.0.2",
+		"date": {
+			"android": "2020-03-10",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.8.0.3",
+		"date": {
+			"android": "2020-03-14",
+			"ios": null
+		},
+		"notes": [
+			"Bug fixes"
+		]
+	},
+	{
+		"version": "1.8.1",
+		"date": {
+			"android": "2020-03-23",
+			"ios": null
+		},
+		"notes": [
+			"LOTS of bug fixes",
+			"Small gameplay changes",
+			"Improved translations"
+		]
+	},
+	{
+		"version": "1.8.2",
+		"date": {
+			"android": "2020-03-30",
+			"ios": null
+		},
+		"notes": [
+			"New cosmetics and bug fixes",
+			"Added support for Japanese and Italian"
+		]
+	},
+	{
+		"version": "1.8.3",
+		"date": {
+			"android": "2020-04-10",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.8.4",
+		"date": {
+			"android": "2020-04-21",
+			"ios": null
+		},
+		"notes": [
+			"Added cutscenes to show new areas when you unlock them",
+			"New area in the hub",
+			"Added an optional tutorial at the beginning of level 1",
+			"Tons of bug fixes and gameplay tweaks"
+		]
+	},
+	{
+		"version": "1.8.5",
+		"date": {
+			"android": "2020-05-07",
+			"ios": null
+		},
+		"notes": [
+			"Vehicle physics improvement",
+			"Updated localization files",
+			"Bug fixes"
+		]
+	},
+	{
+		"version": "1.8.5.1",
+		"date": {
+			"android": "2020-05-07",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.9.0",
+		"date": {
+			"android": "2020-08-18",
+			"ios": null
+		},
+		"notes": [
+			"Added daily missions with unique changes to levels",
+			"Added new special cosmetic items",
+			"Added support for Turkish and Indonesian",
+			"Bug fixes and visual improvements"
+		]
+	},
+	{
+		"version": "1.9.0.1",
+		"date": {
+			"android": "2020-08-19",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.9.1",
+		"date": {
+			"android": "2020-08-29",
+			"ios": null
+		},
+		"notes": [
+			"Bug fixes and visual improvements"
+		]
+	},
+	{
+		"version": "1.9.1.1",
+		"date": {
+			"android": "2020-09-15",
+			"ios": null
+		},
+		"notes": [
+			"Bug fixes"
+		]
+	},
+	{
+		"version": "1.9.2",
+		"date": {
+			"android": null,
+			"ios": "2020-09-19",
+		},
+		"notes": []
+	},
+	{
+		"version": "1.9.3",
+		"date": {
+			"android": "2020-10-01",
+			"ios": "2020-10-09",
+		},
+		"notes": [
+			"New mini-game and new racetrack in the arcade world",
+			"Improved the desert flooding mission",
+			"Quality of life improvement and bug fixes"
+		]
+	},
+	{
+		"version": "1.9.4",
+		"date": {
+			"android": "2020-10-26",
+			"ios": "2020-11-03"
+		},
+		"notes": [
+			"New death screen",
+			"Improved speedrun mode",
+			"New cosmetic items"
+		]
+	},
+	{
+		"version": "1.9.4.1",
+		"date": {
+			"android": "2020-11-03",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.9.5",
+		"date": {
+			"android": "2020-11-18",
+			"ios": "2020-11-26"
+		},
+		"notes": [
+			"All enemies now have a unique behavior",
+			"New enemy in level 4: The cockroach",
+			"New arcade music",
+			"Bug fixes"
+		]
+	},
+	{
+		"version": "1.9.5.1",
+		"date": {
+			"android": "2020-11-29",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"version": "1.9.6",
+		"date": {
+			"android": "2020-11-21",
+			"ios": "2020-11-24"
+		},
+		"notes": [
+			"Complete UI overhaul!",
+			"Full controller support",
+			"New mission: Airplane in the desert",
+			"Bug fixes"
+		]
+	},
+	{
+		"version": "1.9.6.1",
+		"date": {
+			"android": "2020-11-24",
+			"ios": null
+		},
+		"notes": []
+	}
+]
