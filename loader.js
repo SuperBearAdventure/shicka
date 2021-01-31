@@ -28,12 +28,12 @@ export async function loadActions(directories) {
 	return await Promise.all(directoryPromises);
 }
 export async function loadGreetings() {
-	return JSON.parse(await readFile(fileURLToPath(`${root}/greetings.json`)), (key, value) => {
+	return JSON.parse(await readFile(fileURLToPath(`${root}/data/greetings.json`)), (key, value) => {
 		return reviver(value);
 	});
 }
 export async function loadItems() {
-	const items = JSON.parse(await readFile(fileURLToPath(`${root}/items.json`)), (key, value) => {
+	const items = JSON.parse(await readFile(fileURLToPath(`${root}/data/items.json`)), (key, value) => {
 		return reviver(value);
 	});
 	const itemsByRarity = Object.create(null);
