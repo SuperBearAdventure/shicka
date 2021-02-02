@@ -1,0 +1,44 @@
+[
+	{
+		"name": "Default",
+		"cost": 0,
+		"payoff": 0,
+		"probability": 0,
+		"slots": 0
+	},
+	{
+		"name": "Common",
+		"cost": 100,
+		"payoff": -50,
+		"probability": 0.7,
+		"slots": 4
+	},
+	{
+		"name": "Rare",
+		"cost": 300,
+		"payoff": 25,
+		"probability": 0.25,
+		"slots": 2
+	},
+	{
+		"name": "Epic",
+		"cost": 1500,
+		"payoff": 175,
+		"probability": 0.05,
+		"slots": 1
+	},
+	{
+		"name": "Tristopio",
+		"cost": 0,
+		"payoff": 0,
+		"probability": 0,
+		"slots": 1
+	},
+	{
+		"name": "Donor",
+		"cost": 0,
+		"payoff": 0,
+		"probability": 0,
+		"slots": 0
+	}
+]

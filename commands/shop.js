@@ -10,18 +10,6 @@ const listFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-const rarities = ["common", "rare", "epic", "tristopio"];
-const itemsPerSlicePerRarity = Object.assign(Object.create(null), {
-	common: 4,
-	rare: 2,
-	epic: 1,
-	tristopio: 1,
-});
-const costsPerRarity = Object.assign(Object.create(null), {
-	common: 100,
-	rare: 300,
-	epic: 1500,
-});
 function knuth(state) {
 	return BigInt.asUintN(32, state * 2654435761n);
 }
@@ -82,10 +70,13 @@ function sliceItems(generator, items, itemsPerSlice, slicesPerRarity) {
 }
 export default class ShopCommand extends Command {
 	async execute(message, parameters) {
-		const {salt, itemsByRarity} = message.client;
+		const {salt, items, rarities, itemsByRarity} = message.client;
 		const slicesByRarityBySeed = Object.create(null);
 		const slicesPerRarity = Math.ceil(Math.max(...rarities.map((rarity) => {
-			return itemsByRarity[rarity].length / itemsPerSlicePerRarity[rarity];
+			if (!rarity.slots) {
+				return 0;
+			}
+			return itemsByRarity[rarity.id].length / rarity.slots;
 		})));
 		const now = Math.floor(Date.now() / 21600000);
 		const search = parameters.slice(1).join(" ").toLowerCase();
@@ -94,22 +85,23 @@ export default class ShopCommand extends Command {
 		for (let k = -2; k < 4; ++k) {
 			const date = now + k;
 			const seed = Math.floor(date / slicesPerRarity);
-			if (!(seed in slicesByRarityBySeed)) {
+			const slicesByRarity = slicesByRarityBySeed[seed] ?? (slicesByRarityBySeed[seed] = (() => {
 				const generator = xorShift32(knuth(BigInt(seed) + BigInt(salt)) || BigInt(salt));
-				const slicesByRarity = Object.create(null);
-				for (const rarity of rarities) {
-					slicesByRarity[rarity] = sliceItems(generator, itemsByRarity[rarity], itemsPerSlicePerRarity[rarity], slicesPerRarity);
-				};
-				slicesByRarityBySeed[seed] = slicesByRarity;
-			}
-			const slicesByRarity = slicesByRarityBySeed[seed];
+				return rarities.map((rarity) => {
+					if (!rarity.slots) {
+						const length = slicesPerRarity;
+						return Array.from({length}, () => {
+							return [];
+						});
+					}
+					return sliceItems(generator, itemsByRarity[rarity.id], rarity.slots, slicesPerRarity);
+				});
+			})());
 			const index = date - seed * slicesPerRarity;
-			const items = [];
-			for (const rarity of rarities) {
-				items.push(...slicesByRarity[rarity][index]);
-			}
-			const names = items.map((item) => {
-				return `**${Util.escapeMarkdown(item.name)}**`;
+			const names = slicesByRarity.map((slices) => {
+				return slices[index];
+			}).flat().map((id) => {
+				return `**${Util.escapeMarkdown(items[id].name)}**`;
 			});
 			const dateTime = dateTimeFormat.format(new Date(date * 21600000));
 			const list = listFormat.format(names);
@@ -119,44 +111,50 @@ export default class ShopCommand extends Command {
 		await message.channel.send(`Outfits for sale in the shop change every 6 hours:\n${schedule}`);
 		return;
 		}
-		const target = message.client.items.find((item) => {
-			return item.rarity in itemsPerSlicePerRarity && item.name.toLowerCase() === search;
+		const item = items.find((item) => {
+			return item.name.toLowerCase() === search;
 		});
-		if (typeof target === "undefined") {
+		if (typeof item === "undefined") {
 			await message.channel.send(`I do not know any outfit with this name.`);
 			return;
 		}
-		const {rarity} = target;
+		if (!rarities[item.rarity].slots) {
+			const name = `**${Util.escapeMarkdown(item.name)}**`;
+			await message.channel.send(`${name} is not for sale.`);
+			return;
+		}
 		const sample = [];
-		outer: for (let k = -2;; ++k) {
+		for (let k = -2; k < 4 || sample.length < 2; ++k) {
 			const date = now + k;
 			const seed = Math.floor(date / slicesPerRarity);
-			if (!(seed in slicesByRarityBySeed)) {
+			const slicesByRarity = slicesByRarityBySeed[seed] ?? (slicesByRarityBySeed[seed] = (() => {
 				const generator = xorShift32(knuth(BigInt(seed) + BigInt(salt)) || BigInt(salt));
-				const slicesByRarity = Object.create(null);
-				for (const rarity of rarities) {
-					slicesByRarity[rarity] = sliceItems(generator, itemsByRarity[rarity], itemsPerSlicePerRarity[rarity], slicesPerRarity);
-				};
-				slicesByRarityBySeed[seed] = slicesByRarity;
-			}
-			const slicesByRarity = slicesByRarityBySeed[seed];
+				return rarities.map((rarity) => {
+					if (!rarity.slots) {
+						return [];
+					}
+					return sliceItems(generator, itemsByRarity[rarity.id], rarity.slots, slicesPerRarity);
+				});
+			})());
 			const index = date - seed * slicesPerRarity;
-			inner: for (const item of slicesByRarity[rarity][index]) {
-				if (item !== target) {
-					continue;
-				}
+			if (slicesByRarity[item.rarity][index].includes(item.id)) {
 				const dateTime = dateTimeFormat.format(new Date(date * 21600000));
 				sample.push(`- *${Util.escapeMarkdown(dateTime)}*`);
-				if (k < 4 || sample.length < 2) {
-					break inner;
-				}
-				break outer;
 			}
 		}
-		const name = `**${Util.escapeMarkdown(target.name)}**`;
-		const cost = `**${Util.escapeMarkdown(target.rarity === "tristopio" ? `${target.cost} Tristopio tokens` : `${costsPerRarity[target.rarity]} coins`)}**`;
+		const name = `**${Util.escapeMarkdown(item.name)}**`;
+		const costs = [];
+		const tokens = item.cost;
+		if (tokens) {
+			costs.push(`**${tokens} Tristopio token${tokens !== 1 ? "s" : ""}**`)
+		}
+		const coins = rarities[item.rarity].cost;
+		if (coins) {
+			costs.push(`**${coins} coin${coins !== 1 ? "s" : ""}**`)
+		}
+		const list = listFormat.format(costs);
 		const schedule = sample.join("\n");
-		await message.channel.send(`${name} will be for sale in the shop for ${cost} for 6 hours starting:\n${schedule}`);
+		await message.channel.send(`${name} will be for sale in the shop for ${list} for 6 hours starting:\n${schedule}`);
 	}
 	async describe(message, command) {
 		return `Type \`${command}\` to know what is for sale in the shop\nType \`${command} Item\` to know when the outfit \`Item\` is for sale in the shop`;

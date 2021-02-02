@@ -36,36 +36,62 @@ export async function loadItems() {
 	const items = JSON.parse(await readFile(fileURLToPath(`${root}/data/items.json`)), (key, value) => {
 		return reviver(value);
 	});
-	const itemsByRarity = Object.create(null);
+	for (const [id, item] of items.entries()) {
+		item.id = id;
+	}
+	return items;
+}
+export async function loadUpdates() {
+	const updates = JSON.parse(await readFile(fileURLToPath(`${root}/data/updates.json`)), (key, value) => {
+		return reviver(value);
+	});
+	for (const [id, update] of updates.entries()) {
+		update.id = id;
+	}
+	return updates;
+}
+export async function loadRarities() {
+	const rarities = JSON.parse(await readFile(fileURLToPath(`${root}/data/rarities.json`)), (key, value) => {
+		return reviver(value);
+	});
+	for (const [id, rarity] of rarities.entries()) {
+		rarity.id = id;
+	}
+	return rarities;
+}
+export async function indexItemsByRarity(items, rarities) {
+	const itemsByRarity = Array.from(rarities, () => {
+		return [];
+	});
+	for (const item of items) {
+		const {id, rarity} = item;
+		itemsByRarity[rarity].push(id);
+	}
+	return itemsByRarity;
+}
+export async function indexItemsByRarityByType(items, rarities) {
 	const itemsByRarityByType = Object.create(null);
 	for (const item of items) {
-		const {rarity, type} = item;
-		if (!(rarity in itemsByRarity)) {
-			itemsByRarity[rarity] = [];
-		}
-		itemsByRarity[rarity].push(item);
-		// if (!(type in itemsByRarityByType)) {
-		// 	itemsByRarityByType[type] = Object.create(null);
-		// }
-		// if (!(rarity in itemsByRarityByType[type])) {
-		// 	itemsByRarityByType[type][rarity] = [];
-		// }
-		// itemsByRarityByType[type][rarity].push(item);
+		const {id, rarity, type} = item;
+		const itemsByRarity = itemsByRarityByType[type] ?? (itemsByRarityByType[type] = Array.from(rarities, () => {
+			return [];
+		}));
+		itemsByRarityByType[type][rarity].push(id);
 	}
-	// for (const type in itemsByRarityByType) {
-	// 	for (const rarity in itemsByRarityByType[type]) {
-	// 		itemsByRarityByType[type][rarity].sort((a, b) => {
-	// 			const aName = a.name.toLowerCase();
-	// 			const bName = b.name.toLowerCase();
-	// 			if (aName > bName) {
-	// 				return 1;
-	// 			}
-	// 			if (aName < bName) {
-	// 				return -1;
-	// 			}
-	// 			return 0;
-	// 		});
-	// 	}
-	// }
-	return {items, itemsByRarity, itemsByRarityByType};
+	for (const type in itemsByRarityByType) {
+		for (const itemsByRarity of itemsByRarityByType[type]) {
+			itemsByRarity.sort((a, b) => {
+				const aName = items[a].name.toLowerCase();
+				const bName = items[b].name.toLowerCase();
+				if (aName > bName) {
+					return 1;
+				}
+				if (aName < bName) {
+					return -1;
+				}
+				return 0;
+			});
+		}
+	}
+	return itemsByRarityByType;
 }
