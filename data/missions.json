@@ -1,0 +1,46 @@
+[
+	{
+		"challenge": 0,
+		"level": 0
+	},
+	{
+		"challenge": 1,
+		"level": 2
+	},
+	{
+		"challenge": 2,
+		"level": 1
+	},
+	{
+		"challenge": 3,
+		"level": 2
+	},
+	{
+		"challenge": 4,
+		"level": 3
+	},
+	{
+		"challenge": 0,
+		"level": 1
+	},
+	{
+		"challenge": 2,
+		"level": 0
+	},
+	{
+		"challenge": 5,
+		"level": 2
+	},
+	{
+		"challenge": 1,
+		"level": 3
+	},
+	{
+		"challenge": 3,
+		"level": 1
+	},
+	{
+		"challenge": 6,
+		"level": 2
+	}
+]

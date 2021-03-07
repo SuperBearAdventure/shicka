@@ -36,6 +36,8 @@ $ node shicka.js
 
 - `?mission` gives the schedule of the next three missions
 
+- `?mission <mission>` gives the schedule of at least the next two occurences of the given mission
+
 - `?roadmap` gives the link to the todo list of the game on `trello.com`
 
 - `?shop` gives the schedule of the next six sets of items in the shop

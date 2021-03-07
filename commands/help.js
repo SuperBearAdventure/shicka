@@ -3,13 +3,13 @@ export default class HelpCommand extends Command {
 	async execute(message, parameters) {
 		const {author, client} = message;
 		const {prefix, commands, feeds, triggers} = client;
-		const commandPromises = commands.map(async (action, name) => {
+		const commandPromises = Object.entries(commands).map(async ([name, action]) => {
 			return await action.describe(message, `${prefix}${name}`);
 		});
-		const feedPromises = feeds.map(async (action, name) => {
+		const feedPromises = Object.entries(feeds).map(async ([name, action]) => {
 			return await action.describe(message);
 		});
-		const triggerPromises = triggers.map(async (action, name) => {
+		const triggerPromises = Object.entries(triggers).map(async ([name, action]) => {
 			return await action.describe(message);
 		});
 		const help = (await Promise.all([

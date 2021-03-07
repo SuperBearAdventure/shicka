@@ -1,9 +1,7 @@
 import url from "url";
 import fs from "fs";
-import discord from "discord.js";
 const {fileURLToPath} = url;
 const {readFile, readdir} = fs.promises;
-const {Collection} = discord;
 const here = import.meta.url;
 const root = here.slice(0, here.lastIndexOf("/"));
 function reviver(value) {
@@ -23,75 +21,95 @@ export async function loadActions(directories) {
 			const action = new constructor();
 			return [name, action];
 		});
-		return new Collection(await Promise.all(filePromises));
+		return Object.assign(Object.create(null), Object.fromEntries(await Promise.all(filePromises)));
 	});
 	return await Promise.all(directoryPromises);
+}
+export async function loadData(files) {
+	const filePromises = files.map(async (file) => {
+		const datum = JSON.parse(await readFile(fileURLToPath(`${root}/data/${file}`)), (key, value) => {
+			return reviver(value);
+		});
+		for (const [key, value] of datum.entries()) {
+			value.id = key;
+		}
+		return datum;
+	});
+	return await Promise.all(filePromises);
 }
 export async function loadGreetings() {
 	return JSON.parse(await readFile(fileURLToPath(`${root}/data/greetings.json`)), (key, value) => {
 		return reviver(value);
 	});
 }
-export async function loadItems() {
-	const items = JSON.parse(await readFile(fileURLToPath(`${root}/data/items.json`)), (key, value) => {
-		return reviver(value);
+export function indexBearsByLevel(bears, levels) {
+	const bearsByLevel = Array.from(levels, () => {
+		return [];
 	});
-	for (const [id, item] of items.entries()) {
-		item.id = id;
+	for (const bear of bears) {
+		const {level} = bear;
+		bearsByLevel[level].push(bear);
 	}
-	return items;
+	return bearsByLevel;
 }
-export async function loadUpdates() {
-	const updates = JSON.parse(await readFile(fileURLToPath(`${root}/data/updates.json`)), (key, value) => {
-		return reviver(value);
+export function indexItemsByPart(items, parts) {
+	const itemsByPart = Array.from(parts, () => {
+		return [];
 	});
-	for (const [id, update] of updates.entries()) {
-		update.id = id;
+	for (const item of items) {
+		const {part} = item;
+		itemsByPart[part].push(item);
 	}
-	return updates;
-}
-export async function loadRarities() {
-	const rarities = JSON.parse(await readFile(fileURLToPath(`${root}/data/rarities.json`)), (key, value) => {
-		return reviver(value);
-	});
-	for (const [id, rarity] of rarities.entries()) {
-		rarity.id = id;
+	for (const items of itemsByPart) {
+		items.sort((a, b) => {
+			const aRarity = a.rarity;
+			const bRarity = b.rarity;
+			if (aRarity > bRarity) {
+				return 1;
+			}
+			if (aRarity < bRarity) {
+				return -1;
+			}
+			const aName = a.name.toLowerCase();
+			const bName = b.name.toLowerCase();
+			if (aName > bName) {
+				return 1;
+			}
+			if (aName < bName) {
+				return -1;
+			}
+			return 0;
+		});
 	}
-	return rarities;
+	return itemsByPart;
 }
-export async function indexItemsByRarity(items, rarities) {
+export function indexItemsByRarity(items, rarities) {
 	const itemsByRarity = Array.from(rarities, () => {
 		return [];
 	});
 	for (const item of items) {
-		const {id, rarity} = item;
-		itemsByRarity[rarity].push(id);
+		const {rarity} = item;
+		itemsByRarity[rarity].push(item);
 	}
 	return itemsByRarity;
 }
-export async function indexItemsByRarityByType(items, rarities) {
-	const itemsByRarityByType = Object.create(null);
-	for (const item of items) {
-		const {id, rarity, type} = item;
-		const itemsByRarity = itemsByRarityByType[type] ?? (itemsByRarityByType[type] = Array.from(rarities, () => {
-			return [];
-		}));
-		itemsByRarityByType[type][rarity].push(id);
+export function indexMissionsByChallenge(missions, challenges) {
+	const missionsByChallenge = Array.from(challenges, () => {
+		return [];
+	});
+	for (const mission of missions) {
+		const {challenge} = mission;
+		missionsByChallenge[challenge].push(mission);
 	}
-	for (const type in itemsByRarityByType) {
-		for (const itemsByRarity of itemsByRarityByType[type]) {
-			itemsByRarity.sort((a, b) => {
-				const aName = items[a].name.toLowerCase();
-				const bName = items[b].name.toLowerCase();
-				if (aName > bName) {
-					return 1;
-				}
-				if (aName < bName) {
-					return -1;
-				}
-				return 0;
-			});
-		}
+	return missionsByChallenge;
+}
+export function indexMissionsByLevel(missions, levels) {
+	const missionsByLevel = Array.from(levels, () => {
+		return [];
+	});
+	for (const mission of missions) {
+		const {level} = mission;
+		missionsByLevel[level].push(mission);
 	}
-	return itemsByRarityByType;
+	return missionsByLevel;
 }

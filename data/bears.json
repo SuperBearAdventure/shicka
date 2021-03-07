@@ -1,0 +1,162 @@
+[
+	{
+		"name": "Théo",
+		"gold": 75,
+		"level": 0
+	},
+	{
+		"name": "Rémy",
+		"gold": 20,
+		"level": 0
+	},
+	{
+		"name": "Raphi",
+		"gold": 25,
+		"level": 0
+	},
+	{
+		"name": "Fanou",
+		"gold": 360,
+		"level": 0
+	},
+	{
+		"name": "Hugo",
+		"gold": 25,
+		"level": 0
+	},
+	{
+		"name": "Pierre",
+		"gold": 20,
+		"level": 0
+	},
+	{
+		"name": "Robin",
+		"gold": 35,
+		"level": 0
+	},
+	{
+		"name": "Lisa",
+		"gold": 30,
+		"level": 0
+	},
+	{
+		"name": "Nathan",
+		"gold": 110,
+		"level": 1
+	},
+	{
+		"name": "Mahu",
+		"gold": 30,
+		"level": 1
+	},
+	{
+		"name": "Maxime",
+		"gold": 25,
+		"level": 1
+	},
+	{
+		"name": "Frosty",
+		"gold": 300,
+		"level": 1
+	},
+	{
+		"name": "Charles",
+		"gold": 35,
+		"level": 1
+	},
+	{
+		"name": "Vladimir",
+		"gold": 15,
+		"level": 1
+	},
+	{
+		"name": "Skia",
+		"gold": 25,
+		"level": 1
+	},
+	{
+		"name": "Jon",
+		"gold": 40,
+		"level": 1
+	},
+	{
+		"name": "Sand",
+		"gold": 115,
+		"level": 2
+	},
+	{
+		"name": "Dominic",
+		"gold": 35,
+		"level": 2
+	},
+	{
+		"name": "Alexandre",
+		"gold": 35,
+		"level": 2
+	},
+	{
+		"name": "Zephyr",
+		"gold": 570,
+		"level": 2
+	},
+	{
+		"name": "Grumble",
+		"gold": 45,
+		"level": 2
+	},
+	{
+		"name": "Lucas",
+		"gold": 40,
+		"level": 2
+	},
+	{
+		"name": "Osiris",
+		"gold": 25,
+		"level": 2
+	},
+	{
+		"name": "Ramsès",
+		"gold": 55,
+		"level": 2
+	},
+	{
+		"name": "Viper",
+		"gold": 195,
+		"level": 3
+	},
+	{
+		"name": "Thomas",
+		"gold": 105,
+		"level": 3
+	},
+	{
+		"name": "Joseph",
+		"gold": 45,
+		"level": 3
+	},
+	{
+		"name": "Toast",
+		"gold": 540,
+		"level": 3
+	},
+	{
+		"name": "Maya",
+		"gold": 35,
+		"level": 3
+	},
+	{
+		"name": "Junior",
+		"gold": 50,
+		"level": 3
+	},
+	{
+		"name": "Claptrap",
+		"gold": 35,
+		"level": 3
+	},
+	{
+		"name": "Felix",
+		"gold": 40,
+		"level": 3
+	}
+]

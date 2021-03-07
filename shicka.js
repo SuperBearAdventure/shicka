@@ -1,12 +1,13 @@
 import discord from "discord.js";
 import {
 	loadActions,
+	loadData,
 	loadGreetings,
-	loadItems,
-	loadUpdates,
-	loadRarities,
+	// indexBearsByLevel,
+	// indexItemsByPart,
 	indexItemsByRarity,
-	// indexItemsByRarityByType,
+	// indexMissionsByChallenge,
+	// indexMissionsByLevel,
 } from "./loader.js";
 const {Client, Util} = discord;
 const {
@@ -29,14 +30,15 @@ const client = new Client({
 });
 client.once("ready", async () => {
 	console.log("Ready!");
-	for (const feed of client.feeds.values()) {
-		feed.schedule(client);
+	const {feeds} = client;
+	for (const feed in feeds) {
+		feeds[feed].schedule(client);
 	}
 });
 client.on("guildMemberAdd", async (member) => {
 	const {memberCount, systemChannel} = member.guild;
 	const name = `${member}`;
-	const greetings = member.client.greetings.hey;
+	const greetings = client.greetings.hey;
 	const greeting = name.replace(capture, greetings[Math.random() * greetings.length | 0]);
 	const counting = memberCount % 10 ? "" : `\nWe are now ${memberCount} members!`;
 	const message = await systemChannel.send(`${greeting}${counting}`);
@@ -58,7 +60,7 @@ client.on("guildMemberAdd", async (member) => {
 client.on("guildMemberRemove", async (member) => {
 	const {systemChannel} = member.guild;
 	const name = `**${Util.escapeMarkdown(member.user.username)}**`;
-	const greetings = member.client.greetings.bye;
+	const greetings = client.greetings.bye;
 	const greeting = name.replace(capture, greetings[Math.random() * greetings.length | 0]);
 	const message = await systemChannel.send(greeting);
 	await message.react("🇧");
@@ -81,37 +83,73 @@ client.on("message", async (message) => {
 	}
 	const command = parameters[0];
 	const {commands} = client;
-	if (!commands.has(command)) {
+	if (!(command in commands)) {
 		return;
 	}
-	await commands.get(command).execute(message, parameters);
+	await commands[command].execute(message, parameters);
 });
 client.on("message", async (message) => {
 	if (message.author.bot || message.channel.type !== "text") {
 		return;
 	}
-	for (const trigger of message.client.triggers.values()) {
-		await trigger.execute(message);
+	const {triggers} = client;
+	for (const trigger in triggers) {
+		await triggers[trigger].execute(message);
 	}
 });
 (async () => {
-	const [commands, feeds, triggers] = await loadActions(["commands", "feeds", "triggers"]);
+	const [
+		commands,
+		feeds,
+		triggers,
+	] = await loadActions([
+		"commands",
+		"feeds",
+		"triggers",
+	]);
+	const [
+		// bears,
+		challenges,
+		items,
+		levels,
+		// parts,
+		rarities,
+		missions,
+		// updates,
+	] = await loadData([
+		// "bears.json",
+		"challenges.json",
+		"items.json",
+		"levels.json",
+		// "parts.json",
+		"rarities.json",
+		"missions.json",
+		// "updates.json",
+	]);
 	const greetings = await loadGreetings();
-	const items = await loadItems();
-	const updates = await loadUpdates();
-	const rarities = await loadRarities();
+	// const bearsByLevel = await indexBearByLevel(bears, levels);
+	// const itemsByPart = await indexItemsByPart(items, parts);
 	const itemsByRarity = await indexItemsByRarity(items, rarities);
-	// const itemsByRarityByType = await indexItemsByRarityByType(items, rarities);
+	// const missionsByChallenge = await indexMissionsByChallenge(missions, challenges);
+	// const missionsByLevel = await indexMissionsByChallenge(missions, levels);
 	client.prefix = prefix;
 	client.salt = salt;
 	client.commands = commands;
 	client.feeds = feeds;
 	client.triggers = triggers;
-	client.greetings = greetings;
+	// client.bears = bears;
+	client.challenges = challenges;
 	client.items = items;
-	client.updates = updates;
+	client.levels = levels;
+	// client.parts = parts;
 	client.rarities = rarities;
+	client.missions = missions;
+	// client.updates = updates;
+	client.greetings = greetings;
+	// client.bearsByLevel = bearsByLevel;
+	// client.itemsByPart = itemsByPart;
 	client.itemsByRarity = itemsByRarity;
-	// client.itemsByRarityByType = itemsByRarityByType;
+	// client.missionsByChallenge = missionsByChallenge;
+	// client.missionsByLevel = missionsByLevel;
 	client.login(discordToken);
 })();

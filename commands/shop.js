@@ -85,7 +85,7 @@ export default class ShopCommand extends Command {
 		for (let k = -2; k < 4; ++k) {
 			const date = now + k;
 			const seed = Math.floor(date / slicesPerRarity);
-			const slicesByRarity = slicesByRarityBySeed[seed] ?? (slicesByRarityBySeed[seed] = (() => {
+			const slicesByRarity = slicesByRarityBySeed[seed] ??= (() => {
 				const generator = xorShift32(knuth(BigInt(seed) + BigInt(salt)) || BigInt(salt));
 				return rarities.map((rarity) => {
 					if (!rarity.slots) {
@@ -96,12 +96,12 @@ export default class ShopCommand extends Command {
 					}
 					return sliceItems(generator, itemsByRarity[rarity.id], rarity.slots, slicesPerRarity);
 				});
-			})());
+			})();
 			const index = date - seed * slicesPerRarity;
 			const names = slicesByRarity.map((slices) => {
 				return slices[index];
-			}).flat().map((id) => {
-				return `**${Util.escapeMarkdown(items[id].name)}**`;
+			}).flat().map((item) => {
+				return `**${Util.escapeMarkdown(item.name)}**`;
 			});
 			const dateTime = dateTimeFormat.format(new Date(date * 21600000));
 			const list = listFormat.format(names);
@@ -127,7 +127,7 @@ export default class ShopCommand extends Command {
 		for (let k = -2; k < 4 || sample.length < 2; ++k) {
 			const date = now + k;
 			const seed = Math.floor(date / slicesPerRarity);
-			const slicesByRarity = slicesByRarityBySeed[seed] ?? (slicesByRarityBySeed[seed] = (() => {
+			const slicesByRarity = slicesByRarityBySeed[seed] ??= (() => {
 				const generator = xorShift32(knuth(BigInt(seed) + BigInt(salt)) || BigInt(salt));
 				return rarities.map((rarity) => {
 					if (!rarity.slots) {
@@ -135,9 +135,9 @@ export default class ShopCommand extends Command {
 					}
 					return sliceItems(generator, itemsByRarity[rarity.id], rarity.slots, slicesPerRarity);
 				});
-			})());
+			})();
 			const index = date - seed * slicesPerRarity;
-			if (slicesByRarity[item.rarity][index].includes(item.id)) {
+			if (slicesByRarity[item.rarity][index].includes(item)) {
 				const dateTime = dateTimeFormat.format(new Date(date * 21600000));
 				sample.push(`- *${Util.escapeMarkdown(dateTime)}*`);
 			}
@@ -152,9 +152,9 @@ export default class ShopCommand extends Command {
 		if (coins) {
 			costs.push(`**${coins} coin${coins !== 1 ? "s" : ""}**`)
 		}
-		const list = listFormat.format(costs);
+		const list = `${costs.length ? " for " : ""}${listFormat.format(costs)}`;
 		const schedule = sample.join("\n");
-		await message.channel.send(`${name} will be for sale in the shop for ${list} for 6 hours starting:\n${schedule}`);
+		await message.channel.send(`${name} will be for sale in the shop${list} for 6 hours starting:\n${schedule}`);
 	}
 	async describe(message, command) {
 		return `Type \`${command}\` to know what is for sale in the shop\nType \`${command} Item\` to know when the outfit \`Item\` is for sale in the shop`;
