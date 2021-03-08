@@ -1,4 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192" stroke-width="4" stroke-linejoin="round">
+	<style>
+		.background {
+			fill: #febb10;
+			stroke: #0a0403;
+		}
+		.foreground {
+			fill: #e1691a;
+		}
+		.marker {
+			fill: #35302e;
+		}
+	</style>
 	<linearGradient id="dark-gold" x2="1">
 		<stop stop-color="#c90"/>
 		<stop offset="1" stop-color="#fc0"/>
@@ -42,13 +54,13 @@
 		V60
 		A8,8,0,0,1,48,52
 		Z
-	" fill="#febb10" stroke="#0a0403"/>
+	" class="background"/>
 	<polygon points="
 		97,120
 		122,127
 		96,142
 		72,128
-	" fill="#e1691a"/>
+	" class="foreground"/>
 	<path d="
 		M74,78
 		A16,18,0,0,1,74,114
@@ -90,5 +102,5 @@
 		A2,2,0,0,0,111,96
 		A2,2,0,0,0,111,92
 		Z
-	" fill="#35302e"/>
+	" class="marker"/>
 </svg>

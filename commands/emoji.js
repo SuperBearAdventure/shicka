@@ -12,7 +12,11 @@ const {MessageAttachment, Util} = discord;
 const {JSDOM} = jsdom;
 const here = import.meta.url;
 const root = here.slice(0, here.lastIndexOf("/"));
-const bases = new Set(["baaren", "shicka"]);
+const listFormat = new Intl.ListFormat("en-US", {
+	style: "long",
+	type: "conjunction",
+});
+const bases = new Set(["baaren", "shicka", "baaren-outlined", "shicka-outlined"]);
 const styles = Object.assign(Object.create(null), {
 	"dark-gold": "url(\"#dark-gold\")",
 	"light-gold": "url(\"#light-gold\")",
@@ -33,10 +37,13 @@ export default class EmojiCommand extends Command {
 			return;
 		}
 		if (parameters.length < 2) {
-			const choice = Object.keys(styles).concat("auto").map((style) => {
-				return `- \`${Util.escapeMarkdown(style)}\``;
-			}).join("\n");
-			await message.channel.send(`Please give me a base and up to 6 styles among:\n${choice}`);
+			const base = listFormat.format(Array.from(bases.keys()).map((base) => {
+				return `\`${Util.escapeMarkdown(base)}\``;
+			}));
+			const style = listFormat.format(Object.keys(styles).concat("auto").map((style) => {
+				return `\`${Util.escapeMarkdown(style)}\``;
+			}));
+			await message.channel.send(`Please give me:\n- a base among ${base}\n- up to 6 styles among ${style}`);
 			return;
 		}
 		const base = parameters[1].toLowerCase();
@@ -45,19 +52,23 @@ export default class EmojiCommand extends Command {
 			return;
 		}
 		const wrapper = new JSDOM(`<div xmlns="http://www.w3.org/1999/xhtml">${await readFile(fileURLToPath(`${root}/../emojis/${base}.svg`))}</div>`, {
-			contentType: "image/svg+xml",
+			contentType: "application/xhtml+xml",
 		}).window.document.documentElement;
 		const svg = wrapper.firstElementChild;
-		const shapes = svg.querySelectorAll("path, polygon");
+		const groups = [".background", ".foreground", ".marker"].map((selector) => {
+			return svg.querySelectorAll(selector);
+		});
 		let index = 2;
 		loop: for (const paint of ["fill", "stroke"]) {
-			for (const shape of shapes) {
+			for (const group of groups) {
 				if (parameters.length <= index) {
 					break loop;
 				}
 				const parameter = parameters[index].toLowerCase();
 				if (parameter in styles) {
-					shape.style[paint] = styles[parameter];
+					for (const shape of group) {
+						shape.style[paint] = styles[parameter];
+					}
 				}
 				++index;
 			}
@@ -74,6 +85,6 @@ export default class EmojiCommand extends Command {
 		if (!channels.has(message.channel.name)) {
 			return "";
 		}
-		return `Type \`${command} Baaren Some styles\` to create a new bear-based emoji customized with \`Some styles\`\nType \`${command} Shicka Some styles\` to create a new backpacker-based emoji customized with \`Some styles\``;
+		return `Type \`${command} Some base Some styles\` to create a new \`Some base\`-based emoji customized with \`Some styles\``;
 	}
 }
