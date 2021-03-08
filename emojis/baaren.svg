@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192" stroke-width="4" stroke-linejoin="round">
+	<linearGradient id="dark-gold" x2="1">
+		<stop stop-color="#c90"/>
+		<stop offset="1" stop-color="#fc0"/>
+	</linearGradient>
+	<linearGradient id="light-gold" x2="1">
+		<stop stop-color="#fc0"/>
+		<stop offset="1" stop-color="#ff3"/>
+	</linearGradient>
+	<linearGradient id="dark-silver" x2="1">
+		<stop stop-color="#666"/>
+		<stop offset="1" stop-color="#999"/>
+	</linearGradient>
+	<linearGradient id="light-silver" x2="1">
+		<stop stop-color="#999"/>
+		<stop offset="1" stop-color="#ccc"/>
+	</linearGradient>
+	<linearGradient id="dark-bronze" x2="1">
+		<stop stop-color="#630"/>
+		<stop offset="1" stop-color="#963"/>
+	</linearGradient>
+	<linearGradient id="light-bronze" x2="1">
+		<stop stop-color="#963"/>
+		<stop offset="1" stop-color="#c96"/>
+	</linearGradient>
+	<path d="
+		M40,72
+		H20
+		A4,4,0,0,1,16,68
+		V32
+		A4,4,0,0,1,20,28
+		H56
+		A4,4,0,0,1,60,32
+		V52
+		H132
+		V32
+		A4,4,0,0,1,136,28
+		H172
+		A4,4,0,0,1,176,32
+		V68
+		A4,4,0,0,1,172,72
+		H152
+		V156
+		A8,8,0,0,1,144,164
+		H48
+		A8,8,0,0,1,40,156
+		Z
+	" fill="#7c4726" stroke="#0a0403"/>
+	<path d="
+		M40,66
+		H26
+		A4,4,0,0,1,22,62
+		V38
+		A4,4,0,0,1,26,34
+		H50
+		A4,4,0,0,1,54,38
+		V52
+		H48
+		A8,8,0,0,0,40,60
+		Z
+		M138,52
+		V38
+		A4,4,0,0,1,142,34
+		H166
+		A4,4,0,0,1,170,38
+		V62
+		A4,4,0,0,1,166,66
+		H152
+		V60
+		A8,8,0,0,0,144,52
+		Z
+		M68,110
+		A2,2,0,0,1,70,108
+		H122
+		A2,2,0,0,1,124,110
+		V146
+		A2,2,0,0,1,122,148
+		H70
+		A2,2,0,0,1,68,146
+		Z
+	" fill="#c29b5e"/>
+	<path d="
+		M68,76
+		A2,2,0,0,1,70,74
+		H77
+		A2,2,0,0,1,79,76
+		V93
+		A2,2,0,0,1,77,95
+		H70
+		A2,2,0,0,1,68,93
+		Z
+		M113,76
+		A2,2,0,0,1,115,74
+		H122
+		A2,2,0,0,1,124,76
+		V93
+		A2,2,0,0,1,122,95
+		H115
+		A2,2,0,0,1,113,93
+		Z
+		M90,117
+		H102
+		V123
+		A6,3,0,0,1,96,126
+		A6,3,0,0,1,90,123
+		Z
+	" fill="#35302e"/>
+</svg>

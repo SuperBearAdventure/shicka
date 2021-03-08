@@ -4,7 +4,7 @@ Bot for the official *Super Bear Adventure* *Discord* server
 
 ## Dependencies
 
-The bot uses *Discord.js 12* and requires *Node.js 14.15.0* or more
+The bot uses *Discord.js 12* and requires *Node.js 15.0.0* or more
 
 ## Configuring the bot
 
@@ -31,6 +31,10 @@ $ node shicka.js
 - `?chat <channel> <text>` writes the given text in the given channel (only available in the `#bot` and `#moderation` channels)
 
 - `?count` gives the number of members of the guild
+
+- `?emoji Baaren <style>` draws Baaren's head with the given style (only available in the the `#bot`, `#moderation`, and` #🍪cookie-room` channels)
+
+- `?emoji Shicka <style>` draws Shicka's head with the given style (only available in the the `#bot`, `#moderation`, and` #🍪cookie-room` channels)
 
 - `?help` gives the list of features of this bot
 

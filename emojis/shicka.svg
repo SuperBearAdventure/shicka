@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192" stroke-width="4" stroke-linejoin="round">
+	<linearGradient id="dark-gold" x2="1">
+		<stop stop-color="#c90"/>
+		<stop offset="1" stop-color="#fc0"/>
+	</linearGradient>
+	<linearGradient id="light-gold" x2="1">
+		<stop stop-color="#fc0"/>
+		<stop offset="1" stop-color="#ff3"/>
+	</linearGradient>
+	<linearGradient id="dark-silver" x2="1">
+		<stop stop-color="#666"/>
+		<stop offset="1" stop-color="#999"/>
+	</linearGradient>
+	<linearGradient id="light-silver" x2="1">
+		<stop stop-color="#999"/>
+		<stop offset="1" stop-color="#ccc"/>
+	</linearGradient>
+	<linearGradient id="dark-bronze" x2="1">
+		<stop stop-color="#630"/>
+		<stop offset="1" stop-color="#963"/>
+	</linearGradient>
+	<linearGradient id="light-bronze" x2="1">
+		<stop stop-color="#963"/>
+		<stop offset="1" stop-color="#c96"/>
+	</linearGradient>
+	<path d="
+		M82,52
+		A14,18,0,0,0,68,34
+		A10,14,0,0,1,78,20
+		A18,32,0,0,1,96,52
+		H98
+		A18,38,0,0,1,116,14
+		A8,6,0,0,1,124,20
+		A4,6,0,0,1,120,26
+		A8,26,0,0,0,112,52
+		H144
+		A8,8,0,0,1,152,60
+		V156
+		A8,8,0,0,1,144,164
+		H48
+		A8,8,0,0,1,40,156
+		V60
+		A8,8,0,0,1,48,52
+		Z
+	" fill="#febb10" stroke="#0a0403"/>
+	<polygon points="
+		97,120
+		122,127
+		96,142
+		72,128
+	" fill="#e1691a"/>
+	<path d="
+		M74,78
+		A16,18,0,0,1,74,114
+		A16,18,0,0,1,74,78
+		Z
+		M69,88
+		A2,2,0,0,0,69,92
+		A2,2,0,0,0,69,88
+		Z
+		M79,88
+		A2,2,0,0,0,79,92
+		A2,2,0,0,0,79,88
+		Z
+		M79,100
+		A2,2,0,0,0,79,104
+		A2,2,0,0,0,79,100
+		Z
+		M69,100
+		A2,2,0,0,0,69,104
+		A2,2,0,0,0,69,100
+		Z
+		M118,78
+		A16,18,0,0,1,118,114
+		A16,18,0,0,1,118,78
+		Z
+		M120,87
+		A2,2,0,0,0,120,91
+		A2,2,0,0,0,120,87
+		Z
+		M125,96
+		A2,2,0,0,0,125,100
+		A2,2,0,0,0,125,96
+		Z
+		M116,101
+		A2,2,0,0,0,116,105
+		A2,2,0,0,0,116,101
+		Z
+		M111,92
+		A2,2,0,0,0,111,96
+		A2,2,0,0,0,111,92
+		Z
+	" fill="#35302e"/>
+</svg>
