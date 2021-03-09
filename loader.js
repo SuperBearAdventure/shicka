@@ -93,6 +93,16 @@ export function indexItemsByRarity(items, rarities) {
 	}
 	return itemsByRarity;
 }
+export function indexItemsByUpdate(items, updates) {
+	const itemsByUpdate = Array.from(updates, () => {
+		return [];
+	});
+	for (const item of items) {
+		const {update} = item;
+		itemsByUpdate[update].push(item);
+	}
+	return itemsByUpdate;
+}
 export function indexMissionsByChallenge(missions, challenges) {
 	const missionsByChallenge = Array.from(challenges, () => {
 		return [];

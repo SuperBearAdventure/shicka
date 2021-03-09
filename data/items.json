@@ -670,5 +670,12 @@
 		"rarity": 4,
 		"part": 0,
 		"update": 59
+	},
+	{
+		"name": "Cosmic Shicka",
+		"cost": 4,
+		"rarity": 4,
+		"part": 3,
+		"update": 65
 	}
 ]

@@ -6,6 +6,7 @@ import {
 	// indexBearsByLevel,
 	// indexItemsByPart,
 	indexItemsByRarity,
+	// indexItemsByUpdate,
 	// indexMissionsByChallenge,
 	// indexMissionsByLevel,
 } from "./loader.js";
@@ -130,6 +131,7 @@ client.on("message", async (message) => {
 	// const bearsByLevel = await indexBearByLevel(bears, levels);
 	// const itemsByPart = await indexItemsByPart(items, parts);
 	const itemsByRarity = await indexItemsByRarity(items, rarities);
+	// const itemsByUpdate = await indexItemsByUpdate(items, updates);
 	// const missionsByChallenge = await indexMissionsByChallenge(missions, challenges);
 	// const missionsByLevel = await indexMissionsByChallenge(missions, levels);
 	client.prefix = prefix;
@@ -149,6 +151,7 @@ client.on("message", async (message) => {
 	// client.bearsByLevel = bearsByLevel;
 	// client.itemsByPart = itemsByPart;
 	client.itemsByRarity = itemsByRarity;
+	// client.itemsByUpdate = itemsByUpdate;
 	// client.missionsByChallenge = missionsByChallenge;
 	// client.missionsByLevel = missionsByLevel;
 	client.login(discordToken);

@@ -1,18 +1,22 @@
 [
 	{
 		"name": "Turtle Village",
-		"coins": 150
+		"coins": 150,
+		"stickers": 3
 	},
 	{
 		"name": "Snow Valley",
-		"coins": 150
+		"coins": 150,
+		"stickers": 3
 	},
 	{
 		"name": "Beemothep Desert",
-		"coins": 150
+		"coins": 150,
+		"stickers": 3
 	},
 	{
 		"name": "Giant House",
-		"coins": 200
+		"coins": 200,
+		"stickers": 3
 	}
 ]

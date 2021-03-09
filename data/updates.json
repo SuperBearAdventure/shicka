@@ -682,8 +682,8 @@
 	{
 		"name": "1.9.6",
 		"date": {
-			"android": "2020-11-21",
-			"ios": "2020-11-24"
+			"android": "2021-01-21",
+			"ios": "2021-01-24"
 		},
 		"notes": [
 			"Complete UI overhaul!",
@@ -695,9 +695,23 @@
 	{
 		"name": "1.9.6.1",
 		"date": {
-			"android": "2020-11-24",
+			"android": "2021-01-24",
 			"ios": null
 		},
 		"notes": []
+	},
+	{
+		"name": "1.9.7",
+		"date": {
+			"android": "2021-03-08",
+			"ios": null
+		},
+		"notes": [
+			"Added hidden stickers to collect",
+			"New logo",
+			"Improved tutorial",
+			"Bunch of minor changes to levels",
+			"Bug fixes"
+		]
 	}
 ]
