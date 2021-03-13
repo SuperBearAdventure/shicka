@@ -30,7 +30,7 @@ const styles = Object.assign(Object.create(null), {
 	"white": "#fff",
 	"none": "none",
 });
-const channels = new Set(["bot", "moderation", "🍪cookie-room"]);
+const channels = new Set(["📰logs", "🛡moderators-room", "🍪cookie-room"]);
 export default class EmojiCommand extends Command {
 	async execute(message, parameters) {
 		if (!channels.has(message.channel.name)) {

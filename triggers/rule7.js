@@ -1,6 +1,6 @@
 import Trigger from "../trigger.js";
 const pattern = /\b(?:consoles?|multi-?player|online|pc|playstation|ps[45]|switch|xbox)\b/isu;
-const roles = new Set(["Cookie!", "Game Developer", "Moderator"]);
+const roles = new Set(["Cookie", "Game Developer", "Moderator"]);
 export default class Rule7Trigger extends Trigger {
 	async execute(message) {
 		if (message.member.roles.cache.some((role) => {

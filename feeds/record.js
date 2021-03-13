@@ -46,16 +46,16 @@ export default class RecordFeed extends Feed {
 						}
 						const levelData = level.data;
 						const levelId = !Array.isArray(levelData) ? `level/${levelData.id}` : "category";
-						const {categories} = levels[levelId] ?? (levels[levelId] = {
+						const {categories} = levels[levelId] ??= {
 							levelName: !Array.isArray(levelData) ? `${levelData.name}: ` : "",
 							categories: Object.create(null),
-						});
+						};
 						const categoryData = category.data;
 						const categoryId = categoryData.id;
-						const {leaderboards} = categories[categoryId] ?? (categories[categoryId] = {
+						const {leaderboards} = categories[categoryId] ??= {
 							categoryName: categoryData.name,
 							leaderboards: Object.create(null),
-						});
+						};
 						const leaderboardData = categoryData.variables.data.filter((variable) => {
 							if (!variable["is-subcategory"]) {
 								return false;
@@ -67,11 +67,11 @@ export default class RecordFeed extends Feed {
 							const variableId = variable.id;
 							return `var-${variableId}=${values[variableId]}&`;
 						}).join("");
-						leaderboards[leaderboardId] ?? (leaderboards[leaderboardId] = {
+						leaderboards[leaderboardId] ??= {
 							leaderboardName: leaderboardData.length ? ` - ${leaderboardData.map((variable) => {
 								return `${variable.values.values[values[variable.id]].label}`;
 							}).join(", ")}` : "",
-						});
+						};
 					}
 				}
 				for (const levelId in levels) {

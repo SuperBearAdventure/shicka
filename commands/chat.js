@@ -3,7 +3,7 @@ import Command from "../command.js";
 const {MessageAttachment, MessageMentions} = discord;
 const {source} = MessageMentions.CHANNELS_PATTERN;
 const pattern = new RegExp(`^(?:${source})$`, "");
-const channels = new Set(["bot", "moderation"]);
+const channels = new Set(["📰logs", "🛡moderators-room"]);
 export default class ChatCommand extends Command {
 	async execute(message, parameters) {
 		if (!channels.has(message.channel.name)) {

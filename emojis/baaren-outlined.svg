@@ -62,7 +62,6 @@
 		A8,8,0,0,0,144,52
 		Z
 	" class="background"/>
-	<rect x="40" y="52" width="112" height="112" rx="8" class="background"/>
 	<path d="
 		M40,66
 		H26
@@ -89,6 +88,7 @@
 		A8,8,0,0,0,144,52
 		Z
 	" class="foreground"/>
+	<rect x="40" y="52" width="112" height="112" rx="8" class="background"/>
 	<rect x="68" y="108" width="56" height="40" rx="2" class="foreground"/>
 	<rect x="68" y="74" width="11" height="21" rx="2" class="marker"/>
 	<rect x="113" y="74" width="11" height="21" rx="2" class="marker"/>
