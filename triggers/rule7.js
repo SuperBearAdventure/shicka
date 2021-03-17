@@ -1,8 +1,11 @@
 import Trigger from "../trigger.js";
-const pattern = /\b(?:consoles?|multi-?player|online|pc|playstation|ps[45]|switch|xbox)\b/isu;
+const pattern = /\b(?:co-?op(?:erati(?:ons?|ve))?|consoles?|multi(?:-?player)?|online|pc|playstation|ps[45]|switch|xbox)\b/isu;
 const roles = new Set(["Cookie", "Game Developer", "Moderator"]);
 export default class Rule7Trigger extends Trigger {
 	async execute(message) {
+		if (message.channel.name !== "🤔suggestions") {
+			return;
+		}
 		if (message.member.roles.cache.some((role) => {
 			return roles.has(role.name);
 		})) {
@@ -34,6 +37,12 @@ export default class Rule7Trigger extends Trigger {
 		}
 	}
 	async describe(message) {
-		return "I will *gently* reprimand you if you write words which violate the rule 7";
+		const channel = message.guild.channels.cache.find((channel) => {
+			return channel.name === "🤔suggestions";
+		});
+		if (typeof channel === "undefined") {
+			return "";
+		}
+		return `I will gently reprimand you if you write words which violate the rule 7 in ${channel}`;
 	}
 }

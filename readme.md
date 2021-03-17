@@ -62,4 +62,4 @@ $ node shicka.js
 
 ### Triggers
 
-- Some words that violate the rule 7 will be flagged as such
+- Some suggestions that violate the rule 7 will be flagged as such in the dedicated channel
