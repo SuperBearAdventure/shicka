@@ -2,680 +2,680 @@
 	{
 		"name": "Default",
 		"cost": 0,
-		"rarity": 0,
 		"part": 0,
+		"rarity": 0,
 		"update": 0
 	},
 	{
 		"name": "Default",
 		"cost": 0,
-		"rarity": 0,
 		"part": 1,
+		"rarity": 0,
 		"update": 0
 	},
 	{
 		"name": "Default",
 		"cost": 0,
-		"rarity": 0,
 		"part": 2,
+		"rarity": 0,
 		"update": 0
 	},
 	{
 		"name": "Default",
 		"cost": 0,
-		"rarity": 0,
 		"part": 3,
+		"rarity": 0,
 		"update": 0
 	},
 	{
 		"name": "Bandit mask",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 0
 	},
 	{
 		"name": "Red cap",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 0
 	},
 	{
 		"name": "Blue cap",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 0
 	},
 	{
 		"name": "Unicorn",
 		"cost": 0,
-		"rarity": 2,
 		"part": 0,
+		"rarity": 2,
 		"update": 0
 	},
 	{
 		"name": "Punk hair",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 0
 	},
 	{
 		"name": "Fez",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 0
 	},
 	{
 		"name": "Crown",
 		"cost": 0,
-		"rarity": 3,
 		"part": 0,
+		"rarity": 3,
 		"update": 0
 	},
 	{
 		"name": "White eyes",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 0
 	},
 	{
 		"name": "BIG EYES",
 		"cost": 0,
-		"rarity": 2,
 		"part": 0,
+		"rarity": 2,
 		"update": 0
 	},
 	{
 		"name": "Big ears",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 0
 	},
 	{
 		"name": "Long hair",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 0
 	},
 	{
 		"name": "Gas mask",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 5
 	},
 	{
 		"name": "Swollen head",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 5
 	},
 	{
 		"name": "Polar bear",
 		"cost": 0,
-		"rarity": 1,
 		"part": 2,
+		"rarity": 1,
 		"update": 9
 	},
 	{
 		"name": "Fat body",
 		"cost": 0,
-		"rarity": 1,
 		"part": 1,
+		"rarity": 1,
 		"update": 9
 	},
 	{
 		"name": "Muscular body",
 		"cost": 0,
-		"rarity": 1,
 		"part": 1,
+		"rarity": 1,
 		"update": 9
 	},
 	{
 		"name": "Bowtie",
 		"cost": 0,
-		"rarity": 1,
 		"part": 1,
+		"rarity": 1,
 		"update": 9
 	},
 	{
 		"name": "Golden bear",
 		"cost": 0,
-		"rarity": 3,
 		"part": 2,
+		"rarity": 3,
 		"update": 9
 	},
 	{
 		"name": "Golden Shicka",
 		"cost": 0,
-		"rarity": 3,
 		"part": 3,
+		"rarity": 3,
 		"update": 9
 	},
 	{
 		"name": "Red Shicka",
 		"cost": 0,
-		"rarity": 1,
 		"part": 3,
+		"rarity": 1,
 		"update": 9
 	},
 	{
 		"name": "Green Shicka",
 		"cost": 0,
-		"rarity": 1,
 		"part": 3,
+		"rarity": 1,
 		"update": 9
 	},
 	{
 		"name": "Pink bear",
 		"cost": 0,
-		"rarity": 2,
 		"part": 2,
+		"rarity": 2,
 		"update": 9
 	},
 	{
 		"name": "Glasses",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 9
 	},
 	{
 		"name": "Capitalus suit",
 		"cost": 0,
-		"rarity": 2,
 		"part": 1,
+		"rarity": 2,
 		"update": 9
 	},
 	{
 		"name": "Angel ring",
 		"cost": 0,
-		"rarity": 2,
 		"part": 0,
+		"rarity": 2,
 		"update": 9
 	},
 	{
 		"name": "Santa hat",
 		"cost": 0,
-		"rarity": 2,
 		"part": 0,
+		"rarity": 2,
 		"update": 9
 	},
 	{
 		"name": "Beard",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 9
 	},
 	{
 		"name": "Reversed head",
 		"cost": 0,
-		"rarity": 2,
 		"part": 0,
+		"rarity": 2,
 		"update": 9
 	},
 	{
 		"name": "Dark Shicka",
 		"cost": 0,
-		"rarity": 2,
 		"part": 3,
+		"rarity": 2,
 		"update": 9
 	},
 	{
 		"name": "White beard",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 9
 	},
 	{
 		"name": "White hair",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 9
 	},
 	{
 		"name": "Santa head",
 		"cost": 0,
-		"rarity": 3,
 		"part": 0,
+		"rarity": 3,
 		"update": 9
 	},
 	{
 		"name": "Business suit",
 		"cost": 0,
-		"rarity": 1,
 		"part": 1,
+		"rarity": 1,
 		"update": 9
 	},
 	{
 		"name": "Red shirt",
 		"cost": 0,
-		"rarity": 1,
 		"part": 1,
+		"rarity": 1,
 		"update": 9
 	},
 	{
 		"name": "Retro bear",
 		"cost": 0,
-		"rarity": 2,
 		"part": 2,
+		"rarity": 2,
 		"update": 11
 	},
 	{
 		"name": "Retro shicka",
 		"cost": 0,
-		"rarity": 2,
 		"part": 3,
+		"rarity": 2,
 		"update": 11
 	},
 	{
 		"name": "Banana hat",
 		"cost": 0,
-		"rarity": 2,
 		"part": 0,
+		"rarity": 2,
 		"update": 11
 	},
 	{
 		"name": "Santa suit",
 		"cost": 0,
-		"rarity": 2,
 		"part": 1,
+		"rarity": 2,
 		"update": 11
 	},
 	{
 		"name": "Desert bear",
 		"cost": 0,
-		"rarity": 1,
 		"part": 2,
+		"rarity": 1,
 		"update": 17
 	},
 	{
 		"name": "Crocodile bear",
 		"cost": 0,
-		"rarity": 1,
 		"part": 2,
+		"rarity": 1,
 		"update": 17
 	},
 	{
 		"name": "Fennec head",
 		"cost": 0,
-		"rarity": 2,
 		"part": 0,
+		"rarity": 2,
 		"update": 17
 	},
 	{
 		"name": "Ghost Shicka",
 		"cost": 0,
-		"rarity": 2,
 		"part": 3,
+		"rarity": 2,
 		"update": 17
 	},
 	{
 		"name": "Rainbow bear",
 		"cost": 0,
-		"rarity": 3,
 		"part": 2,
+		"rarity": 3,
 		"update": 20
 	},
 	{
 		"name": "Bear mask",
 		"cost": 0,
-		"rarity": 2,
 		"part": 0,
+		"rarity": 2,
 		"update": 22
 	},
 	{
 		"name": "Neutral face",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 22
 	},
 	{
 		"name": "Headless",
 		"cost": 0,
-		"rarity": 2,
 		"part": 0,
+		"rarity": 2,
 		"update": 22
 	},
 	{
 		"name": "King shirt",
 		"cost": 0,
-		"rarity": 5,
 		"part": 1,
+		"rarity": 5,
 		"update": 24
 	},
 	{
 		"name": "Panda",
 		"cost": 0,
-		"rarity": 5,
 		"part": 2,
+		"rarity": 5,
 		"update": 24
 	},
 	{
 		"name": "Capitalus' head",
 		"cost": 0,
-		"rarity": 5,
 		"part": 0,
+		"rarity": 5,
 		"update": 24
 	},
 	{
 		"name": "Rainbow trails",
 		"cost": 0,
-		"rarity": 5,
 		"part": 1,
+		"rarity": 5,
 		"update": 24
 	},
 	{
 		"name": "Outline",
 		"cost": 0,
-		"rarity": 2,
 		"part": 0,
+		"rarity": 2,
 		"update": 24
 	},
 	{
 		"name": "Skeleton body",
 		"cost": 0,
-		"rarity": 1,
 		"part": 1,
+		"rarity": 1,
 		"update": 24
 	},
 	{
 		"name": "Spooky shirt",
 		"cost": 0,
-		"rarity": 2,
 		"part": 1,
+		"rarity": 2,
 		"update": 24
 	},
 	{
 		"name": "Axe head",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 24
 	},
 	{
 		"name": "Pumpkin",
 		"cost": 0,
-		"rarity": 2,
 		"part": 0,
+		"rarity": 2,
 		"update": 24
 	},
 	{
 		"name": "Jack O'Lantern",
 		"cost": 0,
-		"rarity": 3,
 		"part": 0,
+		"rarity": 3,
 		"update": 24
 	},
 	{
 		"name": "Skull",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 24
 	},
 	{
 		"name": "Donator crown",
 		"cost": 0,
-		"rarity": 5,
 		"part": 0,
+		"rarity": 5,
 		"update": 24
 	},
 	{
 		"name": "Egg head",
 		"cost": 0,
-		"rarity": 2,
 		"part": 0,
+		"rarity": 2,
 		"update": 33
 	},
 	{
 		"name": "Egg hat",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 33
 	},
 	{
 		"name": "Easter egg",
 		"cost": 0,
-		"rarity": 3,
 		"part": 0,
+		"rarity": 3,
 		"update": 33
 	},
 	{
 		"name": "Fried egg",
 		"cost": 0,
-		"rarity": 2,
 		"part": 0,
+		"rarity": 2,
 		"update": 33
 	},
 	{
 		"name": "Rabbit head",
 		"cost": 0,
-		"rarity": 2,
 		"part": 0,
+		"rarity": 2,
 		"update": 33
 	},
 	{
 		"name": "Chocolate body",
 		"cost": 0,
-		"rarity": 1,
 		"part": 1,
+		"rarity": 1,
 		"update": 33
 	},
 	{
 		"name": "Pacifier",
 		"cost": 0,
-		"rarity": 1,
 		"part": 0,
+		"rarity": 1,
 		"update": 36
 	},
 	{
 		"name": "Diaper",
 		"cost": 0,
-		"rarity": 1,
 		"part": 1,
+		"rarity": 1,
 		"update": 36
 	},
 	{
 		"name": "Lab coat",
 		"cost": 0,
-		"rarity": 1,
 		"part": 1,
+		"rarity": 1,
 		"update": 36
 	},
 	{
 		"name": "Invisible Shicka",
 		"cost": 0,
-		"rarity": 1,
 		"part": 3,
+		"rarity": 1,
 		"update": 36
 	},
 	{
 		"name": "8-bit Shicka",
 		"cost": 0,
-		"rarity": 3,
 		"part": 3,
+		"rarity": 3,
 		"update": 40
 	},
 	{
 		"name": "8-bit bear",
 		"cost": 0,
-		"rarity": 3,
 		"part": 2,
+		"rarity": 3,
 		"update": 40
 	},
 	{
 		"name": "Sackbear",
 		"cost": 0,
-		"rarity": 1,
 		"part": 2,
+		"rarity": 1,
 		"update": 40
 	},
 	{
 		"name": "Tower of Hanoi",
 		"cost": 0,
-		"rarity": 2,
 		"part": 0,
+		"rarity": 2,
 		"update": 48
 	},
 	{
 		"name": "Black bear",
 		"cost": 0,
-		"rarity": 1,
 		"part": 2,
+		"rarity": 1,
 		"update": 48
 	},
 	{
 		"name": "Dark bear",
 		"cost": 0,
-		"rarity": 1,
 		"part": 2,
+		"rarity": 1,
 		"update": 48
 	},
 	{
 		"name": "Brown coat",
 		"cost": 0,
-		"rarity": 2,
 		"part": 1,
+		"rarity": 2,
 		"update": 48
 	},
 	{
 		"name": "Jean coat",
 		"cost": 0,
-		"rarity": 2,
 		"part": 1,
+		"rarity": 2,
 		"update": 48
 	},
 	{
 		"name": "Penguin Shicka",
 		"cost": 0,
-		"rarity": 2,
 		"part": 3,
+		"rarity": 2,
 		"update": 50
 	},
 	{
 		"name": "Bear Shicka",
 		"cost": 0,
-		"rarity": 2,
 		"part": 3,
+		"rarity": 2,
 		"update": 50
 	},
 	{
 		"name": "Shicka bear",
 		"cost": 0,
-		"rarity": 3,
 		"part": 2,
+		"rarity": 3,
 		"update": 50
 	},
 	{
 		"name": "Rainbow Shicka",
 		"cost": 0,
-		"rarity": 3,
 		"part": 3,
+		"rarity": 3,
 		"update": 50
 	},
 	{
 		"name": "VR headset",
 		"cost": 0,
-		"rarity": 3,
 		"part": 0,
+		"rarity": 3,
 		"update": 53
 	},
 	{
 		"name": "Cosmic bear",
 		"cost": 5,
-		"rarity": 4,
 		"part": 2,
+		"rarity": 4,
 		"update": 53
 	},
 	{
 		"name": "Football cap",
 		"cost": 10,
-		"rarity": 4,
 		"part": 0,
+		"rarity": 4,
 		"update": 53
 	},
 	{
 		"name": "Bobble head",
 		"cost": 1,
-		"rarity": 4,
 		"part": 0,
+		"rarity": 4,
 		"update": 53
 	},
 	{
 		"name": "Bobble Shicka",
 		"cost": 1,
-		"rarity": 4,
 		"part": 3,
+		"rarity": 4,
 		"update": 53
 	},
 	{
 		"name": "Brittany hat",
 		"cost": 2,
-		"rarity": 4,
 		"part": 0,
+		"rarity": 4,
 		"update": 53
 	},
 	{
 		"name": "Red Cape",
 		"cost": 1,
-		"rarity": 4,
 		"part": 1,
+		"rarity": 4,
 		"update": 55
 	},
 	{
 		"name": "Bear cape",
 		"cost": 4,
-		"rarity": 4,
 		"part": 1,
+		"rarity": 4,
 		"update": 55
 	},
 	{
 		"name": "Cartoon eyes",
 		"cost": 0,
-		"rarity": 2,
 		"part": 0,
+		"rarity": 2,
 		"update": 55
 	},
 	{
 		"name": "Vampire head",
 		"cost": 0,
-		"rarity": 3,
 		"part": 0,
+		"rarity": 3,
 		"update": 59
 	},
 	{
 		"name": "Witch hat",
 		"cost": 0,
-		"rarity": 3,
 		"part": 0,
+		"rarity": 3,
 		"update": 59
 	},
 	{
 		"name": "Dice",
 		"cost": 4,
-		"rarity": 4,
 		"part": 0,
+		"rarity": 4,
 		"update": 59
 	},
 	{
 		"name": "Cosmic Shicka",
 		"cost": 4,
-		"rarity": 4,
 		"part": 3,
+		"rarity": 4,
 		"update": 65
 	}
 ]

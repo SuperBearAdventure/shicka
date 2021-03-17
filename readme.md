@@ -32,7 +32,7 @@ $ node shicka.js
 
 - `?count` gives the number of members of the guild
 
-- `?emoji <base> <style>` draws the given base emoji with the given style (only available in the the `#📰logs`, `#🛡moderators-room`, and` #🍪cookie-room` channels)
+- `?emoji <base> <style>` draws the given base emoji with the given style (only available in the the `#📰logs`, `#🛡moderators-room`, and `#🍪cookie-room` channels)
 
 - `?help` gives the list of features of this bot
 

@@ -704,7 +704,7 @@
 		"name": "1.9.7",
 		"date": {
 			"android": "2021-03-08",
-			"ios": null
+			"ios": "2021-03-14"
 		},
 		"notes": [
 			"Added hidden stickers to collect",
@@ -713,5 +713,13 @@
 			"Bunch of minor changes to levels",
 			"Bug fixes"
 		]
+	},
+	{
+		"name": "1.9.7.1",
+		"date": {
+			"android": "2021-03-14",
+			"ios": null
+		},
+		"notes": []
 	}
 ]
