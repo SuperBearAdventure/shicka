@@ -108,26 +108,26 @@ client.on("message", async (message) => {
 		"feeds",
 		"triggers",
 	]);
+	const greetings = await loadGreetings();
 	const [
-		// bears,
+		bears,
 		challenges,
 		items,
 		levels,
-		// parts,
+		parts,
 		rarities,
 		missions,
-		// updates,
+		updates,
 	] = await loadData([
-		// "bears.json",
+		"bears.json",
 		"challenges.json",
 		"items.json",
 		"levels.json",
-		// "parts.json",
+		"parts.json",
 		"rarities.json",
 		"missions.json",
-		// "updates.json",
+		"updates.json",
 	]);
-	const greetings = await loadGreetings();
 	// const bearsByLevel = await indexBearByLevel(bears, levels);
 	// const itemsByPart = await indexItemsByPart(items, parts);
 	const itemsByRarity = await indexItemsByRarity(items, rarities);
@@ -139,20 +139,24 @@ client.on("message", async (message) => {
 	client.commands = commands;
 	client.feeds = feeds;
 	client.triggers = triggers;
-	// client.bears = bears;
-	client.challenges = challenges;
-	client.items = items;
-	client.levels = levels;
-	// client.parts = parts;
-	client.rarities = rarities;
-	client.missions = missions;
-	// client.updates = updates;
 	client.greetings = greetings;
-	// client.bearsByLevel = bearsByLevel;
-	// client.itemsByPart = itemsByPart;
-	client.itemsByRarity = itemsByRarity;
-	// client.itemsByUpdate = itemsByUpdate;
-	// client.missionsByChallenge = missionsByChallenge;
-	// client.missionsByLevel = missionsByLevel;
+	client.data = Object.assign(Object.create(null), {
+		bears,
+		challenges,
+		items,
+		levels,
+		parts,
+		rarities,
+		missions,
+		updates,
+	});
+	client.indices = Object.assign(Object.create(null), {
+		// bearsByLevel,
+		// itemsByPart,
+		itemsByRarity,
+		// itemsByUpdate,
+		// missionsByChallenge,
+		// missionsByLevel,
+	});
 	client.login(discordToken);
 })();

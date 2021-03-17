@@ -70,7 +70,9 @@ function sliceItems(generator, items, itemsPerSlice, slicesPerRarity) {
 }
 export default class ShopCommand extends Command {
 	async execute(message, parameters) {
-		const {salt, items, rarities, itemsByRarity} = message.client;
+		const {salt, data, indices} = message.client;
+		const {items, rarities} = data;
+		const {itemsByRarity} = indices;
 		const slicesByRarityBySeed = Object.create(null);
 		const slicesPerRarity = Math.ceil(Math.max(...rarities.map((rarity) => {
 			if (!rarity.slots) {
@@ -157,6 +159,6 @@ export default class ShopCommand extends Command {
 		await message.channel.send(`${name} will be for sale in the shop${list} for 6 hours starting:\n${schedule}`);
 	}
 	async describe(message, command) {
-		return `Type \`${command}\` to know what is for sale in the shop\nType \`${command} Item\` to know when the outfit \`Item\` is for sale in the shop`;
+		return `Type \`${command}\` to know what is for sale in the shop\nType \`${command} Some item\` to know when \`Some item\` is for sale in the shop`;
 	}
 }

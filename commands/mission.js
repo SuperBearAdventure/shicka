@@ -12,7 +12,7 @@ const timeFormat = new Intl.DateTimeFormat("en-US", {
 const time = timeFormat.format(new Date(36000000));
 export default class MissionCommand extends Command {
 	async execute(message, parameters) {
-		const {challenges, levels, missions} = message.client;
+		const {challenges, levels, missions} = message.client.data;
 		const missionCount = missions.length;
 		const now = Math.floor((Date.now() + 7200000) / 86400000);
 		const search = parameters.slice(1).join(" ").toLowerCase();
@@ -57,6 +57,6 @@ export default class MissionCommand extends Command {
 		await message.channel.send(`${name} will be playable for 1 day starting:\n${schedule}`);
 	}
 	async describe(message, command) {
-		return `Type \`${command}\` to know the schedule of missions\nType \`${command} Mission\` to know when the mission \`Mission\` is playable`;
+		return `Type \`${command}\` to know the schedule of missions\nType \`${command} Some mission\` to know when \`Some mission\` is playable`;
 	}
 }

@@ -37,6 +37,6 @@ export default class ChatCommand extends Command {
 		if (!channels.has(message.channel.name)) {
 			return "";
 		}
-		return `Type \`${command} #channel\` to post attachments in the given channel \`#channel\`\nType \`${command} #channel Some text\` to post an inline message \`Some text\` in the given channel \`#channel\``;
+		return `Type \`${command} #channel\` to post attachments in \`#channel\`\nType \`${command} #channel Some text\` to post \`Some text\` in \`#channel\``;
 	}
 }

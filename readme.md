@@ -32,13 +32,15 @@ $ node shicka.js
 
 - `?count` gives the number of members of the guild
 
-- `?emoji <base> <style>` draws the given base emoji with the given style (only available in the the `#📰logs`, `#🛡moderators-room`, and `#🍪cookie-room` channels)
+- `?emoji <base> <style>` draws the given base emoji with the given style (only available in the `#📰logs`, `#🛡moderators-room`, and `#🍪cookie-room` channels)
 
 - `?help` gives the list of features of this bot
 
 - `?mission` gives the schedule of the next three missions
 
 - `?mission <mission>` gives the schedule of at least the next two occurences of the given mission
+
+- `?raw <type> <identifier>` gives the datum of the given type with the given identifier (only available in the `#📰logs` and `#🛡moderators-room` channels)
 
 - `?roadmap` gives the link to the todo list of the game on `trello.com`
 
