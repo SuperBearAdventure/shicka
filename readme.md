@@ -38,7 +38,7 @@ $ node shicka.js
 
 - `?mission <mission>` gives the schedule of at least the next two occurences of the given mission
 
-- `?raw <type> <identifier>` gives the datum of the given type with the given identifier (only available in the `#📰logs` and `#🛡moderators-room` channels)
+- `?raw <type> <identifier>` gives the datum of the given type with the given identifier
 
 - `?roadmap` gives the link to the todo list of the game on `trello.com`
 

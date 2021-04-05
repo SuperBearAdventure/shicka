@@ -6,12 +6,8 @@ const listFormat = new Intl.ListFormat("en-US", {
 	type: "conjunction",
 });
 const pattern = /^([1-9]\d*)$/;
-const channels = new Set(["📰logs", "🛡moderators-room"]);
 export default class RawCommand extends Command {
 	async execute(message, parameters) {
-		if (!channels.has(message.channel.name)) {
-			return;
-		}
 		const {data} = message.client;
 		if (parameters.length < 2) {
 			const type = listFormat.format(Object.keys(data).map((type) => {
@@ -40,9 +36,6 @@ export default class RawCommand extends Command {
 		await message.channel.send(`\`\`\`json\n${datum}\n\`\`\``);
 	}
 	async describe(message, command) {
-		if (!channels.has(message.channel.name)) {
-			return "";
-		}
 		return `Type \`${command} Some type Some identifier\` to get the datum of \`Some type\` with \`Some identifier\``;
 	}
 }
