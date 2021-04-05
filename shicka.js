@@ -16,6 +16,8 @@ const {
 	SHICKA_PREFIX: prefix,
 	SHICKA_SALT: salt,
 } = process.env;
+const here = import.meta.url;
+const root = here.slice(0, here.lastIndexOf("/"));
 const bigNumbers = ["0️⃣", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣"];
 const capture = /^.*$/isu;
 const outerSpace = /^[\n ]+|[\n ]+$/gu;
@@ -99,57 +101,24 @@ client.on("message", async (message) => {
 	}
 });
 (async () => {
-	const [
-		commands,
-		feeds,
-		triggers,
-	] = await loadActions([
-		"commands",
-		"feeds",
-		"triggers",
-	]);
-	const greetings = await loadGreetings();
-	const [
-		bears,
-		challenges,
-		items,
-		levels,
-		parts,
-		rarities,
-		missions,
-		updates,
-	] = await loadData([
-		"bears.json",
-		"challenges.json",
-		"items.json",
-		"levels.json",
-		"parts.json",
-		"rarities.json",
-		"missions.json",
-		"updates.json",
-	]);
-	// const bearsByLevel = await indexBearByLevel(bears, levels);
-	// const itemsByPart = await indexItemsByPart(items, parts);
-	const itemsByRarity = await indexItemsByRarity(items, rarities);
-	// const itemsByUpdate = await indexItemsByUpdate(items, updates);
-	// const missionsByChallenge = await indexMissionsByChallenge(missions, challenges);
-	// const missionsByLevel = await indexMissionsByChallenge(missions, levels);
+	const commands = await loadActions(`${root}/commands`);
+	const feeds = await loadActions(`${root}/feeds`);
+	const triggers = await loadActions(`${root}/triggers`);
+	const data = await loadData(`${root}/data`);
+	const greetings = await loadGreetings(`${root}/greetings`);
+	// const bearsByLevel = await indexBearByLevel(data.bears, data.levels);
+	// const itemsByPart = await indexItemsByPart(data.items, data.parts);
+	const itemsByRarity = await indexItemsByRarity(data.items, data.rarities);
+	// const itemsByUpdate = await indexItemsByUpdate(data.items, data.updates);
+	// const missionsByChallenge = await indexMissionsByChallenge(data.missions, data.challenges);
+	// const missionsByLevel = await indexMissionsByChallenge(data.missions, data.levels);
 	client.prefix = prefix;
 	client.salt = salt;
 	client.commands = commands;
 	client.feeds = feeds;
 	client.triggers = triggers;
+	client.data = data;
 	client.greetings = greetings;
-	client.data = Object.assign(Object.create(null), {
-		bears,
-		challenges,
-		items,
-		levels,
-		parts,
-		rarities,
-		missions,
-		updates,
-	});
 	client.indices = Object.assign(Object.create(null), {
 		// bearsByLevel,
 		// itemsByPart,

@@ -2,64 +2,53 @@ import url from "url";
 import fs from "fs";
 const {fileURLToPath} = url;
 const {readFile, readdir} = fs.promises;
-const here = import.meta.url;
-const root = here.slice(0, here.lastIndexOf("/"));
-function reviver(value) {
-	if (value === null || typeof value !== "object" || Array.isArray(value)) {
-		return value;
-	}
-	return Object.assign(Object.create(null), value);
+async function load(directory, extension, callback) {
+	const {length} = extension;
+	const files = await readdir(fileURLToPath(directory));
+	const entries = await Promise.all(files.filter((file) => {
+		return file.endsWith(extension);
+	}).map(async (file) => {
+		const key = file.slice(0, -length);
+		const value = await callback(`${directory}/${file}`);
+		return [key, value];
+	}));
+	return Object.assign(Object.create(null), Object.fromEntries(entries));
 }
-export async function loadActions(directories) {
-	const directoryPromises = directories.map(async (directory) => {
-		const files = await readdir(fileURLToPath(`${root}/${directory}`));
-		const filePromises = files.filter((file) => {
-			return file.endsWith(".js");
-		}).map(async (file) => {
-			const name = file.slice(0, -3);
-			const constructor = (await import(`${root}/${directory}/${file}`)).default;
-			const action = new constructor();
-			return [name, action];
-		});
-		return Object.assign(Object.create(null), Object.fromEntries(await Promise.all(filePromises)));
+export async function loadActions(directory) {
+	return await load(directory, ".js", async (path) => {
+		const action = new (await import(path)).default();
+		return action;
 	});
-	return await Promise.all(directoryPromises);
 }
-export async function loadData(files) {
-	const filePromises = files.map(async (file) => {
-		const datum = JSON.parse(await readFile(fileURLToPath(`${root}/data/${file}`)), (key, value) => {
-			return reviver(value);
-		});
+export async function loadData(directory) {
+	return await load(directory, ".json", async (path) => {
+		const datum = JSON.parse(await readFile(fileURLToPath(path)));
 		for (const [key, value] of datum.entries()) {
 			value.id = key;
 		}
 		return datum;
 	});
-	return await Promise.all(filePromises);
 }
-export async function loadGreetings() {
-	return JSON.parse(await readFile(fileURLToPath(`${root}/data/greetings.json`)), (key, value) => {
-		return reviver(value);
+export async function loadGreetings(directory) {
+	return await load(directory, ".json", async (path) => {
+		const greeting = JSON.parse(await readFile(fileURLToPath(path)));
+		return greeting;
 	});
+}
+function indexBy(left, right, key) {
+	const array = Array.from(right, () => {
+		return [];
+	});
+	for (const item of left) {
+		array[item[key]].push(item);
+	}
+	return array;
 }
 export function indexBearsByLevel(bears, levels) {
-	const bearsByLevel = Array.from(levels, () => {
-		return [];
-	});
-	for (const bear of bears) {
-		const {level} = bear;
-		bearsByLevel[level].push(bear);
-	}
-	return bearsByLevel;
+	return indexBy(bears, levels, "level");
 }
 export function indexItemsByPart(items, parts) {
-	const itemsByPart = Array.from(parts, () => {
-		return [];
-	});
-	for (const item of items) {
-		const {part} = item;
-		itemsByPart[part].push(item);
-	}
+	const itemsByPart = indexBy(items, parts, "part");
 	for (const items of itemsByPart) {
 		items.sort((a, b) => {
 			const aRarity = a.rarity;
@@ -84,42 +73,14 @@ export function indexItemsByPart(items, parts) {
 	return itemsByPart;
 }
 export function indexItemsByRarity(items, rarities) {
-	const itemsByRarity = Array.from(rarities, () => {
-		return [];
-	});
-	for (const item of items) {
-		const {rarity} = item;
-		itemsByRarity[rarity].push(item);
-	}
-	return itemsByRarity;
+	return indexBy(items, rarities, "rarity");
 }
 export function indexItemsByUpdate(items, updates) {
-	const itemsByUpdate = Array.from(updates, () => {
-		return [];
-	});
-	for (const item of items) {
-		const {update} = item;
-		itemsByUpdate[update].push(item);
-	}
-	return itemsByUpdate;
+	return indexBy(items, updates, "update");
 }
 export function indexMissionsByChallenge(missions, challenges) {
-	const missionsByChallenge = Array.from(challenges, () => {
-		return [];
-	});
-	for (const mission of missions) {
-		const {challenge} = mission;
-		missionsByChallenge[challenge].push(mission);
-	}
-	return missionsByChallenge;
+	return indexBy(missions, challenges, "challenge");
 }
 export function indexMissionsByLevel(missions, levels) {
-	const missionsByLevel = Array.from(levels, () => {
-		return [];
-	});
-	for (const mission of missions) {
-		const {level} = mission;
-		missionsByLevel[level].push(mission);
-	}
-	return missionsByLevel;
+	return indexBy(missions, levels, "level");
 }
