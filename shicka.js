@@ -3,13 +3,15 @@ import {
 	loadActions,
 	loadData,
 	loadGreetings,
+} from "./loader.js";
+import {
 	// indexBearsByLevel,
 	// indexItemsByPart,
 	indexItemsByRarity,
 	// indexItemsByUpdate,
 	// indexMissionsByChallenge,
 	// indexMissionsByLevel,
-} from "./loader.js";
+} from "./indexer.js";
 const {Client, Util} = discord;
 const {
 	SHICKA_DISCORD_TOKEN: discordToken,
