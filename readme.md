@@ -26,9 +26,7 @@ $ node shicka.js
 
 - `?about` gives the link to this repository on `github.com`
 
-- `?chat <channel>` uploads the given attachments in the given channel (only available in the `#bot` and `#🛡moderators-room` channels)
-
-- `?chat <channel> <text>` writes the given text in the given channel (only available in the `#📰logs` and `#🛡moderators-room` channels)
+- `?chat <channel> <text>` writes the given text and uploads the given attachments in the given channel (only available in the `#📰logs` and `#🛡moderators-room` channels)
 
 - `?count` gives the number of members of the guild
 
