@@ -5,7 +5,7 @@ const listFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-const pattern = /^([1-9]\d*)$/;
+const pattern = /^(0|[1-9]\d*)$/;
 export default class RawCommand extends Command {
 	async execute(message, parameters) {
 		const {data} = message.client;
