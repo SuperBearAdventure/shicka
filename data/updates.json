@@ -721,5 +721,21 @@
 			"ios": null
 		},
 		"notes": []
+	},
+	{
+		"name": "1.9.7.2",
+		"date": {
+			"android": "2021-03-19",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"name": "1.9.7.3",
+		"date": {
+			"android": "2021-04-01",
+			"ios": null
+		},
+		"notes": []
 	}
 ]
