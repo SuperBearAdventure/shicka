@@ -1,4 +1,4 @@
-# Shicka
+# *Shicka* <img width="100" height="100" alt="" src="logotypes/shicka-200x200.png" align="right"/>
 
 Bot for the official *Super Bear Adventure* *Discord* server
 
