@@ -38,13 +38,13 @@ $ node shicka.js
 
 - `?mission <mission>` gives the schedule of at least the next two occurences of the given mission
 
+- `?outfit` gives the schedule of the next six sets of outfits in the shop
+
+- `?outfit <outfit>` gives the schedule of at least the next two occurrences of the given outfit in the shop
+
 - `?raw <type> <identifier>` gives the datum of the given type with the given identifier
 
 - `?roadmap` gives the link to the todo list of the game on `trello.com`
-
-- `?shop` gives the schedule of the next six sets of items in the shop
-
-- `?shop <item>` gives the schedule of at least the next two occurrences of the given item in the shop
 
 - `?speedrun` gives the link to the game on `speedrun.com`
 
