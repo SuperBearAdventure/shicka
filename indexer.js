@@ -2,18 +2,18 @@ function indexBy(left, right, key) {
 	const array = Array.from(right, () => {
 		return [];
 	});
-	for (const item of left) {
-		array[item[key]].push(item);
+	for (const value of left) {
+		array[value[key]].push(value);
 	}
 	return array;
 }
 export function indexBearsByLevel(bears, levels) {
 	return indexBy(bears, levels, "level");
 }
-export function indexItemsByPart(items, parts) {
-	const itemsByPart = indexBy(items, parts, "part");
-	for (const items of itemsByPart) {
-		items.sort((a, b) => {
+export function indexOutfitsByPart(outfits, parts) {
+	const outfitsByPart = indexBy(outfits, parts, "part");
+	for (const outfits of outfitsByPart) {
+		outfits.sort((a, b) => {
 			const aRarity = a.rarity;
 			const bRarity = b.rarity;
 			if (aRarity > bRarity) {
@@ -33,13 +33,13 @@ export function indexItemsByPart(items, parts) {
 			return 0;
 		});
 	}
-	return itemsByPart;
+	return outfitsByPart;
 }
-export function indexItemsByRarity(items, rarities) {
-	return indexBy(items, rarities, "rarity");
+export function indexOutfitsByRarity(outfits, rarities) {
+	return indexBy(outfits, rarities, "rarity");
 }
-export function indexItemsByUpdate(items, updates) {
-	return indexBy(items, updates, "update");
+export function indexOutfitsByUpdate(outfits, updates) {
+	return indexBy(outfits, updates, "update");
 }
 export function indexMissionsByChallenge(missions, challenges) {
 	return indexBy(missions, challenges, "challenge");

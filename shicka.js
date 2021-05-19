@@ -6,9 +6,9 @@ import {
 } from "./loader.js";
 import {
 	// indexBearsByLevel,
-	// indexItemsByPart,
-	indexItemsByRarity,
-	// indexItemsByUpdate,
+	// indexOutfitsByPart,
+	indexOutfitsByRarity,
+	// indexOutfitsByUpdate,
 	// indexMissionsByChallenge,
 	// indexMissionsByLevel,
 } from "./indexer.js";
@@ -108,12 +108,12 @@ client.on("message", async (message) => {
 	const triggers = await loadActions(`${root}/triggers`);
 	const data = await loadData(`${root}/data`);
 	const greetings = await loadGreetings(`${root}/greetings`);
-	// const bearsByLevel = await indexBearByLevel(data.bears, data.levels);
-	// const itemsByPart = await indexItemsByPart(data.items, data.parts);
-	const itemsByRarity = await indexItemsByRarity(data.items, data.rarities);
-	// const itemsByUpdate = await indexItemsByUpdate(data.items, data.updates);
-	// const missionsByChallenge = await indexMissionsByChallenge(data.missions, data.challenges);
-	// const missionsByLevel = await indexMissionsByChallenge(data.missions, data.levels);
+	// const bearsByLevel = indexBearByLevel(data.bears, data.levels);
+	// const outfitsByPart = indexOutfitsByPart(data.outfits, data.parts);
+	const outfitsByRarity = indexOutfitsByRarity(data.outfits, data.rarities);
+	// const outfitsByUpdate = indexOutfitsByUpdate(data.outfits, data.updates);
+	// const missionsByChallenge = indexMissionsByChallenge(data.missions, data.challenges);
+	// const missionsByLevel = indexMissionsByChallenge(data.missions, data.levels);
 	client.prefix = prefix;
 	client.salt = salt;
 	client.commands = commands;
@@ -123,9 +123,9 @@ client.on("message", async (message) => {
 	client.greetings = greetings;
 	client.indices = Object.assign(Object.create(null), {
 		// bearsByLevel,
-		// itemsByPart,
-		itemsByRarity,
-		// itemsByUpdate,
+		// outfitsByPart,
+		outfitsByRarity,
+		// outfitsByUpdate,
 		// missionsByChallenge,
 		// missionsByLevel,
 	});
