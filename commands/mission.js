@@ -1,6 +1,11 @@
 import discord from "discord.js";
 import Command from "../command.js";
 const {Util} = discord;
+const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
+	dateStyle: "long",
+	timeStyle: "short",
+	timeZone: "UTC",
+});
 const dateFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeZone: "UTC",
@@ -45,8 +50,7 @@ export default class MissionCommand extends Command {
 			const date = now + k;
 			const seed = (date % missionCount + missionCount) % missionCount;
 			if (missions[seed] === mission) {
-				const day = dateFormat.format(new Date(date * 86400000));
-				const dateTime = `${day} at ${time}`;
+				const dateTime = dateTimeFormat.format(new Date(date * 86400000 + 36000000));
 				sample.push(`- *${Util.escapeMarkdown(dateTime)}*`);
 			}
 		}
