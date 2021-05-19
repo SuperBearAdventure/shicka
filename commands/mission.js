@@ -1,5 +1,6 @@
 import discord from "discord.js";
 import Command from "../command.js";
+import {nearest} from "../utils/string.js"
 const {Util} = discord;
 const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
@@ -37,11 +38,10 @@ export default class MissionCommand extends Command {
 		await message.channel.send(`Each mission starts at *${Util.escapeMarkdown(time)}*:\n${schedule}`);
 		return;
 		}
-		const mission = missions.find((mission) => {
-			const name = `${challenges[mission.challenge].name} in ${levels[mission.level].name}`;
-			return name.toLowerCase() === search;
+		const mission = nearest(search, missions, (mission) => {
+			return `${challenges[mission.challenge].name} in ${levels[mission.level].name}`.toLowerCase();
 		});
-		if (typeof mission === "undefined") {
+		if (mission === null) {
 			await message.channel.send(`I do not know any mission with this name.`);
 			return;
 		}
