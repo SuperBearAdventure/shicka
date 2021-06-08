@@ -737,5 +737,18 @@
 			"ios": null
 		},
 		"notes": []
+	},
+	{
+		"name": "1.9.8",
+		"date": {
+			"android": "2021-06-07",
+			"ios": null
+		},
+		"notes": [
+			"Improved bears in the hub",
+			"Player physics overhaul",
+			"You can now try out items before unlocking them",
+			"Bug fixes"
+		]
 	}
 ]
