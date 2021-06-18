@@ -742,7 +742,7 @@
 		"name": "1.9.8",
 		"date": {
 			"android": "2021-06-07",
-			"ios": null
+			"ios": "2021-06-18"
 		},
 		"notes": [
 			"Improved bears in the hub",
@@ -750,5 +750,13 @@
 			"You can now try out items before unlocking them",
 			"Bug fixes"
 		]
+	},
+	{
+		"name": "1.9.8.1",
+		"date": {
+			"android": "2021-06-16",
+			"ios": null
+		},
+		"notes": []
 	}
 ]
