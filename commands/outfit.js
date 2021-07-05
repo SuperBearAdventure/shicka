@@ -1,5 +1,6 @@
 import discord from "discord.js";
 import Command from "../command.js";
+import {nearest} from "../utils/string.js"
 const {Util} = discord;
 const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
@@ -113,10 +114,10 @@ export default class OutfitCommand extends Command {
 		await message.channel.send(`Outfits for sale in the shop change every 6 hours:\n${schedule}`);
 		return;
 		}
-		const outfit = outfits.find((outfit) => {
-			return outfit.name.toLowerCase() === search;
+		const outfit = nearest(search, outfits, (outfit) => {
+			return outfit.name.toLowerCase();
 		});
-		if (typeof outfit === "undefined") {
+		if (outfit === null) {
 			await message.channel.send(`I do not know any outfit with this name.`);
 			return;
 		}
