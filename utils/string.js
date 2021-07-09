@@ -40,20 +40,20 @@ function isSubsequence(needle, haystack) {
 	}
 	return true;
 }
-export function nearest(search, array, stringify) {
-	const {value} = array.reduce((accumulator, value) => {
-		const string = stringify(value);
+export function nearest(search, candidates, stringify) {
+	const {candidate} = candidates.reduce((accumulator, candidate) => {
+		const string = stringify(candidate);
 		if (!isSubsequence(search, string)) {
 			return accumulator;
 		}
 		const distance = editDistance(search, string, false);
 		if (distance < accumulator.distance) {
-			return {value, distance};
+			return {candidate, distance};
 		}
 		return accumulator;
 	}, {
-		value: null,
+		candidate: null,
 		distance: Number.POSITIVE_INFINITY,
 	});
-	return value;
+	return candidate;
 }
