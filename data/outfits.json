@@ -35,14 +35,14 @@
 		"update": 0
 	},
 	{
-		"name": "Red cap",
+		"name": "Cap (red)",
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 0
 	},
 	{
-		"name": "Blue cap",
+		"name": "Cap (blue)",
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
@@ -684,5 +684,19 @@
 		"part": 0,
 		"rarity": 4,
 		"update": 69
+	},
+	{
+		"name": "Scarf (red)",
+		"cost": 0,
+		"part": 1,
+		"rarity": 1,
+		"update": 71
+	},
+	{
+		"name": "Scarf (blue)",
+		"cost": 0,
+		"part": 1,
+		"rarity": 1,
+		"update": 71
 	}
 ]
