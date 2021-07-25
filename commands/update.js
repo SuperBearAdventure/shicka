@@ -33,7 +33,7 @@ export default class UpdateCommand extends Command {
 			await message.channel.send(`The latest update of the game is:\n- ${androidVersion} (${androidDate}) on *Android*\n- ${iosVersion} (${iosDate}) on *iOS*`);
 		} catch (error) {
 			console.warn(error);
-			await message.channel.send("You can check and download the latest update of the game there:\n- *Android*: https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer\n- *iOS*: https://apps.apple.com/app/id1531842415");
+			await (await message.channel.send("You can check and download the latest update of the game there:\n- *Android*: https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer\n- *iOS*: https://apps.apple.com/app/id1531842415")).suppressEmbeds(true);
 		}
 	}
 	async describe(message, command) {
