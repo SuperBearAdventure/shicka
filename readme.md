@@ -28,11 +28,15 @@ $ node shicka.js
 
 - `?chat <channel> <text>` writes the given text and uploads the given attachments in the given channel (only available in the `#📰logs` and `#🛡moderators-room` channels)
 
+- `?chat <message> <channel> <text>` edits the given message with the given text in the given channel (only available in the `#📰logs` and `#🛡moderators-room` channels)
+
 - `?count` gives the number of members of the guild
 
 - `?emoji <base> <style>` draws the given base emoji with the given style (only available in the `#📰logs`, `#🛡moderators-room`, and `#🍪cookie-room` channels)
 
-- `?help` gives the list of features of this bot
+- `?help` gives the feature list of this bot
+
+- `?leaderboard` gives the links to the speedrun leaderboards of the game on `www.speedrun.com`
 
 - `?mission` gives the schedule of the next three missions
 
@@ -46,18 +50,18 @@ $ node shicka.js
 
 - `?roadmap` gives the link to the todo list of the game on `trello.com`
 
-- `?speedrun` gives the link to the game on `speedrun.com`
+- `?store` gives the links to the online stores of the game on `shop.spreadshirt.net` and `shop.spreadshirt.com`
 
-- `?tracker` gives the link to the issue tracker of the game on `trello.com`
+- `?tracker` gives the links to the issue trackers of the game on `github.com` and `trello.com`
 
-- `?trailer` gives the link to the trailer of the game on `youtube.com`
+- `?trailer` gives the links to the trailers of the game on `www.youtube.com`
 
-- `?update` checks the latest release of the game on `play.google.com` and `itunes.apple.com`
+- `?update` checks the latest releases of the game on `play.google.com` and `itunes.apple.com`
 
 ### Feeds
 
-- The latest world records of the game on `speedrun.com` are regularly published in the dedicated channel
+- The latest world records of the game on `www.speedrun.com` are regularly published in the `#🏅records` channel
 
 ### Triggers
 
-- Some suggestions that violate the rule 7 will be flagged as such in the dedicated channel
+- Some suggestions that violate the rule 7 will be flagged as such in the `#🤔suggestions` channel
