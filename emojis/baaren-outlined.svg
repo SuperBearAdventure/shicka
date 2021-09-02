@@ -6,7 +6,6 @@
 		}
 		.foreground {
 			fill: #c29b5e;
-			stroke: #0a0403;
 		}
 		.marker {
 			fill: #35302e;

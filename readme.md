@@ -26,13 +26,13 @@ $ node shicka.js
 
 - `?about` gives the link to this repository on `github.com`
 
-- `?chat <channel> <text>` writes the given text and uploads the given attachments in the given channel (only available in the `#📰logs` and `#🛡moderators-room` channels)
+- `?chat <channel> <text>` writes the given text and uploads the given attachments in the given channel (only available in the `#🔎logs` and `#🛡moderators-room` channels)
 
-- `?chat <message> <channel> <text>` edits the given message with the given text in the given channel (only available in the `#📰logs` and `#🛡moderators-room` channels)
+- `?chat <message> <channel> <text>` edits the given message with the given text in the given channel (only available in the `#🔎logs` and `#🛡moderators-room` channels)
 
 - `?count` gives the number of members of the guild
 
-- `?emoji <base> <style>` draws the given base emoji with the given style (only available in the `#📰logs`, `#🛡moderators-room`, and `#🍪cookie-room` channels)
+- `?emoji <base> <style>` draws the given base emoji with the given style (only available in the `#🔎logs`, `#🛡moderators-room`, and `#🍪cookie-room` channels)
 
 - `?help` gives the feature list of this bot
 

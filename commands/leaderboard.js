@@ -7,7 +7,7 @@ const leaderboards = [
 	"*Giant House leaderboard*: https://www.speedrun.com/sba/Giant_House",
 	"*Missions leaderboard*: https://www.speedrun.com/sbace/Missions",
 	"*Races leaderboard*: https://www.speedrun.com/sbace/Races",
-	"*Category Extensions*: https://www.speedrun.com/sbace",
+	"*Category Extensions leaderboard*: https://www.speedrun.com/sbace",
 ];
 export default class LeaderboardCommand extends Command {
 	async execute(message, parameters) {

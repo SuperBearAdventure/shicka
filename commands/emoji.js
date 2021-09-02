@@ -1,12 +1,12 @@
-import url from "url";
 import fs from "fs";
+import url from "url";
 import canvas from "canvas";
 import discord from "discord.js";
 import jsdom from "jsdom";
 import serialize from "w3c-xmlserializer";
 import Command from "../command.js";
-const {fileURLToPath} = url;
 const {readFile} = fs.promises;
+const {fileURLToPath} = url;
 const {createCanvas, loadImage} = canvas;
 const {MessageAttachment, Util} = discord;
 const {JSDOM} = jsdom;
@@ -16,7 +16,7 @@ const listFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-const bases = new Set(["baaren", "shicka", "baaren-outlined", "shicka-outlined"]);
+const bases = new Set(["baaren", "shicka", "baaren-outlined", "shicka-outlined", "baaren-discord", "shicka-discord"]);
 const styles = Object.assign(Object.create(null), {
 	"dark-gold": "url(\"#dark-gold\")",
 	"light-gold": "url(\"#light-gold\")",
@@ -30,7 +30,7 @@ const styles = Object.assign(Object.create(null), {
 	"white": "#fff",
 	"none": "none",
 });
-const channels = new Set(["📰logs", "🛡moderators-room", "🍪cookie-room"]);
+const channels = new Set(["🔎logs", "🛡moderators-room", "🍪cookie-room"]);
 export default class EmojiCommand extends Command {
 	async execute(message, parameters) {
 		if (!channels.has(message.channel.name)) {
@@ -67,17 +67,24 @@ export default class EmojiCommand extends Command {
 				const parameter = parameters[index].toLowerCase();
 				if (parameter in styles) {
 					for (const shape of group) {
-						shape.style[paint] = styles[parameter];
+						if (shape.style[paint] === "") {
+							shape.style[paint] = styles[parameter];
+						}
 					}
 				}
 				++index;
 			}
 		}
+		const zoom = 2;
+		const width = Number(svg.getAttribute("width")) * zoom;
+		const height = Number(svg.getAttribute("height")) * zoom;
+		svg.setAttribute("width", width);
+		svg.setAttribute("height", height);
 		const url = `data:image/svg+xml;charset=utf-8,${serialize(wrapper).slice(42, -6)}`;
 		const image = await loadImage(url);
-		const canvas = createCanvas(192, 192);
+		const canvas = createCanvas(width, height);
 		const context = canvas.getContext("2d");
-		context.drawImage(image, 0, 0, 192, 192);
+		context.drawImage(image, 0, 0, width, height);
 		const attachment = new MessageAttachment(canvas.toBuffer(), `${base}.png`);
 		await message.channel.send(attachment);
 	}

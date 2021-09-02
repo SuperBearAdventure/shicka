@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" stroke-linecap="round" stroke-linejoin="round">
+	<style>
+		.background {
+			fill: #7289da;
+			stroke: #23272a;
+		}
+		.foreground {
+			fill: #ffffff;
+			stroke: #ffffff;
+		}
+		.marker {
+			fill: #4e5d94;
+			stroke: #4e5d94;
+		}
+	</style>
+	<linearGradient id="dark-gold" x2="1">
+		<stop stop-color="#c90"/>
+		<stop offset="1" stop-color="#fc0"/>
+	</linearGradient>
+	<linearGradient id="light-gold" x2="1">
+		<stop stop-color="#fc0"/>
+		<stop offset="1" stop-color="#ff3"/>
+	</linearGradient>
+	<linearGradient id="dark-silver" x2="1">
+		<stop stop-color="#666"/>
+		<stop offset="1" stop-color="#999"/>
+	</linearGradient>
+	<linearGradient id="light-silver" x2="1">
+		<stop stop-color="#999"/>
+		<stop offset="1" stop-color="#ccc"/>
+	</linearGradient>
+	<linearGradient id="dark-bronze" x2="1">
+		<stop stop-color="#630"/>
+		<stop offset="1" stop-color="#963"/>
+	</linearGradient>
+	<linearGradient id="light-bronze" x2="1">
+		<stop stop-color="#963"/>
+		<stop offset="1" stop-color="#c96"/>
+	</linearGradient>
+	<clipPath id="clip">
+		<circle cx="128" cy="128" r="96"/>
+	</clipPath>
+	<mask id="mask">
+		<rect x="0" y ="0" width="256" height="256" style="fill: #ffffff;"/>
+		<g stroke-width="8" style="fill: none; stroke: #000000;">
+			<ellipse cx="108" cy="130" rx="6" ry="8"/>
+			<ellipse cx="148" cy="130" rx="6" ry="8"/>
+			<path d="
+				M96,112
+				C104,108,108,108,116,108
+				M160,112
+				C152,108,148,108,140,108
+				M112,156
+				L128,144
+				L144,156
+				L144,164
+				L128,176
+				L112,164
+				Z
+			"/>
+		</g>
+	</mask>
+	<circle cx="128" cy="128" r="96" class="background" style="stroke: none;"/>
+	<g clip-path="url(#clip)" stroke-width="8">
+		<path d="
+			M80,172
+			L88,100
+			L120,100
+			L112,84
+			L108,68
+			L120,84
+			L128,100
+			L144,100
+			L136,84
+			L152,76
+			L164,100
+			L168,100
+			L246,256
+			L122,256
+			Z
+		" class="marker"/>
+		<path d="
+			M108,68
+			L120,84
+			L112,84
+			Z
+			M152,76
+			L144,84
+			L136,84
+			Z
+			M88,100
+			L168,100
+			L176,172
+			L128,184
+			L80,172
+			Z
+		" mask="url(#mask)" class="foreground"/>
+	</g>
+	<circle cx="128" cy="128" r="96" stroke-width="4" class="background" style="fill: none;"/>
+</svg>
