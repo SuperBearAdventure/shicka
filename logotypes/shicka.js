@@ -87,10 +87,8 @@ b.strokeStyle="#4e5d94"
 b.stroke()
 b.restore()
 b.beginPath()
-b.beginPath()
 b.arc(128,128,96,0,Math.PI*2,true)
 b.closePath()
-b.miterLimit=2
 b.lineWidth=4
 b.strokeStyle="#23272a"
 b.stroke()

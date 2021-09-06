@@ -4,72 +4,293 @@
 	</clipPath>
 	<circle cx="128" cy="128" r="96" fill="#7289da"/>
 	<g clip-path="url(#clip)" stroke-width="8">
-		<path d="
-			M64,80
-			L96,80
-			L184,256
-			L120,256
-			L52,120
-			Z
-			M160,80
-			L156,96
-			L236,256
-			L256,256
-			L256,208
-			L192,80
-			Z
-			M88,112
-			L168,112
-			L240,256
-			L116,256
-			L80,184
-			Z
-		" fill="#4e5d94" stroke="#4e5d94"/>
-		<path d="
-			M64,80
-			L96,80
-			L100,96
-			L74,96
-			L70,128
-			L52,120
-			Z
-			M192,80
-			L160,80
-			L156,96
-			L182,96
-			L186,128
-			L204,120
-			Z
-			M88,112
-			L168,112
-			L176,184
-			L128,196
-			L80,184
-			Z
-		" fill="#ffffff" stroke="#ffffff"/>
-		<g stroke="#4e5d94">
-			<g fill="#4e5d94">
-				<ellipse cx="76" cy="102" rx="6" ry="8"/>
-				<ellipse cx="180" cy="102" rx="6" ry="8"/>
-			</g>
+		<g>
+			<animate
+				attributeName="display"
+				dur="3.2s"
+				calcMode="discrete"
+				repeatCount="indefinite"
+				keyTimes="0; .05; .0625; .075; .125; .1375; .15; .25; .2625; .275; .325; .3375; .35;"
+				values="inline; none; none; none; none; none; inline; none; none; none; none; none; inline;"
+			/>
 			<path d="
-				M108,136
-				L108,148
+				M65,80
+				L95,80
+				L183,256
+				L129,256
+				L57,112
 				Z
-				M148,136
-				L148,148
+				M191,80
+				L161,80
+				L158,92
+				L240,256
+				L256,210
 				Z
-				M127,168
-				L129,168
+				M88,108
+				L168,108
+				L242,256
+				L118,256
+				L80,180
 				Z
-				M112,160
-				L128,156
-				L144,160
-				L144,184
-				L128,188
-				L112,184
+			" fill="#4e5d94" stroke="#4e5d94"/>
+			<path d="
+				M65,80
+				L95,80
+				L98,92
+				L89,92
+				A13,13,0,1,0,72,109
+				L71,118
+				L57,112
 				Z
-			" fill="none"/>
+				M191,80
+				L161,80
+				L158,92
+				L167,92
+				A13,13,0,1,1,184,109
+				L185,118
+				L199,112
+				Z
+				M88,108
+				L168,108
+				L176,180
+				L128,192
+				L80,180
+				Z
+			" fill="#ffffff" stroke="#ffffff"/>
+			<path d="
+				M108,132
+				L108,144
+				Z
+				M148,132
+				L148,144
+				Z
+				M127,164
+				L129,164
+				Z
+				M112,156
+				L128,152
+				L144,156
+				L144,180
+				L128,184
+				L112,180
+				Z
+			" fill="none" stroke="#4e5d94"/>
+		</g>
+		<g>
+			<animate
+				attributeName="display"
+				dur="3.2s"
+				calcMode="discrete"
+				repeatCount="indefinite"
+				keyTimes="0; .05; .0625; .075; .125; .1375; .15; .25; .2625; .275; .325; .3375; .35;"
+				values="none; inline; none; none; none; inline; none; inline; none; none; none; inline; none;"
+			/>
+			<path d="
+				M65,80
+				L95,80
+				L183,256
+				L129,256
+				L57,112
+				Z
+				M191,80
+				L161,80
+				L158,92
+				L240,256
+				L256,210
+				Z
+				M88,108
+				L168,108
+				L242,256
+				L118,256
+				L80,180
+				Z
+			" fill="#4e5d94" stroke="#4e5d94"/>
+			<path d="
+				M65,80
+				L95,80
+				L98,92
+				L89,92
+				A13,13,0,1,0,72,109
+				L71,118
+				L57,112
+				Z
+				M191,80
+				L161,80
+				L158,92
+				L167,92
+				A13,13,0,1,1,184,109
+				L185,118
+				L199,112
+				Z
+				M88,108
+				L168,108
+				L176,180
+				L128,192
+				L80,180
+				Z
+			" fill="#ffffff" stroke="#ffffff"/>
+			<path d="
+				M108,135
+				L108,143
+				Z
+				M148,135
+				L148,143
+				Z
+				M127,164
+				L129,164
+				Z
+				M112,156
+				L128,152
+				L144,156
+				L144,180
+				L128,184
+				L112,180
+				Z
+			" fill="none" stroke="#4e5d94"/>
+		</g>
+		<g>
+			<animate
+				attributeName="display"
+				dur="3.2s"
+				calcMode="discrete"
+				repeatCount="indefinite"
+				keyTimes="0; .05; .0625; .075; .125; .1375; .15; .25; .2625; .275; .325; .3375; .35;"
+				values="none; none; inline; none; inline; none; none; none; inline; none; inline; none; none;"
+			/>
+			<path d="
+				M65,81
+				L95,81
+				L182.5,256
+				L128.5,256
+				L57,113
+				Z
+				M191,81
+				L161,81
+				L158,93
+				L239.5,256
+				L256,211
+				Z
+				M88,109
+				L168,109
+				L242,256
+				L118,256
+				L80,180
+				Z
+			" fill="#4e5d94" stroke="#4e5d94"/>
+			<path d="
+				M65,81
+				L95,81
+				L98,93
+				L89,93
+				A13,13,0,1,0,72,110
+				L71,119
+				L57,113
+				Z
+				M191,81
+				L161,81
+				L158,93
+				L167,93
+				A13,13,0,1,1,184,110
+				L185,119
+				L199,113
+				Z
+				M88,109
+				L168,109
+				L176,180
+				L128,192
+				L80,180
+				Z
+			" fill="#ffffff" stroke="#ffffff"/>
+			<path d="
+				M108,138
+				L108,142
+				Z
+				M148,138
+				L148,142
+				Z
+				M127,163
+				L129,163
+				Z
+				M112,155
+				L128,151
+				L144,155
+				L144,179
+				L128,183
+				L112,179
+				Z
+			" fill="none" stroke="#4e5d94"/>
+		</g>
+		<g>
+			<animate
+				attributeName="display"
+				dur="3.2s"
+				calcMode="discrete"
+				repeatCount="indefinite"
+				keyTimes="0; .05; .0625; .075; .125; .1375; .15; .25; .2625; .275; .325; .3375; .35;"
+				values="none; none; none; inline; none; none; none; none; none; inline; none; none; none;"
+			/>
+			<path d="
+				M65,82
+				L95,82
+				L182,256
+				L128,256
+				L57,114
+				Z
+				M191,82
+				L161,82
+				L158,94
+				L239,256
+				L256,212
+				Z
+				M88,110
+				L168,110
+				L242,256
+				L118,256
+				L80,180
+				Z
+			" fill="#4e5d94" stroke="#4e5d94"/>
+			<path d="
+				M65,82
+				L95,82
+				L98,94
+				L89,94
+				A13,13,0,1,0,72,111
+				L71,120
+				L57,114
+				Z
+				M191,82
+				L161,82
+				L158,94
+				L167,94
+				A13,13,0,1,1,184,111
+				L185,120
+				L199,114
+				Z
+				M88,110
+				L168,110
+				L176,180
+				L128,192
+				L80,180
+				Z
+			" fill="#ffffff" stroke="#ffffff"/>
+			<path d="
+				M105,141
+				L108,141
+				Z
+				M151,141
+				L148,141
+				Z
+				M127,162
+				L129,162
+				Z
+				M112,154
+				L128,150
+				L144,154
+				L144,178
+				L128,182
+				L112,178
+				Z
+			" fill="none" stroke="#4e5d94"/>
 		</g>
 	</g>
 	<circle cx="128" cy="128" r="96" fill="none" stroke="#23272a" stroke-width="4"/>
