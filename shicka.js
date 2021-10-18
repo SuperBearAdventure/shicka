@@ -20,6 +20,25 @@ const {
 } = process.env;
 const here = import.meta.url;
 const root = here.slice(0, here.lastIndexOf("/"));
+const commands = await loadActions(`${root}/commands`);
+const feeds = await loadActions(`${root}/feeds`);
+const triggers = await loadActions(`${root}/triggers`);
+const data = await loadData(`${root}/data`);
+const greetings = await loadGreetings(`${root}/greetings`);
+// const bearsByLevel = indexBearByLevel(data.bears, data.levels);
+// const outfitsByPart = indexOutfitsByPart(data.outfits, data.parts);
+const outfitsByRarity = indexOutfitsByRarity(data.outfits, data.rarities);
+// const outfitsByUpdate = indexOutfitsByUpdate(data.outfits, data.updates);
+// const missionsByChallenge = indexMissionsByChallenge(data.missions, data.challenges);
+// const missionsByLevel = indexMissionsByChallenge(data.missions, data.levels);
+const indices = Object.assign(Object.create(null), {
+	// bearsByLevel,
+	// outfitsByPart,
+	outfitsByRarity,
+	// outfitsByUpdate,
+	// missionsByChallenge,
+	// missionsByLevel,
+});
 const capture = /^.*$/isu;
 const outerSpace = /^[\n ]+|[\n ]+$/gu;
 const innerSpace = /[\n ]+/gu;
@@ -39,6 +58,14 @@ const client = new Client({
 		status: "online",
 	},
 });
+client.prefix = prefix;
+client.salt = salt;
+client.commands = commands;
+client.feeds = feeds;
+client.triggers = triggers;
+client.data = data;
+client.greetings = greetings;
+client.indices = indices;
 client.once("ready", async () => {
 	console.log("Ready!");
 	const {feeds} = client;
@@ -117,32 +144,4 @@ client.on("messageCreate", async (message) => {
 		}
 	}
 });
-(async () => {
-	const commands = await loadActions(`${root}/commands`);
-	const feeds = await loadActions(`${root}/feeds`);
-	const triggers = await loadActions(`${root}/triggers`);
-	const data = await loadData(`${root}/data`);
-	const greetings = await loadGreetings(`${root}/greetings`);
-	// const bearsByLevel = indexBearByLevel(data.bears, data.levels);
-	// const outfitsByPart = indexOutfitsByPart(data.outfits, data.parts);
-	const outfitsByRarity = indexOutfitsByRarity(data.outfits, data.rarities);
-	// const outfitsByUpdate = indexOutfitsByUpdate(data.outfits, data.updates);
-	// const missionsByChallenge = indexMissionsByChallenge(data.missions, data.challenges);
-	// const missionsByLevel = indexMissionsByChallenge(data.missions, data.levels);
-	client.prefix = prefix;
-	client.salt = salt;
-	client.commands = commands;
-	client.feeds = feeds;
-	client.triggers = triggers;
-	client.data = data;
-	client.greetings = greetings;
-	client.indices = Object.assign(Object.create(null), {
-		// bearsByLevel,
-		// outfitsByPart,
-		outfitsByRarity,
-		// outfitsByUpdate,
-		// missionsByChallenge,
-		// missionsByLevel,
-	});
-	await client.login(discordToken);
-})();
+await client.login(discordToken);

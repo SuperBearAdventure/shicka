@@ -1,11 +1,11 @@
-import fs from "fs";
-import url from "url";
+import fs from "node:fs/promises";
+import url from "node:url";
 import canvas from "canvas";
 import discord from "discord.js";
 import jsdom from "jsdom";
 import serialize from "w3c-xmlserializer";
 import Command from "../command.js";
-const {readFile} = fs.promises;
+const {readFile} = fs;
 const {fileURLToPath} = url;
 const {createCanvas, loadImage} = canvas;
 const {Util} = discord;
