@@ -13,27 +13,27 @@ export default class RawCommand extends Command {
 			const type = listFormat.format(Object.keys(data).map((type) => {
 				return `\`${Util.escapeMarkdown(type)}\``;
 			}));
-			await message.channel.send(`Please give me a type among ${type}.`);
+			await message.reply(`Please give me a type among ${type}.`);
 			return;
 		}
 		const type = parameters[1].toLowerCase();
 		if (!(type in data)) {
-			await message.channel.send(`I do not know any type with this name.`);
+			await message.reply(`I do not know any type with this name.`);
 			return;
 		}
 		const array = data[type];
 		if (parameters.length < 3) {
-			await message.channel.send(`Please give me an identifier${array.length > 0 ? ` between \`0\` and \`${array.length - 1}\`` : ""}.`);
+			await message.reply(`Please give me an identifier${array.length > 0 ? ` between \`0\` and \`${array.length - 1}\`` : ""}.`);
 			return;
 		}
 		const identifier = parameters[2];
 		const matches = identifier.match(pattern);
 		if (matches === null || Number(identifier) >= array.length) {
-			await message.channel.send(`I do not know any datum with this identifier.`);
+			await message.reply(`I do not know any datum with this identifier.`);
 			return;
 		}
 		const datum = Util.escapeMarkdown(JSON.stringify(array[identifier], null, "\t"));
-		await message.channel.send(`\`\`\`json\n${datum}\n\`\`\``);
+		await message.reply(`\`\`\`json\n${datum}\n\`\`\``);
 	}
 	async describe(message, command) {
 		return `Type \`${command} Some type Some identifier\` to get the datum of \`Some type\` with \`Some identifier\``;

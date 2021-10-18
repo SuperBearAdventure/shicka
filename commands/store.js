@@ -8,7 +8,7 @@ export default class StoreCommand extends Command {
 		const links = stores.map((store) => {
 			return `- ${store}`;
 		}).join("\n");
-		await (await message.channel.send(`You can buy official products of the game there:\n${links}`)).suppressEmbeds(true);
+		await (await message.reply(`You can buy official products of the game there:\n${links}`)).suppressEmbeds(true);
 	}
 	async describe(message, command) {
 		return `Type \`${command}\` to know where to buy offical products of the game`;

@@ -30,10 +30,10 @@ export default class UpdateCommand extends Command {
 			const androidDate = `*${Util.escapeMarkdown(dateElement.textContent)}*`;
 			const iosVersion = `**${Util.escapeMarkdown(result.version)}**`;
 			const iosDate = `*${Util.escapeMarkdown(dateFormat.format(new Date (result.currentVersionReleaseDate)))}*`;
-			await message.channel.send(`The latest update of the game is:\n- ${androidVersion} (${androidDate}) on *Android*\n- ${iosVersion} (${iosDate}) on *iOS*`);
+			await message.reply(`The latest update of the game is:\n- ${androidVersion} (${androidDate}) on *Android*\n- ${iosVersion} (${iosDate}) on *iOS*`);
 		} catch (error) {
 			console.warn(error);
-			await (await message.channel.send("You can check and download the latest update of the game there:\n- *Android*: https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer\n- *iOS*: https://apps.apple.com/app/id1531842415")).suppressEmbeds(true);
+			await (await message.reply("You can check and download the latest update of the game there:\n- *Android*: https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer\n- *iOS*: https://apps.apple.com/app/id1531842415")).suppressEmbeds(true);
 		}
 	}
 	async describe(message, command) {

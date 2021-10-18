@@ -111,19 +111,19 @@ export default class OutfitCommand extends Command {
 			sample.push(`- *${Util.escapeMarkdown(dateTime)}*: ${list}`);
 		}
 		const schedule = sample.join("\n");
-		await message.channel.send(`Outfits for sale in the shop change every 6 hours:\n${schedule}`);
+		await message.reply(`Outfits for sale in the shop change every 6 hours:\n${schedule}`);
 		return;
 		}
 		const outfit = nearest(search, outfits, (outfit) => {
 			return outfit.name.toLowerCase();
 		});
 		if (outfit === null) {
-			await message.channel.send(`I do not know any outfit with this name.`);
+			await message.reply(`I do not know any outfit with this name.`);
 			return;
 		}
 		if (!rarities[outfit.rarity].slots) {
 			const name = `**${Util.escapeMarkdown(outfit.name)}**`;
-			await message.channel.send(`${name} is not for sale.`);
+			await message.reply(`${name} is not for sale.`);
 			return;
 		}
 		const sample = [];
@@ -157,7 +157,7 @@ export default class OutfitCommand extends Command {
 		}
 		const list = `${costs.length ? " for " : ""}${listFormat.format(costs)}`;
 		const schedule = sample.join("\n");
-		await message.channel.send(`${name} will be for sale in the shop${list} for 6 hours starting:\n${schedule}`);
+		await message.reply(`${name} will be for sale in the shop${list} for 6 hours starting:\n${schedule}`);
 	}
 	async describe(message, command) {
 		return `Type \`${command}\` to know what is for sale in the shop\nType \`${command} Some outfit\` to know when \`Some outfit\` is for sale in the shop`;

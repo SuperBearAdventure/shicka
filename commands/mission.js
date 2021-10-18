@@ -35,14 +35,14 @@ export default class MissionCommand extends Command {
 			sample.push(`- *${Util.escapeMarkdown(day)}*: ${name}`);
 		}
 		const schedule = sample.join("\n");
-		await message.channel.send(`Each mission starts at *${Util.escapeMarkdown(time)}*:\n${schedule}`);
+		await message.reply(`Each mission starts at *${Util.escapeMarkdown(time)}*:\n${schedule}`);
 		return;
 		}
 		const mission = nearest(search, missions, (mission) => {
 			return `${challenges[mission.challenge].name} in ${levels[mission.level].name}`.toLowerCase();
 		});
 		if (mission === null) {
-			await message.channel.send(`I do not know any mission with this name.`);
+			await message.reply(`I do not know any mission with this name.`);
 			return;
 		}
 		const sample = [];
@@ -58,7 +58,7 @@ export default class MissionCommand extends Command {
 		const level = levels[mission.level].name;
 		const name = `**${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}**`;
 		const schedule = sample.join("\n");
-		await message.channel.send(`${name} will be playable for 1 day starting:\n${schedule}`);
+		await message.reply(`${name} will be playable for 1 day starting:\n${schedule}`);
 	}
 	async describe(message, command) {
 		return `Type \`${command}\` to know the schedule of missions\nType \`${command} Some mission\` to know when \`Some mission\` is playable`;

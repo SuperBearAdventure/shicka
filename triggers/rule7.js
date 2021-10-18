@@ -19,7 +19,7 @@ export default class Rule7Trigger extends Trigger {
 			return emoji.name === "RULE7";
 		});
 		if (typeof emoji !== "undefined") {
-			await message.channel.send(`${emoji}`);
+			await message.reply(`${emoji}`);
 		}
 		const channel = guild.channels.cache.find((channel) => {
 			return channel.name === "❗rules❗";

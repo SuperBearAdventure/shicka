@@ -12,7 +12,7 @@ import {
 	// indexMissionsByChallenge,
 	// indexMissionsByLevel,
 } from "./indexer.js";
-const {Client, Util} = discord;
+const {Client, Intents, Util} = discord;
 const {
 	SHICKA_DISCORD_TOKEN: discordToken,
 	SHICKA_PREFIX: prefix,
@@ -24,11 +24,18 @@ const capture = /^.*$/isu;
 const outerSpace = /^[\n ]+|[\n ]+$/gu;
 const innerSpace = /[\n ]+/gu;
 const client = new Client({
+	intents: [
+		Intents.FLAGS.GUILDS,
+		Intents.FLAGS.GUILD_MESSAGES,
+		Intents.FLAGS.GUILD_MEMBERS,
+	],
 	presence: {
-		activity: {
-			name: `${prefix}help - Super Bear Adventure`,
-			type: "PLAYING",
-		},
+		activities: [
+			{
+				name: `${prefix}help - Super Bear Adventure`,
+				type: "PLAYING",
+			},
+		],
 		status: "online",
 	},
 });
@@ -73,8 +80,8 @@ client.on("guildMemberRemove", async (member) => {
 		console.error(error);
 	}
 });
-client.on("message", async (message) => {
-	if (message.author.bot || message.channel.type !== "text") {
+client.on("messageCreate", async (message) => {
+	if (message.author.bot || message.channel.type !== "GUILD_TEXT") {
 		return;
 	}
 	const {content} = message;
@@ -97,8 +104,8 @@ client.on("message", async (message) => {
 		console.error(error);
 	}
 });
-client.on("message", async (message) => {
-	if (message.author.bot || message.channel.type !== "text") {
+client.on("messageCreate", async (message) => {
+	if (message.author.bot || message.channel.type !== "GUILD_TEXT") {
 		return;
 	}
 	const {triggers} = client;
@@ -137,5 +144,5 @@ client.on("message", async (message) => {
 		// missionsByChallenge,
 		// missionsByLevel,
 	});
-	client.login(discordToken);
+	await client.login(discordToken);
 })();
