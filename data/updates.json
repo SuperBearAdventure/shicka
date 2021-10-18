@@ -763,8 +763,32 @@
 		"name": "1.9.9",
 		"date": {
 			"android": "2021-07-23",
+			"ios": "2021-09-27"
+		},
+		"notes": [
+			"New camera behavior",
+			"Updated input system for better gamepad support",
+			"Various improvements and bug fixes"
+		]
+	},
+	{
+		"name": "1.9.9.1",
+		"date": {
+			"android": "2021-09-15",
 			"ios": null
 		},
 		"notes": []
+	},
+	{
+		"name": "1.9.10",
+		"date": {
+			"android": null,
+			"ios": "2021-09-30"
+		},
+		"notes": [
+			"New camera behavior",
+			"Updated input system for better gamepad support",
+			"Various improvements and bug fixes"
+		]
 	}
 ]
