@@ -8,7 +8,7 @@ import Command from "../command.js";
 const {readFile} = fs.promises;
 const {fileURLToPath} = url;
 const {createCanvas, loadImage} = canvas;
-const {MessageAttachment, Util} = discord;
+const {Util} = discord;
 const {JSDOM} = jsdom;
 const here = import.meta.url;
 const root = here.slice(0, here.lastIndexOf("/"));
@@ -80,13 +80,21 @@ export default class EmojiCommand extends Command {
 		const height = Number(svg.getAttribute("height")) * zoom;
 		svg.setAttribute("width", width);
 		svg.setAttribute("height", height);
-		const url = `data:image/svg+xml;charset=utf-8,${serialize(wrapper).slice(42, -6)}`;
+		const url = `data:image/svg+xml;charset=utf-8,${serialize(wrapper, {
+			requireWellFormed: true,
+		}).slice(42, -6)}`;
 		const image = await loadImage(url);
 		const canvas = createCanvas(width, height);
 		const context = canvas.getContext("2d");
 		context.drawImage(image, 0, 0, width, height);
-		const attachment = new MessageAttachment(canvas.toBuffer(), `${base}.png`);
-		await message.channel.send(attachment);
+		await message.channel.send({
+			files: [
+				{
+					attachment: canvas.toBuffer(),
+					name: `${base}.png`,
+				},
+			],
+		});
 	}
 	async describe(message, command) {
 		if (!channels.has(message.channel.name)) {

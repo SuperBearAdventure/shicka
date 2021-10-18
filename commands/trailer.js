@@ -8,7 +8,7 @@ export default class TrailerCommand extends Command {
 		const links = trailers.map((trailer) => {
 			return `- ${trailer}`;
 		}).join("\n");
-		await (await message.channel.send(`You can watch official trailers of the game there:\n${links}`)).suppressEmbeds(true);
+		await (await message.reply(`You can watch official trailers of the game there:\n${links}`)).suppressEmbeds(true);
 	}
 	async describe(message, command) {
 		return `Type \`${command}\` to know where to watch official trailers of the game`;

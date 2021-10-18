@@ -14,7 +14,7 @@ export default class LeaderboardCommand extends Command {
 		const links = leaderboards.map((leaderboard) => {
 			return `- ${leaderboard}`;
 		}).join("\n");
-		await (await message.channel.send(`You can watch community speedruns there:\n${links}`)).suppressEmbeds(true);
+		await (await message.reply(`You can watch community speedruns there:\n${links}`)).suppressEmbeds(true);
 	}
 	async describe(message, command) {
 		return `Type \`${command}\` to know where to watch community speedruns of the game`;

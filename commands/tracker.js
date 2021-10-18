@@ -12,10 +12,10 @@ export default class TrackerCommand extends Command {
 			return channel.name === "🐛bug-report";
 		});
 		if (typeof channel !== "undefined") {
-			await (await message.channel.send(`Before reporting a bug in ${channel}, check the known bugs of the game there:\n${links}`)).suppressEmbeds(true);
+			await (await message.reply(`Before reporting a bug in ${channel}, check the known bugs of the game there:\n${links}`)).suppressEmbeds(true);
 			return;
 		}
-		await (await message.channel.send(`You can check known bugs of the game there:\n${links}`)).suppressEmbeds(true);
+		await (await message.reply(`You can check known bugs of the game there:\n${links}`)).suppressEmbeds(true);
 	}
 	async describe(message, command) {
 		return `Type \`${command}\` to know where to check known bugs of the game`;

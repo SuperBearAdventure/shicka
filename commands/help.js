@@ -23,7 +23,7 @@ export default class HelpCommand extends Command {
 				return `- ${item}`;
 			});
 		}).flat().join("\n");
-		await message.channel.send(`Hey ${author}, there you are!\nI can give you some advice about the server:\n${help}`);
+		await message.reply(`Hey ${author}, there you are!\nI can give you some advice about the server:\n${help}`);
 	}
 	async describe(message, command) {
 		return `Type \`${command}\` to know the features I offer`;

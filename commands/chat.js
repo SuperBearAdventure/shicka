@@ -1,6 +1,6 @@
 import discord from "discord.js";
 import Command from "../command.js";
-const {MessageAttachment, MessageMentions} = discord;
+const {MessageMentions} = discord;
 const {source} = MessageMentions.CHANNELS_PATTERN;
 const messagePattern = /^(?:0|[1-9]\d*)$/;
 const channelPattern = new RegExp(`^(?:${source})$`, "");
@@ -11,28 +11,28 @@ export default class ChatCommand extends Command {
 			return;
 		}
 		if (parameters.length < 2) {
-			await message.channel.send(`Please give me a message identifier or a channel tag.`);
+			await message.reply(`Please give me a message identifier or a channel tag.`);
 			return;
 		}
 		const channelMatches = parameters[1].match(channelPattern);
 		if (channelMatches === null) {
 			const messageMatches = parameters[1].match(messagePattern);
 			if (messageMatches === null) {
-				await message.channel.send(`I do not know any message with this identifier or channel with this tag.`);
+				await message.reply(`I do not know any message with this identifier or channel with this tag.`);
 				return;
 			}
 			if (parameters.length < 3) {
-				await message.channel.send(`Please give me a channel tag.`);
+				await message.reply(`Please give me a channel tag.`);
 				return;
 			}
 			const channelMatches = parameters[2].match(channelPattern);
 			if (channelMatches === null) {
-				await message.channel.send(`I do not know any channel with this tag.`);
+				await message.reply(`I do not know any channel with this tag.`);
 				return;
 			}
 			const channel = message.guild.channels.cache.get(channelMatches[1]);
 			if (typeof channel === "undefined") {
-				await message.channel.send(`I do not know any channel with this tag.`);
+				await message.reply(`I do not know any channel with this tag.`);
 				return;
 			}
 			const target = await (async () => {
@@ -41,30 +41,35 @@ export default class ChatCommand extends Command {
 				} catch {}
 			})();
 			if (typeof target === "undefined") {
-				await message.channel.send(`I do not know any message with this identifier in this channel.`);
+				await message.reply(`I do not know any message with this identifier in this channel.`);
 				return;
 			}
-			if (parameters.length < 4) {
-				await message.channel.send(`Please give me an inline message.`);
+			if (parameters.length < 4 && target.attachments.size === 0) {
+				await message.reply(`Please give me an inline message.`);
 				return;
 			}
-			await (await target.edit(parameters.slice(3).join(" "))).suppressEmbeds(false);
+			const content = parameters.length < 4 ? null : parameters.slice(3).join(" ");
+			await (await target.edit(content)).suppressEmbeds(true);
 			return;
 		}
 		const channel = message.guild.channels.cache.get(channelMatches[1]);
 		if (typeof channel === "undefined") {
-			await message.channel.send(`I do not know any channel with this tag.`);
+			await message.reply(`I do not know any channel with this tag.`);
 			return;
 		}
 		if (parameters.length < 3 && message.attachments.size === 0) {
-			await message.channel.send(`Please give me an inline message or attachments.`);
+			await message.reply(`Please give me an inline message or attachments.`);
 			return;
 		}
-		const attachments = message.attachments.map((attachment) => {
+		const content = parameters.length < 3 ? null : parameters.slice(2).join(" ");
+		const files = message.attachments.map((attachment) => {
 			const {name, url} = attachment;
-			return new MessageAttachment(url, name);
+			return {
+				attachment: url,
+				name: name,
+			};
 		});
-		await (await channel.send(parameters.slice(2).join(" "), attachments)).suppressEmbeds(false);
+		await (await channel.send({content, files})).suppressEmbeds(true);
 	}
 	async describe(message, command) {
 		if (!channels.has(message.channel.name)) {
