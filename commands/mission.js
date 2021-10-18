@@ -20,7 +20,7 @@ export default class MissionCommand extends Command {
 	async execute(message, parameters) {
 		const {challenges, levels, missions} = message.client.data;
 		const missionCount = missions.length;
-		const now = Math.floor((Date.now() + 7200000) / 86400000);
+		const now = Math.floor((message.createdTimestamp + 7200000) / 86400000);
 		const search = parameters.slice(1).join(" ").toLowerCase();
 		if (search === "") {
 		const sample = [];

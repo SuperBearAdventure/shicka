@@ -81,7 +81,7 @@ export default class OutfitCommand extends Command {
 			}
 			return outfitsByRarity[rarity.id].length / rarity.slots;
 		})));
-		const now = Math.floor(Date.now() / 21600000);
+		const now = Math.floor(message.createdTimestamp / 21600000);
 		const search = parameters.slice(1).join(" ").toLowerCase();
 		if (search === "") {
 		const sample = [];

@@ -6,11 +6,11 @@ const {Util} = discord;
 const games = ["9d3rrxyd", "w6jl2ned"];
 export default class RecordFeed extends Feed {
 	schedule(client) {
-		schedule.scheduleJob({
-				rule: "1 3/6 * * *",
-				tz: "UTC",
-			}, async () => {
-			const middle = Math.floor(Date.now() / 21600000) * 21600000;
+		return schedule.scheduleJob({
+			rule: "1 3/6 * * *",
+			tz: "UTC",
+		}, async (timestamp) => {
+			const middle = Math.floor(timestamp.getTime() / 21600000) * 21600000;
 			const start = middle - 10800000;
 			const end = middle + 10800000;
 			const records = await this.execute(start, end);
