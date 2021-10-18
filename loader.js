@@ -1,7 +1,7 @@
-import url from "url";
-import fs from "fs";
+import fs from "node:fs/promises";
+import url from "node:url";
+const {readFile, readdir} = fs;
 const {fileURLToPath} = url;
-const {readFile, readdir} = fs.promises;
 async function load(directory, extension, callback) {
 	const {length} = extension;
 	const files = await readdir(fileURLToPath(directory));
