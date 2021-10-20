@@ -10,13 +10,17 @@ const leaderboards = [
 	"*Category Extensions leaderboard*: https://www.speedrun.com/sbace",
 ];
 export default class LeaderboardCommand extends Command {
-	async execute(message, parameters) {
-		const links = leaderboards.map((leaderboard) => {
+	async execute(interaction) {
+		const linkList = leaderboards.map((leaderboard) => {
 			return `- ${leaderboard}`;
 		}).join("\n");
-		await (await message.reply(`You can watch community speedruns there:\n${links}`)).suppressEmbeds(true);
+		await (await interaction.reply({
+			content: `You can watch community speedruns there:\n${linkList}`,
+			fetchReply: true,
+		})).suppressEmbeds(true);
 	}
-	async describe(message, command) {
-		return `Type \`${command}\` to know where to watch community speedruns of the game`;
+	describe(interaction, name) {
+		const description = `Type \`/${name}\` to know where to watch community speedruns of the game`;
+		return {name, description};
 	}
 }

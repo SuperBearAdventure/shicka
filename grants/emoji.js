@@ -4,7 +4,7 @@ import canvas from "canvas";
 import discord from "discord.js";
 import jsdom from "jsdom";
 import serialize from "w3c-xmlserializer";
-import Command from "../command.js";
+import Grant from "../grant.js";
 const {readFile} = fs;
 const {fileURLToPath} = url;
 const {createCanvas, loadImage} = canvas;
@@ -12,7 +12,7 @@ const {Util} = discord;
 const {JSDOM} = jsdom;
 const here = import.meta.url;
 const root = here.slice(0, here.lastIndexOf("/"));
-const listFormat = new Intl.ListFormat("en-US", {
+const conjunctionFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
@@ -31,19 +31,19 @@ const styles = Object.assign(Object.create(null), {
 	"none": "none",
 });
 const channels = new Set(["🔎logs", "🛡moderators-room", "🍪cookie-room"]);
-export default class EmojiCommand extends Command {
+export default class EmojiGrant extends Grant {
 	async execute(message, parameters) {
 		if (!channels.has(message.channel.name)) {
 			return;
 		}
 		if (parameters.length < 2) {
-			const base = listFormat.format(Array.from(bases.keys()).map((base) => {
+			const baseConjunction = conjunctionFormat.format(Array.from(bases.keys()).map((base) => {
 				return `\`${Util.escapeMarkdown(base)}\``;
 			}));
-			const style = listFormat.format(Object.keys(styles).concat("auto").map((style) => {
+			const styleConjunction = conjunctionFormat.format(Object.keys(styles).concat("auto").map((style) => {
 				return `\`${Util.escapeMarkdown(style)}\``;
 			}));
-			await message.channel.send(`Please give me:\n- a base among ${base}\n- up to 6 styles among ${style}`);
+			await message.channel.send(`Please give me:\n- a base among ${baseConjunction}\n- up to 6 styles among ${styleConjunction}`);
 			return;
 		}
 		const base = parameters[1].toLowerCase();
@@ -87,7 +87,7 @@ export default class EmojiCommand extends Command {
 		const canvas = createCanvas(width, height);
 		const context = canvas.getContext("2d");
 		context.drawImage(image, 0, 0, width, height);
-		await message.channel.send({
+		await message.reply({
 			files: [
 				{
 					attachment: canvas.toBuffer(),
@@ -96,10 +96,8 @@ export default class EmojiCommand extends Command {
 			],
 		});
 	}
-	async describe(message, command) {
-		if (!channels.has(message.channel.name)) {
-			return "";
-		}
-		return `Type \`${command} Some base Some styles\` to create a new \`Some base\`-based emoji customized with \`Some styles\``;
+	describe(interaction, name) {
+		const description = channels.has(interaction.channel.name) ? `Type \`/${name} Some base Some styles\` to create a new \`Some base\`-based emoji customized with \`Some styles\`` : null;
+		return {name, description};
 	}
 }

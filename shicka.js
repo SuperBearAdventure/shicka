@@ -15,11 +15,11 @@ import {
 const {Client, Intents, Util} = discord;
 const {
 	SHICKA_DISCORD_TOKEN: discordToken,
-	SHICKA_PREFIX: prefix,
 	SHICKA_SALT: salt,
 } = process.env;
 const here = import.meta.url;
 const root = here.slice(0, here.lastIndexOf("/"));
+const grants = await loadActions(`${root}/grants`);
 const commands = await loadActions(`${root}/commands`);
 const feeds = await loadActions(`${root}/feeds`);
 const triggers = await loadActions(`${root}/triggers`);
@@ -51,24 +51,32 @@ const client = new Client({
 	presence: {
 		activities: [
 			{
-				name: `${prefix}help - Super Bear Adventure`,
+				name: `/help - Super Bear Adventure`,
 				type: "PLAYING",
 			},
 		],
 		status: "online",
 	},
 });
-client.prefix = prefix;
 client.salt = salt;
+client.grants = grants;
 client.commands = commands;
 client.feeds = feeds;
 client.triggers = triggers;
 client.data = data;
 client.greetings = greetings;
 client.indices = indices;
-client.once("ready", async () => {
+client.once("ready", async (client) => {
 	console.log("Ready!");
-	const {feeds} = client;
+	const {commands, feeds} = client;
+	const menu = Object.entries(commands).map(([name, command]) => {
+		const item = command.describe({client}, name);
+		item.description = item.description.slice(0, 100);
+		return item;
+	});
+	for (const guild of client.guilds.cache.values()) {
+		guild.commands.set(menu);
+	}
 	for (const feed in feeds) {
 		const job = feeds[feed].schedule(client);
 		job.on("error", (error) => {
@@ -79,9 +87,9 @@ client.once("ready", async () => {
 client.on("guildMemberAdd", async (member) => {
 	const {memberCount, systemChannel} = member.guild;
 	const name = `${member}`;
-	const greetings = client.greetings.hey;
+	const greetings = member.client.greetings.hey;
 	const greeting = name.replace(capture, greetings[Math.random() * greetings.length | 0]);
-	const counting = memberCount % 10 ? "" : `\nWe are now ${memberCount} members!`;
+	const counting = memberCount % 10 !== 0 ? "" : `\nWe are now ${Util.escapeMarkdown(`${memberCount}`)} members!`;
 	try {
 		const message = await systemChannel.send(`${greeting}${counting}`);
 		await message.react("🇭");
@@ -95,7 +103,7 @@ client.on("guildMemberAdd", async (member) => {
 client.on("guildMemberRemove", async (member) => {
 	const {systemChannel} = member.guild;
 	const name = `**${Util.escapeMarkdown(member.user.username)}**`;
-	const greetings = client.greetings.bye;
+	const greetings = member.client.greetings.bye;
 	const greeting = name.replace(capture, greetings[Math.random() * greetings.length | 0]);
 	try {
 		const message = await systemChannel.send(greeting);
@@ -107,26 +115,20 @@ client.on("guildMemberRemove", async (member) => {
 		console.error(error);
 	}
 });
-client.on("messageCreate", async (message) => {
-	if (message.author.bot || message.channel.type !== "GUILD_TEXT") {
+client.on("interactionCreate", async (interaction) => {
+	if (interaction.user.bot || interaction.channel.type !== "GUILD_TEXT") {
 		return;
 	}
-	const {content} = message;
-	const {prefix} = client;
-	if (!content.startsWith(prefix)) {
+	if (!interaction.isCommand()) {
 		return;
 	}
-	const parameters = content.slice(prefix.length).replace(outerSpace, "").split(innerSpace);
-	if (!parameters.length) {
-		return;
-	}
-	const command = parameters[0];
-	const {commands} = client;
-	if (!(command in commands)) {
+	const {commandName} = interaction;
+	const {commands} = interaction.client;
+	if (!(commandName in commands)) {
 		return;
 	}
 	try {
-		await commands[command].execute(message, parameters);
+		await commands[commandName].execute(interaction);
 	} catch (error) {
 		console.error(error);
 	}
@@ -135,7 +137,30 @@ client.on("messageCreate", async (message) => {
 	if (message.author.bot || message.channel.type !== "GUILD_TEXT") {
 		return;
 	}
-	const {triggers} = client;
+	const {content} = message;
+	if (!content.startsWith("/")) {
+		return;
+	}
+	const parameters = content.slice(1).replace(outerSpace, "").split(innerSpace);
+	if (parameters.length === 0) {
+		return;
+	}
+	const grant = parameters[0];
+	const {grants} = message.client;
+	if (!(grant in grants)) {
+		return;
+	}
+	try {
+		await grants[grant].execute(message, parameters);
+	} catch (error) {
+		console.error(error);
+	}
+});
+client.on("messageCreate", async (message) => {
+	if (message.author.bot || message.channel.type !== "GUILD_TEXT") {
+		return;
+	}
+	const {triggers} = message.client;
 	for (const trigger in triggers) {
 		try {
 			await triggers[trigger].execute(message);

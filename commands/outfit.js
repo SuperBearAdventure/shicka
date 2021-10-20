@@ -7,7 +7,7 @@ const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	timeStyle: "short",
 	timeZone: "UTC",
 });
-const listFormat = new Intl.ListFormat("en-US", {
+const conjunctionFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
@@ -70,28 +70,29 @@ function sliceOutfits(generator, outfits, outfitsPerSlice, slicesPerRarity) {
 	return slices;
 }
 export default class OutfitCommand extends Command {
-	async execute(message, parameters) {
-		const {salt, data, indices} = message.client;
+	async execute(interaction) {
+		const {client, options} = interaction;
+		const {data, indices, salt} = client;
 		const {outfits, rarities} = data;
 		const {outfitsByRarity} = indices;
 		const slicesByRarityBySeed = Object.create(null);
 		const slicesPerRarity = Math.ceil(Math.max(...rarities.map((rarity) => {
-			if (!rarity.slots) {
+			if (rarity.slots === 0) {
 				return 0;
 			}
 			return outfitsByRarity[rarity.id].length / rarity.slots;
 		})));
-		const now = Math.floor(message.createdTimestamp / 21600000);
-		const search = parameters.slice(1).join(" ").toLowerCase();
-		if (search === "") {
-		const sample = [];
+		const now = Math.floor(interaction.createdTimestamp / 21600000);
+		const search = options.getString("outfit");
+		if (search === null) {
+		const schedules = [];
 		for (let k = -2; k < 4; ++k) {
-			const date = now + k;
-			const seed = Math.floor(date / slicesPerRarity);
+			const day = now + k;
+			const seed = Math.floor(day / slicesPerRarity);
 			const slicesByRarity = slicesByRarityBySeed[seed] ??= (() => {
 				const generator = xorShift32(knuth(BigInt(seed) + BigInt(salt)) || BigInt(salt));
 				return rarities.map((rarity) => {
-					if (!rarity.slots) {
+					if (rarity.slots === 0) {
 						const length = slicesPerRarity;
 						return Array.from({length}, () => {
 							return [];
@@ -100,66 +101,78 @@ export default class OutfitCommand extends Command {
 					return sliceOutfits(generator, outfitsByRarity[rarity.id], rarity.slots, slicesPerRarity);
 				});
 			})();
-			const index = date - seed * slicesPerRarity;
+			const index = day - seed * slicesPerRarity;
 			const names = slicesByRarity.map((slices) => {
 				return slices[index];
 			}).flat().map((outfit) => {
-				return `**${Util.escapeMarkdown(outfit.name)}**`;
+				const {name} = outfit;
+				return `**${Util.escapeMarkdown(name)}**`;
 			});
-			const dateTime = dateTimeFormat.format(new Date(date * 21600000));
-			const list = listFormat.format(names);
-			sample.push(`- *${Util.escapeMarkdown(dateTime)}*: ${list}`);
+			const dayDateTime = dateTimeFormat.format(new Date(day * 21600000));
+			const nameConjunction = conjunctionFormat.format(names);
+			schedules.push(`- *${Util.escapeMarkdown(dayDateTime)}*: ${nameConjunction}`);
 		}
-		const schedule = sample.join("\n");
-		await message.reply(`Outfits for sale in the shop change every 6 hours:\n${schedule}`);
+		const scheduleList = schedules.join("\n");
+		await interaction.reply(`Outfits for sale in the shop change every 6 hours:\n${scheduleList}`);
 		return;
 		}
-		const outfit = nearest(search, outfits, (outfit) => {
+		const outfit = nearest(search.toLowerCase(), outfits, (outfit) => {
 			return outfit.name.toLowerCase();
 		});
 		if (outfit === null) {
-			await message.reply(`I do not know any outfit with this name.`);
+			await interaction.reply({
+				content: `I do not know any outfit with this name.`,
+				ephemeral: true,
+			});
 			return;
 		}
-		if (!rarities[outfit.rarity].slots) {
-			const name = `**${Util.escapeMarkdown(outfit.name)}**`;
-			await message.reply(`${name} is not for sale.`);
+		if (rarities[outfit.rarity].slots === 0) {
+			const {name} = outfit;
+			await interaction.reply(`**${Util.escapeMarkdown(name)}** is not for sale.`);
 			return;
 		}
-		const sample = [];
-		for (let k = -2; k < 4 || sample.length < 2; ++k) {
-			const date = now + k;
-			const seed = Math.floor(date / slicesPerRarity);
+		const schedules = [];
+		for (let k = -2; k < 4 || schedules.length < 2; ++k) {
+			const day = now + k;
+			const seed = Math.floor(day / slicesPerRarity);
 			const slicesByRarity = slicesByRarityBySeed[seed] ??= (() => {
 				const generator = xorShift32(knuth(BigInt(seed) + BigInt(salt)) || BigInt(salt));
 				return rarities.map((rarity) => {
-					if (!rarity.slots) {
+					if (rarity.slots === 0) {
 						return [];
 					}
 					return sliceOutfits(generator, outfitsByRarity[rarity.id], rarity.slots, slicesPerRarity);
 				});
 			})();
-			const index = date - seed * slicesPerRarity;
+			const index = day - seed * slicesPerRarity;
 			if (slicesByRarity[outfit.rarity][index].includes(outfit)) {
-				const dateTime = dateTimeFormat.format(new Date(date * 21600000));
-				sample.push(`- *${Util.escapeMarkdown(dateTime)}*`);
+				const dayDateTime = dateTimeFormat.format(new Date(day * 21600000));
+				schedules.push(`- *${Util.escapeMarkdown(dayDateTime)}*`);
 			}
 		}
-		const name = `**${Util.escapeMarkdown(outfit.name)}**`;
+		const {name} = outfit;
 		const costs = [];
 		const tokens = outfit.cost;
-		if (tokens) {
-			costs.push(`**${tokens} Tristopio token${tokens !== 1 ? "s" : ""}**`)
+		if (tokens !== 0) {
+			costs.push(`**${Util.escapeMarkdown(`${tokens}`)} Tristopio token${tokens !== 1 ? "s" : ""}**`);
 		}
 		const coins = rarities[outfit.rarity].cost;
-		if (coins) {
-			costs.push(`**${coins} coin${coins !== 1 ? "s" : ""}**`)
+		if (coins !== 0) {
+			costs.push(`**${Util.escapeMarkdown(`${coins}`)} coin${coins !== 1 ? "s" : ""}**`);
 		}
-		const list = `${costs.length ? " for " : ""}${listFormat.format(costs)}`;
-		const schedule = sample.join("\n");
-		await message.reply(`${name} will be for sale in the shop${list} for 6 hours starting:\n${schedule}`);
+		const costConjunction = `${costs.length !== 0 ? " for " : ""}${conjunctionFormat.format(costs)}`;
+		const scheduleList = schedules.join("\n");
+		await interaction.reply(`**${Util.escapeMarkdown(name)}** will be for sale in the shop${costConjunction} for 6 hours starting:\n${scheduleList}`);
 	}
-	async describe(message, command) {
-		return `Type \`${command}\` to know what is for sale in the shop\nType \`${command} Some outfit\` to know when \`Some outfit\` is for sale in the shop`;
+	describe(interaction, name) {
+		const description = `Type \`/${name}\` to know what is for sale in the shop\nType \`/${name} Some outfit\` to know when \`Some outfit\` is for sale in the shop`;
+		const options = [
+			{
+				type: "STRING",
+				name: "outfit",
+				description: "Some outfit",
+			},
+		];
+		return {name, description, options};
 	}
 }

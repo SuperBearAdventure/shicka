@@ -15,52 +15,63 @@ const timeFormat = new Intl.DateTimeFormat("en-US", {
 	timeStyle: "short",
 	timeZone: "UTC",
 });
-const time = timeFormat.format(new Date(36000000));
+const dayTime = timeFormat.format(new Date(36000000));
 export default class MissionCommand extends Command {
-	async execute(message, parameters) {
-		const {challenges, levels, missions} = message.client.data;
+	async execute(interaction) {
+		const {client, options} = interaction;
+		const {data} = client;
+		const {challenges, levels, missions} = data;
 		const missionCount = missions.length;
-		const now = Math.floor((message.createdTimestamp + 7200000) / 86400000);
-		const search = parameters.slice(1).join(" ").toLowerCase();
-		if (search === "") {
-		const sample = [];
+		const now = Math.floor((interaction.createdTimestamp + 7200000) / 86400000);
+		const search = options.getString("mission");
+		if (search === null) {
+		const schedules = [];
 		for (let k = -1; k < 2; ++k) {
-			const date = now + k;
-			const seed = (date % missionCount + missionCount) % missionCount;
+			const day = now + k;
+			const seed = (day % missionCount + missionCount) % missionCount;
 			const mission = missions[seed];
 			const challenge = challenges[mission.challenge].name;
 			const level = levels[mission.level].name;
-			const name = `**${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}**`;
-			const day = dateFormat.format(new Date(date * 86400000));
-			sample.push(`- *${Util.escapeMarkdown(day)}*: ${name}`);
+			const dayDate = dateFormat.format(new Date(day * 86400000));
+			schedules.push(`- *${Util.escapeMarkdown(dayDate)}*: **${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}**`);
 		}
-		const schedule = sample.join("\n");
-		await message.reply(`Each mission starts at *${Util.escapeMarkdown(time)}*:\n${schedule}`);
+		const scheduleList = schedules.join("\n");
+		await interaction.reply(`Each mission starts at *${Util.escapeMarkdown(dayTime)}*:\n${scheduleList}`);
 		return;
 		}
-		const mission = nearest(search, missions, (mission) => {
+		const mission = nearest(search.toLowerCase(), missions, (mission) => {
 			return `${challenges[mission.challenge].name} in ${levels[mission.level].name}`.toLowerCase();
 		});
 		if (mission === null) {
-			await message.reply(`I do not know any mission with this name.`);
+			await interaction.reply({
+				content: `I do not know any mission with this name.`,
+				ephemeral: true,
+			});
 			return;
 		}
-		const sample = [];
-		for (let k = -1; k < 2 || sample.length < 2; ++k) {
-			const date = now + k;
-			const seed = (date % missionCount + missionCount) % missionCount;
+		const schedules = [];
+		for (let k = -1; k < 2 || schedules.length < 2; ++k) {
+			const day = now + k;
+			const seed = (day % missionCount + missionCount) % missionCount;
 			if (missions[seed] === mission) {
-				const dateTime = dateTimeFormat.format(new Date(date * 86400000 + 36000000));
-				sample.push(`- *${Util.escapeMarkdown(dateTime)}*`);
+				const dayDateTime = dateTimeFormat.format(new Date(day * 86400000 + 36000000));
+				schedules.push(`- *${Util.escapeMarkdown(dayDateTime)}*`);
 			}
 		}
 		const challenge = challenges[mission.challenge].name;
 		const level = levels[mission.level].name;
-		const name = `**${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}**`;
-		const schedule = sample.join("\n");
-		await message.reply(`${name} will be playable for 1 day starting:\n${schedule}`);
+		const scheduleList = schedules.join("\n");
+		await interaction.reply(`**${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}** will be playable for 1 day starting:\n${scheduleList}`);
 	}
-	async describe(message, command) {
-		return `Type \`${command}\` to know the schedule of missions\nType \`${command} Some mission\` to know when \`Some mission\` is playable`;
+	describe(interaction, name) {
+		const description = `Type \`/${name}\` to know what is playable in the shop\nType \`/${name} Some mission\` to know when \`Some mission\` is playable in the shop`;
+		const options = [
+			{
+				type: "STRING",
+				name: "mission",
+				description: "Some mission",
+			},
+		];
+		return {name, description, options};
 	}
 }

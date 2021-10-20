@@ -71,7 +71,7 @@ export default class RecordFeed extends Feed {
 							return `var-${variableId}=${values[variableId]}&`;
 						}).join("");
 						leaderboards[leaderboardId] ??= {
-							leaderboardName: leaderboardData.length ? ` - ${leaderboardData.map((variable) => {
+							leaderboardName: leaderboardData.length !== 0 ? ` - ${leaderboardData.map((variable) => {
 								return `${variable.values.values[values[variable.id]].label}`;
 							}).join(", ")}` : "",
 						};
@@ -86,7 +86,7 @@ export default class RecordFeed extends Feed {
 							const response = await fetch(`https://www.speedrun.com/api/v1/leaderboards/${gameId}/${levelId}/${categoryId}?${leaderboardId}status=verified&embed=players&top=1`);
 							const {data} = await response.json();
 							const {players, runs} = data;
-							if (!runs.length) {
+							if (runs.length === 0) {
 								continue;
 							}
 							const {status, times, videos} = runs[0].run;
@@ -95,18 +95,20 @@ export default class RecordFeed extends Feed {
 								continue;
 							}
 							const player = players.data[0];
-							const flag = "location" in player ? `:flag_${Util.escapeMarkdown(player.location.country.code.slice(0, 2).toLowerCase())}: ` : "";
+							const flag = "location" in player ? `${player.location.country.code.slice(0, 2).split("").map((character) => {
+								return String.fromCodePoint(character.codePointAt(0) + 127365);
+							}).join("")} ` : "";
 							const name = "names" in player ? player.names.international : player.name;
-							const user = `*${flag}${Util.escapeMarkdown(name)}*`;
+							const user = `${flag}${name}`;
 							const {primary_t} = times;
 							const minutes = `${primary_t / 60 | 0}`.padStart(2, "0");
 							const seconds = `${primary_t % 60 | 0}`.padStart(2, "0");
 							const centiseconds = `${primary_t * 100 % 100 | 0}`.padStart(2, "0");
-							const time = `**${Util.escapeMarkdown(`${minutes}:${seconds}.${centiseconds}`)}**`;
-							const category = `*${Util.escapeMarkdown(`${levelName}${categoryName}${leaderboardName}`)}*`;
+							const time = `${minutes}:${seconds}.${centiseconds}`;
+							const category = `${levelName}${categoryName}${leaderboardName}`;
 							const links = "links" in videos ? videos.links : [];
-							const video = links.length ? `\n${links[0].uri}` : "";
-							records.push(`${user} set a new world record in the ${category} category: ${time}!${video}`);
+							const video = links.length !== 0 ? `\n${links[0].uri}` : "";
+							records.push(`*${Util.escapeMarkdown(user)}* set a new world record in the *${Util.escapeMarkdown(category)}* category: **${Util.escapeMarkdown(time)}**!${video}`);
 						}
 					}
 				}
@@ -116,13 +118,11 @@ export default class RecordFeed extends Feed {
 		}
 		return records;
 	}
-	async describe(message) {
-		const channel = message.guild.channels.cache.find((channel) => {
+	describe(interaction, name) {
+		const channel = interaction.guild.channels.cache.find((channel) => {
 			return channel.name === "🏅records";
 		});
-		if (typeof channel === "undefined") {
-			return "";
-		}
-		return `I post the latest world records of the game in ${channel}`;
+		const description = typeof channel !== "undefined" ? `I post the latest world records of the game in ${channel}` : null;
+		return {description};
 	}
 }

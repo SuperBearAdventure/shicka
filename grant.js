@@ -1,4 +1,4 @@
 export default class Command {
-	async execute(interaction) {}
+	async execute(message, parameters) {}
 	describe(interaction, name) {}
 }
