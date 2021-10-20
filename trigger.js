@@ -1,6 +1,4 @@
 export default class Trigger {
-	async execute(message, parameters) {}
-	async describe(message) {
-		return "";
-	}
+	async execute(message) {}
+	describe(interaction, name) {}
 }

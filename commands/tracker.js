@@ -4,20 +4,27 @@ const trackers = [
 	"*Former tracker*: https://trello.com/b/yTojOuqv/super-bear-adventure-bugs",
 ];
 export default class TrackerCommand extends Command {
-	async execute(message, parameters) {
-		const links = trackers.map((tracker) => {
+	async execute(interaction) {
+		const linkList = trackers.map((tracker) => {
 			return `- ${tracker}`;
 		}).join("\n");
-		const channel = message.guild.channels.cache.find((channel) => {
+		const channel = interaction.guild.channels.cache.find((channel) => {
 			return channel.name === "🐛bug-report";
 		});
 		if (typeof channel !== "undefined") {
-			await (await message.reply(`Before reporting a bug in ${channel}, check the known bugs of the game there:\n${links}`)).suppressEmbeds(true);
+			await (await interaction.reply({
+				content: `Before reporting a bug in ${channel}, check the known bugs of the game there:\n${linkList}`,
+				fetchReply: true,
+			})).suppressEmbeds(true);
 			return;
 		}
-		await (await message.reply(`You can check known bugs of the game there:\n${links}`)).suppressEmbeds(true);
+		await (await interaction.reply({
+			content: `You can check known bugs of the game there:\n${linkList}`,
+			fetchReply: true,
+		})).suppressEmbeds(true);
 	}
-	async describe(message, command) {
-		return `Type \`${command}\` to know where to check known bugs of the game`;
+	describe(interaction, name) {
+		const description = `Type \`/${name}\` to know where to check known bugs of the game`;
+		return {name, description};
 	}
 }

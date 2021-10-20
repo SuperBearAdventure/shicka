@@ -1,41 +1,65 @@
 import discord from "discord.js";
 import Command from "../command.js";
 const {Util} = discord;
-const listFormat = new Intl.ListFormat("en-US", {
+const conjunctionFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-const pattern = /^(?:0|[1-9]\d*)$/;
 export default class RawCommand extends Command {
-	async execute(message, parameters) {
-		const {data} = message.client;
-		if (parameters.length < 2) {
-			const type = listFormat.format(Object.keys(data).map((type) => {
+	async execute(interaction) {
+		const {client, options} = interaction;
+		const {data} = client;
+		const type = options.getString("type");
+		if (!(type in data)) {
+			const typeConjunction = conjunctionFormat.format(Object.keys(data).map((type) => {
 				return `\`${Util.escapeMarkdown(type)}\``;
 			}));
-			await message.reply(`Please give me a type among ${type}.`);
-			return;
-		}
-		const type = parameters[1].toLowerCase();
-		if (!(type in data)) {
-			await message.reply(`I do not know any type with this name.`);
+			await interaction.reply({
+				content: `I do not know any datum with this name.\nPlease give me a type among ${typeConjunction} instead.`,
+				ephemeral: true,
+			});
 			return;
 		}
 		const array = data[type];
-		if (parameters.length < 3) {
-			await message.reply(`Please give me an identifier${array.length > 0 ? ` between \`0\` and \`${array.length - 1}\`` : ""}.`);
+		const identifier = options.getInteger("identifier");
+		if (identifier < 0 || identifier >= array.length) {
+			await interaction.reply({
+				content: `I do not know any datum with this identifier.\nPlease give me an identifier between \`0\` and \`${array.length - 1}\` instead.`,
+				ephemeral: true,
+			});
 			return;
 		}
-		const identifier = parameters[2];
-		const matches = identifier.match(pattern);
-		if (matches === null || Number(identifier) >= array.length) {
-			await message.reply(`I do not know any datum with this identifier.`);
-			return;
-		}
-		const datum = Util.escapeMarkdown(JSON.stringify(array[identifier], null, "\t"));
-		await message.reply(`\`\`\`json\n${datum}\n\`\`\``);
+		const datum = JSON.stringify(array[identifier], null, "\t");
+		await interaction.reply(`\`\`\`json\n${Util.escapeMarkdown(datum)}\n\`\`\``);
 	}
-	async describe(message, command) {
-		return `Type \`${command} Some type Some identifier\` to get the datum of \`Some type\` with \`Some identifier\``;
+	describe(interaction, name) {
+		const {client} = interaction;
+		const {data} = client;
+		const description = `Type \`/${name} Some type Some identifier\` to get the datum of \`Some type\` with \`Some identifier\``;
+		const options = [
+			{
+				type: "STRING",
+				name: "type",
+				description: "Some type",
+				required: true,
+				choices: Object.entries(data).filter(([type, array]) => {
+					return array.length !== 0;
+				}).map(([type, array]) => {
+					return {
+						name: type,
+						value: type,
+					};
+				}),
+			},
+			{
+				type: "INTEGER",
+				name: "identifier",
+				description: "Some identifier",
+				required: true,
+				min_value: 0,
+				minValue: 0,
+			},
+		];
+		return {name, description, options};
 	}
 }

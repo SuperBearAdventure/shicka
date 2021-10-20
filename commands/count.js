@@ -1,10 +1,14 @@
+import discord from "discord.js";
 import Command from "../command.js";
+const {Util} = discord;
 export default class CountCommand extends Command {
-	async execute(message, parameters) {
-		const {memberCount} = message.guild;
-		await message.reply(`There are ${memberCount} members on the official *Super Bear Adventure* *Discord* server!`);
+	async execute(interaction) {
+		const {guild} = interaction;
+		const {memberCount, name} = guild;
+		await interaction.reply(`There are ${Util.escapeMarkdown(`${memberCount}`)} members on the official *${Util.escapeMarkdown(name)}* *Discord* server!`);
 	}
-	async describe(message, command) {
-		return `Type \`${command}\` to know the number of members on the server`;
+	describe(interaction, name) {
+		const description = `Type \`/${name}\` to know the number of members on the server`;
+		return {name, description};
 	}
 }

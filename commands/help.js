@@ -1,31 +1,26 @@
 import Command from "../command.js";
 export default class HelpCommand extends Command {
-	async execute(message, parameters) {
-		const {author, client} = message;
-		const {prefix, commands, feeds, triggers} = client;
-		const commandPromises = Object.entries(commands).map(async ([name, action]) => {
-			return await action.describe(message, `${prefix}${name}`);
-		});
-		const feedPromises = Object.entries(feeds).map(async ([name, action]) => {
-			return await action.describe(message);
-		});
-		const triggerPromises = Object.entries(triggers).map(async ([name, action]) => {
-			return await action.describe(message);
-		});
-		const help = (await Promise.all([
-			Promise.all(commandPromises),
-			Promise.all(feedPromises),
-			Promise.all(triggerPromises),
-		])).flat().map((description) => {
-			return description.split("\n").filter((item) => {
-				return item !== "";
-			}).map((item) => {
-				return `- ${item}`;
-			});
-		}).flat().join("\n");
-		await message.reply(`Hey ${author}, there you are!\nI can give you some advice about the server:\n${help}`);
+	async execute(interaction) {
+		const {client, user} = interaction;
+		const {commands, feeds, grants, triggers} = client;
+		const featureList = [
+			Object.entries(grants),
+			Object.entries(commands),
+			Object.entries(feeds),
+			Object.entries(triggers),
+		].flat().map(([name, action]) => {
+			const {description} = action.describe(interaction, name);
+			if (description === null) {
+				return [];
+			}
+			return description.split("\n");
+		}).flat().map((description) => {
+			return `- ${description}`;
+		}).join("\n");
+		await interaction.reply(`Hey ${user}, there you are!\nI can give you some advice about the server:\n${featureList}`);
 	}
-	async describe(message, command) {
-		return `Type \`${command}\` to know the features I offer`;
+	describe(interaction, name) {
+		const description = `Type \`/${name}\` to know the features I offer`;
+		return {name, description};
 	}
 }
