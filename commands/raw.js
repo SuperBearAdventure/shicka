@@ -6,6 +6,35 @@ const conjunctionFormat = new Intl.ListFormat("en-US", {
 	type: "conjunction",
 });
 export default class RawCommand extends Command {
+	register(client, name) {
+		const {data} = client;
+		const description = "Tells you what is the datum of this type with this identifier";
+		const options = [
+			{
+				type: "STRING",
+				name: "type",
+				description: "Some type",
+				required: true,
+				choices: Object.entries(data).filter(([type, array]) => {
+					return array.length !== 0;
+				}).map(([type, array]) => {
+					return {
+						name: type,
+						value: type,
+					};
+				}),
+			},
+			{
+				type: "INTEGER",
+				name: "identifier",
+				description: "Some identifier",
+				required: true,
+				min_value: 0,
+				minValue: 0,
+			},
+		];
+		return {name, description, options};
+	}
 	async execute(interaction) {
 		const {client, options} = interaction;
 		const {data} = client;
@@ -33,33 +62,6 @@ export default class RawCommand extends Command {
 		await interaction.reply(`\`\`\`json\n${Util.escapeMarkdown(datum)}\n\`\`\``);
 	}
 	describe(interaction, name) {
-		const {client} = interaction;
-		const {data} = client;
-		const description = `Type \`/${name} Some type Some identifier\` to get the datum of \`Some type\` with \`Some identifier\``;
-		const options = [
-			{
-				type: "STRING",
-				name: "type",
-				description: "Some type",
-				required: true,
-				choices: Object.entries(data).filter(([type, array]) => {
-					return array.length !== 0;
-				}).map(([type, array]) => {
-					return {
-						name: type,
-						value: type,
-					};
-				}),
-			},
-			{
-				type: "INTEGER",
-				name: "identifier",
-				description: "Some identifier",
-				required: true,
-				min_value: 0,
-				minValue: 0,
-			},
-		];
-		return {name, description, options};
+		return `Type \`/${name} Some type Some identifier\` to know what is the datum of \`Some type\` with \`Some identifier\``;
 	}
 }

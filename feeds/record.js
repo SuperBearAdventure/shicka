@@ -5,7 +5,7 @@ import Feed from "../feed.js";
 const {Util} = discord;
 const games = ["9d3rrxyd", "w6jl2ned"];
 export default class RecordFeed extends Feed {
-	schedule(client) {
+	register(client, name) {
 		return schedule.scheduleJob({
 			rule: "1 3/6 * * *",
 			tz: "UTC",
@@ -122,7 +122,6 @@ export default class RecordFeed extends Feed {
 		const channel = interaction.guild.channels.cache.find((channel) => {
 			return channel.name === "🏅records";
 		});
-		const description = typeof channel !== "undefined" ? `I post the latest world records of the game in ${channel}` : null;
-		return {description};
+		return typeof channel !== "undefined" ? `I post the latest world records of the game in ${channel}` : null;
 	}
 }

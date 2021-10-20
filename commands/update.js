@@ -9,6 +9,10 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
 	timeZone: "UTC",
 });
 export default class UpdateCommand extends Command {
+	register(client, name) {
+		const description = "Tells you what is the latest update of the game";
+		return {name, description};
+	}
 	async execute(interaction) {
 		try {
 			const {window} = await JSDOM.fromURL("https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
@@ -40,7 +44,6 @@ export default class UpdateCommand extends Command {
 		}
 	}
 	describe(interaction, name) {
-		const description = `Type \`/${name}\` to check the latest update of the game`;
-		return {name, description};
+		return `Type \`/${name}\` to know what is the latest update of the game`;
 	}
 }

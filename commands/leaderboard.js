@@ -10,6 +10,10 @@ const leaderboards = [
 	"*Category Extensions leaderboard*: https://www.speedrun.com/sbace",
 ];
 export default class LeaderboardCommand extends Command {
+	register(client, name) {
+		const description = "Tells you where to watch community speedruns of the game";
+		return {name, description};
+	}
 	async execute(interaction) {
 		const linkList = leaderboards.map((leaderboard) => {
 			return `- ${leaderboard}`;
@@ -20,7 +24,6 @@ export default class LeaderboardCommand extends Command {
 		})).suppressEmbeds(true);
 	}
 	describe(interaction, name) {
-		const description = `Type \`/${name}\` to know where to watch community speedruns of the game`;
-		return {name, description};
+		return `Type \`/${name}\` to know where to watch community speedruns of the game`;
 	}
 }

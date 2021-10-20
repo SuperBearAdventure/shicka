@@ -1,5 +1,5 @@
 export default class Feed {
-	schedule(client) {}
+	register(client, name) {}
 	async execute(start, end) {}
 	describe(interaction, name) {}
 }

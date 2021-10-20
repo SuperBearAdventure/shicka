@@ -4,6 +4,10 @@ const trackers = [
 	"*Former tracker*: https://trello.com/b/yTojOuqv/super-bear-adventure-bugs",
 ];
 export default class TrackerCommand extends Command {
+	register(client, name) {
+		const description = "Tells you where to check known bugs of the game";
+		return {name, description};
+	}
 	async execute(interaction) {
 		const linkList = trackers.map((tracker) => {
 			return `- ${tracker}`;
@@ -24,7 +28,6 @@ export default class TrackerCommand extends Command {
 		})).suppressEmbeds(true);
 	}
 	describe(interaction, name) {
-		const description = `Type \`/${name}\` to know where to check known bugs of the game`;
-		return {name, description};
+		return `Type \`/${name}\` to know where to check known bugs of the game`;
 	}
 }

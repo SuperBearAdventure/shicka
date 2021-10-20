@@ -72,7 +72,6 @@ export default class ChatGrant extends Grant {
 		await (await channel.send({content, files})).suppressEmbeds(true);
 	}
 	describe(interaction, name) {
-		const description = channels.has(interaction.channel.name) ? `Type \`/${name} Some channel Some content\` to post \`Some content\` and some attachments in \`Some channel\`\nType \`/${name} Some message Some channel Some content\` to edit \`Some message\` with \`Some content\` in \`Some channel\`` : null;
-		return {name, description};
+		return channels.has(interaction.channel.name) ? `Type \`/${name} Some channel Some content\` to post \`Some content\` and some attachments in \`Some channel\`\nType \`/${name} Some message Some channel Some content\` to edit \`Some message\` with \`Some content\` in \`Some channel\`` : null;
 	}
 }

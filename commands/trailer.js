@@ -4,6 +4,10 @@ const trailers = [
 	"*Missions trailer*: https://www.youtube.com/watch?v=j3vwu0JWIEg",
 ];
 export default class TrailerCommand extends Command {
+	register(client, name) {
+		const description = "Tells you where to watch official trailers of the game";
+		return {name, description};
+	}
 	async execute(interaction) {
 		const linkList = trailers.map((trailer) => {
 			return `- ${trailer}`;
@@ -14,7 +18,6 @@ export default class TrailerCommand extends Command {
 		})).suppressEmbeds(true);
 	}
 	describe(interaction, name) {
-		const description = `Type \`/${name}\` to know where to watch official trailers of the game`;
-		return {name, description};
+		return `Type \`/${name}\` to know where to watch official trailers of the game`;
 	}
 }

@@ -70,6 +70,17 @@ function sliceOutfits(generator, outfits, outfitsPerSlice, slicesPerRarity) {
 	return slices;
 }
 export default class OutfitCommand extends Command {
+	register(client, name) {
+		const description = "Tells you what is for sale in the shop or when it is for sale";
+		const options = [
+			{
+				type: "STRING",
+				name: "outfit",
+				description: "Some outfit",
+			},
+		];
+		return {name, description, options};
+	}
 	async execute(interaction) {
 		const {client, options} = interaction;
 		const {data, indices, salt} = client;
@@ -165,14 +176,6 @@ export default class OutfitCommand extends Command {
 		await interaction.reply(`**${Util.escapeMarkdown(name)}** will be for sale in the shop${costConjunction} for 6 hours starting:\n${scheduleList}`);
 	}
 	describe(interaction, name) {
-		const description = `Type \`/${name}\` to know what is for sale in the shop\nType \`/${name} Some outfit\` to know when \`Some outfit\` is for sale in the shop`;
-		const options = [
-			{
-				type: "STRING",
-				name: "outfit",
-				description: "Some outfit",
-			},
-		];
-		return {name, description, options};
+		return `Type \`/${name}\` to know what is for sale in the shop\nType \`/${name} Some outfit\` to know when \`Some outfit\` is for sale in the shop`;
 	}
 }
