@@ -17,6 +17,17 @@ const timeFormat = new Intl.DateTimeFormat("en-US", {
 });
 const dayTime = timeFormat.format(new Date(36000000));
 export default class MissionCommand extends Command {
+	register(client, name) {
+		const description = "Tells you what is playable in the shop or when it is playable";
+		const options = [
+			{
+				type: "STRING",
+				name: "mission",
+				description: "Some mission",
+			},
+		];
+		return {name, description, options};
+	}
 	async execute(interaction) {
 		const {client, options} = interaction;
 		const {data} = client;
@@ -64,14 +75,6 @@ export default class MissionCommand extends Command {
 		await interaction.reply(`**${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}** will be playable for 1 day starting:\n${scheduleList}`);
 	}
 	describe(interaction, name) {
-		const description = `Type \`/${name}\` to know what is playable in the shop\nType \`/${name} Some mission\` to know when \`Some mission\` is playable in the shop`;
-		const options = [
-			{
-				type: "STRING",
-				name: "mission",
-				description: "Some mission",
-			},
-		];
-		return {name, description, options};
+		return `Type \`/${name}\` to know what is playable in the shop\nType \`/${name} Some mission\` to know when \`Some mission\` is playable in the shop`;
 	}
 }

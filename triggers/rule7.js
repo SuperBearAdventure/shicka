@@ -40,7 +40,6 @@ export default class Rule7Trigger extends Trigger {
 		const channel = interaction.guild.channels.cache.find((channel) => {
 			return channel.name === "🤔suggestions";
 		});
-		const description = typeof channel !== "undefined" ? `I will gently reprimand you if you write words which violate the rule 7 in ${channel}` : null;
-		return {description};
+		return typeof channel !== "undefined" ? `I will gently reprimand you if you write words which violate the rule 7 in ${channel}` : null;
 	}
 }

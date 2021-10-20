@@ -4,6 +4,10 @@ const stores = [
 	"*American and Oceanian store*: https://shop.spreadshirt.com/SuperBearAdventure",
 ];
 export default class StoreCommand extends Command {
+	register(client, name) {
+		const description = "Tells you where to buy offical products of the game";
+		return {name, description};
+	}
 	async execute(interaction) {
 		const linkList = stores.map((store) => {
 			return `- ${store}`;
@@ -14,7 +18,6 @@ export default class StoreCommand extends Command {
 		})).suppressEmbeds(true);
 	}
 	describe(interaction, name) {
-		const description = `Type \`/${name}\` to know where to buy offical products of the game`;
-		return {name, description};
+		return `Type \`/${name}\` to know where to buy offical products of the game`;
 	}
 }

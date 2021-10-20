@@ -1,5 +1,9 @@
 import Command from "../command.js";
 export default class HelpCommand extends Command {
+	register(client, name) {
+		const description = "Tells you what are the features I offer";
+		return {name, description};
+	}
 	async execute(interaction) {
 		const {client, user} = interaction;
 		const {commands, feeds, grants, triggers} = client;
@@ -9,7 +13,7 @@ export default class HelpCommand extends Command {
 			Object.entries(feeds),
 			Object.entries(triggers),
 		].flat().map(([name, action]) => {
-			const {description} = action.describe(interaction, name);
+			const description = action.describe(interaction, name);
 			if (description === null) {
 				return [];
 			}
@@ -20,7 +24,6 @@ export default class HelpCommand extends Command {
 		await interaction.reply(`Hey ${user}, there you are!\nI can give you some advice about the server:\n${featureList}`);
 	}
 	describe(interaction, name) {
-		const description = `Type \`/${name}\` to know the features I offer`;
-		return {name, description};
+		return `Type \`/${name}\` to know what are the features I offer`;
 	}
 }

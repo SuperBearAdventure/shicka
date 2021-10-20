@@ -70,15 +70,13 @@ client.once("ready", async (client) => {
 	console.log("Ready!");
 	const {commands, feeds} = client;
 	const menu = Object.entries(commands).map(([name, command]) => {
-		const item = command.describe({client}, name);
-		item.description = item.description.slice(0, 100);
-		return item;
+		return command.register(client, name);
 	});
 	for (const guild of client.guilds.cache.values()) {
 		guild.commands.set(menu);
 	}
-	for (const feed in feeds) {
-		const job = feeds[feed].schedule(client);
+	for (const [name, feed] of Object.entries(feeds)) {
+		const job = feed.register(client, name);
 		job.on("error", (error) => {
 			console.error(error);
 		});

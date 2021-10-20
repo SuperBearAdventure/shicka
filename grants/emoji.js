@@ -97,7 +97,6 @@ export default class EmojiGrant extends Grant {
 		});
 	}
 	describe(interaction, name) {
-		const description = channels.has(interaction.channel.name) ? `Type \`/${name} Some base Some styles\` to create a new \`Some base\`-based emoji customized with \`Some styles\`` : null;
-		return {name, description};
+		return channels.has(interaction.channel.name) ? `Type \`/${name} Some base Some styles\` to create a new \`Some base\`-based emoji customized with \`Some styles\`` : null;
 	}
 }

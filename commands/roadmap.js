@@ -1,5 +1,9 @@
 import Command from "../command.js";
 export default class RoadmapCommand extends Command {
+	register(client, name) {
+		const description = "Tells you where to check the upcoming milestones of the game";
+		return {name, description};
+	}
 	async execute(interaction) {
 		const channel = interaction.guild.channels.cache.find((channel) => {
 			return channel.name === "🤔suggestions";
@@ -17,7 +21,6 @@ export default class RoadmapCommand extends Command {
 		})).suppressEmbeds(true);
 	}
 	describe(interaction, name) {
-		const description = `Type \`/${name}\` to know where to check the upcoming milestones of the game`;
-		return {name, description};
+		return `Type \`/${name}\` to know where to check the upcoming milestones of the game`;
 	}
 }
