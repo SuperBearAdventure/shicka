@@ -11,7 +11,5 @@ type NoIdentifierReplyGroups = {
 };
 type RawDependency = {
 	help: HelpGroups,
-	noTypeReply: NoTypeReplyGroups,
-	noIdentifierReply: NoIdentifierReplyGroups,
 };
 export type {RawDependency as default};
