@@ -30,7 +30,11 @@ export default class ChatGrant extends Grant {
 				await message.reply(`I do not know any channel with this tag.`);
 				return;
 			}
-			const channel = message.guild.channels.cache.get(channelMatches[1]);
+			const channel = await (async () => {
+				try {
+					return await message.guild.channels.fetch(channelMatches[1]);
+				} catch {}
+			})();
 			if (typeof channel === "undefined") {
 				await message.reply(`I do not know any channel with this tag.`);
 				return;
@@ -44,15 +48,31 @@ export default class ChatGrant extends Grant {
 				await message.reply(`I do not know any message with this identifier in this channel.`);
 				return;
 			}
-			if (parameters.length < 4 && target.attachments.size === 0) {
-				await message.reply(`Please give me a content.`);
+			if (parameters.length < 4 && message.attachments.size === 0) {
+				await message.reply(`Please give me a content or attachments.`);
 				return;
 			}
 			const content = parameters.length < 4 ? null : parameters.slice(3).join(" ");
-			await (await target.edit(content)).suppressEmbeds(true);
+			const files = message.attachments.map((attachment) => {
+				const {name, url} = attachment;
+				return {
+					attachment: url,
+					name: name,
+				};
+			});
+			const attachments = [];
+			try {
+				await (await target.edit({content, files, attachments})).suppressEmbeds(true);
+			} catch {
+				await message.reply(`I do not have the rights to edit this message.`);
+			}
 			return;
 		}
-		const channel = message.guild.channels.cache.get(channelMatches[1]);
+		const channel = await (async () => {
+			try {
+				return await message.guild.channels.fetch(channelMatches[1]);
+			} catch {}
+		})();
 		if (typeof channel === "undefined") {
 			await message.reply(`I do not know any channel with this tag.`);
 			return;
@@ -69,9 +89,13 @@ export default class ChatGrant extends Grant {
 				name: name,
 			};
 		});
-		await (await channel.send({content, files})).suppressEmbeds(true);
+		try {
+			await (await channel.send({content, files})).suppressEmbeds(true);
+		} catch {
+			await message.reply(`I do not have the rights to send this message.`);
+		}
 	}
 	describe(interaction, name) {
-		return channels.has(interaction.channel.name) ? `Type \`/${name} Some channel Some content\` to post \`Some content\` and some attachments in \`Some channel\`\nType \`/${name} Some message Some channel Some content\` to edit \`Some message\` with \`Some content\` in \`Some channel\`` : null;
+		return channels.has(interaction.channel.name) ? `Type \`/${name} Some channel Some content\` to send \`Some content\` and some attachments in \`Some channel\`\nType \`/${name} Some message Some channel Some content\` to edit \`Some message\` with \`Some content\` and some attachments in \`Some channel\`` : null;
 	}
 }
