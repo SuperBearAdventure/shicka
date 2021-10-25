@@ -18,7 +18,7 @@ export default class RecordFeed extends Feed {
 				const channel = guild.channels.cache.find((channel) => {
 					return channel.name === "🏅records";
 				});
-				if (typeof channel === "undefined") {
+				if (channel == null) {
 					continue;
 				}
 				for (const record of records) {
@@ -122,6 +122,6 @@ export default class RecordFeed extends Feed {
 		const channel = interaction.guild.channels.cache.find((channel) => {
 			return channel.name === "🏅records";
 		});
-		return typeof channel !== "undefined" ? `I post the latest world records of the game in ${channel}` : null;
+		return channel != null ? `I post the latest world records of the game in ${channel}` : null;
 	}
 }

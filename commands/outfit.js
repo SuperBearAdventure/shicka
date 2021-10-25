@@ -95,7 +95,7 @@ export default class OutfitCommand extends Command {
 		})));
 		const now = Math.floor(interaction.createdTimestamp / 21600000);
 		const search = options.getString("outfit");
-		if (search === null) {
+		if (search == null) {
 		const schedules = [];
 		for (let k = -2; k < 4; ++k) {
 			const day = now + k;
@@ -130,7 +130,7 @@ export default class OutfitCommand extends Command {
 		const outfit = nearest(search.toLowerCase(), outfits, (outfit) => {
 			return outfit.name.toLowerCase();
 		});
-		if (outfit === null) {
+		if (outfit == null) {
 			await interaction.reply({
 				content: `I do not know any outfit with this name.`,
 				ephemeral: true,

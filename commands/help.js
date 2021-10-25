@@ -14,7 +14,7 @@ export default class HelpCommand extends Command {
 			Object.entries(triggers),
 		].flat().map(([name, action]) => {
 			const description = action.describe(interaction, name);
-			if (description === null) {
+			if (description == null) {
 				return [];
 			}
 			return description.split("\n");

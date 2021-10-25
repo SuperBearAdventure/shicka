@@ -15,9 +15,9 @@ export default class ChatGrant extends Grant {
 			return;
 		}
 		const channelMatches = parameters[1].match(channelPattern);
-		if (channelMatches === null) {
+		if (channelMatches == null) {
 			const messageMatches = parameters[1].match(messagePattern);
-			if (messageMatches === null) {
+			if (messageMatches == null) {
 				await message.reply(`I do not know any message with this identifier or channel with this tag.`);
 				return;
 			}
@@ -26,7 +26,7 @@ export default class ChatGrant extends Grant {
 				return;
 			}
 			const channelMatches = parameters[2].match(channelPattern);
-			if (channelMatches === null) {
+			if (channelMatches == null) {
 				await message.reply(`I do not know any channel with this tag.`);
 				return;
 			}
@@ -35,7 +35,7 @@ export default class ChatGrant extends Grant {
 					return await message.guild.channels.fetch(channelMatches[1]);
 				} catch {}
 			})();
-			if (typeof channel === "undefined") {
+			if (channel == null) {
 				await message.reply(`I do not know any channel with this tag.`);
 				return;
 			}
@@ -44,7 +44,7 @@ export default class ChatGrant extends Grant {
 					return await channel.messages.fetch(parameters[1]);
 				} catch {}
 			})();
-			if (typeof target === "undefined") {
+			if (target == null) {
 				await message.reply(`I do not know any message with this identifier in this channel.`);
 				return;
 			}
@@ -73,7 +73,7 @@ export default class ChatGrant extends Grant {
 				return await message.guild.channels.fetch(channelMatches[1]);
 			} catch {}
 		})();
-		if (typeof channel === "undefined") {
+		if (channel == null) {
 			await message.reply(`I do not know any channel with this tag.`);
 			return;
 		}

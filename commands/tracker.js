@@ -15,15 +15,9 @@ export default class TrackerCommand extends Command {
 		const channel = interaction.guild.channels.cache.find((channel) => {
 			return channel.name === "🐛bug-report";
 		});
-		if (typeof channel !== "undefined") {
-			await (await interaction.reply({
-				content: `Before reporting a bug in ${channel}, check the known bugs of the game there:\n${linkList}`,
-				fetchReply: true,
-			})).suppressEmbeds(true);
-			return;
-		}
+		const intent = channel != null ? `Before reporting a bug in ${channel},` : "You can";
 		await (await interaction.reply({
-			content: `You can check known bugs of the game there:\n${linkList}`,
+			content: `${intent} check the known bugs of the game there:\n${linkList}`,
 			fetchReply: true,
 		})).suppressEmbeds(true);
 	}

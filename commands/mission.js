@@ -35,7 +35,7 @@ export default class MissionCommand extends Command {
 		const missionCount = missions.length;
 		const now = Math.floor((interaction.createdTimestamp + 7200000) / 86400000);
 		const search = options.getString("mission");
-		if (search === null) {
+		if (search == null) {
 		const schedules = [];
 		for (let k = -1; k < 2; ++k) {
 			const day = now + k;
@@ -53,7 +53,7 @@ export default class MissionCommand extends Command {
 		const mission = nearest(search.toLowerCase(), missions, (mission) => {
 			return `${challenges[mission.challenge].name} in ${levels[mission.level].name}`.toLowerCase();
 		});
-		if (mission === null) {
+		if (mission == null) {
 			await interaction.reply({
 				content: `I do not know any mission with this name.`,
 				ephemeral: true,

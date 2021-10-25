@@ -17,11 +17,11 @@ export default class UpdateCommand extends Command {
 		try {
 			const {window} = await JSDOM.fromURL("https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
 			const versionElement = window.document.querySelector(".IxB2fe > :nth-child(4) > :nth-child(2) > :nth-child(1) > :nth-child(1)");
-			if (versionElement === null) {
+			if (versionElement == null) {
 				throw new Error("No version found");
 			}
 			const dateElement = window.document.querySelector(".IxB2fe > :nth-child(1) > :nth-child(2) > :nth-child(1) > :nth-child(1)");
-			if (dateElement === null) {
+			if (dateElement == null) {
 				throw new Error("No date found");
 			}
 			const response = await fetch("https://itunes.apple.com/lookup?id=1531842415&entity=software");
