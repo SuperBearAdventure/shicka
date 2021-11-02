@@ -24,11 +24,35 @@ export default class MissionCommand extends Command {
 				type: "STRING",
 				name: "mission",
 				description: "Some mission",
+				autocomplete: true,
 			},
 		];
 		return {name, description, options};
 	}
 	async execute(interaction) {
+		if (interaction.isAutocomplete()) {
+			const {client, options} = interaction;
+			const {data} = client;
+			const {challenges, levels, missions} = data;
+			const {name, value} = options.getFocused(true);
+			if (name !== "mission") {
+				await interaction.respond([]);
+				return;
+			}
+			const results = nearest(value.toLowerCase(), missions, 7, (mission) => {
+				const name = `${challenges[mission.challenge].name} in ${levels[mission.level].name}`;
+				return name.toLowerCase();
+			});
+			const suggestions = results.map((mission) => {
+				const name = `${challenges[mission.challenge].name} in ${levels[mission.level].name}`;
+				return {
+					name: name,
+					value: name,
+				};
+			});
+			await interaction.respond(suggestions);
+			return;
+		}
 		const {client, options} = interaction;
 		const {data} = client;
 		const {challenges, levels, missions} = data;
@@ -50,16 +74,18 @@ export default class MissionCommand extends Command {
 		await interaction.reply(`Each mission starts at *${Util.escapeMarkdown(dayTime)}*:\n${scheduleList}`);
 		return;
 		}
-		const mission = nearest(search.toLowerCase(), missions, (mission) => {
-			return `${challenges[mission.challenge].name} in ${levels[mission.level].name}`.toLowerCase();
+		const results = nearest(search.toLowerCase(), missions, 1, (mission) => {
+			const name = `${challenges[mission.challenge].name} in ${levels[mission.level].name}`;
+			return name.toLowerCase();
 		});
-		if (mission == null) {
+		if (results.length === 0) {
 			await interaction.reply({
 				content: `I do not know any mission with this name.`,
 				ephemeral: true,
 			});
 			return;
 		}
+		const mission = results[0];
 		const schedules = [];
 		for (let k = -1; k < 2 || schedules.length < 2; ++k) {
 			const day = now + k;

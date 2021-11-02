@@ -77,11 +77,35 @@ export default class OutfitCommand extends Command {
 				type: "STRING",
 				name: "outfit",
 				description: "Some outfit",
+				autocomplete: true,
 			},
 		];
 		return {name, description, options};
 	}
 	async execute(interaction) {
+		if (interaction.isAutocomplete()) {
+			const {client, options} = interaction;
+			const {data} = client;
+			const {outfits} = data;
+			const {name, value} = options.getFocused(true);
+			if (name !== "outfit") {
+				await interaction.respond([]);
+				return;
+			}
+			const results = nearest(value.toLowerCase(), outfits, 7, (outfit) => {
+				const {name} = outfit;
+				return name.toLowerCase();
+			});
+			const suggestions = results.map((outfit) => {
+				const {name} = outfit;
+				return {
+					name: name,
+					value: name,
+				};
+			});
+			await interaction.respond(suggestions);
+			return;
+		}
 		const {client, options} = interaction;
 		const {data, indices, salt} = client;
 		const {outfits, rarities} = data;
@@ -127,16 +151,18 @@ export default class OutfitCommand extends Command {
 		await interaction.reply(`Outfits for sale in the shop change every 6 hours:\n${scheduleList}`);
 		return;
 		}
-		const outfit = nearest(search.toLowerCase(), outfits, (outfit) => {
-			return outfit.name.toLowerCase();
+		const results = nearest(search.toLowerCase(), outfits, 1, (outfit) => {
+			const {name} = outfit;
+			return name.toLowerCase();
 		});
-		if (outfit == null) {
+		if (results.length === 0) {
 			await interaction.reply({
 				content: `I do not know any outfit with this name.`,
 				ephemeral: true,
 			});
 			return;
 		}
+		const outfit = results[0];
 		if (rarities[outfit.rarity].slots === 0) {
 			const {name} = outfit;
 			await interaction.reply(`**${Util.escapeMarkdown(name)}** is not for sale.`);
