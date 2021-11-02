@@ -40,20 +40,39 @@ function isSubsequence(needle, haystack) {
 	}
 	return true;
 }
-export function nearest(search, candidates, stringify) {
-	const {candidate} = candidates.reduce((accumulator, candidate) => {
+export function nearest(search, candidates, count, stringify) {
+	const results = [];
+	if (count === 0) {
+		return results;
+	}
+	for (const candidate of candidates) {
 		const string = stringify(candidate);
-		if (!isSubsequence(search, string)) {
-			return accumulator;
+		if (isSubsequence(search, string)) {
+			const distance = editDistance(search, string, false);
+			results.push({candidate, distance});
 		}
-		const distance = editDistance(search, string, false);
-		if (distance < accumulator.distance) {
-			return {candidate, distance};
+	}
+	const lj = results.length;
+	const li = lj < count ? lj : count;
+	for (let i = 0; i < li; ++i) {
+		let minItem = results[i];
+		let minIndex = i;
+		for (let j = i + 1; j < lj; ++j) {
+			const item = results[j];
+			if (item.distance < minItem.distance) {
+				minItem = item;
+				minIndex = j;
+			}
 		}
-		return accumulator;
-	}, {
-		candidate: null,
-		distance: Number.POSITIVE_INFINITY,
+		if (minIndex !== i) {
+			results[minIndex] = results[i];
+			results[i] = minItem;
+		}
+	}
+	if (li < lj) {
+		results.length = li;
+	}
+	return results.map((result) => {
+		return result.candidate;
 	});
-	return candidate;
 }

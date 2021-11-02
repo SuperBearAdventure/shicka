@@ -117,9 +117,6 @@ client.on("interactionCreate", async (interaction) => {
 	if (interaction.user.bot || interaction.channel.type !== "GUILD_TEXT") {
 		return;
 	}
-	if (!interaction.isCommand()) {
-		return;
-	}
 	const {commandName} = interaction;
 	const {commands} = interaction.client;
 	if (!(commandName in commands)) {
