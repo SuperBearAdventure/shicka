@@ -48,7 +48,7 @@ export function nearest(search, candidates, count, stringify) {
 	for (const candidate of candidates) {
 		const string = stringify(candidate);
 		if (isSubsequence(search, string)) {
-			const distance = editDistance(search, string, false);
+			const distance = string.length;
 			results.push({candidate, distance});
 		}
 	}
