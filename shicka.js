@@ -81,6 +81,33 @@ client.once("ready", async (client) => {
 			console.error(error);
 		});
 	}
+	for (const guild of client.guilds.cache.values()) {
+		const roles = await guild.roles.fetch();
+		const gameDeveloper = roles.find((role) => {
+			return role.name === "Game Developer";
+		});
+		const administrator = roles.find((role) => {
+			return role.name === "Administrator";
+		});
+		const commands = await guild.commands.fetch();
+		const subscription = commands.find((command) => {
+			return command.name === "subscription";
+		});
+		await subscription.permissions.set({
+			permissions: [
+				{
+					id: gameDeveloper.id,
+					type: "ROLE",
+					permission: true,
+				},
+				{
+					id: administrator.id,
+					type: "ROLE",
+					permission: true,
+				},
+			],
+		});
+	}
 });
 client.on("guildMemberAdd", async (member) => {
 	const {memberCount, systemChannel} = member.guild;
