@@ -33,21 +33,29 @@ $ npm start
 
 ## Features
 
-### Grants
-
-- `/chat <channel> <content>` sends the given content and the given attachments in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
-
-- `/chat <message> <channel> <content>` edits the given message with the given content and the given attachments in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
-
-- `/emoji <base> <style>` draws the given base emoji with the given style (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, `#🛡│moderators-room`, and `#🍪│cookie-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, `@Moderator`, and `@Cookie` roles)
-
 ### Commands
 
 - `/about` gives the link to this repository on `github.com`
 
 - `/bear <bear>` gives the gold time, the location, and the outfits of the given bear
 
+<!--
+- `/chat <channel>` sends the given attachments in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
+
+- `/chat <channel> <content>` sends the given content and the given attachments in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
+
+- `/chat <channel> <message>` edits the given message with the given attachments in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
+
+- `/chat <channel> <message> <content>` edits the given message with the given content and the given attachments in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
+-->
+
+- `/chat <channel> <content>` sends the given content in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
+
+- `/chat <channel> <content> <message>` edits the given message with the given content in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
+
 - `/count` gives the number of members of the guild
+
+- `/emoji <base> <style>{6}` draws the given base emoji with the given styles (only available in the `🔧・console`, `#🔎・logs`, `#🔰│helpers-room`, `#🛡・moderators-room`, and `#🍪・cookie-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, `@Moderator`, and `@Cookie` roles)
 
 - `/help` gives the feature list of this bot
 
