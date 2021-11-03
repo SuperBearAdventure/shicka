@@ -4,7 +4,7 @@ Bot for the official *Super Bear Adventure* *Discord* server
 
 ## Dependencies
 
-The bot uses *Discord.js 13.2.0* and requires *Node.js 16.9.0* or more
+The bot uses *Discord.js 13.3.1* and requires *Node.js 16.9.0* or more
 
 ## Configuring the bot
 
@@ -32,6 +32,8 @@ $ node shicka.js
 ### Commands
 
 - `/about` gives the link to this repository on `github.com`
+
+- `/bear <bear>` gives the gold time, the location, and the outfits of the given bear
 
 - `/count` gives the number of members of the guild
 

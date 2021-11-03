@@ -1,21 +1,25 @@
 [
 	{
 		"name": "Turtle Village",
+		"boss": "The Turtle Golem",
 		"coins": 150,
 		"stickers": 3
 	},
 	{
 		"name": "Snow Valley",
+		"boss": "The Yeti",
 		"coins": 150,
 		"stickers": 3
 	},
 	{
 		"name": "Beemothep Desert",
+		"boss": "The Guardian",
 		"coins": 150,
 		"stickers": 3
 	},
 	{
 		"name": "Giant House",
+		"boss": "Test Subject No. 1706",
 		"coins": 200,
 		"stickers": 3
 	}
