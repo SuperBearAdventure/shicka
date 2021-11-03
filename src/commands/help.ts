@@ -6,12 +6,10 @@ import type {
 } from "discord.js";
 import type Command from "../commands.js";
 import type Feed from "../feeds.js";
-import type Grant from "../grants.js";
 import type Trigger from "../triggers.js";
 import type {Locale, Localized} from "../utils/string.js";
 import * as commands from "../commands.js";
 import * as feeds from "../feeds.js";
-import * as grants from "../grants.js";
 import * as triggers from "../triggers.js";
 import {compileAll, composeAll, list, localize, resolve} from "../utils/string.js";
 type HelpGroups = {
@@ -50,10 +48,6 @@ const helpCommand: Command = {
 		const {locale, user}: CommandInteraction = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const descriptions: Localized<(groups: {}) => string>[] = [
-			Object.keys(grants).map<Grant>((grantName: string): Grant => {
-				const grant: Grant = grants[grantName as keyof typeof grants] as Grant;
-				return grant;
-			}),
 			Object.keys(commands).map<Command>((commandName: string): Command => {
 				const command: Command = commands[commandName as keyof typeof commands] as Command;
 				return command;
@@ -66,7 +60,7 @@ const helpCommand: Command = {
 				const trigger: Trigger = triggers[triggerName as keyof typeof triggers] as Trigger;
 				return trigger;
 			}),
-		].flat<(Grant | Command | Feed | Trigger)[][]>().map<Localized<(groups: {}) => string> | null>((action: Grant | Command | Feed | Trigger): Localized<(groups: {}) => string> | null => {
+		].flat<(Command | Feed | Trigger)[][]>().map<Localized<(groups: {}) => string> | null>((action: Command | Feed | Trigger): Localized<(groups: {}) => string> | null => {
 			const description: Localized<(groups: {}) => string> | null = action.describe(interaction);
 			return description;
 		}).filter<Localized<(groups: {}) => string>>((description: Localized<(groups: {}) => string> | null): description is Localized<(groups: {}) => string> => {

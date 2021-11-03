@@ -6,7 +6,9 @@ import type {
 import type {Localized} from "./utils/string.js";
 import aboutCommand from "./commands/about.js";
 import bearCommand from "./commands/bear.js";
+import chatCommand from "./commands/chat.js";
 import countCommand from "./commands/count.js";
+import emojiCommand from "./commands/emoji.js";
 import helpCommand from "./commands/help.js";
 import leaderboardCommand from "./commands/leaderboard.js";
 import missionCommand from "./commands/mission.js";
@@ -25,7 +27,9 @@ type Command = {
 };
 const about: Command = aboutCommand;
 const bear: Command = bearCommand;
+const chat: Command = chatCommand;
 const count: Command = countCommand;
+const emoji: Command = emojiCommand;
 const help: Command = helpCommand;
 const leaderboard: Command = leaderboardCommand;
 const mission: Command = missionCommand;
@@ -41,7 +45,9 @@ export default Command;
 export {
 	about,
 	bear,
+	chat,
 	count,
+	emoji,
 	help,
 	leaderboard,
 	mission,

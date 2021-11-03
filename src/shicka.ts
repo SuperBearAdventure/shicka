@@ -1,31 +1,32 @@
 import type {
+	ApplicationCommand,
 	ApplicationCommandData,
+	ApplicationCommandPermissionData,
 	AutocompleteInteraction,
+	Collection,
 	CommandInteraction,
 	Guild,
 	GuildMember,
 	Interaction,
 	Message,
 	PartialGuildMember,
+	Role,
 	ThreadChannel,
 } from "discord.js";
 import type {Job} from "node-schedule";
 import type Command from "./commands.js";
 import type Feed from "./feeds.js";
-import type Grant from "./grants.js";
 import type Trigger from "./triggers.js";
 import type Greeting from "./greetings.js";
 import {Client, Intents, Util} from "discord.js";
 import * as commands from "./commands.js";
 import * as feeds from "./feeds.js";
-import * as grants from "./grants.js";
 import * as triggers from "./triggers.js";
 import * as greetings from "./greetings.js";
 const {
 	SHICKA_DISCORD_TOKEN: discordToken = "",
 }: NodeJS.ProcessEnv = process.env;
 const capture: RegExp = /^.*$/su;
-const parameter: RegExp = /([^\n ]+)/u;
 const client: Client = new Client({
 	intents: [
 		Intents.FLAGS.GUILDS,
@@ -56,6 +57,49 @@ client.once("ready", async (client: Client): Promise<void> => {
 		job.on("error", (error: unknown): void => {
 			console.error(error);
 		});
+	}
+	for (const guild of client.guilds.cache.values()) {
+		const roles: Collection<string, Role> = await guild.roles.fetch();
+		const [administrator, gameDeveloper, helper, moderator, cookie]: (Role | undefined)[] = ["Administrator", "Game Developer", "Helper", "Moderator", "Cookie"].map((name: string): Role | undefined => {
+			return roles.find((role: Role): boolean => {
+				return role.name === name;
+			});
+		})
+		const commands: Collection<string, ApplicationCommand> = await guild.commands.fetch();
+		const chat: ApplicationCommand | undefined = commands.find((command: ApplicationCommand): boolean => {
+			return command.name === "chat";
+		});
+		if (chat != null) {
+			await chat.permissions.set({
+				permissions: [administrator, gameDeveloper, helper, moderator].map((role: Role | undefined): ApplicationCommandPermissionData[] => {
+					if (role == null) {
+						return [];
+					}
+					return [{
+						id: role.id,
+						type: "ROLE",
+						permission: true,
+					}];
+				}).flat(),
+			});
+		}
+		const emoji: ApplicationCommand | undefined = commands.find((command: ApplicationCommand): boolean => {
+			return command.name === "emoji";
+		});
+		if (emoji != null) {
+			await emoji.permissions.set({
+				permissions: [administrator, gameDeveloper, helper, moderator, cookie].map((role: Role | undefined): ApplicationCommandPermissionData[] => {
+					if (role == null) {
+						return [];
+					}
+					return [{
+						id: role.id,
+						type: "ROLE",
+						permission: true,
+					}];
+				}).flat(),
+			});
+		}
 	}
 	console.log("Ready!");
 });
@@ -118,33 +162,6 @@ client.on("interactionCreate", async (interaction: Interaction): Promise<void> =
 	try {
 		const command: Command = commands[commandName as keyof typeof commands] as Command;
 		await command.execute(interaction);
-	} catch (error: unknown) {
-		console.error(error);
-	}
-});
-client.on("messageCreate", async (message: Message): Promise<void> => {
-	if (message.author.bot) {
-		return;
-	}
-	const {channel}: Message = message;
-	if (!("name" in channel)) {
-		return;
-	}
-	const {content}: Message = message;
-	if (!content.startsWith("/")) {
-		return;
-	}
-	const tokens: string[] = content.split(parameter);
-	const parameters: string[] = tokens.filter((token: string, index: number): boolean => {
-		return index % 2 === 1;
-	});
-	const grantName: string = parameters[0].slice(1);
-	if (!(grantName in grants)) {
-		return;
-	}
-	try {
-		const grant: Grant = grants[grantName as keyof typeof grants] as Grant;
-		await grant.execute(message, parameters, tokens);
 	} catch (error: unknown) {
 		console.error(error);
 	}
