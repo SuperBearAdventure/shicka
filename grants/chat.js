@@ -4,7 +4,7 @@ const {MessageMentions} = discord;
 const {source} = MessageMentions.CHANNELS_PATTERN;
 const messagePattern = /^(?:0|[1-9]\d*)$/;
 const channelPattern = new RegExp(`^(?:${source})$`, "");
-const channels = new Set(["🔎logs", "🛡moderators-room"]);
+const channels = new Set(["🔎・logs", "🛡・moderators-room"]);
 export default class ChatGrant extends Grant {
 	async execute(message, parameters) {
 		if (!channels.has(message.channel.name)) {

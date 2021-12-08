@@ -6,7 +6,7 @@ export default class RoadmapCommand extends Command {
 	}
 	async execute(interaction) {
 		const channel = interaction.guild.channels.cache.find((channel) => {
-			return channel.name === "🤔suggestions";
+			return channel.name === "💡・game-suggestions";
 		});
 		const intent = channel != null ? `Before suggesting an idea in ${channel},` : "You can";
 		await (await interaction.reply({

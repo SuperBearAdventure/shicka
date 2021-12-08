@@ -13,7 +13,7 @@ export default class TrackerCommand extends Command {
 			return `- ${tracker}`;
 		}).join("\n");
 		const channel = interaction.guild.channels.cache.find((channel) => {
-			return channel.name === "🐛bug-report";
+			return channel.name === "🐛・bug-report";
 		});
 		const intent = channel != null ? `Before reporting a bug in ${channel},` : "You can";
 		await (await interaction.reply({

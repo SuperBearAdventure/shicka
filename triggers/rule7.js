@@ -3,7 +3,7 @@ const pattern = /\b(?:co-?op(?:erati(?:ons?|ve))?|consoles?|multi(?:-?player)?|o
 const roles = new Set(["Administrator", "Cookie", "Game Developer", "Moderator"]);
 export default class Rule7Trigger extends Trigger {
 	async execute(message) {
-		if (message.channel.name !== "🤔suggestions") {
+		if (message.channel.name !== "💡・game-suggestions") {
 			return;
 		}
 		if (message.member.roles.cache.some((role) => {
@@ -22,7 +22,7 @@ export default class Rule7Trigger extends Trigger {
 			await message.reply(`${emoji}`);
 		}
 		const channel = guild.channels.cache.find((channel) => {
-			return channel.name === "❗rules❗";
+			return channel.name === "❗・rules-info・❗";
 		});
 		if (channel != null) {
 			await message.reply(`Please read and respect the ${channel}!`);
@@ -38,7 +38,7 @@ export default class Rule7Trigger extends Trigger {
 	}
 	describe(interaction, name) {
 		const channel = interaction.guild.channels.cache.find((channel) => {
-			return channel.name === "🤔suggestions";
+			return channel.name === "💡・game-suggestions";
 		});
 		return channel != null ? `I will gently reprimand you if you write words which violate the rule 7 in ${channel}` : null;
 	}
