@@ -6,7 +6,7 @@ const messagePattern = /^(?:0|[1-9]\d*)$/;
 const channelPattern = new RegExp(`^(?:${source})$`, "");
 const channels = new Set(["🔎・logs", "🛡・moderators-room"]);
 export default class ChatGrant extends Grant {
-	async execute(message, parameters) {
+	async execute(message, parameters, tokens) {
 		if (!channels.has(message.channel.name)) {
 			return;
 		}
@@ -52,7 +52,7 @@ export default class ChatGrant extends Grant {
 				await message.reply(`Please give me a content or attachments.`);
 				return;
 			}
-			const content = parameters.length < 4 ? null : parameters.slice(3).join(" ");
+			const content = parameters.length < 4 ? null : tokens.slice(7).join("");
 			const files = message.attachments.map((attachment) => {
 				const {name, url} = attachment;
 				return {
@@ -62,7 +62,7 @@ export default class ChatGrant extends Grant {
 			});
 			const attachments = [];
 			try {
-				await (await target.edit({content, files, attachments})).suppressEmbeds(true);
+				await target.edit({content, files, attachments});
 			} catch {
 				await message.reply(`I do not have the rights to edit this message.`);
 			}
@@ -81,7 +81,7 @@ export default class ChatGrant extends Grant {
 			await message.reply(`Please give me a content or attachments.`);
 			return;
 		}
-		const content = parameters.length < 3 ? null : parameters.slice(2).join(" ");
+		const content = parameters.length < 3 ? null : tokens.slice(5).join("");
 		const files = message.attachments.map((attachment) => {
 			const {name, url} = attachment;
 			return {
@@ -90,7 +90,7 @@ export default class ChatGrant extends Grant {
 			};
 		});
 		try {
-			await (await channel.send({content, files})).suppressEmbeds(true);
+			await channel.send({content, files});
 		} catch {
 			await message.reply(`I do not have the rights to send this message.`);
 		}

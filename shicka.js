@@ -39,9 +39,8 @@ const indices = Object.assign(Object.create(null), {
 	// missionsByChallenge,
 	// missionsByLevel,
 });
-const capture = /^.*$/isu;
-const outerSpace = /^[\n ]+|[\n ]+$/gu;
-const innerSpace = /[\n ]+/gu;
+const capture = /^.*$/su;
+const parameter = /([^\n ]+)/u;
 const client = new Client({
 	intents: [
 		Intents.FLAGS.GUILDS,
@@ -136,17 +135,17 @@ client.on("messageCreate", async (message) => {
 	if (!content.startsWith("/")) {
 		return;
 	}
-	const parameters = content.slice(1).replace(outerSpace, "").split(innerSpace);
-	if (parameters.length === 0) {
-		return;
-	}
-	const grant = parameters[0];
+	const tokens = content.split(parameter);
+	const parameters = tokens.filter((token, index) => {
+		return index % 2 === 1;
+	});
+	const grant = parameters[0].slice(1);
 	const {grants} = message.client;
 	if (!(grant in grants)) {
 		return;
 	}
 	try {
-		await grants[grant].execute(message, parameters);
+		await grants[grant].execute(message, parameters, tokens);
 	} catch (error) {
 		console.error(error);
 	}
