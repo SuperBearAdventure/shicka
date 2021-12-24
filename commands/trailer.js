@@ -1,7 +1,7 @@
 import Command from "../command.js";
 const trailers = [
-	"*Main trailer*: https://www.youtube.com/watch?v=L00uorYTYgE",
-	"*Missions trailer*: https://www.youtube.com/watch?v=j3vwu0JWIEg",
+	"*Main trailer*: <https://www.youtube.com/watch?v=L00uorYTYgE>",
+	"*Missions trailer*: <https://www.youtube.com/watch?v=j3vwu0JWIEg>",
 ];
 export default class TrailerCommand extends Command {
 	register(client, name) {
@@ -12,10 +12,9 @@ export default class TrailerCommand extends Command {
 		const linkList = trailers.map((trailer) => {
 			return `- ${trailer}`;
 		}).join("\n");
-		await (await interaction.reply({
+		await interaction.reply({
 			content: `You can watch official trailers of the game there:\n${linkList}`,
-			fetchReply: true,
-		})).suppressEmbeds(true);
+		});
 	}
 	describe(interaction, name) {
 		return `Type \`/${name}\` to know where to watch official trailers of the game`;

@@ -37,10 +37,9 @@ export default class UpdateCommand extends Command {
 			await interaction.reply(`The latest update of the game is:\n- **${Util.escapeMarkdown(androidVersion)}** on **Android** (*${Util.escapeMarkdown(androidDate)}*)\n- **${Util.escapeMarkdown(iosVersion)}** on **iOS** (*${Util.escapeMarkdown(iosDate)}*)`);
 		} catch (error) {
 			console.warn(error);
-			await (await interaction.reply({
-				content: "You can check and download the latest update of the game there:\n- *Android*: https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer\n- *iOS*: https://apps.apple.com/app/id1531842415",
-				fetchReply: true,
-			})).suppressEmbeds(true);
+			await interaction.reply({
+				content: "You can check and download the latest update of the game there:\n- *Android*: <https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer>\n- *iOS*: <https://apps.apple.com/app/id1531842415>",
+			});
 		}
 	}
 	describe(interaction, name) {

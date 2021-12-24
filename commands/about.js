@@ -5,7 +5,7 @@ export default class AboutCommand extends Command {
 		return {name, description};
 	}
 	async execute(interaction) {
-		await interaction.reply("I am *Shicka*, a bot made by *PolariTOON*, and I am open source!\nMy code is available there:\nhttps://github.com/SuperBearAdventure/shicka");
+		await interaction.reply("I am *Shicka*, a bot made by *PolariTOON*, and I am open source!\nMy code is available there:\n<https://github.com/SuperBearAdventure/shicka>");
 	}
 	describe(interaction, name) {
 		return `Type \`/${name}\` to know where I come from`;
