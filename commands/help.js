@@ -19,7 +19,7 @@ export default class HelpCommand extends Command {
 			}
 			return description.split("\n");
 		}).flat().map((description) => {
-			return `- ${description}`;
+			return `\u{2022} ${description}`;
 		}).join("\n");
 		await interaction.reply(`Hey ${user}, there you are!\nI can give you some advice about the server:\n${featureList}`);
 	}

@@ -1,7 +1,7 @@
 import Command from "../command.js";
 const stores = [
-	"*European store*: <https://shop.spreadshirt.net/SuperBearAdventure>",
-	"*American and Oceanian store*: <https://shop.spreadshirt.com/SuperBearAdventure>",
+	"[*European store*](<https://shop.spreadshirt.net/SuperBearAdventure>)",
+	"[*American and Oceanian store*](<https://shop.spreadshirt.com/SuperBearAdventure>)",
 ];
 export default class StoreCommand extends Command {
 	register(client, name) {
@@ -10,7 +10,7 @@ export default class StoreCommand extends Command {
 	}
 	async execute(interaction) {
 		const linkList = stores.map((store) => {
-			return `- ${store}`;
+			return `\u{2022} ${store}`;
 		}).join("\n");
 		await interaction.reply({
 			content: `You can buy official products of the game there:\n${linkList}`,

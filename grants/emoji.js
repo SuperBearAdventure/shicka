@@ -43,7 +43,7 @@ export default class EmojiGrant extends Grant {
 			const styleConjunction = conjunctionFormat.format(Object.keys(styles).concat("auto").map((style) => {
 				return `\`${Util.escapeMarkdown(style)}\``;
 			}));
-			await message.channel.send(`Please give me:\n- a base among ${baseConjunction}\n- up to 6 styles among ${styleConjunction}`);
+			await message.channel.send(`Please give me:\n\u{2022} a base among ${baseConjunction}\n\u{2022} up to 6 styles among ${styleConjunction}`);
 			return;
 		}
 		const base = parameters[1].toLowerCase();

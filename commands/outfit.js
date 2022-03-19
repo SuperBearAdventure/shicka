@@ -145,7 +145,7 @@ export default class OutfitCommand extends Command {
 			});
 			const dayDateTime = dateTimeFormat.format(new Date(day * 21600000));
 			const nameConjunction = conjunctionFormat.format(names);
-			schedules.push(`- *${Util.escapeMarkdown(dayDateTime)}*: ${nameConjunction}`);
+			schedules.push(`\u{2022} *${Util.escapeMarkdown(dayDateTime)}*: ${nameConjunction}`);
 		}
 		const scheduleList = schedules.join("\n");
 		await interaction.reply(`Outfits for sale in the shop change every 6 hours:\n${scheduleList}`);
@@ -184,7 +184,7 @@ export default class OutfitCommand extends Command {
 			const index = day - seed * slicesPerRarity;
 			if (slicesByRarity[outfit.rarity][index].includes(outfit)) {
 				const dayDateTime = dateTimeFormat.format(new Date(day * 21600000));
-				schedules.push(`- *${Util.escapeMarkdown(dayDateTime)}*`);
+				schedules.push(`\u{2022} *${Util.escapeMarkdown(dayDateTime)}*`);
 			}
 		}
 		const {name} = outfit;

@@ -1,7 +1,7 @@
 import Command from "../command.js";
 const trackers = [
-	"*Current tracker*: <https://github.com/SuperBearAdventure/tracker>",
-	"*Former tracker*: <https://trello.com/b/yTojOuqv/super-bear-adventure-bugs>",
+	"[*Current tracker*](<https://github.com/SuperBearAdventure/tracker>)",
+	"[*Former tracker*](<https://trello.com/b/yTojOuqv/super-bear-adventure-bugs>)",
 ];
 export default class TrackerCommand extends Command {
 	register(client, name) {
@@ -10,7 +10,7 @@ export default class TrackerCommand extends Command {
 	}
 	async execute(interaction) {
 		const linkList = trackers.map((tracker) => {
-			return `- ${tracker}`;
+			return `\u{2022} ${tracker}`;
 		}).join("\n");
 		const channel = interaction.guild.channels.cache.find((channel) => {
 			return channel.name === "🐛・bug-report";

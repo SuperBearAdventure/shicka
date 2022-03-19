@@ -1,7 +1,7 @@
 import Command from "../command.js";
 const trailers = [
-	"*Main trailer*: <https://www.youtube.com/watch?v=L00uorYTYgE>",
-	"*Missions trailer*: <https://www.youtube.com/watch?v=j3vwu0JWIEg>",
+	"[*Main trailer*](<https://www.youtube.com/watch?v=L00uorYTYgE>)",
+	"[*Missions trailer*](<https://www.youtube.com/watch?v=j3vwu0JWIEg>)",
 ];
 export default class TrailerCommand extends Command {
 	register(client, name) {
@@ -10,7 +10,7 @@ export default class TrailerCommand extends Command {
 	}
 	async execute(interaction) {
 		const linkList = trailers.map((trailer) => {
-			return `- ${trailer}`;
+			return `\u{2022} ${trailer}`;
 		}).join("\n");
 		await interaction.reply({
 			content: `You can watch official trailers of the game there:\n${linkList}`,

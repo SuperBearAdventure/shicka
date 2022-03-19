@@ -68,7 +68,7 @@ export default class MissionCommand extends Command {
 			const challenge = challenges[mission.challenge].name;
 			const level = levels[mission.level].name;
 			const dayDate = dateFormat.format(new Date(day * 86400000));
-			schedules.push(`- *${Util.escapeMarkdown(dayDate)}*: **${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}**`);
+			schedules.push(`\u{2022} *${Util.escapeMarkdown(dayDate)}*: **${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}**`);
 		}
 		const scheduleList = schedules.join("\n");
 		await interaction.reply(`Each mission starts at *${Util.escapeMarkdown(dayTime)}*:\n${scheduleList}`);
@@ -92,7 +92,7 @@ export default class MissionCommand extends Command {
 			const seed = (day % missionCount + missionCount) % missionCount;
 			if (missions[seed] === mission) {
 				const dayDateTime = dateTimeFormat.format(new Date(day * 86400000 + 36000000));
-				schedules.push(`- *${Util.escapeMarkdown(dayDateTime)}*`);
+				schedules.push(`\u{2022} *${Util.escapeMarkdown(dayDateTime)}*`);
 			}
 		}
 		const challenge = challenges[mission.challenge].name;

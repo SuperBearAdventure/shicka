@@ -10,7 +10,7 @@ export default class RoadmapCommand extends Command {
 		});
 		const intent = channel != null ? `Before suggesting an idea in ${channel},` : "You can";
 		await interaction.reply({
-			content: `${intent} check the upcoming milestones of the game there:\n<https://trello.com/b/3DPL9CwV/road-to-100>`,
+			content: `${intent} check the upcoming milestones of the game [there](<https://trello.com/b/3DPL9CwV/road-to-100>).`,
 		});
 	}
 	describe(interaction, name) {
