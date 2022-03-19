@@ -48,6 +48,10 @@ export default class ChatGrant extends Grant {
 				await message.reply(`I do not know any message with this identifier in this channel.`);
 				return;
 			}
+			if (target.interaction != null) {
+				await message.reply(`I can not edit interaction replies or follow-ups.`);
+				return;
+			}
 			if (parameters.length < 4 && message.attachments.size === 0) {
 				await message.reply(`Please give me a content or attachments.`);
 				return;
