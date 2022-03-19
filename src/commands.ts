@@ -13,6 +13,7 @@ import missionCommand from "./commands/mission.js";
 import outfitCommand from "./commands/outfit.js";
 import rawCommand from "./commands/raw.js";
 import roadmapCommand from "./commands/roadmap.js";
+import soundtrackCommand from "./commands/soundtrack.js";
 import storeCommand from "./commands/store.js";
 import trackerCommand from "./commands/tracker.js";
 import trailerCommand from "./commands/trailer.js";
@@ -31,6 +32,7 @@ const mission: Command = missionCommand;
 const outfit: Command = outfitCommand;
 const raw: Command = rawCommand;
 const roadmap: Command = roadmapCommand;
+const soundtrack: Command = soundtrackCommand;
 const store: Command = storeCommand;
 const tracker: Command = trackerCommand;
 const trailer: Command = trailerCommand;
@@ -46,6 +48,7 @@ export {
 	outfit,
 	raw,
 	roadmap,
+	soundtrack,
 	store,
 	tracker,
 	trailer,

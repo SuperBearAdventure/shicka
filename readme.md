@@ -65,6 +65,8 @@ $ npm start
 
 - `/roadmap` gives the link to the todo list of the game on `trello.com`
 
+- `/soundtrack` gives the links to the music pieces of the game on `www.youtube.com`
+
 - `/store` gives the links to the online stores of the game on `superbearadventure.myspreadshop.net` and `superbearadventure.myspreadshop.com`
 
 - `/tracker` gives the links to the issue trackers of the game on `github.com` and `trello.com`
