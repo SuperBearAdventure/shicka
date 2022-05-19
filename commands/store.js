@@ -1,7 +1,7 @@
 import Command from "../command.js";
 const stores = [
-	"[*European store*](<https://shop.spreadshirt.net/SuperBearAdventure>)",
-	"[*American and Oceanian store*](<https://shop.spreadshirt.com/SuperBearAdventure>)",
+	"[*European store*](<https://superbearadventure.myspreadshop.net/>)",
+	"[*American and Oceanian store*](<https://superbearadventure.myspreadshop.com/>)",
 ];
 export default class StoreCommand extends Command {
 	register(client, name) {
