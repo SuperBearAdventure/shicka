@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import url from "node:url";
-const {readFile, readdir} = fs;
+const {readdir} = fs;
 const {fileURLToPath} = url;
 async function load(directory, extension, callback) {
 	const {length} = extension;
@@ -22,7 +22,11 @@ export async function loadActions(directory) {
 }
 export async function loadData(directory) {
 	return await load(directory, ".json", async (path) => {
-		const datum = JSON.parse(await readFile(fileURLToPath(path)));
+		const datum = (await import(path, {
+			assert: {
+				type: "json",
+			},
+		})).default;
 		for (const [key, value] of datum.entries()) {
 			value.id = key;
 		}
@@ -31,7 +35,11 @@ export async function loadData(directory) {
 }
 export async function loadGreetings(directory) {
 	return await load(directory, ".json", async (path) => {
-		const greeting = JSON.parse(await readFile(fileURLToPath(path)));
+		const greeting = (await import(path, {
+			assert: {
+				type: "json",
+			},
+		})).default;
 		return greeting;
 	});
 }

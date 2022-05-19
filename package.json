@@ -16,6 +16,6 @@
     "w3c-xmlserializer": "^2.0.0"
   },
   "engines": {
-    "node": "^16.9.0"
+    "node": "^16.15.0"
   }
 }
