@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" stroke-linecap="round" stroke-linejoin="round">
+	<clipPath id="clip">
+		<circle cx="128" cy="128" r="96"/>
+	</clipPath>
+	<circle cx="128" cy="128" r="96" fill="#7289da"/>
+	<g clip-path="url(#clip)" stroke-width="8">
+		<path d="
+			M65,82
+			L95,82
+			L182,256
+			L128,256
+			L57,114
+			Z
+			M191,82
+			L161,82
+			L158,94
+			L239,256
+			L256,212
+			Z
+			M88,110
+			L168,110
+			L242,256
+			L118,256
+			L80,180
+			Z
+		" fill="#4e5d94" stroke="#4e5d94"/>
+		<path d="
+			M65,82
+			L95,82
+			L98,94
+			L89,94
+			A13,13,0,1,0,72,111
+			L71,120
+			L57,114
+			Z
+			M191,82
+			L161,82
+			L158,94
+			L167,94
+			A13,13,0,1,1,184,111
+			L185,120
+			L199,114
+			Z
+			M88,110
+			L168,110
+			L176,180
+			L128,192
+			L80,180
+			Z
+		" fill="#ffffff" stroke="#ffffff"/>
+		<path d="
+			M105,141
+			L108,141
+			Z
+			M151,141
+			L148,141
+			Z
+			M127,162
+			L129,162
+			Z
+			M112,154
+			L128,150
+			L144,154
+			L144,178
+			L128,182
+			L112,178
+			Z
+		" fill="none" stroke="#4e5d94"/>
+	</g>
+	<circle cx="128" cy="128" r="96" fill="none" stroke="#23272a" stroke-width="4"/>
+</svg>

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" stroke-linecap="round" stroke-linejoin="round">
+	<clipPath id="clip">
+		<circle cx="128" cy="128" r="96"/>
+	</clipPath>
+	<circle cx="128" cy="128" r="96" fill="#7289da"/>
+	<g clip-path="url(#clip)" stroke-width="8">
+		<path d="
+			M108,70
+			L120,86
+			L205,256
+			L197,256
+			L112,86
+			Z
+			M152,78
+			L241,256
+			L221,256
+			L136,86
+			Z
+			M88,102
+			L168,102
+			L246,256
+			L122,256
+			L80,172
+			Z
+		" fill="#4e5d94" stroke="#4e5d94"/>
+		<path d="
+			M108,70
+			L120,86
+			L112,86
+			Z
+			M152,78
+			L144,86
+			L136,86
+			Z
+			M88,102
+			L168,102
+			L176,172
+			L128,184
+			L80,172
+			Z
+		" fill="#ffffff" stroke="#ffffff"/>
+		<g fill="none" stroke="#4e5d94">
+			<ellipse cx="106" cy="133" rx="7" ry="5"/>
+			<ellipse cx="150" cy="133" rx="7" ry="5"/>
+			<path d="
+				M94,118
+				C104,117,108,117,116,117
+				M162,118
+				C152,117,148,117,140,117
+				M112,154
+				L128,142
+				L144,154
+				L144,162
+				L128,174
+				L112,162
+				Z
+			"/>
+		</g>
+	</g>
+	<circle cx="128" cy="128" r="96" fill="none" stroke="#23272a" stroke-width="4"/>
+</svg>
