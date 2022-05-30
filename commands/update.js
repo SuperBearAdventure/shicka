@@ -15,25 +15,39 @@ export default class UpdateCommand extends Command {
 	}
 	async execute(interaction) {
 		try {
-			const {window} = await JSDOM.fromURL("https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
-			const versionElement = window.document.querySelector(".IxB2fe > :nth-child(4) > :nth-child(2) > :nth-child(1) > :nth-child(1)");
-			if (versionElement == null) {
-				throw new Error("No version found");
-			}
-			const dateElement = window.document.querySelector(".IxB2fe > :nth-child(1) > :nth-child(2) > :nth-child(1) > :nth-child(1)");
-			if (dateElement == null) {
-				throw new Error("No date found");
-			}
-			const response = await fetch("https://itunes.apple.com/lookup?id=1531842415&entity=software");
-			const {results} = await response.json();
-			if (results.length === 0) {
-				throw new Error("No result found");
-			}
-			const result = results[0];
-			const androidVersion = versionElement.textContent;
-			const androidDate = dateElement.textContent;
-			const iosVersion = result.version;
-			const iosDate = dateFormat.format(new Date(result.currentVersionReleaseDate));
+			const androidData = await (async () => {
+				const {window} = await JSDOM.fromURL("https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
+				for (const {textContent} of window.document.querySelectorAll("body > script")) {
+					if (!textContent.startsWith("AF_initDataCallback({") || !textContent.endsWith("});")) {
+						continue;
+					}
+					try {
+						const result = JSON.parse(textContent.slice(textContent.indexOf(", data:") + 7, textContent.lastIndexOf(", sideChannel: ")));
+						return {
+							version: result[1][2][140][0][0][0],
+							date: result[1][2][145][0][1][0] * 1000,
+						};
+					} catch {}
+				}
+				return null;
+			})();
+			const iosData = await (async () => {
+				const response = await fetch("https://itunes.apple.com/lookup?id=1531842415&entity=software");
+				const data = await response.json();
+				for (const result of data.results) {
+					try {
+						return {
+							version: result.version,
+							date: new Date(result.currentVersionReleaseDate).getTime(),
+						};
+					} catch {}
+				}
+				return null;
+			})();
+			const androidVersion = androidData.version;
+			const androidDate = dateFormat.format(new Date(androidData.date));
+			const iosVersion = iosData.version;
+			const iosDate = dateFormat.format(new Date(iosData.date));
 			await interaction.reply(`The latest update of the game is:\n\u{2022} **${Util.escapeMarkdown(androidVersion)}** on **Android** (*${Util.escapeMarkdown(androidDate)}*)\n\u{2022} **${Util.escapeMarkdown(iosVersion)}** on **iOS** (*${Util.escapeMarkdown(iosDate)}*)`);
 		} catch (error) {
 			console.warn(error);
