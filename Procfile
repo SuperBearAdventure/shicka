@@ -1,1 +1,1 @@
-worker: node shicka.js
+worker: npm run start
