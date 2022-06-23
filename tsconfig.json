@@ -3,6 +3,8 @@
     "esModuleInterop": true,
     "importsNotUsedAsValues": "preserve",
     "module": "nodenext",
-    "resolveJsonModule": true
+    "outDir": "bin",
+    "resolveJsonModule": true,
+    "rootDir": "src"
   }
 }

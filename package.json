@@ -4,8 +4,8 @@
   "description": "Bot for the official Super Bear Adventure Discord server",
   "main": "shicka.js",
   "scripts": {
-    "start": "node shicka.js",
-    "build": "npx tsc"
+    "start": "node bin/shicka.js",
+    "build": "npx tsc && ln -frs src/emojis bin/emojis"
   },
   "repository": "https://github.com/SuperBearAdventure/shicka",
   "author": "Tristan LE GODAIS",
