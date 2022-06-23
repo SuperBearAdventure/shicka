@@ -20,17 +20,17 @@ export async function loadActions(directory) {
 		return action;
 	});
 }
-export async function loadData(directory) {
+export async function loadBindings(directory) {
 	return await load(directory, ".json", async (path) => {
-		const datum = (await import(path, {
+		const binding = (await import(path, {
 			assert: {
 				type: "json",
 			},
 		})).default;
-		for (const [key, value] of datum.entries()) {
+		for (const [key, value] of binding.entries()) {
 			value.id = key;
 		}
-		return datum;
+		return binding;
 	});
 }
 export async function loadGreetings(directory) {

@@ -1,7 +1,7 @@
 import discord from "discord.js";
 import {
 	loadActions,
-	loadData,
+	loadBindings,
 	loadGreetings,
 } from "./loader.js";
 import {
@@ -23,14 +23,14 @@ const grants = await loadActions(`${root}/grants`);
 const commands = await loadActions(`${root}/commands`);
 const feeds = await loadActions(`${root}/feeds`);
 const triggers = await loadActions(`${root}/triggers`);
-const data = await loadData(`${root}/data`);
+const bindings = await loadBindings(`${root}/bindings`);
 const greetings = await loadGreetings(`${root}/greetings`);
-// const bearsByLevel = indexBearByLevel(data.bears, data.levels);
-// const outfitsByPart = indexOutfitsByPart(data.outfits, data.parts);
-const outfitsByRarity = indexOutfitsByRarity(data.outfits, data.rarities);
-// const outfitsByUpdate = indexOutfitsByUpdate(data.outfits, data.updates);
-// const missionsByChallenge = indexMissionsByChallenge(data.missions, data.challenges);
-// const missionsByLevel = indexMissionsByChallenge(data.missions, data.levels);
+// const bearsByLevel = indexBearByLevel(bindings.bears, bindings.levels);
+// const outfitsByPart = indexOutfitsByPart(bindings.outfits, bindings.parts);
+const outfitsByRarity = indexOutfitsByRarity(bindings.outfits, bindings.rarities);
+// const outfitsByUpdate = indexOutfitsByUpdate(bindings.outfits, bindings.updates);
+// const missionsByChallenge = indexMissionsByChallenge(bindings.missions, bindings.challenges);
+// const missionsByLevel = indexMissionsByChallenge(bindings.missions, bindings.levels);
 const indices = Object.assign(Object.create(null), {
 	// bearsByLevel,
 	// outfitsByPart,
@@ -62,7 +62,7 @@ client.grants = grants;
 client.commands = commands;
 client.feeds = feeds;
 client.triggers = triggers;
-client.data = data;
+client.bindings = bindings;
 client.greetings = greetings;
 client.indices = indices;
 client.once("ready", async (client) => {

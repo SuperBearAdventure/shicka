@@ -23,8 +23,8 @@ export default class BearCommand extends Command {
 	async execute(interaction) {
 		if (interaction.isAutocomplete()) {
 			const {client, options} = interaction;
-			const {data} = client;
-			const {bears} = data;
+			const {bindings} = client;
+			const {bears} = bindings;
 			const {name, value} = options.getFocused(true);
 			if (name !== "bear") {
 				await interaction.respond([]);
@@ -45,8 +45,8 @@ export default class BearCommand extends Command {
 			return;
 		}
 		const {client, options} = interaction;
-		const {data} = client;
-		const {bears, levels, outfits} = data;
+		const {bindings} = client;
+		const {bears, levels, outfits} = bindings;
 		const search = options.getString("bear");
 		const results = nearest(search.toLowerCase(), bears, 1, (bear) => {
 			const {name} = bear;

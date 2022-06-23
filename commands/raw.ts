@@ -7,7 +7,7 @@ const conjunctionFormat = new Intl.ListFormat("en-US", {
 });
 export default class RawCommand extends Command {
 	register(client, name) {
-		const {data} = client;
+		const {bindings} = client;
 		const description = "Tells you what is the datum of this type with this identifier";
 		const options = [
 			{
@@ -15,7 +15,7 @@ export default class RawCommand extends Command {
 				name: "type",
 				description: "Some type",
 				required: true,
-				choices: Object.entries(data).filter(([type, array]) => {
+				choices: Object.entries(bindings).filter(([type, array]) => {
 					return array.length !== 0;
 				}).map(([type, array]) => {
 					return {
@@ -37,10 +37,10 @@ export default class RawCommand extends Command {
 	}
 	async execute(interaction) {
 		const {client, options} = interaction;
-		const {data} = client;
+		const {bindings} = client;
 		const type = options.getString("type");
-		if (!(type in data)) {
-			const typeConjunction = conjunctionFormat.format(Object.keys(data).map((type) => {
+		if (!(type in bindings)) {
+			const typeConjunction = conjunctionFormat.format(Object.keys(bindings).map((type) => {
 				return `\`${Util.escapeMarkdown(type)}\``;
 			}));
 			await interaction.reply({
@@ -49,16 +49,16 @@ export default class RawCommand extends Command {
 			});
 			return;
 		}
-		const array = data[type];
+		const binding = bindings[type];
 		const identifier = options.getInteger("identifier");
-		if (identifier < 0 || identifier >= array.length) {
+		if (identifier < 0 || identifier >= binding.length) {
 			await interaction.reply({
-				content: `I do not know any datum with this identifier.\nPlease give me an identifier between \`0\` and \`${array.length - 1}\` instead.`,
+				content: `I do not know any datum with this identifier.\nPlease give me an identifier between \`0\` and \`${binding.length - 1}\` instead.`,
 				ephemeral: true,
 			});
 			return;
 		}
-		const datum = JSON.stringify(array[identifier], null, "\t");
+		const datum = JSON.stringify(binding[identifier], null, "\t");
 		await interaction.reply(`\`\`\`json\n${Util.escapeMarkdown(datum)}\n\`\`\``);
 	}
 	describe(interaction, name) {
