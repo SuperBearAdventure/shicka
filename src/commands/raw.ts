@@ -1,24 +1,33 @@
+import type {
+	ApplicationCommandData,
+	ApplicationCommandOptionData,
+	ApplicationCommandOptionChoiceData,
+	CommandInteraction,
+	Interaction,
+} from "discord.js";
+import type Binding from "../bindings.js";
+import type Command from "../commands.js";
 import {Util} from "discord.js";
 import * as bindings from "../bindings.js";
-const conjunctionFormat = new Intl.ListFormat("en-US", {
+const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-const rawCommand = {
-	register(name) {
-		const description = "Tells you what is the datum of this type with this identifier";
-		const options = [
+const rawCommand: Command = {
+	register(name: string): ApplicationCommandData {
+		const description: string = "Tells you what is the datum of this type with this identifier";
+		const options: ApplicationCommandOptionData[] = [
 			{
 				type: "STRING",
 				name: "type",
 				description: "Some type",
 				required: true,
-				choices: Object.keys(bindings).map((bindingName) => {
-					const binding = bindings[bindingName];
+				choices: Object.keys(bindings).map((bindingName: string): [string, Binding] => {
+					const binding: Binding = bindings[bindingName as keyof typeof bindings] as Binding;
 					return [bindingName, binding];
-				}).filter(([bindingName, binding]) => {
+				}).filter(([bindingName, binding]: [string, Binding]): boolean => {
 					return binding.length !== 0;
-				}).map(([bindingName, binding]) => {
+				}).map(([bindingName, binding]: [string, Binding]): ApplicationCommandOptionChoiceData => {
 					return {
 						name: bindingName,
 						value: bindingName,
@@ -36,14 +45,14 @@ const rawCommand = {
 		];
 		return {name, description, options};
 	},
-	async execute(interaction) {
+	async execute(interaction: Interaction): Promise<void> {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {options} = interaction;
-		const bindingName = options.getString("type", true);
+		const {options}: CommandInteraction = interaction;
+		const bindingName: string = options.getString("type", true);
 		if (!(bindingName in bindings)) {
-			const typeConjunction = conjunctionFormat.format(Object.keys(bindings).map((bindingName) => {
+			const typeConjunction: string = conjunctionFormat.format(Object.keys(bindings).map((bindingName: string): string => {
 				return `\`${Util.escapeMarkdown(bindingName)}\``;
 			}));
 			await interaction.reply({
@@ -52,8 +61,8 @@ const rawCommand = {
 			});
 			return;
 		}
-		const binding = bindings[bindingName];
-		const identifier = options.getInteger("identifier", true);
+		const binding: Binding = bindings[bindingName as keyof typeof bindings] as Binding;
+		const identifier: number = options.getInteger("identifier", true);
 		if (identifier < 0 || identifier >= binding.length) {
 			await interaction.reply({
 				content: `I do not know any datum with this identifier.\nPlease give me an identifier between \`0\` and \`${binding.length - 1}\` instead.`,
@@ -61,10 +70,10 @@ const rawCommand = {
 			});
 			return;
 		}
-		const datum = JSON.stringify(binding[identifier], null, "\t");
+		const datum: string = JSON.stringify(binding[identifier], null, "\t");
 		await interaction.reply(`\`\`\`json\n${Util.escapeMarkdown(datum)}\n\`\`\``);
 	},
-	describe(interaction, name) {
+	describe(interaction: CommandInteraction, name: string): string | null {
 		return `Type \`/${name} Some type Some identifier\` to know what is the datum of \`Some type\` with \`Some identifier\``;
 	},
 };

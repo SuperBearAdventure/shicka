@@ -1,3 +1,13 @@
+import type {
+	Bear,
+	Challenge,
+	Level,
+	Mission,
+	Outfit,
+	Part,
+	Rarity,
+	Update,
+} from "./bindings.js";
 import {
 	bears,
 	challenges,
@@ -8,8 +18,9 @@ import {
 	rarities,
 	updates,
 } from "./bindings.js";
-function indexBy(leftArray, rightArray, key) {
-	const index = Array.from(rightArray, () => {
+type Index = (Bear | Challenge | Level | Mission | Outfit | Part | Rarity | Update)[][];
+function indexBy<Left extends {[k in Key]: number}, Right, Key extends string>(leftArray: Left[], rightArray: Right[], key: Key): Left[][] {
+	const index: Left[][] = Array.from(rightArray, (): Left[] => {
 		return [];
 	});
 	for (const value of leftArray) {
@@ -17,29 +28,29 @@ function indexBy(leftArray, rightArray, key) {
 	}
 	return index;
 }
-function indexBearsByLevel(bears, levels) {
-	return indexBy(bears, levels, "level");
+function indexBearsByLevel(bears: Bear[], levels: Level[]): Bear[][] {
+	return indexBy<Bear, Level, "level">(bears, levels, "level");
 }
-function indexMissionsByChallenge(missions, challenges) {
-	return indexBy(missions, challenges, "challenge");
+function indexMissionsByChallenge(missions: Mission[], challenges: Challenge[]): Mission[][] {
+	return indexBy<Mission, Challenge, "challenge">(missions, challenges, "challenge");
 }
-function indexMissionsByLevel(missions, levels) {
-	return indexBy(missions, levels, "level");
+function indexMissionsByLevel(missions: Mission[], levels: Level[]): Mission[][] {
+	return indexBy<Mission, Level, "level">(missions, levels, "level");
 }
-function indexOutfitsByPart(outfits, parts) {
-	const outfitsByPart = indexBy(outfits, parts, "part");
+function indexOutfitsByPart(outfits: Outfit[], parts: Part[]): Outfit[][] {
+	const outfitsByPart: Outfit[][] = indexBy<Outfit, Part, "part">(outfits, parts, "part");
 	for (const outfits of outfitsByPart) {
-		outfits.sort((a, b) => {
-			const aRarity = a.rarity;
-			const bRarity = b.rarity;
+		outfits.sort((a: Outfit, b: Outfit): number => {
+			const aRarity: number = a.rarity;
+			const bRarity: number = b.rarity;
 			if (aRarity > bRarity) {
 				return 1;
 			}
 			if (aRarity < bRarity) {
 				return -1;
 			}
-			const aName = a.name.toLowerCase();
-			const bName = b.name.toLowerCase();
+			const aName: string = a.name.toLowerCase();
+			const bName: string = b.name.toLowerCase();
 			if (aName > bName) {
 				return 1;
 			}
@@ -51,18 +62,24 @@ function indexOutfitsByPart(outfits, parts) {
 	}
 	return outfitsByPart;
 }
-function indexOutfitsByRarity(outfits, rarities) {
-	return indexBy(outfits, rarities, "rarity");
+function indexOutfitsByRarity(outfits: Outfit[], rarities: Rarity[]): Outfit[][] {
+	return indexBy<Outfit, Rarity, "rarity">(outfits, rarities, "rarity");
 }
-function indexOutfitsByUpdate(outfits, updates) {
-	return indexBy(outfits, updates, "update");
+function indexOutfitsByUpdate(outfits: Outfit[], updates: Update[]): Outfit[][] {
+	return indexBy<Outfit, Update, "update">(outfits, updates, "update");
 }
-const bearsByLevel = indexBearsByLevel(bears, levels);
-const missionsByChallenge = indexMissionsByChallenge(missions, challenges);
-const missionsByLevel = indexMissionsByLevel(missions, levels);
-const outfitsByPart = indexOutfitsByPart(outfits, parts);
-const outfitsByRarity = indexOutfitsByRarity(outfits, rarities);
-const outfitsByUpdate = indexOutfitsByUpdate(outfits, updates);
+const bearsByLevel: Bear[][] = indexBearsByLevel(bears, levels);
+const missionsByChallenge: Mission[][] = indexMissionsByChallenge(missions, challenges);
+const missionsByLevel: Mission[][] = indexMissionsByLevel(missions, levels);
+const outfitsByPart: Outfit[][] = indexOutfitsByPart(outfits, parts);
+const outfitsByRarity: Outfit[][] = indexOutfitsByRarity(outfits, rarities);
+const outfitsByUpdate: Outfit[][] = indexOutfitsByUpdate(outfits, updates);
+export default Index;
+export type {
+	Bear,
+	Mission,
+	Outfit,
+};
 export {
 	bearsByLevel,
 	missionsByChallenge,

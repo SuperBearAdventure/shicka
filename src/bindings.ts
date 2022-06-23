@@ -6,21 +6,84 @@ import outfitsBinding from "./bindings/outfits.json" assert {type: "json"};
 import partsBinding from "./bindings/parts.json" assert {type: "json"};
 import raritiesBinding from "./bindings/rarities.json" assert {type: "json"};
 import updatesBinding from "./bindings/updates.json" assert {type: "json"};
-function bind(array) {
-	const binding = [];
+type Bear = {
+	id: number,
+	name: string,
+	gold: number,
+	level: number,
+	outfits: number[],
+};
+type Challenge = {
+	id: number,
+	name: string,
+};
+type Level = {
+	id: number,
+	name: string,
+	boss: string,
+	coins: number,
+	stickers: number,
+};
+type Mission = {
+	id: number,
+	challenge: number,
+	level: number,
+};
+type Outfit = {
+	id: number,
+	name: string,
+	cost: number,
+	part: number,
+	rarity: number,
+	update: number,
+};
+type Part = {
+	id: number,
+	name: string,
+};
+type Rarity = {
+	id: number,
+	cost: number,
+	payoff: number,
+	probability: number,
+	slots: number,
+};
+type Update = {
+	id: number,
+	name: string,
+	date: {
+		android: string | null,
+		ios: string | null,
+	},
+	notes: string[],
+};
+type Binding = (Bear | Challenge | Level | Mission | Outfit | Part | Rarity | Update)[];
+function bind<Type>(array: Type[]): (Type & {id: number})[] {
+	const binding: (Type & {id: number})[] = [];
 	for (const [key, value] of array.entries()) {
 		binding.push({...value, id: key});
 	}
 	return binding;
 }
-const bears = bind(bearsBinding);
-const challenges = bind(challengesBinding);
-const levels = bind(levelsBinding);
-const missions = bind(missionsBinding);
-const outfits = bind(outfitsBinding);
-const parts = bind(partsBinding);
-const rarities = bind(raritiesBinding);
-const updates = bind(updatesBinding);
+const bears: Bear[] = bind<Omit<Bear, "id">>(bearsBinding);
+const challenges: Challenge[] = bind<Omit<Challenge, "id">>(challengesBinding);
+const levels: Level[] = bind<Omit<Level, "id">>(levelsBinding);
+const missions: Mission[] = bind<Omit<Mission, "id">>(missionsBinding);
+const outfits: Outfit[] = bind<Omit<Outfit, "id">>(outfitsBinding);
+const parts: Part[] = bind<Omit<Part, "id">>(partsBinding);
+const rarities: Rarity[] = bind<Omit<Rarity, "id">>(raritiesBinding);
+const updates: Update[] = bind<Omit<Update, "id">>(updatesBinding);
+export default Binding;
+export type {
+	Bear,
+	Challenge,
+	Level,
+	Mission,
+	Outfit,
+	Part,
+	Rarity,
+	Update,
+};
 export {
 	bears,
 	challenges,

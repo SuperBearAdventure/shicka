@@ -1,131 +1,151 @@
+import type {
+	Client,
+	CommandInteraction,
+	GuildBasedChannel,
+	Message,
+} from "discord.js";
+import type {Response} from "node-fetch";
+import type {Job} from "node-schedule";
+import type Feed from "../feeds.js";
 import {Util} from "discord.js";
 import fetch from "node-fetch";
 import schedule from "node-schedule";
-const games = ["9d3rrxyd", "w6jl2ned"];
-const recordFeed = {
-	register(client, name) {
+type Leaderboard = {
+	leaderboardName: string,
+};
+type Category = {
+	categoryName: string,
+	leaderboards: {[k in string]: Leaderboard},
+};
+type Level = {
+	levelName: string,
+	categories: {[k in string]: Category},
+};
+const games: string[] = ["9d3rrxyd", "w6jl2ned"];
+const recordFeed: Feed = {
+	register(client: Client, name: string): Job {
 		return schedule.scheduleJob({
 			rule: "1 3/6 * * *",
 			tz: "UTC",
-		}, async (timestamp) => {
-			const middle = Math.floor(timestamp.getTime() / 21600000) * 21600000;
-			const start = middle - 10800000;
-			const end = middle + 10800000;
-			const records = await this.execute(start, end);
+		}, async (timestamp: Date): Promise<void> => {
+			const middle: number = Math.floor(timestamp.getTime() / 21600000) * 21600000;
+			const start: number = middle - 10800000;
+			const end: number = middle + 10800000;
+			const records: string[] = await this.execute(start, end);
 			for (const guild of client.guilds.cache.values()) {
-				const channel = guild.channels.cache.find((channel) => {
+				const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 					return channel.name === "🏅・records";
 				});
 				if (channel == null || !("messages" in channel)) {
 					continue;
 				}
 				for (const record of records) {
-					const message = await channel.send(record);
+					const message: Message = await channel.send(record);
 					await message.react("🎉");
 				}
 			}
 		});
 	},
-	async execute(start, end) {
-		const records = [];
+	async execute(start: number, end: number): Promise<string[]> {
+		const records: string[] = [];
 		try {
 			for (const gameId of games) {
-				const levels = Object.create(null);
-				loop: for (let i = 0;; i += 20) {
-					const response = await fetch(`https://www.speedrun.com/api/v1/runs?game=${gameId}&status=verified&orderby=verify-date&direction=desc&embed=category.variables,level&offset=${i}&max=20`);
-					const {data, pagination} = await response.json();
+				const levels: {[k in string]: Level} = Object.create(null);
+				loop: for (let i: number = 0;; i += 20) {
+					const response: Response = await fetch(`https://www.speedrun.com/api/v1/runs?game=${gameId}&status=verified&orderby=verify-date&direction=desc&embed=category.variables,level&offset=${i}&max=20`);
+					const {data, pagination}: any = await response.json();
 					if (pagination.size === 0) {
 						break;
 					}
 					for (const {category, level, status, values} of data) {
-						const date = Date.parse(status["verify-date"]);
+						const date: number = Date.parse(status["verify-date"]);
 						if (date <= start) {
 							break loop;
 						}
 						if (date > end) {
 							continue;
 						}
-						const levelData = level.data;
-						const levelId = !Array.isArray(levelData) ? `level/${levelData.id}` : "category";
-						const {categories} = levels[levelId] ??= {
+						const levelData: any = level.data;
+						const levelId: string = !Array.isArray(levelData) ? `level/${levelData.id}` : "category";
+						const {categories}: Level = levels[levelId] ??= {
 							levelName: !Array.isArray(levelData) ? `${levelData.name}: ` : "",
 							categories: Object.create(null),
 						};
-						const categoryData = category.data;
-						const categoryId = categoryData.id;
-						const {leaderboards} = categories[categoryId] ??= {
+						const categoryData: any = category.data;
+						const categoryId: string = categoryData.id;
+						const {leaderboards}: Category = categories[categoryId] ??= {
 							categoryName: categoryData.name,
 							leaderboards: Object.create(null),
 						};
-						const leaderboardData = categoryData.variables.data.filter((variable) => {
+						const leaderboardData: any = categoryData.variables.data.filter((variable: any): boolean => {
 							if (!variable["is-subcategory"]) {
 								return false;
 							}
-							const variableScope = variable.scope;
+							const variableScope: any = variable.scope;
 							return variableScope.type !== "single-level" || `level/${variableScope.level}` === levelId;
 						});
-						const leaderboardId = leaderboardData.map((variable) => {
-							const variableId = variable.id;
+						const leaderboardId: string = leaderboardData.map((variable: any): string => {
+							const variableId: string = variable.id;
 							return `var-${variableId}=${values[variableId]}&`;
 						}).join("");
 						leaderboards[leaderboardId] ??= {
-							leaderboardName: leaderboardData.length !== 0 ? ` - ${leaderboardData.map((variable) => {
+							leaderboardName: leaderboardData.length !== 0 ? ` - ${leaderboardData.map((variable: any): string => {
 								return `${variable.values.values[values[variable.id]].label}`;
 							}).join(", ")}` : "",
 						};
 					}
 				}
 				for (const levelId in levels) {
-					const {levelName, categories} = levels[levelId];
+					const {levelName, categories}: Level = levels[levelId];
 					for (const categoryId in categories) {
-						const {categoryName, leaderboards} = categories[categoryId];
+						const {categoryName, leaderboards}: Category = categories[categoryId];
 						for (const leaderboardId in leaderboards) {
-							const {leaderboardName} = leaderboards[leaderboardId];
-							const response = await fetch(`https://www.speedrun.com/api/v1/leaderboards/${gameId}/${levelId}/${categoryId}?${leaderboardId}status=verified&embed=players&top=1`);
-							const {data} = await response.json();
-							const {players, runs} = data;
+							const {leaderboardName}: Leaderboard = leaderboards[leaderboardId];
+							const response: Response = await fetch(`https://www.speedrun.com/api/v1/leaderboards/${gameId}/${levelId}/${categoryId}?${leaderboardId}status=verified&embed=players&top=1`);
+							const {data}: any = await response.json();
+							const {players, runs}: any = data;
 							if (runs.length === 0) {
 								continue;
 							}
-							const {status, times, videos} = runs[0].run;
-							const date = Date.parse(status["verify-date"]);
+							const {status, times, videos}: any = runs[0].run;
+							const date: number = Date.parse(status["verify-date"]);
 							if (date <= start || date > end) {
 								continue;
 							}
-							const player = players.data[0];
-							const flag = "location" in player ? `${player.location.country.code.slice(0, 2).split("").map((string) => {
-								const character = string.codePointAt(0);
+							const player: any = players.data[0];
+							const flag: string = "location" in player ? `${player.location.country.code.slice(0, 2).split("").map((string: string): string => {
+								const character: number | undefined = string.codePointAt(0);
 								if (character == null) {
 									return "";
 								}
 								return String.fromCodePoint(character + 127365);
 							}).join("")} ` : "";
-							const name = "names" in player ? player.names.international : player.name;
-							const user = `${flag}${name}`;
-							const {primary_t} = times;
-							const minutes = `${primary_t / 60 | 0}`.padStart(2, "0");
-							const seconds = `${primary_t % 60 | 0}`.padStart(2, "0");
-							const centiseconds = `${primary_t * 100 % 100 | 0}`.padStart(2, "0");
-							const time = `${minutes}:${seconds}.${centiseconds}`;
-							const category = `${levelName}${categoryName}${leaderboardName}`;
-							const links = "links" in videos ? videos.links : [];
-							const video = links.length !== 0 ? `\n${links[0].uri}` : "";
+							const name: string = "names" in player ? player.names.international : player.name;
+							const user: string = `${flag}${name}`;
+							const {primary_t}: any = times;
+							const minutes: string = `${primary_t / 60 | 0}`.padStart(2, "0");
+							const seconds: string = `${primary_t % 60 | 0}`.padStart(2, "0");
+							const centiseconds: string = `${primary_t * 100 % 100 | 0}`.padStart(2, "0");
+							const time: string = `${minutes}:${seconds}.${centiseconds}`;
+							const category: string = `${levelName}${categoryName}${leaderboardName}`;
+							const links: any = "links" in videos ? videos.links : [];
+							const video: string = links.length !== 0 ? `\n${links[0].uri}` : "";
 							records.push(`*${Util.escapeMarkdown(user)}* set a new world record in the *${Util.escapeMarkdown(category)}* category: **${Util.escapeMarkdown(time)}**!${video}`);
 						}
 					}
 				}
 			}
-		} catch (error) {
+		} catch (error: unknown) {
 			console.warn(error);
 		}
 		return records;
 	},
-	describe(interaction, name) {
-		const {guild} = interaction;
+	describe(interaction: CommandInteraction, name: string): string | null {
+		const {guild}: CommandInteraction = interaction;
 		if (guild == null) {
 			return null;
 		}
-		const channel = guild.channels.cache.find((channel) => {
+		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 			return channel.name === "🏅・records";
 		});
 		if (channel == null) {

@@ -1,15 +1,23 @@
+import type {
+	CommandInteraction,
+	FileOptions,
+	GuildBasedChannel,
+	Message,
+	MessageAttachment,
+} from "discord.js";
+import type Grant from "../grants.js";
 import {MessageMentions} from "discord.js";
-const {source} = MessageMentions.CHANNELS_PATTERN;
-const messagePattern = /^(?:0|[1-9]\d*)$/;
-const channelPattern = new RegExp(`^(?:${source})$`, "");
-const channels = new Set(["🔧・console", "🔎・logs", "🛡・moderators-room"]);
-const chatGrant = {
-	async execute(message, parameters, tokens) {
-		const {channel} = message;
+const {source}: RegExp = MessageMentions.CHANNELS_PATTERN;
+const messagePattern: RegExp = /^(?:0|[1-9]\d*)$/;
+const channelPattern: RegExp = new RegExp(`^(?:${source})$`, "");
+const channels: Set<string> = new Set(["🔧・console", "🔎・logs", "🛡・moderators-room"]);
+const chatGrant: Grant = {
+	async execute(message: Message, parameters: string[], tokens: string[]): Promise<void> {
+		const {channel}: Message = message;
 		if (!("name" in channel) || !channels.has(channel.name)) {
 			return;
 		}
-		const {guild} = message;
+		const {guild}: Message = message;
 		if (guild == null) {
 			return;
 		}
@@ -17,9 +25,9 @@ const chatGrant = {
 			await message.reply(`Please give me a message identifier or a channel tag.`);
 			return;
 		}
-		const channelMatches = parameters[1].match(channelPattern);
+		const channelMatches: RegExpMatchArray | null = parameters[1].match(channelPattern);
 		if (channelMatches == null) {
-			const messageMatches = parameters[1].match(messagePattern);
+			const messageMatches: RegExpMatchArray | null = parameters[1].match(messagePattern);
 			if (messageMatches == null) {
 				await message.reply(`I do not know any message with this identifier or channel with this tag.`);
 				return;
@@ -28,12 +36,12 @@ const chatGrant = {
 				await message.reply(`Please give me a channel tag.`);
 				return;
 			}
-			const channelMatches = parameters[2].match(channelPattern);
+			const channelMatches: RegExpMatchArray | null = parameters[2].match(channelPattern);
 			if (channelMatches == null) {
 				await message.reply(`I do not know any channel with this tag.`);
 				return;
 			}
-			const targetChannel = await (async () => {
+			const targetChannel: GuildBasedChannel | null = await (async (): Promise<GuildBasedChannel | null> => {
 				try {
 					return await guild.channels.fetch(channelMatches[1]);
 				} catch {}
@@ -43,7 +51,7 @@ const chatGrant = {
 				await message.reply(`I do not know any channel with this tag.`);
 				return;
 			}
-			const targetMessage = await (async () => {
+			const targetMessage: Message | null = await (async (): Promise<Message | null> => {
 				try {
 					return await targetChannel.messages.fetch(parameters[1]);
 				} catch {}
@@ -61,15 +69,15 @@ const chatGrant = {
 				await message.reply(`Please give me a content or attachments.`);
 				return;
 			}
-			const content = parameters.length < 4 ? null : tokens.slice(7).join("");
-			const files = message.attachments.map((attachment) => {
-				const {name, url} = attachment;
+			const content: string | null = parameters.length < 4 ? null : tokens.slice(7).join("");
+			const files: FileOptions[] = message.attachments.map((attachment: MessageAttachment): FileOptions => {
+				const {name, url}: MessageAttachment = attachment;
 				return {
 					attachment: url,
 					name: name ?? "",
 				};
 			});
-			const attachments = [];
+			const attachments: MessageAttachment[] = [];
 			try {
 				await targetMessage.edit({content, files, attachments});
 			} catch {
@@ -77,7 +85,7 @@ const chatGrant = {
 			}
 			return;
 		}
-		const targetChannel = await (async () => {
+		const targetChannel: GuildBasedChannel | null = await (async (): Promise<GuildBasedChannel | null> => {
 			try {
 				return await guild.channels.fetch(channelMatches[1]);
 			} catch {}
@@ -91,9 +99,9 @@ const chatGrant = {
 			await message.reply(`Please give me a content or attachments.`);
 			return;
 		}
-		const content = parameters.length < 3 ? null : tokens.slice(5).join("");
-		const files = message.attachments.map((attachment) => {
-			const {name, url} = attachment;
+		const content: string | null = parameters.length < 3 ? null : tokens.slice(5).join("");
+		const files: FileOptions[] = message.attachments.map((attachment: MessageAttachment): FileOptions => {
+			const {name, url}: MessageAttachment = attachment;
 			return {
 				attachment: url,
 				name: name ?? "",
@@ -105,8 +113,8 @@ const chatGrant = {
 			await message.reply(`I do not have the rights to send this message.`);
 		}
 	},
-	describe(interaction, name) {
-		const {channel} = interaction;
+	describe(interaction: CommandInteraction, name: string): string | null {
+		const {channel}: CommandInteraction = interaction;
 		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
 			return null;
 		}
