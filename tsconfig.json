@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "importsNotUsedAsValues": "preserve",
+    "module": "nodenext",
+    "resolveJsonModule": true
+  }
+}
