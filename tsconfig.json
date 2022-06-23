@@ -1,10 +1,13 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
+    "exactOptionalPropertyTypes": true,
+    "forceConsistentCasingInFileNames": true,
     "importsNotUsedAsValues": "preserve",
     "module": "nodenext",
     "outDir": "bin",
     "resolveJsonModule": true,
-    "rootDir": "src"
+    "rootDir": "src",
+    "strict": true
   }
 }
