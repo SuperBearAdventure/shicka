@@ -5,7 +5,8 @@
   "main": "shicka.js",
   "scripts": {
     "start": "node bin/shicka.js",
-    "build": "npx tsc && ln -frs src/emojis bin/emojis"
+    "build": "npx tsc && ln -frs src/emojis bin/emojis",
+    "lint": "npx eslint . --ext .ts"
   },
   "repository": "https://github.com/SuperBearAdventure/shicka",
   "author": "Tristan LE GODAIS",
@@ -15,6 +16,9 @@
     "@types/jsdom": "^16.2.14",
     "@types/node-schedule": "^2.1.0",
     "@types/w3c-xmlserializer": "^2.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
+    "eslint": "^8.18.0",
     "typescript": "^4.7.4"
   },
   "dependencies": {
