@@ -32,8 +32,8 @@ export default class MissionCommand extends Command {
 	async execute(interaction) {
 		if (interaction.isAutocomplete()) {
 			const {client, options} = interaction;
-			const {data} = client;
-			const {challenges, levels, missions} = data;
+			const {bindings} = client;
+			const {challenges, levels, missions} = bindings;
 			const {name, value} = options.getFocused(true);
 			if (name !== "mission") {
 				await interaction.respond([]);
@@ -54,8 +54,8 @@ export default class MissionCommand extends Command {
 			return;
 		}
 		const {client, options} = interaction;
-		const {data} = client;
-		const {challenges, levels, missions} = data;
+		const {bindings} = client;
+		const {challenges, levels, missions} = bindings;
 		const missionCount = missions.length;
 		const now = Math.floor((interaction.createdTimestamp + 7200000) / 86400000);
 		const search = options.getString("mission");

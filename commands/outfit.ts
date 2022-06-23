@@ -85,8 +85,8 @@ export default class OutfitCommand extends Command {
 	async execute(interaction) {
 		if (interaction.isAutocomplete()) {
 			const {client, options} = interaction;
-			const {data} = client;
-			const {outfits} = data;
+			const {bindings} = client;
+			const {outfits} = bindings;
 			const {name, value} = options.getFocused(true);
 			if (name !== "outfit") {
 				await interaction.respond([]);
@@ -107,8 +107,8 @@ export default class OutfitCommand extends Command {
 			return;
 		}
 		const {client, options} = interaction;
-		const {data, indices, salt} = client;
-		const {outfits, rarities} = data;
+		const {bindings, indices, salt} = client;
+		const {outfits, rarities} = bindings;
 		const {outfitsByRarity} = indices;
 		const slicesByRarityBySeed = Object.create(null);
 		const slicesPerRarity = Math.ceil(Math.max(...rarities.map((rarity) => {
