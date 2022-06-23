@@ -1,12 +1,16 @@
-import Trigger from "../trigger.js";
 const pattern = /\b(?:co-?op(?:erati(?:ons?|ve))?|consoles?|multi(?:-?player)?|online|pc|playstation|ps[45]|switch|xbox)\b/iu;
 const roles = new Set(["Administrator", "Cookie", "Game Developer", "Moderator"]);
-export default class Rule7Trigger extends Trigger {
+const rule7Trigger = {
 	async execute(message) {
-		if (message.channel.name !== "💡・game-suggestions") {
+		const {channel} = message;
+		if (!("name" in channel) || channel.name !== "💡・game-suggestions") {
 			return;
 		}
-		if (message.member.roles.cache.some((role) => {
+		const {member} = message;
+		if (member == null) {
+			return;
+		}
+		if (member.roles.cache.some((role) => {
 			return roles.has(role.name);
 		})) {
 			return;
@@ -15,16 +19,19 @@ export default class Rule7Trigger extends Trigger {
 			return;
 		}
 		const {guild} = message;
+		if (guild == null) {
+			return;
+		}
 		const emoji = guild.emojis.cache.find((emoji) => {
 			return emoji.name === "RULE7";
 		});
 		if (emoji != null) {
 			await message.reply(`${emoji}`);
 		}
-		const channel = guild.channels.cache.find((channel) => {
+		const rulesChannel = guild.channels.cache.find((channel) => {
 			return channel.name === "❗・rules-info・❗";
 		});
-		if (channel != null) {
+		if (rulesChannel != null) {
 			await message.reply(`Please read and respect the ${channel}!`);
 		}
 		await message.react("🇷");
@@ -35,11 +42,19 @@ export default class Rule7Trigger extends Trigger {
 		if (emoji != null) {
 			await message.react(emoji);
 		}
-	}
+	},
 	describe(interaction, name) {
-		const channel = interaction.guild.channels.cache.find((channel) => {
+		const {guild} = interaction;
+		if (guild == null) {
+			return null;
+		}
+		const channel = guild.channels.cache.find((channel) => {
 			return channel.name === "💡・game-suggestions";
 		});
-		return channel != null ? `I will gently reprimand you if you write words which violate the rule 7 in ${channel}` : null;
-	}
-}
+		if (channel == null) {
+			return null;
+		}
+		return `I will gently reprimand you if you write words which violate the rule 7 in ${channel}`;
+	},
+};
+export default rule7Trigger;

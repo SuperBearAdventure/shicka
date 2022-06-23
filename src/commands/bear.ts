@@ -1,13 +1,12 @@
-import discord from "discord.js";
-import Command from "../command.js";
-import {nearest} from "../utils/string.js"
-const {Util} = discord;
+import {Util} from "discord.js";
+import {bears, levels, outfits} from "../bindings.js";
+import {nearest} from "../utils/string.js";
 const conjunctionFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-export default class BearCommand extends Command {
-	register(client, name) {
+const bearCommand = {
+	register(name) {
 		const description = "Tells you who is this bear";
 		const options = [
 			{
@@ -19,12 +18,10 @@ export default class BearCommand extends Command {
 			},
 		];
 		return {name, description, options};
-	}
+	},
 	async execute(interaction) {
 		if (interaction.isAutocomplete()) {
-			const {client, options} = interaction;
-			const {bindings} = client;
-			const {bears} = bindings;
+			const {options} = interaction;
 			const {name, value} = options.getFocused(true);
 			if (name !== "bear") {
 				await interaction.respond([]);
@@ -44,10 +41,11 @@ export default class BearCommand extends Command {
 			await interaction.respond(suggestions);
 			return;
 		}
-		const {client, options} = interaction;
-		const {bindings} = client;
-		const {bears, levels, outfits} = bindings;
-		const search = options.getString("bear");
+		if (!interaction.isCommand()) {
+			return;
+		}
+		const {options} = interaction;
+		const search = options.getString("bear", true);
 		const results = nearest(search.toLowerCase(), bears, 1, (bear) => {
 			const {name} = bear;
 			return name.toLowerCase();
@@ -78,8 +76,9 @@ export default class BearCommand extends Command {
 		const centiseconds = `${gold * 100 % 100 | 0}`.padStart(2, "0");
 		const time = `${minutes}:${seconds}.${centiseconds}`;
 		await interaction.reply(`**${Util.escapeMarkdown(name)}** has been imprisoned in the **${Util.escapeMarkdown(level)}** and is wearing ${nameConjunction}.\n${goal} the cage in less than **${Util.escapeMarkdown(time)}** to beat the gold time!`);
-	}
+	},
 	describe(interaction, name) {
 		return `Type \`/${name} Some bear\` to know who is \`Some bear\``;
-	}
-}
+	},
+};
+export default bearCommand;

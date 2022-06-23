@@ -1,13 +1,11 @@
-import discord from "discord.js";
-import Command from "../command.js";
-const {Util} = discord;
+import {Util} from "discord.js";
+import * as bindings from "../bindings.js";
 const conjunctionFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-export default class RawCommand extends Command {
-	register(client, name) {
-		const {bindings} = client;
+const rawCommand = {
+	register(name) {
 		const description = "Tells you what is the datum of this type with this identifier";
 		const options = [
 			{
@@ -15,12 +13,15 @@ export default class RawCommand extends Command {
 				name: "type",
 				description: "Some type",
 				required: true,
-				choices: Object.entries(bindings).filter(([type, array]) => {
-					return array.length !== 0;
-				}).map(([type, array]) => {
+				choices: Object.keys(bindings).map((bindingName) => {
+					const binding = bindings[bindingName];
+					return [bindingName, binding];
+				}).filter(([bindingName, binding]) => {
+					return binding.length !== 0;
+				}).map(([bindingName, binding]) => {
 					return {
-						name: type,
-						value: type,
+						name: bindingName,
+						value: bindingName,
 					};
 				}),
 			},
@@ -34,14 +35,16 @@ export default class RawCommand extends Command {
 			},
 		];
 		return {name, description, options};
-	}
+	},
 	async execute(interaction) {
-		const {client, options} = interaction;
-		const {bindings} = client;
-		const type = options.getString("type");
-		if (!(type in bindings)) {
-			const typeConjunction = conjunctionFormat.format(Object.keys(bindings).map((type) => {
-				return `\`${Util.escapeMarkdown(type)}\``;
+		if (!interaction.isCommand()) {
+			return;
+		}
+		const {options} = interaction;
+		const bindingName = options.getString("type", true);
+		if (!(bindingName in bindings)) {
+			const typeConjunction = conjunctionFormat.format(Object.keys(bindings).map((bindingName) => {
+				return `\`${Util.escapeMarkdown(bindingName)}\``;
 			}));
 			await interaction.reply({
 				content: `I do not know any datum with this name.\nPlease give me a type among ${typeConjunction} instead.`,
@@ -49,8 +52,8 @@ export default class RawCommand extends Command {
 			});
 			return;
 		}
-		const binding = bindings[type];
-		const identifier = options.getInteger("identifier");
+		const binding = bindings[bindingName];
+		const identifier = options.getInteger("identifier", true);
 		if (identifier < 0 || identifier >= binding.length) {
 			await interaction.reply({
 				content: `I do not know any datum with this identifier.\nPlease give me an identifier between \`0\` and \`${binding.length - 1}\` instead.`,
@@ -60,8 +63,9 @@ export default class RawCommand extends Command {
 		}
 		const datum = JSON.stringify(binding[identifier], null, "\t");
 		await interaction.reply(`\`\`\`json\n${Util.escapeMarkdown(datum)}\n\`\`\``);
-	}
+	},
 	describe(interaction, name) {
 		return `Type \`/${name} Some type Some identifier\` to know what is the datum of \`Some type\` with \`Some identifier\``;
-	}
-}
+	},
+};
+export default rawCommand;

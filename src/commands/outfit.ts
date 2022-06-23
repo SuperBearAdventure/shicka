@@ -1,7 +1,10 @@
-import discord from "discord.js";
-import Command from "../command.js";
-import {nearest} from "../utils/string.js"
-const {Util} = discord;
+import {Util} from "discord.js";
+import {outfits, rarities} from "../bindings.js";
+import {outfitsByRarity} from "../indices.js";
+import {nearest} from "../utils/string.js";
+const {
+	SHICKA_SALT: salt = "",
+} = process.env;
 const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeStyle: "short",
@@ -48,7 +51,7 @@ function sliceOutfits(generator, outfits, outfitsPerSlice, slicesPerRarity) {
 			const slice = [];
 			for (let l = 0; l < outfitsPerSlice; ++l) {
 				const outfit = outfits[j++];
-				slice.push(outfit)
+				slice.push(outfit);
 				stash.delete(outfit);
 			}
 			slices.push(slice);
@@ -69,8 +72,8 @@ function sliceOutfits(generator, outfits, outfitsPerSlice, slicesPerRarity) {
 	shuffle(generator, slices);
 	return slices;
 }
-export default class OutfitCommand extends Command {
-	register(client, name) {
+const outfitCommand = {
+	register(name) {
 		const description = "Tells you what is for sale in the shop or when it is for sale";
 		const options = [
 			{
@@ -81,12 +84,10 @@ export default class OutfitCommand extends Command {
 			},
 		];
 		return {name, description, options};
-	}
+	},
 	async execute(interaction) {
 		if (interaction.isAutocomplete()) {
-			const {client, options} = interaction;
-			const {bindings} = client;
-			const {outfits} = bindings;
+			const {options} = interaction;
 			const {name, value} = options.getFocused(true);
 			if (name !== "outfit") {
 				await interaction.respond([]);
@@ -106,10 +107,10 @@ export default class OutfitCommand extends Command {
 			await interaction.respond(suggestions);
 			return;
 		}
-		const {client, options} = interaction;
-		const {bindings, indices, salt} = client;
-		const {outfits, rarities} = bindings;
-		const {outfitsByRarity} = indices;
+		if (!interaction.isCommand()) {
+			return;
+		}
+		const {options} = interaction;
 		const slicesByRarityBySeed = Object.create(null);
 		const slicesPerRarity = Math.ceil(Math.max(...rarities.map((rarity) => {
 			if (rarity.slots === 0) {
@@ -200,8 +201,9 @@ export default class OutfitCommand extends Command {
 		const costConjunction = `${costs.length !== 0 ? " for " : ""}${conjunctionFormat.format(costs)}`;
 		const scheduleList = schedules.join("\n");
 		await interaction.reply(`**${Util.escapeMarkdown(name)}** will be for sale in the shop${costConjunction} for 6 hours starting:\n${scheduleList}`);
-	}
+	},
 	describe(interaction, name) {
 		return `Type \`/${name}\` to know what is for sale in the shop\nType \`/${name} Some outfit\` to know when \`Some outfit\` is for sale in the shop`;
-	}
-}
+	},
+};
+export default outfitCommand;

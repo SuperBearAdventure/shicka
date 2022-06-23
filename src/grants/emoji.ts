@@ -1,15 +1,10 @@
-import fs from "node:fs/promises";
-import url from "node:url";
+import {readFile} from "node:fs/promises";
+import {fileURLToPath} from "node:url";
 import canvas from "canvas";
-import discord from "discord.js";
-import jsdom from "jsdom";
+import {Util} from "discord.js";
+import {JSDOM} from "jsdom";
 import serialize from "w3c-xmlserializer";
-import Grant from "../grant.js";
-const {readFile} = fs;
-const {fileURLToPath} = url;
 const {createCanvas, loadImage} = canvas;
-const {Util} = discord;
-const {JSDOM} = jsdom;
 const here = import.meta.url;
 const root = here.slice(0, here.lastIndexOf("/"));
 const conjunctionFormat = new Intl.ListFormat("en-US", {
@@ -31,9 +26,10 @@ const styles = Object.assign(Object.create(null), {
 	"none": "none",
 });
 const channels = new Set(["🔧・console", "🔎・logs", "🛡・moderators-room", "🍪・cookie-room"]);
-export default class EmojiGrant extends Grant {
-	async execute(message, parameters) {
-		if (!channels.has(message.channel.name)) {
+const emojiGrant = {
+	async execute(message, parameters, tokens) {
+		const {channel} = message;
+		if (!("name" in channel) || !channels.has(channel.name)) {
 			return;
 		}
 		if (parameters.length < 2) {
@@ -55,8 +51,11 @@ export default class EmojiGrant extends Grant {
 			contentType: "application/xhtml+xml",
 		}).window.document.documentElement;
 		const svg = wrapper.firstElementChild;
+		if (svg == null) {
+			throw new Error();
+		}
 		const groups = [".background", ".foreground", ".marker"].map((selector) => {
-			return svg.querySelectorAll(selector);
+			return [...svg.querySelectorAll(selector)];
 		});
 		let index = 2;
 		loop: for (const paint of ["fill", "stroke"]) {
@@ -78,8 +77,8 @@ export default class EmojiGrant extends Grant {
 		const zoom = 2;
 		const width = Number(svg.getAttribute("width")) * zoom;
 		const height = Number(svg.getAttribute("height")) * zoom;
-		svg.setAttribute("width", width);
-		svg.setAttribute("height", height);
+		svg.setAttribute("width", `${width}`);
+		svg.setAttribute("height", `${height}`);
 		const url = `data:image/svg+xml;charset=utf-8,${serialize(wrapper, {
 			requireWellFormed: true,
 		}).slice(42, -6)}`;
@@ -95,8 +94,13 @@ export default class EmojiGrant extends Grant {
 				},
 			],
 		});
-	}
+	},
 	describe(interaction, name) {
-		return channels.has(interaction.channel.name) ? `Type \`/${name} Some base Some styles\` to create a new \`Some base\`-based emoji customized with \`Some styles\`` : null;
-	}
-}
+		const {channel} = interaction;
+		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
+			return null;
+		}
+		return `Type \`/${name} Some base Some styles\` to create a new \`Some base\`-based emoji customized with \`Some styles\``;
+	},
+};
+export default emojiGrant;
