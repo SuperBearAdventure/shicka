@@ -1,13 +1,16 @@
-import discord from "discord.js";
-import Grant from "../grant.js";
-const {MessageMentions} = discord;
+import {MessageMentions} from "discord.js";
 const {source} = MessageMentions.CHANNELS_PATTERN;
 const messagePattern = /^(?:0|[1-9]\d*)$/;
 const channelPattern = new RegExp(`^(?:${source})$`, "");
 const channels = new Set(["🔧・console", "🔎・logs", "🛡・moderators-room"]);
-export default class ChatGrant extends Grant {
+const chatGrant = {
 	async execute(message, parameters, tokens) {
-		if (!channels.has(message.channel.name)) {
+		const {channel} = message;
+		if (!("name" in channel) || !channels.has(channel.name)) {
+			return;
+		}
+		const {guild} = message;
+		if (guild == null) {
 			return;
 		}
 		if (parameters.length < 2) {
@@ -30,25 +33,27 @@ export default class ChatGrant extends Grant {
 				await message.reply(`I do not know any channel with this tag.`);
 				return;
 			}
-			const channel = await (async () => {
+			const targetChannel = await (async () => {
 				try {
-					return await message.guild.channels.fetch(channelMatches[1]);
+					return await guild.channels.fetch(channelMatches[1]);
 				} catch {}
+				return null;
 			})();
-			if (channel == null) {
+			if (targetChannel == null || !("messages" in targetChannel)) {
 				await message.reply(`I do not know any channel with this tag.`);
 				return;
 			}
-			const target = await (async () => {
+			const targetMessage = await (async () => {
 				try {
-					return await channel.messages.fetch(parameters[1]);
+					return await targetChannel.messages.fetch(parameters[1]);
 				} catch {}
+				return null;
 			})();
-			if (target == null) {
+			if (targetMessage == null) {
 				await message.reply(`I do not know any message with this identifier in this channel.`);
 				return;
 			}
-			if (target.interaction != null) {
+			if (targetMessage.interaction != null) {
 				await message.reply(`I can not edit interaction replies or follow-ups.`);
 				return;
 			}
@@ -61,23 +66,24 @@ export default class ChatGrant extends Grant {
 				const {name, url} = attachment;
 				return {
 					attachment: url,
-					name: name,
+					name: name ?? "",
 				};
 			});
 			const attachments = [];
 			try {
-				await target.edit({content, files, attachments});
+				await targetMessage.edit({content, files, attachments});
 			} catch {
 				await message.reply(`I do not have the rights to edit this message.`);
 			}
 			return;
 		}
-		const channel = await (async () => {
+		const targetChannel = await (async () => {
 			try {
-				return await message.guild.channels.fetch(channelMatches[1]);
+				return await guild.channels.fetch(channelMatches[1]);
 			} catch {}
+			return null;
 		})();
-		if (channel == null) {
+		if (targetChannel == null || !("messages" in targetChannel)) {
 			await message.reply(`I do not know any channel with this tag.`);
 			return;
 		}
@@ -90,16 +96,21 @@ export default class ChatGrant extends Grant {
 			const {name, url} = attachment;
 			return {
 				attachment: url,
-				name: name,
+				name: name ?? "",
 			};
 		});
 		try {
-			await channel.send({content, files});
+			await targetChannel.send({content, files});
 		} catch {
 			await message.reply(`I do not have the rights to send this message.`);
 		}
-	}
+	},
 	describe(interaction, name) {
-		return channels.has(interaction.channel.name) ? `Type \`/${name} Some channel Some content\` to send \`Some content\` and some attachments in \`Some channel\`\nType \`/${name} Some message Some channel Some content\` to edit \`Some message\` with \`Some content\` and some attachments in \`Some channel\`` : null;
-	}
-}
+		const {channel} = interaction;
+		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
+			return null;
+		}
+		return `Type \`/${name} Some channel Some content\` to send \`Some content\` and some attachments in \`Some channel\`\nType \`/${name} Some message Some channel Some content\` to edit \`Some message\` with \`Some content\` and some attachments in \`Some channel\``;
+	},
+};
+export default chatGrant;

@@ -1,10 +1,8 @@
-import discord from "discord.js";
+import {Util} from "discord.js";
 import fetch from "node-fetch";
 import schedule from "node-schedule";
-import Feed from "../feed.js";
-const {Util} = discord;
 const games = ["9d3rrxyd", "w6jl2ned"];
-export default class RecordFeed extends Feed {
+const recordFeed = {
 	register(client, name) {
 		return schedule.scheduleJob({
 			rule: "1 3/6 * * *",
@@ -18,7 +16,7 @@ export default class RecordFeed extends Feed {
 				const channel = guild.channels.cache.find((channel) => {
 					return channel.name === "🏅・records";
 				});
-				if (channel == null) {
+				if (channel == null || !("messages" in channel)) {
 					continue;
 				}
 				for (const record of records) {
@@ -27,7 +25,7 @@ export default class RecordFeed extends Feed {
 				}
 			}
 		});
-	}
+	},
 	async execute(start, end) {
 		const records = [];
 		try {
@@ -95,8 +93,12 @@ export default class RecordFeed extends Feed {
 								continue;
 							}
 							const player = players.data[0];
-							const flag = "location" in player ? `${player.location.country.code.slice(0, 2).split("").map((character) => {
-								return String.fromCodePoint(character.codePointAt(0) + 127365);
+							const flag = "location" in player ? `${player.location.country.code.slice(0, 2).split("").map((string) => {
+								const character = string.codePointAt(0);
+								if (character == null) {
+									return "";
+								}
+								return String.fromCodePoint(character + 127365);
 							}).join("")} ` : "";
 							const name = "names" in player ? player.names.international : player.name;
 							const user = `${flag}${name}`;
@@ -117,11 +119,19 @@ export default class RecordFeed extends Feed {
 			console.warn(error);
 		}
 		return records;
-	}
+	},
 	describe(interaction, name) {
-		const channel = interaction.guild.channels.cache.find((channel) => {
+		const {guild} = interaction;
+		if (guild == null) {
+			return null;
+		}
+		const channel = guild.channels.cache.find((channel) => {
 			return channel.name === "🏅・records";
 		});
-		return channel != null ? `I post the latest world records of the game in ${channel}` : null;
-	}
-}
+		if (channel == null) {
+			return null;
+		}
+		return `I post the latest world records of the game in ${channel}`;
+	},
+};
+export default recordFeed;

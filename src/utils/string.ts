@@ -41,10 +41,10 @@ function isSubsequence(needle, haystack) {
 	return true;
 }
 export function nearest(search, candidates, count, stringify) {
-	const results = [];
 	if (count === 0) {
-		return results;
+		return [];
 	}
+	const results = [];
 	for (const candidate of candidates) {
 		const string = stringify(candidate);
 		if (isSubsequence(search, string)) {
