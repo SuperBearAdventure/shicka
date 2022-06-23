@@ -1,3 +1,8 @@
+import type {
+	ApplicationCommandData,
+	CommandInteraction,
+	Interaction,
+} from "discord.js";
 import aboutCommand from "./commands/about.js";
 import bearCommand from "./commands/bear.js";
 import countCommand from "./commands/count.js";
@@ -11,19 +16,25 @@ import storeCommand from "./commands/store.js";
 import trackerCommand from "./commands/tracker.js";
 import trailerCommand from "./commands/trailer.js";
 import updateCommand from "./commands/update.js";
-const about = aboutCommand;
-const bear = bearCommand;
-const count = countCommand;
-const help = helpCommand;
-const leaderboard = leaderboardCommand;
-const mission = missionCommand;
-const outfit = outfitCommand;
-const raw = rawCommand;
-const roadmap = roadmapCommand;
-const store = storeCommand;
-const tracker = trackerCommand;
-const trailer = trailerCommand;
-const update = updateCommand;
+type Command = {
+	register(name: string): ApplicationCommandData;
+	execute(interaction: Interaction): Promise<void>;
+	describe(interaction: CommandInteraction, name: string): string | null;
+};
+const about: Command = aboutCommand;
+const bear: Command = bearCommand;
+const count: Command = countCommand;
+const help: Command = helpCommand;
+const leaderboard: Command = leaderboardCommand;
+const mission: Command = missionCommand;
+const outfit: Command = outfitCommand;
+const raw: Command = rawCommand;
+const roadmap: Command = roadmapCommand;
+const store: Command = storeCommand;
+const tracker: Command = trackerCommand;
+const trailer: Command = trailerCommand;
+const update: Command = updateCommand;
+export default Command;
 export {
 	about,
 	bear,

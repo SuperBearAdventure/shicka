@@ -1,3 +1,19 @@
+import type {
+	ApplicationCommandData,
+	AutocompleteInteraction,
+	CommandInteraction,
+	Guild,
+	GuildMember,
+	Interaction,
+	Message,
+	PartialGuildMember,
+} from "discord.js";
+import type {Job} from "node-schedule";
+import type Command from "./commands.js";
+import type Feed from "./feeds.js";
+import type Grant from "./grants.js";
+import type Trigger from "./triggers.js";
+import type Greeting from "./greetings.js";
 import {Client, Intents, Util} from "discord.js";
 import * as commands from "./commands.js";
 import * as feeds from "./feeds.js";
@@ -6,10 +22,10 @@ import * as triggers from "./triggers.js";
 import * as greetings from "./greetings.js";
 const {
 	SHICKA_DISCORD_TOKEN: discordToken = "",
-} = process.env;
-const capture = /^.*$/su;
-const parameter = /([^\n ]+)/u;
-const client = new Client({
+}: NodeJS.ProcessEnv = process.env;
+const capture: RegExp = /^.*$/su;
+const parameter: RegExp = /([^\n ]+)/u;
+const client: Client = new Client({
 	intents: [
 		Intents.FLAGS.GUILDS,
 		Intents.FLAGS.GUILD_MESSAGES,
@@ -25,122 +41,122 @@ const client = new Client({
 		status: "online",
 	},
 });
-client.once("ready", async (client) => {
+client.once("ready", async (client: Client): Promise<void> => {
 	console.log("Ready!");
-	const menu = Object.keys(commands).map((commandName) => {
-		const command = commands[commandName];
+	const menu: ApplicationCommandData[] = Object.keys(commands).map((commandName: string): ApplicationCommandData => {
+		const command: Command = commands[commandName as keyof typeof commands] as Command;
 		return command.register(commandName);
 	});
 	for (const guild of client.guilds.cache.values()) {
 		guild.commands.set(menu);
 	}
 	for (const feedName of Object.keys(feeds)) {
-		const feed = feeds[feedName];
-		const job = feed.register(client, feedName);
-		job.on("error", (error) => {
+		const feed: Feed = feeds[feedName as keyof typeof feeds] as Feed;
+		const job: Job = feed.register(client, feedName);
+		job.on("error", (error: unknown): void => {
 			console.error(error);
 		});
 	}
 });
-client.on("guildMemberAdd", async (member) => {
-	const {memberCount, systemChannel} = member.guild;
+client.on("guildMemberAdd", async (member: GuildMember): Promise<void> => {
+	const {memberCount, systemChannel}: Guild = member.guild;
 	if (systemChannel == null) {
 		return;
 	}
-	const name = `${member}`;
-	const {hey} = greetings;
-	const greeting = name.replace(capture, hey[Math.random() * hey.length | 0]);
-	const counting = memberCount % 10 !== 0 ? "" : `\nWe are now ${Util.escapeMarkdown(`${memberCount}`)} members!`;
+	const name: string = `${member}`;
+	const {hey}: {[k in string]: Greeting} = greetings;
+	const greeting: string = name.replace(capture, hey[Math.random() * hey.length | 0]);
+	const counting: string = memberCount % 10 !== 0 ? "" : `\nWe are now ${Util.escapeMarkdown(`${memberCount}`)} members!`;
 	try {
-		const message = await systemChannel.send(`${greeting}${counting}`);
+		const message: Message = await systemChannel.send(`${greeting}${counting}`);
 		await message.react("🇭");
 		await message.react("🇪");
 		await message.react("🇾");
 		await message.react("👋");
-	} catch (error) {
+	} catch (error: unknown) {
 		console.error(error);
 	}
 });
-client.on("guildMemberRemove", async (member) => {
-	const {systemChannel} = member.guild;
+client.on("guildMemberRemove", async (member: GuildMember | PartialGuildMember): Promise<void> => {
+	const {systemChannel}: Guild = member.guild;
 	if (systemChannel == null) {
 		return;
 	}
-	const name = `**${Util.escapeMarkdown(member.user.username)}**`;
-	const {bye} = greetings;
-	const greeting = name.replace(capture, bye[Math.random() * bye.length | 0]);
+	const name: string = `**${Util.escapeMarkdown(member.user.username)}**`;
+	const {bye}: {[k in string]: Greeting} = greetings;
+	const greeting: string = name.replace(capture, bye[Math.random() * bye.length | 0]);
 	try {
-		const message = await systemChannel.send(greeting);
+		const message: Message = await systemChannel.send(greeting);
 		await message.react("🇧");
 		await message.react("🇾");
 		await message.react("🇪");
 		await message.react("👋");
-	} catch (error) {
+	} catch (error: unknown) {
 		console.error(error);
 	}
 });
-client.on("interactionCreate", async (interaction) => {
+client.on("interactionCreate", async (interaction: Interaction): Promise<void> => {
 	if (interaction.user.bot || interaction.channel == null) {
 		return;
 	}
-	const {channel} = interaction;
+	const {channel}: Interaction = interaction;
 	if (channel == null || !("name" in channel)) {
 		return;
 	}
 	if (!interaction.isAutocomplete() && !interaction.isCommand()) {
 		return;
 	}
-	const {commandName} = interaction;
+	const {commandName}: AutocompleteInteraction | CommandInteraction = interaction;
 	if (!(commandName in commands)) {
 		return;
 	}
 	try {
-		const command = commands[commandName];
+		const command: Command = commands[commandName as keyof typeof commands] as Command;
 		await command.execute(interaction);
-	} catch (error) {
+	} catch (error: unknown) {
 		console.error(error);
 	}
 });
-client.on("messageCreate", async (message) => {
+client.on("messageCreate", async (message: Message): Promise<void> => {
 	if (message.author.bot) {
 		return;
 	}
-	const {channel} = message;
+	const {channel}: Message = message;
 	if (!("name" in channel)) {
 		return;
 	}
-	const {content} = message;
+	const {content}: Message = message;
 	if (!content.startsWith("/")) {
 		return;
 	}
-	const tokens = content.split(parameter);
-	const parameters = tokens.filter((token, index) => {
+	const tokens: string[] = content.split(parameter);
+	const parameters: string[] = tokens.filter((token: string, index: number): boolean => {
 		return index % 2 === 1;
 	});
-	const grantName = parameters[0].slice(1);
+	const grantName: string = parameters[0].slice(1);
 	if (!(grantName in grants)) {
 		return;
 	}
 	try {
-		const grant = grants[grantName];
+		const grant: Grant = grants[grantName as keyof typeof grants] as Grant;
 		await grant.execute(message, parameters, tokens);
-	} catch (error) {
+	} catch (error: unknown) {
 		console.error(error);
 	}
 });
-client.on("messageCreate", async (message) => {
+client.on("messageCreate", async (message: Message): Promise<void> => {
 	if (message.author.bot) {
 		return;
 	}
-	const {channel} = message;
+	const {channel}: Message = message;
 	if (!("name" in channel)) {
 		return;
 	}
 	for (const triggerName in triggers) {
 		try {
-			const trigger = triggers[triggerName];
+			const trigger: Trigger = triggers[triggerName as keyof typeof triggers] as Trigger;
 			await trigger.execute(message);
-		} catch (error) {
+		} catch (error: unknown) {
 			console.error(error);
 		}
 	}

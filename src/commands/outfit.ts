@@ -1,24 +1,35 @@
+import type {
+	ApplicationCommandData,
+	ApplicationCommandOptionData,
+	ApplicationCommandOptionChoiceData,
+	AutocompleteFocusedOption,
+	AutocompleteInteraction,
+	CommandInteraction,
+	Interaction,
+} from "discord.js";
+import type {Outfit, Rarity} from "../bindings.js";
+import type Command from "../commands.js";
 import {Util} from "discord.js";
 import {outfits, rarities} from "../bindings.js";
 import {outfitsByRarity} from "../indices.js";
 import {nearest} from "../utils/string.js";
 const {
 	SHICKA_SALT: salt = "",
-} = process.env;
-const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
+}: NodeJS.ProcessEnv = process.env;
+const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeStyle: "short",
 	timeZone: "UTC",
 });
-const conjunctionFormat = new Intl.ListFormat("en-US", {
+const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-function knuth(state) {
+function knuth(state: bigint): bigint {
 	return BigInt.asUintN(32, state * 2654435761n);
 }
-function* xorShift32(seed) {
-	let t = BigInt.asUintN(32, seed);
+function* xorShift32(seed: bigint): Generator<bigint> {
+	let t: bigint = BigInt.asUintN(32, seed);
 	for (;;) {
 		t = BigInt.asUintN(32, t ^ BigInt.asUintN(32, t << 13n));
 		t = BigInt.asUintN(32, t ^ BigInt.asUintN(32, t >> 17n));
@@ -26,39 +37,39 @@ function* xorShift32(seed) {
 		yield t;
 	}
 }
-function shuffle(generator, outfits) {
-	for (let i = outfits.length - 1; i > 0; --i) {
-		const j = Number(generator.next().value * BigInt(i + 1) >> 32n);
+function shuffle<Type>(generator: Iterator<bigint>, outfits: Type[]): void {
+	for (let i: number = outfits.length - 1; i > 0; --i) {
+		const j: number = Number(generator.next().value * BigInt(i + 1) >> 32n);
 		[outfits[i], outfits[j]] = [outfits[j], outfits[i]];
 	}
 }
-function sliceOutfits(generator, outfits, outfitsPerSlice, slicesPerRarity) {
+function sliceOutfits(generator: Iterator<bigint>, outfits: Outfit[], outfitsPerSlice: number, slicesPerRarity: number): Outfit[][] {
 	outfits = outfits.slice();
-	const slices = [];
-	const stash = new Set();
-	const outfitsPerShuffle = outfits.length;
-	const slicesPerShuffle = Math.floor(outfitsPerShuffle / outfitsPerSlice);
-	const remainingOutfitsCount = outfitsPerShuffle % outfitsPerSlice;
-	for (let i = 0; i < slicesPerRarity; i += slicesPerShuffle) {
-		shuffle(generator, outfits);
-		const overflow = [];
-		const remainingSlicesCount = Math.min(slicesPerRarity - i, slicesPerShuffle);
-		let j = 0;
-		for (let k = 0; k < remainingSlicesCount - 1; ++k) {
+	const slices: Outfit[][] = [];
+	const stash: Set<Outfit> = new Set();
+	const outfitsPerShuffle: number = outfits.length;
+	const slicesPerShuffle: number = Math.floor(outfitsPerShuffle / outfitsPerSlice);
+	const remainingOutfitsCount: number = outfitsPerShuffle % outfitsPerSlice;
+	for (let i: number = 0; i < slicesPerRarity; i += slicesPerShuffle) {
+		shuffle<Outfit>(generator, outfits);
+		const overflow: Outfit[] = [];
+		const remainingSlicesCount: number = Math.min(slicesPerRarity - i, slicesPerShuffle);
+		let j: number = 0;
+		for (let k: number = 0; k < remainingSlicesCount - 1; ++k) {
 			while (overflow.length < remainingOutfitsCount && !stash.has(outfits[j])) {
 				overflow.push(outfits[j++]);
 			}
-			const slice = [];
-			for (let l = 0; l < outfitsPerSlice; ++l) {
-				const outfit = outfits[j++];
-				slice.push(outfit);
+			const slice: Outfit[] = [];
+			for (let l: number = 0; l < outfitsPerSlice; ++l) {
+				const outfit: Outfit = outfits[j++];
+				slice.push(outfit)
 				stash.delete(outfit);
 			}
 			slices.push(slice);
 		}
-		const slice = [...stash.keys()];
+		const slice: Outfit[] = [...stash.keys()];
 		while (slice.length < outfitsPerSlice) {
-			const outfit = outfits[j++];
+			const outfit: Outfit = outfits[j++];
 			if (!stash.has(outfit)) {
 				slice.push(outfit);
 			}
@@ -69,13 +80,13 @@ function sliceOutfits(generator, outfits, outfitsPerSlice, slicesPerRarity) {
 			stash.add(outfit);
 		}
 	}
-	shuffle(generator, slices);
+	shuffle<Outfit[]>(generator, slices);
 	return slices;
 }
-const outfitCommand = {
-	register(name) {
-		const description = "Tells you what is for sale in the shop or when it is for sale";
-		const options = [
+const outfitCommand: Command = {
+	register(name: string): ApplicationCommandData {
+		const description: string = "Tells you what is for sale in the shop or when it is for sale";
+		const options: ApplicationCommandOptionData[] = [
 			{
 				type: "STRING",
 				name: "outfit",
@@ -85,20 +96,20 @@ const outfitCommand = {
 		];
 		return {name, description, options};
 	},
-	async execute(interaction) {
+	async execute(interaction: Interaction): Promise<void> {
 		if (interaction.isAutocomplete()) {
-			const {options} = interaction;
-			const {name, value} = options.getFocused(true);
+			const {options}: AutocompleteInteraction = interaction;
+			const {name, value}: AutocompleteFocusedOption = options.getFocused(true);
 			if (name !== "outfit") {
 				await interaction.respond([]);
 				return;
 			}
-			const results = nearest(value.toLowerCase(), outfits, 7, (outfit) => {
-				const {name} = outfit;
+			const results: Outfit[] = nearest<Outfit>(value.toLowerCase(), outfits, 7, (outfit: Outfit): string => {
+				const {name}: Outfit = outfit;
 				return name.toLowerCase();
 			});
-			const suggestions = results.map((outfit) => {
-				const {name} = outfit;
+			const suggestions: ApplicationCommandOptionChoiceData[] = results.map((outfit: Outfit): ApplicationCommandOptionChoiceData => {
+				const {name}: Outfit = outfit;
 				return {
 					name: name,
 					value: name,
@@ -110,50 +121,50 @@ const outfitCommand = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {options} = interaction;
-		const slicesByRarityBySeed = Object.create(null);
-		const slicesPerRarity = Math.ceil(Math.max(...rarities.map((rarity) => {
+		const {options}: CommandInteraction = interaction;
+		const slicesByRarityBySeed: {[k in string]: Outfit[][][]} = Object.create(null);
+		const slicesPerRarity: number = Math.ceil(Math.max(...rarities.map((rarity: Rarity): number => {
 			if (rarity.slots === 0) {
 				return 0;
 			}
 			return outfitsByRarity[rarity.id].length / rarity.slots;
 		})));
-		const now = Math.floor(interaction.createdTimestamp / 21600000);
-		const search = options.getString("outfit");
+		const now: number = Math.floor(interaction.createdTimestamp / 21600000);
+		const search: string | null = options.getString("outfit");
 		if (search == null) {
-		const schedules = [];
-		for (let k = -2; k < 4; ++k) {
-			const day = now + k;
-			const seed = Math.floor(day / slicesPerRarity);
-			const slicesByRarity = slicesByRarityBySeed[seed] ??= (() => {
-				const generator = xorShift32(knuth(BigInt(seed) + BigInt(salt)) || BigInt(salt));
-				return rarities.map((rarity) => {
+		const schedules: string[] = [];
+		for (let k: number = -2; k < 4; ++k) {
+			const day: number = now + k;
+			const seed: number = Math.floor(day / slicesPerRarity);
+			const slicesByRarity: Outfit[][][] = slicesByRarityBySeed[seed] ??= ((): Outfit[][][] => {
+				const generator: Iterator<bigint> = xorShift32(knuth(BigInt(seed) + BigInt(salt)) || BigInt(salt));
+				return rarities.map((rarity: Rarity): Outfit[][] => {
 					if (rarity.slots === 0) {
-						const length = slicesPerRarity;
-						return Array.from({length}, () => {
+						const length: number = slicesPerRarity;
+						return Array.from({length}, (): Outfit[] => {
 							return [];
 						});
 					}
 					return sliceOutfits(generator, outfitsByRarity[rarity.id], rarity.slots, slicesPerRarity);
 				});
 			})();
-			const index = day - seed * slicesPerRarity;
-			const names = slicesByRarity.map((slices) => {
+			const index: number = day - seed * slicesPerRarity;
+			const names: string[] = slicesByRarity.map((slices: Outfit[][]): Outfit[] => {
 				return slices[index];
-			}).flat().map((outfit) => {
-				const {name} = outfit;
+			}).flat().map((outfit: Outfit): string => {
+				const {name}: Outfit = outfit;
 				return `**${Util.escapeMarkdown(name)}**`;
 			});
-			const dayDateTime = dateTimeFormat.format(new Date(day * 21600000));
-			const nameConjunction = conjunctionFormat.format(names);
+			const dayDateTime: string = dateTimeFormat.format(new Date(day * 21600000));
+			const nameConjunction: string = conjunctionFormat.format(names);
 			schedules.push(`\u{2022} *${Util.escapeMarkdown(dayDateTime)}*: ${nameConjunction}`);
 		}
-		const scheduleList = schedules.join("\n");
+		const scheduleList: string = schedules.join("\n");
 		await interaction.reply(`Outfits for sale in the shop change every 6 hours:\n${scheduleList}`);
 		return;
 		}
-		const results = nearest(search.toLowerCase(), outfits, 1, (outfit) => {
-			const {name} = outfit;
+		const results: Outfit[] = nearest<Outfit>(search.toLowerCase(), outfits, 1, (outfit: Outfit): string => {
+			const {name}: Outfit = outfit;
 			return name.toLowerCase();
 		});
 		if (results.length === 0) {
@@ -163,46 +174,46 @@ const outfitCommand = {
 			});
 			return;
 		}
-		const outfit = results[0];
+		const outfit: Outfit = results[0];
 		if (rarities[outfit.rarity].slots === 0) {
-			const {name} = outfit;
+			const {name}: Outfit = outfit;
 			await interaction.reply(`**${Util.escapeMarkdown(name)}** is not for sale.`);
 			return;
 		}
-		const schedules = [];
-		for (let k = -2; k < 4 || schedules.length < 2; ++k) {
-			const day = now + k;
-			const seed = Math.floor(day / slicesPerRarity);
-			const slicesByRarity = slicesByRarityBySeed[seed] ??= (() => {
-				const generator = xorShift32(knuth(BigInt(seed) + BigInt(salt)) || BigInt(salt));
-				return rarities.map((rarity) => {
+		const schedules: string[] = [];
+		for (let k: number = -2; k < 4 || schedules.length < 2; ++k) {
+			const day: number = now + k;
+			const seed: number = Math.floor(day / slicesPerRarity);
+			const slicesByRarity: Outfit[][][] = slicesByRarityBySeed[seed] ??= ((): Outfit[][][] => {
+				const generator: Iterator<bigint> = xorShift32(knuth(BigInt(seed) + BigInt(salt)) || BigInt(salt));
+				return rarities.map((rarity: Rarity): Outfit[][] => {
 					if (rarity.slots === 0) {
 						return [];
 					}
 					return sliceOutfits(generator, outfitsByRarity[rarity.id], rarity.slots, slicesPerRarity);
 				});
 			})();
-			const index = day - seed * slicesPerRarity;
+			const index: number = day - seed * slicesPerRarity;
 			if (slicesByRarity[outfit.rarity][index].includes(outfit)) {
-				const dayDateTime = dateTimeFormat.format(new Date(day * 21600000));
+				const dayDateTime: string = dateTimeFormat.format(new Date(day * 21600000));
 				schedules.push(`\u{2022} *${Util.escapeMarkdown(dayDateTime)}*`);
 			}
 		}
-		const {name} = outfit;
-		const costs = [];
-		const tokens = outfit.cost;
+		const {name}: Outfit = outfit;
+		const costs: string[] = [];
+		const tokens: number = outfit.cost;
 		if (tokens !== 0) {
 			costs.push(`**${Util.escapeMarkdown(`${tokens}`)} Tristopio token${tokens !== 1 ? "s" : ""}**`);
 		}
-		const coins = rarities[outfit.rarity].cost;
+		const coins: number = rarities[outfit.rarity].cost;
 		if (coins !== 0) {
 			costs.push(`**${Util.escapeMarkdown(`${coins}`)} coin${coins !== 1 ? "s" : ""}**`);
 		}
-		const costConjunction = `${costs.length !== 0 ? " for " : ""}${conjunctionFormat.format(costs)}`;
-		const scheduleList = schedules.join("\n");
+		const costConjunction: string = `${costs.length !== 0 ? " for " : ""}${conjunctionFormat.format(costs)}`;
+		const scheduleList: string = schedules.join("\n");
 		await interaction.reply(`**${Util.escapeMarkdown(name)}** will be for sale in the shop${costConjunction} for 6 hours starting:\n${scheduleList}`);
 	},
-	describe(interaction, name) {
+	describe(interaction: CommandInteraction, name: string): string | null {
 		return `Type \`/${name}\` to know what is for sale in the shop\nType \`/${name} Some outfit\` to know when \`Some outfit\` is for sale in the shop`;
 	},
 };

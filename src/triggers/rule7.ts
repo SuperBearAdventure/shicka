@@ -1,16 +1,24 @@
-const pattern = /\b(?:co-?op(?:erati(?:ons?|ve))?|consoles?|multi(?:-?player)?|online|pc|playstation|ps[45]|switch|xbox)\b/iu;
-const roles = new Set(["Administrator", "Cookie", "Game Developer", "Moderator"]);
-const rule7Trigger = {
-	async execute(message) {
-		const {channel} = message;
+import type {
+	CommandInteraction,
+	GuildBasedChannel,
+	GuildEmoji,
+	Message,
+	Role,
+} from "discord.js";
+import type Trigger from "../triggers.js";
+const pattern: RegExp = /\b(?:co-?op(?:erati(?:ons?|ve))?|consoles?|multi(?:-?player)?|online|pc|playstation|ps[45]|switch|xbox)\b/iu;
+const roles: Set<string> = new Set(["Administrator", "Cookie", "Game Developer", "Moderator"]);
+const rule7Trigger: Trigger = {
+	async execute(message: Message): Promise<void> {
+		const {channel}: Message = message;
 		if (!("name" in channel) || channel.name !== "💡・game-suggestions") {
 			return;
 		}
-		const {member} = message;
+		const {member}: Message = message;
 		if (member == null) {
 			return;
 		}
-		if (member.roles.cache.some((role) => {
+		if (member.roles.cache.some((role: Role): boolean => {
 			return roles.has(role.name);
 		})) {
 			return;
@@ -18,17 +26,17 @@ const rule7Trigger = {
 		if (message.content.match(pattern) == null) {
 			return;
 		}
-		const {guild} = message;
+		const {guild}: Message = message;
 		if (guild == null) {
 			return;
 		}
-		const emoji = guild.emojis.cache.find((emoji) => {
+		const emoji: GuildEmoji | undefined = guild.emojis.cache.find((emoji: GuildEmoji): boolean => {
 			return emoji.name === "RULE7";
 		});
 		if (emoji != null) {
 			await message.reply(`${emoji}`);
 		}
-		const rulesChannel = guild.channels.cache.find((channel) => {
+		const rulesChannel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 			return channel.name === "❗・rules-info・❗";
 		});
 		if (rulesChannel != null) {
@@ -43,12 +51,12 @@ const rule7Trigger = {
 			await message.react(emoji);
 		}
 	},
-	describe(interaction, name) {
-		const {guild} = interaction;
+	describe(interaction: CommandInteraction, name: string): string | null {
+		const {guild}: CommandInteraction = interaction;
 		if (guild == null) {
 			return null;
 		}
-		const channel = guild.channels.cache.find((channel) => {
+		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 			return channel.name === "💡・game-suggestions";
 		});
 		if (channel == null) {

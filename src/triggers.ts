@@ -1,5 +1,14 @@
+import type {
+	CommandInteraction,
+	Message,
+} from "discord.js";
 import rule7Trigger from "./triggers/rule7.js";
-const rule7 = rule7Trigger;
+type Trigger = {
+	execute(message: Message): Promise<void>;
+	describe(interaction: CommandInteraction, name: string): string | null;
+};
+const rule7: Trigger = rule7Trigger;
+export default Trigger;
 export {
 	rule7,
 };
