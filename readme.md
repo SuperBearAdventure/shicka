@@ -4,7 +4,7 @@ Bot for the official *Super Bear Adventure* *Discord* server
 
 ## Dependencies
 
-The bot uses *Discord.js 13.8.1* and requires *Node.js 16.15.0* or more
+The bot uses *Discord.js 13.8.1* and requires *TypeScript 4.7.0* or more and *Node.js 16.15.0* or more.
 
 ## Configuring the bot
 
@@ -13,10 +13,22 @@ $ export SHICKA_DISCORD_TOKEN=<your-discord-token-here>
 $ export SHICKA_SALT=<your-salt-here>
 ```
 
+## Linting the bot
+
+```shell
+$ npm run lint
+```
+
+## Building the bot
+
+```shell
+$ npm run build
+```
+
 ## Starting the bot
 
 ```shell
-$ node shicka.js
+$ npm start
 ```
 
 ## Features
@@ -53,7 +65,7 @@ $ node shicka.js
 
 - `/roadmap` gives the link to the todo list of the game on `trello.com`
 
-- `/store` gives the links to the online stores of the game on `shop.spreadshirt.net` and `shop.spreadshirt.com`
+- `/store` gives the links to the online stores of the game on `superbearadventure.myspreadshop.net` and `superbearadventure.myspreadshop.com`
 
 - `/tracker` gives the links to the issue trackers of the game on `github.com` and `trello.com`
 
