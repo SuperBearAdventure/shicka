@@ -5,7 +5,7 @@
   "main": "shicka.js",
   "scripts": {
     "start": "node bin/shicka.js",
-    "build": "npx tsc && ln -frs src/emojis bin/emojis",
+    "build": "npx tsc && ln -fnrs src/emojis bin/emojis",
     "lint": "npx eslint . --ext .ts"
   },
   "repository": "https://github.com/SuperBearAdventure/shicka",
