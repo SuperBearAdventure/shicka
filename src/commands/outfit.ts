@@ -1,6 +1,7 @@
 import type {
 	ApplicationCommandData,
 	ApplicationCommandOptionChoiceData,
+	ApplicationCommandOptionData,
 	AutocompleteFocusedOption,
 	AutocompleteInteraction,
 	CommandInteraction,
@@ -102,12 +103,14 @@ const outfitCommand: Command = {
 			name: commandName,
 			description: commandDescription,
 			options: [
-				{
-					type: "STRING",
+				((): ApplicationCommandOptionData & {minValue: number, maxValue: number} => ({
+					type: "INTEGER",
 					name: outfitOptionName,
 					description: outfitOptionDescription,
+					minValue: 0,
+					maxValue: outfits.length - 1,
 					autocomplete: true,
-				},
+				}))(),
 			],
 		};
 	},
@@ -124,10 +127,10 @@ const outfitCommand: Command = {
 				return name["en-US"].toLowerCase();
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map((outfit: Outfit): ApplicationCommandOptionChoiceData => {
-				const {name}: Outfit = outfit;
+				const {id, name}: Outfit = outfit;
 				return {
 					name: name["en-US"],
-					value: name["en-US"],
+					value: id,
 				};
 			});
 			await interaction.respond(suggestions);
@@ -145,8 +148,8 @@ const outfitCommand: Command = {
 			return outfitsByRarity[rarity.id].length / rarity.slots;
 		})));
 		const now: number = Math.floor(interaction.createdTimestamp / 21600000);
-		const search: string | null = options.getString(outfitOptionName);
-		if (search == null) {
+		const id: number | null = options.getInteger(outfitOptionName);
+		if (id == null) {
 		const schedules: string[] = [];
 		for (let k: number = -2; k < 4; ++k) {
 			const day: number = now + k;
@@ -178,18 +181,7 @@ const outfitCommand: Command = {
 		await interaction.reply(`Outfits for sale in the shop change every 6 hours:\n${scheduleList}`);
 		return;
 		}
-		const results: Outfit[] = nearest<Outfit>(search.toLowerCase(), outfits, 1, (outfit: Outfit): string => {
-			const {name}: Outfit = outfit;
-			return name["en-US"].toLowerCase();
-		});
-		if (results.length === 0) {
-			await interaction.reply({
-				content: `I do not know any outfit with this name.`,
-				ephemeral: true,
-			});
-			return;
-		}
-		const outfit: Outfit = results[0];
+		const outfit: Outfit = outfits[id];
 		if (rarities[outfit.rarity].slots === 0) {
 			const {name}: Outfit = outfit;
 			await interaction.reply(`**${Util.escapeMarkdown(name["en-US"])}** is not for sale.`);

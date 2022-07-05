@@ -1,6 +1,7 @@
 import type {
 	ApplicationCommandData,
 	ApplicationCommandOptionChoiceData,
+	ApplicationCommandOptionData,
 	AutocompleteFocusedOption,
 	AutocompleteInteraction,
 	CommandInteraction,
@@ -35,13 +36,15 @@ const bearCommand: Command = {
 			name: commandName,
 			description: commandDescription,
 			options: [
-				{
-					type: "STRING",
+				((): ApplicationCommandOptionData & {minValue: number, maxValue: number} => ({
+					type: "INTEGER",
 					name: bearOptionName,
 					description: bearOptionDescription,
 					required: true,
+					minValue: 0,
+					maxValue: bears.length - 1,
 					autocomplete: true,
-				},
+				}))(),
 			],
 		};
 	},
@@ -58,10 +61,10 @@ const bearCommand: Command = {
 				return name["en-US"].toLowerCase();
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map((bear: Bear): ApplicationCommandOptionChoiceData => {
-				const {name}: Bear = bear;
+				const {id, name}: Bear = bear;
 				return {
 					name: name["en-US"],
-					value: name["en-US"],
+					value: id,
 				};
 			});
 			await interaction.respond(suggestions);
@@ -71,19 +74,8 @@ const bearCommand: Command = {
 			return;
 		}
 		const {options}: CommandInteraction = interaction;
-		const search: string = options.getString(bearOptionName, true);
-		const results: Bear[] = nearest<Bear>(search.toLowerCase(), bears, 1, (bear: Bear): string => {
-			const {name}: Bear = bear;
-			return name["en-US"].toLowerCase();
-		});
-		if (results.length === 0) {
-			await interaction.reply({
-				content: `I do not know any bear with this name.`,
-				ephemeral: true,
-			});
-			return;
-		}
-		const bear: Bear = results[0];
+		const id: number = options.getInteger(bearOptionName, true);
+		const bear: Bear = bears[id];
 		const {gold, name}: Bear = bear;
 		const level: string = levels[bear.level].name["en-US"];
 		const names: string[] = bear.outfits.filter((outfit: number): boolean => {
