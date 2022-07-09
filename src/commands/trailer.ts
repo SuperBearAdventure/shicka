@@ -4,8 +4,16 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
-const commandName: string = "trailer";
-const commandDescription: string = "Tells you where to watch official trailers of the game";
+const commandNameLocalizations: {[k: string]: string} = {
+	"en-US": "trailer",
+	"fr": "bande-annonce",
+};
+const commandName: string = commandNameLocalizations["en-US"];
+const commandDescriptionLocalizations: {[k: string]: string} = {
+	"en-US": "Tells you where to watch official trailers of the game",
+	"fr": "Te dit où regarder des bandes-annonces officielles du jeu",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const trailers: string[] = [
 	"[*Main trailer*](<https://www.youtube.com/watch?v=L00uorYTYgE>)",
 	"[*Missions trailer*](<https://www.youtube.com/watch?v=j3vwu0JWIEg>)",
@@ -13,10 +21,10 @@ const trailers: string[] = [
 function computeHelpLocalizations(): {[k in string]: () => string} {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
-			return `Type \`/${commandName}\` to know where to watch official trailers of the game`;
+			return `Type \`/${commandNameLocalizations["en-US"]}\` to know where to watch official trailers of the game`;
 		},
 		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir où regarder des bandes-annonces officielles du jeu`;
+			return `Tape \`/${commandNameLocalizations["fr"]}\` pour savoir où regarder des bandes-annonces officielles du jeu`;
 		},
 	});
 }
@@ -24,7 +32,9 @@ const trailerCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
+			nameLocalizations: commandNameLocalizations,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

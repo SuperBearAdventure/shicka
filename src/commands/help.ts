@@ -11,15 +11,23 @@ import * as commands from "../commands.js";
 import * as feeds from "../feeds.js";
 import * as grants from "../grants.js";
 import * as triggers from "../triggers.js";
-const commandName: string = "help";
-const commandDescription: string = "Tells you what are the features I offer";
+const commandNameLocalizations: {[k: string]: string} = {
+	"en-US": "help",
+	"fr": "aide",
+};
+const commandName: string = commandNameLocalizations["en-US"];
+const commandDescriptionLocalizations: {[k: string]: string} = {
+	"en-US": "Tells you what are the features I offer",
+	"fr": "Te dit quelles sont les fonctionnalités que je propose",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 function computeHelpLocalizations(): {[k in string]: () => string} {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
-			return `Type \`/${commandName}\` to know what are the features I offer`;
+			return `Type \`/${commandNameLocalizations["en-US"]}\` to know what are the features I offer`;
 		},
 		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir quelles sont les fonctionnalités que je propose`;
+			return `Tape \`/${commandNameLocalizations["fr"]}\` pour savoir quelles sont les fonctionnalités que je propose`;
 		},
 	});
 }
@@ -27,7 +35,9 @@ const helpCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
+			nameLocalizations: commandNameLocalizations,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

@@ -4,8 +4,16 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
-const commandName: string = "leaderboard";
-const commandDescription: string = "Tells you where to watch community speedruns of the game";
+const commandNameLocalizations: {[k: string]: string} = {
+	"en-US": "leaderboard",
+	"fr": "classement",
+};
+const commandName: string = commandNameLocalizations["en-US"];
+const commandDescriptionLocalizations: {[k: string]: string} = {
+	"en-US": "Tells you where to watch community speedruns of the game",
+	"fr": "Te dit où regarder des speedruns communautaires du jeu",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const leaderboards: string[] = [
 	"[*Full-game leaderboard*](<https://www.speedrun.com/sba>)",
 	"[*Turtle Village leaderboard*](<https://www.speedrun.com/sba/Turtle_Village>)",
@@ -19,10 +27,10 @@ const leaderboards: string[] = [
 function computeHelpLocalizations(): {[k in string]: () => string} {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
-			return `Type \`/${commandName}\` to know where to watch community speedruns of the game`;
+			return `Type \`/${commandNameLocalizations["en-US"]}\` to know where to watch community speedruns of the game`;
 		},
 		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir où regarder des speedruns communautaires du jeu`;
+			return `Tape \`/${commandNameLocalizations["fr"]}\` pour savoir où regarder des speedruns communautaires du jeu`;
 		},
 	});
 }
@@ -30,7 +38,9 @@ const leaderboardCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
+			nameLocalizations: commandNameLocalizations,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

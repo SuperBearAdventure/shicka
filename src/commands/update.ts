@@ -12,8 +12,16 @@ type Data = {
 	version: string,
 	date: number,
 };
-const commandName: string = "update";
-const commandDescription: string = "Tells you what is the latest update of the game";
+const commandNameLocalizations: {[k: string]: string} = {
+	"en-US": "update",
+	"fr": "mise-à-jour",
+};
+const commandName: string = commandNameLocalizations["en-US"];
+const commandDescriptionLocalizations: {[k: string]: string} = {
+	"en-US": "Tells you what is the latest update of the game",
+	"fr": "Te dit quelle est la dernière mise à jour du jeu",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeZone: "UTC",
@@ -21,10 +29,10 @@ const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 function computeHelpLocalizations(): {[k in string]: () => string} {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
-			return `Type \`/${commandName}\` to know what is the latest update of the game`;
+			return `Type \`/${commandNameLocalizations["en-US"]}\` to know what is the latest update of the game`;
 		},
 		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir quelle est la dernière mise à jour du jeu`;
+			return `Tape \`/${commandNameLocalizations["fr"]}\` pour savoir quelle est la dernière mise à jour du jeu`;
 		},
 	});
 }
@@ -32,7 +40,9 @@ const updateCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
+			nameLocalizations: commandNameLocalizations,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

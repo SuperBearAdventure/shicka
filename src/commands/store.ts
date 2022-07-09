@@ -4,8 +4,16 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
-const commandName: string = "store";
-const commandDescription: string = "Tells you where to buy offical products of the game";
+const commandNameLocalizations: {[k: string]: string} = {
+	"en-US": "store",
+	"fr": "magasin",
+};
+const commandName: string = commandNameLocalizations["en-US"];
+const commandDescriptionLocalizations: {[k: string]: string} = {
+	"en-US": "Tells you where to buy offical products of the game",
+	"fr": "Te dit où acheter des produits officiels du jeu",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const stores: string[] = [
 	"[*European store*](<https://superbearadventure.myspreadshop.net/>)",
 	"[*American and Oceanian store*](<https://superbearadventure.myspreadshop.com/>)",
@@ -13,10 +21,10 @@ const stores: string[] = [
 function computeHelpLocalizations(): {[k in string]: () => string} {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
-			return `Type \`/${commandName}\` to know where to buy offical products of the game`;
+			return `Type \`/${commandNameLocalizations["en-US"]}\` to know where to buy offical products of the game`;
 		},
 		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir où acheter des produits officiels du jeu`;
+			return `Tape \`/${commandNameLocalizations["fr"]}\` pour savoir où acheter des produits officiels du jeu`;
 		},
 	});
 }
@@ -24,7 +32,9 @@ const storeCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
+			nameLocalizations: commandNameLocalizations,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

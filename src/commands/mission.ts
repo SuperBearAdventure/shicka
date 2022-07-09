@@ -11,10 +11,26 @@ import type Command from "../commands.js";
 import {Util} from "discord.js";
 import {challenges, levels, missions} from "../bindings.js";
 import {nearest} from "../utils/string.js";
-const commandName: string = "mission";
-const commandDescription: string = "Tells you what is playable in the shop or when it is playable";
-const missionOptionName: string = "mission";
-const missionOptionDescription: string = "Some mission";
+const commandNameLocalizations: {[k: string]: string} = {
+	"en-US": "mission",
+	"fr": "mission",
+};
+const commandName: string = commandNameLocalizations["en-US"];
+const commandDescriptionLocalizations: {[k: string]: string} = {
+	"en-US": "Tells you what is playable in the shop or when it is playable",
+	"fr": "Te dit ce qui est jouable dans la boutique ou quand c'est jouable",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
+const missionOptionNameLocalizations: {[k: string]: string} = {
+	"en-US": "mission",
+	"fr": "mission",
+};
+const missionOptionName: string = missionOptionNameLocalizations["en-US"];
+const missionOptionDescriptionLocalizations: {[k: string]: string} = {
+	"en-US": "Some mission",
+	"fr": "Une mission",
+};
+const missionOptionDescription: string = missionOptionDescriptionLocalizations["en-US"];
 const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeStyle: "short",
@@ -32,10 +48,10 @@ const dayTime: string = timeFormat.format(new Date(36000000));
 function computeHelpLocalizations(): {[k in string]: () => string} {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
-			return `Type \`/${commandName}\` to know what is playable in the shop\nType \`/${commandName} ${missionOptionDescription}\` to know when \`${missionOptionDescription}\` is playable in the shop`;
+			return `Type \`/${commandNameLocalizations["en-US"]}\` to know what is playable in the shop\nType \`/${commandNameLocalizations["en-US"]} ${missionOptionDescriptionLocalizations["en-US"]}\` to know when \`${missionOptionDescriptionLocalizations["en-US"]}\` is playable in the shop`;
 		},
 		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir ce qui est jouable dans la boutique\nTape \`/${commandName} ${missionOptionDescription}\` pour savoir quand \`${missionOptionDescription}\` est jouable dans la boutique`;
+			return `Tape \`/${commandNameLocalizations["fr"]}\` pour savoir ce qui est jouable dans la boutique\nTape \`/${commandNameLocalizations["fr"]} ${missionOptionDescriptionLocalizations["fr"]}\` pour savoir quand \`${missionOptionDescriptionLocalizations["fr"]}\` est jouable dans la boutique`;
 		},
 	});
 }
@@ -43,12 +59,16 @@ const missionCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
+			nameLocalizations: commandNameLocalizations,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 			options: [
 				{
 					type: "STRING",
 					name: missionOptionName,
+					nameLocalizations: missionOptionNameLocalizations,
 					description: missionOptionDescription,
+					descriptionLocalizations: missionOptionDescriptionLocalizations,
 					autocomplete: true,
 				},
 			],

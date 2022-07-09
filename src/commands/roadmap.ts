@@ -5,15 +5,23 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
-const commandName: string = "roadmap";
-const commandDescription: string = "Tells you where to check the upcoming milestones of the game";
+const commandNameLocalizations: {[k: string]: string} = {
+	"en-US": "roadmap",
+	"fr": "feuille-de-route",
+};
+const commandName: string = commandNameLocalizations["en-US"];
+const commandDescriptionLocalizations: {[k: string]: string} = {
+	"en-US": "Tells you where to check the upcoming milestones of the game",
+	"fr": "Te dit où consulter les futurs jalons du jeu",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 function computeHelpLocalizations(): {[k in string]: () => string} {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
-			return `Type \`/${commandName}\` to know where to check the upcoming milestones of the game`;
+			return `Type \`/${commandNameLocalizations["en-US"]}\` to know where to check the upcoming milestones of the game`;
 		},
 		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir où consulter les futurs jalons du jeu`;
+			return `Tape \`/${commandNameLocalizations["fr"]}\` pour savoir où consulter les futurs jalons du jeu`;
 		},
 	});
 }
@@ -21,7 +29,9 @@ const roadmapCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
+			nameLocalizations: commandNameLocalizations,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

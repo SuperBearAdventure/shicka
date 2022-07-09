@@ -15,10 +15,26 @@ import {nearest} from "../utils/string.js";
 const {
 	SHICKA_SALT: salt = "",
 }: NodeJS.ProcessEnv = process.env;
-const commandName: string = "outfit";
-const commandDescription: string = "Tells you what is for sale in the shop or when it is for sale";
-const outfitOptionName: string = "outfit";
-const outfitOptionDescription: string = "Some outfit";
+const commandNameLocalizations: {[k: string]: string} = {
+	"en-US": "outfit",
+	"fr": "costume",
+};
+const commandName: string = commandNameLocalizations["en-US"];
+const commandDescriptionLocalizations: {[k: string]: string} = {
+	"en-US": "Tells you what is for sale in the shop or when it is for sale",
+	"fr": "Te dit ce qui est en vente dans la boutique ou quand c'est en vente",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
+const outfitOptionNameLocalizations: {[k: string]: string} = {
+	"en-US": "outfit",
+	"fr": "costume",
+};
+const outfitOptionName: string = outfitOptionNameLocalizations["en-US"];
+const outfitOptionDescriptionLocalizations: {[k: string]: string} = {
+	"en-US": "Some outfit",
+	"fr": "Un costume",
+};
+const outfitOptionDescription: string = outfitOptionDescriptionLocalizations["en-US"];
 const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeStyle: "short",
@@ -31,10 +47,10 @@ const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 function computeHelpLocalizations(): {[k in string]: () => string} {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
-			return `Type \`/${commandName}\` to know what is for sale in the shop\nType \`/${commandName} ${outfitOptionDescription}\` to know when \`${outfitOptionDescription}\` is for sale in the shop`;
+			return `Type \`/${commandNameLocalizations["en-US"]}\` to know what is for sale in the shop\nType \`/${commandNameLocalizations["en-US"]} ${outfitOptionDescriptionLocalizations["en-US"]}\` to know when \`${outfitOptionDescriptionLocalizations["en-US"]}\` is for sale in the shop`;
 		},
 		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir ce qui est en vente dans la boutique\nTape \`/${commandName} ${outfitOptionDescription}\` pour savoir quand \`${outfitOptionDescription}\` est en vente dans la boutique`;
+			return `Tape \`/${commandNameLocalizations["fr"]}\` pour savoir ce qui est en vente dans la boutique\nTape \`/${commandNameLocalizations["fr"]} ${outfitOptionDescriptionLocalizations["fr"]}\` pour savoir quand \`${outfitOptionDescriptionLocalizations["fr"]}\` est en vente dans la boutique`;
 		},
 	});
 }
@@ -100,12 +116,16 @@ const outfitCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
+			nameLocalizations: commandNameLocalizations,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 			options: [
 				{
 					type: "STRING",
 					name: outfitOptionName,
+					nameLocalizations: outfitOptionNameLocalizations,
 					description: outfitOptionDescription,
+					descriptionLocalizations: outfitOptionDescriptionLocalizations,
 					autocomplete: true,
 				},
 			],

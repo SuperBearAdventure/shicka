@@ -4,15 +4,23 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
-const commandName: string = "about";
-const commandDescription: string = "Tells you where I come from";
+const commandNameLocalizations: {[k: string]: string} = {
+	"en-US": "about",
+	"fr": "à-propos",
+};
+const commandName: string = commandNameLocalizations["en-US"];
+const commandDescriptionLocalizations: {[k: string]: string} = {
+	"en-US": "Tells you where I come from",
+	"fr": "Te dit d'où je viens",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 function computeHelpLocalizations(): {[k in string]: () => string} {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
-			return `Type \`/${commandName}\` to know where I come from`;
+			return `Type \`/${commandNameLocalizations["en-US"]}\` to know where I come from`;
 		},
 		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir d'où je viens`;
+			return `Tape \`/${commandNameLocalizations["fr"]}\` pour savoir d'où je viens`;
 		},
 	});
 }
@@ -20,7 +28,9 @@ const aboutCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
+			nameLocalizations: commandNameLocalizations,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

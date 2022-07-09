@@ -11,10 +11,26 @@ import type Command from "../commands.js";
 import {Util} from "discord.js";
 import {bears, levels, outfits} from "../bindings.js";
 import {nearest} from "../utils/string.js";
-const commandName: string = "bear";
-const commandDescription: string = "Tells you who is this bear";
-const bearOptionName: string = "bear";
-const bearOptionDescription: string = "Some bear";
+const commandNameLocalizations: {[k: string]: string} = {
+	"en-US": "bear",
+	"fr": "ours",
+};
+const commandName: string = commandNameLocalizations["en-US"];
+const commandDescriptionLocalizations: {[k: string]: string} = {
+	"en-US": "Tells you who is this bear",
+	"fr": "Te dit qui est cet ours",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
+const bearOptionNameLocalizations: {[k: string]: string} = {
+	"en-US": "bear",
+	"fr": "ours",
+};
+const bearOptionName: string = bearOptionNameLocalizations["en-US"];
+const bearOptionDescriptionLocalizations: {[k: string]: string} = {
+	"en-US": "Some bear",
+	"fr": "Un ours",
+};
+const bearOptionDescription: string = bearOptionDescriptionLocalizations["en-US"];
 const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
@@ -22,10 +38,10 @@ const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 function computeHelpLocalizations(): {[k in string]: () => string} {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
-			return `Type \`/${commandName} ${bearOptionDescription}\` to know who is \`${bearOptionDescription}\``;
+			return `Type \`/${commandNameLocalizations["en-US"]} ${bearOptionDescriptionLocalizations["en-US"]}\` to know who is \`${bearOptionDescriptionLocalizations["en-US"]}\``;
 		},
 		"fr"(): string {
-			return `Tape \`/${commandName} ${bearOptionDescription}\` pour savoir qui est \`${bearOptionDescription}\``;
+			return `Tape \`/${commandNameLocalizations["fr"]} ${bearOptionDescriptionLocalizations["fr"]}\` pour savoir qui est \`${bearOptionDescriptionLocalizations["fr"]}\``;
 		},
 	});
 }
@@ -33,12 +49,16 @@ const bearCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
+			nameLocalizations: commandNameLocalizations,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 			options: [
 				{
 					type: "STRING",
 					name: bearOptionName,
+					nameLocalizations: bearOptionNameLocalizations,
 					description: bearOptionDescription,
+					descriptionLocalizations: bearOptionDescriptionLocalizations,
 					required: true,
 					autocomplete: true,
 				},
