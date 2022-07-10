@@ -17,9 +17,9 @@ import trackerCommand from "./commands/tracker.js";
 import trailerCommand from "./commands/trailer.js";
 import updateCommand from "./commands/update.js";
 type Command = {
-	register(name: string): ApplicationCommandData;
+	register(): ApplicationCommandData;
 	execute(interaction: Interaction): Promise<void>;
-	describe(interaction: CommandInteraction, name: string): string | null;
+	describe(interaction: CommandInteraction): string | null;
 };
 const about: Command = aboutCommand;
 const bear: Command = bearCommand;

@@ -7,6 +7,10 @@ import type {
 } from "discord.js";
 import type Grant from "../grants.js";
 import {MessageMentions} from "discord.js";
+const grantName: string = "chat";
+const messageArgumentDescription: string = "Some message";
+const channelArgumentDescription: string = "Some channel";
+const contentArgumentDescription: string = "Some content";
 const {source}: RegExp = MessageMentions.CHANNELS_PATTERN;
 const messagePattern: RegExp = /^(?:0|[1-9]\d*)$/;
 const channelPattern: RegExp = new RegExp(`^(?:${source})$`, "");
@@ -113,12 +117,12 @@ const chatGrant: Grant = {
 			await message.reply(`I do not have the rights to send this message.`);
 		}
 	},
-	describe(interaction: CommandInteraction, name: string): string | null {
+	describe(interaction: CommandInteraction): string | null {
 		const {channel}: CommandInteraction = interaction;
 		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
 			return null;
 		}
-		return `Type \`/${name} Some channel Some content\` to send \`Some content\` and some attachments in \`Some channel\`\nType \`/${name} Some message Some channel Some content\` to edit \`Some message\` with \`Some content\` and some attachments in \`Some channel\``;
+		return `Type \`/${grantName} ${channelArgumentDescription} ${contentArgumentDescription}\` to send \`${contentArgumentDescription}\` and some attachments in \`${channelArgumentDescription}\`\nType \`/${grantName} ${messageArgumentDescription} ${channelArgumentDescription} ${contentArgumentDescription}\` to edit \`${messageArgumentDescription}\` with \`${contentArgumentDescription}\` and some attachments in \`${channelArgumentDescription}\``;
 	},
 };
 export default chatGrant;

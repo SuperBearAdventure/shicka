@@ -6,10 +6,14 @@ import type {
 } from "discord.js";
 import type Command from "../commands.js";
 import {Util} from "discord.js";
+const commandName: string = "count";
+const commandDescription: string = "Tells you what is the number of members on the server";
 const countCommand: Command = {
-	register(name: string): ApplicationCommandData {
-		const description: string = "Tells you what is the number of members on the server";
-		return {name, description};
+	register(): ApplicationCommandData {
+		return {
+			name: commandName,
+			description: commandDescription,
+		};
 	},
 	async execute(interaction: Interaction): Promise<void> {
 		if (!interaction.isCommand()) {
@@ -22,8 +26,8 @@ const countCommand: Command = {
 		const {memberCount, name}: Guild = guild;
 		await interaction.reply(`There are ${Util.escapeMarkdown(`${memberCount}`)} members on the official *${Util.escapeMarkdown(name)}* *Discord* server!`);
 	},
-	describe(interaction: CommandInteraction, name: string): string | null {
-		return `Type \`/${name}\` to know what is the number of members on the server`;
+	describe(interaction: CommandInteraction): string | null {
+		return `Type \`/${commandName}\` to know what is the number of members on the server`;
 	},
 };
 export default countCommand;

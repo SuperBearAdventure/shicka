@@ -17,6 +17,9 @@ import serialize from "w3c-xmlserializer";
 const {createCanvas, loadImage}: any = canvas;
 const here: string = import.meta.url;
 const root: string = here.slice(0, here.lastIndexOf("/"));
+const grantName: string = "emoji";
+const baseArgumentDescription: string = "Some base";
+const stylesArgumentDescription: string = "Some styles";
 const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
@@ -105,12 +108,12 @@ const emojiGrant: Grant = {
 			],
 		});
 	},
-	describe(interaction: CommandInteraction, name: string): string | null {
+	describe(interaction: CommandInteraction): string | null {
 		const {channel}: CommandInteraction = interaction;
 		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
 			return null;
 		}
-		return `Type \`/${name} Some base Some styles\` to create a new \`Some base\`-based emoji customized with \`Some styles\``;
+		return `Type \`/${grantName} ${baseArgumentDescription} ${stylesArgumentDescription}\` to create a new \`${baseArgumentDescription}\`-based emoji customized with \`${stylesArgumentDescription}\``;
 	},
 };
 export default emojiGrant;

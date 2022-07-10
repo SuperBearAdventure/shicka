@@ -1,7 +1,6 @@
 import type {
 	ApplicationCommandData,
 	ApplicationCommandOptionChoiceData,
-	ApplicationCommandOptionData,
 	AutocompleteFocusedOption,
 	AutocompleteInteraction,
 	CommandInteraction,
@@ -11,30 +10,36 @@ import type {Bear, Outfit} from "../bindings.js";
 import type Command from "../commands.js";
 import {Util} from "discord.js";
 import {bears, levels, outfits} from "../bindings.js";
-import {nearest} from "../utils/string.js"
+import {nearest} from "../utils/string.js";
+const commandName: string = "bear";
+const commandDescription: string = "Tells you who is this bear";
+const bearOptionName: string = "bear";
+const bearOptionDescription: string = "Some bear";
 const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
 const bearCommand: Command = {
-	register(name: string): ApplicationCommandData {
-		const description: string = "Tells you who is this bear";
-		const options: ApplicationCommandOptionData[] = [
-			{
-				type: "STRING",
-				name: "bear",
-				description: "Some bear",
-				required: true,
-				autocomplete: true,
-			},
-		];
-		return {name, description, options};
+	register(): ApplicationCommandData {
+		return {
+			name: commandName,
+			description: commandDescription,
+			options: [
+				{
+					type: "STRING",
+					name: bearOptionName,
+					description: bearOptionDescription,
+					required: true,
+					autocomplete: true,
+				},
+			],
+		};
 	},
 	async execute(interaction: Interaction): Promise<void> {
 		if (interaction.isAutocomplete()) {
 			const {options}: AutocompleteInteraction = interaction;
 			const {name, value}: AutocompleteFocusedOption = options.getFocused(true);
-			if (name !== "bear") {
+			if (name !== bearOptionName) {
 				await interaction.respond([]);
 				return;
 			}
@@ -56,7 +61,7 @@ const bearCommand: Command = {
 			return;
 		}
 		const {options}: CommandInteraction = interaction;
-		const search: string = options.getString("bear", true);
+		const search: string = options.getString(bearOptionName, true);
 		const results: Bear[] = nearest<Bear>(search.toLowerCase(), bears, 1, (bear: Bear): string => {
 			const {name}: Bear = bear;
 			return name.toLowerCase();
@@ -88,8 +93,8 @@ const bearCommand: Command = {
 		const time: string = `${minutes}:${seconds}.${centiseconds}`;
 		await interaction.reply(`**${Util.escapeMarkdown(name)}** has been imprisoned in the **${Util.escapeMarkdown(level)}** and is wearing ${nameConjunction}.\n${goal} the cage in less than **${Util.escapeMarkdown(time)}** to beat the gold time!`);
 	},
-	describe(interaction: CommandInteraction, name: string): string | null {
-		return `Type \`/${name} Some bear\` to know who is \`Some bear\``;
+	describe(interaction: CommandInteraction): string | null {
+		return `Type \`/${commandName} ${bearOptionDescription}\` to know who is \`${bearOptionDescription}\``;
 	},
 };
 export default bearCommand;

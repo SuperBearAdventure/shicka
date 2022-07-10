@@ -1,6 +1,5 @@
 import type {
 	ApplicationCommandData,
-	ApplicationCommandOptionData,
 	ApplicationCommandOptionChoiceData,
 	AutocompleteFocusedOption,
 	AutocompleteInteraction,
@@ -11,7 +10,11 @@ import type {Mission} from "../bindings.js";
 import type Command from "../commands.js";
 import {Util} from "discord.js";
 import {challenges, levels, missions} from "../bindings.js";
-import {nearest} from "../utils/string.js"
+import {nearest} from "../utils/string.js";
+const commandName: string = "mission";
+const commandDescription: string = "Tells you what is playable in the shop or when it is playable";
+const missionOptionName: string = "mission";
+const missionOptionDescription: string = "Some mission";
 const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeStyle: "short",
@@ -27,23 +30,25 @@ const timeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 });
 const dayTime: string = timeFormat.format(new Date(36000000));
 const missionCommand: Command = {
-	register(name: string): ApplicationCommandData {
-		const description: string = "Tells you what is playable in the shop or when it is playable";
-		const options: ApplicationCommandOptionData[] = [
-			{
-				type: "STRING",
-				name: "mission",
-				description: "Some mission",
-				autocomplete: true,
-			},
-		];
-		return {name, description, options};
+	register(): ApplicationCommandData {
+		return {
+			name: commandName,
+			description: commandDescription,
+			options: [
+				{
+					type: "STRING",
+					name: missionOptionName,
+					description: missionOptionDescription,
+					autocomplete: true,
+				},
+			],
+		};
 	},
 	async execute(interaction: Interaction): Promise<void> {
 		if (interaction.isAutocomplete()) {
 			const {options}: AutocompleteInteraction = interaction;
 			const {name, value}: AutocompleteFocusedOption = options.getFocused(true);
-			if (name !== "mission") {
+			if (name !== missionOptionName) {
 				await interaction.respond([]);
 				return;
 			}
@@ -67,7 +72,7 @@ const missionCommand: Command = {
 		const {options}: CommandInteraction = interaction;
 		const missionCount: number = missions.length;
 		const now: number = Math.floor((interaction.createdTimestamp + 7200000) / 86400000);
-		const search: string | null = options.getString("mission");
+		const search: string | null = options.getString(missionOptionName);
 		if (search == null) {
 		const schedules: string[] = [];
 		for (let k: number = -1; k < 2; ++k) {
@@ -109,8 +114,8 @@ const missionCommand: Command = {
 		const scheduleList: string = schedules.join("\n");
 		await interaction.reply(`**${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}** will be playable for 1 day starting:\n${scheduleList}`);
 	},
-	describe(interaction: CommandInteraction, name: string): string | null {
-		return `Type \`/${name}\` to know what is playable in the shop\nType \`/${name} Some mission\` to know when \`Some mission\` is playable in the shop`;
+	describe(interaction: CommandInteraction): string | null {
+		return `Type \`/${commandName}\` to know what is playable in the shop\nType \`/${commandName} ${missionOptionDescription}\` to know when \`${missionOptionDescription}\` is playable in the shop`;
 	},
 };
 export default missionCommand;

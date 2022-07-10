@@ -23,7 +23,7 @@ type Level = {
 };
 const games: string[] = ["9d3rrxyd", "w6jl2ned"];
 const recordFeed: Feed = {
-	register(client: Client, name: string): Job {
+	register(client: Client): Job {
 		return schedule.scheduleJob({
 			rule: "1 3/6 * * *",
 			tz: "UTC",
@@ -140,7 +140,7 @@ const recordFeed: Feed = {
 		}
 		return records;
 	},
-	describe(interaction: CommandInteraction, name: string): string | null {
+	describe(interaction: CommandInteraction): string | null {
 		const {guild}: CommandInteraction = interaction;
 		if (guild == null) {
 			return null;

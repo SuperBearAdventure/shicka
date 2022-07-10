@@ -45,14 +45,14 @@ client.once("ready", async (client: Client): Promise<void> => {
 	console.log("Ready!");
 	const menu: ApplicationCommandData[] = Object.keys(commands).map((commandName: string): ApplicationCommandData => {
 		const command: Command = commands[commandName as keyof typeof commands] as Command;
-		return command.register(commandName);
+		return command.register();
 	});
 	for (const guild of client.guilds.cache.values()) {
 		guild.commands.set(menu);
 	}
 	for (const feedName of Object.keys(feeds)) {
 		const feed: Feed = feeds[feedName as keyof typeof feeds] as Feed;
-		const job: Job = feed.register(client, feedName);
+		const job: Job = feed.register(client);
 		job.on("error", (error: unknown): void => {
 			console.error(error);
 		});
@@ -96,7 +96,7 @@ client.on("guildMemberRemove", async (member: GuildMember | PartialGuildMember):
 	}
 });
 client.on("interactionCreate", async (interaction: Interaction): Promise<void> => {
-	if (interaction.user.bot || interaction.channel == null) {
+	if (interaction.user.bot) {
 		return;
 	}
 	const {channel}: Interaction = interaction;
