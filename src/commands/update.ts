@@ -12,14 +12,18 @@ type Data = {
 	version: string,
 	date: number,
 };
+const commandName: string = "update";
+const commandDescription: string = "Tells you what is the latest update of the game";
 const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeZone: "UTC",
 });
 const updateCommand: Command = {
-	register(name: string): ApplicationCommandData {
-		const description: string = "Tells you what is the latest update of the game";
-		return {name, description};
+	register(): ApplicationCommandData {
+		return {
+			name: commandName,
+			description: commandDescription,
+		};
 	},
 	async execute(interaction: Interaction): Promise<void> {
 		if (!interaction.isCommand()) {
@@ -74,8 +78,8 @@ const updateCommand: Command = {
 			});
 		}
 	},
-	describe(interaction: CommandInteraction, name: string): string | null {
-		return `Type \`/${name}\` to know what is the latest update of the game`;
+	describe(interaction: CommandInteraction): string | null {
+		return `Type \`/${commandName}\` to know what is the latest update of the game`;
 	},
 };
 export default updateCommand;

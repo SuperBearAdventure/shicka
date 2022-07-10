@@ -5,14 +5,18 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+const commandName: string = "tracker";
+const commandDescription: string = "Tells you where to check known bugs of the game";
 const trackers: string[] = [
 	"[*Current tracker*](<https://github.com/SuperBearAdventure/tracker>)",
 	"[*Former tracker*](<https://trello.com/b/yTojOuqv/super-bear-adventure-bugs>)",
 ];
 const trackerCommand: Command = {
-	register(name: string): ApplicationCommandData {
-		const description: string = "Tells you where to check known bugs of the game";
-		return {name, description};
+	register(): ApplicationCommandData {
+		return {
+			name: commandName,
+			description: commandDescription,
+		};
 	},
 	async execute(interaction: Interaction): Promise<void> {
 		if (!interaction.isCommand()) {
@@ -33,8 +37,8 @@ const trackerCommand: Command = {
 			content: `${intent} check the known bugs of the game there:\n${linkList}`,
 		});
 	},
-	describe(interaction: CommandInteraction, name: string): string | null {
-		return `Type \`/${name}\` to know where to check known bugs of the game`;
+	describe(interaction: CommandInteraction): string | null {
+		return `Type \`/${commandName}\` to know where to check known bugs of the game`;
 	},
 };
 export default trackerCommand;

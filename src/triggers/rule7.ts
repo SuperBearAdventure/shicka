@@ -51,7 +51,7 @@ const rule7Trigger: Trigger = {
 			await message.react(emoji);
 		}
 	},
-	describe(interaction: CommandInteraction, name: string): string | null {
+	describe(interaction: CommandInteraction): string | null {
 		const {guild}: CommandInteraction = interaction;
 		if (guild == null) {
 			return null;

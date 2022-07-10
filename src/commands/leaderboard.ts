@@ -4,6 +4,8 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+const commandName: string = "leaderboard";
+const commandDescription: string = "Tells you where to watch community speedruns of the game";
 const leaderboards: string[] = [
 	"[*Full-game leaderboard*](<https://www.speedrun.com/sba>)",
 	"[*Turtle Village leaderboard*](<https://www.speedrun.com/sba/Turtle_Village>)",
@@ -15,9 +17,11 @@ const leaderboards: string[] = [
 	"[*Category Extensions leaderboard*](<https://www.speedrun.com/sbace>)",
 ];
 const leaderboardCommand: Command = {
-	register(name: string): ApplicationCommandData {
-		const description: string = "Tells you where to watch community speedruns of the game";
-		return {name, description};
+	register(): ApplicationCommandData {
+		return {
+			name: commandName,
+			description: commandDescription,
+		};
 	},
 	async execute(interaction: Interaction): Promise<void> {
 		if (!interaction.isCommand()) {
@@ -30,8 +34,8 @@ const leaderboardCommand: Command = {
 			content: `You can watch community speedruns there:\n${linkList}`,
 		});
 	},
-	describe(interaction: CommandInteraction, name: string): string | null {
-		return `Type \`/${name}\` to know where to watch community speedruns of the game`;
+	describe(interaction: CommandInteraction): string | null {
+		return `Type \`/${commandName}\` to know where to watch community speedruns of the game`;
 	},
 };
 export default leaderboardCommand;

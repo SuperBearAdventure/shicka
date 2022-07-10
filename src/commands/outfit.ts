@@ -1,6 +1,5 @@
 import type {
 	ApplicationCommandData,
-	ApplicationCommandOptionData,
 	ApplicationCommandOptionChoiceData,
 	AutocompleteFocusedOption,
 	AutocompleteInteraction,
@@ -16,6 +15,10 @@ import {nearest} from "../utils/string.js";
 const {
 	SHICKA_SALT: salt = "",
 }: NodeJS.ProcessEnv = process.env;
+const commandName: string = "outfit";
+const commandDescription: string = "Tells you what is for sale in the shop or when it is for sale";
+const outfitOptionName: string = "outfit";
+const outfitOptionDescription: string = "Some outfit";
 const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeStyle: "short",
@@ -84,23 +87,25 @@ function sliceOutfits(generator: Iterator<bigint>, outfits: Outfit[], outfitsPer
 	return slices;
 }
 const outfitCommand: Command = {
-	register(name: string): ApplicationCommandData {
-		const description: string = "Tells you what is for sale in the shop or when it is for sale";
-		const options: ApplicationCommandOptionData[] = [
-			{
-				type: "STRING",
-				name: "outfit",
-				description: "Some outfit",
-				autocomplete: true,
-			},
-		];
-		return {name, description, options};
+	register(): ApplicationCommandData {
+		return {
+			name: commandName,
+			description: commandDescription,
+			options: [
+				{
+					type: "STRING",
+					name: outfitOptionName,
+					description: outfitOptionDescription,
+					autocomplete: true,
+				},
+			],
+		};
 	},
 	async execute(interaction: Interaction): Promise<void> {
 		if (interaction.isAutocomplete()) {
 			const {options}: AutocompleteInteraction = interaction;
 			const {name, value}: AutocompleteFocusedOption = options.getFocused(true);
-			if (name !== "outfit") {
+			if (name !== outfitOptionName) {
 				await interaction.respond([]);
 				return;
 			}
@@ -130,7 +135,7 @@ const outfitCommand: Command = {
 			return outfitsByRarity[rarity.id].length / rarity.slots;
 		})));
 		const now: number = Math.floor(interaction.createdTimestamp / 21600000);
-		const search: string | null = options.getString("outfit");
+		const search: string | null = options.getString(outfitOptionName);
 		if (search == null) {
 		const schedules: string[] = [];
 		for (let k: number = -2; k < 4; ++k) {
@@ -213,8 +218,8 @@ const outfitCommand: Command = {
 		const scheduleList: string = schedules.join("\n");
 		await interaction.reply(`**${Util.escapeMarkdown(name)}** will be for sale in the shop${costConjunction} for 6 hours starting:\n${scheduleList}`);
 	},
-	describe(interaction: CommandInteraction, name: string): string | null {
-		return `Type \`/${name}\` to know what is for sale in the shop\nType \`/${name} Some outfit\` to know when \`Some outfit\` is for sale in the shop`;
+	describe(interaction: CommandInteraction): string | null {
+		return `Type \`/${commandName}\` to know what is for sale in the shop\nType \`/${commandName} ${outfitOptionDescription}\` to know when \`${outfitOptionDescription}\` is for sale in the shop`;
 	},
 };
 export default outfitCommand;
