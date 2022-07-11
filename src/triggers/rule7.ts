@@ -40,7 +40,7 @@ const rule7Trigger: Trigger = {
 			return channel.name === "❗・rules-info・❗";
 		});
 		if (rulesChannel != null) {
-			await message.reply(`Please read and respect the ${channel}!`);
+			await message.reply(`Please read and respect the ${rulesChannel}!`);
 		}
 		await message.react("🇷");
 		await message.react("🇺");
