@@ -43,6 +43,7 @@ type Part = {
 };
 type Rarity = {
 	id: number,
+	name: string,
 	cost: number,
 	payoff: number,
 	probability: number,

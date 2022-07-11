@@ -42,13 +42,12 @@ const client: Client = new Client({
 	},
 });
 client.once("ready", async (client: Client): Promise<void> => {
-	console.log("Ready!");
 	const menu: ApplicationCommandData[] = Object.keys(commands).map((commandName: string): ApplicationCommandData => {
 		const command: Command = commands[commandName as keyof typeof commands] as Command;
 		return command.register();
 	});
 	for (const guild of client.guilds.cache.values()) {
-		guild.commands.set(menu);
+		await guild.commands.set(menu);
 	}
 	for (const feedName of Object.keys(feeds)) {
 		const feed: Feed = feeds[feedName as keyof typeof feeds] as Feed;
@@ -57,6 +56,7 @@ client.once("ready", async (client: Client): Promise<void> => {
 			console.error(error);
 		});
 	}
+	console.log("Ready!");
 });
 client.on("guildMemberAdd", async (member: GuildMember): Promise<void> => {
 	const {memberCount, systemChannel}: Guild = member.guild;
