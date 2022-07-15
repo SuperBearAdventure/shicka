@@ -1,16 +1,12 @@
 import type {
-	ApplicationCommand,
 	ApplicationCommandData,
-	ApplicationCommandPermissionData,
 	AutocompleteInteraction,
-	Collection,
 	CommandInteraction,
 	Guild,
 	GuildMember,
 	Interaction,
 	Message,
 	PartialGuildMember,
-	Role,
 	ThreadChannel,
 } from "discord.js";
 import type {Job} from "node-schedule";
@@ -57,49 +53,6 @@ client.once("ready", async (client: Client): Promise<void> => {
 		job.on("error", (error: unknown): void => {
 			console.error(error);
 		});
-	}
-	for (const guild of client.guilds.cache.values()) {
-		const roles: Collection<string, Role> = await guild.roles.fetch();
-		const [administrator, gameDeveloper, helper, moderator, cookie]: (Role | undefined)[] = ["Administrator", "Game Developer", "Helper", "Moderator", "Cookie"].map((name: string): Role | undefined => {
-			return roles.find((role: Role): boolean => {
-				return role.name === name;
-			});
-		})
-		const commands: Collection<string, ApplicationCommand> = await guild.commands.fetch();
-		const chat: ApplicationCommand | undefined = commands.find((command: ApplicationCommand): boolean => {
-			return command.name === "chat";
-		});
-		if (chat != null) {
-			await chat.permissions.set({
-				permissions: [administrator, gameDeveloper, helper, moderator].map((role: Role | undefined): ApplicationCommandPermissionData[] => {
-					if (role == null) {
-						return [];
-					}
-					return [{
-						id: role.id,
-						type: "ROLE",
-						permission: true,
-					}];
-				}).flat(),
-			});
-		}
-		const emoji: ApplicationCommand | undefined = commands.find((command: ApplicationCommand): boolean => {
-			return command.name === "emoji";
-		});
-		if (emoji != null) {
-			await emoji.permissions.set({
-				permissions: [administrator, gameDeveloper, helper, moderator, cookie].map((role: Role | undefined): ApplicationCommandPermissionData[] => {
-					if (role == null) {
-						return [];
-					}
-					return [{
-						id: role.id,
-						type: "ROLE",
-						permission: true,
-					}];
-				}).flat(),
-			});
-		}
 	}
 	console.log("Ready!");
 });
