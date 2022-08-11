@@ -15,12 +15,12 @@ type Bear = {
 };
 type Challenge = {
 	id: number,
-	name: string,
+	name: {[k in string]: string},
 };
 type Level = {
 	id: number,
-	name: string,
-	boss: string,
+	name: {[k in string]: string},
+	boss: {[k in string]: string},
 	coins: number,
 	stickers: number,
 };
@@ -31,7 +31,7 @@ type Mission = {
 };
 type Outfit = {
 	id: number,
-	name: string,
+	name: {[k in string]: string},
 	cost: number,
 	part: number,
 	rarity: number,
@@ -39,11 +39,11 @@ type Outfit = {
 };
 type Part = {
 	id: number,
-	name: string,
+	name: {[k in string]: string},
 };
 type Rarity = {
 	id: number,
-	name: string,
+	name: {[k in string]: string},
 	cost: number,
 	payoff: number,
 	probability: number,

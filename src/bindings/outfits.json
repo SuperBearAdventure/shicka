@@ -1,699 +1,899 @@
 [
 	{
-		"name": "Default",
+		"name": {
+			"en-US": "Default"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 0,
 		"update": 0
 	},
 	{
-		"name": "Default",
+		"name": {
+			"en-US": "Default"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 0,
 		"update": 0
 	},
 	{
-		"name": "Default",
+		"name": {
+			"en-US": "Default"
+		},
 		"cost": 0,
 		"part": 2,
 		"rarity": 0,
 		"update": 0
 	},
 	{
-		"name": "Default",
+		"name": {
+			"en-US": "Default"
+		},
 		"cost": 0,
 		"part": 3,
 		"rarity": 0,
 		"update": 0
 	},
 	{
-		"name": "Bandit mask",
+		"name": {
+			"en-US": "Bandit mask"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 0
 	},
 	{
-		"name": "Cap (red)",
+		"name": {
+			"en-US": "Cap (red)"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 0
 	},
 	{
-		"name": "Cap (blue)",
+		"name": {
+			"en-US": "Cap (blue)"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 0
 	},
 	{
-		"name": "Unicorn",
+		"name": {
+			"en-US": "Unicorn"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 2,
 		"update": 0
 	},
 	{
-		"name": "Punk hair",
+		"name": {
+			"en-US": "Punk hair"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 0
 	},
 	{
-		"name": "Fez",
+		"name": {
+			"en-US": "Fez"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 0
 	},
 	{
-		"name": "Crown",
+		"name": {
+			"en-US": "Crown"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 3,
 		"update": 0
 	},
 	{
-		"name": "White eyes",
+		"name": {
+			"en-US": "White eyes"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 0
 	},
 	{
-		"name": "BIG EYES",
+		"name": {
+			"en-US": "BIG EYES"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 2,
 		"update": 0
 	},
 	{
-		"name": "BIG EARS",
+		"name": {
+			"en-US": "BIG EARS"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 0
 	},
 	{
-		"name": "Long hair",
+		"name": {
+			"en-US": "Long hair"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 0
 	},
 	{
-		"name": "Gas mask",
+		"name": {
+			"en-US": "Gas mask"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 5
 	},
 	{
-		"name": "Swollen head",
+		"name": {
+			"en-US": "Swollen head"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 5
 	},
 	{
-		"name": "Polar bear",
+		"name": {
+			"en-US": "Polar bear"
+		},
 		"cost": 0,
 		"part": 2,
 		"rarity": 1,
 		"update": 9
 	},
 	{
-		"name": "Fat body",
+		"name": {
+			"en-US": "Fat body"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 1,
 		"update": 9
 	},
 	{
-		"name": "Muscular body",
+		"name": {
+			"en-US": "Muscular body"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 1,
 		"update": 9
 	},
 	{
-		"name": "Bowtie",
+		"name": {
+			"en-US": "Bowtie"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 1,
 		"update": 9
 	},
 	{
-		"name": "Golden bear",
+		"name": {
+			"en-US": "Golden bear"
+		},
 		"cost": 0,
 		"part": 2,
 		"rarity": 3,
 		"update": 9
 	},
 	{
-		"name": "Golden Shicka",
+		"name": {
+			"en-US": "Golden Shicka"
+		},
 		"cost": 0,
 		"part": 3,
 		"rarity": 3,
 		"update": 9
 	},
 	{
-		"name": "Red Shicka",
+		"name": {
+			"en-US": "Red Shicka"
+		},
 		"cost": 0,
 		"part": 3,
 		"rarity": 1,
 		"update": 9
 	},
 	{
-		"name": "Green Shicka",
+		"name": {
+			"en-US": "Green Shicka"
+		},
 		"cost": 0,
 		"part": 3,
 		"rarity": 1,
 		"update": 9
 	},
 	{
-		"name": "Pink bear",
+		"name": {
+			"en-US": "Pink bear"
+		},
 		"cost": 0,
 		"part": 2,
 		"rarity": 2,
 		"update": 9
 	},
 	{
-		"name": "Glasses",
+		"name": {
+			"en-US": "Glasses"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 9
 	},
 	{
-		"name": "Capitalus' suit",
+		"name": {
+			"en-US": "Capitalus' suit"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 2,
 		"update": 9
 	},
 	{
-		"name": "Angel ring",
+		"name": {
+			"en-US": "Angel ring"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 2,
 		"update": 9
 	},
 	{
-		"name": "Santa hat",
+		"name": {
+			"en-US": "Santa hat"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 2,
 		"update": 9
 	},
 	{
-		"name": "Beard",
+		"name": {
+			"en-US": "Beard"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 9
 	},
 	{
-		"name": "Reversed head",
+		"name": {
+			"en-US": "Reversed head"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 2,
 		"update": 9
 	},
 	{
-		"name": "Dark Shicka",
+		"name": {
+			"en-US": "Dark Shicka"
+		},
 		"cost": 0,
 		"part": 3,
 		"rarity": 2,
 		"update": 9
 	},
 	{
-		"name": "White beard",
+		"name": {
+			"en-US": "White beard"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 9
 	},
 	{
-		"name": "White hair",
+		"name": {
+			"en-US": "White hair"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 9
 	},
 	{
-		"name": "Santa head",
+		"name": {
+			"en-US": "Santa head"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 3,
 		"update": 9
 	},
 	{
-		"name": "Business suit",
+		"name": {
+			"en-US": "Business suit"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 1,
 		"update": 9
 	},
 	{
-		"name": "Red shirt",
+		"name": {
+			"en-US": "Red shirt"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 1,
 		"update": 9
 	},
 	{
-		"name": "Retro bear",
+		"name": {
+			"en-US": "Retro bear"
+		},
 		"cost": 0,
 		"part": 2,
 		"rarity": 2,
 		"update": 11
 	},
 	{
-		"name": "Retro shicka",
+		"name": {
+			"en-US": "Retro shicka"
+		},
 		"cost": 0,
 		"part": 3,
 		"rarity": 2,
 		"update": 11
 	},
 	{
-		"name": "Banana hat",
+		"name": {
+			"en-US": "Banana hat"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 2,
 		"update": 11
 	},
 	{
-		"name": "Santa suit",
+		"name": {
+			"en-US": "Santa suit"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 2,
 		"update": 11
 	},
 	{
-		"name": "Desert bear",
+		"name": {
+			"en-US": "Desert bear"
+		},
 		"cost": 0,
 		"part": 2,
 		"rarity": 1,
 		"update": 17
 	},
 	{
-		"name": "Crocodile bear",
+		"name": {
+			"en-US": "Crocodile bear"
+		},
 		"cost": 0,
 		"part": 2,
 		"rarity": 1,
 		"update": 17
 	},
 	{
-		"name": "Fennec head",
+		"name": {
+			"en-US": "Fennec head"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 2,
 		"update": 17
 	},
 	{
-		"name": "Ghost Shicka",
+		"name": {
+			"en-US": "Ghost Shicka"
+		},
 		"cost": 0,
 		"part": 3,
 		"rarity": 2,
 		"update": 17
 	},
 	{
-		"name": "Rainbow bear",
+		"name": {
+			"en-US": "Rainbow bear"
+		},
 		"cost": 0,
 		"part": 2,
 		"rarity": 3,
 		"update": 20
 	},
 	{
-		"name": "Bear mask",
+		"name": {
+			"en-US": "Bear mask"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 2,
 		"update": 22
 	},
 	{
-		"name": "Neutral face",
+		"name": {
+			"en-US": "Neutral face"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 22
 	},
 	{
-		"name": "Headless",
+		"name": {
+			"en-US": "Headless"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 2,
 		"update": 22
 	},
 	{
-		"name": "King shirt",
+		"name": {
+			"en-US": "King shirt"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 5,
 		"update": 24
 	},
 	{
-		"name": "Panda",
+		"name": {
+			"en-US": "Panda"
+		},
 		"cost": 0,
 		"part": 2,
 		"rarity": 5,
 		"update": 24
 	},
 	{
-		"name": "Capitalus' head",
+		"name": {
+			"en-US": "Capitalus' head"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 5,
 		"update": 24
 	},
 	{
-		"name": "Rainbow trails",
+		"name": {
+			"en-US": "Rainbow trails"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 5,
 		"update": 24
 	},
 	{
-		"name": "Outline",
+		"name": {
+			"en-US": "Outline"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 2,
 		"update": 24
 	},
 	{
-		"name": "Skeleton body",
+		"name": {
+			"en-US": "Skeleton body"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 1,
 		"update": 24
 	},
 	{
-		"name": "Spooky shirt",
+		"name": {
+			"en-US": "Spooky shirt"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 2,
 		"update": 24
 	},
 	{
-		"name": "Axe head",
+		"name": {
+			"en-US": "Axe head"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 24
 	},
 	{
-		"name": "Pumpkin",
+		"name": {
+			"en-US": "Pumpkin"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 2,
 		"update": 24
 	},
 	{
-		"name": "Jack O'Lantern",
+		"name": {
+			"en-US": "Jack O'Lantern"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 3,
 		"update": 24
 	},
 	{
-		"name": "Skull",
+		"name": {
+			"en-US": "Skull"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 24
 	},
 	{
-		"name": "Donator crown",
+		"name": {
+			"en-US": "Donator crown"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 5,
 		"update": 24
 	},
 	{
-		"name": "Egg head",
+		"name": {
+			"en-US": "Egg head"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 2,
 		"update": 33
 	},
 	{
-		"name": "Egg hat",
+		"name": {
+			"en-US": "Egg hat"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 33
 	},
 	{
-		"name": "Easter egg",
+		"name": {
+			"en-US": "Easter egg"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 3,
 		"update": 33
 	},
 	{
-		"name": "Fried egg",
+		"name": {
+			"en-US": "Fried egg"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 2,
 		"update": 33
 	},
 	{
-		"name": "Rabbit head",
+		"name": {
+			"en-US": "Rabbit head"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 2,
 		"update": 33
 	},
 	{
-		"name": "Chocolate body",
+		"name": {
+			"en-US": "Chocolate body"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 1,
 		"update": 33
 	},
 	{
-		"name": "Pacifier",
+		"name": {
+			"en-US": "Pacifier"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 1,
 		"update": 36
 	},
 	{
-		"name": "Diaper",
+		"name": {
+			"en-US": "Diaper"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 1,
 		"update": 36
 	},
 	{
-		"name": "Lab coat",
+		"name": {
+			"en-US": "Lab coat"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 1,
 		"update": 36
 	},
 	{
-		"name": "Invisible Shicka",
+		"name": {
+			"en-US": "Invisible Shicka"
+		},
 		"cost": 0,
 		"part": 3,
 		"rarity": 1,
 		"update": 36
 	},
 	{
-		"name": "8-bit Shicka",
+		"name": {
+			"en-US": "8-bit Shicka"
+		},
 		"cost": 0,
 		"part": 3,
 		"rarity": 3,
 		"update": 40
 	},
 	{
-		"name": "8-bit bear",
+		"name": {
+			"en-US": "8-bit bear"
+		},
 		"cost": 0,
 		"part": 2,
 		"rarity": 3,
 		"update": 40
 	},
 	{
-		"name": "Sackbear",
+		"name": {
+			"en-US": "Sackbear"
+		},
 		"cost": 0,
 		"part": 2,
 		"rarity": 1,
 		"update": 40
 	},
 	{
-		"name": "Tower of Hanoi",
+		"name": {
+			"en-US": "Tower of Hanoi"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 2,
 		"update": 48
 	},
 	{
-		"name": "Black bear",
+		"name": {
+			"en-US": "Black bear"
+		},
 		"cost": 0,
 		"part": 2,
 		"rarity": 1,
 		"update": 48
 	},
 	{
-		"name": "Dark bear",
+		"name": {
+			"en-US": "Dark bear"
+		},
 		"cost": 0,
 		"part": 2,
 		"rarity": 1,
 		"update": 48
 	},
 	{
-		"name": "Brown coat",
+		"name": {
+			"en-US": "Brown coat"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 2,
 		"update": 48
 	},
 	{
-		"name": "Jean coat",
+		"name": {
+			"en-US": "Jean coat"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 2,
 		"update": 48
 	},
 	{
-		"name": "Penguin Shicka",
+		"name": {
+			"en-US": "Penguin Shicka"
+		},
 		"cost": 0,
 		"part": 3,
 		"rarity": 2,
 		"update": 50
 	},
 	{
-		"name": "Bear Shicka",
+		"name": {
+			"en-US": "Bear Shicka"
+		},
 		"cost": 0,
 		"part": 3,
 		"rarity": 2,
 		"update": 50
 	},
 	{
-		"name": "Shicka bear",
+		"name": {
+			"en-US": "Shicka bear"
+		},
 		"cost": 0,
 		"part": 2,
 		"rarity": 3,
 		"update": 50
 	},
 	{
-		"name": "Rainbow Shicka",
+		"name": {
+			"en-US": "Rainbow Shicka"
+		},
 		"cost": 0,
 		"part": 3,
 		"rarity": 3,
 		"update": 50
 	},
 	{
-		"name": "VR headset",
+		"name": {
+			"en-US": "VR headset"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 3,
 		"update": 53
 	},
 	{
-		"name": "Cosmic bear",
+		"name": {
+			"en-US": "Cosmic bear"
+		},
 		"cost": 5,
 		"part": 2,
 		"rarity": 4,
 		"update": 53
 	},
 	{
-		"name": "Football cap",
+		"name": {
+			"en-US": "Football cap"
+		},
 		"cost": 10,
 		"part": 0,
 		"rarity": 4,
 		"update": 53
 	},
 	{
-		"name": "Bobble head",
+		"name": {
+			"en-US": "Bobble head"
+		},
 		"cost": 1,
 		"part": 0,
 		"rarity": 4,
 		"update": 53
 	},
 	{
-		"name": "Bobble Shicka",
+		"name": {
+			"en-US": "Bobble Shicka"
+		},
 		"cost": 1,
 		"part": 3,
 		"rarity": 4,
 		"update": 53
 	},
 	{
-		"name": "Brittany hat",
+		"name": {
+			"en-US": "Brittany hat"
+		},
 		"cost": 2,
 		"part": 0,
 		"rarity": 4,
 		"update": 53
 	},
 	{
-		"name": "Red cape",
+		"name": {
+			"en-US": "Red cape"
+		},
 		"cost": 1,
 		"part": 1,
 		"rarity": 4,
 		"update": 55
 	},
 	{
-		"name": "Bear cape",
+		"name": {
+			"en-US": "Bear cape"
+		},
 		"cost": 4,
 		"part": 1,
 		"rarity": 4,
 		"update": 55
 	},
 	{
-		"name": "Cartoon eyes",
+		"name": {
+			"en-US": "Cartoon eyes"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 2,
 		"update": 55
 	},
 	{
-		"name": "Vampire head",
+		"name": {
+			"en-US": "Vampire head"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 3,
 		"update": 59
 	},
 	{
-		"name": "Witch hat",
+		"name": {
+			"en-US": "Witch hat"
+		},
 		"cost": 0,
 		"part": 0,
 		"rarity": 3,
 		"update": 59
 	},
 	{
-		"name": "Dice",
+		"name": {
+			"en-US": "Dice"
+		},
 		"cost": 4,
 		"part": 0,
 		"rarity": 4,
 		"update": 59
 	},
 	{
-		"name": "Cosmic Shicka",
+		"name": {
+			"en-US": "Cosmic Shicka"
+		},
 		"cost": 4,
 		"part": 3,
 		"rarity": 4,
 		"update": 65
 	},
 	{
-		"name": "IMABEAR",
+		"name": {
+			"en-US": "IMABEAR"
+		},
 		"cost": 4,
 		"part": 0,
 		"rarity": 4,
 		"update": 69
 	},
 	{
-		"name": "Scarf (red)",
+		"name": {
+			"en-US": "Scarf (red)"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 1,
 		"update": 71
 	},
 	{
-		"name": "Scarf (blue)",
+		"name": {
+			"en-US": "Scarf (blue)"
+		},
 		"cost": 0,
 		"part": 1,
 		"rarity": 1,

@@ -49,8 +49,8 @@ function indexOutfitsByPart(outfits: Outfit[], parts: Part[]): Outfit[][] {
 			if (aRarity < bRarity) {
 				return -1;
 			}
-			const aName: string = a.name.toLowerCase();
-			const bName: string = b.name.toLowerCase();
+			const aName: string = a.name["en-US"].toLowerCase();
+			const bName: string = b.name["en-US"].toLowerCase();
 			if (aName > bName) {
 				return 1;
 			}
