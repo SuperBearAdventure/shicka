@@ -790,5 +790,18 @@
 			"Updated input system for better gamepad support",
 			"Various improvements and bug fixes"
 		]
+	},
+	{
+		"name": "10.0.0",
+		"date": {
+			"android": "2022-11-08",
+			"ios": "2022-11-13"
+		},
+		"notes": [
+			"New Hive level, new boss fights, new shop, new items",
+			"New original soundtrack and sound effects",
+			"Story rewrite, new intro, new cutscenes",
+			"Huge improvements to level mechanics and gameplay"
+		]
 	}
 ]

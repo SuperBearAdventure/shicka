@@ -100,13 +100,19 @@ const bearCommand: Command = {
 		const nameConjunction: string = names.length !== 0 ? conjunctionFormat.format(names) : "nothing";
 		const boss: string | null = bear.id % 8 === 0 ? levels[bear.level].boss["en-US"] : null;
 		const coins: number | null = bear.id % 8 === 3 ? levels[bear.level].coins - 25 : 0;
-		const goal: string = boss != null ? `Beat **${Util.escapeMarkdown(boss)}** and unlock` : coins !== 0 ? `Collect **${Util.escapeMarkdown(`${coins}`)} coin${coins !== 1 ? "s" : ""}** and unlock` : `Unlock`;
+		const bossGoal: string | null = boss != null ? `Beat **${Util.escapeMarkdown(boss)}**` : null;
+		const coinsGoal: string | null = coins !== 0 ? `${bossGoal != null ? "collect" : "Collect"} **${Util.escapeMarkdown(`${coins}`)} coin${coins !== 1 ? "s" : ""}**` : null;
 		const minutes: string = `${gold / 60 | 0}`.padStart(2, "0");
 		const seconds: string = `${gold % 60 | 0}`.padStart(2, "0");
 		const centiseconds: string = `${gold * 100 % 100 | 0}`.padStart(2, "0");
 		const time: string = `${minutes}:${seconds}.${centiseconds}`;
+		const timeGoal: string | null = time !== "00:00.00" ? `${bossGoal != null || coinsGoal != null ? "unlock" : "Unlock"} the cage in less than **${Util.escapeMarkdown(time)}** to beat the gold time` : null;
+		const goals: string[] = [bossGoal, coinsGoal, timeGoal].filter((goal: string | null): goal is string => {
+			return goal != null;
+		});
+		const goalConjunction: string = goals.length !== 0 ? conjunctionFormat.format(goals) : "Let's go";
 		await interaction.reply({
-			content: `**${Util.escapeMarkdown(name["en-US"])}** has been imprisoned in the **${Util.escapeMarkdown(level)}** and is wearing ${nameConjunction}.\n${goal} the cage in less than **${Util.escapeMarkdown(time)}** to beat the gold time!`,
+			content: `**${Util.escapeMarkdown(name["en-US"])}** has been imprisoned in the **${Util.escapeMarkdown(level)}** and is wearing ${nameConjunction}.\n${goalConjunction}!`,
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {

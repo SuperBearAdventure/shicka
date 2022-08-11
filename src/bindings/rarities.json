@@ -58,5 +58,15 @@
 		"payoff": 0,
 		"probability": 0,
 		"slots": 0
+	},
+	{
+		"name": {
+			"en-US": "Story",
+			"fr": "Histoire"
+		},
+		"cost": 0,
+		"payoff": 0,
+		"probability": 0,
+		"slots": 0
 	}
 ]
