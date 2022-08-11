@@ -1,40 +1,48 @@
 [
 	{
 		"name": {
-			"en-US": "Turtle Village"
+			"en-US": "Turtle Village",
+			"fr": "Village Tortue"
 		},
 		"boss": {
-			"en-US": "The Turtle Golem"
+			"en-US": "The Turtle Golem",
+			"fr": "Le Golem Tortue"
 		},
 		"coins": 150,
 		"stickers": 3
 	},
 	{
 		"name": {
-			"en-US": "Snow Valley"
+			"en-US": "Snow Valley",
+			"fr": "Vallée Enneigée"
 		},
 		"boss": {
-			"en-US": "The Yeti"
+			"en-US": "The Yeti",
+			"fr": "Le Yéti"
 		},
 		"coins": 150,
 		"stickers": 3
 	},
 	{
 		"name": {
-			"en-US": "Beemothep Desert"
+			"en-US": "Beemothep Desert",
+			"fr": "Désert Beemothep"
 		},
 		"boss": {
-			"en-US": "The Guardian"
+			"en-US": "The Guardian",
+			"fr": "Le Gardien"
 		},
 		"coins": 150,
 		"stickers": 3
 	},
 	{
 		"name": {
-			"en-US": "Giant House"
+			"en-US": "Giant House",
+			"fr": "Maison Géante"
 		},
 		"boss": {
-			"en-US": "Test Subject No. 1706"
+			"en-US": "Test Subject No. 1706",
+			"fr": "Sujet de Test no 1706"
 		},
 		"coins": 200,
 		"stickers": 3
