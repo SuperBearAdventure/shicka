@@ -75,16 +75,16 @@ const bearCommand: Command = {
 		}
 		const bear: Bear = results[0];
 		const {gold, name}: Bear = bear;
-		const level: string = levels[bear.level].name;
+		const level: string = levels[bear.level].name["en-US"];
 		const names: string[] = bear.outfits.filter((outfit: number): boolean => {
 			const {name}: Outfit = outfits[outfit];
-			return name !== "Default";
+			return name["en-US"] !== "Default";
 		}).map((outfit: number): string => {
 			const {name}: Outfit = outfits[outfit];
-			return `*${Util.escapeMarkdown(name)}*`;
+			return `*${Util.escapeMarkdown(name["en-US"])}*`;
 		});
 		const nameConjunction: string = names.length !== 0 ? conjunctionFormat.format(names) : "nothing";
-		const boss: string | null = bear.id % 8 === 0 ? levels[bear.level].boss : null;
+		const boss: string | null = bear.id % 8 === 0 ? levels[bear.level].boss["en-US"] : null;
 		const coins: number | null = bear.id % 8 === 3 ? levels[bear.level].coins - 25 : 0;
 		const goal: string = boss != null ? `Beat **${Util.escapeMarkdown(boss)}** and unlock` : coins !== 0 ? `Collect **${Util.escapeMarkdown(`${coins}`)} coin${coins !== 1 ? "s" : ""}** and unlock` : `Unlock`;
 		const minutes: string = `${gold / 60 | 0}`.padStart(2, "0");

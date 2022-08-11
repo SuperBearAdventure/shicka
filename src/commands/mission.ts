@@ -53,11 +53,11 @@ const missionCommand: Command = {
 				return;
 			}
 			const results: Mission[] = nearest<Mission>(value.toLowerCase(), missions, 7, (mission: Mission): string => {
-				const name: string = `${challenges[mission.challenge].name} in ${levels[mission.level].name}`;
+				const name: string = `${challenges[mission.challenge].name["en-US"]} in ${levels[mission.level].name["en-US"]}`;
 				return name.toLowerCase();
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map((mission: Mission): ApplicationCommandOptionChoiceData => {
-				const name: string = `${challenges[mission.challenge].name} in ${levels[mission.level].name}`;
+				const name: string = `${challenges[mission.challenge].name["en-US"]} in ${levels[mission.level].name["en-US"]}`;
 				return {
 					name: name,
 					value: name,
@@ -79,8 +79,8 @@ const missionCommand: Command = {
 			const day: number = now + k;
 			const seed: number = (day % missionCount + missionCount) % missionCount;
 			const mission: Mission = missions[seed];
-			const challenge: string = challenges[mission.challenge].name;
-			const level: string = levels[mission.level].name;
+			const challenge: string = challenges[mission.challenge].name["en-US"];
+			const level: string = levels[mission.level].name["en-US"];
 			const dayDate: string = dateFormat.format(new Date(day * 86400000));
 			schedules.push(`\u{2022} *${Util.escapeMarkdown(dayDate)}*: **${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}**`);
 		}
@@ -89,7 +89,7 @@ const missionCommand: Command = {
 		return;
 		}
 		const results: Mission[] = nearest<Mission>(search.toLowerCase(), missions, 1, (mission: Mission): string => {
-			const name: string = `${challenges[mission.challenge].name} in ${levels[mission.level].name}`;
+			const name: string = `${challenges[mission.challenge].name["en-US"]} in ${levels[mission.level].name["en-US"]}`;
 			return name.toLowerCase();
 		});
 		if (results.length === 0) {
@@ -109,8 +109,8 @@ const missionCommand: Command = {
 				schedules.push(`\u{2022} *${Util.escapeMarkdown(dayDateTime)}*`);
 			}
 		}
-		const challenge: string = challenges[mission.challenge].name;
-		const level: string = levels[mission.level].name;
+		const challenge: string = challenges[mission.challenge].name["en-US"];
+		const level: string = levels[mission.level].name["en-US"];
 		const scheduleList: string = schedules.join("\n");
 		await interaction.reply(`**${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}** will be playable for 1 day starting:\n${scheduleList}`);
 	},

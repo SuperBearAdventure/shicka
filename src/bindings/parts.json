@@ -1,14 +1,22 @@
 [
 	{
-		"name": "Head"
+		"name": {
+			"en-US": "Head"
+		}
 	},
 	{
-		"name": "Body"
+		"name": {
+			"en-US": "Body"
+		}
 	},
 	{
-		"name": "Skin"
+		"name": {
+			"en-US": "Skin"
+		}
 	},
 	{
-		"name": "Shicka"
+		"name": {
+			"en-US": "Shicka"
+		}
 	}
 ]

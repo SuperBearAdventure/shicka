@@ -1,23 +1,37 @@
 [
 	{
-		"name": "Floor is lava"
+		"name": {
+			"en-US": "Floor is lava"
+		}
 	},
 	{
-		"name": "Paper plane flight"
+		"name": {
+			"en-US": "Paper plane flight"
+		}
 	},
 	{
-		"name": "Egg hunt"
+		"name": {
+			"en-US": "Egg hunt"
+		}
 	},
 	{
-		"name": "Parkour"
+		"name": {
+			"en-US": "Parkour"
+		}
 	},
 	{
-		"name": "Electricity issue"
+		"name": {
+			"en-US": "Electricity issue"
+		}
 	},
 	{
-		"name": "Flooding"
+		"name": {
+			"en-US": "Flooding"
+		}
 	},
 	{
-		"name": "Rally"
+		"name": {
+			"en-US": "Rally"
+		}
 	}
 ]

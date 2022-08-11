@@ -111,13 +111,13 @@ const outfitCommand: Command = {
 			}
 			const results: Outfit[] = nearest<Outfit>(value.toLowerCase(), outfits, 7, (outfit: Outfit): string => {
 				const {name}: Outfit = outfit;
-				return name.toLowerCase();
+				return name["en-US"].toLowerCase();
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map((outfit: Outfit): ApplicationCommandOptionChoiceData => {
 				const {name}: Outfit = outfit;
 				return {
-					name: name,
-					value: name,
+					name: name["en-US"],
+					value: name["en-US"],
 				};
 			});
 			await interaction.respond(suggestions);
@@ -158,7 +158,7 @@ const outfitCommand: Command = {
 				return slices[index];
 			}).flat().map((outfit: Outfit): string => {
 				const {name}: Outfit = outfit;
-				return `**${Util.escapeMarkdown(name)}**`;
+				return `**${Util.escapeMarkdown(name["en-US"])}**`;
 			});
 			const dayDateTime: string = dateTimeFormat.format(new Date(day * 21600000));
 			const nameConjunction: string = conjunctionFormat.format(names);
@@ -170,7 +170,7 @@ const outfitCommand: Command = {
 		}
 		const results: Outfit[] = nearest<Outfit>(search.toLowerCase(), outfits, 1, (outfit: Outfit): string => {
 			const {name}: Outfit = outfit;
-			return name.toLowerCase();
+			return name["en-US"].toLowerCase();
 		});
 		if (results.length === 0) {
 			await interaction.reply({
@@ -182,7 +182,7 @@ const outfitCommand: Command = {
 		const outfit: Outfit = results[0];
 		if (rarities[outfit.rarity].slots === 0) {
 			const {name}: Outfit = outfit;
-			await interaction.reply(`**${Util.escapeMarkdown(name)}** is not for sale.`);
+			await interaction.reply(`**${Util.escapeMarkdown(name["en-US"])}** is not for sale.`);
 			return;
 		}
 		const schedules: string[] = [];
@@ -216,7 +216,7 @@ const outfitCommand: Command = {
 		}
 		const costConjunction: string = `${costs.length !== 0 ? " for " : ""}${conjunctionFormat.format(costs)}`;
 		const scheduleList: string = schedules.join("\n");
-		await interaction.reply(`**${Util.escapeMarkdown(name)}** will be for sale in the shop${costConjunction} for 6 hours starting:\n${scheduleList}`);
+		await interaction.reply(`**${Util.escapeMarkdown(name["en-US"])}** will be for sale in the shop${costConjunction} for 6 hours starting:\n${scheduleList}`);
 	},
 	describe(interaction: CommandInteraction): string | null {
 		return `Type \`/${commandName}\` to know what is for sale in the shop\nType \`/${commandName} ${outfitOptionDescription}\` to know when \`${outfitOptionDescription}\` is for sale in the shop`;
