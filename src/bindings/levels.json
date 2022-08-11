@@ -1,8 +1,8 @@
 [
 	{
 		"name": {
-			"en-US": "Turtle Village",
-			"fr": "Village Tortue"
+			"en-US": "Turtletown",
+			"fr": "Tortibourg"
 		},
 		"boss": {
 			"en-US": "The Turtle Golem",
@@ -14,7 +14,7 @@
 	{
 		"name": {
 			"en-US": "Snow Valley",
-			"fr": "Vallée Enneigée"
+			"fr": "Vallée des Neiges"
 		},
 		"boss": {
 			"en-US": "The Yeti",
@@ -41,10 +41,22 @@
 			"fr": "Maison Géante"
 		},
 		"boss": {
-			"en-US": "Test Subject No. 1706",
+			"en-US": "Test Subject no. 1706",
 			"fr": "Sujet de Test no 1706"
 		},
 		"coins": 200,
+		"stickers": 3
+	},
+	{
+		"name": {
+			"en-US": "The Hive",
+			"fr": "La Ruche"
+		},
+		"boss": {
+			"en-US": "Queen Beeatrice",
+			"fr": "Reine Mirabeille"
+		},
+		"coins": 120,
 		"stickers": 3
 	}
 ]

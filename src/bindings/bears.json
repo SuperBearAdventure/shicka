@@ -108,7 +108,7 @@
 			"en-US": "Polaris",
 			"fr": "Polaris"
 		},
-		"gold": 110,
+		"gold": 120,
 		"level": 1,
 		"outfits": [
 			0,
@@ -413,6 +413,19 @@
 			68,
 			69,
 			38
+		]
+	},
+	{
+		"name": {
+			"en-US": "Baaren's Brother",
+			"fr": "Frère de Baaren"
+		},
+		"gold": 0,
+		"level": 4,
+		"outfits": [
+			0,
+			1,
+			104
 		]
 	}
 ]
