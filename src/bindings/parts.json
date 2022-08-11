@@ -1,22 +1,26 @@
 [
 	{
 		"name": {
-			"en-US": "Head"
+			"en-US": "Head",
+			"fr": "Tête"
 		}
 	},
 	{
 		"name": {
-			"en-US": "Body"
+			"en-US": "Body",
+			"fr": "Corps"
 		}
 	},
 	{
 		"name": {
-			"en-US": "Skin"
+			"en-US": "Skin",
+			"fr": "Peau"
 		}
 	},
 	{
 		"name": {
-			"en-US": "Shicka"
+			"en-US": "Shicka",
+			"fr": "Shicka"
 		}
 	}
 ]

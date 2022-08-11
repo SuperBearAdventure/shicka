@@ -1,37 +1,44 @@
 [
 	{
 		"name": {
-			"en-US": "Floor is lava"
+			"en-US": "Floor is lava",
+			"fr": "Le sol est en lave"
 		}
 	},
 	{
 		"name": {
-			"en-US": "Paper plane flight"
+			"en-US": "Paper plane flight",
+			"fr": "Voltige"
 		}
 	},
 	{
 		"name": {
-			"en-US": "Egg hunt"
+			"en-US": "Egg hunt",
+			"fr": "Chasse aux œufs"
 		}
 	},
 	{
 		"name": {
-			"en-US": "Parkour"
+			"en-US": "Parkour",
+			"fr": "Parkour"
 		}
 	},
 	{
 		"name": {
-			"en-US": "Electricity issue"
+			"en-US": "Electricity issue",
+			"fr": "Problème électrique"
 		}
 	},
 	{
 		"name": {
-			"en-US": "Flooding"
+			"en-US": "Flooding",
+			"fr": "Inondation"
 		}
 	},
 	{
 		"name": {
-			"en-US": "Rally"
+			"en-US": "Rally",
+			"fr": "Rallye"
 		}
 	}
 ]
