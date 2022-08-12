@@ -941,22 +941,22 @@
 	},
 	{
 		"name": {
-			"en-US": "Witch hat",
-			"fr": "Chapeau de sorcière"
-		},
-		"cost": 0,
-		"part": 0,
-		"rarity": 3,
-		"update": 59
-	},
-	{
-		"name": {
 			"en-US": "Dice",
 			"fr": "Dé"
 		},
 		"cost": 4,
 		"part": 0,
 		"rarity": 4,
+		"update": 59
+	},
+	{
+		"name": {
+			"en-US": "Witch hat",
+			"fr": "Chapeau de sorcière"
+		},
+		"cost": 0,
+		"part": 0,
+		"rarity": 3,
 		"update": 59
 	},
 	{
