@@ -15,6 +15,9 @@ function computeHelpLocalizations(): {[k in string]: () => string} {
 		"en-US"(): string {
 			return `Type \`/${commandName}\` to know where to buy offical products of the game`;
 		},
+		"fr"(): string {
+			return `Tape \`/${commandName}\` pour savoir où acheter des produits officiels du jeu`;
+		},
 	});
 }
 const storeCommand: Command = {

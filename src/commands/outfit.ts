@@ -33,6 +33,9 @@ function computeHelpLocalizations(): {[k in string]: () => string} {
 		"en-US"(): string {
 			return `Type \`/${commandName}\` to know what is for sale in the shop\nType \`/${commandName} ${outfitOptionDescription}\` to know when \`${outfitOptionDescription}\` is for sale in the shop`;
 		},
+		"fr"(): string {
+			return `Tape \`/${commandName}\` pour savoir ce qui est en vente dans la boutique\nTape \`/${commandName} ${outfitOptionDescription}\` pour savoir quand \`${outfitOptionDescription}\` est en vente dans la boutique`;
+		},
 	});
 }
 function knuth(state: bigint): bigint {

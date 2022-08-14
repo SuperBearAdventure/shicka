@@ -15,6 +15,9 @@ function computeHelpLocalizations(): {[k in string]: () => string} {
 		"en-US"(): string {
 			return `Type \`/${commandName}\` to know where to watch official trailers of the game`;
 		},
+		"fr"(): string {
+			return `Tape \`/${commandName}\` pour savoir où regarder des bandes-annonces officielles du jeu`;
+		},
 	});
 }
 const trailerCommand: Command = {

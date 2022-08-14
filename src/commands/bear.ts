@@ -24,6 +24,9 @@ function computeHelpLocalizations(): {[k in string]: () => string} {
 		"en-US"(): string {
 			return `Type \`/${commandName} ${bearOptionDescription}\` to know who is \`${bearOptionDescription}\``;
 		},
+		"fr"(): string {
+			return `Tape \`/${commandName} ${bearOptionDescription}\` pour savoir qui est \`${bearOptionDescription}\``;
+		},
 	});
 }
 const bearCommand: Command = {

@@ -16,6 +16,9 @@ function computeHelpLocalizations(): {[k in string]: () => string} {
 		"en-US"(): string {
 			return `Type \`/${commandName}\` to know where to check known bugs of the game`;
 		},
+		"fr"(): string {
+			return `Tape \`/${commandName}\` pour savoir où consulter des bogues connus du jeu`;
+		},
 	});
 }
 const trackerCommand: Command = {

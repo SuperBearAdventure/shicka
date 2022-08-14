@@ -44,6 +44,9 @@ function computeHelpLocalizations(): {[k in string]: () => string} {
 		"en-US"(): string {
 			return `Type \`/${grantName} ${baseArgumentDescription} ${stylesArgumentDescription}\` to create a new \`${baseArgumentDescription}\`-based emoji customized with \`${stylesArgumentDescription}\``;
 		},
+		"fr"(): string {
+			return `Tape \`/${grantName} ${baseArgumentDescription} ${stylesArgumentDescription}\` pour créer un nouvel émoji basé sur \`${baseArgumentDescription}\` personnalisé avec \`${stylesArgumentDescription}\``;
+		},
 	});
 }
 const emojiGrant: Grant = {
