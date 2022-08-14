@@ -13,6 +13,9 @@ function computeHelpLocalizations(): {[k in string]: () => string} {
 		"en-US"(): string {
 			return `Type \`/${commandName}\` to know what is the number of members on the server`;
 		},
+		"fr"(): string {
+			return `Tape \`/${commandName}\` pour savoir quel est le nombre de membres sur le serveur`;
+		},
 	});
 }
 const countCommand: Command = {

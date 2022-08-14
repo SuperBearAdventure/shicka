@@ -21,6 +21,9 @@ function computeHelpLocalizations(): {[k in string]: () => string} {
 		"en-US"(): string {
 			return `Type \`/${commandName}\` to know where to watch community speedruns of the game`;
 		},
+		"fr"(): string {
+			return `Tape \`/${commandName}\` pour savoir où regarder des speedruns communautaires du jeu`;
+		},
 	});
 }
 const leaderboardCommand: Command = {

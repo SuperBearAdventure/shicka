@@ -12,6 +12,9 @@ function computeHelpLocalizations(): {[k in string]: () => string} {
 		"en-US"(): string {
 			return `Type \`/${commandName}\` to know where to check the upcoming milestones of the game`;
 		},
+		"fr"(): string {
+			return `Tape \`/${commandName}\` pour savoir où consulter les futurs jalons du jeu`;
+		},
 	});
 }
 const roadmapCommand: Command = {

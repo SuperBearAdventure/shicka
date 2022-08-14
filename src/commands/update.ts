@@ -23,6 +23,9 @@ function computeHelpLocalizations(): {[k in string]: () => string} {
 		"en-US"(): string {
 			return `Type \`/${commandName}\` to know what is the latest update of the game`;
 		},
+		"fr"(): string {
+			return `Tape \`/${commandName}\` pour savoir quelle est la dernière mise à jour du jeu`;
+		},
 	});
 }
 const updateCommand: Command = {

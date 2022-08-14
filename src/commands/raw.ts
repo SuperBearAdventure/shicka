@@ -23,6 +23,9 @@ function computeHelpLocalizations(): {[k in string]: () => string} {
 		"en-US"(): string {
 			return `Type \`/${commandName} ${typeOptionDescription} ${identifierOptionDescription}\` to know what is the datum of \`${typeOptionDescription}\` with \`${identifierOptionDescription}\``;
 		},
+		"fr"(): string {
+			return `Tape \`/${commandName} ${typeOptionDescription} ${identifierOptionDescription}\` pour savoir quel est la donnée d'\`${typeOptionDescription}\` avec \`${identifierOptionDescription}\``;
+		},
 	});
 }
 const rawCommand: Command = {

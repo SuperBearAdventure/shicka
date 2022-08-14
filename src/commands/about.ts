@@ -11,6 +11,9 @@ function computeHelpLocalizations(): {[k in string]: () => string} {
 		"en-US"(): string {
 			return `Type \`/${commandName}\` to know where I come from`;
 		},
+		"fr"(): string {
+			return `Tape \`/${commandName}\` pour savoir d'où je viens`;
+		},
 	});
 }
 const aboutCommand: Command = {

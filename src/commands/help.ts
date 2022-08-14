@@ -18,6 +18,9 @@ function computeHelpLocalizations(): {[k in string]: () => string} {
 		"en-US"(): string {
 			return `Type \`/${commandName}\` to know what are the features I offer`;
 		},
+		"fr"(): string {
+			return `Tape \`/${commandName}\` pour savoir quelles sont les fonctionnalités que je propose`;
+		},
 	});
 }
 const helpCommand: Command = {

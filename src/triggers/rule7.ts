@@ -13,6 +13,9 @@ function computeHelpLocalizations(channel: GuildBasedChannel): {[k in string]: (
 		"en-US"(): string {
 			return `I will gently reprimand you if you write words which violate the rule 7 in ${channel}`;
 		},
+		"fr"(): string {
+			return `Je te réprimanderai gentiment si tu écris des mots qui violent la règle 7 dans ${channel}`;
+		},
 	});
 }
 const rule7Trigger: Trigger = {

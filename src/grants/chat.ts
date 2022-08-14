@@ -20,6 +20,9 @@ function computeHelpLocalizations(): {[k in string]: () => string} {
 		"en-US"(): string {
 			return `Type \`/${grantName} ${channelArgumentDescription} ${contentArgumentDescription}\` to send \`${contentArgumentDescription}\` and some attachments in \`${channelArgumentDescription}\`\nType \`/${grantName} ${messageArgumentDescription} ${channelArgumentDescription} ${contentArgumentDescription}\` to edit \`${messageArgumentDescription}\` with \`${contentArgumentDescription}\` and some attachments in \`${channelArgumentDescription}\``;
 		},
+		"fr"(): string {
+			return `Tape \`/${grantName} ${channelArgumentDescription} ${contentArgumentDescription}\` pour envoyer \`${contentArgumentDescription}\` et des pièces jointes dans \`${channelArgumentDescription}\`\nTape \`/${grantName} ${messageArgumentDescription} ${channelArgumentDescription} ${contentArgumentDescription}\` pour modifier \`${messageArgumentDescription}\` avec \`${contentArgumentDescription}\` et des pièces jointes dans \`${channelArgumentDescription}\``;
+		},
 	});
 }
 const chatGrant: Grant = {

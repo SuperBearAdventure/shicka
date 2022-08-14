@@ -27,6 +27,9 @@ function computeHelpLocalizations(channel: GuildBasedChannel): {[k in string]: (
 		"en-US"(): string {
 			return `I post the latest world records of the game in ${channel}`;
 		},
+		"fr"(): string {
+			return `Je poste les derniers records du monde du jeu dans ${channel}`;
+		},
 	});
 }
 const recordFeed: Feed = {
