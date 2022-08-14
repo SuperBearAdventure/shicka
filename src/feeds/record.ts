@@ -22,6 +22,13 @@ type Level = {
 	categories: {[k in string]: Category},
 };
 const games: string[] = ["9d3rrxyd", "w6jl2ned"];
+function computeHelpLocalizations(channel: GuildBasedChannel): {[k in string]: () => string} {
+	return Object.assign(Object.create(null), {
+		"en-US"(): string {
+			return `I post the latest world records of the game in ${channel}`;
+		},
+	});
+}
 const recordFeed: Feed = {
 	register(client: Client): Job {
 		return schedule.scheduleJob({
@@ -140,18 +147,18 @@ const recordFeed: Feed = {
 		}
 		return records;
 	},
-	describe(interaction: CommandInteraction): string | null {
+	describe(interaction: CommandInteraction): {[k in string]: () => string} {
 		const {guild}: CommandInteraction = interaction;
 		if (guild == null) {
-			return null;
+			return Object.create(null);
 		}
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 			return channel.name === "🏅・records";
 		});
 		if (channel == null) {
-			return null;
+			return Object.create(null);
 		}
-		return `I post the latest world records of the game in ${channel}`;
+		return computeHelpLocalizations(channel);
 	},
 };
 export default recordFeed;

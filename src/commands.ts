@@ -19,7 +19,7 @@ import updateCommand from "./commands/update.js";
 type Command = {
 	register(): ApplicationCommandData;
 	execute(interaction: Interaction): Promise<void>;
-	describe(interaction: CommandInteraction): string | null;
+	describe(interaction: CommandInteraction): {[k in string]: () => string};
 };
 const about: Command = aboutCommand;
 const bear: Command = bearCommand;

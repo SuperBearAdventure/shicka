@@ -13,6 +13,13 @@ import * as grants from "../grants.js";
 import * as triggers from "../triggers.js";
 const commandName: string = "help";
 const commandDescription: string = "Tells you what are the features I offer";
+function computeHelpLocalizations(): {[k in string]: () => string} {
+	return Object.assign(Object.create(null), {
+		"en-US"(): string {
+			return `Type \`/${commandName}\` to know what are the features I offer`;
+		},
+	});
+}
 const helpCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -43,18 +50,18 @@ const helpCommand: Command = {
 				return trigger;
 			}),
 		].flat().map((action: Grant | Command | Feed | Trigger): string[] => {
-			const description: string | null = action.describe(interaction);
+			const description: (() => string) | null = action.describe(interaction)["en-US"];
 			if (description == null) {
 				return [];
 			}
-			return description.split("\n");
+			return description().split("\n");
 		}).flat().map((description: string): string => {
 			return `\u{2022} ${description}`;
 		}).join("\n");
 		await interaction.reply(`Hey ${user}, there you are!\nI can give you some advice about the server:\n${featureList}`);
 	},
-	describe(interaction: CommandInteraction): string | null {
-		return `Type \`/${commandName}\` to know what are the features I offer`;
+	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+		return computeHelpLocalizations();
 	},
 };
 export default helpCommand;

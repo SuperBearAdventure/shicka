@@ -16,6 +16,13 @@ const leaderboards: string[] = [
 	"[*Races leaderboard*](<https://www.speedrun.com/sbace/Races>)",
 	"[*Category Extensions leaderboard*](<https://www.speedrun.com/sbace>)",
 ];
+function computeHelpLocalizations(): {[k in string]: () => string} {
+	return Object.assign(Object.create(null), {
+		"en-US"(): string {
+			return `Type \`/${commandName}\` to know where to watch community speedruns of the game`;
+		},
+	});
+}
 const leaderboardCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -34,8 +41,8 @@ const leaderboardCommand: Command = {
 			content: `You can watch community speedruns there:\n${linkList}`,
 		});
 	},
-	describe(interaction: CommandInteraction): string | null {
-		return `Type \`/${commandName}\` to know where to watch community speedruns of the game`;
+	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+		return computeHelpLocalizations();
 	},
 };
 export default leaderboardCommand;

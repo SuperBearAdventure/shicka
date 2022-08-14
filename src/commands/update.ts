@@ -18,6 +18,13 @@ const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeZone: "UTC",
 });
+function computeHelpLocalizations(): {[k in string]: () => string} {
+	return Object.assign(Object.create(null), {
+		"en-US"(): string {
+			return `Type \`/${commandName}\` to know what is the latest update of the game`;
+		},
+	});
+}
 const updateCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -78,8 +85,8 @@ const updateCommand: Command = {
 			});
 		}
 	},
-	describe(interaction: CommandInteraction): string | null {
-		return `Type \`/${commandName}\` to know what is the latest update of the game`;
+	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+		return computeHelpLocalizations();
 	},
 };
 export default updateCommand;
