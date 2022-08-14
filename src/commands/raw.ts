@@ -18,6 +18,13 @@ const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
+function computeHelpLocalizations(): {[k in string]: () => string} {
+	return Object.assign(Object.create(null), {
+		"en-US"(): string {
+			return `Type \`/${commandName} ${typeOptionDescription} ${identifierOptionDescription}\` to know what is the datum of \`${typeOptionDescription}\` with \`${identifierOptionDescription}\``;
+		},
+	});
+}
 const rawCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -79,8 +86,8 @@ const rawCommand: Command = {
 		const datum: string = JSON.stringify(binding[identifier], null, "\t");
 		await interaction.reply(`\`\`\`json\n${Util.escapeMarkdown(datum)}\n\`\`\``);
 	},
-	describe(interaction: CommandInteraction): string | null {
-		return `Type \`/${commandName} ${typeOptionDescription} ${identifierOptionDescription}\` to know what is the datum of \`${typeOptionDescription}\` with \`${identifierOptionDescription}\``;
+	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+		return computeHelpLocalizations();
 	},
 };
 export default rawCommand;

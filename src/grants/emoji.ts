@@ -39,6 +39,13 @@ const styles: {[k in string]: string} = Object.assign(Object.create(null), {
 	"none": "none",
 });
 const channels: Set<string> = new Set(["🔧・console", "🔎・logs", "🛡・moderators-room", "🍪・cookie-room"]);
+function computeHelpLocalizations(): {[k in string]: () => string} {
+	return Object.assign(Object.create(null), {
+		"en-US"(): string {
+			return `Type \`/${grantName} ${baseArgumentDescription} ${stylesArgumentDescription}\` to create a new \`${baseArgumentDescription}\`-based emoji customized with \`${stylesArgumentDescription}\``;
+		},
+	});
+}
 const emojiGrant: Grant = {
 	async execute(message: Message, parameters: string[], tokens: string[]): Promise<void> {
 		const {channel}: Message = message;
@@ -108,12 +115,12 @@ const emojiGrant: Grant = {
 			],
 		});
 	},
-	describe(interaction: CommandInteraction): string | null {
+	describe(interaction: CommandInteraction): {[k in string]: () => string} {
 		const {channel}: CommandInteraction = interaction;
 		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
-			return null;
+			return Object.create(null);
 		}
-		return `Type \`/${grantName} ${baseArgumentDescription} ${stylesArgumentDescription}\` to create a new \`${baseArgumentDescription}\`-based emoji customized with \`${stylesArgumentDescription}\``;
+		return computeHelpLocalizations();
 	},
 };
 export default emojiGrant;

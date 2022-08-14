@@ -4,7 +4,7 @@ import recordFeed from "./feeds/record.js";
 type Feed = {
 	register(client: Client): Job;
 	execute(start: number, end: number): Promise<string[]>;
-	describe(interaction: CommandInteraction): string | null;
+	describe(interaction: CommandInteraction): {[k in string]: () => string};
 };
 export default Feed;
 const record: Feed = recordFeed;

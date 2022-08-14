@@ -6,6 +6,13 @@ import type {
 import type Command from "../commands.js";
 const commandName: string = "about";
 const commandDescription: string = "Tells you where I come from";
+function computeHelpLocalizations(): {[k in string]: () => string} {
+	return Object.assign(Object.create(null), {
+		"en-US"(): string {
+			return `Type \`/${commandName}\` to know where I come from`;
+		},
+	});
+}
 const aboutCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -19,8 +26,8 @@ const aboutCommand: Command = {
 		}
 		await interaction.reply("I am *Shicka*, a bot made by *PolariTOON*, and I am open source!\nMy code is available [there](<https://github.com/SuperBearAdventure/shicka>).");
 	},
-	describe(interaction: CommandInteraction): string | null {
-		return `Type \`/${commandName}\` to know where I come from`;
+	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+		return computeHelpLocalizations();
 	},
 };
 export default aboutCommand;

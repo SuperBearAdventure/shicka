@@ -10,6 +10,13 @@ const trailers: string[] = [
 	"[*Main trailer*](<https://www.youtube.com/watch?v=L00uorYTYgE>)",
 	"[*Missions trailer*](<https://www.youtube.com/watch?v=j3vwu0JWIEg>)",
 ];
+function computeHelpLocalizations(): {[k in string]: () => string} {
+	return Object.assign(Object.create(null), {
+		"en-US"(): string {
+			return `Type \`/${commandName}\` to know where to watch official trailers of the game`;
+		},
+	});
+}
 const trailerCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -28,8 +35,8 @@ const trailerCommand: Command = {
 			content: `You can watch official trailers of the game there:\n${linkList}`,
 		});
 	},
-	describe(interaction: CommandInteraction): string | null {
-		return `Type \`/${commandName}\` to know where to watch official trailers of the game`;
+	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+		return computeHelpLocalizations();
 	},
 };
 export default trailerCommand;

@@ -11,6 +11,13 @@ const trackers: string[] = [
 	"[*Current tracker*](<https://github.com/SuperBearAdventure/tracker>)",
 	"[*Former tracker*](<https://trello.com/b/yTojOuqv/super-bear-adventure-bugs>)",
 ];
+function computeHelpLocalizations(): {[k in string]: () => string} {
+	return Object.assign(Object.create(null), {
+		"en-US"(): string {
+			return `Type \`/${commandName}\` to know where to check known bugs of the game`;
+		},
+	});
+}
 const trackerCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -37,8 +44,8 @@ const trackerCommand: Command = {
 			content: `${intent} check the known bugs of the game there:\n${linkList}`,
 		});
 	},
-	describe(interaction: CommandInteraction): string | null {
-		return `Type \`/${commandName}\` to know where to check known bugs of the game`;
+	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+		return computeHelpLocalizations();
 	},
 };
 export default trackerCommand;

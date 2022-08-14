@@ -10,6 +10,13 @@ const stores: string[] = [
 	"[*European store*](<https://superbearadventure.myspreadshop.net/>)",
 	"[*American and Oceanian store*](<https://superbearadventure.myspreadshop.com/>)",
 ];
+function computeHelpLocalizations(): {[k in string]: () => string} {
+	return Object.assign(Object.create(null), {
+		"en-US"(): string {
+			return `Type \`/${commandName}\` to know where to buy offical products of the game`;
+		},
+	});
+}
 const storeCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -28,8 +35,8 @@ const storeCommand: Command = {
 			content: `You can buy official products of the game there:\n${linkList}`,
 		});
 	},
-	describe(interaction: CommandInteraction): string | null {
-		return `Type \`/${commandName}\` to know where to buy offical products of the game`;
+	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+		return computeHelpLocalizations();
 	},
 };
 export default storeCommand;

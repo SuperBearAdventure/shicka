@@ -8,6 +8,13 @@ import type {
 import type Trigger from "../triggers.js";
 const pattern: RegExp = /\b(?:co-?op(?:erati(?:ons?|ve))?|consoles?|multi(?:-?player)?|online|pc|playstation|ps[45]|switch|xbox)\b/iu;
 const roles: Set<string> = new Set(["Administrator", "Cookie", "Game Developer", "Moderator"]);
+function computeHelpLocalizations(channel: GuildBasedChannel): {[k in string]: () => string} {
+	return Object.assign(Object.create(null), {
+		"en-US"(): string {
+			return `I will gently reprimand you if you write words which violate the rule 7 in ${channel}`;
+		},
+	});
+}
 const rule7Trigger: Trigger = {
 	async execute(message: Message): Promise<void> {
 		const {channel}: Message = message;
@@ -51,18 +58,18 @@ const rule7Trigger: Trigger = {
 			await message.react(emoji);
 		}
 	},
-	describe(interaction: CommandInteraction): string | null {
+	describe(interaction: CommandInteraction): {[k in string]: () => string} {
 		const {guild}: CommandInteraction = interaction;
 		if (guild == null) {
-			return null;
+			return Object.create(null);
 		}
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 			return channel.name === "💡・game-suggestions";
 		});
 		if (channel == null) {
-			return null;
+			return Object.create(null);
 		}
-		return `I will gently reprimand you if you write words which violate the rule 7 in ${channel}`;
+		return computeHelpLocalizations(channel);
 	},
 };
 export default rule7Trigger;
