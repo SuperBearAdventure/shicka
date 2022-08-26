@@ -33,7 +33,7 @@ const roadmapCommand: Command = {
 			return;
 		}
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-			return channel.name === "💡・game-suggestions";
+			return channel.name === "💡│game-suggestions";
 		});
 		const intent: string = channel != null ? `Before suggesting an idea in ${channel},` : "You can";
 		await interaction.reply({

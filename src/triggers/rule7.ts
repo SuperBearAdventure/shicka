@@ -21,7 +21,7 @@ function computeHelpLocalizations(channel: GuildBasedChannel): {[k in string]: (
 const rule7Trigger: Trigger = {
 	async execute(message: Message): Promise<void> {
 		const {channel}: Message = message;
-		if (!("name" in channel) || channel.name !== "💡・game-suggestions") {
+		if (!("name" in channel) || channel.name !== "💡│game-suggestions") {
 			return;
 		}
 		const {member}: Message = message;
@@ -47,7 +47,7 @@ const rule7Trigger: Trigger = {
 			await message.reply(`${emoji}`);
 		}
 		const rulesChannel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-			return channel.name === "❗・rules-info・❗";
+			return channel.name === "❗│rules-info│❗";
 		});
 		if (rulesChannel != null) {
 			await message.reply(`Please read and respect the ${rulesChannel}!`);
@@ -67,7 +67,7 @@ const rule7Trigger: Trigger = {
 			return Object.create(null);
 		}
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-			return channel.name === "💡・game-suggestions";
+			return channel.name === "💡│game-suggestions";
 		});
 		if (channel == null) {
 			return Object.create(null);

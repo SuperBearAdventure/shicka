@@ -14,7 +14,7 @@ const contentArgumentDescription: string = "Some content";
 const {source}: RegExp = MessageMentions.CHANNELS_PATTERN;
 const messagePattern: RegExp = /^(?:0|[1-9]\d*)$/;
 const channelPattern: RegExp = new RegExp(`^(?:${source})$`, "");
-const channels: Set<string> = new Set(["🔧・console", "🔎・logs", "🛡・moderators-room"]);
+const channels: Set<string> = new Set(["🔧│console", "🔎│logs", "🛡│moderators-room"]);
 function computeHelpLocalizations(): {[k in string]: () => string} {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {

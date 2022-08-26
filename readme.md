@@ -35,11 +35,11 @@ $ npm start
 
 ### Grants
 
-- `/chat <channel> <content>` sends the given content and the given attachments in the given channel (only available in the `🔧・console`, `#🔎・logs`, and `#🛡・moderators-room` channels)
+- `/chat <channel> <content>` sends the given content and the given attachments in the given channel (only available in the `🔧│console`, `#🔎│logs`, and `#🛡│moderators-room` channels)
 
-- `/chat <message> <channel> <content>` edits the given message with the given content and the given attachments in the given channel (only available in the `🔧・console`, `#🔎・logs`, and `#🛡・moderators-room` channels)
+- `/chat <message> <channel> <content>` edits the given message with the given content and the given attachments in the given channel (only available in the `🔧│console`, `#🔎│logs`, and `#🛡│moderators-room` channels)
 
-- `/emoji <base> <style>` draws the given base emoji with the given style (only available in the `🔧・console`, `#🔎・logs`, `#🛡・moderators-room`, and `#🍪・cookie-room` channels)
+- `/emoji <base> <style>` draws the given base emoji with the given style (only available in the `🔧│console`, `#🔎│logs`, `#🛡│moderators-room`, and `#🍪│cookie-room` channels)
 
 ### Commands
 
@@ -75,8 +75,8 @@ $ npm start
 
 ### Feeds
 
-- The latest world records of the game on `www.speedrun.com` are regularly published in the `#🏅・records` channel
+- The latest world records of the game on `www.speedrun.com` are regularly published in the `#🏅│records` channel
 
 ### Triggers
 
-- Some suggestions that violate the rule 7 will be flagged as such in the `#💡・game-suggestions` channel
+- Some suggestions that violate the rule 7 will be flagged as such in the `#💡│game-suggestions` channel

@@ -38,7 +38,7 @@ const styles: {[k in string]: string} = Object.assign(Object.create(null), {
 	"white": "#fff",
 	"none": "none",
 });
-const channels: Set<string> = new Set(["🔧・console", "🔎・logs", "🛡・moderators-room", "🍪・cookie-room"]);
+const channels: Set<string> = new Set(["🔧│console", "🔎│logs", "🛡│moderators-room", "🍪│cookie-room"]);
 function computeHelpLocalizations(): {[k in string]: () => string} {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {

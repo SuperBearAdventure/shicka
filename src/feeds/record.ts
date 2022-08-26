@@ -44,7 +44,7 @@ const recordFeed: Feed = {
 			const records: string[] = await this.execute(start, end);
 			for (const guild of client.guilds.cache.values()) {
 				const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-					return channel.name === "🏅・records";
+					return channel.name === "🏅│records";
 				});
 				if (channel == null || !("messages" in channel)) {
 					continue;
@@ -156,7 +156,7 @@ const recordFeed: Feed = {
 			return Object.create(null);
 		}
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-			return channel.name === "🏅・records";
+			return channel.name === "🏅│records";
 		});
 		if (channel == null) {
 			return Object.create(null);

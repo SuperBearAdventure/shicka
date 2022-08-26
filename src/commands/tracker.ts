@@ -40,7 +40,7 @@ const trackerCommand: Command = {
 			return;
 		}
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-			return channel.name === "🐛・bug-report";
+			return channel.name === "🐛│bug-report";
 		});
 		const intent: string = channel != null ? `Before reporting a bug in ${channel},` : "You can";
 		await interaction.reply({
