@@ -1,6 +1,8 @@
 [
 	{
-		"name": "Barry",
+		"name": {
+			"en-US": "Barry"
+		},
 		"gold": 75,
 		"level": 0,
 		"outfits": [
@@ -10,7 +12,9 @@
 		]
 	},
 	{
-		"name": "Tommy",
+		"name": {
+			"en-US": "Tommy"
+		},
 		"gold": 20,
 		"level": 0,
 		"outfits": [
@@ -20,7 +24,9 @@
 		]
 	},
 	{
-		"name": "Blackbeard",
+		"name": {
+			"en-US": "Blackbeard"
+		},
 		"gold": 25,
 		"level": 0,
 		"outfits": [
@@ -30,7 +36,9 @@
 		]
 	},
 	{
-		"name": "Stéphane",
+		"name": {
+			"en-US": "Stéphane"
+		},
 		"gold": 360,
 		"level": 0,
 		"outfits": [
@@ -40,7 +48,9 @@
 		]
 	},
 	{
-		"name": "Dr Christopher",
+		"name": {
+			"en-US": "Dr Christopher"
+		},
 		"gold": 25,
 		"level": 0,
 		"outfits": [
@@ -50,7 +60,9 @@
 		]
 	},
 	{
-		"name": "Pierre",
+		"name": {
+			"en-US": "Pierre"
+		},
 		"gold": 20,
 		"level": 0,
 		"outfits": [
@@ -60,7 +72,9 @@
 		]
 	},
 	{
-		"name": "Bob",
+		"name": {
+			"en-US": "Bob"
+		},
 		"gold": 35,
 		"level": 0,
 		"outfits": [
@@ -70,7 +84,9 @@
 		]
 	},
 	{
-		"name": "Madeline",
+		"name": {
+			"en-US": "Madeline"
+		},
 		"gold": 30,
 		"level": 0,
 		"outfits": [
@@ -80,7 +96,9 @@
 		]
 	},
 	{
-		"name": "Polaris",
+		"name": {
+			"en-US": "Polaris"
+		},
 		"gold": 110,
 		"level": 1,
 		"outfits": [
@@ -90,7 +108,9 @@
 		]
 	},
 	{
-		"name": "Flake",
+		"name": {
+			"en-US": "Flake"
+		},
 		"gold": 30,
 		"level": 1,
 		"outfits": [
@@ -100,7 +120,9 @@
 		]
 	},
 	{
-		"name": "Rodolph",
+		"name": {
+			"en-US": "Rodolph"
+		},
 		"gold": 25,
 		"level": 1,
 		"outfits": [
@@ -110,7 +132,9 @@
 		]
 	},
 	{
-		"name": "Frosty",
+		"name": {
+			"en-US": "Frosty"
+		},
 		"gold": 300,
 		"level": 1,
 		"outfits": [
@@ -120,7 +144,9 @@
 		]
 	},
 	{
-		"name": "Alix",
+		"name": {
+			"en-US": "Alix"
+		},
 		"gold": 35,
 		"level": 1,
 		"outfits": [
@@ -130,7 +156,9 @@
 		]
 	},
 	{
-		"name": "Vladimir",
+		"name": {
+			"en-US": "Vladimir"
+		},
 		"gold": 15,
 		"level": 1,
 		"outfits": [
@@ -140,7 +168,9 @@
 		]
 	},
 	{
-		"name": "Skia",
+		"name": {
+			"en-US": "Skia"
+		},
 		"gold": 25,
 		"level": 1,
 		"outfits": [
@@ -150,7 +180,9 @@
 		]
 	},
 	{
-		"name": "Jon",
+		"name": {
+			"en-US": "Jon"
+		},
 		"gold": 40,
 		"level": 1,
 		"outfits": [
@@ -160,7 +192,9 @@
 		]
 	},
 	{
-		"name": "Sand",
+		"name": {
+			"en-US": "Sand"
+		},
 		"gold": 115,
 		"level": 2,
 		"outfits": [
@@ -170,7 +204,9 @@
 		]
 	},
 	{
-		"name": "Amos",
+		"name": {
+			"en-US": "Amos"
+		},
 		"gold": 35,
 		"level": 2,
 		"outfits": [
@@ -180,7 +216,9 @@
 		]
 	},
 	{
-		"name": "Alexander",
+		"name": {
+			"en-US": "Alexander"
+		},
 		"gold": 35,
 		"level": 2,
 		"outfits": [
@@ -190,7 +228,9 @@
 		]
 	},
 	{
-		"name": "Zephyr",
+		"name": {
+			"en-US": "Zephyr"
+		},
 		"gold": 570,
 		"level": 2,
 		"outfits": [
@@ -200,7 +240,9 @@
 		]
 	},
 	{
-		"name": "Grumble",
+		"name": {
+			"en-US": "Grumble"
+		},
 		"gold": 45,
 		"level": 2,
 		"outfits": [
@@ -210,7 +252,9 @@
 		]
 	},
 	{
-		"name": "Numerobis",
+		"name": {
+			"en-US": "Numerobis"
+		},
 		"gold": 40,
 		"level": 2,
 		"outfits": [
@@ -220,7 +264,9 @@
 		]
 	},
 	{
-		"name": "Cleo",
+		"name": {
+			"en-US": "Cleo"
+		},
 		"gold": 25,
 		"level": 2,
 		"outfits": [
@@ -230,7 +276,9 @@
 		]
 	},
 	{
-		"name": "Ramses",
+		"name": {
+			"en-US": "Ramses"
+		},
 		"gold": 55,
 		"level": 2,
 		"outfits": [
@@ -240,7 +288,9 @@
 		]
 	},
 	{
-		"name": "Viper",
+		"name": {
+			"en-US": "Viper"
+		},
 		"gold": 195,
 		"level": 3,
 		"outfits": [
@@ -250,7 +300,9 @@
 		]
 	},
 	{
-		"name": "Blossom",
+		"name": {
+			"en-US": "Blossom"
+		},
 		"gold": 105,
 		"level": 3,
 		"outfits": [
@@ -260,7 +312,9 @@
 		]
 	},
 	{
-		"name": "Joseph",
+		"name": {
+			"en-US": "Joseph"
+		},
 		"gold": 45,
 		"level": 3,
 		"outfits": [
@@ -270,7 +324,9 @@
 		]
 	},
 	{
-		"name": "Toast",
+		"name": {
+			"en-US": "Toast"
+		},
 		"gold": 540,
 		"level": 3,
 		"outfits": [
@@ -280,7 +336,9 @@
 		]
 	},
 	{
-		"name": "Maya",
+		"name": {
+			"en-US": "Maya"
+		},
 		"gold": 35,
 		"level": 3,
 		"outfits": [
@@ -290,7 +348,9 @@
 		]
 	},
 	{
-		"name": "Junior",
+		"name": {
+			"en-US": "Junior"
+		},
 		"gold": 50,
 		"level": 3,
 		"outfits": [
@@ -300,7 +360,9 @@
 		]
 	},
 	{
-		"name": "Claptrap",
+		"name": {
+			"en-US": "Claptrap"
+		},
 		"gold": 35,
 		"level": 3,
 		"outfits": [
@@ -310,7 +372,9 @@
 		]
 	},
 	{
-		"name": "Felix",
+		"name": {
+			"en-US": "Felix"
+		},
 		"gold": 40,
 		"level": 3,
 		"outfits": [

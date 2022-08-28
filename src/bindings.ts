@@ -8,7 +8,7 @@ import raritiesBinding from "./bindings/rarities.json" assert {type: "json"};
 import updatesBinding from "./bindings/updates.json" assert {type: "json"};
 type Bear = {
 	id: number,
-	name: string,
+	name: {[k in string]: string},
 	gold: number,
 	level: number,
 	outfits: number[],

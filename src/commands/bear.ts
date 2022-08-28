@@ -55,13 +55,13 @@ const bearCommand: Command = {
 			}
 			const results: Bear[] = nearest<Bear>(value.toLowerCase(), bears, 7, (bear: Bear): string => {
 				const {name}: Bear = bear;
-				return name.toLowerCase();
+				return name["en-US"].toLowerCase();
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map((bear: Bear): ApplicationCommandOptionChoiceData => {
 				const {name}: Bear = bear;
 				return {
-					name: name,
-					value: name,
+					name: name["en-US"],
+					value: name["en-US"],
 				};
 			});
 			await interaction.respond(suggestions);
@@ -74,7 +74,7 @@ const bearCommand: Command = {
 		const search: string = options.getString(bearOptionName, true);
 		const results: Bear[] = nearest<Bear>(search.toLowerCase(), bears, 1, (bear: Bear): string => {
 			const {name}: Bear = bear;
-			return name.toLowerCase();
+			return name["en-US"].toLowerCase();
 		});
 		if (results.length === 0) {
 			await interaction.reply({
@@ -101,7 +101,7 @@ const bearCommand: Command = {
 		const seconds: string = `${gold % 60 | 0}`.padStart(2, "0");
 		const centiseconds: string = `${gold * 100 % 100 | 0}`.padStart(2, "0");
 		const time: string = `${minutes}:${seconds}.${centiseconds}`;
-		await interaction.reply(`**${Util.escapeMarkdown(name)}** has been imprisoned in the **${Util.escapeMarkdown(level)}** and is wearing ${nameConjunction}.\n${goal} the cage in less than **${Util.escapeMarkdown(time)}** to beat the gold time!`);
+		await interaction.reply(`**${Util.escapeMarkdown(name["en-US"])}** has been imprisoned in the **${Util.escapeMarkdown(level)}** and is wearing ${nameConjunction}.\n${goal} the cage in less than **${Util.escapeMarkdown(time)}** to beat the gold time!`);
 	},
 	describe(interaction: CommandInteraction): {[k in string]: () => string} {
 		return computeHelpLocalizations();
