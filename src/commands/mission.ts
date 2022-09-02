@@ -1,7 +1,6 @@
 import type {
 	ApplicationCommandData,
 	ApplicationCommandOptionChoiceData,
-	ApplicationCommandOptionData,
 	AutocompleteFocusedOption,
 	AutocompleteInteraction,
 	CommandInteraction,
@@ -46,14 +45,12 @@ const missionCommand: Command = {
 			name: commandName,
 			description: commandDescription,
 			options: [
-				((): ApplicationCommandOptionData & {minValue: number, maxValue: number} => ({
-					type: "INTEGER",
+				{
+					type: "STRING",
 					name: missionOptionName,
 					description: missionOptionDescription,
-					minValue: 0,
-					maxValue: missions.length - 1,
 					autocomplete: true,
-				}))(),
+				},
 			],
 		};
 	},
@@ -70,11 +67,10 @@ const missionCommand: Command = {
 				return name.toLowerCase();
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map((mission: Mission): ApplicationCommandOptionChoiceData => {
-				const {id}: Mission = mission;
 				const name: string = `${challenges[mission.challenge].name["en-US"]} in ${levels[mission.level].name["en-US"]}`;
 				return {
 					name: name,
-					value: id,
+					value: name,
 				};
 			});
 			await interaction.respond(suggestions);
@@ -86,8 +82,8 @@ const missionCommand: Command = {
 		const {options}: CommandInteraction = interaction;
 		const missionCount: number = missions.length;
 		const now: number = Math.floor((interaction.createdTimestamp + 7200000) / 86400000);
-		const id: number | null = options.getInteger(missionOptionName);
-		if (id == null) {
+		const search: string | null = options.getString(missionOptionName);
+		if (search == null) {
 		const schedules: string[] = [];
 		for (let k: number = -1; k < 2; ++k) {
 			const day: number = now + k;
@@ -102,7 +98,18 @@ const missionCommand: Command = {
 		await interaction.reply(`Each mission starts at *${Util.escapeMarkdown(dayTime)}*:\n${scheduleList}`);
 		return;
 		}
-		const mission: Mission = missions[id];
+		const results: Mission[] = nearest<Mission>(search.toLowerCase(), missions, 1, (mission: Mission): string => {
+			const name: string = `${challenges[mission.challenge].name["en-US"]} in ${levels[mission.level].name["en-US"]}`;
+			return name.toLowerCase();
+		});
+		if (results.length === 0) {
+			await interaction.reply({
+				content: `I do not know any mission with this name.`,
+				ephemeral: true,
+			});
+			return;
+		}
+		const mission: Mission = results[0];
 		const schedules: string[] = [];
 		for (let k: number = -1; k < 2 || schedules.length < 2; ++k) {
 			const day: number = now + k;
