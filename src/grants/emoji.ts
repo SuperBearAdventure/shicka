@@ -14,6 +14,7 @@ import canvas from "canvas";
 import {Util} from "discord.js";
 import {JSDOM} from "jsdom";
 import serialize from "w3c-xmlserializer";
+import {list} from "../utils/string.js";
 const {createCanvas, loadImage}: any = canvas;
 const here: string = import.meta.url;
 const root: string = here.slice(0, here.lastIndexOf("/"));
@@ -62,7 +63,10 @@ const emojiGrant: Grant = {
 			const styleConjunction: string = conjunctionFormat.format(Object.keys(styles).concat("auto").map((style: string): string => {
 				return `\`${Util.escapeMarkdown(style)}\``;
 			}));
-			await message.channel.send(`Please give me:\n\u{2022} a base among ${baseConjunction}\n\u{2022} up to 6 styles among ${styleConjunction}`);
+			const baseItem: string = `a base among ${baseConjunction}`;
+			const styleItem: string = `up to 6 styles among ${styleConjunction}`;
+			const parameterList: string = list([baseItem, styleItem]);
+			await message.channel.send(`Please give me:\n${parameterList}`);
 			return;
 		}
 		const base: string = parameters[1].toLowerCase();

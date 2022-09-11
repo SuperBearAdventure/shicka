@@ -80,3 +80,8 @@ export function nearest<Type>(search: string, candidates: Type[], count: number,
 		return result.candidate;
 	});
 }
+export function list(items: string[]): string {
+	return items.map((item: string): string => {
+		return `\u{2022} ${item}`;
+	}).join("\n");
+}

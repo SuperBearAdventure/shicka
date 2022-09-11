@@ -4,6 +4,7 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import {list} from "../utils/string.js";
 const commandName: string = "trailer";
 const commandDescription: string = "Tells you where to watch official trailers of the game";
 const trailers: string[] = [
@@ -31,9 +32,7 @@ const trailerCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const linkList: string = trailers.map((trailer: string): string => {
-			return `\u{2022} ${trailer}`;
-		}).join("\n");
+		const linkList: string = list(trailers);
 		await interaction.reply({
 			content: `You can watch official trailers of the game there:\n${linkList}`,
 		});

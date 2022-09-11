@@ -4,6 +4,7 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import {list} from "../utils/string.js";
 const commandName: string = "leaderboard";
 const commandDescription: string = "Tells you where to watch community speedruns of the game";
 const leaderboards: string[] = [
@@ -37,9 +38,7 @@ const leaderboardCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const linkList: string = leaderboards.map((leaderboard: string): string => {
-			return `\u{2022} ${leaderboard}`;
-		}).join("\n");
+		const linkList: string = list(leaderboards);
 		await interaction.reply({
 			content: `You can watch community speedruns there:\n${linkList}`,
 		});

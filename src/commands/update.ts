@@ -8,12 +8,17 @@ import type Command from "../commands.js";
 import {Util} from "discord.js";
 import {JSDOM} from "jsdom";
 import fetch from "node-fetch";
+import {list} from "../utils/string.js";
 type Data = {
 	version: string,
 	date: number,
 };
 const commandName: string = "update";
 const commandDescription: string = "Tells you what is the latest update of the game";
+const updates: string[] = [
+	"[*Android*](<https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer>)",
+	"[*iOS*](<https://apps.apple.com/app/id1531842415>)",
+];
 const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeZone: "UTC",
@@ -80,11 +85,17 @@ const updateCommand: Command = {
 			const androidDate: string = dateFormat.format(new Date(androidData.date));
 			const iosVersion: string = iosData.version;
 			const iosDate: string = dateFormat.format(new Date(iosData.date));
-			await interaction.reply(`The latest update of the game is:\n\u{2022} **${Util.escapeMarkdown(androidVersion)}** on **Android** (*${Util.escapeMarkdown(androidDate)}*)\n\u{2022} **${Util.escapeMarkdown(iosVersion)}** on **iOS** (*${Util.escapeMarkdown(iosDate)}*)`);
+			const updates: string[] = [
+				`**${Util.escapeMarkdown(androidVersion)}** on **Android** (*${Util.escapeMarkdown(androidDate)}*)`,
+				`*${Util.escapeMarkdown(iosVersion)}** on **iOS** (*${Util.escapeMarkdown(iosDate)}*)`,
+			];
+			const updateList: string = list(updates);
+			await interaction.reply(`The latest update of the game is:\n${updateList}`);
 		} catch (error: unknown) {
 			console.warn(error);
+			const linkList: string = list(updates);
 			await interaction.reply({
-				content: "You can check and download the latest update of the game there:\n\u{2022} [*Android*](<https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer>)\n\u{2022} [*iOS*](<https://apps.apple.com/app/id1531842415>)",
+				content: `You can check and download the latest update of the game there:\n${linkList}`,
 			});
 		}
 	},

@@ -10,7 +10,7 @@ import type {Mission} from "../bindings.js";
 import type Command from "../commands.js";
 import {Util} from "discord.js";
 import {challenges, levels, missions} from "../bindings.js";
-import {nearest} from "../utils/string.js";
+import {list, nearest} from "../utils/string.js";
 const commandName: string = "mission";
 const commandDescription: string = "Tells you what is playable in the shop or when it is playable";
 const missionOptionName: string = "mission";
@@ -92,9 +92,9 @@ const missionCommand: Command = {
 			const challenge: string = challenges[mission.challenge].name["en-US"];
 			const level: string = levels[mission.level].name["en-US"];
 			const dayDate: string = dateFormat.format(new Date(day * 86400000));
-			schedules.push(`\u{2022} *${Util.escapeMarkdown(dayDate)}*: **${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}**`);
+			schedules.push(`*${Util.escapeMarkdown(dayDate)}*: **${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}**`);
 		}
-		const scheduleList: string = schedules.join("\n");
+		const scheduleList: string = list(schedules);
 		await interaction.reply(`Each mission starts at *${Util.escapeMarkdown(dayTime)}*:\n${scheduleList}`);
 		return;
 		}
@@ -116,12 +116,12 @@ const missionCommand: Command = {
 			const seed: number = (day % missionCount + missionCount) % missionCount;
 			if (missions[seed] === mission) {
 				const dayDateTime: string = dateTimeFormat.format(new Date(day * 86400000 + 36000000));
-				schedules.push(`\u{2022} *${Util.escapeMarkdown(dayDateTime)}*`);
+				schedules.push(`*${Util.escapeMarkdown(dayDateTime)}*`);
 			}
 		}
 		const challenge: string = challenges[mission.challenge].name["en-US"];
 		const level: string = levels[mission.level].name["en-US"];
-		const scheduleList: string = schedules.join("\n");
+		const scheduleList: string = list(schedules);
 		await interaction.reply(`**${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}** will be playable for 1 day starting:\n${scheduleList}`);
 	},
 	describe(interaction: CommandInteraction): {[k in string]: () => string} {

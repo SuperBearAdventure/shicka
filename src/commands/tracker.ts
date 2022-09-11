@@ -5,6 +5,7 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import {list} from "../utils/string.js";
 const commandName: string = "tracker";
 const commandDescription: string = "Tells you where to check known bugs of the game";
 const trackers: string[] = [
@@ -32,9 +33,7 @@ const trackerCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const linkList: string = trackers.map((tracker: string): string => {
-			return `\u{2022} ${tracker}`;
-		}).join("\n");
+		const linkList: string = list(trackers);
 		const {guild}: CommandInteraction = interaction;
 		if (guild == null) {
 			return;

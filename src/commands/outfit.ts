@@ -11,7 +11,7 @@ import type Command from "../commands.js";
 import {Util} from "discord.js";
 import {outfits, rarities} from "../bindings.js";
 import {outfitsByRarity} from "../indices.js";
-import {nearest} from "../utils/string.js";
+import {list, nearest} from "../utils/string.js";
 const {
 	SHICKA_SALT: salt = "",
 }: NodeJS.ProcessEnv = process.env;
@@ -172,9 +172,9 @@ const outfitCommand: Command = {
 			});
 			const dayDateTime: string = dateTimeFormat.format(new Date(day * 21600000));
 			const nameConjunction: string = conjunctionFormat.format(names);
-			schedules.push(`\u{2022} *${Util.escapeMarkdown(dayDateTime)}*: ${nameConjunction}`);
+			schedules.push(`*${Util.escapeMarkdown(dayDateTime)}*: ${nameConjunction}`);
 		}
-		const scheduleList: string = schedules.join("\n");
+		const scheduleList: string = list(schedules);
 		await interaction.reply(`Outfits for sale in the shop change every 6 hours:\n${scheduleList}`);
 		return;
 		}
@@ -211,7 +211,7 @@ const outfitCommand: Command = {
 			const index: number = day - seed * slicesPerRarity;
 			if (slicesByRarity[outfit.rarity][index].includes(outfit)) {
 				const dayDateTime: string = dateTimeFormat.format(new Date(day * 21600000));
-				schedules.push(`\u{2022} *${Util.escapeMarkdown(dayDateTime)}*`);
+				schedules.push(`*${Util.escapeMarkdown(dayDateTime)}*`);
 			}
 		}
 		const {name}: Outfit = outfit;
@@ -225,7 +225,7 @@ const outfitCommand: Command = {
 			costs.push(`**${Util.escapeMarkdown(`${coins}`)} coin${coins !== 1 ? "s" : ""}**`);
 		}
 		const costConjunction: string = `${costs.length !== 0 ? " for " : ""}${conjunctionFormat.format(costs)}`;
-		const scheduleList: string = schedules.join("\n");
+		const scheduleList: string = list(schedules);
 		await interaction.reply(`**${Util.escapeMarkdown(name["en-US"])}** will be for sale in the shop${costConjunction} for 6 hours starting:\n${scheduleList}`);
 	},
 	describe(interaction: CommandInteraction): {[k in string]: () => string} {

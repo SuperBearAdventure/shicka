@@ -4,6 +4,7 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import {list} from "../utils/string.js";
 const commandName: string = "store";
 const commandDescription: string = "Tells you where to buy offical products of the game";
 const stores: string[] = [
@@ -31,9 +32,7 @@ const storeCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const linkList: string = stores.map((store: string): string => {
-			return `\u{2022} ${store}`;
-		}).join("\n");
+		const linkList: string = list(stores);
 		await interaction.reply({
 			content: `You can buy official products of the game there:\n${linkList}`,
 		});

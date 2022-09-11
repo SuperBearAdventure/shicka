@@ -11,6 +11,7 @@ import * as commands from "../commands.js";
 import * as feeds from "../feeds.js";
 import * as grants from "../grants.js";
 import * as triggers from "../triggers.js";
+import {list} from "../utils/string.js";
 const commandName: string = "help";
 const commandDescription: string = "Tells you what are the features I offer";
 function computeHelpLocalizations(): {[k in string]: () => string} {
@@ -35,7 +36,7 @@ const helpCommand: Command = {
 			return;
 		}
 		const {user}: CommandInteraction = interaction;
-		const featureList: string = [
+		const features: string[] = [
 			Object.keys(grants).map((grantName: string): Grant => {
 				const grant: Grant = grants[grantName as keyof typeof grants] as Grant;
 				return grant;
@@ -58,9 +59,8 @@ const helpCommand: Command = {
 				return [];
 			}
 			return description().split("\n");
-		}).flat().map((description: string): string => {
-			return `\u{2022} ${description}`;
-		}).join("\n");
+		}).flat();
+		const featureList: string = list(features);
 		await interaction.reply(`Hey ${user}, there you are!\nI can give you some advice about the server:\n${featureList}`);
 	},
 	describe(interaction: CommandInteraction): {[k in string]: () => string} {
