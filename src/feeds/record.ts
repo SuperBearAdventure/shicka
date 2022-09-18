@@ -23,6 +23,10 @@ type Level = {
 	categories: {[k in string]: Category},
 };
 const games: string[] = ["9d3rrxyd", "w6jl2ned"];
+const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
+	style: "long",
+	type: "conjunction",
+});
 const helpLocalizations: Localized<(channel: GuildBasedChannel) => string> = Object.assign(Object.create(null), {
 	"en-US"(channel: GuildBasedChannel): string {
 		return `I post the latest world records of the game in ${channel}`;
@@ -112,34 +116,46 @@ const recordFeed: Feed = {
 							const {leaderboardName}: Leaderboard = leaderboards[leaderboardId];
 							const response: Response = await fetch(`https://www.speedrun.com/api/v1/leaderboards/${gameId}/${levelId}/${categoryId}?${leaderboardId}status=verified&embed=players&top=1`);
 							const {data}: any = await response.json();
-							const {players, runs}: any = data;
-							if (runs.length === 0) {
+							if (data.runs.length === 0) {
 								continue;
 							}
-							const {status, times, videos}: any = runs[0].run;
-							const date: number = Date.parse(status["verify-date"]);
+							const {run}: any = data.runs[0];
+							const date: number = Date.parse(run.status["verify-date"]);
 							if (date <= start || date > end) {
 								continue;
 							}
-							const player: any = players.data[0];
-							const flag: string = "location" in player ? `${player.location.country.code.slice(0, 2).split("").map((string: string): string => {
-								const character: number | undefined = string.codePointAt(0);
-								if (character == null) {
-									return "";
+							const players: string[] = [];
+							for (const {location, name, names} of data.players.data) {
+								const playerName: string | null = names?.international ?? name ?? null;
+								if (playerName == null) {
+									continue;
 								}
-								return String.fromCodePoint(character + 127365);
-							}).join("")} ` : "";
-							const name: string = "names" in player ? player.names.international : player.name;
-							const user: string = `${flag}${name}`;
-							const {primary_t}: any = times;
+								const playerFlag: string | null = location?.country?.code?.slice?.(0, 2).split("").map((string: string): string => {
+									const character: number | undefined = string.codePointAt(0);
+									if (character == null) {
+										return "";
+									}
+									return String.fromCodePoint(character + 127365);
+								}).join("") ?? null;
+								const player: string = `${playerFlag != null ? `${playerFlag} ` : ""}${playerName}`;
+								players.push(`*${Util.escapeMarkdown(player)}*`)
+							}
+							const playerConjunction: string = players.length !== 0 ? conjunctionFormat.format(players) : "Someone";
+							const primary_t: number = run?.times?.primary_t ?? null;
 							const minutes: string = `${primary_t / 60 | 0}`.padStart(2, "0");
 							const seconds: string = `${primary_t % 60 | 0}`.padStart(2, "0");
 							const centiseconds: string = `${primary_t * 100 % 100 | 0}`.padStart(2, "0");
 							const time: string = `${minutes}:${seconds}.${centiseconds}`;
 							const category: string = `${levelName}${categoryName}${leaderboardName}`;
-							const links: any = "links" in videos ? videos.links : [];
-							const video: string = links.length !== 0 ? `\n${links[0].uri}` : "";
-							records.push(`*${Util.escapeMarkdown(user)}* set a new world record in the *${Util.escapeMarkdown(category)}* category: **${Util.escapeMarkdown(time)}**!${video}`);
+							const videos: string[] = [];
+							for (const {uri} of run?.videos?.links ?? []) {
+								if (uri == null) {
+									continue;
+								}
+								videos.push(uri);
+							}
+							const linkLine: string = videos.length !== 0 ? `\n${videos.join(" ")}` : "";
+							records.push(`${playerConjunction} set a new world record in the *${Util.escapeMarkdown(category)}* category: **${Util.escapeMarkdown(time)}**!${linkLine}`);
 						}
 					}
 				}
