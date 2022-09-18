@@ -6,6 +6,7 @@ import type {
 	MessageAttachment,
 } from "discord.js";
 import type Grant from "../grants.js";
+import type {Localized} from "../utils/string.js";
 import {MessageMentions} from "discord.js";
 const grantName: string = "chat";
 const messageArgumentDescription: string = "Some message";
@@ -15,7 +16,7 @@ const {source}: RegExp = MessageMentions.CHANNELS_PATTERN;
 const messagePattern: RegExp = /^(?:0|[1-9]\d*)$/;
 const channelPattern: RegExp = new RegExp(`^(?:${source})$`, "");
 const channels: Set<string> = new Set(["🔧│console", "🔎│logs", "🛡│moderators-room"]);
-function computeHelpLocalizations(): {[k in string]: () => string} {
+function computeHelpLocalizations(): Localized<() => string> {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
 			return `Type \`/${grantName} ${channelArgumentDescription} ${contentArgumentDescription}\` to send \`${contentArgumentDescription}\` and some attachments in \`${channelArgumentDescription}\`\nType \`/${grantName} ${messageArgumentDescription} ${channelArgumentDescription} ${contentArgumentDescription}\` to edit \`${messageArgumentDescription}\` with \`${contentArgumentDescription}\` and some attachments in \`${channelArgumentDescription}\``;
@@ -127,7 +128,7 @@ const chatGrant: Grant = {
 			await message.reply(`I do not have the rights to send this message.`);
 		}
 	},
-	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+	describe(interaction: CommandInteraction): Localized<() => string> {
 		const {channel}: CommandInteraction = interaction;
 		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
 			return Object.create(null);

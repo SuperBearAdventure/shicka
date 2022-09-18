@@ -7,6 +7,7 @@ import type Command from "../commands.js";
 import type Feed from "../feeds.js";
 import type Grant from "../grants.js";
 import type Trigger from "../triggers.js";
+import type {Localized} from "../utils/string.js";
 import * as commands from "../commands.js";
 import * as feeds from "../feeds.js";
 import * as grants from "../grants.js";
@@ -14,7 +15,7 @@ import * as triggers from "../triggers.js";
 import {list} from "../utils/string.js";
 const commandName: string = "help";
 const commandDescription: string = "Tells you what are the features I offer";
-function computeHelpLocalizations(): {[k in string]: () => string} {
+function computeHelpLocalizations(): Localized<() => string> {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
 			return `Type \`/${commandName}\` to know what are the features I offer`;
@@ -63,7 +64,7 @@ const helpCommand: Command = {
 		const featureList: string = list(features);
 		await interaction.reply(`Hey ${user}, there you are!\nI can give you some advice about the server:\n${featureList}`);
 	},
-	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+	describe(interaction: CommandInteraction): Localized<() => string> {
 		return computeHelpLocalizations();
 	},
 };

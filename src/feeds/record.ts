@@ -7,6 +7,7 @@ import type {
 import type {Response} from "node-fetch";
 import type {Job} from "node-schedule";
 import type Feed from "../feeds.js";
+import type {Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import fetch from "node-fetch";
 import schedule from "node-schedule";
@@ -22,7 +23,7 @@ type Level = {
 	categories: {[k in string]: Category},
 };
 const games: string[] = ["9d3rrxyd", "w6jl2ned"];
-function computeHelpLocalizations(channel: GuildBasedChannel): {[k in string]: () => string} {
+function computeHelpLocalizations(channel: GuildBasedChannel): Localized<() => string> {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
 			return `I post the latest world records of the game in ${channel}`;
@@ -150,7 +151,7 @@ const recordFeed: Feed = {
 		}
 		return records;
 	},
-	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+	describe(interaction: CommandInteraction): Localized<() => string> {
 		const {guild}: CommandInteraction = interaction;
 		if (guild == null) {
 			return Object.create(null);

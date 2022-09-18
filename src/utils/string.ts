@@ -1,3 +1,7 @@
+export type Localized<Type> = {
+	"en-US": Type,
+	[k: string]: Type | undefined,
+};
 function editDistance(a: string, b: string, substitution: boolean): number {
 	if (a.length < b.length) {
 		[a, b] = [b, a];

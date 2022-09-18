@@ -4,6 +4,7 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {Localized} from "../utils/string.js";
 import {list} from "../utils/string.js";
 const commandName: string = "store";
 const commandDescription: string = "Tells you where to buy offical products of the game";
@@ -11,7 +12,7 @@ const stores: string[] = [
 	"[*European store*](<https://superbearadventure.myspreadshop.net/>)",
 	"[*American and Oceanian store*](<https://superbearadventure.myspreadshop.com/>)",
 ];
-function computeHelpLocalizations(): {[k in string]: () => string} {
+function computeHelpLocalizations(): Localized<() => string> {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
 			return `Type \`/${commandName}\` to know where to buy offical products of the game`;
@@ -37,7 +38,7 @@ const storeCommand: Command = {
 			content: `You can buy official products of the game there:\n${linkList}`,
 		});
 	},
-	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+	describe(interaction: CommandInteraction): Localized<() => string> {
 		return computeHelpLocalizations();
 	},
 };

@@ -1,3 +1,4 @@
+import type {Localized} from "./utils/string.js";
 import bearsBinding from "./bindings/bears.json" assert {type: "json"};
 import challengesBinding from "./bindings/challenges.json" assert {type: "json"};
 import levelsBinding from "./bindings/levels.json" assert {type: "json"};
@@ -8,19 +9,19 @@ import raritiesBinding from "./bindings/rarities.json" assert {type: "json"};
 import updatesBinding from "./bindings/updates.json" assert {type: "json"};
 type Bear = {
 	id: number,
-	name: {[k in string]: string},
+	name: Localized<string>,
 	gold: number,
 	level: number,
 	outfits: number[],
 };
 type Challenge = {
 	id: number,
-	name: {[k in string]: string},
+	name: Localized<string>,
 };
 type Level = {
 	id: number,
-	name: {[k in string]: string},
-	boss: {[k in string]: string},
+	name: Localized<string>,
+	boss: Localized<string>,
 	coins: number,
 	stickers: number,
 };
@@ -31,7 +32,7 @@ type Mission = {
 };
 type Outfit = {
 	id: number,
-	name: {[k in string]: string},
+	name: Localized<string>,
 	cost: number,
 	part: number,
 	rarity: number,
@@ -39,11 +40,11 @@ type Outfit = {
 };
 type Part = {
 	id: number,
-	name: {[k in string]: string},
+	name: Localized<string>,
 };
 type Rarity = {
 	id: number,
-	name: {[k in string]: string},
+	name: Localized<string>,
 	cost: number,
 	payoff: number,
 	probability: number,

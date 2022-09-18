@@ -8,6 +8,7 @@ import type {
 } from "discord.js";
 import type {Bear, Outfit} from "../bindings.js";
 import type Command from "../commands.js";
+import type {Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import {bears, levels, outfits} from "../bindings.js";
 import {nearest} from "../utils/string.js";
@@ -19,7 +20,7 @@ const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-function computeHelpLocalizations(): {[k in string]: () => string} {
+function computeHelpLocalizations(): Localized<() => string> {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
 			return `Type \`/${commandName} ${bearOptionDescription}\` to know who is \`${bearOptionDescription}\``;
@@ -103,7 +104,7 @@ const bearCommand: Command = {
 		const time: string = `${minutes}:${seconds}.${centiseconds}`;
 		await interaction.reply(`**${Util.escapeMarkdown(name["en-US"])}** has been imprisoned in the **${Util.escapeMarkdown(level)}** and is wearing ${nameConjunction}.\n${goal} the cage in less than **${Util.escapeMarkdown(time)}** to beat the gold time!`);
 	},
-	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+	describe(interaction: CommandInteraction): Localized<() => string> {
 		return computeHelpLocalizations();
 	},
 };

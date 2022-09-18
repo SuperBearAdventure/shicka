@@ -5,9 +5,10 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {Localized} from "../utils/string.js";
 const commandName: string = "roadmap";
 const commandDescription: string = "Tells you where to check the upcoming milestones of the game";
-function computeHelpLocalizations(): {[k in string]: () => string} {
+function computeHelpLocalizations(): Localized<() => string> {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
 			return `Type \`/${commandName}\` to know where to check the upcoming milestones of the game`;
@@ -40,7 +41,7 @@ const roadmapCommand: Command = {
 			content: `${intent} check the upcoming milestones of the game [there](<https://trello.com/b/3DPL9CwV/road-to-100>).`,
 		});
 	},
-	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+	describe(interaction: CommandInteraction): Localized<() => string> {
 		return computeHelpLocalizations();
 	},
 };

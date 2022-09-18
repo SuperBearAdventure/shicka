@@ -4,6 +4,7 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {Localized} from "../utils/string.js";
 import {list} from "../utils/string.js";
 const commandName: string = "leaderboard";
 const commandDescription: string = "Tells you where to watch community speedruns of the game";
@@ -17,7 +18,7 @@ const leaderboards: string[] = [
 	"[*Races leaderboard*](<https://www.speedrun.com/sbace/Races>)",
 	"[*Category Extensions leaderboard*](<https://www.speedrun.com/sbace>)",
 ];
-function computeHelpLocalizations(): {[k in string]: () => string} {
+function computeHelpLocalizations(): Localized<() => string> {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
 			return `Type \`/${commandName}\` to know where to watch community speedruns of the game`;
@@ -43,7 +44,7 @@ const leaderboardCommand: Command = {
 			content: `You can watch community speedruns there:\n${linkList}`,
 		});
 	},
-	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+	describe(interaction: CommandInteraction): Localized<() => string> {
 		return computeHelpLocalizations();
 	},
 };

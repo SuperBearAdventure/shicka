@@ -8,6 +8,7 @@ import type {
 } from "discord.js";
 import type {Outfit, Rarity} from "../bindings.js";
 import type Command from "../commands.js";
+import type {Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import {outfits, rarities} from "../bindings.js";
 import {outfitsByRarity} from "../indices.js";
@@ -28,7 +29,7 @@ const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-function computeHelpLocalizations(): {[k in string]: () => string} {
+function computeHelpLocalizations(): Localized<() => string> {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
 			return `Type \`/${commandName}\` to know what is for sale in the shop\nType \`/${commandName} ${outfitOptionDescription}\` to know when \`${outfitOptionDescription}\` is for sale in the shop`;
@@ -228,7 +229,7 @@ const outfitCommand: Command = {
 		const scheduleList: string = list(schedules);
 		await interaction.reply(`**${Util.escapeMarkdown(name["en-US"])}** will be for sale in the shop${costConjunction} for 6 hours starting:\n${scheduleList}`);
 	},
-	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+	describe(interaction: CommandInteraction): Localized<() => string> {
 		return computeHelpLocalizations();
 	},
 };

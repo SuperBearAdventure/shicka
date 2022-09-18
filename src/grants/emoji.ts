@@ -8,6 +8,7 @@ import type {
 	CanvasRenderingContext2D,
 } from "canvas";
 import type Grant from "../grants.js";
+import type {Localized} from "../utils/string.js";
 import {readFile} from "node:fs/promises";
 import {fileURLToPath} from "node:url";
 import canvas from "canvas";
@@ -40,7 +41,7 @@ const styles: {[k in string]: string} = Object.assign(Object.create(null), {
 	"none": "none",
 });
 const channels: Set<string> = new Set(["🔧│console", "🔎│logs", "🛡│moderators-room", "🍪│cookie-room"]);
-function computeHelpLocalizations(): {[k in string]: () => string} {
+function computeHelpLocalizations(): Localized<() => string> {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
 			return `Type \`/${grantName} ${baseArgumentDescription} ${stylesArgumentDescription}\` to create a new \`${baseArgumentDescription}\`-based emoji customized with \`${stylesArgumentDescription}\``;
@@ -122,7 +123,7 @@ const emojiGrant: Grant = {
 			],
 		});
 	},
-	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+	describe(interaction: CommandInteraction): Localized<() => string> {
 		const {channel}: CommandInteraction = interaction;
 		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
 			return Object.create(null);

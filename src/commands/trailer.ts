@@ -4,6 +4,7 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {Localized} from "../utils/string.js";
 import {list} from "../utils/string.js";
 const commandName: string = "trailer";
 const commandDescription: string = "Tells you where to watch official trailers of the game";
@@ -11,7 +12,7 @@ const trailers: string[] = [
 	"[*Main trailer*](<https://www.youtube.com/watch?v=L00uorYTYgE>)",
 	"[*Missions trailer*](<https://www.youtube.com/watch?v=j3vwu0JWIEg>)",
 ];
-function computeHelpLocalizations(): {[k in string]: () => string} {
+function computeHelpLocalizations(): Localized<() => string> {
 	return Object.assign(Object.create(null), {
 		"en-US"(): string {
 			return `Type \`/${commandName}\` to know where to watch official trailers of the game`;
@@ -37,7 +38,7 @@ const trailerCommand: Command = {
 			content: `You can watch official trailers of the game there:\n${linkList}`,
 		});
 	},
-	describe(interaction: CommandInteraction): {[k in string]: () => string} {
+	describe(interaction: CommandInteraction): Localized<() => string> {
 		return computeHelpLocalizations();
 	},
 };

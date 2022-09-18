@@ -3,6 +3,7 @@ import type {
 	CommandInteraction,
 	Interaction,
 } from "discord.js";
+import type {Localized} from "./utils/string.js";
 import aboutCommand from "./commands/about.js";
 import bearCommand from "./commands/bear.js";
 import countCommand from "./commands/count.js";
@@ -19,7 +20,7 @@ import updateCommand from "./commands/update.js";
 type Command = {
 	register(): ApplicationCommandData;
 	execute(interaction: Interaction): Promise<void>;
-	describe(interaction: CommandInteraction): {[k in string]: () => string};
+	describe(interaction: CommandInteraction): Localized<() => string>;
 };
 const about: Command = aboutCommand;
 const bear: Command = bearCommand;
