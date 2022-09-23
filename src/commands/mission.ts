@@ -30,16 +30,14 @@ const timeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	timeZone: "UTC",
 });
 const dayTime: string = timeFormat.format(new Date(36000000));
-function computeHelpLocalizations(): Localized<() => string> {
-	return Object.assign(Object.create(null), {
-		"en-US"(): string {
-			return `Type \`/${commandName}\` to know what is playable in the shop\nType \`/${commandName} ${missionOptionDescription}\` to know when \`${missionOptionDescription}\` is playable in the shop`;
-		},
-		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir ce qui est jouable dans la boutique\nTape \`/${commandName} ${missionOptionDescription}\` pour savoir quand \`${missionOptionDescription}\` est jouable dans la boutique`;
-		},
-	});
-}
+const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
+	"en-US"(): string {
+		return `Type \`/${commandName}\` to know what is playable in the shop\nType \`/${commandName} ${missionOptionDescription}\` to know when \`${missionOptionDescription}\` is playable in the shop`;
+	},
+	"fr"(): string {
+		return `Tape \`/${commandName}\` pour savoir ce qui est jouable dans la boutique\nTape \`/${commandName} ${missionOptionDescription}\` pour savoir quand \`${missionOptionDescription}\` est jouable dans la boutique`;
+	},
+});
 const missionCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -126,7 +124,7 @@ const missionCommand: Command = {
 		await interaction.reply(`**${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}** will be playable for 1 day starting:\n${scheduleList}`);
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
-		return computeHelpLocalizations();
+		return helpLocalizations;
 	},
 };
 export default missionCommand;

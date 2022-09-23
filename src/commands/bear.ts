@@ -20,16 +20,14 @@ const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-function computeHelpLocalizations(): Localized<() => string> {
-	return Object.assign(Object.create(null), {
-		"en-US"(): string {
-			return `Type \`/${commandName} ${bearOptionDescription}\` to know who is \`${bearOptionDescription}\``;
-		},
-		"fr"(): string {
-			return `Tape \`/${commandName} ${bearOptionDescription}\` pour savoir qui est \`${bearOptionDescription}\``;
-		},
-	});
-}
+const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
+	"en-US"(): string {
+		return `Type \`/${commandName} ${bearOptionDescription}\` to know who is \`${bearOptionDescription}\``;
+	},
+	"fr"(): string {
+		return `Tape \`/${commandName} ${bearOptionDescription}\` pour savoir qui est \`${bearOptionDescription}\``;
+	},
+});
 const bearCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -105,7 +103,7 @@ const bearCommand: Command = {
 		await interaction.reply(`**${Util.escapeMarkdown(name["en-US"])}** has been imprisoned in the **${Util.escapeMarkdown(level)}** and is wearing ${nameConjunction}.\n${goal} the cage in less than **${Util.escapeMarkdown(time)}** to beat the gold time!`);
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
-		return computeHelpLocalizations();
+		return helpLocalizations;
 	},
 };
 export default bearCommand;

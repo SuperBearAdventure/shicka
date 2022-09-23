@@ -12,16 +12,14 @@ const stores: string[] = [
 	"[*European store*](<https://superbearadventure.myspreadshop.net/>)",
 	"[*American and Oceanian store*](<https://superbearadventure.myspreadshop.com/>)",
 ];
-function computeHelpLocalizations(): Localized<() => string> {
-	return Object.assign(Object.create(null), {
-		"en-US"(): string {
-			return `Type \`/${commandName}\` to know where to buy offical products of the game`;
-		},
-		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir où acheter des produits officiels du jeu`;
-		},
-	});
-}
+const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
+	"en-US"(): string {
+		return `Type \`/${commandName}\` to know where to buy offical products of the game`;
+	},
+	"fr"(): string {
+		return `Tape \`/${commandName}\` pour savoir où acheter des produits officiels du jeu`;
+	},
+});
 const storeCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -39,7 +37,7 @@ const storeCommand: Command = {
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
-		return computeHelpLocalizations();
+		return helpLocalizations;
 	},
 };
 export default storeCommand;

@@ -8,16 +8,14 @@ import type Command from "../commands.js";
 import type {Localized} from "../utils/string.js";
 const commandName: string = "roadmap";
 const commandDescription: string = "Tells you where to check the upcoming milestones of the game";
-function computeHelpLocalizations(): Localized<() => string> {
-	return Object.assign(Object.create(null), {
-		"en-US"(): string {
-			return `Type \`/${commandName}\` to know where to check the upcoming milestones of the game`;
-		},
-		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir où consulter les futurs jalons du jeu`;
-		},
-	});
-}
+const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
+	"en-US"(): string {
+		return `Type \`/${commandName}\` to know where to check the upcoming milestones of the game`;
+	},
+	"fr"(): string {
+		return `Tape \`/${commandName}\` pour savoir où consulter les futurs jalons du jeu`;
+	},
+});
 const roadmapCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -42,7 +40,7 @@ const roadmapCommand: Command = {
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
-		return computeHelpLocalizations();
+		return helpLocalizations;
 	},
 };
 export default roadmapCommand;

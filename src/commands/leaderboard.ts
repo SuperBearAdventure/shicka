@@ -18,16 +18,14 @@ const leaderboards: string[] = [
 	"[*Races leaderboard*](<https://www.speedrun.com/sbace/Races>)",
 	"[*Category Extensions leaderboard*](<https://www.speedrun.com/sbace>)",
 ];
-function computeHelpLocalizations(): Localized<() => string> {
-	return Object.assign(Object.create(null), {
-		"en-US"(): string {
-			return `Type \`/${commandName}\` to know where to watch community speedruns of the game`;
-		},
-		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir où regarder des speedruns communautaires du jeu`;
-		},
-	});
-}
+const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
+	"en-US"(): string {
+		return `Type \`/${commandName}\` to know where to watch community speedruns of the game`;
+	},
+	"fr"(): string {
+		return `Tape \`/${commandName}\` pour savoir où regarder des speedruns communautaires du jeu`;
+	},
+});
 const leaderboardCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -45,7 +43,7 @@ const leaderboardCommand: Command = {
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
-		return computeHelpLocalizations();
+		return helpLocalizations;
 	},
 };
 export default leaderboardCommand;

@@ -29,16 +29,14 @@ const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-function computeHelpLocalizations(): Localized<() => string> {
-	return Object.assign(Object.create(null), {
-		"en-US"(): string {
-			return `Type \`/${commandName}\` to know what is for sale in the shop\nType \`/${commandName} ${outfitOptionDescription}\` to know when \`${outfitOptionDescription}\` is for sale in the shop`;
-		},
-		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir ce qui est en vente dans la boutique\nTape \`/${commandName} ${outfitOptionDescription}\` pour savoir quand \`${outfitOptionDescription}\` est en vente dans la boutique`;
-		},
-	});
-}
+const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
+	"en-US"(): string {
+		return `Type \`/${commandName}\` to know what is for sale in the shop\nType \`/${commandName} ${outfitOptionDescription}\` to know when \`${outfitOptionDescription}\` is for sale in the shop`;
+	},
+	"fr"(): string {
+		return `Tape \`/${commandName}\` pour savoir ce qui est en vente dans la boutique\nTape \`/${commandName} ${outfitOptionDescription}\` pour savoir quand \`${outfitOptionDescription}\` est en vente dans la boutique`;
+	},
+});
 function knuth(state: bigint): bigint {
 	return BigInt.asUintN(32, state * 2654435761n);
 }
@@ -230,7 +228,7 @@ const outfitCommand: Command = {
 		await interaction.reply(`**${Util.escapeMarkdown(name["en-US"])}** will be for sale in the shop${costConjunction} for 6 hours starting:\n${scheduleList}`);
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
-		return computeHelpLocalizations();
+		return helpLocalizations;
 	},
 };
 export default outfitCommand;

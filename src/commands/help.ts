@@ -15,16 +15,14 @@ import * as triggers from "../triggers.js";
 import {list} from "../utils/string.js";
 const commandName: string = "help";
 const commandDescription: string = "Tells you what are the features I offer";
-function computeHelpLocalizations(): Localized<() => string> {
-	return Object.assign(Object.create(null), {
-		"en-US"(): string {
-			return `Type \`/${commandName}\` to know what are the features I offer`;
-		},
-		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir quelles sont les fonctionnalités que je propose`;
-		},
-	});
-}
+const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
+	"en-US"(): string {
+		return `Type \`/${commandName}\` to know what are the features I offer`;
+	},
+	"fr"(): string {
+		return `Tape \`/${commandName}\` pour savoir quelles sont les fonctionnalités que je propose`;
+	},
+});
 const helpCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -65,7 +63,7 @@ const helpCommand: Command = {
 		await interaction.reply(`Hey ${user}, there you are!\nI can give you some advice about the server:\n${featureList}`);
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
-		return computeHelpLocalizations();
+		return helpLocalizations;
 	},
 };
 export default helpCommand;

@@ -19,16 +19,14 @@ const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-function computeHelpLocalizations(): Localized<() => string> {
-	return Object.assign(Object.create(null), {
-		"en-US"(): string {
-			return `Type \`/${commandName} ${typeOptionDescription} ${identifierOptionDescription}\` to know what is the datum of \`${typeOptionDescription}\` with \`${identifierOptionDescription}\``;
-		},
-		"fr"(): string {
-			return `Tape \`/${commandName} ${typeOptionDescription} ${identifierOptionDescription}\` pour savoir quel est la donnée d'\`${typeOptionDescription}\` avec \`${identifierOptionDescription}\``;
-		},
-	});
-}
+const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
+	"en-US"(): string {
+		return `Type \`/${commandName} ${typeOptionDescription} ${identifierOptionDescription}\` to know what is the datum of \`${typeOptionDescription}\` with \`${identifierOptionDescription}\``;
+	},
+	"fr"(): string {
+		return `Tape \`/${commandName} ${typeOptionDescription} ${identifierOptionDescription}\` pour savoir quel est la donnée d'\`${typeOptionDescription}\` avec \`${identifierOptionDescription}\``;
+	},
+});
 const rawCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -91,7 +89,7 @@ const rawCommand: Command = {
 		await interaction.reply(`\`\`\`json\n${Util.escapeMarkdown(datum)}\n\`\`\``);
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
-		return computeHelpLocalizations();
+		return helpLocalizations;
 	},
 };
 export default rawCommand;

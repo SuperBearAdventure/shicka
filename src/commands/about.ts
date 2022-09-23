@@ -7,16 +7,14 @@ import type Command from "../commands.js";
 import type {Localized} from "../utils/string.js";
 const commandName: string = "about";
 const commandDescription: string = "Tells you where I come from";
-function computeHelpLocalizations(): Localized<() => string> {
-	return Object.assign(Object.create(null), {
-		"en-US"(): string {
-			return `Type \`/${commandName}\` to know where I come from`;
-		},
-		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir d'où je viens`;
-		},
-	});
-}
+const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
+	"en-US"(): string {
+		return `Type \`/${commandName}\` to know where I come from`;
+	},
+	"fr"(): string {
+		return `Tape \`/${commandName}\` pour savoir d'où je viens`;
+	},
+});
 const aboutCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -31,7 +29,7 @@ const aboutCommand: Command = {
 		await interaction.reply("I am *Shicka*, a bot made by *PolariTOON*, and I am open source!\nMy code is available [there](<https://github.com/SuperBearAdventure/shicka>).");
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
-		return computeHelpLocalizations();
+		return helpLocalizations;
 	},
 };
 export default aboutCommand;

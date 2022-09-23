@@ -12,16 +12,14 @@ const trailers: string[] = [
 	"[*Main trailer*](<https://www.youtube.com/watch?v=L00uorYTYgE>)",
 	"[*Missions trailer*](<https://www.youtube.com/watch?v=j3vwu0JWIEg>)",
 ];
-function computeHelpLocalizations(): Localized<() => string> {
-	return Object.assign(Object.create(null), {
-		"en-US"(): string {
-			return `Type \`/${commandName}\` to know where to watch official trailers of the game`;
-		},
-		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir où regarder des bandes-annonces officielles du jeu`;
-		},
-	});
-}
+const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
+	"en-US"(): string {
+		return `Type \`/${commandName}\` to know where to watch official trailers of the game`;
+	},
+	"fr"(): string {
+		return `Tape \`/${commandName}\` pour savoir où regarder des bandes-annonces officielles du jeu`;
+	},
+});
 const trailerCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -39,7 +37,7 @@ const trailerCommand: Command = {
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
-		return computeHelpLocalizations();
+		return helpLocalizations;
 	},
 };
 export default trailerCommand;

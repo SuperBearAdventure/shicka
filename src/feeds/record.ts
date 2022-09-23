@@ -23,16 +23,14 @@ type Level = {
 	categories: {[k in string]: Category},
 };
 const games: string[] = ["9d3rrxyd", "w6jl2ned"];
-function computeHelpLocalizations(channel: GuildBasedChannel): Localized<() => string> {
-	return Object.assign(Object.create(null), {
-		"en-US"(): string {
-			return `I post the latest world records of the game in ${channel}`;
-		},
-		"fr"(): string {
-			return `Je poste les derniers records du monde du jeu dans ${channel}`;
-		},
-	});
-}
+const helpLocalizations: Localized<(channel: GuildBasedChannel) => string> = Object.assign(Object.create(null), {
+	"en-US"(channel: GuildBasedChannel): string {
+		return `I post the latest world records of the game in ${channel}`;
+	},
+	"fr"(channel: GuildBasedChannel): string {
+		return `Je poste les derniers records du monde du jeu dans ${channel}`;
+	},
+});
 const recordFeed: Feed = {
 	register(client: Client): Job {
 		return schedule.scheduleJob({
@@ -162,7 +160,14 @@ const recordFeed: Feed = {
 		if (channel == null) {
 			return Object.create(null);
 		}
-		return computeHelpLocalizations(channel);
+		return Object.assign(Object.create(null), Object.fromEntries(Object.entries(helpLocalizations).map(([key, value]: [string, ((channel: GuildBasedChannel) => string) | undefined]): [string, (() => string) | undefined] => {
+			return [
+				key,
+				value != null ? (): string => {
+					return value(channel);
+				} : value,
+			];
+		})));
 	},
 };
 export default recordFeed;

@@ -9,16 +9,14 @@ import type Trigger from "../triggers.js";
 import type {Localized} from "../utils/string.js";
 const pattern: RegExp = /\b(?:co-?op(?:erati(?:ons?|ve))?|consoles?|multi(?:-?player)?|online|pc|playstation|ps[45]|switch|xbox)\b/iu;
 const roles: Set<string> = new Set(["Administrator", "Cookie", "Game Developer", "Moderator"]);
-function computeHelpLocalizations(channel: GuildBasedChannel): Localized<() => string> {
-	return Object.assign(Object.create(null), {
-		"en-US"(): string {
-			return `I will gently reprimand you if you write words which violate the rule 7 in ${channel}`;
-		},
-		"fr"(): string {
-			return `Je te réprimanderai gentiment si tu écris des mots qui violent la règle 7 dans ${channel}`;
-		},
-	});
-}
+const helpLocalizations: Localized<(channel: GuildBasedChannel) => string> = Object.assign(Object.create(null), {
+	"en-US"(channel: GuildBasedChannel): string {
+		return `I will gently reprimand you if you write words which violate the rule 7 in ${channel}`;
+	},
+	"fr"(channel: GuildBasedChannel): string {
+		return `Je te réprimanderai gentiment si tu écris des mots qui violent la règle 7 dans ${channel}`;
+	},
+});
 const rule7Trigger: Trigger = {
 	async execute(message: Message): Promise<void> {
 		const {channel}: Message = message;
@@ -73,7 +71,14 @@ const rule7Trigger: Trigger = {
 		if (channel == null) {
 			return Object.create(null);
 		}
-		return computeHelpLocalizations(channel);
+		return Object.assign(Object.create(null), Object.fromEntries(Object.entries(helpLocalizations).map(([key, value]: [string, ((channel: GuildBasedChannel) => string) | undefined]): [string, (() => string) | undefined] => {
+			return [
+				key,
+				value != null ? (): string => {
+					return value(channel);
+				} : value,
+			];
+		})));
 	},
 };
 export default rule7Trigger;

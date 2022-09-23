@@ -13,16 +13,14 @@ const trackers: string[] = [
 	"[*Current tracker*](<https://github.com/SuperBearAdventure/tracker>)",
 	"[*Former tracker*](<https://trello.com/b/yTojOuqv/super-bear-adventure-bugs>)",
 ];
-function computeHelpLocalizations(): Localized<() => string> {
-	return Object.assign(Object.create(null), {
-		"en-US"(): string {
-			return `Type \`/${commandName}\` to know where to check known bugs of the game`;
-		},
-		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir où consulter des bogues connus du jeu`;
-		},
-	});
-}
+const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
+	"en-US"(): string {
+		return `Type \`/${commandName}\` to know where to check known bugs of the game`;
+	},
+	"fr"(): string {
+		return `Tape \`/${commandName}\` pour savoir où consulter des bogues connus du jeu`;
+	},
+});
 const trackerCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -48,7 +46,7 @@ const trackerCommand: Command = {
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
-		return computeHelpLocalizations();
+		return helpLocalizations;
 	},
 };
 export default trackerCommand;

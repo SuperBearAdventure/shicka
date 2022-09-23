@@ -41,16 +41,14 @@ const styles: {[k in string]: string} = Object.assign(Object.create(null), {
 	"none": "none",
 });
 const channels: Set<string> = new Set(["🔧│console", "🔎│logs", "🛡│moderators-room", "🍪│cookie-room"]);
-function computeHelpLocalizations(): Localized<() => string> {
-	return Object.assign(Object.create(null), {
-		"en-US"(): string {
-			return `Type \`/${grantName} ${baseArgumentDescription} ${stylesArgumentDescription}\` to create a new \`${baseArgumentDescription}\`-based emoji customized with \`${stylesArgumentDescription}\``;
-		},
-		"fr"(): string {
-			return `Tape \`/${grantName} ${baseArgumentDescription} ${stylesArgumentDescription}\` pour créer un nouvel émoji basé sur \`${baseArgumentDescription}\` personnalisé avec \`${stylesArgumentDescription}\``;
-		},
-	});
-}
+const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
+	"en-US"(): string {
+		return `Type \`/${grantName} ${baseArgumentDescription} ${stylesArgumentDescription}\` to create a new \`${baseArgumentDescription}\`-based emoji customized with \`${stylesArgumentDescription}\``;
+	},
+	"fr"(): string {
+		return `Tape \`/${grantName} ${baseArgumentDescription} ${stylesArgumentDescription}\` pour créer un nouvel émoji basé sur \`${baseArgumentDescription}\` personnalisé avec \`${stylesArgumentDescription}\``;
+	},
+});
 const emojiGrant: Grant = {
 	async execute(message: Message, parameters: string[], tokens: string[]): Promise<void> {
 		const {channel}: Message = message;
@@ -128,7 +126,7 @@ const emojiGrant: Grant = {
 		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
 			return Object.create(null);
 		}
-		return computeHelpLocalizations();
+		return helpLocalizations;
 	},
 };
 export default emojiGrant;

@@ -24,16 +24,14 @@ const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeZone: "UTC",
 });
-function computeHelpLocalizations(): Localized<() => string> {
-	return Object.assign(Object.create(null), {
-		"en-US"(): string {
-			return `Type \`/${commandName}\` to know what is the latest update of the game`;
-		},
-		"fr"(): string {
-			return `Tape \`/${commandName}\` pour savoir quelle est la dernière mise à jour du jeu`;
-		},
-	});
-}
+const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
+	"en-US"(): string {
+		return `Type \`/${commandName}\` to know what is the latest update of the game`;
+	},
+	"fr"(): string {
+		return `Tape \`/${commandName}\` pour savoir quelle est la dernière mise à jour du jeu`;
+	},
+});
 const updateCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -101,7 +99,7 @@ const updateCommand: Command = {
 		}
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
-		return computeHelpLocalizations();
+		return helpLocalizations;
 	},
 };
 export default updateCommand;

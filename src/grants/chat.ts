@@ -16,16 +16,14 @@ const {source}: RegExp = MessageMentions.CHANNELS_PATTERN;
 const messagePattern: RegExp = /^(?:0|[1-9]\d*)$/;
 const channelPattern: RegExp = new RegExp(`^(?:${source})$`, "");
 const channels: Set<string> = new Set(["🔧│console", "🔎│logs", "🛡│moderators-room"]);
-function computeHelpLocalizations(): Localized<() => string> {
-	return Object.assign(Object.create(null), {
-		"en-US"(): string {
-			return `Type \`/${grantName} ${channelArgumentDescription} ${contentArgumentDescription}\` to send \`${contentArgumentDescription}\` and some attachments in \`${channelArgumentDescription}\`\nType \`/${grantName} ${messageArgumentDescription} ${channelArgumentDescription} ${contentArgumentDescription}\` to edit \`${messageArgumentDescription}\` with \`${contentArgumentDescription}\` and some attachments in \`${channelArgumentDescription}\``;
-		},
-		"fr"(): string {
-			return `Tape \`/${grantName} ${channelArgumentDescription} ${contentArgumentDescription}\` pour envoyer \`${contentArgumentDescription}\` et des pièces jointes dans \`${channelArgumentDescription}\`\nTape \`/${grantName} ${messageArgumentDescription} ${channelArgumentDescription} ${contentArgumentDescription}\` pour modifier \`${messageArgumentDescription}\` avec \`${contentArgumentDescription}\` et des pièces jointes dans \`${channelArgumentDescription}\``;
-		},
-	});
-}
+const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
+	"en-US"(): string {
+		return `Type \`/${grantName} ${channelArgumentDescription} ${contentArgumentDescription}\` to send \`${contentArgumentDescription}\` and some attachments in \`${channelArgumentDescription}\`\nType \`/${grantName} ${messageArgumentDescription} ${channelArgumentDescription} ${contentArgumentDescription}\` to edit \`${messageArgumentDescription}\` with \`${contentArgumentDescription}\` and some attachments in \`${channelArgumentDescription}\``;
+	},
+	"fr"(): string {
+		return `Tape \`/${grantName} ${channelArgumentDescription} ${contentArgumentDescription}\` pour envoyer \`${contentArgumentDescription}\` et des pièces jointes dans \`${channelArgumentDescription}\`\nTape \`/${grantName} ${messageArgumentDescription} ${channelArgumentDescription} ${contentArgumentDescription}\` pour modifier \`${messageArgumentDescription}\` avec \`${contentArgumentDescription}\` et des pièces jointes dans \`${channelArgumentDescription}\``;
+	},
+});
 const chatGrant: Grant = {
 	async execute(message: Message, parameters: string[], tokens: string[]): Promise<void> {
 		const {channel}: Message = message;
@@ -133,7 +131,7 @@ const chatGrant: Grant = {
 		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
 			return Object.create(null);
 		}
-		return computeHelpLocalizations();
+		return helpLocalizations;
 	},
 };
 export default chatGrant;
