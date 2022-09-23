@@ -9,6 +9,7 @@
     "resolveJsonModule": true,
     "rootDir": "src",
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "target": "esnext"
   }
 }
