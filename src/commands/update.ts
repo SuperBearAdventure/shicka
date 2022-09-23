@@ -89,7 +89,9 @@ const updateCommand: Command = {
 				`*${Util.escapeMarkdown(iosVersion)}** on **iOS** (*${Util.escapeMarkdown(iosDate)}*)`,
 			];
 			const updateList: string = list(updates);
-			await interaction.reply(`The latest update of the game is:\n${updateList}`);
+			await interaction.reply({
+				content: `The latest update of the game is:\n${updateList}`,
+			});
 		} catch (error: unknown) {
 			console.warn(error);
 			const linkList: string = list(updates);

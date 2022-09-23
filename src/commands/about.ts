@@ -26,7 +26,9 @@ const aboutCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		await interaction.reply("I am *Shicka*, a bot made by *PolariTOON*, and I am open source!\nMy code is available [there](<https://github.com/SuperBearAdventure/shicka>).");
+		await interaction.reply({
+			content: "I am *Shicka*, a bot made by *PolariTOON*, and I am open source!\nMy code is available [there](<https://github.com/SuperBearAdventure/shicka>).",
+		});
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
 		return helpLocalizations;

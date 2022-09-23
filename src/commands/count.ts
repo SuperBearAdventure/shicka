@@ -33,7 +33,9 @@ const countCommand: Command = {
 			return;
 		}
 		const {memberCount, name}: Guild = guild;
-		await interaction.reply(`There are ${Util.escapeMarkdown(`${memberCount}`)} members on the official *${Util.escapeMarkdown(name)}* *Discord* server!`);
+		await interaction.reply({
+			content: `There are ${Util.escapeMarkdown(`${memberCount}`)} members on the official *${Util.escapeMarkdown(name)}* *Discord* server!`,
+		});
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
 		return helpLocalizations;

@@ -35,23 +35,31 @@ const chatGrant: Grant = {
 			return;
 		}
 		if (parameters.length < 2) {
-			await message.reply(`Please give me a message identifier or a channel tag.`);
+			await message.reply({
+				content: `Please give me a message identifier or a channel tag.`,
+			});
 			return;
 		}
 		const channelMatches: RegExpMatchArray | null = parameters[1].match(channelPattern);
 		if (channelMatches == null) {
 			const messageMatches: RegExpMatchArray | null = parameters[1].match(messagePattern);
 			if (messageMatches == null) {
-				await message.reply(`I do not know any message with this identifier or channel with this tag.`);
+				await message.reply({
+					content: `I do not know any message with this identifier or channel with this tag.`,
+				});
 				return;
 			}
 			if (parameters.length < 3) {
-				await message.reply(`Please give me a channel tag.`);
+				await message.reply({
+					content: `Please give me a channel tag.`,
+				});
 				return;
 			}
 			const channelMatches: RegExpMatchArray | null = parameters[2].match(channelPattern);
 			if (channelMatches == null) {
-				await message.reply(`I do not know any channel with this tag.`);
+				await message.reply({
+					content: `I do not know any channel with this tag.`,
+				});
 				return;
 			}
 			const targetChannel: GuildBasedChannel | null = await (async (): Promise<GuildBasedChannel | null> => {
@@ -61,7 +69,9 @@ const chatGrant: Grant = {
 				return null;
 			})();
 			if (targetChannel == null || !("messages" in targetChannel)) {
-				await message.reply(`I do not know any channel with this tag.`);
+				await message.reply({
+					content: `I do not know any channel with this tag.`,
+				});
 				return;
 			}
 			const targetMessage: Message | null = await (async (): Promise<Message | null> => {
@@ -71,15 +81,21 @@ const chatGrant: Grant = {
 				return null;
 			})();
 			if (targetMessage == null) {
-				await message.reply(`I do not know any message with this identifier in this channel.`);
+				await message.reply({
+					content: `I do not know any message with this identifier in this channel.`,
+				});
 				return;
 			}
 			if (targetMessage.interaction != null) {
-				await message.reply(`I can not edit interaction replies or follow-ups.`);
+				await message.reply({
+					content: `I can not edit interaction replies or follow-ups.`,
+				});
 				return;
 			}
 			if (parameters.length < 4 && message.attachments.size === 0) {
-				await message.reply(`Please give me a content or attachments.`);
+				await message.reply({
+					content: `Please give me a content or attachments.`,
+				});
 				return;
 			}
 			const content: string | null = parameters.length < 4 ? null : tokens.slice(7).join("");
@@ -94,7 +110,9 @@ const chatGrant: Grant = {
 			try {
 				await targetMessage.edit({content, files, attachments});
 			} catch {
-				await message.reply(`I do not have the rights to edit this message.`);
+				await message.reply({
+					content: `I do not have the rights to edit this message.`,
+				});
 			}
 			return;
 		}
@@ -105,11 +123,15 @@ const chatGrant: Grant = {
 			return null;
 		})();
 		if (targetChannel == null || !("messages" in targetChannel)) {
-			await message.reply(`I do not know any channel with this tag.`);
+			await message.reply({
+				content: `I do not know any channel with this tag.`,
+			});
 			return;
 		}
 		if (parameters.length < 3 && message.attachments.size === 0) {
-			await message.reply(`Please give me a content or attachments.`);
+			await message.reply({
+				content: `Please give me a content or attachments.`,
+			});
 			return;
 		}
 		const content: string | null = parameters.length < 3 ? null : tokens.slice(5).join("");
@@ -123,7 +145,9 @@ const chatGrant: Grant = {
 		try {
 			await targetChannel.send({content, files});
 		} catch {
-			await message.reply(`I do not have the rights to send this message.`);
+			await message.reply({
+				content: `I do not have the rights to send this message.`,
+			});
 		}
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {

@@ -94,7 +94,9 @@ const missionCommand: Command = {
 			schedules.push(`*${Util.escapeMarkdown(dayDate)}*: **${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}**`);
 		}
 		const scheduleList: string = list(schedules);
-		await interaction.reply(`Each mission starts at *${Util.escapeMarkdown(dayTime)}*:\n${scheduleList}`);
+		await interaction.reply({
+			content: `Each mission starts at *${Util.escapeMarkdown(dayTime)}*:\n${scheduleList}`,
+		});
 		return;
 		}
 		const results: Mission[] = nearest<Mission>(search.toLowerCase(), missions, 1, (mission: Mission): string => {
@@ -121,7 +123,9 @@ const missionCommand: Command = {
 		const challenge: string = challenges[mission.challenge].name["en-US"];
 		const level: string = levels[mission.level].name["en-US"];
 		const scheduleList: string = list(schedules);
-		await interaction.reply(`**${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}** will be playable for 1 day starting:\n${scheduleList}`);
+		await interaction.reply({
+			content: `**${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}** will be playable for 1 day starting:\n${scheduleList}`,
+		});
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
 		return helpLocalizations;

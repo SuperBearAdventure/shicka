@@ -53,7 +53,9 @@ const recordFeed: Feed = {
 					continue;
 				}
 				for (const record of records) {
-					const message: Message = await channel.send(record);
+					const message: Message = await channel.send({
+						content: record,
+					});
 					await message.react("🎉");
 				}
 			}

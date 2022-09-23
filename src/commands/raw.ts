@@ -86,7 +86,9 @@ const rawCommand: Command = {
 			return;
 		}
 		const datum: string = JSON.stringify(binding[identifier], null, "\t");
-		await interaction.reply(`\`\`\`json\n${Util.escapeMarkdown(datum)}\n\`\`\``);
+		await interaction.reply({
+			content: `\`\`\`json\n${Util.escapeMarkdown(datum)}\n\`\`\``,
+		});
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
 		return helpLocalizations;

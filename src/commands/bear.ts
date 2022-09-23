@@ -100,7 +100,9 @@ const bearCommand: Command = {
 		const seconds: string = `${gold % 60 | 0}`.padStart(2, "0");
 		const centiseconds: string = `${gold * 100 % 100 | 0}`.padStart(2, "0");
 		const time: string = `${minutes}:${seconds}.${centiseconds}`;
-		await interaction.reply(`**${Util.escapeMarkdown(name["en-US"])}** has been imprisoned in the **${Util.escapeMarkdown(level)}** and is wearing ${nameConjunction}.\n${goal} the cage in less than **${Util.escapeMarkdown(time)}** to beat the gold time!`);
+		await interaction.reply({
+			content: `**${Util.escapeMarkdown(name["en-US"])}** has been imprisoned in the **${Util.escapeMarkdown(level)}** and is wearing ${nameConjunction}.\n${goal} the cage in less than **${Util.escapeMarkdown(time)}** to beat the gold time!`,
+		});
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
 		return helpLocalizations;

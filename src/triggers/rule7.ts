@@ -43,13 +43,17 @@ const rule7Trigger: Trigger = {
 			return emoji.name === "RULE7";
 		});
 		if (emoji != null) {
-			await message.reply(`${emoji}`);
+			await message.reply({
+				content: `${emoji}`,
+			});
 		}
 		const rulesChannel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 			return channel.name === "❗│rules-info│❗";
 		});
 		if (rulesChannel != null) {
-			await message.reply(`Please read and respect the ${rulesChannel}!`);
+			await message.reply({
+				content: `Please read and respect the ${rulesChannel}!`,
+			});
 		}
 		await message.react("🇷");
 		await message.react("🇺");

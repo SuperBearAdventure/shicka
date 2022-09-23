@@ -60,7 +60,9 @@ const helpCommand: Command = {
 			return description().split("\n");
 		}).flat();
 		const featureList: string = list(features);
-		await interaction.reply(`Hey ${user}, there you are!\nI can give you some advice about the server:\n${featureList}`);
+		await interaction.reply({
+			content: `Hey ${user}, there you are!\nI can give you some advice about the server:\n${featureList}`,
+		});
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
 		return helpLocalizations;

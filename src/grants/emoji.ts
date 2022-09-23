@@ -65,12 +65,16 @@ const emojiGrant: Grant = {
 			const baseItem: string = `a base among ${baseConjunction}`;
 			const styleItem: string = `up to 6 styles among ${styleConjunction}`;
 			const parameterList: string = list([baseItem, styleItem]);
-			await message.channel.send(`Please give me:\n${parameterList}`);
+			await message.channel.send({
+				content: `Please give me:\n${parameterList}`,
+			});
 			return;
 		}
 		const base: string = parameters[1].toLowerCase();
 		if (!bases.has(base)) {
-			await message.channel.send(`I do not know any base with this name.`);
+			await message.channel.send({
+				content: `I do not know any base with this name.`,
+			});
 			return;
 		}
 		const wrapper: Element = new JSDOM(`<div xmlns="http://www.w3.org/1999/xhtml">${await readFile(fileURLToPath(`${root}/../emojis/${base}.svg`))}</div>`, {

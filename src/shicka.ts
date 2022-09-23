@@ -68,7 +68,9 @@ client.on("guildMemberAdd", async (member: GuildMember): Promise<void> => {
 	const greeting: string = name.replace(capture, hey[Math.random() * hey.length | 0]);
 	const counting: string = memberCount % 10 !== 0 ? "" : `\nWe are now ${Util.escapeMarkdown(`${memberCount}`)} members!`;
 	try {
-		const message: Message = await systemChannel.send(`${greeting}${counting}`);
+		const message: Message = await systemChannel.send({
+			content: `${greeting}${counting}`,
+		});
 		await message.react("🇭");
 		await message.react("🇪");
 		await message.react("🇾");
@@ -86,7 +88,9 @@ client.on("guildMemberRemove", async (member: GuildMember | PartialGuildMember):
 	const {bye}: {[k in string]: Greeting} = greetings;
 	const greeting: string = name.replace(capture, bye[Math.random() * bye.length | 0]);
 	try {
-		const message: Message = await systemChannel.send(greeting);
+		const message: Message = await systemChannel.send({
+			content: greeting,
+		});
 		await message.react("🇧");
 		await message.react("🇾");
 		await message.react("🇪");

@@ -174,7 +174,9 @@ const outfitCommand: Command = {
 			schedules.push(`*${Util.escapeMarkdown(dayDateTime)}*: ${nameConjunction}`);
 		}
 		const scheduleList: string = list(schedules);
-		await interaction.reply(`Outfits for sale in the shop change every 6 hours:\n${scheduleList}`);
+		await interaction.reply({
+			content: `Outfits for sale in the shop change every 6 hours:\n${scheduleList}`,
+		});
 		return;
 		}
 		const results: Outfit[] = nearest<Outfit>(search.toLowerCase(), outfits, 1, (outfit: Outfit): string => {
@@ -191,7 +193,9 @@ const outfitCommand: Command = {
 		const outfit: Outfit = results[0];
 		if (rarities[outfit.rarity].slots === 0) {
 			const {name}: Outfit = outfit;
-			await interaction.reply(`**${Util.escapeMarkdown(name["en-US"])}** is not for sale.`);
+			await interaction.reply({
+				content: `**${Util.escapeMarkdown(name["en-US"])}** is not for sale.`,
+			});
 			return;
 		}
 		const schedules: string[] = [];
@@ -225,7 +229,9 @@ const outfitCommand: Command = {
 		}
 		const costConjunction: string = `${costs.length !== 0 ? " for " : ""}${conjunctionFormat.format(costs)}`;
 		const scheduleList: string = list(schedules);
-		await interaction.reply(`**${Util.escapeMarkdown(name["en-US"])}** will be for sale in the shop${costConjunction} for 6 hours starting:\n${scheduleList}`);
+		await interaction.reply({
+			content: `**${Util.escapeMarkdown(name["en-US"])}** will be for sale in the shop${costConjunction} for 6 hours starting:\n${scheduleList}`,
+		});
 	},
 	describe(interaction: CommandInteraction): Localized<() => string> {
 		return helpLocalizations;
