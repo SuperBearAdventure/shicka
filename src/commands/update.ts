@@ -86,7 +86,7 @@ const updateCommand: Command = {
 			const iosDate: string = dateFormat.format(new Date(iosData.date));
 			const updates: string[] = [
 				`**${Util.escapeMarkdown(androidVersion)}** on **Android** (*${Util.escapeMarkdown(androidDate)}*)`,
-				`*${Util.escapeMarkdown(iosVersion)}** on **iOS** (*${Util.escapeMarkdown(iosDate)}*)`,
+				`**${Util.escapeMarkdown(iosVersion)}** on **iOS** (*${Util.escapeMarkdown(iosDate)}*)`,
 			];
 			const updateList: string = list(updates);
 			await interaction.reply({
