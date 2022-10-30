@@ -9,13 +9,17 @@ import type {
 } from "discord.js";
 import type {Mission} from "../bindings.js";
 import type Command from "../commands.js";
-import type {Localized} from "../utils/string.js";
+import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import {challenges, levels, missions} from "../bindings.js";
-import {compileAll, composeAll, list, localize, nearest} from "../utils/string.js";
+import {compileAll, composeAll, list, localize, nearest, resolve} from "../utils/string.js";
 type HelpGroups = {
 	commandName: () => string,
 	missionOptionDescription: () => string,
+};
+type MissionNameGroups = {
+	challengeName: () => string,
+	levelName: () => string,
 };
 const commandName: string = "mission";
 const commandDescriptionLocalizations: Localized<string> = {
@@ -47,6 +51,10 @@ const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<
 	"en-US": "Type `/$<commandName>` to know what is playable in the shop\nType `/$<commandName> $<missionOptionDescription>` to know when `$<missionOptionDescription>` is playable in the shop",
 	"fr": "Tape `/$<commandName>` pour savoir ce qui est jouable dans la boutique\nTape `/$<commandName> $<missionOptionDescription>` pour savoir quand `$<missionOptionDescription>` est jouable dans la boutique",
 });
+const missionNameLocalizations: Localized<((groups: MissionNameGroups) => string)> = compileAll<MissionNameGroups>({
+	"en-US": "$<challengeName> in $<levelName>",
+	"fr": "$<challengeName> dans $<levelName>",
+});
 const missionCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -68,21 +76,36 @@ const missionCommand: Command = {
 	},
 	async execute(interaction: Interaction): Promise<void> {
 		if (interaction.isAutocomplete()) {
-			const {options}: AutocompleteInteraction = interaction;
+			const {locale, options}: AutocompleteInteraction = interaction;
+			const resolvedLocale: Locale = resolve(locale);
 			const {name, value}: AutocompleteFocusedOption = options.getFocused(true);
 			if (name !== missionOptionName) {
 				await interaction.respond([]);
 				return;
 			}
 			const results: Mission[] = nearest<Mission>(value.toLowerCase(), missions, 7, (mission: Mission): string => {
-				const name: string = `${challenges[mission.challenge].name["en-US"]} in ${levels[mission.level].name["en-US"]}`;
-				return name.toLowerCase();
+				const missionName: string = missionNameLocalizations[resolvedLocale]({
+					challengeName: (): string => {
+						return challenges[mission.challenge].name[resolvedLocale];
+					},
+					levelName: (): string => {
+						return levels[mission.level].name[resolvedLocale];
+					},
+				});
+				return missionName.toLowerCase();
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData>((mission: Mission): ApplicationCommandOptionChoiceData => {
 				const {id}: Mission = mission;
-				const name: string = `${challenges[mission.challenge].name["en-US"]} in ${levels[mission.level].name["en-US"]}`;
+				const missionName: string = missionNameLocalizations[resolvedLocale]({
+					challengeName: (): string => {
+						return challenges[mission.challenge].name[resolvedLocale];
+					},
+					levelName: (): string => {
+						return levels[mission.level].name[resolvedLocale];
+					},
+				});
 				return {
-					name: name,
+					name: missionName,
 					value: id,
 				};
 			});

@@ -39,7 +39,7 @@ const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-const bases: Set<string> = new Set(["baaren", "shicka", "baaren-outlined", "shicka-outlined", "baaren-discord", "shicka-discord"]);
+const bases: Set<string> = new Set<string>(["baaren", "shicka", "baaren-outlined", "shicka-outlined", "baaren-discord", "shicka-discord"]);
 const styles: {[k in string]: string} = Object.assign(Object.create(null), {
 	"dark-gold": "url(\"#dark-gold\")",
 	"light-gold": "url(\"#light-gold\")",
@@ -53,7 +53,7 @@ const styles: {[k in string]: string} = Object.assign(Object.create(null), {
 	"white": "#fff",
 	"none": "none",
 });
-const channels: Set<string> = new Set(["🔧│console", "🔎│logs", "🛡│moderators-room", "🍪│cookie-room"]);
+const channels: Set<string> = new Set<string>(["🔧│console", "🔎│logs", "🛡│moderators-room", "🍪│cookie-room"]);
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<grantName> $<baseArgumentDescription> $<stylesArgumentDescription>` to create a new `$<baseArgumentDescription>`-based emoji customized with `$<stylesArgumentDescription>`",
 	"fr": "Tape `/$<grantName> $<baseArgumentDescription> $<stylesArgumentDescription>` pour créer un nouvel émoji basé sur `$<baseArgumentDescription>` personnalisé avec `$<stylesArgumentDescription>`",

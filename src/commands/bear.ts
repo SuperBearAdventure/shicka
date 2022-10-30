@@ -9,10 +9,10 @@ import type {
 } from "discord.js";
 import type {Bear, Outfit} from "../bindings.js";
 import type Command from "../commands.js";
-import type {Localized} from "../utils/string.js";
+import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import {bears, levels, outfits} from "../bindings.js";
-import {compileAll, composeAll, localize, nearest} from "../utils/string.js";
+import {compileAll, composeAll, localize, nearest, resolve} from "../utils/string.js";
 type HelpGroups = {
 	commandName: () => string,
 	bearOptionDescription: () => string,
@@ -59,7 +59,8 @@ const bearCommand: Command = {
 	},
 	async execute(interaction: Interaction): Promise<void> {
 		if (interaction.isAutocomplete()) {
-			const {options}: AutocompleteInteraction = interaction;
+			const {locale, options}: AutocompleteInteraction = interaction;
+			const resolvedLocale: Locale = resolve(locale);
 			const {name, value}: AutocompleteFocusedOption = options.getFocused(true);
 			if (name !== bearOptionName) {
 				await interaction.respond([]);
@@ -67,12 +68,14 @@ const bearCommand: Command = {
 			}
 			const results: Bear[] = nearest<Bear>(value.toLowerCase(), bears, 7, (bear: Bear): string => {
 				const {name}: Bear = bear;
-				return name["en-US"].toLowerCase();
+				const bearName: string = name[resolvedLocale];
+				return bearName.toLowerCase();
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData>((bear: Bear): ApplicationCommandOptionChoiceData => {
 				const {id, name}: Bear = bear;
+				const bearName: string = name[resolvedLocale];
 				return {
-					name: name["en-US"],
+					name: bearName,
 					value: id,
 				};
 			});

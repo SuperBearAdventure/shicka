@@ -9,11 +9,11 @@ import type {
 } from "discord.js";
 import type {Outfit, Rarity} from "../bindings.js";
 import type Command from "../commands.js";
-import type {Localized} from "../utils/string.js";
+import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import {outfits, rarities} from "../bindings.js";
 import {outfitsByRarity} from "../indices.js";
-import {compileAll, composeAll, list, localize, nearest} from "../utils/string.js";
+import {compileAll, composeAll, list, localize, nearest, resolve} from "../utils/string.js";
 type HelpGroups = {
 	commandName: () => string,
 	outfitOptionDescription: () => string,
@@ -67,7 +67,7 @@ function shuffle<Type>(generator: Iterator<bigint>, outfits: Type[]): void {
 function sliceOutfits(generator: Iterator<bigint>, outfits: Outfit[], outfitsPerSlice: number, slicesPerRarity: number): Outfit[][] {
 	outfits = outfits.slice();
 	const slices: Outfit[][] = [];
-	const stash: Set<Outfit> = new Set();
+	const stash: Set<Outfit> = new Set<Outfit>();
 	const outfitsPerShuffle: number = outfits.length;
 	const slicesPerShuffle: number = Math.floor(outfitsPerShuffle / outfitsPerSlice);
 	const remainingOutfitsCount: number = outfitsPerShuffle % outfitsPerSlice;
@@ -125,7 +125,8 @@ const outfitCommand: Command = {
 	},
 	async execute(interaction: Interaction): Promise<void> {
 		if (interaction.isAutocomplete()) {
-			const {options}: AutocompleteInteraction = interaction;
+			const {locale, options}: AutocompleteInteraction = interaction;
+			const resolvedLocale: Locale = resolve(locale);
 			const {name, value}: AutocompleteFocusedOption = options.getFocused(true);
 			if (name !== outfitOptionName) {
 				await interaction.respond([]);
@@ -133,12 +134,14 @@ const outfitCommand: Command = {
 			}
 			const results: Outfit[] = nearest<Outfit>(value.toLowerCase(), outfits, 7, (outfit: Outfit): string => {
 				const {name}: Outfit = outfit;
-				return name["en-US"].toLowerCase();
+				const outfitName: string = name[resolvedLocale];
+				return outfitName.toLowerCase();
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData>((outfit: Outfit): ApplicationCommandOptionChoiceData => {
 				const {id, name}: Outfit = outfit;
+				const outfitName: string = name[resolvedLocale];
 				return {
-					name: name["en-US"],
+					name: outfitName,
 					value: id,
 				};
 			});
