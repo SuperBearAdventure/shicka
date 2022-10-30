@@ -11,7 +11,11 @@ type HelpGroups = {
 	commandName: () => string,
 };
 const commandName: string = "tracker";
-const commandDescription: string = "Tells you where to check known bugs of the game";
+const commandDescriptionLocalizations: Localized<string> = {
+	"en-US": "Tells you where to check known bugs of the game",
+	"fr": "Te dit où consulter des bogues connus du jeu",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const trackers: string[] = [
 	"[*Current tracker*](<https://github.com/SuperBearAdventure/tracker>)",
 	"[*Former tracker*](<https://trello.com/b/yTojOuqv/super-bear-adventure-bugs>)",
@@ -25,6 +29,7 @@ const trackerCommand: Command = {
 		return {
 			name: commandName,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

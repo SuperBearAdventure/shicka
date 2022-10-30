@@ -16,9 +16,21 @@ type HelpGroups = {
 	messageArgumentDescription: () => string,
 };
 const grantName: string = "chat";
-const messageArgumentDescription: string = "Some message";
-const channelArgumentDescription: string = "Some channel";
-const contentArgumentDescription: string = "Some content";
+const messageArgumentDescriptionLocalizations: Localized<string> = {
+	"en-US": "Some message",
+	"fr": "Un message",
+};
+const messageArgumentDescription: string = messageArgumentDescriptionLocalizations["en-US"];
+const channelArgumentDescriptionLocalizations: Localized<string> = {
+	"en-US": "Some channel",
+	"fr": "Un salon",
+};
+const channelArgumentDescription: string = channelArgumentDescriptionLocalizations["en-US"];
+const contentArgumentDescriptionLocalizations: Localized<string> = {
+	"en-US": "Some content",
+	"fr": "Un contenu",
+};
+const contentArgumentDescription: string = contentArgumentDescriptionLocalizations["en-US"];
 const {source}: RegExp = MessageMentions.CHANNELS_PATTERN;
 const messagePattern: RegExp = /^(?:0|[1-9]\d*)$/;
 const channelPattern: RegExp = new RegExp(`^(?:${source})$`, "");
@@ -158,19 +170,19 @@ const chatGrant: Grant = {
 		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
 			return null;
 		}
-		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: keyof Localized<unknown>): HelpGroups => {
 			return {
 				grantName: (): string => {
 					return grantName;
 				},
 				channelArgumentDescription: (): string => {
-					return channelArgumentDescription;
+					return channelArgumentDescriptionLocalizations[locale];
 				},
 				contentArgumentDescription: (): string => {
-					return contentArgumentDescription;
+					return contentArgumentDescriptionLocalizations[locale];
 				},
 				messageArgumentDescription: (): string => {
-					return messageArgumentDescription;
+					return messageArgumentDescriptionLocalizations[locale];
 				},
 			};
 		}));

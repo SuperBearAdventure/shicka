@@ -22,9 +22,17 @@ const {
 	SHICKA_SALT: salt = "",
 }: NodeJS.ProcessEnv = process.env;
 const commandName: string = "outfit";
-const commandDescription: string = "Tells you what is for sale in the shop or when it is for sale";
+const commandDescriptionLocalizations: Localized<string> = {
+	"en-US": "Tells you what is for sale in the shop or when it is for sale",
+	"fr": "Te dit ce qui est en vente dans la boutique ou quand c'est en vente",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const outfitOptionName: string = "outfit";
-const outfitOptionDescription: string = "Some outfit";
+const outfitOptionDescriptionLocalizations: Localized<string> = {
+	"en-US": "Some outfit",
+	"fr": "Un costume",
+};
+const outfitOptionDescription: string = outfitOptionDescriptionLocalizations["en-US"];
 const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeStyle: "short",
@@ -101,11 +109,13 @@ const outfitCommand: Command = {
 		return {
 			name: commandName,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 			options: [
 				((): ApplicationCommandOptionData & {minValue: number, maxValue: number} => ({
 					type: "INTEGER",
 					name: outfitOptionName,
 					description: outfitOptionDescription,
+					descriptionLocalizations: outfitOptionDescriptionLocalizations,
 					minValue: 0,
 					maxValue: outfits.length - 1,
 					autocomplete: true,
@@ -226,13 +236,13 @@ const outfitCommand: Command = {
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
-		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: keyof Localized<unknown>): HelpGroups => {
 			return {
 				commandName: (): string => {
 					return commandName;
 				},
 				outfitOptionDescription: (): string => {
-					return outfitOptionDescription;
+					return outfitOptionDescriptionLocalizations[locale];
 				},
 			};
 		}));

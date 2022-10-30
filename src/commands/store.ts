@@ -10,7 +10,11 @@ type HelpGroups = {
 	commandName: () => string,
 };
 const commandName: string = "store";
-const commandDescription: string = "Tells you where to buy offical products of the game";
+const commandDescriptionLocalizations: Localized<string> = {
+	"en-US": "Tells you where to buy offical products of the game",
+	"fr": "Te dit où acheter des produits officiels du jeu",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const stores: string[] = [
 	"[*European store*](<https://superbearadventure.myspreadshop.net/>)",
 	"[*American and Oceanian store*](<https://superbearadventure.myspreadshop.com/>)",
@@ -24,6 +28,7 @@ const storeCommand: Command = {
 		return {
 			name: commandName,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {
