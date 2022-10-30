@@ -6,20 +6,19 @@ import type {
 } from "discord.js";
 import type Command from "../commands.js";
 import type {Localized} from "../utils/string.js";
-import {list} from "../utils/string.js";
+import {compileAll, composeAll, list, localize} from "../utils/string.js";
+type HelpGroups = {
+	commandName: () => string,
+};
 const commandName: string = "tracker";
 const commandDescription: string = "Tells you where to check known bugs of the game";
 const trackers: string[] = [
 	"[*Current tracker*](<https://github.com/SuperBearAdventure/tracker>)",
 	"[*Former tracker*](<https://trello.com/b/yTojOuqv/super-bear-adventure-bugs>)",
 ];
-const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
-	"en-US"(): string {
-		return `Type \`/${commandName}\` to know where to check known bugs of the game`;
-	},
-	"fr"(): string {
-		return `Tape \`/${commandName}\` pour savoir où consulter des bogues connus du jeu`;
-	},
+const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
+	"en-US": "Type `/$<commandName>` to know where to check known bugs of the game",
+	"fr": "Tape `/$<commandName>` pour savoir où consulter des bogues connus du jeu",
 });
 const trackerCommand: Command = {
 	register(): ApplicationCommandData {
@@ -45,8 +44,14 @@ const trackerCommand: Command = {
 			content: `${intent} check the known bugs of the game there:\n${linkList}`,
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<() => string> {
-		return helpLocalizations;
+	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+			return {
+				commandName: (): string => {
+					return commandName;
+				},
+			};
+		}));
 	},
 };
 export default trackerCommand;

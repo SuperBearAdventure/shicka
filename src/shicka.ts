@@ -42,7 +42,7 @@ const client: Client = new Client({
 	},
 });
 client.once("ready", async (client: Client): Promise<void> => {
-	const menu: ApplicationCommandData[] = Object.keys(commands).map((commandName: string): ApplicationCommandData => {
+	const menu: ApplicationCommandData[] = Object.keys(commands).map<ApplicationCommandData>((commandName: string): ApplicationCommandData => {
 		const command: Command = commands[commandName as keyof typeof commands] as Command;
 		return command.register();
 	});

@@ -7,15 +7,15 @@ import type {
 import type Command from "../commands.js";
 import type {Localized} from "../utils/string.js";
 import {Util} from "discord.js";
+import {compileAll, composeAll, localize} from "../utils/string.js";
+type HelpGroups = {
+	commandName: () => string,
+};
 const commandName: string = "count";
 const commandDescription: string = "Tells you what is the number of members on the server";
-const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
-	"en-US"(): string {
-		return `Type \`/${commandName}\` to know what is the number of members on the server`;
-	},
-	"fr"(): string {
-		return `Tape \`/${commandName}\` pour savoir quel est le nombre de membres sur le serveur`;
-	},
+const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll({
+	"en-US": "Type `/$<commandName>` to know what is the number of members on the server",
+	"fr": "Tape `/$<commandName>` pour savoir quel est le nombre de membres sur le serveur",
 });
 const countCommand: Command = {
 	register(): ApplicationCommandData {
@@ -37,8 +37,14 @@ const countCommand: Command = {
 			content: `There are ${Util.escapeMarkdown(`${memberCount}`)} members on the official *${Util.escapeMarkdown(name)}* *Discord* server!`,
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<() => string> {
-		return helpLocalizations;
+	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+			return {
+				commandName: (): string => {
+					return commandName;
+				},
+			};
+		}));
 	},
 };
 export default countCommand;

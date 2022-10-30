@@ -13,7 +13,11 @@ import type {Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import {outfits, rarities} from "../bindings.js";
 import {outfitsByRarity} from "../indices.js";
-import {list, nearest} from "../utils/string.js";
+import {compileAll, composeAll, list, localize, nearest} from "../utils/string.js";
+type HelpGroups = {
+	commandName: () => string,
+	outfitOptionDescription: () => string,
+};
 const {
 	SHICKA_SALT: salt = "",
 }: NodeJS.ProcessEnv = process.env;
@@ -30,13 +34,9 @@ const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
-	"en-US"(): string {
-		return `Type \`/${commandName}\` to know what is for sale in the shop\nType \`/${commandName} ${outfitOptionDescription}\` to know when \`${outfitOptionDescription}\` is for sale in the shop`;
-	},
-	"fr"(): string {
-		return `Tape \`/${commandName}\` pour savoir ce qui est en vente dans la boutique\nTape \`/${commandName} ${outfitOptionDescription}\` pour savoir quand \`${outfitOptionDescription}\` est en vente dans la boutique`;
-	},
+const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
+	"en-US": "Type `/$<commandName>` to know what is for sale in the shop\nType `/$<commandName> $<outfitOptionDescription>` to know when `$<outfitOptionDescription>` is for sale in the shop",
+	"fr": "Tape `/$<commandName>` pour savoir ce qui est en vente dans la boutique\nTape `/$<commandName> $<outfitOptionDescription>` pour savoir quand `$<outfitOptionDescription>` est en vente dans la boutique",
 });
 function knuth(state: bigint): bigint {
 	return BigInt.asUintN(32, state * 2654435761n);
@@ -125,7 +125,7 @@ const outfitCommand: Command = {
 				const {name}: Outfit = outfit;
 				return name["en-US"].toLowerCase();
 			});
-			const suggestions: ApplicationCommandOptionChoiceData[] = results.map((outfit: Outfit): ApplicationCommandOptionChoiceData => {
+			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData>((outfit: Outfit): ApplicationCommandOptionChoiceData => {
 				const {id, name}: Outfit = outfit;
 				return {
 					name: name["en-US"],
@@ -140,7 +140,7 @@ const outfitCommand: Command = {
 		}
 		const {options}: CommandInteraction = interaction;
 		const slicesByRarityBySeed: {[k in string]: Outfit[][][]} = Object.create(null);
-		const slicesPerRarity: number = Math.ceil(Math.max(...rarities.map((rarity: Rarity): number => {
+		const slicesPerRarity: number = Math.ceil(Math.max(...rarities.map<number>((rarity: Rarity): number => {
 			if (rarity.slots === 0) {
 				return 0;
 			}
@@ -155,7 +155,7 @@ const outfitCommand: Command = {
 			const seed: number = Math.floor(day / slicesPerRarity);
 			const slicesByRarity: Outfit[][][] = slicesByRarityBySeed[seed] ??= ((): Outfit[][][] => {
 				const generator: Iterator<bigint> = xorShift32(knuth(BigInt(seed) + BigInt(salt)) || BigInt(salt));
-				return rarities.map((rarity: Rarity): Outfit[][] => {
+				return rarities.map<Outfit[][]>((rarity: Rarity): Outfit[][] => {
 					if (rarity.slots === 0) {
 						const length: number = slicesPerRarity;
 						return Array.from({length}, (): Outfit[] => {
@@ -166,9 +166,9 @@ const outfitCommand: Command = {
 				});
 			})();
 			const index: number = day - seed * slicesPerRarity;
-			const names: string[] = slicesByRarity.map((slices: Outfit[][]): Outfit[] => {
+			const names: string[] = slicesByRarity.map<Outfit[]>((slices: Outfit[][]): Outfit[] => {
 				return slices[index];
-			}).flat().map((outfit: Outfit): string => {
+			}).flat<Outfit[][]>().map<string>((outfit: Outfit): string => {
 				const {name}: Outfit = outfit;
 				return `**${Util.escapeMarkdown(name["en-US"])}**`;
 			});
@@ -196,7 +196,7 @@ const outfitCommand: Command = {
 			const seed: number = Math.floor(day / slicesPerRarity);
 			const slicesByRarity: Outfit[][][] = slicesByRarityBySeed[seed] ??= ((): Outfit[][][] => {
 				const generator: Iterator<bigint> = xorShift32(knuth(BigInt(seed) + BigInt(salt)) || BigInt(salt));
-				return rarities.map((rarity: Rarity): Outfit[][] => {
+				return rarities.map<Outfit[][]>((rarity: Rarity): Outfit[][] => {
 					if (rarity.slots === 0) {
 						return [];
 					}
@@ -225,8 +225,17 @@ const outfitCommand: Command = {
 			content: `**${Util.escapeMarkdown(name["en-US"])}** will be for sale in the shop${costConjunction} for 6 hours starting:\n${scheduleList}`,
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<() => string> {
-		return helpLocalizations;
+	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+			return {
+				commandName: (): string => {
+					return commandName;
+				},
+				outfitOptionDescription: (): string => {
+					return outfitOptionDescription;
+				},
+			};
+		}));
 	},
 };
 export default outfitCommand;

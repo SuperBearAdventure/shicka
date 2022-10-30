@@ -15,7 +15,12 @@ import canvas from "canvas";
 import {Util} from "discord.js";
 import {JSDOM} from "jsdom";
 import serialize from "w3c-xmlserializer";
-import {list} from "../utils/string.js";
+import {compileAll, composeAll, list, localize} from "../utils/string.js";
+type HelpGroups = {
+	grantName: () => string,
+	baseArgumentDescription: () => string,
+	stylesArgumentDescription: () => string,
+};
 const {createCanvas, loadImage}: any = canvas;
 const here: string = import.meta.url;
 const root: string = here.slice(0, here.lastIndexOf("/"));
@@ -41,13 +46,9 @@ const styles: {[k in string]: string} = Object.assign(Object.create(null), {
 	"none": "none",
 });
 const channels: Set<string> = new Set(["🔧│console", "🔎│logs", "🛡│moderators-room", "🍪│cookie-room"]);
-const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
-	"en-US"(): string {
-		return `Type \`/${grantName} ${baseArgumentDescription} ${stylesArgumentDescription}\` to create a new \`${baseArgumentDescription}\`-based emoji customized with \`${stylesArgumentDescription}\``;
-	},
-	"fr"(): string {
-		return `Tape \`/${grantName} ${baseArgumentDescription} ${stylesArgumentDescription}\` pour créer un nouvel émoji basé sur \`${baseArgumentDescription}\` personnalisé avec \`${stylesArgumentDescription}\``;
-	},
+const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
+	"en-US": "Type `/$<grantName> $<baseArgumentDescription> $<stylesArgumentDescription>` to create a new `$<baseArgumentDescription>`-based emoji customized with `$<stylesArgumentDescription>`",
+	"fr": "Tape `/$<grantName> $<baseArgumentDescription> $<stylesArgumentDescription>` pour créer un nouvel émoji basé sur `$<baseArgumentDescription>` personnalisé avec `$<stylesArgumentDescription>`",
 });
 const emojiGrant: Grant = {
 	async execute(message: Message, parameters: string[], tokens: string[]): Promise<void> {
@@ -56,10 +57,10 @@ const emojiGrant: Grant = {
 			return;
 		}
 		if (parameters.length < 2) {
-			const baseConjunction: string = conjunctionFormat.format(Array.from(bases.keys()).map((base: string): string => {
+			const baseConjunction: string = conjunctionFormat.format(Array.from(bases.keys()).map<string>((base: string): string => {
 				return `\`${Util.escapeMarkdown(base)}\``;
 			}));
-			const styleConjunction: string = conjunctionFormat.format(Object.keys(styles).concat("auto").map((style: string): string => {
+			const styleConjunction: string = conjunctionFormat.format(Object.keys(styles).concat("auto").map<string>((style: string): string => {
 				return `\`${Util.escapeMarkdown(style)}\``;
 			}));
 			const baseItem: string = `a base among ${baseConjunction}`;
@@ -84,7 +85,7 @@ const emojiGrant: Grant = {
 		if (svg == null) {
 			throw new Error();
 		}
-		const groups: SVGElement[][] = [".background", ".foreground", ".marker"].map((selector: string): SVGElement[] => {
+		const groups: SVGElement[][] = [".background", ".foreground", ".marker"].map<SVGElement[]>((selector: string): SVGElement[] => {
 			return [...svg.querySelectorAll<SVGElement>(selector)];
 		});
 		let index: number = 2;
@@ -125,12 +126,24 @@ const emojiGrant: Grant = {
 			],
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<() => string> {
+	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
 		const {channel}: CommandInteraction = interaction;
 		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
-			return Object.create(null);
+			return null;
 		}
-		return helpLocalizations;
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+			return {
+				grantName: (): string => {
+					return grantName;
+				},
+				baseArgumentDescription: (): string => {
+					return baseArgumentDescription;
+				},
+				stylesArgumentDescription: (): string => {
+					return stylesArgumentDescription;
+				},
+			};
+		}));
 	},
 };
 export default emojiGrant;

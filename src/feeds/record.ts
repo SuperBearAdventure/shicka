@@ -11,6 +11,10 @@ import type {Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import fetch from "node-fetch";
 import schedule from "node-schedule";
+import {compileAll, composeAll, localize} from "../utils/string.js";
+type HelpGroups = {
+	channel: () => string,
+};
 type Leaderboard = {
 	leaderboardName: string,
 };
@@ -27,13 +31,9 @@ const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-const helpLocalizations: Localized<(channel: GuildBasedChannel) => string> = Object.assign(Object.create(null), {
-	"en-US"(channel: GuildBasedChannel): string {
-		return `I post the latest world records of the game in ${channel}`;
-	},
-	"fr"(channel: GuildBasedChannel): string {
-		return `Je poste les derniers records du monde du jeu dans ${channel}`;
-	},
+const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
+	"en-US": "I post the latest world records of the game in $<channel>",
+	"fr": "Je poste les derniers records du monde du jeu dans $<channel>",
 });
 const recordFeed: Feed = {
 	register(client: Client): Job {
@@ -167,25 +167,24 @@ const recordFeed: Feed = {
 		}
 		return records;
 	},
-	describe(interaction: CommandInteraction): Localized<() => string> {
+	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
 		const {guild}: CommandInteraction = interaction;
 		if (guild == null) {
-			return Object.create(null);
+			return null;
 		}
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 			return channel.name === "🏅│records";
 		});
 		if (channel == null) {
-			return Object.create(null);
+			return null;
 		}
-		return Object.assign(Object.create(null), Object.fromEntries(Object.entries(helpLocalizations).map(([key, value]: [string, ((channel: GuildBasedChannel) => string) | undefined]): [string, (() => string) | undefined] => {
-			return [
-				key,
-				value != null ? (): string => {
-					return value(channel);
-				} : value,
-			];
-		})));
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+			return {
+				channel: (): string => {
+					return `${channel}`;
+				},
+			};
+		}));
 	},
 };
 export default recordFeed;

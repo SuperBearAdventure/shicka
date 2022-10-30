@@ -9,7 +9,10 @@ import type {Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import {JSDOM} from "jsdom";
 import fetch from "node-fetch";
-import {list} from "../utils/string.js";
+import {compileAll, composeAll, list, localize} from "../utils/string.js";
+type HelpGroups = {
+	commandName: () => string,
+};
 type Data = {
 	version: string,
 	date: number,
@@ -24,13 +27,9 @@ const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeZone: "UTC",
 });
-const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
-	"en-US"(): string {
-		return `Type \`/${commandName}\` to know what is the latest update of the game`;
-	},
-	"fr"(): string {
-		return `Tape \`/${commandName}\` pour savoir quelle est la dernière mise à jour du jeu`;
-	},
+const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
+	"en-US": "Type `/$<commandName>` to know what is the latest update of the game",
+	"fr": "Tape `/$<commandName>` pour savoir quelle est la dernière mise à jour du jeu",
 });
 const updateCommand: Command = {
 	register(): ApplicationCommandData {
@@ -100,8 +99,14 @@ const updateCommand: Command = {
 			});
 		}
 	},
-	describe(interaction: CommandInteraction): Localized<() => string> {
-		return helpLocalizations;
+	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+			return {
+				commandName: (): string => {
+					return commandName;
+				},
+			};
+		}));
 	},
 };
 export default updateCommand;

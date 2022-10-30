@@ -7,15 +7,15 @@ import type {
 } from "discord.js";
 import type Trigger from "../triggers.js";
 import type {Localized} from "../utils/string.js";
+import {compileAll, composeAll, localize} from "../utils/string.js";
+type HelpGroups = {
+	channel: () => string,
+};
 const pattern: RegExp = /\b(?:co-?op(?:erati(?:ons?|ve))?|consoles?|multi(?:-?player)?|online|pc|playstation|ps[45]|switch|xbox)\b/iu;
 const roles: Set<string> = new Set(["Administrator", "Cookie", "Game Developer", "Moderator"]);
-const helpLocalizations: Localized<(channel: GuildBasedChannel) => string> = Object.assign(Object.create(null), {
-	"en-US"(channel: GuildBasedChannel): string {
-		return `I will gently reprimand you if you write words which violate the rule 7 in ${channel}`;
-	},
-	"fr"(channel: GuildBasedChannel): string {
-		return `Je te réprimanderai gentiment si tu écris des mots qui violent la règle 7 dans ${channel}`;
-	},
+const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
+	"en-US": "I will gently reprimand you if you write words which violate the rule 7 in $<channel>",
+	"fr": "Je te réprimanderai gentiment si tu écris des mots qui violent la règle 7 dans $<channel>",
 });
 const rule7Trigger: Trigger = {
 	async execute(message: Message): Promise<void> {
@@ -64,25 +64,24 @@ const rule7Trigger: Trigger = {
 			await message.react(emoji);
 		}
 	},
-	describe(interaction: CommandInteraction): Localized<() => string> {
+	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
 		const {guild}: CommandInteraction = interaction;
 		if (guild == null) {
-			return Object.create(null);
+			return null;
 		}
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 			return channel.name === "💡│game-suggestions";
 		});
 		if (channel == null) {
-			return Object.create(null);
+			return null;
 		}
-		return Object.assign(Object.create(null), Object.fromEntries(Object.entries(helpLocalizations).map(([key, value]: [string, ((channel: GuildBasedChannel) => string) | undefined]): [string, (() => string) | undefined] => {
-			return [
-				key,
-				value != null ? (): string => {
-					return value(channel);
-				} : value,
-			];
-		})));
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+			return {
+				channel: (): string => {
+					return `${channel}`;
+				},
+			};
+		}));
 	},
 };
 export default rule7Trigger;
