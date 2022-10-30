@@ -18,7 +18,11 @@ type Data = {
 	date: number,
 };
 const commandName: string = "update";
-const commandDescription: string = "Tells you what is the latest update of the game";
+const commandDescriptionLocalizations: Localized<string> = {
+	"en-US": "Tells you what is the latest update of the game",
+	"fr": "Te dit quelle est la dernière mise à jour du jeu",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const updates: string[] = [
 	"[*Android*](<https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer>)",
 	"[*iOS*](<https://apps.apple.com/app/id1531842415>)",
@@ -36,6 +40,7 @@ const updateCommand: Command = {
 		return {
 			name: commandName,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

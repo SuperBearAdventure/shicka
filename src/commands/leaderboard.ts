@@ -10,7 +10,11 @@ type HelpGroups = {
 	commandName: () => string,
 };
 const commandName: string = "leaderboard";
-const commandDescription: string = "Tells you where to watch community speedruns of the game";
+const commandDescriptionLocalizations: Localized<string> = {
+	"en-US": "Tells you where to watch community speedruns of the game",
+	"fr": "Te dit où regarder des speedruns communautaires du jeu",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const leaderboards: string[] = [
 	"[*Full-game leaderboard*](<https://www.speedrun.com/sba>)",
 	"[*Turtle Village leaderboard*](<https://www.speedrun.com/sba/Turtle_Village>)",
@@ -30,6 +34,7 @@ const leaderboardCommand: Command = {
 		return {
 			name: commandName,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

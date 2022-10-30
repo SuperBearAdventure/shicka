@@ -12,7 +12,11 @@ type HelpGroups = {
 	commandName: () => string,
 };
 const commandName: string = "count";
-const commandDescription: string = "Tells you what is the number of members on the server";
+const commandDescriptionLocalizations: Localized<string> = {
+	"en-US": "Tells you what is the number of members on the server",
+	"fr": "Te dit quel est le nombre de membres sur le serveur",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll({
 	"en-US": "Type `/$<commandName>` to know what is the number of members on the server",
 	"fr": "Tape `/$<commandName>` pour savoir quel est le nombre de membres sur le serveur",
@@ -22,6 +26,7 @@ const countCommand: Command = {
 		return {
 			name: commandName,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

@@ -16,11 +16,23 @@ type HelpGroups = {
 	identifierOptionDescription: () => string,
 };
 const commandName: string = "raw";
-const commandDescription: string = "Tells you what is the datum of this type with this identifier";
+const commandDescriptionLocalizations: Localized<string> = {
+	"en-US": "Tells you what is the datum of this type with this identifier",
+	"fr": "Te dit quelle est la donnée de ce type avec cet identifiant",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const typeOptionName: string = "type";
-const typeOptionDescription: string = "Some type";
+const typeOptionDescriptionLocalizations: Localized<string> = {
+	"en-US": "Some type",
+	"fr": "Un type",
+};
+const typeOptionDescription: string = typeOptionDescriptionLocalizations["en-US"];
 const identifierOptionName: string = "identifier";
-const identifierOptionDescription: string = "Some identifier";
+const identifierOptionDescriptionLocalizations: Localized<string> = {
+	"en-US": "Some identifier",
+	"fr": "Un identifiant",
+};
+const identifierOptionDescription: string = identifierOptionDescriptionLocalizations["en-US"];
 const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
@@ -34,11 +46,13 @@ const rawCommand: Command = {
 		return {
 			name: commandName,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 			options: [
 				{
 					type: "STRING",
 					name: typeOptionName,
 					description: typeOptionDescription,
+					descriptionLocalizations: typeOptionDescriptionLocalizations,
 					required: true,
 					choices: Object.keys(bindings).map<[string, Binding]>((bindingName: string): [string, Binding] => {
 						const binding: Binding = bindings[bindingName as keyof typeof bindings] as Binding;
@@ -56,6 +70,7 @@ const rawCommand: Command = {
 					type: "INTEGER",
 					name: identifierOptionName,
 					description: identifierOptionDescription,
+					descriptionLocalizations: identifierOptionDescriptionLocalizations,
 					required: true,
 					minValue: 0,
 				},
@@ -93,16 +108,16 @@ const rawCommand: Command = {
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
-		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: keyof Localized<unknown>): HelpGroups => {
 			return {
 				commandName: (): string => {
 					return commandName;
 				},
 				typeOptionDescription: (): string => {
-					return typeOptionDescription;
+					return typeOptionDescriptionLocalizations[locale];
 				},
 				identifierOptionDescription: (): string => {
-					return identifierOptionDescription;
+					return identifierOptionDescriptionLocalizations[locale];
 				},
 			};
 		}));

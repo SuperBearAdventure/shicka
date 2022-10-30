@@ -18,9 +18,17 @@ type HelpGroups = {
 	missionOptionDescription: () => string,
 };
 const commandName: string = "mission";
-const commandDescription: string = "Tells you what is playable in the shop or when it is playable";
+const commandDescriptionLocalizations: Localized<string> = {
+	"en-US": "Tells you what is playable in the shop or when it is playable",
+	"fr": "Te dit ce qui est jouable dans la boutique ou quand c'est jouable",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const missionOptionName: string = "mission";
-const missionOptionDescription: string = "Some mission";
+const missionOptionDescriptionLocalizations: Localized<string> = {
+	"en-US": "Some mission",
+	"fr": "Une mission",
+};
+const missionOptionDescription: string = missionOptionDescriptionLocalizations["en-US"];
 const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 	timeStyle: "short",
@@ -44,11 +52,13 @@ const missionCommand: Command = {
 		return {
 			name: commandName,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 			options: [
 				((): ApplicationCommandOptionData & {minValue: number, maxValue: number} => ({
 					type: "INTEGER",
 					name: missionOptionName,
 					description: missionOptionDescription,
+					descriptionLocalizations: missionOptionDescriptionLocalizations,
 					minValue: 0,
 					maxValue: missions.length - 1,
 					autocomplete: true,
@@ -121,13 +131,13 @@ const missionCommand: Command = {
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
-		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: keyof Localized<unknown>): HelpGroups => {
 			return {
 				commandName: (): string => {
 					return commandName;
 				},
 				missionOptionDescription: (): string => {
-					return missionOptionDescription;
+					return missionOptionDescriptionLocalizations[locale];
 				},
 			};
 		}));

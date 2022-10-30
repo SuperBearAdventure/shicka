@@ -25,8 +25,16 @@ const {createCanvas, loadImage}: any = canvas;
 const here: string = import.meta.url;
 const root: string = here.slice(0, here.lastIndexOf("/"));
 const grantName: string = "emoji";
-const baseArgumentDescription: string = "Some base";
-const stylesArgumentDescription: string = "Some styles";
+const baseArgumentDescriptionLocalizations: Localized<string> = {
+	"en-US": "Some base",
+	"fr": "Une base",
+};
+const baseArgumentDescription: string = baseArgumentDescriptionLocalizations["en-US"];
+const stylesArgumentDescriptionLocalizations: Localized<string> = {
+	"en-US": "Some styles",
+	"fr": "Des styles",
+};
+const stylesArgumentDescription: string = stylesArgumentDescriptionLocalizations["en-US"];
 const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
@@ -131,16 +139,16 @@ const emojiGrant: Grant = {
 		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
 			return null;
 		}
-		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: keyof Localized<unknown>): HelpGroups => {
 			return {
 				grantName: (): string => {
 					return grantName;
 				},
 				baseArgumentDescription: (): string => {
-					return baseArgumentDescription;
+					return baseArgumentDescriptionLocalizations[locale];
 				},
 				stylesArgumentDescription: (): string => {
-					return stylesArgumentDescription;
+					return stylesArgumentDescriptionLocalizations[locale];
 				},
 			};
 		}));

@@ -17,7 +17,11 @@ type HelpGroups = {
 	commandName: () => string,
 };
 const commandName: string = "help";
-const commandDescription: string = "Tells you what are the features I offer";
+const commandDescriptionLocalizations: Localized<string> = {
+	"en-US": "Tells you what are the features I offer",
+	"fr": "Te dit quelles sont les fonctionnalités que je propose",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<commandName>` to know what are the features I offer",
 	"fr": "Tape `/$<commandName>` pour savoir quelles sont les fonctionnalités que je propose",
@@ -27,6 +31,7 @@ const helpCommand: Command = {
 		return {
 			name: commandName,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

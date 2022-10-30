@@ -18,9 +18,17 @@ type HelpGroups = {
 	bearOptionDescription: () => string,
 };
 const commandName: string = "bear";
-const commandDescription: string = "Tells you who is this bear";
+const commandDescriptionLocalizations: Localized<string> = {
+	"en-US": "Tells you who is this bear",
+	"fr": "Te dit qui est cet ours",
+};
+const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const bearOptionName: string = "bear";
-const bearOptionDescription: string = "Some bear";
+const bearOptionDescriptionLocalizations: Localized<string> = {
+	"en-US": "Some bear",
+	"fr": "Un ours",
+};
+const bearOptionDescription: string = bearOptionDescriptionLocalizations["en-US"];
 const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
@@ -34,11 +42,13 @@ const bearCommand: Command = {
 		return {
 			name: commandName,
 			description: commandDescription,
+			descriptionLocalizations: commandDescriptionLocalizations,
 			options: [
 				((): ApplicationCommandOptionData & {minValue: number, maxValue: number} => ({
 					type: "INTEGER",
 					name: bearOptionName,
 					description: bearOptionDescription,
+					descriptionLocalizations: bearOptionDescriptionLocalizations,
 					required: true,
 					minValue: 0,
 					maxValue: bears.length - 1,
@@ -97,13 +107,13 @@ const bearCommand: Command = {
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
-		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: keyof Localized<unknown>): HelpGroups => {
 			return {
 				commandName: (): string => {
 					return commandName;
 				},
 				bearOptionDescription: (): string => {
-					return bearOptionDescription;
+					return bearOptionDescriptionLocalizations[locale];
 				},
 			};
 		}));
