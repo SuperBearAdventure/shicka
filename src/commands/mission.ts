@@ -12,7 +12,11 @@ import type Command from "../commands.js";
 import type {Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import {challenges, levels, missions} from "../bindings.js";
-import {list, nearest} from "../utils/string.js";
+import {compileAll, composeAll, list, localize, nearest} from "../utils/string.js";
+type HelpGroups = {
+	commandName: () => string,
+	missionOptionDescription: () => string,
+};
 const commandName: string = "mission";
 const commandDescription: string = "Tells you what is playable in the shop or when it is playable";
 const missionOptionName: string = "mission";
@@ -31,13 +35,9 @@ const timeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
 	timeZone: "UTC",
 });
 const dayTime: string = timeFormat.format(new Date(36000000));
-const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
-	"en-US"(): string {
-		return `Type \`/${commandName}\` to know what is playable in the shop\nType \`/${commandName} ${missionOptionDescription}\` to know when \`${missionOptionDescription}\` is playable in the shop`;
-	},
-	"fr"(): string {
-		return `Tape \`/${commandName}\` pour savoir ce qui est jouable dans la boutique\nTape \`/${commandName} ${missionOptionDescription}\` pour savoir quand \`${missionOptionDescription}\` est jouable dans la boutique`;
-	},
+const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
+	"en-US": "Type `/$<commandName>` to know what is playable in the shop\nType `/$<commandName> $<missionOptionDescription>` to know when `$<missionOptionDescription>` is playable in the shop",
+	"fr": "Tape `/$<commandName>` pour savoir ce qui est jouable dans la boutique\nTape `/$<commandName> $<missionOptionDescription>` pour savoir quand `$<missionOptionDescription>` est jouable dans la boutique",
 });
 const missionCommand: Command = {
 	register(): ApplicationCommandData {
@@ -68,7 +68,7 @@ const missionCommand: Command = {
 				const name: string = `${challenges[mission.challenge].name["en-US"]} in ${levels[mission.level].name["en-US"]}`;
 				return name.toLowerCase();
 			});
-			const suggestions: ApplicationCommandOptionChoiceData[] = results.map((mission: Mission): ApplicationCommandOptionChoiceData => {
+			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData>((mission: Mission): ApplicationCommandOptionChoiceData => {
 				const {id}: Mission = mission;
 				const name: string = `${challenges[mission.challenge].name["en-US"]} in ${levels[mission.level].name["en-US"]}`;
 				return {
@@ -120,8 +120,17 @@ const missionCommand: Command = {
 			content: `**${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}** will be playable for 1 day starting:\n${scheduleList}`,
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<() => string> {
-		return helpLocalizations;
+	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+			return {
+				commandName: (): string => {
+					return commandName;
+				},
+				missionOptionDescription: (): string => {
+					return missionOptionDescription;
+				},
+			};
+		}));
 	},
 };
 export default missionCommand;

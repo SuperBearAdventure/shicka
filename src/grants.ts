@@ -4,7 +4,7 @@ import chatGrant from "./grants/chat.js";
 import emojiGrant from "./grants/emoji.js";
 type Grant = {
 	execute(message: Message, parameter: string[], tokens: string[]): Promise<void>;
-	describe(interaction: CommandInteraction): Localized<() => string>;
+	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null;
 };
 const chat: Grant = chatGrant;
 const emoji: Grant = emojiGrant;

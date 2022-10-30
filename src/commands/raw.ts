@@ -9,6 +9,12 @@ import type Command from "../commands.js";
 import type {Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import * as bindings from "../bindings.js";
+import {compileAll, composeAll, localize} from "../utils/string.js";
+type HelpGroups = {
+	commandName: () => string,
+	typeOptionDescription: () => string,
+	identifierOptionDescription: () => string,
+};
 const commandName: string = "raw";
 const commandDescription: string = "Tells you what is the datum of this type with this identifier";
 const typeOptionName: string = "type";
@@ -19,13 +25,9 @@ const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
-	"en-US"(): string {
-		return `Type \`/${commandName} ${typeOptionDescription} ${identifierOptionDescription}\` to know what is the datum of \`${typeOptionDescription}\` with \`${identifierOptionDescription}\``;
-	},
-	"fr"(): string {
-		return `Tape \`/${commandName} ${typeOptionDescription} ${identifierOptionDescription}\` pour savoir quel est la donnée d'\`${typeOptionDescription}\` avec \`${identifierOptionDescription}\``;
-	},
+const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
+	"en-US": "Type `/$<commandName> $<typeOptionDescription> $<identifierOptionDescription>` to know what is the datum of `$<typeOptionDescription>` with `$<identifierOptionDescription>`",
+	"fr": "Tape `/$<commandName> $<typeOptionDescription> $<identifierOptionDescription>` pour savoir quel est la donnée d'`$<typeOptionDescription>` avec `$<identifierOptionDescription>`",
 });
 const rawCommand: Command = {
 	register(): ApplicationCommandData {
@@ -38,12 +40,12 @@ const rawCommand: Command = {
 					name: typeOptionName,
 					description: typeOptionDescription,
 					required: true,
-					choices: Object.keys(bindings).map((bindingName: string): [string, Binding] => {
+					choices: Object.keys(bindings).map<[string, Binding]>((bindingName: string): [string, Binding] => {
 						const binding: Binding = bindings[bindingName as keyof typeof bindings] as Binding;
 						return [bindingName, binding];
 					}).filter(([bindingName, binding]: [string, Binding]): boolean => {
 						return binding.length !== 0;
-					}).map(([bindingName, binding]: [string, Binding]): ApplicationCommandOptionChoiceData => {
+					}).map<ApplicationCommandOptionChoiceData>(([bindingName, binding]: [string, Binding]): ApplicationCommandOptionChoiceData => {
 						return {
 							name: bindingName,
 							value: bindingName,
@@ -67,7 +69,7 @@ const rawCommand: Command = {
 		const {options}: CommandInteraction = interaction;
 		const bindingName: string = options.getString(typeOptionName, true);
 		if (!(bindingName in bindings)) {
-			const typeConjunction: string = conjunctionFormat.format(Object.keys(bindings).map((bindingName: string): string => {
+			const typeConjunction: string = conjunctionFormat.format(Object.keys(bindings).map<string>((bindingName: string): string => {
 				return `\`${Util.escapeMarkdown(bindingName)}\``;
 			}));
 			await interaction.reply({
@@ -90,8 +92,20 @@ const rawCommand: Command = {
 			content: `\`\`\`json\n${Util.escapeMarkdown(datum)}\n\`\`\``,
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<() => string> {
-		return helpLocalizations;
+	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+			return {
+				commandName: (): string => {
+					return commandName;
+				},
+				typeOptionDescription: (): string => {
+					return typeOptionDescription;
+				},
+				identifierOptionDescription: (): string => {
+					return identifierOptionDescription;
+				},
+			};
+		}));
 	},
 };
 export default rawCommand;

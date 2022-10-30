@@ -5,7 +5,10 @@ import type {
 } from "discord.js";
 import type Command from "../commands.js";
 import type {Localized} from "../utils/string.js";
-import {list} from "../utils/string.js";
+import {compileAll, composeAll, list, localize} from "../utils/string.js";
+type HelpGroups = {
+	commandName: () => string,
+};
 const commandName: string = "leaderboard";
 const commandDescription: string = "Tells you where to watch community speedruns of the game";
 const leaderboards: string[] = [
@@ -18,13 +21,9 @@ const leaderboards: string[] = [
 	"[*Races leaderboard*](<https://www.speedrun.com/sbace/Races>)",
 	"[*Category Extensions leaderboard*](<https://www.speedrun.com/sbace>)",
 ];
-const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
-	"en-US"(): string {
-		return `Type \`/${commandName}\` to know where to watch community speedruns of the game`;
-	},
-	"fr"(): string {
-		return `Tape \`/${commandName}\` pour savoir où regarder des speedruns communautaires du jeu`;
-	},
+const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll({
+	"en-US": "Type `/$<commandName>` to know where to watch community speedruns of the game",
+	"fr": "Tape `/$<commandName>` pour savoir où regarder des speedruns communautaires du jeu",
 });
 const leaderboardCommand: Command = {
 	register(): ApplicationCommandData {
@@ -42,8 +41,14 @@ const leaderboardCommand: Command = {
 			content: `You can watch community speedruns there:\n${linkList}`,
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<() => string> {
-		return helpLocalizations;
+	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+			return {
+				commandName: (): string => {
+					return commandName;
+				},
+			};
+		}));
 	},
 };
 export default leaderboardCommand;

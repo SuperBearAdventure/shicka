@@ -8,6 +8,13 @@ import type {
 import type Grant from "../grants.js";
 import type {Localized} from "../utils/string.js";
 import {MessageMentions} from "discord.js";
+import {compileAll, composeAll, localize} from "../utils/string.js";
+type HelpGroups = {
+	grantName: () => string,
+	channelArgumentDescription: () => string,
+	contentArgumentDescription: () => string,
+	messageArgumentDescription: () => string,
+};
 const grantName: string = "chat";
 const messageArgumentDescription: string = "Some message";
 const channelArgumentDescription: string = "Some channel";
@@ -16,13 +23,9 @@ const {source}: RegExp = MessageMentions.CHANNELS_PATTERN;
 const messagePattern: RegExp = /^(?:0|[1-9]\d*)$/;
 const channelPattern: RegExp = new RegExp(`^(?:${source})$`, "");
 const channels: Set<string> = new Set(["🔧│console", "🔎│logs", "🛡│moderators-room"]);
-const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
-	"en-US"(): string {
-		return `Type \`/${grantName} ${channelArgumentDescription} ${contentArgumentDescription}\` to send \`${contentArgumentDescription}\` and some attachments in \`${channelArgumentDescription}\`\nType \`/${grantName} ${messageArgumentDescription} ${channelArgumentDescription} ${contentArgumentDescription}\` to edit \`${messageArgumentDescription}\` with \`${contentArgumentDescription}\` and some attachments in \`${channelArgumentDescription}\``;
-	},
-	"fr"(): string {
-		return `Tape \`/${grantName} ${channelArgumentDescription} ${contentArgumentDescription}\` pour envoyer \`${contentArgumentDescription}\` et des pièces jointes dans \`${channelArgumentDescription}\`\nTape \`/${grantName} ${messageArgumentDescription} ${channelArgumentDescription} ${contentArgumentDescription}\` pour modifier \`${messageArgumentDescription}\` avec \`${contentArgumentDescription}\` et des pièces jointes dans \`${channelArgumentDescription}\``;
-	},
+const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
+	"en-US": "Type `/$<grantName> $<channelArgumentDescription> $<contentArgumentDescription>` to send `$<contentArgumentDescription>` and some attachments in `$<channelArgumentDescription>`\nType `/$<grantName> $<messageArgumentDescription> $<channelArgumentDescription> $<contentArgumentDescription>` to edit `$<messageArgumentDescription>` with `$<contentArgumentDescription>` and some attachments in `$<channelArgumentDescription>`",
+	"fr": "Tape `/$<grantName> $<channelArgumentDescription> $<contentArgumentDescription>` pour envoyer `$<contentArgumentDescription>` et des pièces jointes dans `$<channelArgumentDescription>`\nTape `/$<grantName> $<messageArgumentDescription> $<channelArgumentDescription> $<contentArgumentDescription>` pour modifier `$<messageArgumentDescription>` avec `$<contentArgumentDescription>` et des pièces jointes dans `$<channelArgumentDescription>`",
 });
 const chatGrant: Grant = {
 	async execute(message: Message, parameters: string[], tokens: string[]): Promise<void> {
@@ -99,7 +102,7 @@ const chatGrant: Grant = {
 				return;
 			}
 			const content: string | null = parameters.length < 4 ? null : tokens.slice(7).join("");
-			const files: FileOptions[] = message.attachments.map((attachment: MessageAttachment): FileOptions => {
+			const files: FileOptions[] = message.attachments.map<FileOptions>((attachment: MessageAttachment): FileOptions => {
 				const {name, url}: MessageAttachment = attachment;
 				return {
 					attachment: url,
@@ -135,7 +138,7 @@ const chatGrant: Grant = {
 			return;
 		}
 		const content: string | null = parameters.length < 3 ? null : tokens.slice(5).join("");
-		const files: FileOptions[] = message.attachments.map((attachment: MessageAttachment): FileOptions => {
+		const files: FileOptions[] = message.attachments.map<FileOptions>((attachment: MessageAttachment): FileOptions => {
 			const {name, url}: MessageAttachment = attachment;
 			return {
 				attachment: url,
@@ -150,12 +153,27 @@ const chatGrant: Grant = {
 			});
 		}
 	},
-	describe(interaction: CommandInteraction): Localized<() => string> {
+	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
 		const {channel}: CommandInteraction = interaction;
 		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
-			return Object.create(null);
+			return null;
 		}
-		return helpLocalizations;
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+			return {
+				grantName: (): string => {
+					return grantName;
+				},
+				channelArgumentDescription: (): string => {
+					return channelArgumentDescription;
+				},
+				contentArgumentDescription: (): string => {
+					return contentArgumentDescription;
+				},
+				messageArgumentDescription: (): string => {
+					return messageArgumentDescription;
+				},
+			};
+		}));
 	},
 };
 export default chatGrant;

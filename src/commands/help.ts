@@ -12,16 +12,15 @@ import * as commands from "../commands.js";
 import * as feeds from "../feeds.js";
 import * as grants from "../grants.js";
 import * as triggers from "../triggers.js";
-import {list} from "../utils/string.js";
+import {compileAll, composeAll, list, localize} from "../utils/string.js";
+type HelpGroups = {
+	commandName: () => string,
+};
 const commandName: string = "help";
 const commandDescription: string = "Tells you what are the features I offer";
-const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
-	"en-US"(): string {
-		return `Type \`/${commandName}\` to know what are the features I offer`;
-	},
-	"fr"(): string {
-		return `Tape \`/${commandName}\` pour savoir quelles sont les fonctionnalités que je propose`;
-	},
+const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
+	"en-US": "Type `/$<commandName>` to know what are the features I offer",
+	"fr": "Tape `/$<commandName>` pour savoir quelles sont les fonctionnalités que je propose",
 });
 const helpCommand: Command = {
 	register(): ApplicationCommandData {
@@ -36,36 +35,42 @@ const helpCommand: Command = {
 		}
 		const {user}: CommandInteraction = interaction;
 		const features: string[] = [
-			Object.keys(grants).map((grantName: string): Grant => {
+			Object.keys(grants).map<Grant>((grantName: string): Grant => {
 				const grant: Grant = grants[grantName as keyof typeof grants] as Grant;
 				return grant;
 			}),
-			Object.keys(commands).map((commandName: string): Command => {
+			Object.keys(commands).map<Command>((commandName: string): Command => {
 				const command: Command = commands[commandName as keyof typeof commands] as Command;
 				return command;
 			}),
-			Object.keys(feeds).map((feedName: string): Feed => {
+			Object.keys(feeds).map<Feed>((feedName: string): Feed => {
 				const feed: Feed = feeds[feedName as keyof typeof feeds] as Feed;
 				return feed;
 			}),
-			Object.keys(triggers).map((triggerName: string): Trigger => {
+			Object.keys(triggers).map<Trigger>((triggerName: string): Trigger => {
 				const trigger: Trigger = triggers[triggerName as keyof typeof triggers] as Trigger;
 				return trigger;
 			}),
-		].flat().map((action: Grant | Command | Feed | Trigger): string[] => {
-			const description: (() => string) | null = action.describe(interaction)["en-US"];
+		].flat<(Grant | Command | Feed | Trigger)[][]>().map<string[]>((action: Grant | Command | Feed | Trigger): string[] => {
+			const description: Localized<(groups: {}) => string> | null = action.describe(interaction);
 			if (description == null) {
 				return [];
 			}
-			return description().split("\n");
-		}).flat();
+			return description["en-US"]({}).split("\n");
+		}).flat<string[][]>();
 		const featureList: string = list(features);
 		await interaction.reply({
 			content: `Hey ${user}, there you are!\nI can give you some advice about the server:\n${featureList}`,
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<() => string> {
-		return helpLocalizations;
+	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+			return {
+				commandName: (): string => {
+					return commandName;
+				},
+			};
+		}));
 	},
 };
 export default helpCommand;

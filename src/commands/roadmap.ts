@@ -6,15 +6,15 @@ import type {
 } from "discord.js";
 import type Command from "../commands.js";
 import type {Localized} from "../utils/string.js";
+import {compileAll, composeAll, localize} from "../utils/string.js";
+type HelpGroups = {
+	commandName: () => string,
+};
 const commandName: string = "roadmap";
 const commandDescription: string = "Tells you where to check the upcoming milestones of the game";
-const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
-	"en-US"(): string {
-		return `Type \`/${commandName}\` to know where to check the upcoming milestones of the game`;
-	},
-	"fr"(): string {
-		return `Tape \`/${commandName}\` pour savoir où consulter les futurs jalons du jeu`;
-	},
+const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
+	"en-US": "Type `/$<commandName>` to know where to check the upcoming milestones of the game",
+	"fr": "Tape `/$<commandName>` pour savoir où consulter les futurs jalons du jeu",
 });
 const roadmapCommand: Command = {
 	register(): ApplicationCommandData {
@@ -39,8 +39,14 @@ const roadmapCommand: Command = {
 			content: `${intent} check the upcoming milestones of the game [there](<https://trello.com/b/3DPL9CwV/road-to-100>).`,
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<() => string> {
-		return helpLocalizations;
+	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+			return {
+				commandName: (): string => {
+					return commandName;
+				},
+			};
+		}));
 	},
 };
 export default roadmapCommand;

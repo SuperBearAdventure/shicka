@@ -12,7 +12,11 @@ import type Command from "../commands.js";
 import type {Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import {bears, levels, outfits} from "../bindings.js";
-import {nearest} from "../utils/string.js";
+import {compileAll, composeAll, localize, nearest} from "../utils/string.js";
+type HelpGroups = {
+	commandName: () => string,
+	bearOptionDescription: () => string,
+};
 const commandName: string = "bear";
 const commandDescription: string = "Tells you who is this bear";
 const bearOptionName: string = "bear";
@@ -21,13 +25,9 @@ const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-const helpLocalizations: Localized<() => string> = Object.assign(Object.create(null), {
-	"en-US"(): string {
-		return `Type \`/${commandName} ${bearOptionDescription}\` to know who is \`${bearOptionDescription}\``;
-	},
-	"fr"(): string {
-		return `Tape \`/${commandName} ${bearOptionDescription}\` pour savoir qui est \`${bearOptionDescription}\``;
-	},
+const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
+	"en-US": "Type `/$<commandName> $<bearOptionDescription>` to know who is `$<bearOptionDescription>`",
+	"fr": "Tape `/$<commandName> $<bearOptionDescription>` pour savoir qui est `$<bearOptionDescription>`",
 });
 const bearCommand: Command = {
 	register(): ApplicationCommandData {
@@ -59,7 +59,7 @@ const bearCommand: Command = {
 				const {name}: Bear = bear;
 				return name["en-US"].toLowerCase();
 			});
-			const suggestions: ApplicationCommandOptionChoiceData[] = results.map((bear: Bear): ApplicationCommandOptionChoiceData => {
+			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData>((bear: Bear): ApplicationCommandOptionChoiceData => {
 				const {id, name}: Bear = bear;
 				return {
 					name: name["en-US"],
@@ -80,7 +80,7 @@ const bearCommand: Command = {
 		const names: string[] = bear.outfits.filter((outfit: number): boolean => {
 			const {name}: Outfit = outfits[outfit];
 			return name["en-US"] !== "Default";
-		}).map((outfit: number): string => {
+		}).map<string>((outfit: number): string => {
 			const {name}: Outfit = outfits[outfit];
 			return `*${Util.escapeMarkdown(name["en-US"])}*`;
 		});
@@ -96,8 +96,17 @@ const bearCommand: Command = {
 			content: `**${Util.escapeMarkdown(name["en-US"])}** has been imprisoned in the **${Util.escapeMarkdown(level)}** and is wearing ${nameConjunction}.\n${goal} the cage in less than **${Util.escapeMarkdown(time)}** to beat the gold time!`,
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<() => string> {
-		return helpLocalizations;
+	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+			return {
+				commandName: (): string => {
+					return commandName;
+				},
+				bearOptionDescription: (): string => {
+					return bearOptionDescription;
+				},
+			};
+		}));
 	},
 };
 export default bearCommand;
