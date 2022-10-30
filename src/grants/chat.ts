@@ -34,7 +34,7 @@ const contentArgumentDescription: string = contentArgumentDescriptionLocalizatio
 const {source}: RegExp = MessageMentions.CHANNELS_PATTERN;
 const messagePattern: RegExp = /^(?:0|[1-9]\d*)$/;
 const channelPattern: RegExp = new RegExp(`^(?:${source})$`, "");
-const channels: Set<string> = new Set(["🔧│console", "🔎│logs", "🛡│moderators-room"]);
+const channels: Set<string> = new Set<string>(["🔧│console", "🔎│logs", "🛡│moderators-room"]);
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<grantName> $<channelArgumentDescription> $<contentArgumentDescription>` to send `$<contentArgumentDescription>` and some attachments in `$<channelArgumentDescription>`\nType `/$<grantName> $<messageArgumentDescription> $<channelArgumentDescription> $<contentArgumentDescription>` to edit `$<messageArgumentDescription>` with `$<contentArgumentDescription>` and some attachments in `$<channelArgumentDescription>`",
 	"fr": "Tape `/$<grantName> $<channelArgumentDescription> $<contentArgumentDescription>` pour envoyer `$<contentArgumentDescription>` et des pièces jointes dans `$<channelArgumentDescription>`\nTape `/$<grantName> $<messageArgumentDescription> $<channelArgumentDescription> $<contentArgumentDescription>` pour modifier `$<messageArgumentDescription>` avec `$<contentArgumentDescription>` et des pièces jointes dans `$<channelArgumentDescription>`",

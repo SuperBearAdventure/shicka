@@ -1,6 +1,6 @@
+export type Locale = "en-US" | "fr";
 export type Localized<Type> = {
-	"en-US": Type,
-	"fr": Type,
+	[k in Locale]: Type
 };
 const groupsPattern: RegExp = /\$<([$0-9A-Z_a-z]*)>/gsu;
 function editDistance(a: string, b: string, substitution: boolean): number {
@@ -126,6 +126,9 @@ export function composeAll<InputGroups extends {[k in string]: () => string}, Ou
 	return map<keyof Localized<unknown>, (groups: InputGroups & OutputGroups) => string, (groups: OutputGroups) => string>(templates, (template: (groups: InputGroups & OutputGroups) => string, locale: keyof Localized<unknown>): (groups: OutputGroups) => string => {
 		return compose<InputGroups, OutputGroups>(template, inputGroups[locale]);
 	});
+}
+export function resolve(locale: string): Locale {
+	return locale === "fr" ? locale : "en-US";
 }
 export function localize<Type>(callback: (locale: keyof Localized<unknown>) => Type): Localized<Type> {
 	return Object.assign(Object.create(null), {

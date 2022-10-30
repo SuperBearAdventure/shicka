@@ -12,7 +12,7 @@ type HelpGroups = {
 	channel: () => string,
 };
 const pattern: RegExp = /\b(?:co-?op(?:erati(?:ons?|ve))?|consoles?|multi(?:-?player)?|online|pc|playstation|ps[45]|switch|xbox)\b/iu;
-const roles: Set<string> = new Set(["Administrator", "Cookie", "Game Developer", "Moderator"]);
+const roles: Set<string> = new Set<string>(["Administrator", "Cookie", "Game Developer", "Moderator"]);
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "I will gently reprimand you if you write words which violate the rule 7 in $<channel>",
 	"fr": "Je te réprimanderai gentiment si tu écris des mots qui violent la règle 7 dans $<channel>",
