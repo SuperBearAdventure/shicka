@@ -16,11 +16,19 @@ const commandDescriptionLocalizations: Localized<string> = {
 };
 const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const soundtracks: string[] = [
-	"[*Arcade World*](<https://www.youtube.com/watch?v=2jEpoCUQ6Ag>)",
-	"[*Mission Realm*](<https://www.youtube.com/watch?v=31lyRu0jb6k>)",
-	"[*Boss Fight*](<https://www.youtube.com/watch?v=7geObnVZXCg>)",
-	"[*Final Boss*](<https://www.youtube.com/watch?v=cdmFBgS6Fc8>)",
-	"[*I'm A Bear*](<https://www.youtube.com/watch?v=H_GzR4VbSSA>)",
+	"[*Main Theme*](<https://www.youtube.com/watch?v=uQm6CUKK0zE>)",
+	"[*Bear Village*](<https://www.youtube.com/watch?v=z6Y5PZOjG7g>)",
+	"[*Turtletown*](<https://www.youtube.com/watch?v=sChqMicL0pI>)",
+	"[*Snow Valley*](<https://www.youtube.com/watch?v=JXiUd8yGJbE>)",
+	"[*Boss Fight*](<https://www.youtube.com/watch?v=dsk9B0uHCCQ>)",
+	"[*Beemothep Desert*](<https://www.youtube.com/watch?v=6FTl2dHIxE8>)",
+	"[*Giant House*](<https://www.youtube.com/watch?v=lXILnN3VZHc>)",
+	"[*Purple Honey*](<https://www.youtube.com/watch?v=YQnWLj47x0c>)",
+	"[*The Hive*](<https://www.youtube.com/watch?v=PO66264Vvr8E>)",
+	"[*Queen Beeatrice*](<https://www.youtube.com/watch?v=OEasvrqJDgY>)",
+	"[*Special Mission*](<https://www.youtube.com/watch?v=RsN0IOEBjUY>)",
+	"[*Arcade*](<https://www.youtube.com/watch?v=2jEpoCUQ6Ag>)",
+	"[*I'm A Bear*](<https://www.youtube.com/watch?v=ClUAGMgRrBk>)",
 ];
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<commandName>` to know where to listen to official music pieces of the game",
