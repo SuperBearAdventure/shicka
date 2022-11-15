@@ -18,6 +18,7 @@ const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const trailers: string[] = [
 	"[*Main trailer*](<https://www.youtube.com/watch?v=L00uorYTYgE>)",
 	"[*Missions trailer*](<https://www.youtube.com/watch?v=j3vwu0JWIEg>)",
+	"[*Hive trailer*](<https://www.youtube.com/watch?v=bT0Dj_FQJ1M>)",
 ];
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<commandName>` to know where to watch official trailers of the game",
