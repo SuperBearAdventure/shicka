@@ -81,7 +81,8 @@ const updateCommand: Command = {
 						continue;
 					}
 					try {
-						const result: any = JSON.parse(textContent.slice(textContent.indexOf(", data:") + 7, textContent.lastIndexOf(", sideChannel: ")));
+						const json: string = textContent.slice(textContent.indexOf(", data:") + 7, textContent.lastIndexOf(", sideChannel: "));
+						const result: any = JSON.parse(json);
 						return {
 							title: "Android",
 							link: "https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer",
@@ -96,15 +97,23 @@ const updateCommand: Command = {
 				throw new Error();
 			}
 			const iosData: Data | null = await (async (): Promise<Data | null> => {
-				const response: Response = await fetch("https://itunes.apple.com/lookup?id=1531842415&entity=software") ;
-				const data: any = await response.json();
-				for (const result of data.results) {
+				const response: Response = await fetch("https://apps.apple.com/app/id1531842415");
+				const {window}: JSDOM = new JSDOM(await response.text());
+				const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("body > script")];
+				for (const {textContent} of scripts) {
+					if (textContent == null || !textContent.startsWith("{\"") || !textContent.endsWith("}")) {
+						continue;
+					}
 					try {
+						const json: string = `${Object.entries(JSON.parse(textContent)).filter((entry: [string, any]): boolean => {
+							return entry[0].includes("1531842415");
+						})[0][1]}`;
+						const result: any = JSON.parse(json);
 						return {
 							title: "iOS",
 							link: "https://apps.apple.com/app/id1531842415",
-							version: result.version,
-							date: new Date(result.currentVersionReleaseDate),
+							version: result.d[0].attributes.platformAttributes.ios.versionHistory[0].versionDisplay,
+							date: new Date(result.d[0].attributes.platformAttributes.ios.versionHistory[0].releaseTimestamp),
 						};
 					} catch {}
 				}
