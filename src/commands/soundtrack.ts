@@ -16,19 +16,19 @@ const commandDescriptionLocalizations: Localized<string> = {
 };
 const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const soundtracks: string[] = [
-	"[*Main Theme*](<https://www.youtube.com/watch?v=uQm6CUKK0zE>)",
-	"[*Bear Village*](<https://www.youtube.com/watch?v=z6Y5PZOjG7g>)",
-	"[*Turtletown*](<https://www.youtube.com/watch?v=sChqMicL0pI>)",
-	"[*Snow Valley*](<https://www.youtube.com/watch?v=JXiUd8yGJbE>)",
-	"[*Boss Fight*](<https://www.youtube.com/watch?v=dsk9B0uHCCQ>)",
-	"[*Beemothep Desert*](<https://www.youtube.com/watch?v=6FTl2dHIxE8>)",
-	"[*Giant House*](<https://www.youtube.com/watch?v=lXILnN3VZHc>)",
-	"[*Purple Honey*](<https://www.youtube.com/watch?v=YQnWLj47x0c>)",
-	"[*The Hive*](<https://www.youtube.com/watch?v=PO66264Vvr8E>)",
-	"[*Queen Beeatrice*](<https://www.youtube.com/watch?v=OEasvrqJDgY>)",
-	"[*Special Mission*](<https://www.youtube.com/watch?v=RsN0IOEBjUY>)",
-	"[*Arcade*](<https://www.youtube.com/watch?v=2jEpoCUQ6Ag>)",
-	"[*I'm A Bear*](<https://www.youtube.com/watch?v=ClUAGMgRrBk>)",
+	"[*Main Theme*](<https://www.youtube.com/watch?v=tgjAtWZa2iY>)",
+	"[*Bear Village*](<https://www.youtube.com/watch?v=HUgbx3tODUg>)",
+	"[*Turtletown*](<https://www.youtube.com/watch?v=PgG_Zs4e17Q>)",
+	"[*Snow Valley*](<https://www.youtube.com/watch?v=e-jT7NHD3lo>)",
+	"[*Boss Fight*](<https://www.youtube.com/watch?v=54_NtjLRQF4>)",
+	"[*Beemothep Desert*](<https://www.youtube.com/watch?v=T02PbOBL9Wo>)",
+	"[*Giant House*](<https://www.youtube.com/watch?v=l-YFNWZEQnQ>)",
+	"[*Purple Honey*](<https://www.youtube.com/watch?v=4iW8JVkoJTM>)",
+	"[*The Hive*](<https://www.youtube.com/watch?v=5w5my0zeJBE>)",
+	"[*Queen Beeatrice*](<https://www.youtube.com/watch?v=dtgwp7iit1A>)",
+	"[*Special Mission*](<https://www.youtube.com/watch?v=gN5dXMsMmsM>)",
+	"[*Arcade World*](<https://www.youtube.com/watch?v=2jEpoCUQ6Ag>)",
+	"[*I'm A Bear*](<https://www.youtube.com/watch?v=hlKVf1iSlwU>)",
 ];
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<commandName>` to know where to listen to official music pieces of the game",
