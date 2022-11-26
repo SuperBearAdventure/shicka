@@ -3,15 +3,21 @@ import type {
 	CommandInteraction,
 	Interaction,
 } from "discord.js";
+import type {Response} from "node-fetch";
 import type Command from "../commands.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
+import {JSDOM} from "jsdom";
+import fetch from "node-fetch";
 import {compileAll, composeAll, list, localize, resolve} from "../utils/string.js";
 type HelpGroups = {
 	commandName: () => string,
 };
 type ReplyGroups = {
 	linkList: () => string,
+};
+type DefaultReplyGroups = {
+	link: () => string,
 };
 type LinkGroups = {
 	title: () => string,
@@ -27,60 +33,8 @@ const commandDescriptionLocalizations: Localized<string> = {
 	"fr": "Te dit où écouter des morceaux de musique officiels du jeu",
 };
 const commandDescription: string = commandDescriptionLocalizations["en-US"];
-const data: Data[] = [
-	{
-		title: "Main Theme",
-		link: "https://www.youtube.com/watch?v=tgjAtWZa2iY",
-	},
-	{
-		title: "Bear Village",
-		link: "https://www.youtube.com/watch?v=HUgbx3tODUg",
-	},
-	{
-		title: "Turtletown",
-		link: "https://www.youtube.com/watch?v=PgG_Zs4e17Q",
-	},
-	{
-		title: "Snow Valley",
-		link: "https://www.youtube.com/watch?v=e-jT7NHD3lo",
-	},
-	{
-		title: "Boss Fight",
-		link: "https://www.youtube.com/watch?v=54_NtjLRQF4",
-	},
-	{
-		title: "Beemothep Desert",
-		link: "https://www.youtube.com/watch?v=T02PbOBL9Wo",
-	},
-	{
-		title: "Giant House",
-		link: "https://www.youtube.com/watch?v=l-YFNWZEQnQ",
-	},
-	{
-		title: "Purple Honey",
-		link: "https://www.youtube.com/watch?v=4iW8JVkoJTM",
-	},
-	{
-		title: "The Hive",
-		link: "https://www.youtube.com/watch?v=5w5my0zeJBE",
-	},
-	{
-		title: "Queen Beeatrice",
-		link: "https://www.youtube.com/watch?v=dtgwp7iit1A",
-	},
-	{
-		title: "Special Mission",
-		link: "https://www.youtube.com/watch?v=gN5dXMsMmsM",
-	},
-	{
-		title: "Arcade World",
-		link: "https://www.youtube.com/watch?v=2jEpoCUQ6Ag",
-	},
-	{
-		title: "I'm A Bear",
-		link: "https://www.youtube.com/watch?v=hlKVf1iSlwU",
-	},
-];
+const titlePattern: RegExp = /^Super Bear Adventure - (.*) \(Original Soundtrack\)$/su;
+const link: string = "https://www.youtube.com/playlist?list=PLDF2V3x1AdQBnalWW0q69H5LF1-wgAxN8";
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<commandName>` to know where to listen to official music pieces of the game",
 	"fr": "Tape `/$<commandName>` pour savoir où écouter des morceaux de musique officiels du jeu",
@@ -88,6 +42,10 @@ const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<
 const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
 	"en-US": "You can listen to official music pieces of the game there:\n$<linkList>",
 	"fr": "Tu peux écouter des morceaux de musique officiels du jeu là :\n$<linkList>",
+});
+const defaultReplyLocalizations: Localized<(groups: DefaultReplyGroups) => string> = compileAll<DefaultReplyGroups>({
+	"en-US": "You can listen to official music pieces of the game [there](<$<link>>).",
+	"fr": "Tu peux écouter des morceaux de musique officiels du jeu [là](<$<link>>).",
 });
 const linkLocalizations: Localized<((groups: LinkGroups) => string)> = compileAll<LinkGroups>({
 	"en-US": "[*$<title>* soundtrack](<$<link>>)",
@@ -105,44 +63,92 @@ const soundtrackCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {locale}: Interaction = interaction;
+		const {locale}: CommandInteraction = interaction;
 		const resolvedLocale: Locale = resolve(locale);
-		const links: Localized<(groups: {}) => string>[] = [];
-		for (const item of data) {
-			const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((): LinkGroups => {
-				return {
-					title: (): string => {
-						return Util.escapeMarkdown(item.title);
+		try {
+			const data: Data[] | null = await (async (): Promise<Data[] | null> => {
+				const response: Response = await fetch("https://www.youtube.com/playlist?list=PLDF2V3x1AdQBnalWW0q69H5LF1-wgAxN8");
+				const {window}: JSDOM = new JSDOM(await response.text());
+				const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("script")];
+				for (const {textContent} of scripts) {
+					if (textContent == null || !textContent.startsWith("var ytInitialData = ") || !textContent.endsWith(";")) {
+						continue;
+					}
+					try {
+						const json: string = textContent.slice(textContent.indexOf("var ytInitialData = ") + 20, textContent.lastIndexOf(";"));
+						const result: any = JSON.parse(json);
+						return result.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].playlistVideoListRenderer.contents.map((item: any): Data => {
+							return {
+								title: item.playlistVideoRenderer.title.runs[0].text.replace(titlePattern, "$1"),
+								link: `https://www.youtube.com/watch?v=${item.playlistVideoRenderer.videoId}`,
+							};
+						});
+					} catch (error: unknown) {
+						console.log(error)
+					}
+				}
+				return null;
+			})();
+			if (data == null) {
+				throw new Error();
+			}
+			const links: Localized<(groups: {}) => string>[] = [];
+			for (const item of data) {
+				const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((): LinkGroups => {
+					return {
+						title: (): string => {
+							return Util.escapeMarkdown(item.title);
+						},
+						link: (): string => {
+							return item.link;
+						},
+					};
+				}));
+				links.push(link);
+			}
+			await interaction.reply({
+				content: replyLocalizations["en-US"]({
+					linkList: (): string => {
+						return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
+							return link["en-US"]({});
+						}));
 					},
+				}),
+			});
+			if (resolvedLocale === "en-US") {
+				return;
+			}
+			await interaction.followUp({
+				content: replyLocalizations[resolvedLocale]({
+					linkList: (): string => {
+						return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
+							return link[resolvedLocale]({});
+						}));
+					},
+				}),
+				ephemeral: true,
+			});
+		} catch (error: unknown) {
+			console.warn(error);
+			await interaction.reply({
+				content: defaultReplyLocalizations["en-US"]({
 					link: (): string => {
-						return item.link;
+						return link;
 					},
-				};
-			}));
-			links.push(link);
+				}),
+			});
+			if (resolvedLocale === "en-US") {
+				return;
+			}
+			await interaction.followUp({
+				content: defaultReplyLocalizations[resolvedLocale]({
+					link: (): string => {
+						return link;
+					},
+				}),
+				ephemeral: true,
+			});
 		}
-		await interaction.reply({
-			content: replyLocalizations["en-US"]({
-				linkList: (): string => {
-					return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
-						return link["en-US"]({});
-					}));
-				},
-			}),
-		});
-		if (resolvedLocale === "en-US") {
-			return;
-		}
-		await interaction.followUp({
-			content: replyLocalizations[resolvedLocale]({
-				linkList: (): string => {
-					return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
-						return link[resolvedLocale]({});
-					}));
-				},
-			}),
-			ephemeral: true,
-		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
