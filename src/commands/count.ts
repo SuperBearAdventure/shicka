@@ -5,9 +5,9 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
-import type {Localized} from "../utils/string.js";
+import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
-import {compileAll, composeAll, localize} from "../utils/string.js";
+import {compileAll, composeAll, localize, resolve} from "../utils/string.js";
 type HelpGroups = {
 	commandName: () => string,
 };
@@ -41,7 +41,8 @@ const countCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {guild}: CommandInteraction = interaction;
+		const {guild, locale}: CommandInteraction = interaction;
+		const resolvedLocale: Locale = resolve(locale);
 		if (guild == null) {
 			return;
 		}
@@ -55,6 +56,20 @@ const countCommand: Command = {
 					return Util.escapeMarkdown(name);
 				},
 			}),
+		});
+		if (resolvedLocale === "en-US") {
+			return;
+		}
+		await interaction.followUp({
+			content: replyLocalizations[resolvedLocale]({
+				memberCount: (): string => {
+					return Util.escapeMarkdown(`${memberCount}`);
+				},
+				name: (): string => {
+					return Util.escapeMarkdown(name);
+				},
+			}),
+			ephemeral: true,
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {

@@ -139,7 +139,8 @@ const missionCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {options}: CommandInteraction = interaction;
+		const {locale, options}: CommandInteraction = interaction;
+		const resolvedLocale: Locale = resolve(locale);
 		const missionCount: number = missions.length;
 		const now: number = Math.floor((interaction.createdTimestamp + 7200000) / 86400000);
 		const id: number | null = options.getInteger(missionOptionName);
@@ -187,6 +188,26 @@ const missionCommand: Command = {
 				},
 			}),
 		});
+		if (resolvedLocale === "en-US") {
+			return;
+		}
+		await interaction.followUp({
+			content: bareReplyLocalizations[resolvedLocale]({
+				dayTime: (): string => {
+					const timeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(resolvedLocale, {
+						timeStyle: "short",
+						timeZone: "UTC",
+					});
+					return Util.escapeMarkdown(timeFormat.format(dayTime));
+				},
+				scheduleList: (): string => {
+					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
+						return schedule[resolvedLocale]({})
+					}));
+				},
+			}),
+			ephemeral: true,
+		});
 		return;
 		}
 		const mission: Mission = missions[id];
@@ -227,6 +248,25 @@ const missionCommand: Command = {
 					}));
 				},
 			}),
+		});
+		if (resolvedLocale === "en-US") {
+			return;
+		}
+		await interaction.followUp({
+			content: replyLocalizations[resolvedLocale]({
+				challengeName: (): string => {
+					return Util.escapeMarkdown(challenge.name[resolvedLocale]);
+				},
+				levelName: (): string => {
+					return Util.escapeMarkdown(level.name[resolvedLocale]);
+				},
+				scheduleList: (): string => {
+					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
+						return schedule[resolvedLocale]({})
+					}));
+				},
+			}),
+			ephemeral: true,
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {

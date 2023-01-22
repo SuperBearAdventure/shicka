@@ -130,7 +130,8 @@ const bearCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {options}: CommandInteraction = interaction;
+		const {locale, options}: CommandInteraction = interaction;
+		const resolvedLocale: Locale = resolve(locale);
 		const id: number = options.getInteger(bearOptionName, true);
 		const bear: Bear = bears[id];
 		const {gold, name}: Bear = bear;
@@ -204,6 +205,44 @@ const bearCommand: Command = {
 					return Util.escapeMarkdown(noGoalLocalizations["en-US"]({}));
 				},
 			}),
+		});
+		if (resolvedLocale === "en-US") {
+			return;
+		}
+		await interaction.followUp({
+			content: replyLocalizations[resolvedLocale]({
+				name: (): string => {
+					return Util.escapeMarkdown(name[resolvedLocale]);
+				},
+				level: (): string => {
+					return Util.escapeMarkdown(level.name[resolvedLocale]);
+				},
+				outfitNameConjunction: (): string => {
+					if (bearOutfits.length !== 0) {
+						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(resolvedLocale, {
+							style: "long",
+							type: "conjunction",
+						});
+						return conjunctionFormat.format(bearOutfits.map<string>((outfit: Outfit): string => {
+							return `*${Util.escapeMarkdown(outfit.name[resolvedLocale])}*`;
+						}));
+					}
+					return Util.escapeMarkdown(noOutfitLocalizations[resolvedLocale]({}));
+				},
+				goalConjunction: (): string => {
+					if (goals.length !== 0) {
+						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(resolvedLocale, {
+							style: "long",
+							type: "conjunction",
+						});
+						return conjunctionFormat.format(goals.map<string>((goal: Localized<(groups: {}) => string>): string => {
+							return goal[resolvedLocale]({});
+						}));
+					}
+					return Util.escapeMarkdown(noGoalLocalizations[resolvedLocale]({}));
+				},
+			}),
+			ephemeral: true,
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {

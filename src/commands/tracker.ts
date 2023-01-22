@@ -5,8 +5,8 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
-import type {Localized} from "../utils/string.js";
-import {compileAll, composeAll, list, localize} from "../utils/string.js";
+import type {Locale, Localized} from "../utils/string.js";
+import {compileAll, composeAll, list, localize, resolve} from "../utils/string.js";
 type HelpGroups = {
 	commandName: () => string,
 };
@@ -56,7 +56,8 @@ const trackerCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {guild}: CommandInteraction = interaction;
+		const {guild, locale}: CommandInteraction = interaction;
+		const resolvedLocale: Locale = resolve(locale);
 		if (guild == null) {
 			return;
 		}
@@ -77,6 +78,24 @@ const trackerCommand: Command = {
 					return linkList;
 				},
 			}),
+		});
+		if (resolvedLocale === "en-US") {
+			return;
+		}
+		await interaction.followUp({
+			content: replyLocalizations[resolvedLocale]({
+				intent: (): string => {
+					return channel != null ? intentWithChannelLocalizations[resolvedLocale]({
+						channel: (): string => {
+							return `${channel}`;
+						},
+					}) : intentWithoutChannelLocalizations[resolvedLocale]({});
+				},
+				linkList: (): string => {
+					return linkList;
+				},
+			}),
+			ephemeral: true,
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
