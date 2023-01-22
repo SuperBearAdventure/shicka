@@ -8,12 +8,12 @@ import type Command from "../commands.js";
 import type Feed from "../feeds.js";
 import type Grant from "../grants.js";
 import type Trigger from "../triggers.js";
-import type {Localized} from "../utils/string.js";
+import type {Locale, Localized} from "../utils/string.js";
 import * as commands from "../commands.js";
 import * as feeds from "../feeds.js";
 import * as grants from "../grants.js";
 import * as triggers from "../triggers.js";
-import {compileAll, composeAll, list, localize} from "../utils/string.js";
+import {compileAll, composeAll, list, localize, resolve} from "../utils/string.js";
 type HelpGroups = {
 	commandName: () => string,
 };
@@ -47,7 +47,8 @@ const helpCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {user}: CommandInteraction = interaction;
+		const {locale, user}: CommandInteraction = interaction;
+		const resolvedLocale: Locale = resolve(locale);
 		const descriptions: Localized<(groups: {}) => string>[] = [
 			Object.keys(grants).map<Grant>((grantName: string): Grant => {
 				const grant: Grant = grants[grantName as keyof typeof grants] as Grant;
@@ -87,6 +88,20 @@ const helpCommand: Command = {
 					return list(features["en-US"]({}));
 				},
 			}),
+		});
+		if (resolvedLocale === "en-US") {
+			return;
+		}
+		await interaction.followUp({
+			content: replyLocalizations[resolvedLocale]({
+				user: (): string => {
+					return `${user}`;
+				},
+				featureList: (): string => {
+					return list(features[resolvedLocale]({}));
+				},
+			}),
+			ephemeral: true,
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
