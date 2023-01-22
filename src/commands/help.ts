@@ -2,6 +2,7 @@ import type {
 	ApplicationCommandData,
 	CommandInteraction,
 	Interaction,
+	User,
 } from "discord.js";
 import type Command from "../commands.js";
 import type Feed from "../feeds.js";
@@ -16,6 +17,10 @@ import {compileAll, composeAll, list, localize} from "../utils/string.js";
 type HelpGroups = {
 	commandName: () => string,
 };
+type ReplyGroups = {
+	user: () => string,
+	featureList: () => string,
+};
 const commandName: string = "help";
 const commandDescriptionLocalizations: Localized<string> = {
 	"en-US": "Tells you what are the features I offer",
@@ -25,6 +30,10 @@ const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<commandName>` to know what are the features I offer",
 	"fr": "Tape `/$<commandName>` pour savoir quelles sont les fonctionnalités que je propose",
+});
+const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
+	"en-US": "Hey $<user>, there you are!\nI can give you some advice about the server:\n$<featureList>",
+	"fr": "Ah $<user>, tu es là !\nJe peux te donner des conseils sur le serveur :\n$<featureList>",
 });
 const helpCommand: Command = {
 	register(): ApplicationCommandData {
@@ -39,7 +48,7 @@ const helpCommand: Command = {
 			return;
 		}
 		const {user}: CommandInteraction = interaction;
-		const features: string[] = [
+		const descriptions: Localized<(groups: {}) => string>[] = [
 			Object.keys(grants).map<Grant>((grantName: string): Grant => {
 				const grant: Grant = grants[grantName as keyof typeof grants] as Grant;
 				return grant;
@@ -56,16 +65,28 @@ const helpCommand: Command = {
 				const trigger: Trigger = triggers[triggerName as keyof typeof triggers] as Trigger;
 				return trigger;
 			}),
-		].flat<(Grant | Command | Feed | Trigger)[][]>().map<string[]>((action: Grant | Command | Feed | Trigger): string[] => {
+		].flat<(Grant | Command | Feed | Trigger)[][]>().map<Localized<(groups: {}) => string> | null>((action: Grant | Command | Feed | Trigger): Localized<(groups: {}) => string> | null => {
 			const description: Localized<(groups: {}) => string> | null = action.describe(interaction);
-			if (description == null) {
-				return [];
-			}
-			return description["en-US"]({}).split("\n");
-		}).flat<string[][]>();
-		const featureList: string = list(features);
+			return description;
+		}).filter<Localized<(groups: {}) => string>>((description: Localized<(groups: {}) => string> | null): description is Localized<(groups: {}) => string> => {
+			return description != null;
+		});
+		const features: Localized<(groups: {}) => string[]> = localize<(groups: {}) => string[]>((locale: keyof Localized<unknown>): (groups: {}) => string[] => {
+			return (groups: {}): string[] => {
+				return descriptions.map((description: Localized<(groups: {}) => string>): string[] => {
+					return description[locale](groups).split("\n");
+				}).flat<string[][]>();
+			};
+		});
 		await interaction.reply({
-			content: `Hey ${user}, there you are!\nI can give you some advice about the server:\n${featureList}`,
+			content: replyLocalizations["en-US"]({
+				user: (): string => {
+					return `${user}`;
+				},
+				featureList: (): string => {
+					return list(features["en-US"]({}));
+				},
+			}),
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
