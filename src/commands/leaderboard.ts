@@ -9,6 +9,9 @@ import {compileAll, composeAll, list, localize} from "../utils/string.js";
 type HelpGroups = {
 	commandName: () => string,
 };
+type ReplyGroups = {
+	linkList: () => string,
+};
 const commandName: string = "leaderboard";
 const commandDescriptionLocalizations: Localized<string> = {
 	"en-US": "Tells you where to watch community speedruns of the game",
@@ -25,9 +28,13 @@ const leaderboards: string[] = [
 	"[*Races leaderboard*](<https://www.speedrun.com/sbace/Races>)",
 	"[*Category Extensions leaderboard*](<https://www.speedrun.com/sbace>)",
 ];
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll({
+const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<commandName>` to know where to watch community speedruns of the game",
 	"fr": "Tape `/$<commandName>` pour savoir où regarder des speedruns communautaires du jeu",
+});
+const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
+	"en-US": "You can watch community speedruns there:\n$<linkList>",
+	"fr": "Tu peux regarder des speedruns communautaires là :\n$<linkList>",
 });
 const leaderboardCommand: Command = {
 	register(): ApplicationCommandData {
@@ -43,7 +50,11 @@ const leaderboardCommand: Command = {
 		}
 		const linkList: string = list(leaderboards);
 		await interaction.reply({
-			content: `You can watch community speedruns there:\n${linkList}`,
+			content: replyLocalizations["en-US"]({
+				linkList: (): string => {
+					return linkList;
+				},
+			}),
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
