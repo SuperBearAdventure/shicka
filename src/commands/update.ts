@@ -5,11 +5,11 @@ import type {
 } from "discord.js";
 import type {Response} from "node-fetch";
 import type Command from "../commands.js";
-import type {Localized} from "../utils/string.js";
+import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import {JSDOM} from "jsdom";
 import fetch from "node-fetch";
-import {compileAll, composeAll, list, localize} from "../utils/string.js";
+import {compileAll, composeAll, list, localize, resolve} from "../utils/string.js";
 type HelpGroups = {
 	commandName: () => string,
 };
@@ -60,6 +60,8 @@ const updateCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
+		const {locale}: CommandInteraction = interaction;
+		const resolvedLocale: Locale = resolve(locale);
 		try {
 			const androidData: Data | null = await (async (): Promise<Data | null> => {
 				const {window}: JSDOM = await JSDOM.fromURL("https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
@@ -125,6 +127,34 @@ const updateCommand: Command = {
 					},
 				}),
 			});
+			if (resolvedLocale === "en-US") {
+				return;
+			}
+			await interaction.followUp({
+				content: replyLocalizations[resolvedLocale]({
+					androidVersion: (): string => {
+						return Util.escapeMarkdown(androidVersion);
+					},
+					androidDate: (): string => {
+						const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(resolvedLocale, {
+							dateStyle: "long",
+							timeZone: "UTC",
+						});
+						return Util.escapeMarkdown(dateFormat.format(androidDate));
+					},
+					iosVersion: (): string => {
+						return Util.escapeMarkdown(iosVersion);
+					},
+					iosDate: (): string => {
+						const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(resolvedLocale, {
+							dateStyle: "long",
+							timeZone: "UTC",
+						});
+						return Util.escapeMarkdown(dateFormat.format(iosDate));
+					},
+				}),
+				ephemeral: true,
+			});
 		} catch (error: unknown) {
 			console.warn(error);
 			const linkList: string = list(updates);
@@ -134,6 +164,17 @@ const updateCommand: Command = {
 						return linkList;
 					},
 				}),
+			});
+			if (resolvedLocale === "en-US") {
+				return;
+			}
+			await interaction.followUp({
+				content: defaultReplyLocalizations[resolvedLocale]({
+					linkList: (): string => {
+						return linkList;
+					},
+				}),
+				ephemeral: true,
 			});
 		}
 	},

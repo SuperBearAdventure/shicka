@@ -4,9 +4,9 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
-import type {Localized} from "../utils/string.js";
+import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
-import {compileAll, composeAll, localize} from "../utils/string.js";
+import {compileAll, composeAll, localize, resolve} from "../utils/string.js";
 type HelpGroups = {
 	commandName: () => string,
 };
@@ -44,6 +44,8 @@ const aboutCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
+		const {locale}: Interaction = interaction;
+		const resolvedLocale: Locale = resolve(locale);
 		await interaction.reply({
 			content: replyLocalizations["en-US"]({
 				bot: (): string => {
@@ -56,6 +58,23 @@ const aboutCommand: Command = {
 					return Util.escapeMarkdown(link);
 				},
 			}),
+		});
+		if (resolvedLocale === "en-US") {
+			return;
+		}
+		await interaction.followUp({
+			content: replyLocalizations[resolvedLocale]({
+				bot: (): string => {
+					return Util.escapeMarkdown(bot);
+				},
+				author: (): string => {
+					return Util.escapeMarkdown(author);
+				},
+				link: (): string => {
+					return Util.escapeMarkdown(link);
+				},
+			}),
+			ephemeral: true,
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {

@@ -199,7 +199,8 @@ const outfitCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {options}: CommandInteraction = interaction;
+		const {locale, options}: CommandInteraction = interaction;
+		const resolvedLocale: Locale = resolve(locale);
 		const slicesByRarityBySeed: {[k in string]: Outfit[][][]} = Object.create(null);
 		const slicesPerRarity: number = Math.ceil(Math.max(...rarities.map<number>((rarity: Rarity): number => {
 			if (rarity.slots === 0) {
@@ -263,6 +264,19 @@ const outfitCommand: Command = {
 				},
 			}),
 		});
+		if (resolvedLocale === "en-US") {
+			return;
+		}
+		await interaction.followUp({
+			content: bareReplyLocalizations[resolvedLocale]({
+				scheduleList: (): string => {
+					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
+						return schedule[resolvedLocale]({});
+					}));
+				},
+			}),
+			ephemeral: true,
+		});
 		return;
 		}
 		const outfit: Outfit = outfits[id];
@@ -273,6 +287,17 @@ const outfitCommand: Command = {
 						return Util.escapeMarkdown(outfit.name["en-US"]);
 					},
 				}),
+			});
+			if (resolvedLocale === "en-US") {
+				return;
+			}
+			await interaction.followUp({
+				content: noSlotReplyLocalizations[resolvedLocale]({
+					outfitName: (): string => {
+						return Util.escapeMarkdown(outfit.name[resolvedLocale]);
+					},
+				}),
+				ephemeral: true,
 			});
 			return;
 		}
@@ -349,6 +374,34 @@ const outfitCommand: Command = {
 					}));
 				},
 			}),
+		});
+		if (resolvedLocale === "en-US") {
+			return;
+		}
+		await interaction.followUp({
+			content: replyLocalizations[resolvedLocale]({
+				outfitName: (): string => {
+					return Util.escapeMarkdown(outfit.name[resolvedLocale]);
+				},
+				costConjunction: (): string => {
+					if (costs.length !== 0) {
+						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(resolvedLocale, {
+							style: "long",
+							type: "conjunction",
+						});
+						return conjunctionFormat.format(costs.map<string>((cost: Localized<(groups: {}) => string>): string => {
+							return cost[resolvedLocale]({});
+						}));
+					}
+					return Util.escapeMarkdown(noCostLocalizations[resolvedLocale]({}));
+				},
+				scheduleList: (): string => {
+					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
+						return schedule[resolvedLocale]({})
+					}));
+				},
+			}),
+			ephemeral: true,
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
