@@ -6,10 +6,10 @@ import type {
 } from "discord.js";
 import type Binding from "../bindings.js";
 import type Command from "../commands.js";
-import type {Localized} from "../utils/string.js";
+import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import * as bindings from "../bindings.js";
-import {compileAll, composeAll, localize} from "../utils/string.js";
+import {compileAll, composeAll, localize, resolve} from "../utils/string.js";
 type HelpGroups = {
 	commandName: () => string,
 	typeOptionDescription: () => string,
@@ -91,13 +91,14 @@ const rawCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {options}: CommandInteraction = interaction;
+		const {locale, options}: CommandInteraction = interaction;
+		const resolvedLocale: Locale = resolve(locale);
 		const bindingName: string = options.getString(typeOptionName, true);
 		if (!(bindingName in bindings)) {
 			await interaction.reply({
-				content: noTypeReplyLocalizations["en-US"]({
+				content: noTypeReplyLocalizations[resolvedLocale]({
 					typeConjunction: (): string => {
-						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
+						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(resolvedLocale, {
 							style: "long",
 							type: "conjunction",
 						});
@@ -115,7 +116,7 @@ const rawCommand: Command = {
 		if (identifier < 0 || identifier >= binding.length) {
 			const max: number = binding.length - 1;
 			await interaction.reply({
-				content: noIdentifierReplyLocalizations["en-US"]({
+				content: noIdentifierReplyLocalizations[resolvedLocale]({
 					max: (): string => {
 						return Util.escapeMarkdown(`${max}`);
 					},
