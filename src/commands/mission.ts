@@ -7,7 +7,7 @@ import type {
 	CommandInteraction,
 	Interaction,
 } from "discord.js";
-import type {Mission} from "../bindings.js";
+import type {Challenge, Level, Mission} from "../bindings.js";
 import type Command from "../commands.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
@@ -17,7 +17,24 @@ type HelpGroups = {
 	commandName: () => string,
 	missionOptionDescription: () => string,
 };
+type ReplyGroups = {
+	challengeName: () => string,
+	levelName: () => string,
+	scheduleList: () => string,
+};
+type BareReplyGroups = {
+	dayTime: () => string,
+	scheduleList: () => string,
+};
 type MissionNameGroups = {
+	challengeName: () => string,
+	levelName: () => string,
+};
+type ScheduleGroups = {
+	dayDateTime: () => string,
+};
+type BareScheduleGroups = {
+	dayDate: () => string,
 	challengeName: () => string,
 	levelName: () => string,
 };
@@ -33,27 +50,30 @@ const missionOptionDescriptionLocalizations: Localized<string> = {
 	"fr": "Une mission",
 };
 const missionOptionDescription: string = missionOptionDescriptionLocalizations["en-US"];
-const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
-	dateStyle: "long",
-	timeStyle: "short",
-	timeZone: "UTC",
-});
-const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
-	dateStyle: "long",
-	timeZone: "UTC",
-});
-const timeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
-	timeStyle: "short",
-	timeZone: "UTC",
-});
-const dayTime: string = timeFormat.format(new Date(36000000));
+const dayTime: Date = new Date(36000000);
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<commandName>` to know what is playable in the shop\nType `/$<commandName> $<missionOptionDescription>` to know when `$<missionOptionDescription>` is playable in the shop",
 	"fr": "Tape `/$<commandName>` pour savoir ce qui est jouable dans la boutique\nTape `/$<commandName> $<missionOptionDescription>` pour savoir quand `$<missionOptionDescription>` est jouable dans la boutique",
 });
+const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
+	"en-US": "**$<challengeName>** in **$<levelName>** will be playable for 1 day starting:\n$<scheduleList>",
+	"fr": "**$<challengeName>** dans **$<levelName>** sera jouable durant 1 jour à partir de :\n$<scheduleList>",
+});
+const bareReplyLocalizations: Localized<(groups: BareReplyGroups) => string> = compileAll<BareReplyGroups>({
+	"en-US": "Each mission starts at *$<dayTime>*:\n$<scheduleList>",
+	"fr": "Chaque mission commence à *$<dayTime>* :\n$<scheduleList>",
+});
 const missionNameLocalizations: Localized<((groups: MissionNameGroups) => string)> = compileAll<MissionNameGroups>({
 	"en-US": "$<challengeName> in $<levelName>",
 	"fr": "$<challengeName> dans $<levelName>",
+});
+const scheduleLocalizations: Localized<((groups: ScheduleGroups) => string)> = compileAll<ScheduleGroups>({
+	"en-US": "*$<dayDateTime>*",
+	"fr": "*$<dayDateTime>*",
+});
+const bareScheduleLocalizations: Localized<((groups: BareScheduleGroups) => string)> = compileAll<BareScheduleGroups>({
+	"en-US": "*$<dayDate>*: **$<challengeName>** in **$<levelName>**",
+	"fr": "*$<dayDate>* : **$<challengeName>** dans **$<levelName>**",
 });
 const missionCommand: Command = {
 	register(): ApplicationCommandData {
@@ -84,24 +104,28 @@ const missionCommand: Command = {
 				return;
 			}
 			const results: Mission[] = nearest<Mission>(value.toLowerCase(), missions, 7, (mission: Mission): string => {
+				const challenge: Challenge = challenges[mission.challenge];
+				const level: Level = levels[mission.level];
 				const missionName: string = missionNameLocalizations[resolvedLocale]({
 					challengeName: (): string => {
-						return challenges[mission.challenge].name[resolvedLocale];
+						return challenge.name[resolvedLocale];
 					},
 					levelName: (): string => {
-						return levels[mission.level].name[resolvedLocale];
+						return level.name[resolvedLocale];
 					},
 				});
 				return missionName.toLowerCase();
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData>((mission: Mission): ApplicationCommandOptionChoiceData => {
 				const {id}: Mission = mission;
+				const challenge: Challenge = challenges[mission.challenge];
+				const level: Level = levels[mission.level];
 				const missionName: string = missionNameLocalizations[resolvedLocale]({
 					challengeName: (): string => {
-						return challenges[mission.challenge].name[resolvedLocale];
+						return challenge.name[resolvedLocale];
 					},
 					levelName: (): string => {
-						return levels[mission.level].name[resolvedLocale];
+						return level.name[resolvedLocale];
 					},
 				});
 				return {
@@ -120,37 +144,89 @@ const missionCommand: Command = {
 		const now: number = Math.floor((interaction.createdTimestamp + 7200000) / 86400000);
 		const id: number | null = options.getInteger(missionOptionName);
 		if (id == null) {
-		const schedules: string[] = [];
+		const schedules: Localized<(groups: {}) => string>[] = [];
 		for (let k: number = -1; k < 2; ++k) {
 			const day: number = now + k;
 			const seed: number = (day % missionCount + missionCount) % missionCount;
 			const mission: Mission = missions[seed];
-			const challenge: string = challenges[mission.challenge].name["en-US"];
-			const level: string = levels[mission.level].name["en-US"];
-			const dayDate: string = dateFormat.format(new Date(day * 86400000));
-			schedules.push(`*${Util.escapeMarkdown(dayDate)}*: **${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}**`);
+			const challenge: Challenge = challenges[mission.challenge];
+			const level: Level = levels[mission.level];
+			const dayDate: Date = new Date(day * 86400000);
+			const schedule: Localized<(groups: {}) => string> = composeAll<BareScheduleGroups, {}>(bareScheduleLocalizations, localize<BareScheduleGroups>((locale: keyof Localized<unknown>): BareScheduleGroups => {
+				return {
+					dayDate: (): string => {
+						const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
+							dateStyle: "long",
+							timeZone: "UTC",
+						});
+						return Util.escapeMarkdown(dateFormat.format(dayDate));
+					},
+					challengeName: (): string => {
+						return Util.escapeMarkdown(challenge.name[locale]);
+					},
+					levelName: (): string => {
+						return Util.escapeMarkdown(level.name[locale]);
+					},
+				};
+			}));
+			schedules.push(schedule);
 		}
-		const scheduleList: string = list(schedules);
 		await interaction.reply({
-			content: `Each mission starts at *${Util.escapeMarkdown(dayTime)}*:\n${scheduleList}`,
+			content: bareReplyLocalizations["en-US"]({
+				dayTime: (): string => {
+					const timeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
+						timeStyle: "short",
+						timeZone: "UTC",
+					});
+					return Util.escapeMarkdown(timeFormat.format(dayTime));
+				},
+				scheduleList: (): string => {
+					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
+						return schedule["en-US"]({})
+					}));
+				},
+			}),
 		});
 		return;
 		}
 		const mission: Mission = missions[id];
-		const schedules: string[] = [];
+		const schedules: Localized<(groups: {}) => string>[] = [];
 		for (let k: number = -1; k < 2 || schedules.length < 2; ++k) {
 			const day: number = now + k;
 			const seed: number = (day % missionCount + missionCount) % missionCount;
 			if (missions[seed] === mission) {
-				const dayDateTime: string = dateTimeFormat.format(new Date(day * 86400000 + 36000000));
-				schedules.push(`*${Util.escapeMarkdown(dayDateTime)}*`);
+				const dayDateTime: Date = new Date(day * 86400000 + 36000000);
+				const schedule: Localized<(groups: {}) => string> = composeAll<ScheduleGroups, {}>(scheduleLocalizations, localize<ScheduleGroups>((locale: keyof Localized<unknown>): ScheduleGroups => {
+					return {
+						dayDateTime: (): string => {
+							const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
+								dateStyle: "long",
+								timeStyle: "short",
+								timeZone: "UTC",
+							});
+							return Util.escapeMarkdown(dateTimeFormat.format(dayDateTime));
+						},
+					};
+				}));
+				schedules.push(schedule);
 			}
 		}
-		const challenge: string = challenges[mission.challenge].name["en-US"];
-		const level: string = levels[mission.level].name["en-US"];
-		const scheduleList: string = list(schedules);
+		const challenge: Challenge = challenges[mission.challenge];
+		const level: Level = levels[mission.level];
 		await interaction.reply({
-			content: `**${Util.escapeMarkdown(challenge)}** in **${Util.escapeMarkdown(level)}** will be playable for 1 day starting:\n${scheduleList}`,
+			content: replyLocalizations["en-US"]({
+				challengeName: (): string => {
+					return Util.escapeMarkdown(challenge.name["en-US"]);
+				},
+				levelName: (): string => {
+					return Util.escapeMarkdown(level.name["en-US"]);
+				},
+				scheduleList: (): string => {
+					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
+						return schedule["en-US"]({})
+					}));
+				},
+			}),
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {

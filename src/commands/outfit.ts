@@ -18,6 +18,31 @@ type HelpGroups = {
 	commandName: () => string,
 	outfitOptionDescription: () => string,
 };
+type ReplyGroups = {
+	outfitName: () => string,
+	costConjunction: () => string,
+	scheduleList: () => string,
+};
+type BareReplyGroups = {
+	scheduleList: () => string,
+};
+type NoSlotReplyGroups = {
+	outfitName: () => string,
+};
+type TokensCostGroups = {
+	tokens: () => string,
+};
+type CoinsCostGroups = {
+	coins: () => string,
+};
+type NoCostGroups = {};
+type ScheduleGroups = {
+	dayDateTime: () => string,
+};
+type BareScheduleGroups = {
+	dayDateTime: () => string,
+	outfitNameConjunction: () => string,
+};
 const {
 	SHICKA_SALT: salt = "",
 }: NodeJS.ProcessEnv = process.env;
@@ -33,18 +58,41 @@ const outfitOptionDescriptionLocalizations: Localized<string> = {
 	"fr": "Un costume",
 };
 const outfitOptionDescription: string = outfitOptionDescriptionLocalizations["en-US"];
-const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
-	dateStyle: "long",
-	timeStyle: "short",
-	timeZone: "UTC",
-});
-const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
-	style: "long",
-	type: "conjunction",
-});
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<commandName>` to know what is for sale in the shop\nType `/$<commandName> $<outfitOptionDescription>` to know when `$<outfitOptionDescription>` is for sale in the shop",
 	"fr": "Tape `/$<commandName>` pour savoir ce qui est en vente dans la boutique\nTape `/$<commandName> $<outfitOptionDescription>` pour savoir quand `$<outfitOptionDescription>` est en vente dans la boutique",
+});
+const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
+	"en-US": "**$<outfitName>** will be for sale in the shop for $<costConjunction> for 6 hours starting:\n$<scheduleList>",
+	"fr": "**$<outfitName>** sera en vente dans la boutique pour $<costConjunction> durant 6 heures à partir de :\n$<scheduleList>",
+});
+const noSlotReplyLocalizations: Localized<(groups: NoSlotReplyGroups) => string> = compileAll<NoSlotReplyGroups>({
+	"en-US": "**$<outfitName>** is not for sale.",
+	"fr": "**$<outfitName>** n'est pas en vente.",
+});
+const bareReplyLocalizations: Localized<(groups: BareReplyGroups) => string> = compileAll<BareReplyGroups>({
+	"en-US": "The outfits for sale in the shop change every 6 hours:\n$<scheduleList>",
+	"fr": "Les costumes en vente dans la boutique changent toutes les 6 heures :\n$<scheduleList>",
+});
+const tokensCostLocalizations: Localized<(groups: TokensCostGroups) => string> = compileAll<TokensCostGroups>({
+	"en-US": "**$<tokens> Tristopio tokens**",
+	"fr": "**$<tokens> jetons Tristopio**",
+});
+const coinsCostLocalizations: Localized<(groups: CoinsCostGroups) => string> = compileAll<CoinsCostGroups>({
+	"en-US": "**$<coins> coins**",
+	"fr": "**$<coins> pièces**",
+});
+const noCostLocalizations: Localized<(groups: NoCostGroups) => string> = compileAll<NoCostGroups>({
+	"en-US": "a pittance",
+	"fr": "une bouchée de pain",
+});
+const scheduleLocalizations: Localized<((groups: ScheduleGroups) => string)> = compileAll<ScheduleGroups>({
+	"en-US": "*$<dayDateTime>*",
+	"fr": "*$<dayDateTime>*",
+});
+const bareScheduleLocalizations: Localized<((groups: BareScheduleGroups) => string)> = compileAll<BareScheduleGroups>({
+	"en-US": "*$<dayDateTime>*: $<outfitNameConjunction>",
+	"fr": "*$<dayDateTime>* : $<outfitNameConjunction>",
 });
 function knuth(state: bigint): bigint {
 	return BigInt.asUintN(32, state * 2654435761n);
@@ -162,7 +210,7 @@ const outfitCommand: Command = {
 		const now: number = Math.floor(interaction.createdTimestamp / 21600000);
 		const id: number | null = options.getInteger(outfitOptionName);
 		if (id == null) {
-		const schedules: string[] = [];
+		const schedules: Localized<(groups: {}) => string>[] = [];
 		for (let k: number = -2; k < 4; ++k) {
 			const day: number = now + k;
 			const seed: number = Math.floor(day / slicesPerRarity);
@@ -179,31 +227,56 @@ const outfitCommand: Command = {
 				});
 			})();
 			const index: number = day - seed * slicesPerRarity;
-			const names: string[] = slicesByRarity.map<Outfit[]>((slices: Outfit[][]): Outfit[] => {
+			const scheduleOutfits: Outfit[] = slicesByRarity.map<Outfit[]>((slices: Outfit[][]): Outfit[] => {
 				return slices[index];
-			}).flat<Outfit[][]>().map<string>((outfit: Outfit): string => {
-				const {name}: Outfit = outfit;
-				return `**${Util.escapeMarkdown(name["en-US"])}**`;
-			});
-			const dayDateTime: string = dateTimeFormat.format(new Date(day * 21600000));
-			const nameConjunction: string = conjunctionFormat.format(names);
-			schedules.push(`*${Util.escapeMarkdown(dayDateTime)}*: ${nameConjunction}`);
+			}).flat<Outfit[][]>();
+			const dayDateTime: Date = new Date(day * 21600000);
+			const schedule: Localized<(groups: {}) => string> = composeAll<BareScheduleGroups, {}>(bareScheduleLocalizations, localize<BareScheduleGroups>((locale: keyof Localized<unknown>): BareScheduleGroups => {
+				return {
+					dayDateTime: (): string => {
+						const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
+							dateStyle: "long",
+							timeStyle: "short",
+							timeZone: "UTC",
+						});
+						return Util.escapeMarkdown(dateTimeFormat.format(dayDateTime));
+					},
+					outfitNameConjunction: (): string => {
+						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(locale, {
+							style: "long",
+							type: "conjunction",
+						});
+						return conjunctionFormat.format(scheduleOutfits.map<string>((outfit: Outfit): string => {
+							return `**${Util.escapeMarkdown(outfit.name[locale])}**`;
+						}));
+					},
+				};
+			}));
+			schedules.push(schedule);
 		}
-		const scheduleList: string = list(schedules);
 		await interaction.reply({
-			content: `Outfits for sale in the shop change every 6 hours:\n${scheduleList}`,
+			content: bareReplyLocalizations["en-US"]({
+				scheduleList: (): string => {
+					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
+						return schedule["en-US"]({});
+					}));
+				},
+			}),
 		});
 		return;
 		}
 		const outfit: Outfit = outfits[id];
 		if (rarities[outfit.rarity].slots === 0) {
-			const {name}: Outfit = outfit;
 			await interaction.reply({
-				content: `**${Util.escapeMarkdown(name["en-US"])}** is not for sale.`,
+				content: noSlotReplyLocalizations["en-US"]({
+					outfitName: (): string => {
+						return Util.escapeMarkdown(outfit.name["en-US"]);
+					},
+				}),
 			});
 			return;
 		}
-		const schedules: string[] = [];
+		const schedules: Localized<(groups: {}) => string>[] = [];
 		for (let k: number = -2; k < 4 || schedules.length < 2; ++k) {
 			const day: number = now + k;
 			const seed: number = Math.floor(day / slicesPerRarity);
@@ -218,24 +291,64 @@ const outfitCommand: Command = {
 			})();
 			const index: number = day - seed * slicesPerRarity;
 			if (slicesByRarity[outfit.rarity][index].includes(outfit)) {
-				const dayDateTime: string = dateTimeFormat.format(new Date(day * 21600000));
-				schedules.push(`*${Util.escapeMarkdown(dayDateTime)}*`);
+				const dayDateTime: Date = new Date(day * 21600000);
+				const schedule: Localized<(groups: {}) => string> = composeAll<ScheduleGroups, {}>(scheduleLocalizations, localize<ScheduleGroups>((locale: keyof Localized<unknown>): ScheduleGroups => {
+					return {
+						dayDateTime: (): string => {
+							const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
+								dateStyle: "long",
+								timeStyle: "short",
+								timeZone: "UTC",
+							});
+							return Util.escapeMarkdown(dateTimeFormat.format(dayDateTime));
+						},
+					};
+				}));
+				schedules.push(schedule);
 			}
 		}
-		const {name}: Outfit = outfit;
-		const costs: string[] = [];
 		const tokens: number = outfit.cost;
-		if (tokens !== 0) {
-			costs.push(`**${Util.escapeMarkdown(`${tokens}`)} Tristopio token${tokens !== 1 ? "s" : ""}**`);
-		}
+		const tokensCost: Localized<(groups: {}) => string> | null = tokens !== 0 ? composeAll<TokensCostGroups, {}>(tokensCostLocalizations, localize<TokensCostGroups>((): TokensCostGroups => {
+			return {
+				tokens: (): string => {
+					return Util.escapeMarkdown(`${tokens}`);
+				},
+			};
+		})) : null;
 		const coins: number = rarities[outfit.rarity].cost;
-		if (coins !== 0) {
-			costs.push(`**${Util.escapeMarkdown(`${coins}`)} coin${coins !== 1 ? "s" : ""}**`);
-		}
-		const costConjunction: string = `${costs.length !== 0 ? " for " : ""}${conjunctionFormat.format(costs)}`;
-		const scheduleList: string = list(schedules);
+		const coinsCost: Localized<(groups: {}) => string> | null = coins !== 0 ? composeAll<CoinsCostGroups, {}>(coinsCostLocalizations, localize<CoinsCostGroups>((): CoinsCostGroups => {
+			return {
+				coins: (): string => {
+					return Util.escapeMarkdown(`${coins}`);
+				},
+			};
+		})) : null;
+		const costs: Localized<(groups: {}) => string>[] = [tokensCost, coinsCost].filter((cost: Localized<(groups: {}) => string> | null): cost is Localized<(groups: {}) => string> => {
+			return cost != null;
+		});
 		await interaction.reply({
-			content: `**${Util.escapeMarkdown(name["en-US"])}** will be for sale in the shop${costConjunction} for 6 hours starting:\n${scheduleList}`,
+			content: replyLocalizations["en-US"]({
+				outfitName: (): string => {
+					return Util.escapeMarkdown(outfit.name["en-US"]);
+				},
+				costConjunction: (): string => {
+					if (costs.length !== 0) {
+						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
+							style: "long",
+							type: "conjunction",
+						});
+						return conjunctionFormat.format(costs.map<string>((cost: Localized<(groups: {}) => string>): string => {
+							return cost["en-US"]({});
+						}));
+					}
+					return Util.escapeMarkdown(noCostLocalizations["en-US"]({}));
+				},
+				scheduleList: (): string => {
+					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
+						return schedule["en-US"]({})
+					}));
+				},
+			}),
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {

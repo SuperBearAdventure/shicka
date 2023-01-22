@@ -13,6 +13,15 @@ import {compileAll, composeAll, list, localize} from "../utils/string.js";
 type HelpGroups = {
 	commandName: () => string,
 };
+type ReplyGroups = {
+	androidVersion: () => string,
+	androidDate: () => string,
+	iosVersion: () => string,
+	iosDate: () => string,
+};
+type DefaultReplyGroups = {
+	linkList: () => string,
+};
 type Data = {
 	version: string,
 	date: number,
@@ -27,13 +36,17 @@ const updates: string[] = [
 	"[*Android*](<https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer>)",
 	"[*iOS*](<https://apps.apple.com/app/id1531842415>)",
 ];
-const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
-	dateStyle: "long",
-	timeZone: "UTC",
-});
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<commandName>` to know what is the latest update of the game",
 	"fr": "Tape `/$<commandName>` pour savoir quelle est la dernière mise à jour du jeu",
+});
+const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
+	"en-US": "The latest update of the game is:\n\u{2022} **$<androidVersion>** on **Android** (*$<androidDate>*)\n\u{2022} **$<iosVersion>** on **iOS** (*$<iosDate>*)",
+	"fr": "La dernière mise à jour du jeu est :\n\u{2022} **$<androidVersion>** sur **Android** (*$<androidDate>*)\n\u{2022} **$<iosVersion>** sur **iOS** (*$<iosDate>*)",
+});
+const defaultReplyLocalizations: Localized<(groups: DefaultReplyGroups) => string> = compileAll<DefaultReplyGroups>({
+	"en-US": "You can check and download the latest update of the game there:\n$<linkList>",
+	"fr": "Tu peux consulter et télécharger la dernière mise à jour du jeu là :\n$<linkList>",
 });
 const updateCommand: Command = {
 	register(): ApplicationCommandData {
@@ -85,22 +98,42 @@ const updateCommand: Command = {
 				throw new Error();
 			}
 			const androidVersion: string = androidData.version;
-			const androidDate: string = dateFormat.format(new Date(androidData.date));
+			const androidDate: Date = new Date(androidData.date);
 			const iosVersion: string = iosData.version;
-			const iosDate: string = dateFormat.format(new Date(iosData.date));
-			const updates: string[] = [
-				`**${Util.escapeMarkdown(androidVersion)}** on **Android** (*${Util.escapeMarkdown(androidDate)}*)`,
-				`**${Util.escapeMarkdown(iosVersion)}** on **iOS** (*${Util.escapeMarkdown(iosDate)}*)`,
-			];
-			const updateList: string = list(updates);
+			const iosDate: Date = new Date(iosData.date);
 			await interaction.reply({
-				content: `The latest update of the game is:\n${updateList}`,
+				content: replyLocalizations["en-US"]({
+					androidVersion: (): string => {
+						return Util.escapeMarkdown(androidVersion);
+					},
+					androidDate: (): string => {
+						const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
+							dateStyle: "long",
+							timeZone: "UTC",
+						});
+						return Util.escapeMarkdown(dateFormat.format(androidDate));
+					},
+					iosVersion: (): string => {
+						return Util.escapeMarkdown(iosVersion);
+					},
+					iosDate: (): string => {
+						const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
+							dateStyle: "long",
+							timeZone: "UTC",
+						});
+						return Util.escapeMarkdown(dateFormat.format(iosDate));
+					},
+				}),
 			});
 		} catch (error: unknown) {
 			console.warn(error);
 			const linkList: string = list(updates);
 			await interaction.reply({
-				content: `You can check and download the latest update of the game there:\n${linkList}`,
+				content: defaultReplyLocalizations["en-US"]({
+					linkList: (): string => {
+						return linkList;
+					},
+				}),
 			});
 		}
 	},

@@ -10,6 +10,14 @@ import {compileAll, composeAll, list, localize} from "../utils/string.js";
 type HelpGroups = {
 	commandName: () => string,
 };
+type ReplyGroups = {
+	intent: () => string,
+	linkList: () => string,
+};
+type IntentWithChannelGroups = {
+	channel: () => string,
+};
+type IntentWithoutChannelGroups = {};
 const commandName: string = "tracker";
 const commandDescriptionLocalizations: Localized<string> = {
 	"en-US": "Tells you where to check known bugs of the game",
@@ -24,6 +32,18 @@ const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<
 	"en-US": "Type `/$<commandName>` to know where to check known bugs of the game",
 	"fr": "Tape `/$<commandName>` pour savoir où consulter des bogues connus du jeu",
 });
+const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
+	"en-US": "$<intent> check the known bugs of the game there:\n$<linkList>",
+	"fr": "$<intent> consulter des bogues connus du jeu là :\n$<linkList>",
+});
+const intentWithChannelLocalizations: Localized<(groups: IntentWithChannelGroups) => string> = compileAll<IntentWithChannelGroups>({
+	"en-US": "Before reporting a bug in $<channel>, you can",
+	"fr": "Avant de rapporter un bogue dans $<channel>, tu peux",
+});
+const intentWithoutChannelLocalizations: Localized<(groups: IntentWithoutChannelGroups) => string> = compileAll<IntentWithoutChannelGroups>({
+	"en-US": "You can",
+	"fr": "Tu peux",
+});
 const trackerCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -36,7 +56,6 @@ const trackerCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const linkList: string = list(trackers);
 		const {guild}: CommandInteraction = interaction;
 		if (guild == null) {
 			return;
@@ -44,9 +63,20 @@ const trackerCommand: Command = {
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 			return channel.name === "🐛│bug-report";
 		});
-		const intent: string = channel != null ? `Before reporting a bug in ${channel},` : "You can";
+		const linkList: string = list(trackers);
 		await interaction.reply({
-			content: `${intent} check the known bugs of the game there:\n${linkList}`,
+			content: replyLocalizations["en-US"]({
+				intent: (): string => {
+					return channel != null ? intentWithChannelLocalizations["en-US"]({
+						channel: (): string => {
+							return `${channel}`;
+						},
+					}) : intentWithoutChannelLocalizations["en-US"]({});
+				},
+				linkList: (): string => {
+					return linkList;
+				},
+			}),
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {

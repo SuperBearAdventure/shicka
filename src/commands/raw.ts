@@ -15,6 +15,12 @@ type HelpGroups = {
 	typeOptionDescription: () => string,
 	identifierOptionDescription: () => string,
 };
+type NoTypeReplyGroups = {
+	typeConjunction: () => string,
+};
+type NoIdentifierReplyGroups = {
+	max: () => string,
+};
 const commandName: string = "raw";
 const commandDescriptionLocalizations: Localized<string> = {
 	"en-US": "Tells you what is the datum of this type with this identifier",
@@ -33,13 +39,17 @@ const identifierOptionDescriptionLocalizations: Localized<string> = {
 	"fr": "Un identifiant",
 };
 const identifierOptionDescription: string = identifierOptionDescriptionLocalizations["en-US"];
-const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
-	style: "long",
-	type: "conjunction",
-});
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<commandName> $<typeOptionDescription> $<identifierOptionDescription>` to know what is the datum of `$<typeOptionDescription>` with `$<identifierOptionDescription>`",
 	"fr": "Tape `/$<commandName> $<typeOptionDescription> $<identifierOptionDescription>` pour savoir quel est la donnée d'`$<typeOptionDescription>` avec `$<identifierOptionDescription>`",
+});
+const noTypeReplyLocalizations: Localized<(groups: NoTypeReplyGroups) => string> = compileAll<NoTypeReplyGroups>({
+	"en-US": "I do not know any datum with this name.\nPlease give me a type among $<typeConjunction> instead.",
+	"fr": "Je ne connais aucune donnée avec ce nom.\nMerci de me donner un type parmi $<typeConjunction> à la place.",
+});
+const noIdentifierReplyLocalizations: Localized<(groups: NoIdentifierReplyGroups) => string> = compileAll<NoIdentifierReplyGroups>({
+	"en-US": "I do not know any datum with this identifier.\nPlease give me an identifier between `0` and `$<max>` instead.",
+	"fr": "Je ne connais aucune donnée avec cet identifiant.\nMerci de me donner un identifiant entre `0` et `$<max>` à la place.",
 });
 const rawCommand: Command = {
 	register(): ApplicationCommandData {
@@ -84,11 +94,18 @@ const rawCommand: Command = {
 		const {options}: CommandInteraction = interaction;
 		const bindingName: string = options.getString(typeOptionName, true);
 		if (!(bindingName in bindings)) {
-			const typeConjunction: string = conjunctionFormat.format(Object.keys(bindings).map<string>((bindingName: string): string => {
-				return `\`${Util.escapeMarkdown(bindingName)}\``;
-			}));
 			await interaction.reply({
-				content: `I do not know any datum with this name.\nPlease give me a type among ${typeConjunction} instead.`,
+				content: noTypeReplyLocalizations["en-US"]({
+					typeConjunction: (): string => {
+						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
+							style: "long",
+							type: "conjunction",
+						});
+						return conjunctionFormat.format(Object.keys(bindings).map<string>((bindingName: string): string => {
+							return `\`${Util.escapeMarkdown(bindingName)}\``;
+						}));
+					},
+				}),
 				ephemeral: true,
 			});
 			return;
@@ -96,8 +113,13 @@ const rawCommand: Command = {
 		const binding: Binding = bindings[bindingName as keyof typeof bindings] as Binding;
 		const identifier: number = options.getInteger(identifierOptionName, true);
 		if (identifier < 0 || identifier >= binding.length) {
+			const max: number = binding.length - 1;
 			await interaction.reply({
-				content: `I do not know any datum with this identifier.\nPlease give me an identifier between \`0\` and \`${binding.length - 1}\` instead.`,
+				content: noIdentifierReplyLocalizations["en-US"]({
+					max: (): string => {
+						return Util.escapeMarkdown(`${max}`);
+					},
+				}),
 				ephemeral: true,
 			});
 			return;

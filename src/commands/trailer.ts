@@ -9,6 +9,9 @@ import {compileAll, composeAll, list, localize} from "../utils/string.js";
 type HelpGroups = {
 	commandName: () => string,
 };
+type ReplyGroups = {
+	linkList: () => string,
+};
 const commandName: string = "trailer";
 const commandDescriptionLocalizations: Localized<string> = {
 	"en-US": "Tells you where to watch official trailers of the game",
@@ -24,6 +27,10 @@ const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<
 	"en-US": "Type `/$<commandName>` to know where to watch official trailers of the game",
 	"fr": "Tape `/$<commandName>` pour savoir où regarder des bandes-annonces officielles du jeu",
 });
+const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
+	"en-US": "You can watch official trailers of the game there:\n$<linkList>",
+	"fr": "Tu peux regarder des bandes-annonces officielles du jeu là :\n$<linkList>",
+});
 const trailerCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -38,7 +45,11 @@ const trailerCommand: Command = {
 		}
 		const linkList: string = list(trailers);
 		await interaction.reply({
-			content: `You can watch official trailers of the game there:\n${linkList}`,
+			content: replyLocalizations["en-US"]({
+				linkList: (): string => {
+					return linkList;
+				},
+			}),
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
