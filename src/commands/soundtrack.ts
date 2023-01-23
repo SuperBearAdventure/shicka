@@ -22,10 +22,12 @@ type DefaultReplyGroups = {
 type LinkGroups = {
 	title: () => string,
 	link: () => string,
+	views: () => string,
 };
 type Data = {
 	title: string,
 	link: string,
+	views: string,
 };
 const commandName: string = "soundtrack";
 const commandDescriptionLocalizations: Localized<string> = {
@@ -34,6 +36,7 @@ const commandDescriptionLocalizations: Localized<string> = {
 };
 const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const titlePattern: RegExp = /^Super Bear Adventure - (.*) \(Original Soundtrack\)$/su;
+const viewsPattern: RegExp = /^(.*) views$/su;
 const link: string = "https://www.youtube.com/playlist?list=PLDF2V3x1AdQBnalWW0q69H5LF1-wgAxN8";
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<commandName>` to know where to listen to official music pieces of the game",
@@ -48,8 +51,8 @@ const defaultReplyLocalizations: Localized<(groups: DefaultReplyGroups) => strin
 	"fr": "Tu peux écouter des morceaux de musique officiels du jeu [là](<$<link>>).",
 });
 const linkLocalizations: Localized<((groups: LinkGroups) => string)> = compileAll<LinkGroups>({
-	"en-US": "[*$<title>* soundtrack](<$<link>>)",
-	"fr": "[Bande-son *$<title>*](<$<link>>)",
+	"en-US": "[*$<title>* soundtrack](<$<link>>) (*$<views>* views)",
+	"fr": "[Bande-son *$<title>*](<$<link>>) (*$<views>* vues)",
 });
 const soundtrackCommand: Command = {
 	register(): ApplicationCommandData {
@@ -81,6 +84,7 @@ const soundtrackCommand: Command = {
 							return {
 								title: item.playlistVideoRenderer.title.runs[0].text.replace(titlePattern, "$1"),
 								link: `https://www.youtube.com/watch?v=${item.playlistVideoRenderer.videoId}`,
+								views: item.playlistVideoRenderer.videoInfo.runs[0].text.replace(viewsPattern, "$1"),
 							};
 						});
 					} catch (error: unknown) {
@@ -101,6 +105,9 @@ const soundtrackCommand: Command = {
 						},
 						link: (): string => {
 							return item.link;
+						},
+						views: (): string => {
+							return Util.escapeMarkdown(item.views);
 						},
 					};
 				}));
