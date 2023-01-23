@@ -6,6 +6,7 @@ import type {
 } from "discord.js";
 import type Command from "../commands.js";
 import type {Locale, Localized} from "../utils/string.js";
+import {Util} from "discord.js";
 import {compileAll, composeAll, list, localize, resolve} from "../utils/string.js";
 type HelpGroups = {
 	commandName: () => string,
@@ -18,15 +19,35 @@ type IntentWithChannelGroups = {
 	channel: () => string,
 };
 type IntentWithoutChannelGroups = {};
+type LinkGroups = {
+	title: () => string,
+	link: () => string,
+};
+type Data = {
+	title: Localized<string>,
+	link: string,
+};
 const commandName: string = "tracker";
 const commandDescriptionLocalizations: Localized<string> = {
 	"en-US": "Tells you where to check known bugs of the game",
 	"fr": "Te dit où consulter des bogues connus du jeu",
 };
 const commandDescription: string = commandDescriptionLocalizations["en-US"];
-const trackers: string[] = [
-	"[*Current tracker*](<https://github.com/SuperBearAdventure/tracker>)",
-	"[*Former tracker*](<https://trello.com/b/yTojOuqv/super-bear-adventure-bugs>)",
+const data: Data[] = [
+	{
+		title: {
+			"en-US": "Current",
+			"fr": "actuel",
+		},
+		link: "https://github.com/SuperBearAdventure/tracker",
+	},
+	{
+		title: {
+			"en-US": "Former",
+			"fr": "antérieur",
+		},
+		link: "https://trello.com/b/yTojOuqv/super-bear-adventure-bugs",
+	},
 ];
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<commandName>` to know where to check known bugs of the game",
@@ -43,6 +64,10 @@ const intentWithChannelLocalizations: Localized<(groups: IntentWithChannelGroups
 const intentWithoutChannelLocalizations: Localized<(groups: IntentWithoutChannelGroups) => string> = compileAll<IntentWithoutChannelGroups>({
 	"en-US": "You can",
 	"fr": "Tu peux",
+});
+const linkLocalizations: Localized<((groups: LinkGroups) => string)> = compileAll<LinkGroups>({
+	"en-US": "[$<title> tracker](<$<link>>)",
+	"fr": "[Suivi $<title>](<$<link>>)",
 });
 const trackerCommand: Command = {
 	register(): ApplicationCommandData {
@@ -64,7 +89,20 @@ const trackerCommand: Command = {
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 			return channel.name === "🐛│bug-report";
 		});
-		const linkList: string = list(trackers);
+		const links: Localized<(groups: {}) => string>[] = [];
+		for (const item of data) {
+			const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((locale: keyof Localized<unknown>): LinkGroups => {
+				return {
+					title: (): string => {
+						return Util.escapeMarkdown(item.title[locale]);
+					},
+					link: (): string => {
+						return item.link;
+					},
+				};
+			}));
+			links.push(link);
+		}
 		await interaction.reply({
 			content: replyLocalizations["en-US"]({
 				intent: (): string => {
@@ -75,7 +113,9 @@ const trackerCommand: Command = {
 					}) : intentWithoutChannelLocalizations["en-US"]({});
 				},
 				linkList: (): string => {
-					return linkList;
+					return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
+						return link["en-US"]({});
+					}));
 				},
 			}),
 		});
@@ -92,7 +132,9 @@ const trackerCommand: Command = {
 					}) : intentWithoutChannelLocalizations[resolvedLocale]({});
 				},
 				linkList: (): string => {
-					return linkList;
+					return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
+						return link[resolvedLocale]({});
+					}));
 				},
 			}),
 			ephemeral: true,

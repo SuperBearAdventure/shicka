@@ -14,17 +14,22 @@ type HelpGroups = {
 	commandName: () => string,
 };
 type ReplyGroups = {
-	androidVersion: () => string,
-	androidDate: () => string,
-	iosVersion: () => string,
-	iosDate: () => string,
+	linkList: () => string,
 };
 type DefaultReplyGroups = {
 	linkList: () => string,
 };
+type LinkGroups = {
+	title: () => string,
+	link: () => string,
+	version: () => string,
+	date: () => string,
+};
 type Data = {
+	title: string,
+	link: string,
 	version: string,
-	date: number,
+	date: Date,
 };
 const commandName: string = "update";
 const commandDescriptionLocalizations: Localized<string> = {
@@ -32,7 +37,7 @@ const commandDescriptionLocalizations: Localized<string> = {
 	"fr": "Te dit quelle est la dernière mise à jour du jeu",
 };
 const commandDescription: string = commandDescriptionLocalizations["en-US"];
-const updates: string[] = [
+const links: string[] = [
 	"[*Android*](<https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer>)",
 	"[*iOS*](<https://apps.apple.com/app/id1531842415>)",
 ];
@@ -41,12 +46,16 @@ const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<
 	"fr": "Tape `/$<commandName>` pour savoir quelle est la dernière mise à jour du jeu",
 });
 const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
-	"en-US": "The latest update of the game is:\n\u{2022} **$<androidVersion>** on **Android** (*$<androidDate>*)\n\u{2022} **$<iosVersion>** on **iOS** (*$<iosDate>*)",
-	"fr": "La dernière mise à jour du jeu est :\n\u{2022} **$<androidVersion>** sur **Android** (*$<androidDate>*)\n\u{2022} **$<iosVersion>** sur **iOS** (*$<iosDate>*)",
+	"en-US": "You can check and download the latest update of the game there:\n$<linkList>",
+	"fr": "Tu peux consulter et télécharger la dernière mise à jour du jeu là :\n$<linkList>",
 });
 const defaultReplyLocalizations: Localized<(groups: DefaultReplyGroups) => string> = compileAll<DefaultReplyGroups>({
 	"en-US": "You can check and download the latest update of the game there:\n$<linkList>",
 	"fr": "Tu peux consulter et télécharger la dernière mise à jour du jeu là :\n$<linkList>",
+});
+const linkLocalizations: Localized<((groups: LinkGroups) => string)> = compileAll<LinkGroups>({
+	"en-US": "[*$<title>* platform](<$<link>>) (*$<version>* version as of *$<date>*)",
+	"fr": "[Plateforme *$<title>*](<$<link>>) (version *$<version>* au *$<date>*)",
 });
 const updateCommand: Command = {
 	register(): ApplicationCommandData {
@@ -64,7 +73,8 @@ const updateCommand: Command = {
 		const resolvedLocale: Locale = resolve(locale);
 		try {
 			const androidData: Data | null = await (async (): Promise<Data | null> => {
-				const {window}: JSDOM = await JSDOM.fromURL("https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
+				const response: Response = await fetch("https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
+				const {window}: JSDOM = new JSDOM(await response.text());
 				const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("body > script")];
 				for (const {textContent} of scripts) {
 					if (textContent == null || !textContent.startsWith("AF_initDataCallback({") || !textContent.endsWith("});")) {
@@ -73,8 +83,10 @@ const updateCommand: Command = {
 					try {
 						const result: any = JSON.parse(textContent.slice(textContent.indexOf(", data:") + 7, textContent.lastIndexOf(", sideChannel: ")));
 						return {
+							title: "Android",
+							link: "https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer",
 							version: result[1][2][140][0][0][0],
-							date: result[1][2][145][0][1][0] * 1000,
+							date: new Date(result[1][2][145][0][1][0] * 1000),
 						};
 					} catch {}
 				}
@@ -89,8 +101,10 @@ const updateCommand: Command = {
 				for (const result of data.results) {
 					try {
 						return {
+							title: "iOS",
+							link: "https://apps.apple.com/app/id1531842415",
 							version: result.version,
-							date: new Date(result.currentVersionReleaseDate).getTime(),
+							date: new Date(result.currentVersionReleaseDate),
 						};
 					} catch {}
 				}
@@ -99,31 +113,37 @@ const updateCommand: Command = {
 			if (iosData == null) {
 				throw new Error();
 			}
-			const androidVersion: string = androidData.version;
-			const androidDate: Date = new Date(androidData.date);
-			const iosVersion: string = iosData.version;
-			const iosDate: Date = new Date(iosData.date);
+			const data: Data[] = [androidData, iosData];
+			const links: Localized<(groups: {}) => string>[] = [];
+			for (const item of data) {
+				const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((locale: keyof Localized<unknown>): LinkGroups => {
+					return {
+						title: (): string => {
+							return Util.escapeMarkdown(item.title);
+						},
+						link: (): string => {
+							return item.link;
+						},
+						date: (): string => {
+							const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
+								dateStyle: "long",
+								timeZone: "UTC",
+							});
+							return Util.escapeMarkdown(dateFormat.format(item.date));
+						},
+						version: (): string => {
+							return Util.escapeMarkdown(item.version);
+						},
+					};
+				}));
+				links.push(link);
+			}
 			await interaction.reply({
 				content: replyLocalizations["en-US"]({
-					androidVersion: (): string => {
-						return Util.escapeMarkdown(androidVersion);
-					},
-					androidDate: (): string => {
-						const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
-							dateStyle: "long",
-							timeZone: "UTC",
-						});
-						return Util.escapeMarkdown(dateFormat.format(androidDate));
-					},
-					iosVersion: (): string => {
-						return Util.escapeMarkdown(iosVersion);
-					},
-					iosDate: (): string => {
-						const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
-							dateStyle: "long",
-							timeZone: "UTC",
-						});
-						return Util.escapeMarkdown(dateFormat.format(iosDate));
+					linkList: (): string => {
+						return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
+							return link["en-US"]({})
+						}));
 					},
 				}),
 			});
@@ -132,32 +152,17 @@ const updateCommand: Command = {
 			}
 			await interaction.followUp({
 				content: replyLocalizations[resolvedLocale]({
-					androidVersion: (): string => {
-						return Util.escapeMarkdown(androidVersion);
-					},
-					androidDate: (): string => {
-						const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(resolvedLocale, {
-							dateStyle: "long",
-							timeZone: "UTC",
-						});
-						return Util.escapeMarkdown(dateFormat.format(androidDate));
-					},
-					iosVersion: (): string => {
-						return Util.escapeMarkdown(iosVersion);
-					},
-					iosDate: (): string => {
-						const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(resolvedLocale, {
-							dateStyle: "long",
-							timeZone: "UTC",
-						});
-						return Util.escapeMarkdown(dateFormat.format(iosDate));
+					linkList: (): string => {
+						return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
+							return link[resolvedLocale]({})
+						}));
 					},
 				}),
 				ephemeral: true,
 			});
 		} catch (error: unknown) {
 			console.warn(error);
-			const linkList: string = list(updates);
+			const linkList: string = list(links);
 			await interaction.reply({
 				content: defaultReplyLocalizations["en-US"]({
 					linkList: (): string => {

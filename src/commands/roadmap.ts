@@ -72,7 +72,7 @@ const roadmapCommand: Command = {
 					}) : intentWithoutChannelLocalizations["en-US"]({});
 				},
 				link: (): string => {
-					return Util.escapeMarkdown(link);
+					return link;
 				},
 			}),
 		});
@@ -89,7 +89,7 @@ const roadmapCommand: Command = {
 					}) : intentWithoutChannelLocalizations[resolvedLocale]({});
 				},
 				link: (): string => {
-					return Util.escapeMarkdown(link);
+					return link;
 				},
 			}),
 			ephemeral: true,
