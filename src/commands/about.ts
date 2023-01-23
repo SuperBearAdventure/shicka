@@ -55,7 +55,7 @@ const aboutCommand: Command = {
 					return Util.escapeMarkdown(author);
 				},
 				link: (): string => {
-					return Util.escapeMarkdown(link);
+					return link;
 				},
 			}),
 		});
@@ -71,7 +71,7 @@ const aboutCommand: Command = {
 					return Util.escapeMarkdown(author);
 				},
 				link: (): string => {
-					return Util.escapeMarkdown(link);
+					return link;
 				},
 			}),
 			ephemeral: true,
