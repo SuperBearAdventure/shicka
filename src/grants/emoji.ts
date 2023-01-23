@@ -8,7 +8,7 @@ import type {
 	CanvasRenderingContext2D,
 } from "canvas";
 import type Grant from "../grants.js";
-import type {Localized} from "../utils/string.js";
+import type {Locale, Localized} from "../utils/string.js";
 import {readFile} from "node:fs/promises";
 import {fileURLToPath} from "node:url";
 import canvas from "canvas";
@@ -139,7 +139,7 @@ const emojiGrant: Grant = {
 		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
 			return null;
 		}
-		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: keyof Localized<unknown>): HelpGroups => {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				grantName: (): string => {
 					return grantName;

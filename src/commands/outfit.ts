@@ -232,7 +232,7 @@ const outfitCommand: Command = {
 				return slices[index];
 			}).flat<Outfit[][]>();
 			const dayDateTime: Date = new Date(day * 21600000);
-			const schedule: Localized<(groups: {}) => string> = composeAll<BareScheduleGroups, {}>(bareScheduleLocalizations, localize<BareScheduleGroups>((locale: keyof Localized<unknown>): BareScheduleGroups => {
+			const schedule: Localized<(groups: {}) => string> = composeAll<BareScheduleGroups, {}>(bareScheduleLocalizations, localize<BareScheduleGroups>((locale: Locale): BareScheduleGroups => {
 				return {
 					dayDateTime: (): string => {
 						const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
@@ -317,7 +317,7 @@ const outfitCommand: Command = {
 			const index: number = day - seed * slicesPerRarity;
 			if (slicesByRarity[outfit.rarity][index].includes(outfit)) {
 				const dayDateTime: Date = new Date(day * 21600000);
-				const schedule: Localized<(groups: {}) => string> = composeAll<ScheduleGroups, {}>(scheduleLocalizations, localize<ScheduleGroups>((locale: keyof Localized<unknown>): ScheduleGroups => {
+				const schedule: Localized<(groups: {}) => string> = composeAll<ScheduleGroups, {}>(scheduleLocalizations, localize<ScheduleGroups>((locale: Locale): ScheduleGroups => {
 					return {
 						dayDateTime: (): string => {
 							const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
@@ -405,7 +405,7 @@ const outfitCommand: Command = {
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
-		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: keyof Localized<unknown>): HelpGroups => {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				commandName: (): string => {
 					return commandName;

@@ -72,7 +72,7 @@ const helpCommand: Command = {
 		}).filter<Localized<(groups: {}) => string>>((description: Localized<(groups: {}) => string> | null): description is Localized<(groups: {}) => string> => {
 			return description != null;
 		});
-		const features: Localized<(groups: {}) => string[]> = localize<(groups: {}) => string[]>((locale: keyof Localized<unknown>): (groups: {}) => string[] => {
+		const features: Localized<(groups: {}) => string[]> = localize<(groups: {}) => string[]>((locale: Locale): (groups: {}) => string[] => {
 			return (groups: {}): string[] => {
 				return descriptions.map((description: Localized<(groups: {}) => string>): string[] => {
 					return description[locale](groups).split("\n");

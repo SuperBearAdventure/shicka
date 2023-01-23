@@ -113,7 +113,7 @@ function compile<Groups extends {[k in string]: () => string}>(template: string)
 	};
 }
 export function compileAll<Groups extends {[k in string]: () => string}>(templates: Localized<string>): Localized<(groups: Groups) => string> {
-	return map<keyof Localized<unknown>, string, (groups: Groups) => string>(templates, (template: string): (groups: Groups) => string => {
+	return map<Locale, string, (groups: Groups) => string>(templates, (template: string): (groups: Groups) => string => {
 		return compile<Groups>(template);
 	});
 }
@@ -123,14 +123,14 @@ function compose<InputGroups extends {[k in string]: () => string}, OutputGroups
 	};
 }
 export function composeAll<InputGroups extends {[k in string]: () => string}, OutputGroups extends {[k in string]: () => string}>(templates: Localized<(groups: InputGroups & OutputGroups) => string>, inputGroups: Localized<InputGroups>): Localized<(outputGroups: OutputGroups) => string> {
-	return map<keyof Localized<unknown>, (groups: InputGroups & OutputGroups) => string, (groups: OutputGroups) => string>(templates, (template: (groups: InputGroups & OutputGroups) => string, locale: keyof Localized<unknown>): (groups: OutputGroups) => string => {
+	return map<Locale, (groups: InputGroups & OutputGroups) => string, (groups: OutputGroups) => string>(templates, (template: (groups: InputGroups & OutputGroups) => string, locale: Locale): (groups: OutputGroups) => string => {
 		return compose<InputGroups, OutputGroups>(template, inputGroups[locale]);
 	});
 }
 export function resolve(locale: string): Locale {
 	return locale === "fr" ? locale : "en-US";
 }
-export function localize<Type>(callback: (locale: keyof Localized<unknown>) => Type): Localized<Type> {
+export function localize<Type>(callback: (locale: Locale) => Type): Localized<Type> {
 	return Object.assign(Object.create(null), {
 		"en-US": callback("en-US"),
 		"fr": callback("fr"),

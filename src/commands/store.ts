@@ -71,7 +71,7 @@ const storeCommand: Command = {
 		const resolvedLocale: Locale = resolve(locale);
 		const links: Localized<(groups: {}) => string>[] = [];
 		for (const item of data) {
-			const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((locale: keyof Localized<unknown>): LinkGroups => {
+			const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((locale: Locale): LinkGroups => {
 				return {
 					title: (): string => {
 						return Util.escapeMarkdown(item.title[locale]);
