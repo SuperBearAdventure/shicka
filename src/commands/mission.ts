@@ -153,7 +153,7 @@ const missionCommand: Command = {
 			const challenge: Challenge = challenges[mission.challenge];
 			const level: Level = levels[mission.level];
 			const dayDate: Date = new Date(day * 86400000);
-			const schedule: Localized<(groups: {}) => string> = composeAll<BareScheduleGroups, {}>(bareScheduleLocalizations, localize<BareScheduleGroups>((locale: keyof Localized<unknown>): BareScheduleGroups => {
+			const schedule: Localized<(groups: {}) => string> = composeAll<BareScheduleGroups, {}>(bareScheduleLocalizations, localize<BareScheduleGroups>((locale: Locale): BareScheduleGroups => {
 				return {
 					dayDate: (): string => {
 						const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
@@ -217,7 +217,7 @@ const missionCommand: Command = {
 			const seed: number = (day % missionCount + missionCount) % missionCount;
 			if (missions[seed] === mission) {
 				const dayDateTime: Date = new Date(day * 86400000 + 36000000);
-				const schedule: Localized<(groups: {}) => string> = composeAll<ScheduleGroups, {}>(scheduleLocalizations, localize<ScheduleGroups>((locale: keyof Localized<unknown>): ScheduleGroups => {
+				const schedule: Localized<(groups: {}) => string> = composeAll<ScheduleGroups, {}>(scheduleLocalizations, localize<ScheduleGroups>((locale: Locale): ScheduleGroups => {
 					return {
 						dayDateTime: (): string => {
 							const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
@@ -270,7 +270,7 @@ const missionCommand: Command = {
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
-		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: keyof Localized<unknown>): HelpGroups => {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				commandName: (): string => {
 					return commandName;

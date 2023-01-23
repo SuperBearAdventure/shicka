@@ -6,7 +6,7 @@ import type {
 	MessageAttachment,
 } from "discord.js";
 import type Grant from "../grants.js";
-import type {Localized} from "../utils/string.js";
+import type {Locale, Localized} from "../utils/string.js";
 import {MessageMentions} from "discord.js";
 import {compileAll, composeAll, localize} from "../utils/string.js";
 type HelpGroups = {
@@ -170,7 +170,7 @@ const chatGrant: Grant = {
 		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
 			return null;
 		}
-		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: keyof Localized<unknown>): HelpGroups => {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				grantName: (): string => {
 					return grantName;

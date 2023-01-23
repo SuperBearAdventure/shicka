@@ -144,7 +144,7 @@ const bearCommand: Command = {
 		});
 		const boss: Localized<string> | null = bear.id % 8 === 0 ? levels[bear.level].boss : null;
 		const coins: number | null = bear.id % 8 === 3 ? levels[bear.level].coins - 25 : 0;
-		const bossGoal: Localized<(groups: {}) => string> | null = boss != null ? composeAll<BossGoalGroups, {}>(bossGoalLocalizations, localize<BossGoalGroups>((locale: keyof Localized<unknown>): BossGoalGroups => {
+		const bossGoal: Localized<(groups: {}) => string> | null = boss != null ? composeAll<BossGoalGroups, {}>(bossGoalLocalizations, localize<BossGoalGroups>((locale: Locale): BossGoalGroups => {
 			return {
 				boss: (): string => {
 					return Util.escapeMarkdown(boss[locale]);
@@ -246,7 +246,7 @@ const bearCommand: Command = {
 		});
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
-		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: keyof Localized<unknown>): HelpGroups => {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				commandName: (): string => {
 					return commandName;
