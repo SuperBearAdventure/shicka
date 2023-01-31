@@ -1,6 +1,8 @@
 import type {
 	CommandInteraction,
 	Message,
+	Role,
+	ThreadChannel,
 } from "discord.js";
 import type {
 	Canvas,
@@ -53,15 +55,42 @@ const styles: {[k in string]: string} = Object.assign(Object.create(null), {
 	"white": "#fff",
 	"none": "none",
 });
-const channels: Set<string> = new Set<string>(["🔧│console", "🔎│logs", "🛡│moderators-room", "🍪│cookie-room"]);
+const channels: Set<string> = new Set<string>(["🔧│console", "🔎│logs", "🔰│helpers-room", "🛡│moderators-room", "🍪│cookie-room"]);
+const roles: Set<string> = new Set<string>(["Administrator", "Game Developer", "Helper", "Moderator", "Cookie"]);
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<grantName> $<baseArgumentDescription> $<stylesArgumentDescription>` to create a new `$<baseArgumentDescription>`-based emoji customized with `$<stylesArgumentDescription>`",
 	"fr": "Tape `/$<grantName> $<baseArgumentDescription> $<stylesArgumentDescription>` pour créer un nouvel émoji basé sur `$<baseArgumentDescription>` personnalisé avec `$<stylesArgumentDescription>`",
 });
 const emojiGrant: Grant = {
 	async execute(message: Message, parameters: string[], tokens: string[]): Promise<void> {
+		const {guild}: Message = message;
+		if (guild == null) {
+			return;
+		}
 		const {channel}: Message = message;
-		if (!("name" in channel) || !channels.has(channel.name)) {
+		if (!("name" in channel)) {
+			return;
+		}
+		if (!channel.isThread() && !channels.has(channel.name)) {
+			return;
+		}
+		if (channel.isThread()) {
+			const {parent}: ThreadChannel = channel;
+			if (parent == null || !channels.has(parent.name)) {
+				return;
+			}
+		}
+		const {system}: Message = message;
+		if (system) {
+			return;
+		}
+		const {member}: Message = message;
+		if (member == null) {
+			return;
+		}
+		if (member.roles.cache.every((role: Role): boolean => {
+			return !roles.has(role.name);
+		})) {
 			return;
 		}
 		if (parameters.length < 2) {

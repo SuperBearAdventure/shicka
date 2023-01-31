@@ -4,6 +4,8 @@ import type {
 	GuildBasedChannel,
 	Message,
 	MessageAttachment,
+	Role,
+	ThreadChannel,
 } from "discord.js";
 import type Grant from "../grants.js";
 import type {Locale, Localized} from "../utils/string.js";
@@ -34,19 +36,38 @@ const contentArgumentDescription: string = contentArgumentDescriptionLocalizatio
 const {source}: RegExp = MessageMentions.CHANNELS_PATTERN;
 const messagePattern: RegExp = /^(?:0|[1-9]\d*)$/;
 const channelPattern: RegExp = new RegExp(`^(?:${source})$`, "");
-const channels: Set<string> = new Set<string>(["🔧│console", "🔎│logs", "🛡│moderators-room"]);
+const channels: Set<string> = new Set<string>(["🔧│console", "🔎│logs", "🔰│helpers-room", "🛡│moderators-room"]);
+const roles: Set<string> = new Set<string>(["Administrator", "Game Developer", "Helper", "Moderator"]);
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<grantName> $<channelArgumentDescription> $<contentArgumentDescription>` to send `$<contentArgumentDescription>` and some attachments in `$<channelArgumentDescription>`\nType `/$<grantName> $<messageArgumentDescription> $<channelArgumentDescription> $<contentArgumentDescription>` to edit `$<messageArgumentDescription>` with `$<contentArgumentDescription>` and some attachments in `$<channelArgumentDescription>`",
 	"fr": "Tape `/$<grantName> $<channelArgumentDescription> $<contentArgumentDescription>` pour envoyer `$<contentArgumentDescription>` et des pièces jointes dans `$<channelArgumentDescription>`\nTape `/$<grantName> $<messageArgumentDescription> $<channelArgumentDescription> $<contentArgumentDescription>` pour modifier `$<messageArgumentDescription>` avec `$<contentArgumentDescription>` et des pièces jointes dans `$<channelArgumentDescription>`",
 });
 const chatGrant: Grant = {
 	async execute(message: Message, parameters: string[], tokens: string[]): Promise<void> {
-		const {channel}: Message = message;
-		if (!("name" in channel) || !channels.has(channel.name)) {
-			return;
-		}
 		const {guild}: Message = message;
 		if (guild == null) {
+			return;
+		}
+		const {channel}: Message = message;
+		if (!("name" in channel)) {
+			return;
+		}
+		if (!channel.isThread() && !channels.has(channel.name)) {
+			return;
+		}
+		if (channel.isThread()) {
+			const {parent}: ThreadChannel = channel;
+			if (parent == null || !channels.has(parent.name)) {
+				return;
+			}
+		}
+		const {member}: Message = message;
+		if (member == null) {
+			return;
+		}
+		if (member.roles.cache.every((role: Role): boolean => {
+			return !roles.has(role.name);
+		})) {
 			return;
 		}
 		if (parameters.length < 2) {

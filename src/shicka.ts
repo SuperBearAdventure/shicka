@@ -7,6 +7,7 @@ import type {
 	Interaction,
 	Message,
 	PartialGuildMember,
+	ThreadChannel,
 } from "discord.js";
 import type {Job} from "node-schedule";
 import type Command from "./commands.js";
@@ -163,6 +164,34 @@ client.on("messageCreate", async (message: Message): Promise<void> => {
 		} catch (error: unknown) {
 			console.error(error);
 		}
+	}
+});
+client.on("threadCreate", async (channel: ThreadChannel, newlyCreated: boolean): Promise<void> => {
+	if (newlyCreated && channel.joinable) {
+		try {
+			await channel.join();
+		} catch (error: unknown) {
+			console.error(error);
+		}
+		return;
+	}
+});
+client.on("threadUpdate", async (oldChannel: ThreadChannel, newChannel: ThreadChannel): Promise<void> => {
+	if (oldChannel.archived && !newChannel.archived && newChannel.joinable) {
+		try {
+			await newChannel.join();
+		} catch (error: unknown) {
+			console.error(error);
+		}
+		return;
+	}
+	if (!oldChannel.archived && newChannel.archived && newChannel.joined) {
+		try {
+			await newChannel.leave();
+		} catch (error: unknown) {
+			console.error(error);
+		}
+		return;
 	}
 });
 await client.login(discordToken);

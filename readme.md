@@ -35,11 +35,11 @@ $ npm start
 
 ### Grants
 
-- `/chat <channel> <content>` sends the given content and the given attachments in the given channel (only available in the `🔧│console`, `#🔎│logs`, and `#🛡│moderators-room` channels)
+- `/chat <channel> <content>` sends the given content and the given attachments in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
 
-- `/chat <message> <channel> <content>` edits the given message with the given content and the given attachments in the given channel (only available in the `🔧│console`, `#🔎│logs`, and `#🛡│moderators-room` channels)
+- `/chat <message> <channel> <content>` edits the given message with the given content and the given attachments in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
 
-- `/emoji <base> <style>` draws the given base emoji with the given style (only available in the `🔧│console`, `#🔎│logs`, `#🛡│moderators-room`, and `#🍪│cookie-room` channels)
+- `/emoji <base> <style>` draws the given base emoji with the given style (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, `#🛡│moderators-room`, and `#🍪│cookie-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, `@Moderator`, and `@Cookie` roles)
 
 ### Commands
 

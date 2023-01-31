@@ -4,6 +4,7 @@ import type {
 	GuildEmoji,
 	Message,
 	Role,
+	ThreadChannel,
 } from "discord.js";
 import type Trigger from "../triggers.js";
 import type {Localized} from "../utils/string.js";
@@ -12,15 +13,32 @@ type HelpGroups = {
 	channel: () => string,
 };
 const pattern: RegExp = /\b(?:co-?op(?:erati(?:ons?|ve))?|consoles?|multi(?:-?player)?|online|pc|playstation|ps[45]|switch|xbox)\b/iu;
-const roles: Set<string> = new Set<string>(["Administrator", "Cookie", "Game Developer", "Moderator"]);
+const roles: Set<string> = new Set<string>(["Administrator", "Game Developer", "Helper", "Moderator", "Cookie"]);
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "I will gently reprimand you if you write words which violate the rule 7 in $<channel>",
 	"fr": "Je te réprimanderai gentiment si tu écris des mots qui violent la règle 7 dans $<channel>",
 });
 const rule7Trigger: Trigger = {
 	async execute(message: Message): Promise<void> {
+		const {guild}: Message = message;
+		if (guild == null) {
+			return;
+		}
 		const {channel}: Message = message;
-		if (!("name" in channel) || channel.name !== "💡│game-suggestions") {
+		if (!("name" in channel)) {
+			return;
+		}
+		if (!channel.isThread() && channel.name !== "💡│game-suggestions") {
+			return;
+		}
+		if (channel.isThread()) {
+			const {parent}: ThreadChannel = channel;
+			if (parent == null || parent.name !== "💡│game-suggestions") {
+				return;
+			}
+		}
+		const {system}: Message = message;
+		if (system) {
 			return;
 		}
 		const {member}: Message = message;
@@ -33,10 +51,6 @@ const rule7Trigger: Trigger = {
 			return;
 		}
 		if (message.content.match(pattern) == null) {
-			return;
-		}
-		const {guild}: Message = message;
-		if (guild == null) {
 			return;
 		}
 		const emoji: GuildEmoji | undefined = guild.emojis.cache.find((emoji: GuildEmoji): boolean => {
