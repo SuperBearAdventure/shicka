@@ -29,6 +29,9 @@ type Data = {
 	link: string,
 	views: string,
 };
+type Patch = {
+	[k in string]: string
+};
 const commandName: string = "soundtrack";
 const commandDescriptionLocalizations: Localized<string> = {
 	"en-US": "Tells you where to listen to official music pieces of the game",
@@ -36,6 +39,10 @@ const commandDescriptionLocalizations: Localized<string> = {
 };
 const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const titlePattern: RegExp = /^Super Bear Adventure - (.*) \(Original Soundtrack\)$/su;
+const viewsPatch: Patch = {
+	"No views": "0 views",
+	"1 view": "1 views",
+};
 const viewsPattern: RegExp = /^(.*) views$/su;
 const link: string = "https://www.youtube.com/playlist?list=PLDF2V3x1AdQBnalWW0q69H5LF1-wgAxN8";
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
@@ -54,6 +61,12 @@ const linkLocalizations: Localized<((groups: LinkGroups) => string)> = compileAl
 	"en-US": "[*$<title>* soundtrack](<$<link>>) (*$<views>* views)",
 	"fr": "[Bande-son *$<title>*](<$<link>>) (*$<views>* vues)",
 });
+function patch(text: string, table: Patch): string {
+	if (!(text in table)) {
+		return text;
+	}
+	return table[text];
+}
 const soundtrackCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -84,7 +97,7 @@ const soundtrackCommand: Command = {
 							return {
 								title: item.playlistVideoRenderer.title.runs[0].text.replace(titlePattern, "$1"),
 								link: `https://www.youtube.com/watch?v=${item.playlistVideoRenderer.videoId}`,
-								views: item.playlistVideoRenderer.videoInfo.runs[0].text.replace(viewsPattern, "$1"),
+								views: patch(item.playlistVideoRenderer.videoInfo.runs[0].text, viewsPatch).replace(viewsPattern, "$1"),
 							};
 						});
 					} catch (error: unknown) {
