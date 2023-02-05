@@ -29,13 +29,23 @@ type Data = {
 	link: string,
 	views: string,
 };
+type Patch = {
+	[k in string]: string
+};
 const commandName: string = "trailer";
 const commandDescriptionLocalizations: Localized<string> = {
 	"en-US": "Tells you where to watch official trailers of the game",
 	"fr": "Te dit où regarder des bandes-annonces officielles du jeu",
 };
 const commandDescription: string = commandDescriptionLocalizations["en-US"];
+const titlePatch: Patch = {
+	"Super Bear Adventure - Official Game Trailer": "Super Bear Adventure - Graphics Update Trailer"
+};
 const titlePattern: RegExp = /^Super Bear Adventure - (.*) Trailer$/su;
+const viewsPatch: Patch = {
+	"No views": "0 views",
+	"1 view": "1 views",
+};
 const viewsPattern: RegExp = /^(.*) views$/su;
 const link: string = "https://www.youtube.com/playlist?list=PLEJBkn30KcVVuA8Z0s_NLruYrbvzV5ieK";
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
@@ -54,6 +64,12 @@ const linkLocalizations: Localized<((groups: LinkGroups) => string)> = compileAl
 	"en-US": "[*$<title>* trailer](<$<link>>) (*$<views>* views)",
 	"fr": "[Bande-annonce *$<title>*](<$<link>>) (*$<views>* views)",
 });
+function patch(text: string, table: Patch): string {
+	if (!(text in table)) {
+		return text;
+	}
+	return table[text];
+}
 const trailerCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -82,9 +98,9 @@ const trailerCommand: Command = {
 						const result: any = JSON.parse(json);
 						return result.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].playlistVideoListRenderer.contents.map((item: any): Data => {
 							return {
-								title: item.playlistVideoRenderer.title.runs[0].text.replace(titlePattern, "$1"),
+								title: patch(item.playlistVideoRenderer.title.runs[0].text, titlePatch).replace(titlePattern, "$1"),
 								link: `https://www.youtube.com/watch?v=${item.playlistVideoRenderer.videoId}`,
-								views: item.playlistVideoRenderer.videoInfo.runs[0].text.replace(viewsPattern, "$1"),
+								views: patch(item.playlistVideoRenderer.videoInfo.runs[0].text, viewsPatch).replace(viewsPattern, "$1"),
 							};
 						});
 					} catch (error: unknown) {
