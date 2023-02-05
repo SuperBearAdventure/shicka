@@ -22,10 +22,12 @@ type DefaultReplyGroups = {
 type LinkGroups = {
 	title: () => string,
 	link: () => string,
+	views: () => string,
 };
 type Data = {
 	title: string,
 	link: string,
+	views: string,
 };
 const commandName: string = "trailer";
 const commandDescriptionLocalizations: Localized<string> = {
@@ -34,6 +36,7 @@ const commandDescriptionLocalizations: Localized<string> = {
 };
 const commandDescription: string = commandDescriptionLocalizations["en-US"];
 const titlePattern: RegExp = /^Super Bear Adventure - (.*) Trailer$/su;
+const viewsPattern: RegExp = /^(.*) views$/su;
 const link: string = "https://www.youtube.com/playlist?list=PLEJBkn30KcVVuA8Z0s_NLruYrbvzV5ieK";
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<commandName>` to know where to watch official trailers of the game",
@@ -48,8 +51,8 @@ const defaultReplyLocalizations: Localized<(groups: DefaultReplyGroups) => strin
 	"fr": "Tu peux regarder des bandes-annonces officielles du jeu [là](<$<link>>).",
 });
 const linkLocalizations: Localized<((groups: LinkGroups) => string)> = compileAll<LinkGroups>({
-	"en-US": "[*$<title>* trailer](<$<link>>)",
-	"fr": "[Bande-annonce *$<title>*](<$<link>>)",
+	"en-US": "[*$<title>* trailer](<$<link>>) (*$<views>* views)",
+	"fr": "[Bande-annonce *$<title>*](<$<link>>) (*$<views>* views)",
 });
 const trailerCommand: Command = {
 	register(): ApplicationCommandData {
@@ -81,6 +84,7 @@ const trailerCommand: Command = {
 							return {
 								title: item.playlistVideoRenderer.title.runs[0].text.replace(titlePattern, "$1"),
 								link: `https://www.youtube.com/watch?v=${item.playlistVideoRenderer.videoId}`,
+								views: item.playlistVideoRenderer.videoInfo.runs[0].text.replace(viewsPattern, "$1"),
 							};
 						});
 					} catch (error: unknown) {
