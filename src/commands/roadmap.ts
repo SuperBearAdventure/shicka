@@ -25,7 +25,7 @@ const commandDescriptionLocalizations: Localized<string> = {
 	"fr": "Te dit où consulter les futurs jalons du jeu",
 };
 const commandDescription: string = commandDescriptionLocalizations["en-US"];
-const link: string = "https://trello.com/b/3DPL9CwV/road-to-100";
+const link: string = "https://trello.com/b/3DPL9CwV/sba-to-do-list";
 const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
 	"en-US": "Type `/$<commandName>` to know where to check the upcoming milestones of the game",
 	"fr": "Tape `/$<commandName>` pour savoir où consulter les futurs jalons du jeu",
