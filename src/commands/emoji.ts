@@ -16,7 +16,6 @@ import type {Locale, Localized} from "../utils/string.js";
 import {readFile} from "node:fs/promises";
 import {fileURLToPath} from "node:url";
 import canvas from "canvas";
-import {Util} from "discord.js";
 import {JSDOM} from "jsdom";
 import serialize from "w3c-xmlserializer";
 import {compileAll, composeAll, localize, resolve} from "../utils/string.js";
@@ -26,12 +25,6 @@ type HelpGroups = {
 	stylesOptionDescription: () => string,
 };
 type NoPrivacyReplyGroups = {};
-type NoBaseReplyGroups = {
-	baseConjunction: () => string,
-};
-type NoStyleReplyGroups = {
-	styleConjunction: () => string,
-};
 const {createCanvas, loadImage}: any = canvas;
 const here: string = import.meta.url;
 const root: string = here.slice(0, here.lastIndexOf("/"));
@@ -77,14 +70,6 @@ const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<
 const noPrivacyReplyLocalizations: Localized<(groups: NoPrivacyReplyGroups) => string> = compileAll<NoPrivacyReplyGroups>({
 	"en-US": "I can not reply to you in this channel.\nPlease ask me in a private channel instead.",
 	"fr": "Je ne peux pas te répondre dans ce salon.\nMerci de me demander dans un salon privé à la place.",
-});
-const noBaseReplyLocalizations: Localized<(groups: NoBaseReplyGroups) => string> = compileAll<NoBaseReplyGroups>({
-	"en-US": "I do not know any base with this name.\nPlease give me a base among $<baseConjunction> instead.",
-	"fr": "Je ne connais aucune base avec ce nom.\nMerci de me donner une base parmi $<baseConjunction> à la place.",
-});
-const noStyleReplyLocalizations: Localized<(groups: NoStyleReplyGroups) => string> = compileAll<NoStyleReplyGroups>({
-	"en-US": "I do not know any style with this name.\nPlease give me a style among $<styleConjunction> instead.",
-	"fr": "Je ne connais aucun style avec ce nom.\nMerci de me donner une style parmi $<styleConjunction> à la place.",
 });
 const emojiCommand: Command = {
 	register(): ApplicationCommandData {
@@ -160,23 +145,6 @@ const emojiCommand: Command = {
 			}
 		}
 		const base: string = options.getString(baseOptionName, true);
-		if (!bases.has(base)) {
-			await interaction.reply({
-				content: noBaseReplyLocalizations[resolvedLocale]({
-					baseConjunction: (): string => {
-						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(resolvedLocale, {
-							style: "long",
-							type: "conjunction",
-						});
-						return conjunctionFormat.format(Array.from(bases).map((base: string): string => {
-							return `\`${Util.escapeMarkdown(base)}\``;
-						}));
-					},
-				}),
-				ephemeral: true,
-			});
-			return;
-		}
 		const wrapper: Element = new JSDOM(`<div xmlns="http://www.w3.org/1999/xhtml">${await readFile(fileURLToPath(`${root}/../emojis/${base}.svg`))}</div>`, {
 			contentType: "application/xhtml+xml",
 		}).window.document.documentElement;
@@ -193,23 +161,6 @@ const emojiCommand: Command = {
 				const style: string | null = options.getString(`${layer}-${paint}`);
 				if (style == null) {
 					continue;
-				}
-				if (!(style in styles)) {
-					await interaction.reply({
-						content: noStyleReplyLocalizations[resolvedLocale]({
-							styleConjunction: (): string => {
-								const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(resolvedLocale, {
-									style: "long",
-									type: "conjunction",
-								});
-								return conjunctionFormat.format(Object.keys(styles).map((style: string): string => {
-									return `\`${Util.escapeMarkdown(style)}\``;
-								}));
-							},
-						}),
-						ephemeral: true,
-					});
-					return;
 				}
 				for (const shape of shapes[layer]) {
 					if (shape.style[paint] === "") {
