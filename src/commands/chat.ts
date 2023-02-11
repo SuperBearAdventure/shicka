@@ -175,7 +175,7 @@ const chatCommand: Command = {
 			}
 		}
 		const targetChannel: any = options.getChannel(channelOptionName, true);
-		if (targetChannel == null || !("messages" in targetChannel)) {
+		if (!("messages" in targetChannel)) {
 			await interaction.reply({
 				content: noChannelReplyLocalizations[resolvedLocale]({}),
 				ephemeral: true,
