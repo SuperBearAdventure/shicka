@@ -39,19 +39,13 @@ $ npm start
 
 - `/bear <bear>` gives the gold time, the location, and the outfits of the given bear
 
-<!--
-- `/chat <channel>` sends the given attachments in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
+- `/chat post <channel> <content>` sends the given content in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
 
-- `/chat <channel> <content>` sends the given content and the given attachments in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
+- `/chat patch <channel> <message> <content>` edits the given message with the given content in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
 
-- `/chat <channel> <message>` edits the given message with the given attachments in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
+- `/chat attach <channel> <message> <position> <attachment>` adds at the given position the given attachment to the given message in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
 
-- `/chat <channel> <message> <content>` edits the given message with the given content and the given attachments in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
--->
-
-- `/chat <channel> <content>` sends the given content in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
-
-- `/chat <channel> <content> <message>` edits the given message with the given content in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
+- `/chat detach <channel> <message> <position>` removes at the given position the attachment from the given message in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
 
 - `/count` gives the number of members of the guild
 
