@@ -33,6 +33,38 @@ const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAl
 	"en-US": "Hey $<user>, there you are!\nI can give you some advice about the server:\n$<featureList>",
 	"fr": "Ah $<user>, tu es là !\nJe peux te donner des conseils sur le serveur :\n$<featureList>",
 });
+function naiveStream(content: string): string[] {
+	content = content.replace(/^\n+|\n+$/g, "").replace(/\n+/g, "\n");
+	if (content.length === 0) {
+		return [];
+	}
+	if (content[content.length - 1] !== "\n") {
+		content = `${content}\n`;
+	}
+	const lines: string[] = content.split(/(?<=\n)/);
+	const chunks: string[] = [];
+	const chunk: string[] = [];
+	let length: number = 0;
+	for (const line of lines) {
+		if (length > 0 && length + line.length > 2000) {
+			chunks.push(chunk.join(""));
+			chunk.length = 0;
+			length = 0;
+		}
+		const spans: string[] = line.slice(0, -1).match(/[^]{1,1999}/g) ?? [];
+		const firstSpans: string[] = spans.slice(0, -1);
+		for (const span of firstSpans) {
+			chunks.push(`${span}\n`);
+		}
+		const lastSpan: string = spans[spans.length - 1];
+		chunk.push(`${lastSpan}\n`);
+		length += lastSpan.length + 1;
+	}
+	if (length > 0) {
+		chunks.push(chunk.join(""));
+	}
+	return chunks;
+}
 const helpCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -73,30 +105,64 @@ const helpCommand: Command = {
 				}).flat<string[][]>();
 			};
 		});
-		await interaction.reply({
-			content: replyLocalizations["en-US"]({
-				user: (): string => {
-					return `${user}`;
-				},
-				featureList: (): string => {
-					return list(features["en-US"]({}));
-				},
-			}),
+		const persistentContent: string = replyLocalizations["en-US"]({
+			user: (): string => {
+				return `${user}`;
+			},
+			featureList: (): string => {
+				return list(features["en-US"]({}));
+			},
 		});
+		const persistentContentChunks: string[] = naiveStream(persistentContent);
+		let replied: boolean = false;
+		for (const chunk of persistentContentChunks) {
+			if (!replied) {
+				await interaction.reply({
+					content: chunk,
+					allowedMentions: {
+						users: [],
+					},
+				});
+				replied = true;
+			}
+			await interaction.followUp({
+				content: chunk,
+				allowedMentions: {
+					users: [],
+				},
+			});
+		}
 		if (resolvedLocale === "en-US") {
 			return;
 		}
-		await interaction.followUp({
-			content: replyLocalizations[resolvedLocale]({
-				user: (): string => {
-					return `${user}`;
-				},
-				featureList: (): string => {
-					return list(features[resolvedLocale]({}));
-				},
-			}),
-			ephemeral: true,
+		const ephemeralContent: string = replyLocalizations[resolvedLocale]({
+			user: (): string => {
+				return `${user}`;
+			},
+			featureList: (): string => {
+				return list(features[resolvedLocale]({}));
+			},
 		});
+		const ephemeralContentChunks: string[] = naiveStream(ephemeralContent);
+		for (const chunk of ephemeralContentChunks) {
+			if (!replied) {
+				await interaction.reply({
+					content: chunk,
+					ephemeral: true,
+					allowedMentions: {
+						users: [],
+					},
+				});
+				replied = true;
+			}
+			await interaction.followUp({
+				content: chunk,
+				ephemeral: true,
+				allowedMentions: {
+					users: [],
+				},
+			});
+		}
 	},
 	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
