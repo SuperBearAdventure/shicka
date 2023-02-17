@@ -6,15 +6,16 @@ import type {
 } from "discord.js";
 import type {Response} from "node-fetch";
 import type {Job} from "node-schedule";
+import type {Record as RecordCompilation} from "../compilations.js";
+import type {Record as RecordDependency} from "../dependencies.js";
 import type Feed from "../feeds.js";
 import type {Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import fetch from "node-fetch";
 import schedule from "node-schedule";
-import {compileAll, composeAll, localize} from "../utils/string.js";
-type HelpGroups = {
-	channel: () => string,
-};
+import {record as recordCompilation} from "../compilations.js";
+import {composeAll, localize} from "../utils/string.js";
+type HelpGroups = RecordDependency["help"];
 type Leaderboard = {
 	leaderboardName: string,
 };
@@ -26,14 +27,13 @@ type Level = {
 	levelName: string,
 	categories: {[k in string]: Category},
 };
+const {
+	help: helpLocalizations,
+}: RecordCompilation = recordCompilation;
 const games: string[] = ["9d3rrxyd", "w6jl2ned"];
 const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
-});
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
-	"en-US": "I post the latest world records of the game in $<channel>",
-	"fr": "Je poste les derniers records du monde du jeu dans $<channel>",
 });
 const recordFeed: Feed = {
 	register(client: Client): Job {

@@ -5,34 +5,31 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {Tracker as TrackerCompilation} from "../compilations.js";
+import type {Tracker as TrackerDefinition} from "../definitions.js";
+import type {Tracker as TrackerDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
-import {compileAll, composeAll, list, localize, resolve} from "../utils/string.js";
-type HelpGroups = {
-	commandName: () => string,
-};
-type ReplyGroups = {
-	intent: () => string,
-	linkList: () => string,
-};
-type IntentWithChannelGroups = {
-	channel: () => string,
-};
-type IntentWithoutChannelGroups = {};
-type LinkGroups = {
-	title: () => string,
-	link: () => string,
-};
+import {tracker as trackerCompilation} from "../compilations.js";
+import {tracker as trackerDefinition} from "../definitions.js";
+import {composeAll, list, localize, resolve} from "../utils/string.js";
+type HelpGroups = TrackerDependency["help"];
+type LinkGroups = TrackerDependency["link"];
 type Data = {
 	title: Localized<string>,
 	link: string,
 };
-const commandName: string = "tracker";
-const commandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Tells you where to check known bugs of the game",
-	"fr": "Te dit où consulter des bogues connus du jeu",
-};
-const commandDescription: string = commandDescriptionLocalizations["en-US"];
+const {
+	commandName,
+	commandDescription,
+}: TrackerDefinition = trackerDefinition;
+const {
+	help: helpLocalizations,
+	reply: replyLocalizations,
+	intentWithChannel: intentWithChannelLocalizations,
+	intentWithoutChannel: intentWithoutChannelLocalizations,
+	link: linkLocalizations,
+}: TrackerCompilation = trackerCompilation;
 const data: Data[] = [
 	{
 		title: {
@@ -49,32 +46,12 @@ const data: Data[] = [
 		link: "https://trello.com/b/yTojOuqv/super-bear-adventure-bugs",
 	},
 ];
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
-	"en-US": "Type `/$<commandName>` to know where to check known bugs of the game",
-	"fr": "Tape `/$<commandName>` pour savoir où consulter des bogues connus du jeu",
-});
-const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
-	"en-US": "$<intent> check the known bugs of the game there:\n$<linkList>",
-	"fr": "$<intent> consulter des bogues connus du jeu là :\n$<linkList>",
-});
-const intentWithChannelLocalizations: Localized<(groups: IntentWithChannelGroups) => string> = compileAll<IntentWithChannelGroups>({
-	"en-US": "Before reporting a bug in $<channel>, you can",
-	"fr": "Avant de rapporter un bogue dans $<channel>, tu peux",
-});
-const intentWithoutChannelLocalizations: Localized<(groups: IntentWithoutChannelGroups) => string> = compileAll<IntentWithoutChannelGroups>({
-	"en-US": "You can",
-	"fr": "Tu peux",
-});
-const linkLocalizations: Localized<((groups: LinkGroups) => string)> = compileAll<LinkGroups>({
-	"en-US": "[$<title> tracker](<$<link>>)",
-	"fr": "[Suivi $<title>](<$<link>>)",
-});
 const trackerCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
-			description: commandDescription,
-			descriptionLocalizations: commandDescriptionLocalizations,
+			description: commandDescription["en-US"],
+			descriptionLocalizations: commandDescription,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

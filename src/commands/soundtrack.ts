@@ -5,25 +5,18 @@ import type {
 } from "discord.js";
 import type {Response} from "node-fetch";
 import type Command from "../commands.js";
+import type {Soundtrack as SoundtrackCompilation} from "../compilations.js";
+import type {Soundtrack as SoundtrackDefinition} from "../definitions.js";
+import type {Soundtrack as SoundtrackDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import {JSDOM} from "jsdom";
 import fetch from "node-fetch";
-import {compileAll, composeAll, list, localize, resolve} from "../utils/string.js";
-type HelpGroups = {
-	commandName: () => string,
-};
-type ReplyGroups = {
-	linkList: () => string,
-};
-type DefaultReplyGroups = {
-	link: () => string,
-};
-type LinkGroups = {
-	title: () => string,
-	link: () => string,
-	views: () => string,
-};
+import {soundtrack as soundtrackCompilation} from "../compilations.js";
+import {soundtrack as soundtrackDefinition} from "../definitions.js";
+import {composeAll, list, localize, resolve} from "../utils/string.js";
+type HelpGroups = SoundtrackDependency["help"];
+type LinkGroups = SoundtrackDependency["link"];
 type Data = {
 	title: string,
 	link: string,
@@ -32,12 +25,16 @@ type Data = {
 type Patch = {
 	[k in string]: string
 };
-const commandName: string = "soundtrack";
-const commandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Tells you where to listen to official music pieces of the game",
-	"fr": "Te dit où écouter des morceaux de musique officiels du jeu",
-};
-const commandDescription: string = commandDescriptionLocalizations["en-US"];
+const {
+	commandName,
+	commandDescription,
+}: SoundtrackDefinition = soundtrackDefinition;
+const {
+	help: helpLocalizations,
+	reply: replyLocalizations,
+	defaultReply: defaultReplyLocalizations,
+	link: linkLocalizations,
+}: SoundtrackCompilation = soundtrackCompilation;
 const titlePattern: RegExp = /^Super Bear Adventure - (.*) \(Original Soundtrack\)$/su;
 const viewsPatch: Patch = {
 	"No views": "0 views",
@@ -45,22 +42,6 @@ const viewsPatch: Patch = {
 };
 const viewsPattern: RegExp = /^(.*) views$/su;
 const link: string = "https://www.youtube.com/playlist?list=PLDF2V3x1AdQBnalWW0q69H5LF1-wgAxN8";
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
-	"en-US": "Type `/$<commandName>` to know where to listen to official music pieces of the game",
-	"fr": "Tape `/$<commandName>` pour savoir où écouter des morceaux de musique officiels du jeu",
-});
-const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
-	"en-US": "You can listen to official music pieces of the game there:\n$<linkList>",
-	"fr": "Tu peux écouter des morceaux de musique officiels du jeu là :\n$<linkList>",
-});
-const defaultReplyLocalizations: Localized<(groups: DefaultReplyGroups) => string> = compileAll<DefaultReplyGroups>({
-	"en-US": "You can listen to official music pieces of the game [there](<$<link>>).",
-	"fr": "Tu peux écouter des morceaux de musique officiels du jeu [là](<$<link>>).",
-});
-const linkLocalizations: Localized<((groups: LinkGroups) => string)> = compileAll<LinkGroups>({
-	"en-US": "[*$<title>* soundtrack](<$<link>>) (*$<views>* views)",
-	"fr": "[Bande-son *$<title>*](<$<link>>) (*$<views>* vues)",
-});
 function patch(text: string, table: Patch): string {
 	if (!(text in table)) {
 		return text;
@@ -71,8 +52,8 @@ const soundtrackCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
-			description: commandDescription,
-			descriptionLocalizations: commandDescriptionLocalizations,
+			description: commandDescription["en-US"],
+			descriptionLocalizations: commandDescription,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

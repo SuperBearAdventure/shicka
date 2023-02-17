@@ -2,37 +2,29 @@ import type {
 	ApplicationCommandData,
 	CommandInteraction,
 	Interaction,
-	User,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {Help as HelpCompilation} from "../compilations.js";
+import type {Help as HelpDefinition} from "../definitions.js";
+import type {Help as HelpDependency} from "../dependencies.js";
 import type Feed from "../feeds.js";
 import type Trigger from "../triggers.js";
 import type {Locale, Localized} from "../utils/string.js";
 import * as commands from "../commands.js";
+import {help as helpCompilation} from "../compilations.js";
+import {help as helpDefinition} from "../definitions.js";
 import * as feeds from "../feeds.js";
 import * as triggers from "../triggers.js";
-import {compileAll, composeAll, list, localize, resolve} from "../utils/string.js";
-type HelpGroups = {
-	commandName: () => string,
-};
-type ReplyGroups = {
-	user: () => string,
-	featureList: () => string,
-};
-const commandName: string = "help";
-const commandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Tells you what are the features I offer",
-	"fr": "Te dit quelles sont les fonctionnalités que je propose",
-};
-const commandDescription: string = commandDescriptionLocalizations["en-US"];
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
-	"en-US": "Type `/$<commandName>` to know what are the features I offer",
-	"fr": "Tape `/$<commandName>` pour savoir quelles sont les fonctionnalités que je propose",
-});
-const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
-	"en-US": "Hey $<user>, there you are!\nI can give you some advice about the server:\n$<featureList>",
-	"fr": "Ah $<user>, tu es là !\nJe peux te donner des conseils sur le serveur :\n$<featureList>",
-});
+import {composeAll, list, localize, resolve} from "../utils/string.js";
+type HelpGroups = HelpDependency["help"];
+const {
+	commandName,
+	commandDescription,
+}: HelpDefinition = helpDefinition;
+const {
+	help: helpLocalizations,
+	reply: replyLocalizations,
+}: HelpCompilation = helpCompilation;
 function naiveStream(content: string): string[] {
 	content = content.replace(/^\n+|\n+$/g, "").replace(/\n+/g, "\n");
 	if (content.length === 0) {
@@ -69,8 +61,8 @@ const helpCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
-			description: commandDescription,
-			descriptionLocalizations: commandDescriptionLocalizations,
+			description: commandDescription["en-US"],
+			descriptionLocalizations: commandDescription,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

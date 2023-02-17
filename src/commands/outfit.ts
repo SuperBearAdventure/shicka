@@ -9,91 +9,41 @@ import type {
 } from "discord.js";
 import type {Outfit, Rarity} from "../bindings.js";
 import type Command from "../commands.js";
+import type {Outfit as OutfitCompilation} from "../compilations.js";
+import type {Outfit as OutfitDefinition} from "../definitions.js";
+import type {Outfit as OutfitDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import {outfits, rarities} from "../bindings.js";
+import {outfit as outfitCompilation} from "../compilations.js";
+import {outfit as outfitDefinition} from "../definitions.js";
 import {outfitsByRarity} from "../indices.js";
-import {compileAll, composeAll, list, localize, nearest, resolve} from "../utils/string.js";
-type HelpGroups = {
-	commandName: () => string,
-	outfitOptionDescription: () => string,
-};
-type ReplyGroups = {
-	outfitName: () => string,
-	costConjunction: () => string,
-	scheduleList: () => string,
-};
-type BareReplyGroups = {
-	scheduleList: () => string,
-};
-type NoSlotReplyGroups = {
-	outfitName: () => string,
-};
-type TokensCostGroups = {
-	tokens: () => string,
-};
-type CoinsCostGroups = {
-	coins: () => string,
-};
-type NoCostGroups = {};
-type ScheduleGroups = {
-	dayDateTime: () => string,
-};
-type BareScheduleGroups = {
-	dayDateTime: () => string,
-	outfitNameConjunction: () => string,
-};
+import {composeAll, list, localize, nearest, resolve} from "../utils/string.js";
+type HelpGroups = OutfitDependency["help"];
+type TokensCostGroups = OutfitDependency["tokensCost"];
+type CoinsCostGroups = OutfitDependency["coinsCost"];
+type ScheduleGroups = OutfitDependency["schedule"];
+type BareScheduleGroups = OutfitDependency["bareSchedule"];
+const {
+	commandName,
+	commandDescription,
+	outfitOptionName,
+	outfitOptionDescription,
+}: OutfitDefinition = outfitDefinition;
+const {
+	help: helpLocalizations,
+	reply: replyLocalizations,
+	bareReply: bareReplyLocalizations,
+	noSlotReply: noSlotReplyLocalizations,
+	tokensCost: tokensCostLocalizations,
+	coinsCost: coinsCostLocalizations,
+	noCost: noCostLocalizations,
+	schedule: scheduleLocalizations,
+	bareSchedule: bareScheduleLocalizations,
+}: OutfitCompilation = outfitCompilation;
 const {
 	SHICKA_SALT: salt = "",
 }: NodeJS.ProcessEnv = process.env;
-const commandName: string = "outfit";
-const commandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Tells you what is for sale in the shop or when it is for sale",
-	"fr": "Te dit ce qui est en vente dans la boutique ou quand c'est en vente",
-};
-const commandDescription: string = commandDescriptionLocalizations["en-US"];
-const outfitOptionName: string = "outfit";
-const outfitOptionDescriptionLocalizations: Localized<string> = {
-	"en-US": "Some outfit",
-	"fr": "Un costume",
-};
-const outfitOptionDescription: string = outfitOptionDescriptionLocalizations["en-US"];
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
-	"en-US": "Type `/$<commandName>` to know what is for sale in the shop\nType `/$<commandName> $<outfitOptionDescription>` to know when `$<outfitOptionDescription>` is for sale in the shop",
-	"fr": "Tape `/$<commandName>` pour savoir ce qui est en vente dans la boutique\nTape `/$<commandName> $<outfitOptionDescription>` pour savoir quand `$<outfitOptionDescription>` est en vente dans la boutique",
-});
-const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
-	"en-US": "**$<outfitName>** will be for sale in the shop for $<costConjunction> for 6 hours starting:\n$<scheduleList>",
-	"fr": "**$<outfitName>** sera en vente dans la boutique pour $<costConjunction> durant 6 heures à partir de :\n$<scheduleList>",
-});
-const noSlotReplyLocalizations: Localized<(groups: NoSlotReplyGroups) => string> = compileAll<NoSlotReplyGroups>({
-	"en-US": "**$<outfitName>** is not for sale.",
-	"fr": "**$<outfitName>** n'est pas en vente.",
-});
-const bareReplyLocalizations: Localized<(groups: BareReplyGroups) => string> = compileAll<BareReplyGroups>({
-	"en-US": "The outfits for sale in the shop change every 6 hours:\n$<scheduleList>",
-	"fr": "Les costumes en vente dans la boutique changent toutes les 6 heures :\n$<scheduleList>",
-});
-const tokensCostLocalizations: Localized<(groups: TokensCostGroups) => string> = compileAll<TokensCostGroups>({
-	"en-US": "**$<tokens> Tristopio tokens**",
-	"fr": "**$<tokens> jetons Tristopio**",
-});
-const coinsCostLocalizations: Localized<(groups: CoinsCostGroups) => string> = compileAll<CoinsCostGroups>({
-	"en-US": "**$<coins> coins**",
-	"fr": "**$<coins> pièces**",
-});
-const noCostLocalizations: Localized<(groups: NoCostGroups) => string> = compileAll<NoCostGroups>({
-	"en-US": "a pittance",
-	"fr": "une bouchée de pain",
-});
-const scheduleLocalizations: Localized<((groups: ScheduleGroups) => string)> = compileAll<ScheduleGroups>({
-	"en-US": "*$<dayDateTime>*",
-	"fr": "*$<dayDateTime>*",
-});
-const bareScheduleLocalizations: Localized<((groups: BareScheduleGroups) => string)> = compileAll<BareScheduleGroups>({
-	"en-US": "*$<dayDateTime>*: $<outfitNameConjunction>",
-	"fr": "*$<dayDateTime>* : $<outfitNameConjunction>",
-});
 function knuth(state: bigint): bigint {
 	return BigInt.asUintN(32, state * 2654435761n);
 }
@@ -156,14 +106,14 @@ const outfitCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
-			description: commandDescription,
-			descriptionLocalizations: commandDescriptionLocalizations,
+			description: commandDescription["en-US"],
+			descriptionLocalizations: commandDescription,
 			options: [
 				((): ApplicationCommandOptionData & {minValue: number, maxValue: number} => ({
 					type: "INTEGER",
 					name: outfitOptionName,
-					description: outfitOptionDescription,
-					descriptionLocalizations: outfitOptionDescriptionLocalizations,
+					description: outfitOptionDescription["en-US"],
+					descriptionLocalizations: outfitOptionDescription,
 					minValue: 0,
 					maxValue: outfits.length - 1,
 					autocomplete: true,
@@ -411,7 +361,7 @@ const outfitCommand: Command = {
 					return commandName;
 				},
 				outfitOptionDescription: (): string => {
-					return outfitOptionDescriptionLocalizations[locale];
+					return outfitOptionDescription[locale];
 				},
 			};
 		}));

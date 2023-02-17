@@ -5,25 +5,18 @@ import type {
 } from "discord.js";
 import type {Response} from "node-fetch";
 import type Command from "../commands.js";
+import type {Trailer as TrailerCompilation} from "../compilations.js";
+import type {Trailer as TrailerDefinition} from "../definitions.js";
+import type {Trailer as TrailerDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import {JSDOM} from "jsdom";
 import fetch from "node-fetch";
-import {compileAll, composeAll, list, localize, resolve} from "../utils/string.js";
-type HelpGroups = {
-	commandName: () => string,
-};
-type ReplyGroups = {
-	linkList: () => string,
-};
-type DefaultReplyGroups = {
-	link: () => string,
-};
-type LinkGroups = {
-	title: () => string,
-	link: () => string,
-	views: () => string,
-};
+import {trailer as trailerCompilation} from "../compilations.js";
+import {trailer as trailerDefinition} from "../definitions.js";
+import {composeAll, list, localize, resolve} from "../utils/string.js";
+type HelpGroups = TrailerDependency["help"];
+type LinkGroups = TrailerDependency["link"];
 type Data = {
 	title: string,
 	link: string,
@@ -32,12 +25,16 @@ type Data = {
 type Patch = {
 	[k in string]: string
 };
-const commandName: string = "trailer";
-const commandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Tells you where to watch official trailers of the game",
-	"fr": "Te dit où regarder des bandes-annonces officielles du jeu",
-};
-const commandDescription: string = commandDescriptionLocalizations["en-US"];
+const {
+	commandName,
+	commandDescription,
+}: TrailerDefinition = trailerDefinition;
+const {
+	help: helpLocalizations,
+	reply: replyLocalizations,
+	defaultReply: defaultReplyLocalizations,
+	link: linkLocalizations,
+}: TrailerCompilation = trailerCompilation;
 const titlePatch: Patch = {
 	"Super Bear Adventure - Official Game Trailer": "Super Bear Adventure - Graphics Update Trailer"
 };
@@ -48,22 +45,6 @@ const viewsPatch: Patch = {
 };
 const viewsPattern: RegExp = /^(.*) views$/su;
 const link: string = "https://www.youtube.com/playlist?list=PLEJBkn30KcVVuA8Z0s_NLruYrbvzV5ieK";
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
-	"en-US": "Type `/$<commandName>` to know where to watch official trailers of the game",
-	"fr": "Tape `/$<commandName>` pour savoir où regarder des bandes-annonces officielles du jeu",
-});
-const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
-	"en-US": "You can watch official trailers of the game there:\n$<linkList>",
-	"fr": "Tu peux regarder des bandes-annonces officielles du jeu là :\n$<linkList>",
-});
-const defaultReplyLocalizations: Localized<(groups: DefaultReplyGroups) => string> = compileAll<DefaultReplyGroups>({
-	"en-US": "You can watch official trailers of the game [there](<$<link>>).",
-	"fr": "Tu peux regarder des bandes-annonces officielles du jeu [là](<$<link>>).",
-});
-const linkLocalizations: Localized<((groups: LinkGroups) => string)> = compileAll<LinkGroups>({
-	"en-US": "[*$<title>* trailer](<$<link>>) (*$<views>* views)",
-	"fr": "[Bande-annonce *$<title>*](<$<link>>) (*$<views>* views)",
-});
 function patch(text: string, table: Patch): string {
 	if (!(text in table)) {
 		return text;
@@ -74,8 +55,8 @@ const trailerCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
-			description: commandDescription,
-			descriptionLocalizations: commandDescriptionLocalizations,
+			description: commandDescription["en-US"],
+			descriptionLocalizations: commandDescription,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

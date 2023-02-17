@@ -1,0 +1,96 @@
+{
+	"commandName": "chat",
+	"commandDescription": {
+		"en-US": "Sends this content with these attachments or edits this message with them in this channel",
+		"fr": "Envoie ce contenu avec ces pièces jointes ou modifie ce message avec ceux-là dans ce salon"
+	},
+	"postSubCommandName": "post",
+	"postSubCommandDescription": {
+		"en-US": "Sends this content in this channel",
+		"fr": "Envoie ce contenu dans ce salon"
+	},
+	"patchSubCommandName": "patch",
+	"patchSubCommandDescription": {
+		"en-US": "Edits this message with this content in this channel",
+		"fr": "Modifie de message avec ce contenu dans ce salon"
+	},
+	"attachSubCommandName": "attach",
+	"attachSubCommandDescription": {
+		"en-US": "Adds at this position this attachment to this message in this channel",
+		"fr": "Ajoute à cette position cette pièce jointe à ce message dans ce salon"
+	},
+	"detachSubCommandName": "detach",
+	"detachSubCommandDescription": {
+		"en-US": "Removes at this position the attachment from this message in this channel",
+		"fr": "Retire à cette position la pièce jointe de ce message dans ce salon"
+	},
+	"channelOptionName": "channel",
+	"channelOptionDescription": {
+		"en-US": "Some channel",
+		"fr": "Un salon"
+	},
+	"messageOptionName": "message",
+	"messageOptionDescription": {
+		"en-US": "Some message",
+		"fr": "Un message"
+	},
+	"contentOptionName": "content",
+	"contentOptionDescription": {
+		"en-US": "Some content",
+		"fr": "Un contenu"
+	},
+	"positionOptionName": "position",
+	"positionOptionDescription": {
+		"en-US": "Some position",
+		"fr": "Une position"
+	},
+	"attachmentOptionName": "attachment",
+	"attachmentOptionDescription": {
+		"en-US": "Some attachment",
+		"fr": "Une pièce jointe"
+	},
+	"help": {
+		"en-US": "Type `/$<commandName> $<postSubCommandName> $<channelOptionDescription> $<contentOptionDescription>` to send `$<contentOptionDescription>` in `$<channelOptionDescription>`\nType `/$<commandName> $<patchSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<contentOptionDescription>` to edit `$<messageOptionDescription>` with `$<contentOptionDescription>` in `$<channelOptionDescription>`\nType `/$<commandName> $<attachSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription> $<attachmentOptionDescription>` to add at `$<positionOptionDescription>` `$<attachmentOptionDescription>` to `$<messageOptionDescription>` in `$<channelOptionDescription>`\nType `/$<commandName> $<detachSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription>` to remove at `$<positionOptionDescription>` the attachment of `$<messageOptionDescription>` in `$<channelOptionDescription>`",
+		"fr": "Tape `/$<commandName> $<postSubCommandName> $<channelOptionDescription> $<contentOptionDescription>` pour envoyer `$<contentOptionDescription>` dans `$<channelOptionDescription>`\nTape `/$<commandName> $<patchSubCommandName> $<channelOptionDescription> $<messageOptionDescription>` $<contentOptionDescription> pour modifier `$<messageOptionDescription>` avec `$<contentOptionDescription>` dans `$<channelOptionDescription>`\nTape `/$<commandName> $<attachSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription> $<attachmentOptionDescription>` pour ajouter à `$<positionOptionDescription>` `$<attachmentOptionDescription>` à `$<messageOptionDescription>` dans `$<channelOptionDescription>`\nTape `/$<commandName> $<detachSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription>` pour retirer à `$<positionOptionDescription>` la pièce jointe de `$<messageOptionDescription>` dans `$<channelOptionDescription>`"
+	},
+	"reply": {
+		"en-US": "I have edited the message.",
+		"fr": "J'ai modifié le message."
+	},
+	"bareReply": {
+		"en-US": "I have sent the message.",
+		"fr": "J'ai envoyé le message."
+	},
+	"noPrivacyReply": {
+		"en-US": "I can not reply to you in this channel.\nPlease ask me in a private channel instead.",
+		"fr": "Je ne peux pas te répondre dans ce salon.\nMerci de me demander dans un salon privé à la place."
+	},
+	"noChannelReply": {
+		"en-US": "I do not know any channel with this tag.",
+		"fr": "Je ne connais aucun salon avec cette étiquette."
+	},
+	"noMessageReply": {
+		"en-US": "I do not know any message with this identifier in this channel.",
+		"fr": "Je ne connais aucun message avec cet identifiant dans ce salon."
+	},
+	"noPositionReply": {
+		"en-US": "I do not know any slot with this position.\nPlease give me a position between `0` and `$<max>` instead.",
+		"fr": "Je ne connais aucun emplacement avec cette position.\nMerci de me donner une position entre `0` et `$<max>` à la place."
+	},
+	"noInteractionReply": {
+		"en-US": "I can not edit interaction replies or follow-ups.",
+		"fr": "Je ne peux pas modifier de réponses ou de suites aux interactions."
+	},
+	"noContentOrAttachmentReply": {
+		"en-US": "Please keep a content or attachments.",
+		"fr": "Merci de garder un contenu ou des pièces jointes."
+	},
+	"noPatchPermissionReply": {
+		"en-US": "I do not have the rights to edit this message.",
+		"fr": "Je n'ai pas les droits pour modifier ce message."
+	},
+	"noPostPermissionReply": {
+		"en-US": "I do not have the rights to send this message.",
+		"fr": "Je n'ai pas les droits pour envoyer ce message."
+	}
+}

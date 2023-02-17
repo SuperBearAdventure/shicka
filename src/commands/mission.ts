@@ -9,84 +9,45 @@ import type {
 } from "discord.js";
 import type {Challenge, Level, Mission} from "../bindings.js";
 import type Command from "../commands.js";
+import type {Mission as MissionCompilation} from "../compilations.js";
+import type {Mission as MissionDefinition} from "../definitions.js";
+import type {Mission as MissionDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import {challenges, levels, missions} from "../bindings.js";
-import {compileAll, composeAll, list, localize, nearest, resolve} from "../utils/string.js";
-type HelpGroups = {
-	commandName: () => string,
-	missionOptionDescription: () => string,
-};
-type ReplyGroups = {
-	challengeName: () => string,
-	levelName: () => string,
-	scheduleList: () => string,
-};
-type BareReplyGroups = {
-	dayTime: () => string,
-	scheduleList: () => string,
-};
-type MissionNameGroups = {
-	challengeName: () => string,
-	levelName: () => string,
-};
-type ScheduleGroups = {
-	dayDateTime: () => string,
-};
-type BareScheduleGroups = {
-	dayDate: () => string,
-	challengeName: () => string,
-	levelName: () => string,
-};
-const commandName: string = "mission";
-const commandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Tells you what is playable in the shop or when it is playable",
-	"fr": "Te dit ce qui est jouable dans la boutique ou quand c'est jouable",
-};
-const commandDescription: string = commandDescriptionLocalizations["en-US"];
-const missionOptionName: string = "mission";
-const missionOptionDescriptionLocalizations: Localized<string> = {
-	"en-US": "Some mission",
-	"fr": "Une mission",
-};
-const missionOptionDescription: string = missionOptionDescriptionLocalizations["en-US"];
+import {mission as missionCompilation} from "../compilations.js";
+import {mission as missionDefinition} from "../definitions.js";
+import {composeAll, list, localize, nearest, resolve} from "../utils/string.js";
+type HelpGroups = MissionDependency["help"];
+type ScheduleGroups = MissionDependency["schedule"];
+type BareScheduleGroups = MissionDependency["bareSchedule"];
+const {
+	commandName,
+	commandDescription,
+	missionOptionName,
+	missionOptionDescription,
+}: MissionDefinition = missionDefinition;
+const {
+	help: helpLocalizations,
+	reply: replyLocalizations,
+	bareReply: bareReplyLocalizations,
+	missionName: missionNameLocalizations,
+	schedule: scheduleLocalizations,
+	bareSchedule: bareScheduleLocalizations,
+}: MissionCompilation = missionCompilation;
 const dayTime: Date = new Date(36000000);
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
-	"en-US": "Type `/$<commandName>` to know what is playable in the shop\nType `/$<commandName> $<missionOptionDescription>` to know when `$<missionOptionDescription>` is playable in the shop",
-	"fr": "Tape `/$<commandName>` pour savoir ce qui est jouable dans la boutique\nTape `/$<commandName> $<missionOptionDescription>` pour savoir quand `$<missionOptionDescription>` est jouable dans la boutique",
-});
-const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
-	"en-US": "**$<challengeName>** in **$<levelName>** will be playable for 1 day starting:\n$<scheduleList>",
-	"fr": "**$<challengeName>** dans **$<levelName>** sera jouable durant 1 jour à partir de :\n$<scheduleList>",
-});
-const bareReplyLocalizations: Localized<(groups: BareReplyGroups) => string> = compileAll<BareReplyGroups>({
-	"en-US": "Each mission starts at *$<dayTime>*:\n$<scheduleList>",
-	"fr": "Chaque mission commence à *$<dayTime>* :\n$<scheduleList>",
-});
-const missionNameLocalizations: Localized<((groups: MissionNameGroups) => string)> = compileAll<MissionNameGroups>({
-	"en-US": "$<challengeName> in $<levelName>",
-	"fr": "$<challengeName> dans $<levelName>",
-});
-const scheduleLocalizations: Localized<((groups: ScheduleGroups) => string)> = compileAll<ScheduleGroups>({
-	"en-US": "*$<dayDateTime>*",
-	"fr": "*$<dayDateTime>*",
-});
-const bareScheduleLocalizations: Localized<((groups: BareScheduleGroups) => string)> = compileAll<BareScheduleGroups>({
-	"en-US": "*$<dayDate>*: **$<challengeName>** in **$<levelName>**",
-	"fr": "*$<dayDate>* : **$<challengeName>** dans **$<levelName>**",
-});
 const missionCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
-			description: commandDescription,
-			descriptionLocalizations: commandDescriptionLocalizations,
+			description: commandDescription["en-US"],
+			descriptionLocalizations: commandDescription,
 			options: [
 				((): ApplicationCommandOptionData & {minValue: number, maxValue: number} => ({
 					type: "INTEGER",
 					name: missionOptionName,
-					description: missionOptionDescription,
-					descriptionLocalizations: missionOptionDescriptionLocalizations,
+					description: missionOptionDescription["en-US"],
+					descriptionLocalizations: missionOptionDescription,
 					minValue: 0,
 					maxValue: missions.length - 1,
 					autocomplete: true,
@@ -276,7 +237,7 @@ const missionCommand: Command = {
 					return commandName;
 				},
 				missionOptionDescription: (): string => {
-					return missionOptionDescriptionLocalizations[locale];
+					return missionOptionDescription[locale];
 				},
 			};
 		}));

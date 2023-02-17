@@ -9,157 +9,70 @@ import type {
 	ThreadChannel,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {Chat as ChatCompilation} from "../compilations.js";
+import type {Chat as ChatDefinition} from "../definitions.js";
+import type {Chat as ChatDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
-import {compileAll, composeAll, localize, resolve} from "../utils/string.js";
-type HelpGroups = {
-	commandName: () => string,
-	postSubCommandName: () => string,
-	patchSubCommandName: () => string,
-	attachSubCommandName: () => string,
-	detachSubCommandName: () => string,
-	channelOptionDescription: () => string,
-	messageOptionDescription: () => string,
-	contentOptionDescription: () => string,
-	positionOptionDescription: () => string,
-	attachmentOptionDescription: () => string,
-};
-type ReplyGroups = {};
-type BareReplyGroups = {};
-type NoPrivacyReplyGroups = {};
-type NoChannelReplyGroups = {};
-type NoMessageReplyGroups = {};
-type NoPositionReplyGroups = {
-	max: () => string,
-};
-type NoContentOrAttachmentReplyGroups = {};
-type NoInteractionReplyGroups = {};
-type NoPatchPermissionReplyGroups = {};
-type NoPostPermissionReplyGroups = {};
-const commandName: string = "chat";
-const commandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Sends this content with these attachments or edits this message with them in this channel",
-	"fr": "Envoie ce contenu avec ces pièces jointes ou modifie ce message avec ceux-là dans ce salon",
-};
-const commandDescription: string = commandDescriptionLocalizations["en-US"];
-const postSubCommandName: string = "post";
-const postSubCommandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Sends this content in this channel",
-	"fr": "Envoie ce contenu dans ce salon",
-};
-const postSubCommandDescription: string = postSubCommandDescriptionLocalizations["en-US"];
-const patchSubCommandName: string = "patch";
-const patchSubCommandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Edits this message with this content in this channel",
-	"fr": "Modifie de message avec ce contenu dans ce salon",
-};
-const patchSubCommandDescription: string = patchSubCommandDescriptionLocalizations["en-US"];
-const attachSubCommandName: string = "attach";
-const attachSubCommandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Adds at this position this attachment to this message in this channel",
-	"fr": "Ajoute à cette position cette pièce jointe à ce message dans ce salon",
-};
-const attachSubCommandDescription: string = attachSubCommandDescriptionLocalizations["en-US"];
-const detachSubCommandName: string = "detach";
-const detachSubCommandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Removes at this position the attachment from this message in this channel",
-	"fr": "Retire à cette position la pièce jointe de ce message dans ce salon",
-};
-const detachSubCommandDescription: string = detachSubCommandDescriptionLocalizations["en-US"];
-const channelOptionName: string = "channel";
-const channelOptionDescriptionLocalizations: Localized<string> = {
-	"en-US": "Some channel",
-	"fr": "Un salon",
-};
-const channelOptionDescription: string = channelOptionDescriptionLocalizations["en-US"];
-const messageOptionName: string = "message";
-const messageOptionDescriptionLocalizations: Localized<string> = {
-	"en-US": "Some message",
-	"fr": "Un message",
-};
-const messageOptionDescription: string = messageOptionDescriptionLocalizations["en-US"];
-const contentOptionName: string = "content";
-const contentOptionDescriptionLocalizations: Localized<string> = {
-	"en-US": "Some content",
-	"fr": "Un contenu",
-};
-// const contentOptionDescription: string = contentOptionDescriptionLocalizations["en-US"];
-const positionOptionName: string = "position";
-const positionOptionDescriptionLocalizations: Localized<string> = {
-	"en-US": "Some position",
-	"fr": "Une position",
-};
-const positionOptionDescription: string = messageOptionDescriptionLocalizations["en-US"];
-const attachmentOptionName: string = "attachment";
-const attachmentOptionDescriptionLocalizations: Localized<string> = {
-	"en-US": "Some attachment",
-	"fr": "Une pièce jointe",
-};
-const attachmentOptionDescription: string = messageOptionDescriptionLocalizations["en-US"];
+import {chat as chatCompilation} from "../compilations.js";
+import {chat as chatDefinition} from "../definitions.js";
+import {composeAll, localize, resolve} from "../utils/string.js";
+type HelpGroups = ChatDependency["help"];
+const {
+	commandName,
+	commandDescription,
+	postSubCommandName,
+	postSubCommandDescription,
+	patchSubCommandName,
+	patchSubCommandDescription,
+	attachSubCommandName,
+	attachSubCommandDescription,
+	detachSubCommandName,
+	detachSubCommandDescription,
+	channelOptionName,
+	channelOptionDescription,
+	messageOptionName,
+	messageOptionDescription,
+	contentOptionName,
+	contentOptionDescription,
+	positionOptionName,
+	positionOptionDescription,
+	attachmentOptionName,
+	attachmentOptionDescription,
+}: ChatDefinition = chatDefinition;
+const {
+	help: helpLocalizations,
+	reply: replyLocalizations,
+	bareReply: bareReplyLocalizations,
+	noPrivacyReply: noPrivacyReplyLocalizations,
+	noChannelReply: noChannelReplyLocalizations,
+	noMessageReply: noMessageReplyLocalizations,
+	noPositionReply: noPositionReplyLocalizations,
+	noInteractionReply: noInteractionReplyLocalizations,
+	noContentOrAttachmentReply: noContentOrAttachmentReplyLocalizations,
+	noPatchPermissionReply: noPatchPermissionReplyLocalizations,
+	noPostPermissionReply: noPostPermissionReplyLocalizations,
+}: ChatCompilation = chatCompilation;
 const messagePattern: RegExp = /^(?:0|[1-9]\d*)$/;
 const channels: Set<string> = new Set<string>(["🔧│console", "🔎│logs", "🔰│helpers-room", "🛡│moderators-room"]);
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
-	"en-US": "Type `/$<commandName> $<postSubCommandName> $<channelOptionDescription> $<contentOptionDescription>` to send `$<contentOptionDescription>` in `$<channelOptionDescription>`\nType `/$<commandName> $<patchSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<contentOptionDescription>` to edit `$<messageOptionDescription>` with `$<contentOptionDescription>` in `$<channelOptionDescription>`\nType `/$<commandName> $<attachSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription> $<attachmentOptionDescription>` to add at `$<positionOptionDescription>` `$<attachmentOptionDescription>` to `$<messageOptionDescription>` in `$<channelOptionDescription>`\nType `/$<commandName> $<detachSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription>` to remove at `$<positionOptionDescription>` the attachment of `$<messageOptionDescription>` in `$<channelOptionDescription>`",
-	"fr": "Tape `/$<commandName> $<postSubCommandName> $<channelOptionDescription> $<contentOptionDescription>` pour envoyer `$<contentOptionDescription>` dans `$<channelOptionDescription>`\nTape `/$<commandName> $<patchSubCommandName> $<channelOptionDescription> $<messageOptionDescription>` $<contentOptionDescription> pour modifier `$<messageOptionDescription>` avec `$<contentOptionDescription>` dans `$<channelOptionDescription>`\nTape `/$<commandName> $<attachSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription> $<attachmentOptionDescription>` pour ajouter à `$<positionOptionDescription>` `$<attachmentOptionDescription>` à `$<messageOptionDescription>` dans `$<channelOptionDescription>`\nTape `/$<commandName> $<detachSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription>` pour retirer à `$<positionOptionDescription>` la pièce jointe de `$<messageOptionDescription>` dans `$<channelOptionDescription>`",
-});
-const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
-	"en-US": "I have edited the message.",
-	"fr": "J'ai modifié le message.",
-});
-const bareReplyLocalizations: Localized<(groups: BareReplyGroups) => string> = compileAll<BareReplyGroups>({
-	"en-US": "I have sent the message.",
-	"fr": "J'ai envoyé le message.",
-});
-const noPrivacyReplyLocalizations: Localized<(groups: NoPrivacyReplyGroups) => string> = compileAll<NoPrivacyReplyGroups>({
-	"en-US": "I can not reply to you in this channel.\nPlease ask me in a private channel instead.",
-	"fr": "Je ne peux pas te répondre dans ce salon.\nMerci de me demander dans un salon privé à la place.",
-});
-const noChannelReplyLocalizations: Localized<(groups: NoChannelReplyGroups) => string> = compileAll<NoChannelReplyGroups>({
-	"en-US": "I do not know any channel with this tag.",
-	"fr": "Je ne connais aucun salon avec cette étiquette.",
-});
-const noMessageReplyLocalizations: Localized<(groups: NoMessageReplyGroups) => string> = compileAll<NoMessageReplyGroups>({
-	"en-US": "I do not know any message with this identifier in this channel.",
-	"fr": "Je ne connais aucun message avec cet identifiant dans ce salon.",
-});
-const noPositionReplyLocalizations: Localized<(groups: NoPositionReplyGroups) => string> = compileAll<NoPositionReplyGroups>({
-	"en-US": "I do not know any slot with this position.\nPlease give me a position between `0` and `$<max>` instead.",
-	"fr": "Je ne connais aucun emplacement avec cette position.\nMerci de me donner une position entre `0` et `$<max>` à la place.",
-});
-const noInteractionReplyLocalizations: Localized<(groups: NoInteractionReplyGroups) => string> = compileAll<NoInteractionReplyGroups>({
-	"en-US": "I can not edit interaction replies or follow-ups.",
-	"fr": "Je ne peux pas modifier de réponses ou de suites aux interactions.",
-});
-const noContentOrAttachmentReplyLocalizations: Localized<(groups: NoContentOrAttachmentReplyGroups) => string> = compileAll<NoContentOrAttachmentReplyGroups>({
-	"en-US": "Please keep a content or attachments.",
-	"fr": "Merci de garder un contenu ou des pièces jointes.",
-});
-const noPatchPermissionReplyLocalizations: Localized<(groups: NoPatchPermissionReplyGroups) => string> = compileAll<NoPatchPermissionReplyGroups>({
-	"en-US": "I do not have the rights to edit this message.",
-	"fr": "Je n'ai pas les droits pour modifier ce message.",
-});
-const noPostPermissionReplyLocalizations: Localized<(groups: NoPostPermissionReplyGroups) => string> = compileAll<NoPostPermissionReplyGroups>({
-	"en-US": "I do not have the rights to send this message.",
-	"fr": "Je n'ai pas les droits pour envoyer ce message.",
-});
 const chatCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
-			description: commandDescription,
-			descriptionLocalizations: commandDescriptionLocalizations,
+			description: commandDescription["en-US"],
+			descriptionLocalizations: commandDescription,
 			options: [
 				{
 					type: "SUB_COMMAND",
 					name: postSubCommandName,
-					description: postSubCommandDescription,
-					descriptionLocalizations: postSubCommandDescriptionLocalizations,
+					description: postSubCommandDescription["en-US"],
+					descriptionLocalizations: postSubCommandDescription,
 					options: [
 						{
 							type: "CHANNEL",
 							name: channelOptionName,
-							description: channelOptionDescription,
-							descriptionLocalizations: channelOptionDescriptionLocalizations,
+							description: channelOptionDescription["en-US"],
+							descriptionLocalizations: channelOptionDescription,
 							required: true,
 							channelTypes: [
 								"GUILD_TEXT",
@@ -175,14 +88,14 @@ const chatCommand: Command = {
 				{
 					type: "SUB_COMMAND",
 					name: patchSubCommandName,
-					description: patchSubCommandDescription,
-					descriptionLocalizations: patchSubCommandDescriptionLocalizations,
+					description: patchSubCommandDescription["en-US"],
+					descriptionLocalizations: patchSubCommandDescription,
 					options: [
 						{
 							type: "CHANNEL",
 							name: channelOptionName,
-							description: channelOptionDescription,
-							descriptionLocalizations: channelOptionDescriptionLocalizations,
+							description: channelOptionDescription["en-US"],
+							descriptionLocalizations: channelOptionDescription,
 							required: true,
 							channelTypes: [
 								"GUILD_TEXT",
@@ -196,8 +109,8 @@ const chatCommand: Command = {
 						{
 							type: "STRING",
 							name: messageOptionName,
-							description: messageOptionDescription,
-							descriptionLocalizations: messageOptionDescriptionLocalizations,
+							description: messageOptionDescription["en-US"],
+							descriptionLocalizations: messageOptionDescription,
 							required: true,
 						},
 					],
@@ -205,14 +118,14 @@ const chatCommand: Command = {
 				{
 					type: "SUB_COMMAND",
 					name: attachSubCommandName,
-					description: attachSubCommandDescription,
-					descriptionLocalizations: attachSubCommandDescriptionLocalizations,
+					description: attachSubCommandDescription["en-US"],
+					descriptionLocalizations: attachSubCommandDescription,
 					options: [
 						{
 							type: "CHANNEL",
 							name: channelOptionName,
-							description: channelOptionDescription,
-							descriptionLocalizations: channelOptionDescriptionLocalizations,
+							description: channelOptionDescription["en-US"],
+							descriptionLocalizations: channelOptionDescription,
 							required: true,
 							channelTypes: [
 								"GUILD_TEXT",
@@ -226,23 +139,23 @@ const chatCommand: Command = {
 						{
 							type: "STRING",
 							name: messageOptionName,
-							description: messageOptionDescription,
-							descriptionLocalizations: messageOptionDescriptionLocalizations,
+							description: messageOptionDescription["en-US"],
+							descriptionLocalizations: messageOptionDescription,
 							required: true,
 						},
 						{
 							type: "INTEGER",
 							name: positionOptionName,
-							description: positionOptionDescription,
-							descriptionLocalizations: positionOptionDescriptionLocalizations,
+							description: positionOptionDescription["en-US"],
+							descriptionLocalizations: positionOptionDescription,
 							required: true,
 							minValue: 0,
 						},
 						{
 							type: "ATTACHMENT",
 							name: attachmentOptionName,
-							description: attachmentOptionDescription,
-							descriptionLocalizations: attachmentOptionDescriptionLocalizations,
+							description: attachmentOptionDescription["en-US"],
+							descriptionLocalizations: attachmentOptionDescription,
 							required: true,
 						},
 					],
@@ -250,14 +163,14 @@ const chatCommand: Command = {
 				{
 					type: "SUB_COMMAND",
 					name: detachSubCommandName,
-					description: detachSubCommandDescription,
-					descriptionLocalizations: detachSubCommandDescriptionLocalizations,
+					description: detachSubCommandDescription["en-US"],
+					descriptionLocalizations: detachSubCommandDescription,
 					options: [
 						{
 							type: "CHANNEL",
 							name: channelOptionName,
-							description: channelOptionDescription,
-							descriptionLocalizations: channelOptionDescriptionLocalizations,
+							description: channelOptionDescription["en-US"],
+							descriptionLocalizations: channelOptionDescription,
 							required: true,
 							channelTypes: [
 								"GUILD_TEXT",
@@ -271,15 +184,15 @@ const chatCommand: Command = {
 						{
 							type: "STRING",
 							name: messageOptionName,
-							description: messageOptionDescription,
-							descriptionLocalizations: messageOptionDescriptionLocalizations,
+							description: messageOptionDescription["en-US"],
+							descriptionLocalizations: messageOptionDescription,
 							required: true,
 						},
 						{
 							type: "INTEGER",
 							name: positionOptionName,
-							description: positionOptionDescription,
-							descriptionLocalizations: positionOptionDescriptionLocalizations,
+							description: positionOptionDescription["en-US"],
+							descriptionLocalizations: positionOptionDescription,
 							required: true,
 							minValue: 0,
 						},
@@ -359,7 +272,7 @@ const chatCommand: Command = {
 			}
 			await interaction.showModal({
 				customId: interaction.id,
-				title: contentOptionDescriptionLocalizations[resolvedLocale],
+				title: contentOptionDescription[resolvedLocale],
 				components: [
 					{
 						type: "ACTION_ROW",
@@ -415,7 +328,7 @@ const chatCommand: Command = {
 		if (subCommandName === postSubCommandName) {
 			await interaction.showModal({
 				customId: interaction.id,
-				title: contentOptionDescriptionLocalizations[resolvedLocale],
+				title: contentOptionDescription[resolvedLocale],
 				components: [
 					{
 						type: "ACTION_ROW",
@@ -615,19 +528,19 @@ const chatCommand: Command = {
 					return detachSubCommandName;
 				},
 				channelOptionDescription: (): string => {
-					return channelOptionDescriptionLocalizations[locale];
+					return channelOptionDescription[locale];
 				},
 				messageOptionDescription: (): string => {
-					return messageOptionDescriptionLocalizations[locale];
+					return messageOptionDescription[locale];
 				},
 				contentOptionDescription: (): string => {
-					return contentOptionDescriptionLocalizations[locale];
+					return contentOptionDescription[locale];
 				},
 				positionOptionDescription: (): string => {
-					return positionOptionDescriptionLocalizations[locale];
+					return positionOptionDescription[locale];
 				},
 				attachmentOptionDescription: (): string => {
-					return attachmentOptionDescriptionLocalizations[locale];
+					return attachmentOptionDescription[locale];
 				},
 			};
 		}));

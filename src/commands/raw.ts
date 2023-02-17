@@ -6,63 +6,41 @@ import type {
 } from "discord.js";
 import type Binding from "../bindings.js";
 import type Command from "../commands.js";
+import type {Raw as RawCompilation} from "../compilations.js";
+import type {Raw as RawDefinition} from "../definitions.js";
+import type {Raw as RawDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import * as bindings from "../bindings.js";
-import {compileAll, composeAll, localize, resolve} from "../utils/string.js";
-type HelpGroups = {
-	commandName: () => string,
-	typeOptionDescription: () => string,
-	identifierOptionDescription: () => string,
-};
-type NoTypeReplyGroups = {
-	typeConjunction: () => string,
-};
-type NoIdentifierReplyGroups = {
-	max: () => string,
-};
-const commandName: string = "raw";
-const commandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Tells you what is the datum of this type with this identifier",
-	"fr": "Te dit quelle est la donnée de ce type avec cet identifiant",
-};
-const commandDescription: string = commandDescriptionLocalizations["en-US"];
-const typeOptionName: string = "type";
-const typeOptionDescriptionLocalizations: Localized<string> = {
-	"en-US": "Some type",
-	"fr": "Un type",
-};
-const typeOptionDescription: string = typeOptionDescriptionLocalizations["en-US"];
-const identifierOptionName: string = "identifier";
-const identifierOptionDescriptionLocalizations: Localized<string> = {
-	"en-US": "Some identifier",
-	"fr": "Un identifiant",
-};
-const identifierOptionDescription: string = identifierOptionDescriptionLocalizations["en-US"];
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
-	"en-US": "Type `/$<commandName> $<typeOptionDescription> $<identifierOptionDescription>` to know what is the datum of `$<typeOptionDescription>` with `$<identifierOptionDescription>`",
-	"fr": "Tape `/$<commandName> $<typeOptionDescription> $<identifierOptionDescription>` pour savoir quel est la donnée d'`$<typeOptionDescription>` avec `$<identifierOptionDescription>`",
-});
-const noTypeReplyLocalizations: Localized<(groups: NoTypeReplyGroups) => string> = compileAll<NoTypeReplyGroups>({
-	"en-US": "I do not know any datum with this name.\nPlease give me a type among $<typeConjunction> instead.",
-	"fr": "Je ne connais aucune donnée avec ce nom.\nMerci de me donner un type parmi $<typeConjunction> à la place.",
-});
-const noIdentifierReplyLocalizations: Localized<(groups: NoIdentifierReplyGroups) => string> = compileAll<NoIdentifierReplyGroups>({
-	"en-US": "I do not know any datum with this identifier.\nPlease give me an identifier between `0` and `$<max>` instead.",
-	"fr": "Je ne connais aucune donnée avec cet identifiant.\nMerci de me donner un identifiant entre `0` et `$<max>` à la place.",
-});
+import {raw as rawCompilation} from "../compilations.js";
+import {raw as rawDefinition} from "../definitions.js";
+import {composeAll, localize, resolve} from "../utils/string.js";
+type HelpGroups = RawDependency["help"];
+const {
+	commandName,
+	commandDescription,
+	typeOptionName,
+	typeOptionDescription,
+	identifierOptionName,
+	identifierOptionDescription,
+}: RawDefinition = rawDefinition;
+const {
+	help: helpLocalizations,
+	noTypeReply: noTypeReplyLocalizations,
+	noIdentifierReply: noIdentifierReplyLocalizations,
+}: RawCompilation = rawCompilation;
 const rawCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
-			description: commandDescription,
-			descriptionLocalizations: commandDescriptionLocalizations,
+			description: commandDescription["en-US"],
+			descriptionLocalizations: commandDescription,
 			options: [
 				{
 					type: "STRING",
 					name: typeOptionName,
-					description: typeOptionDescription,
-					descriptionLocalizations: typeOptionDescriptionLocalizations,
+					description: typeOptionDescription["en-US"],
+					descriptionLocalizations: typeOptionDescription,
 					required: true,
 					choices: Object.keys(bindings).map<[string, Binding]>((bindingName: string): [string, Binding] => {
 						const binding: Binding = bindings[bindingName as keyof typeof bindings] as Binding;
@@ -79,8 +57,8 @@ const rawCommand: Command = {
 				{
 					type: "INTEGER",
 					name: identifierOptionName,
-					description: identifierOptionDescription,
-					descriptionLocalizations: identifierOptionDescriptionLocalizations,
+					description: identifierOptionDescription["en-US"],
+					descriptionLocalizations: identifierOptionDescription,
 					required: true,
 					minValue: 0,
 				},
@@ -137,10 +115,10 @@ const rawCommand: Command = {
 					return commandName;
 				},
 				typeOptionDescription: (): string => {
-					return typeOptionDescriptionLocalizations[locale];
+					return typeOptionDescription[locale];
 				},
 				identifierOptionDescription: (): string => {
-					return identifierOptionDescriptionLocalizations[locale];
+					return identifierOptionDescription[locale];
 				},
 			};
 		}));

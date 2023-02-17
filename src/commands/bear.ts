@@ -9,91 +9,48 @@ import type {
 } from "discord.js";
 import type {Bear, Level, Outfit} from "../bindings.js";
 import type Command from "../commands.js";
+import type {Bear as BearCompilation} from "../compilations.js";
+import type {Bear as BearDefinition} from "../definitions.js";
+import type {Bear as BearDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import {bears, levels, outfits} from "../bindings.js";
-import {compileAll, composeAll, localize, nearest, resolve} from "../utils/string.js";
-type HelpGroups = {
-	commandName: () => string,
-	bearOptionDescription: () => string,
-};
-type ReplyGroups = {
-	name: () => string,
-	level: () => string,
-	outfitNameConjunction: () => string,
-	goalConjunction: () => string,
-};
-type NoOutfitGroups = {};
-type BossGoalGroups = {
-	boss: () => string,
-};
-type CoinsGoalGroups = {
-	coins: () => string,
-};
-type TimeGoalGroups = {
-	time: () => string,
-};
-type NoGoalGroups = {};
-const commandName: string = "bear";
-const commandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Tells you who is this bear",
-	"fr": "Te dit qui est cet ours",
-};
-const commandDescription: string = commandDescriptionLocalizations["en-US"];
-const bearOptionName: string = "bear";
-const bearOptionDescriptionLocalizations: Localized<string> = {
-	"en-US": "Some bear",
-	"fr": "Un ours",
-};
-const bearOptionDescription: string = bearOptionDescriptionLocalizations["en-US"];
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
-	"en-US": "Type `/$<commandName> $<bearOptionDescription>` to know who is `$<bearOptionDescription>`",
-	"fr": "Tape `/$<commandName> $<bearOptionDescription>` pour savoir qui est `$<bearOptionDescription>`",
-});
-const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
-	"en-US": "**$<name>** has been imprisoned in **$<level>** and is wearing $<outfitNameConjunction>.\n$<goalConjunction>!",
-	"fr": "**$<name>** a été emprisonné·e dans **$<level>** et porte $<outfitNameConjunction>.\n$<goalConjunction> !",
-});
-const noOutfitLocalizations: Localized<(groups: NoOutfitGroups) => string> = compileAll<NoOutfitGroups>({
-	"en-US": "the bare minimum",
-	"fr": "le plus simple appareil",
-});
-const bossGoalLocalizations: Localized<(groups: BossGoalGroups) => string> = compileAll<BossGoalGroups>({
-	"en-US": "Beat **$<boss>**",
-	"fr": "Bats **$<boss>**",
-});
-const coinsWithBossGoalLocalizations: Localized<(groups: CoinsGoalGroups) => string> = compileAll<CoinsGoalGroups>({
-	"en-US": "collect **$<coins> coins**",
-	"fr": "collecte **$<coins> pièces**",
-});
-const coinsWithoutBossGoalLocalizations: Localized<(groups: CoinsGoalGroups) => string> = compileAll<CoinsGoalGroups>({
-	"en-US": "Collect **$<coins> coins**",
-	"fr": "Collecte **$<coins> pièces**",
-});
-const timeWithBossOrCoinsGoalLocalizations: Localized<(groups: TimeGoalGroups) => string> = compileAll<TimeGoalGroups>({
-	"en-US": "unlock the cage in less than **$<time>** to beat the gold time",
-	"fr": "déverrouille la cage en moins de **$<time>** pour battre le temps d'or",
-});
-const timeWithoutBossAndCoinsGoalLocalizations: Localized<(groups: TimeGoalGroups) => string> = compileAll<TimeGoalGroups>({
-	"en-US": "Unlock the cage in less than **$<time>** to beat the gold time",
-	"fr": "Déverrouille la cage en moins de **$<time>** pour battre le temps d'or",
-});
-const noGoalLocalizations: Localized<(groups: NoGoalGroups) => string> = compileAll<NoGoalGroups>({
-	"en-US": "Let's go",
-	"fr": "En route",
-});
+import {bear as bearCompilation} from "../compilations.js";
+import {bear as bearDefinition} from "../definitions.js";
+import {composeAll, localize, nearest, resolve} from "../utils/string.js";
+type HelpGroups = BearDependency["help"];
+type BossGoalGroups = BearDependency["bossGoal"];
+type CoinsGoalGroups = BearDependency["coinsGoal"];
+type TimeGoalGroups = BearDependency["timeGoal"];
+const {
+	commandName,
+	commandDescription,
+	bearOptionName,
+	bearOptionDescription,
+}: BearDefinition = bearDefinition;
+const {
+	help: helpLocalizations,
+	reply: replyLocalizations,
+	noOutfit: noOutfitLocalizations,
+	bossGoal: bossGoalLocalizations,
+	coinsWithBossGoal: coinsWithBossGoalLocalizations,
+	coinsWithoutBossGoal: coinsWithoutBossGoalLocalizations,
+	timeWithBossOrCoinsGoal: timeWithBossOrCoinsGoalLocalizations,
+	timeWithoutBossAndCoinsGoal: timeWithoutBossAndCoinsGoalLocalizations,
+	noGoal: noGoalLocalizations,
+}: BearCompilation = bearCompilation;
 const bearCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
-			description: commandDescription,
-			descriptionLocalizations: commandDescriptionLocalizations,
+			description: commandDescription["en-US"],
+			descriptionLocalizations: commandDescription,
 			options: [
 				((): ApplicationCommandOptionData & {minValue: number, maxValue: number} => ({
 					type: "INTEGER",
 					name: bearOptionName,
-					description: bearOptionDescription,
-					descriptionLocalizations: bearOptionDescriptionLocalizations,
+					description: bearOptionDescription["en-US"],
+					descriptionLocalizations: bearOptionDescription,
 					required: true,
 					minValue: 0,
 					maxValue: bears.length - 1,
@@ -252,7 +209,7 @@ const bearCommand: Command = {
 					return commandName;
 				},
 				bearOptionDescription: (): string => {
-					return bearOptionDescriptionLocalizations[locale];
+					return bearOptionDescription[locale];
 				},
 			};
 		}));

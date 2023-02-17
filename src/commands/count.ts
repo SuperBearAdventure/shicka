@@ -5,36 +5,29 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {Count as CountCompilation} from "../compilations.js";
+import type {Count as CountDefinition} from "../definitions.js";
+import type {Count as CountDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
-import {compileAll, composeAll, localize, resolve} from "../utils/string.js";
-type HelpGroups = {
-	commandName: () => string,
-};
-type ReplyGroups = {
-	memberCount: () => string,
-	name: () => string,
-};
-const commandName: string = "count";
-const commandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Tells you what is the number of members on the server",
-	"fr": "Te dit quel est le nombre de membres sur le serveur",
-};
-const commandDescription: string = commandDescriptionLocalizations["en-US"];
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
-	"en-US": "Type `/$<commandName>` to know what is the number of members on the server",
-	"fr": "Tape `/$<commandName>` pour savoir quel est le nombre de membres sur le serveur",
-});
-const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
-	"en-US": "There are $<memberCount> members on the official *$<name>* *Discord* server!",
-	"fr": "Il y a $<memberCount> membres sur le serveur *Discord* officiel de *$<name>* !",
-});
+import {count as countCompilation} from "../compilations.js";
+import {count as countDefinition} from "../definitions.js";
+import {composeAll, localize, resolve} from "../utils/string.js";
+type HelpGroups = CountDependency["help"];
+const {
+	commandName,
+	commandDescription,
+}: CountDefinition = countDefinition;
+const {
+	help: helpLocalizations,
+	reply: replyLocalizations,
+}: CountCompilation = countCompilation;
 const countCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
-			description: commandDescription,
-			descriptionLocalizations: commandDescriptionLocalizations,
+			description: commandDescription["en-US"],
+			descriptionLocalizations: commandDescription,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

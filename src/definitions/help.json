@@ -1,0 +1,15 @@
+{
+	"commandName": "help",
+	"commandDescription": {
+		"en-US": "Tells you what are the features I offer",
+		"fr": "Te dit quelles sont les fonctionnalités que je propose"
+	},
+	"help": {
+		"en-US": "Type `/$<commandName>` to know what are the features I offer",
+		"fr": "Tape `/$<commandName>` pour savoir quelles sont les fonctionnalités que je propose"
+	},
+	"reply": {
+		"en-US": "Hey $<user>, there you are!\nI can give you some advice about the server:\n$<featureList>",
+		"fr": "Ah $<user>, tu es là !\nJe peux te donner des conseils sur le serveur :\n$<featureList>"
+	}
+}

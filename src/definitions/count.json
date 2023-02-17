@@ -1,0 +1,15 @@
+{
+	"commandName": "count",
+	"commandDescription": {
+		"en-US": "Tells you what is the number of members on the server",
+		"fr": "Te dit quel est le nombre de membres sur le serveur"
+	},
+	"help": {
+		"en-US": "Type `/$<commandName>` to know what is the number of members on the server",
+		"fr": "Tape `/$<commandName>` pour savoir quel est le nombre de membres sur le serveur"
+	},
+	"reply": {
+		"en-US": "There are $<memberCount> members on the official *$<name>* *Discord* server!",
+		"fr": "Il y a $<memberCount> membres sur le serveur *Discord* officiel de *$<name>* !"
+	}
+}

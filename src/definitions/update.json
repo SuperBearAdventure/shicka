@@ -1,0 +1,23 @@
+{
+	"commandName": "update",
+	"commandDescription": {
+		"en-US": "Tells you what is the latest update of the game",
+		"fr": "Te dit quelle est la dernière mise à jour du jeu"
+	},
+	"help": {
+		"en-US": "Type `/$<commandName>` to know what is the latest update of the game",
+		"fr": "Tape `/$<commandName>` pour savoir quelle est la dernière mise à jour du jeu"
+	},
+	"reply": {
+		"en-US": "You can check and download the latest update of the game there:\n$<linkList>",
+		"fr": "Tu peux consulter et télécharger la dernière mise à jour du jeu là :\n$<linkList>"
+	},
+	"defaultReply": {
+		"en-US": "You can check and download the latest update of the game there:\n$<linkList>",
+		"fr": "Tu peux consulter et télécharger la dernière mise à jour du jeu là :\n$<linkList>"
+	},
+	"link": {
+		"en-US": "[*$<title>* platform](<$<link>>) (*$<version>* version as of *$<date>*)",
+		"fr": "[Plateforme *$<title>*](<$<link>>) (version *$<version>* au *$<date>*)"
+	}
+}
