@@ -124,6 +124,7 @@ const helpCommand: Command = {
 					},
 				});
 				replied = true;
+				continue;
 			}
 			await interaction.followUp({
 				content: chunk,
@@ -154,6 +155,7 @@ const helpCommand: Command = {
 					},
 				});
 				replied = true;
+				continue;
 			}
 			await interaction.followUp({
 				content: chunk,
