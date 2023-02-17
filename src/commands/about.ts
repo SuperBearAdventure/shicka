@@ -4,40 +4,32 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {About as AboutCompilation} from "../compilations.js";
+import type {About as AboutDefinition} from "../definitions.js";
+import type {About as AboutDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
-import {compileAll, composeAll, localize, resolve} from "../utils/string.js";
-type HelpGroups = {
-	commandName: () => string,
-};
-type ReplyGroups = {
-	bot: () => string,
-	author: () => string,
-	link: () => string,
-};
-const commandName: string = "about";
-const commandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Tells you where I come from",
-	"fr": "Te dit d'où je viens",
-};
-const commandDescription: string = commandDescriptionLocalizations["en-US"];
+import {about as aboutCompilation} from "../compilations.js";
+import {about as aboutDefinition} from "../definitions.js";
+import {composeAll, localize, resolve} from "../utils/string.js";
+type HelpGroups = AboutDependency["help"];
+const {
+	commandName,
+	commandDescription,
+}: AboutDefinition = aboutDefinition;
+const {
+	help: helpLocalizations,
+	reply: replyLocalizations,
+}: AboutCompilation = aboutCompilation;
 const bot: string = "Shicka";
 const author: string = "PolariTOON";
 const link: string = "https://github.com/SuperBearAdventure/shicka";
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
-	"en-US": "Type `/$<commandName>` to know where I come from",
-	"fr": "Tape `/$<commandName>` pour savoir d'où je viens",
-});
-const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
-	"en-US": "I am *$<bot>*, a bot made by *$<author>*, and I am open source!\nMy code is available [there](<$<link>>).",
-	"fr": "Je suis *$<bot>*, un robot fait par *$<author>*, et je suis open source !\nMon code est disponible [là](<$<link>>).",
-});
 const aboutCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
-			description: commandDescription,
-			descriptionLocalizations: commandDescriptionLocalizations,
+			description: commandDescription["en-US"],
+			descriptionLocalizations: commandDescription,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

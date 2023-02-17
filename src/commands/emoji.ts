@@ -12,40 +12,34 @@ import type {
 	CanvasRenderingContext2D,
 } from "canvas";
 import type Command from "../commands.js";
+import type {Emoji as EmojiCompilation} from "../compilations.js";
+import type {Emoji as EmojiDefinition} from "../definitions.js";
+import type {Emoji as EmojiDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {readFile} from "node:fs/promises";
 import {fileURLToPath} from "node:url";
 import canvas from "canvas";
 import {JSDOM} from "jsdom";
 import serialize from "w3c-xmlserializer";
-import {compileAll, composeAll, localize, resolve} from "../utils/string.js";
-type HelpGroups = {
-	commandName: () => string,
-	baseOptionDescription: () => string,
-	stylesOptionDescription: () => string,
-};
-type NoPrivacyReplyGroups = {};
+import {emoji as emojiCompilation} from "../compilations.js";
+import {emoji as emojiDefinition} from "../definitions.js";
+import {composeAll, localize, resolve} from "../utils/string.js";
+type HelpGroups = EmojiDependency["help"];
+const {
+	commandName,
+	commandDescription,
+	baseOptionName,
+	baseOptionDescription,
+	// stylesOptionName,
+	stylesOptionDescription,
+}: EmojiDefinition = emojiDefinition;
+const {
+	help: helpLocalizations,
+	noPrivacyReply: noPrivacyReplyLocalizations,
+}: EmojiCompilation = emojiCompilation;
 const {createCanvas, loadImage}: any = canvas;
 const here: string = import.meta.url;
 const root: string = here.slice(0, here.lastIndexOf("/"));
-const commandName: string = "emoji";
-const commandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Creates a new emoji starting from this base and customized with these styles",
-	"fr": "Crée un nouvel émoji à partir de cette base et personnalisé avec ces styles",
-};
-const commandDescription: string = "Creates a new emoji starting from this base and customized with these styles";
-const baseOptionName: string = "base";
-const baseOptionDescriptionLocalizations: Localized<string> = {
-	"en-US": "Some base",
-	"fr": "Une base",
-};
-const baseOptionDescription: string = baseOptionDescriptionLocalizations["en-US"];
-// const stylesOptionName: string = "styles";
-const stylesOptionDescriptionLocalizations: Localized<string> = {
-	"en-US": "Some styles",
-	"fr": "Des styles",
-};
-const stylesOptionDescription: string = stylesOptionDescriptionLocalizations["en-US"];
 const bases: Set<string> = new Set(["baaren", "shicka", "baaren-outlined", "shicka-outlined", "baaren-discord", "shicka-discord"]);
 const paints: Set<"fill" | "stroke"> = new Set(["fill", "stroke"]);
 const layers: Set<"background" | "foreground" | "marker"> = new Set(["background", "foreground", "marker"]);
@@ -63,26 +57,18 @@ const styles: {[k in string]: string} = Object.assign(Object.create(null), {
 	"none": "none",
 });
 const channels: Set<string> = new Set<string>(["🔧│console", "🔎│logs", "🔰│helpers-room", "🛡│moderators-room", "🍪│cookie-room"]);
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
-	"en-US": "Type `/$<commandName> $<baseOptionDescription> $<stylesOptionDescription>` to create a new `$<baseOptionDescription>`-based emoji customized with `$<stylesOptionDescription>`",
-	"fr": "Tape `/$<commandName> $<baseOptionDescription> $<stylesOptionDescription>` pour créer un nouvel émoji basé sur `$<baseOptionDescription>` personnalisé avec `$<stylesOptionDescription>`",
-});
-const noPrivacyReplyLocalizations: Localized<(groups: NoPrivacyReplyGroups) => string> = compileAll<NoPrivacyReplyGroups>({
-	"en-US": "I can not reply to you in this channel.\nPlease ask me in a private channel instead.",
-	"fr": "Je ne peux pas te répondre dans ce salon.\nMerci de me demander dans un salon privé à la place.",
-});
 const emojiCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
-			description: commandDescription,
-			descriptionLocalizations: commandDescriptionLocalizations,
+			description: commandDescription["en-US"],
+			descriptionLocalizations: commandDescription,
 			options: [
 				{
 					type: "STRING",
 					name: baseOptionName,
-					description: baseOptionDescription,
-					descriptionLocalizations: baseOptionDescriptionLocalizations,
+					description: baseOptionDescription["en-US"],
+					descriptionLocalizations: baseOptionDescription,
 					required: true,
 					choices: Array.from(bases, (base: string): ApplicationCommandOptionChoiceData => {
 						return {
@@ -94,13 +80,12 @@ const emojiCommand: Command = {
 				...Array.from(paints, (paint: string): ApplicationCommandOptionData[] => {
 					return Array.from(layers, (layer: string): ApplicationCommandOptionData => {
 						const optionName: string = `${layer}-${paint}`;
-						const optionDescription: string = stylesOptionDescription;
-						const optionDescriptionLocalizations: Localized<string> = stylesOptionDescriptionLocalizations;
+						const optionDescription: Localized<string> = stylesOptionDescription;
 						return {
 							type: "STRING",
 							name: optionName,
-							description: optionDescription,
-							descriptionLocalizations: optionDescriptionLocalizations,
+							description: optionDescription["en-US"],
+							descriptionLocalizations: optionDescription,
 							choices: Object.keys(styles).map((style: string): ApplicationCommandOptionChoiceData => {
 								return {
 									name: style,
@@ -201,10 +186,10 @@ const emojiCommand: Command = {
 					return commandName;
 				},
 				baseOptionDescription: (): string => {
-					return baseOptionDescriptionLocalizations[locale];
+					return baseOptionDescription[locale];
 				},
 				stylesOptionDescription: (): string => {
-					return stylesOptionDescriptionLocalizations[locale];
+					return stylesOptionDescription[locale];
 				},
 			};
 		}));

@@ -1,0 +1,23 @@
+{
+	"commandName": "trailer",
+	"commandDescription": {
+		"en-US": "Tells you where to watch official trailers of the game",
+		"fr": "Te dit où regarder des bandes-annonces officielles du jeu"
+	},
+	"help": {
+		"en-US": "Type `/$<commandName>` to know where to watch official trailers of the game",
+		"fr": "Tape `/$<commandName>` pour savoir où regarder des bandes-annonces officielles du jeu"
+	},
+	"reply": {
+		"en-US": "You can watch official trailers of the game there:\n$<linkList>",
+		"fr": "Tu peux regarder des bandes-annonces officielles du jeu là :\n$<linkList>"
+	},
+	"defaultReply": {
+		"en-US": "You can watch official trailers of the game [there](<$<link>>).",
+		"fr": "Tu peux regarder des bandes-annonces officielles du jeu [là](<$<link>>)."
+	},
+	"link": {
+		"en-US": "[*$<title>* trailer](<$<link>>) (*$<views>* views)",
+		"fr": "[Bande-annonce *$<title>*](<$<link>>) (*$<views>* views)"
+	}
+}

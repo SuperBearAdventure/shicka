@@ -1,0 +1,15 @@
+{
+	"commandName": "about",
+	"commandDescription": {
+		"en-US": "Tells you where I come from",
+		"fr": "Te dit d'où je viens"
+	},
+	"help": {
+		"en-US": "Type `/$<commandName>` to know where I come from",
+		"fr": "Tape `/$<commandName>` pour savoir d'où je viens"
+	},
+	"reply": {
+		"en-US": "I am *$<bot>*, a bot made by *$<author>*, and I am open source!\nMy code is available [there](<$<link>>).",
+		"fr": "Je suis *$<bot>*, un robot fait par *$<author>*, et je suis open source !\nMon code est disponible [là](<$<link>>)."
+	}
+}

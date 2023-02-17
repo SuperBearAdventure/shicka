@@ -1,0 +1,36 @@
+{
+	"commandName": "mission",
+	"commandDescription": {
+		"en-US": "Tells you what is playable in the shop or when it is playable",
+		"fr": "Te dit ce qui est jouable dans la boutique ou quand c'est jouable"
+	},
+	"missionOptionName": "mission",
+	"missionOptionDescription": {
+		"en-US": "Some mission",
+		"fr": "Une mission"
+	},
+	"help": {
+		"en-US": "Type `/$<commandName>` to know what is playable in the shop\nType `/$<commandName> $<missionOptionDescription>` to know when `$<missionOptionDescription>` is playable in the shop",
+		"fr": "Tape `/$<commandName>` pour savoir ce qui est jouable dans la boutique\nTape `/$<commandName> $<missionOptionDescription>` pour savoir quand `$<missionOptionDescription>` est jouable dans la boutique"
+	},
+	"reply": {
+		"en-US": "**$<challengeName>** in **$<levelName>** will be playable for 1 day starting:\n$<scheduleList>",
+		"fr": "**$<challengeName>** dans **$<levelName>** sera jouable durant 1 jour à partir de :\n$<scheduleList>"
+	},
+	"bareReply": {
+		"en-US": "Each mission starts at *$<dayTime>*:\n$<scheduleList>",
+		"fr": "Chaque mission commence à *$<dayTime>* :\n$<scheduleList>"
+	},
+	"missionName": {
+		"en-US": "$<challengeName> in $<levelName>",
+		"fr": "$<challengeName> dans $<levelName>"
+	},
+	"schedule": {
+		"en-US": "*$<dayDateTime>*",
+		"fr": "*$<dayDateTime>*"
+	},
+	"bareSchedule": {
+		"en-US": "*$<dayDate>*: **$<challengeName>** in **$<levelName>**",
+		"fr": "*$<dayDate>* : **$<challengeName>** dans **$<levelName>**"
+	}
+}

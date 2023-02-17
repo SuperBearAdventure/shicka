@@ -5,64 +5,44 @@ import type {
 } from "discord.js";
 import type {Response} from "node-fetch";
 import type Command from "../commands.js";
+import type {Update as UpdateCompilation} from "../compilations.js";
+import type {Update as UpdateDefinition} from "../definitions.js";
+import type {Update as UpdateDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
 import {JSDOM} from "jsdom";
 import fetch from "node-fetch";
-import {compileAll, composeAll, list, localize, resolve} from "../utils/string.js";
-type HelpGroups = {
-	commandName: () => string,
-};
-type ReplyGroups = {
-	linkList: () => string,
-};
-type DefaultReplyGroups = {
-	linkList: () => string,
-};
-type LinkGroups = {
-	title: () => string,
-	link: () => string,
-	version: () => string,
-	date: () => string,
-};
+import {update as updateCompilation} from "../compilations.js";
+import {update as updateDefinition} from "../definitions.js";
+import {composeAll, list, localize, resolve} from "../utils/string.js";
+type HelpGroups = UpdateDependency["help"];
+type LinkGroups = UpdateDependency["link"];
 type Data = {
 	title: string,
 	link: string,
 	version: string,
 	date: Date,
 };
-const commandName: string = "update";
-const commandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Tells you what is the latest update of the game",
-	"fr": "Te dit quelle est la dernière mise à jour du jeu",
-};
-const commandDescription: string = commandDescriptionLocalizations["en-US"];
+const {
+	commandName,
+	commandDescription,
+}: UpdateDefinition = updateDefinition;
+const {
+	help: helpLocalizations,
+	reply: replyLocalizations,
+	defaultReply: defaultReplyLocalizations,
+	link: linkLocalizations,
+}: UpdateCompilation = updateCompilation;
 const links: string[] = [
 	"[*Android*](<https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer>)",
 	"[*iOS*](<https://apps.apple.com/app/id1531842415>)",
 ];
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
-	"en-US": "Type `/$<commandName>` to know what is the latest update of the game",
-	"fr": "Tape `/$<commandName>` pour savoir quelle est la dernière mise à jour du jeu",
-});
-const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
-	"en-US": "You can check and download the latest update of the game there:\n$<linkList>",
-	"fr": "Tu peux consulter et télécharger la dernière mise à jour du jeu là :\n$<linkList>",
-});
-const defaultReplyLocalizations: Localized<(groups: DefaultReplyGroups) => string> = compileAll<DefaultReplyGroups>({
-	"en-US": "You can check and download the latest update of the game there:\n$<linkList>",
-	"fr": "Tu peux consulter et télécharger la dernière mise à jour du jeu là :\n$<linkList>",
-});
-const linkLocalizations: Localized<((groups: LinkGroups) => string)> = compileAll<LinkGroups>({
-	"en-US": "[*$<title>* platform](<$<link>>) (*$<version>* version as of *$<date>*)",
-	"fr": "[Plateforme *$<title>*](<$<link>>) (version *$<version>* au *$<date>*)",
-});
 const updateCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
-			description: commandDescription,
-			descriptionLocalizations: commandDescriptionLocalizations,
+			description: commandDescription["en-US"],
+			descriptionLocalizations: commandDescription,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

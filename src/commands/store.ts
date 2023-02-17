@@ -4,29 +4,29 @@ import type {
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {Store as StoreCompilation} from "../compilations.js";
+import type {Store as StoreDefinition} from "../definitions.js";
+import type {Store as StoreDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {Util} from "discord.js";
-import {compileAll, composeAll, list, localize, resolve} from "../utils/string.js";
-type HelpGroups = {
-	commandName: () => string,
-};
-type ReplyGroups = {
-	linkList: () => string,
-};
-type LinkGroups = {
-	title: () => string,
-	link: () => string,
-};
+import {store as storeCompilation} from "../compilations.js";
+import {store as storeDefinition} from "../definitions.js";
+import {composeAll, list, localize, resolve} from "../utils/string.js";
+type HelpGroups = StoreDependency["help"];
+type LinkGroups = StoreDependency["link"];
 type Data = {
 	title: Localized<string>,
 	link: string,
 };
-const commandName: string = "store";
-const commandDescriptionLocalizations: Localized<string> = {
-	"en-US": "Tells you where to buy offical products of the game",
-	"fr": "Te dit où acheter des produits officiels du jeu",
-};
-const commandDescription: string = commandDescriptionLocalizations["en-US"];
+const {
+	commandName,
+	commandDescription,
+}: StoreDefinition = storeDefinition;
+const {
+	help: helpLocalizations,
+	reply: replyLocalizations,
+	link: linkLocalizations,
+}: StoreCompilation = storeCompilation;
 const data: Data[] = [
 	{
 		title: {
@@ -43,24 +43,12 @@ const data: Data[] = [
 		link: "https://superbearadventure.myspreadshop.com/",
 	},
 ];
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
-	"en-US": "Type `/$<commandName>` to know where to buy offical products of the game",
-	"fr": "Tape `/$<commandName>` pour savoir où acheter des produits officiels du jeu",
-});
-const replyLocalizations: Localized<(groups: ReplyGroups) => string> = compileAll<ReplyGroups>({
-	"en-US": "You can buy official products of the game there:\n$<linkList>",
-	"fr": "Tu peux acheter des produits officiels du jeu là :\n$<linkList>",
-});
-const linkLocalizations: Localized<((groups: LinkGroups) => string)> = compileAll<LinkGroups>({
-	"en-US": "[$<title> store](<$<link>>)",
-	"fr": "[Magasin $<title>](<$<link>>)",
-});
 const storeCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			name: commandName,
-			description: commandDescription,
-			descriptionLocalizations: commandDescriptionLocalizations,
+			description: commandDescription["en-US"],
+			descriptionLocalizations: commandDescription,
 		};
 	},
 	async execute(interaction: Interaction): Promise<void> {

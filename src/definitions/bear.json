@@ -1,0 +1,48 @@
+{
+	"commandName": "bear",
+	"commandDescription": {
+		"en-US": "Tells you who is this bear",
+		"fr": "Te dit qui est cet ours"
+	},
+	"bearOptionName": "bear",
+	"bearOptionDescription": {
+		"en-US": "Some bear",
+		"fr": "Un ours"
+	},
+	"help": {
+		"en-US": "Type `/$<commandName> $<bearOptionDescription>` to know who is `$<bearOptionDescription>`",
+		"fr": "Tape `/$<commandName> $<bearOptionDescription>` pour savoir qui est `$<bearOptionDescription>`"
+	},
+	"reply": {
+		"en-US": "**$<name>** has been imprisoned in **$<level>** and is wearing $<outfitNameConjunction>.\n$<goalConjunction>!",
+		"fr": "**$<name>** a été emprisonné·e dans **$<level>** et porte $<outfitNameConjunction>.\n$<goalConjunction> !"
+	},
+	"noOutfit": {
+		"en-US": "the bare minimum",
+		"fr": "le plus simple appareil"
+	},
+	"bossGoal": {
+		"en-US": "Beat **$<boss>**",
+		"fr": "Bats **$<boss>**"
+	},
+	"coinsWithBossGoal": {
+		"en-US": "collect **$<coins> coins**",
+		"fr": "collecte **$<coins> pièces**"
+	},
+	"coinsWithoutBossGoal": {
+		"en-US": "Collect **$<coins> coins**",
+		"fr": "Collecte **$<coins> pièces**"
+	},
+	"timeWithBossOrCoinsGoal": {
+		"en-US": "unlock the cage in less than **$<time>** to beat the gold time",
+		"fr": "déverrouille la cage en moins de **$<time>** pour battre le temps d'or"
+	},
+	"timeWithoutBossAndCoinsGoal": {
+		"en-US": "Unlock the cage in less than **$<time>** to beat the gold time",
+		"fr": "Déverrouille la cage en moins de **$<time>** pour battre le temps d'or"
+	},
+	"noGoal": {
+		"en-US": "Let's go",
+		"fr": "En route"
+	}
+}

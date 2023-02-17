@@ -1,0 +1,48 @@
+{
+	"commandName": "outfit",
+	"commandDescription": {
+		"en-US": "Tells you what is for sale in the shop or when it is for sale",
+		"fr": "Te dit ce qui est en vente dans la boutique ou quand c'est en vente"
+	},
+	"outfitOptionName": "outfit",
+	"outfitOptionDescription": {
+		"en-US": "Some outfit",
+		"fr": "Un costume"
+	},
+	"help": {
+		"en-US": "Type `/$<commandName>` to know what is for sale in the shop\nType `/$<commandName> $<outfitOptionDescription>` to know when `$<outfitOptionDescription>` is for sale in the shop",
+		"fr": "Tape `/$<commandName>` pour savoir ce qui est en vente dans la boutique\nTape `/$<commandName> $<outfitOptionDescription>` pour savoir quand `$<outfitOptionDescription>` est en vente dans la boutique"
+	},
+	"reply": {
+		"en-US": "**$<outfitName>** will be for sale in the shop for $<costConjunction> for 6 hours starting:\n$<scheduleList>",
+		"fr": "**$<outfitName>** sera en vente dans la boutique pour $<costConjunction> durant 6 heures à partir de :\n$<scheduleList>"
+	},
+	"bareReply": {
+		"en-US": "The outfits for sale in the shop change every 6 hours:\n$<scheduleList>",
+		"fr": "Les costumes en vente dans la boutique changent toutes les 6 heures :\n$<scheduleList>"
+	},
+	"noSlotReply": {
+		"en-US": "**$<outfitName>** is not for sale.",
+		"fr": "**$<outfitName>** n'est pas en vente."
+	},
+	"tokensCost": {
+		"en-US": "**$<tokens> Tristopio tokens**",
+		"fr": "**$<tokens> jetons Tristopio**"
+	},
+	"coinsCost": {
+		"en-US": "**$<coins> coins**",
+		"fr": "**$<coins> pièces**"
+	},
+	"noCost": {
+		"en-US": "a pittance",
+		"fr": "une bouchée de pain"
+	},
+	"schedule": {
+		"en-US": "*$<dayDateTime>*",
+		"fr": "*$<dayDateTime>*"
+	},
+	"bareSchedule": {
+		"en-US": "*$<dayDateTime>*: $<outfitNameConjunction>",
+		"fr": "*$<dayDateTime>* : $<outfitNameConjunction>"
+	}
+}

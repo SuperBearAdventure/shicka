@@ -6,18 +6,18 @@ import type {
 	Role,
 	ThreadChannel,
 } from "discord.js";
+import type {Rule7 as Rule7Compilation} from "../compilations.js";
+import type {Rule7 as Rule7Dependency} from "../dependencies.js";
 import type Trigger from "../triggers.js";
 import type {Localized} from "../utils/string.js";
-import {compileAll, composeAll, localize} from "../utils/string.js";
-type HelpGroups = {
-	channel: () => string,
-};
+import {rule7 as rule7Compilation} from "../compilations.js";
+import {composeAll, localize} from "../utils/string.js";
+type HelpGroups = Rule7Dependency["help"];
+const {
+	help: helpLocalizations,
+}: Rule7Compilation = rule7Compilation;
 const pattern: RegExp = /\b(?:co-?op(?:erati(?:ons?|ve))?|consoles?|multi(?:-?player)?|online|pc|playstation|ps[45]|switch|xbox)\b/iu;
 const roles: Set<string> = new Set<string>(["Administrator", "Game Developer", "Helper", "Moderator", "Cookie"]);
-const helpLocalizations: Localized<(groups: HelpGroups) => string> = compileAll<HelpGroups>({
-	"en-US": "I will gently reprimand you if you write words which violate the rule 7 in $<channel>",
-	"fr": "Je te réprimanderai gentiment si tu écris des mots qui violent la règle 7 dans $<channel>",
-});
 const rule7Trigger: Trigger = {
 	async execute(message: Message): Promise<void> {
 		const {guild}: Message = message;

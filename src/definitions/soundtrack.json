@@ -1,0 +1,23 @@
+{
+	"commandName": "soundtrack",
+	"commandDescription": {
+		"en-US": "Tells you where to listen to official music pieces of the game",
+		"fr": "Te dit où écouter des morceaux de musique officiels du jeu"
+	},
+	"help": {
+		"en-US": "Type `/$<commandName>` to know where to listen to official music pieces of the game",
+		"fr": "Tape `/$<commandName>` pour savoir où écouter des morceaux de musique officiels du jeu"
+	},
+	"reply": {
+		"en-US": "You can listen to official music pieces of the game there:\n$<linkList>",
+		"fr": "Tu peux écouter des morceaux de musique officiels du jeu là :\n$<linkList>"
+	},
+	"defaultReply": {
+		"en-US": "You can listen to official music pieces of the game [there](<$<link>>).",
+		"fr": "Tu peux écouter des morceaux de musique officiels du jeu [là](<$<link>>)."
+	},
+	"link": {
+		"en-US": "[*$<title>* soundtrack](<$<link>>) (*$<views>* views)",
+		"fr": "[Bande-son *$<title>*](<$<link>>) (*$<views>* vues)"
+	}
+}
