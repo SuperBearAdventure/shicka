@@ -1,4 +1,4 @@
-export type Locale = "en-US" | "fr";
+export type Locale = "en-US" | "fr" | "pt-BR";
 export type Localized<Type> = {
 	[k in Locale]: Type
 };
@@ -128,11 +128,12 @@ export function composeAll<InputGroups extends {[k in string]: () => string}, Ou
 	});
 }
 export function resolve(locale: string): Locale {
-	return locale === "fr" ? locale : "en-US";
+	return locale === "fr" || locale === "pt-BR" ? locale : "en-US";
 }
 export function localize<Type>(callback: (locale: Locale) => Type): Localized<Type> {
 	return Object.assign(Object.create(null), {
 		"en-US": callback("en-US"),
 		"fr": callback("fr"),
+		"pt-BR": callback("pt-BR"),
 	});
 }

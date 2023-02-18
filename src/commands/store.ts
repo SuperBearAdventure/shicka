@@ -32,6 +32,7 @@ const data: Data[] = [
 		title: {
 			"en-US": "European",
 			"fr": "européen",
+			"pt-BR": "Européia",
 		},
 		link: "https://superbearadventure.myspreadshop.net/",
 	},
@@ -39,6 +40,7 @@ const data: Data[] = [
 		title: {
 			"en-US": "American and Oceanian",
 			"fr": "américain et océanien",
+			"pt-BR": "Americana e Oceânica",
 		},
 		link: "https://superbearadventure.myspreadshop.com/",
 	},

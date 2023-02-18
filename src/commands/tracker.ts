@@ -35,6 +35,7 @@ const data: Data[] = [
 		title: {
 			"en-US": "Current",
 			"fr": "actuel",
+			"pt-BR": "atual",
 		},
 		link: "https://github.com/SuperBearAdventure/tracker",
 	},
@@ -42,6 +43,7 @@ const data: Data[] = [
 		title: {
 			"en-US": "Former",
 			"fr": "antérieur",
+			"pt-BR": "antigo",
 		},
 		link: "https://trello.com/b/yTojOuqv/super-bear-adventure-bugs",
 	},
