@@ -18,6 +18,6 @@
 	},
 	"link": {
 		"en-US": "[*$<title>* trailer](<$<link>>) (*$<views>* views)",
-		"fr": "[Bande-annonce *$<title>*](<$<link>>) (*$<views>* views)"
+		"fr": "[Bande-annonce *$<title>*](<$<link>>) (*$<views>* vues)"
 	}
 }
