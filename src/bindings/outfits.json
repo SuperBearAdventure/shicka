@@ -2,7 +2,8 @@
 	{
 		"name": {
 			"en-US": "Default",
-			"fr": "Défaut"
+			"fr": "Défaut",
+			"pt-BR": "Padrão"
 		},
 		"cost": 0,
 		"part": 0,
@@ -12,7 +13,8 @@
 	{
 		"name": {
 			"en-US": "Default",
-			"fr": "Défaut"
+			"fr": "Défaut",
+			"pt-BR": "Padrão"
 		},
 		"cost": 0,
 		"part": 1,
@@ -22,7 +24,8 @@
 	{
 		"name": {
 			"en-US": "Default",
-			"fr": "Défaut"
+			"fr": "Défaut",
+			"pt-BR": "Padrão"
 		},
 		"cost": 0,
 		"part": 2,
@@ -32,7 +35,8 @@
 	{
 		"name": {
 			"en-US": "Default",
-			"fr": "Défaut"
+			"fr": "Défaut",
+			"pt-BR": "Padrão"
 		},
 		"cost": 0,
 		"part": 3,
@@ -42,7 +46,8 @@
 	{
 		"name": {
 			"en-US": "Bandit mask",
-			"fr": "Masque de bandit"
+			"fr": "Masque de bandit",
+			"pt-BR": "Máscara de bandido"
 		},
 		"cost": 0,
 		"part": 0,
@@ -52,7 +57,8 @@
 	{
 		"name": {
 			"en-US": "Cap (red)",
-			"fr": "Casquette (rouge)"
+			"fr": "Casquette (rouge)",
+			"pt-BR": "Boné (vermelho)"
 		},
 		"cost": 0,
 		"part": 0,
@@ -62,7 +68,8 @@
 	{
 		"name": {
 			"en-US": "Cap (blue)",
-			"fr": "Casquette (bleue)"
+			"fr": "Casquette (bleue)",
+			"pt-BR": "Boné (azul)"
 		},
 		"cost": 0,
 		"part": 0,
@@ -72,7 +79,8 @@
 	{
 		"name": {
 			"en-US": "Unicorn",
-			"fr": "Licorne"
+			"fr": "Licorne",
+			"pt-BR": "Unicórnio"
 		},
 		"cost": 0,
 		"part": 0,
@@ -82,7 +90,8 @@
 	{
 		"name": {
 			"en-US": "Punk hair",
-			"fr": "Cheveux punk"
+			"fr": "Cheveux punk",
+			"pt-BR": "Cabelo punk"
 		},
 		"cost": 0,
 		"part": 0,
@@ -92,7 +101,8 @@
 	{
 		"name": {
 			"en-US": "Fez",
-			"fr": "Fez"
+			"fr": "Fez",
+			"pt-BR": "Fez"
 		},
 		"cost": 0,
 		"part": 0,
@@ -102,7 +112,8 @@
 	{
 		"name": {
 			"en-US": "Crown",
-			"fr": "Couronne"
+			"fr": "Couronne",
+			"pt-BR": "Coroa"
 		},
 		"cost": 0,
 		"part": 0,
@@ -112,7 +123,8 @@
 	{
 		"name": {
 			"en-US": "White eyes",
-			"fr": "Yeux blancs"
+			"fr": "Yeux blancs",
+			"pt-BR": "Olhos brancos"
 		},
 		"cost": 0,
 		"part": 0,
@@ -122,7 +134,8 @@
 	{
 		"name": {
 			"en-US": "BIG EYES",
-			"fr": "GROS YEUX"
+			"fr": "GROS YEUX",
+			"pt-BR": "OLHÕES"
 		},
 		"cost": 0,
 		"part": 0,
@@ -132,7 +145,8 @@
 	{
 		"name": {
 			"en-US": "BIG EARS",
-			"fr": "GROSSES OREILLES"
+			"fr": "GROSSES OREILLES",
+			"pt-BR": "ORELHÕES"
 		},
 		"cost": 0,
 		"part": 0,
@@ -142,7 +156,8 @@
 	{
 		"name": {
 			"en-US": "Long hair (black)",
-			"fr": "Cheveux longs (noirs)"
+			"fr": "Cheveux longs (noirs)",
+			"pt-BR": "Cabelos longos (negro)"
 		},
 		"cost": 0,
 		"part": 0,
@@ -152,7 +167,8 @@
 	{
 		"name": {
 			"en-US": "Gas mask",
-			"fr": "Masque à gaz"
+			"fr": "Masque à gaz",
+			"pt-BR": "Máscara de gás"
 		},
 		"cost": 0,
 		"part": 0,
@@ -162,7 +178,8 @@
 	{
 		"name": {
 			"en-US": "Swollen head",
-			"fr": "Tête enflée"
+			"fr": "Tête enflée",
+			"pt-BR": "Cabeça inflada"
 		},
 		"cost": 0,
 		"part": 0,
@@ -172,7 +189,8 @@
 	{
 		"name": {
 			"en-US": "Polar bear",
-			"fr": "Ours polaire"
+			"fr": "Ours polaire",
+			"pt-BR": "Urso polar"
 		},
 		"cost": 0,
 		"part": 2,
@@ -182,7 +200,8 @@
 	{
 		"name": {
 			"en-US": "Fat body",
-			"fr": "Gros ventre"
+			"fr": "Gros ventre",
+			"pt-BR": "Corpo gordo"
 		},
 		"cost": 0,
 		"part": 1,
@@ -192,7 +211,8 @@
 	{
 		"name": {
 			"en-US": "Muscular body",
-			"fr": "Corps musclé"
+			"fr": "Corps musclé",
+			"pt-BR": "Corpo musculoso"
 		},
 		"cost": 0,
 		"part": 1,
@@ -202,7 +222,8 @@
 	{
 		"name": {
 			"en-US": "Bowtie",
-			"fr": "Nœud papillon"
+			"fr": "Nœud papillon",
+			"pt-BR": "Gravata-borboleta"
 		},
 		"cost": 0,
 		"part": 1,
@@ -212,7 +233,8 @@
 	{
 		"name": {
 			"en-US": "Golden bear",
-			"fr": "Ours doré"
+			"fr": "Ours doré",
+			"pt-BR": "Urso dourado"
 		},
 		"cost": 0,
 		"part": 2,
@@ -222,7 +244,8 @@
 	{
 		"name": {
 			"en-US": "Golden Shicka",
-			"fr": "Shicka dorée"
+			"fr": "Shicka dorée",
+			"pt-BR": "Shicka dourada"
 		},
 		"cost": 0,
 		"part": 3,
@@ -232,7 +255,8 @@
 	{
 		"name": {
 			"en-US": "Red Shicka",
-			"fr": "Shicka rouge"
+			"fr": "Shicka rouge",
+			"pt-BR": "Shicka vermelha"
 		},
 		"cost": 0,
 		"part": 3,
@@ -242,7 +266,8 @@
 	{
 		"name": {
 			"en-US": "Green Shicka",
-			"fr": "Shicka verte"
+			"fr": "Shicka verte",
+			"pt-BR": "Shicka verde"
 		},
 		"cost": 0,
 		"part": 3,
@@ -252,7 +277,8 @@
 	{
 		"name": {
 			"en-US": "Pink bear",
-			"fr": "Ours rose"
+			"fr": "Ours rose",
+			"pt-BR": "Urso rosa"
 		},
 		"cost": 0,
 		"part": 2,
@@ -262,7 +288,8 @@
 	{
 		"name": {
 			"en-US": "Glasses",
-			"fr": "Lunettes"
+			"fr": "Lunettes",
+			"pt-BR": "Óculos"
 		},
 		"cost": 0,
 		"part": 0,
@@ -272,7 +299,8 @@
 	{
 		"name": {
 			"en-US": "Capitalus' suit",
-			"fr": "Costume de Capitalus"
+			"fr": "Costume de Capitalus",
+			"pt-BR": "Roupa do Capitalus"
 		},
 		"cost": 0,
 		"part": 1,
@@ -282,7 +310,8 @@
 	{
 		"name": {
 			"en-US": "Angel halo",
-			"fr": "Anneau d'ange"
+			"fr": "Anneau d'ange",
+			"pt-BR": "Auréola de anjo"
 		},
 		"cost": 0,
 		"part": 0,
@@ -292,7 +321,8 @@
 	{
 		"name": {
 			"en-US": "Santa hat",
-			"fr": "Chapeau du père Noël"
+			"fr": "Chapeau du père Noël",
+			"pt-BR": "Touca de Papai Noel"
 		},
 		"cost": 0,
 		"part": 0,
@@ -302,7 +332,8 @@
 	{
 		"name": {
 			"en-US": "Beard (black)",
-			"fr": "Barbe (noire)"
+			"fr": "Barbe (noire)",
+			"pt-BR": "Barba (negra)"
 		},
 		"cost": 0,
 		"part": 0,
@@ -312,7 +343,8 @@
 	{
 		"name": {
 			"en-US": "Reversed head",
-			"fr": "Tête à l'envers"
+			"fr": "Tête à l'envers",
+			"pt-BR": "De ponta-cabeça"
 		},
 		"cost": 0,
 		"part": 0,
@@ -322,7 +354,8 @@
 	{
 		"name": {
 			"en-US": "Dark Shicka",
-			"fr": "Shicka sombre"
+			"fr": "Shicka sombre",
+			"pt-BR": "Shicka penagem negra"
 		},
 		"cost": 0,
 		"part": 3,
@@ -332,7 +365,8 @@
 	{
 		"name": {
 			"en-US": "Beard (white)",
-			"fr": "Barbe (blanche)"
+			"fr": "Barbe (blanche)",
+			"pt-BR": "Barba (branca)"
 		},
 		"cost": 0,
 		"part": 0,
@@ -342,7 +376,8 @@
 	{
 		"name": {
 			"en-US": "Long hair (white)",
-			"fr": "Cheveux longs (blancs)"
+			"fr": "Cheveux longs (blancs)",
+			"pt-BR": "Cabelo longo (branco)"
 		},
 		"cost": 0,
 		"part": 0,
@@ -352,7 +387,8 @@
 	{
 		"name": {
 			"en-US": "Santa head",
-			"fr": "Tête du père Noël"
+			"fr": "Tête du père Noël",
+			"pt-BR": "Cabeça de Papai Noel"
 		},
 		"cost": 0,
 		"part": 0,
@@ -362,7 +398,8 @@
 	{
 		"name": {
 			"en-US": "Businessbear suit",
-			"fr": "Costume d'ours d'affaires"
+			"fr": "Costume d'ours d'affaires",
+			"pt-BR": "Urso de negócios"
 		},
 		"cost": 0,
 		"part": 1,
@@ -372,7 +409,8 @@
 	{
 		"name": {
 			"en-US": "Shirt (red)",
-			"fr": "T-shirt (rouge)"
+			"fr": "T-shirt (rouge)",
+			"pt-BR": "Camisa (vermelha)"
 		},
 		"cost": 0,
 		"part": 1,
@@ -382,7 +420,8 @@
 	{
 		"name": {
 			"en-US": "Retro bear",
-			"fr": "Ours rétro"
+			"fr": "Ours rétro",
+			"pt-BR": "Urso retrô"
 		},
 		"cost": 0,
 		"part": 2,
@@ -392,7 +431,8 @@
 	{
 		"name": {
 			"en-US": "Retro shicka",
-			"fr": "Shicka rétro"
+			"fr": "Shicka rétro",
+			"pt-BR": "Shicka retrô"
 		},
 		"cost": 0,
 		"part": 3,
@@ -402,7 +442,8 @@
 	{
 		"name": {
 			"en-US": "Banana hat",
-			"fr": "Chapeau banane"
+			"fr": "Chapeau banane",
+			"pt-BR": "Chapéu de banana"
 		},
 		"cost": 0,
 		"part": 0,
@@ -412,7 +453,8 @@
 	{
 		"name": {
 			"en-US": "Santa suit",
-			"fr": "Costume du père Noël"
+			"fr": "Costume du père Noël",
+			"pt-BR": "Roupa de Papai Noel"
 		},
 		"cost": 0,
 		"part": 1,
@@ -422,7 +464,8 @@
 	{
 		"name": {
 			"en-US": "Desert bear",
-			"fr": "Ours du désert"
+			"fr": "Ours du désert",
+			"pt-BR": "Urso desértico"
 		},
 		"cost": 0,
 		"part": 2,
@@ -432,7 +475,8 @@
 	{
 		"name": {
 			"en-US": "Crocodile bear",
-			"fr": "Ours crocodile"
+			"fr": "Ours crocodile",
+			"pt-BR": "Urso crocodilo"
 		},
 		"cost": 0,
 		"part": 2,
@@ -442,7 +486,8 @@
 	{
 		"name": {
 			"en-US": "Fennec head",
-			"fr": "Tête de fennec"
+			"fr": "Tête de fennec",
+			"pt-BR": "Cabeça de feneco"
 		},
 		"cost": 0,
 		"part": 0,
@@ -452,7 +497,8 @@
 	{
 		"name": {
 			"en-US": "Ghost Shicka",
-			"fr": "Shicka fantôme"
+			"fr": "Shicka fantôme",
+			"pt-BR": "Shicka fantasma"
 		},
 		"cost": 0,
 		"part": 3,
@@ -462,7 +508,8 @@
 	{
 		"name": {
 			"en-US": "Rainbow bear",
-			"fr": "Ours arc-en-ciel"
+			"fr": "Ours arc-en-ciel",
+			"pt-BR": "Urso arco-íris"
 		},
 		"cost": 0,
 		"part": 2,
@@ -472,7 +519,8 @@
 	{
 		"name": {
 			"en-US": "Bear mask",
-			"fr": "Masque d'ours"
+			"fr": "Masque d'ours",
+			"pt-BR": "Máscara de urso"
 		},
 		"cost": 0,
 		"part": 0,
@@ -482,7 +530,8 @@
 	{
 		"name": {
 			"en-US": "Neutral face",
-			"fr": "Visage neutre"
+			"fr": "Visage neutre",
+			"pt-BR": "Rosto neutro"
 		},
 		"cost": 0,
 		"part": 0,
@@ -492,7 +541,8 @@
 	{
 		"name": {
 			"en-US": "Headless",
-			"fr": "Sans tête"
+			"fr": "Sans tête",
+			"pt-BR": "Sem cabeça"
 		},
 		"cost": 0,
 		"part": 0,
@@ -502,7 +552,8 @@
 	{
 		"name": {
 			"en-US": "Shirt (donator)",
-			"fr": "T-shirt (donateur)"
+			"fr": "T-shirt (donateur)",
+			"pt-BR": "Camisa (doador)"
 		},
 		"cost": 0,
 		"part": 1,
@@ -512,7 +563,8 @@
 	{
 		"name": {
 			"en-US": "Panda",
-			"fr": "Panda"
+			"fr": "Panda",
+			"pt-BR": "Panda"
 		},
 		"cost": 0,
 		"part": 2,
@@ -522,7 +574,8 @@
 	{
 		"name": {
 			"en-US": "Capitalus' head",
-			"fr": "Tête de Capitalus"
+			"fr": "Tête de Capitalus",
+			"pt-BR": "Cabeça do Capitalus"
 		},
 		"cost": 0,
 		"part": 0,
@@ -532,7 +585,8 @@
 	{
 		"name": {
 			"en-US": "Rainbow trails",
-			"fr": "Traînées arc-en-ciel"
+			"fr": "Traînées arc-en-ciel",
+			"pt-BR": "Rastro de arco-íris"
 		},
 		"cost": 0,
 		"part": 1,
@@ -542,7 +596,8 @@
 	{
 		"name": {
 			"en-US": "Outline",
-			"fr": "Contour"
+			"fr": "Contour",
+			"pt-BR": "Contorno"
 		},
 		"cost": 0,
 		"part": 0,
@@ -552,7 +607,8 @@
 	{
 		"name": {
 			"en-US": "Skeleton body",
-			"fr": "Corps squelette"
+			"fr": "Corps squelette",
+			"pt-BR": "Corpo de esqueleto"
 		},
 		"cost": 0,
 		"part": 1,
@@ -562,7 +618,8 @@
 	{
 		"name": {
 			"en-US": "Shirt (spooky)",
-			"fr": "T-shirt (effrayant)"
+			"fr": "T-shirt (effrayant)",
+			"pt-BR": "Camisa (assustadora)"
 		},
 		"cost": 0,
 		"part": 1,
@@ -572,7 +629,8 @@
 	{
 		"name": {
 			"en-US": "Axe head",
-			"fr": "Hache dans la tête"
+			"fr": "Hache dans la tête",
+			"pt-BR": "Cabeça machadada"
 		},
 		"cost": 0,
 		"part": 0,
@@ -582,7 +640,8 @@
 	{
 		"name": {
 			"en-US": "Pumpkin",
-			"fr": "Citrouille"
+			"fr": "Citrouille",
+			"pt-BR": "Abóbora"
 		},
 		"cost": 0,
 		"part": 0,
@@ -592,7 +651,8 @@
 	{
 		"name": {
 			"en-US": "Jack O'Lantern",
-			"fr": "Citrouille d'Halloween"
+			"fr": "Citrouille d'Halloween",
+			"pt-BR": "Abóbora de halloween"
 		},
 		"cost": 0,
 		"part": 0,
@@ -602,7 +662,8 @@
 	{
 		"name": {
 			"en-US": "Skull",
-			"fr": "Crâne"
+			"fr": "Crâne",
+			"pt-BR": "Caveira"
 		},
 		"cost": 0,
 		"part": 0,
@@ -612,7 +673,8 @@
 	{
 		"name": {
 			"en-US": "Donator crown",
-			"fr": "Couronne de donateur"
+			"fr": "Couronne de donateur",
+			"pt-BR": "Coroa de doador"
 		},
 		"cost": 0,
 		"part": 0,
@@ -622,7 +684,8 @@
 	{
 		"name": {
 			"en-US": "Egg head",
-			"fr": "Tête d'œuf"
+			"fr": "Tête d'œuf",
+			"pt-BR": "Cabeça de ovo"
 		},
 		"cost": 0,
 		"part": 0,
@@ -632,7 +695,8 @@
 	{
 		"name": {
 			"en-US": "Egg hat",
-			"fr": "Chapeau œuf"
+			"fr": "Chapeau œuf",
+			"pt-BR": "Chapéu de ovo"
 		},
 		"cost": 0,
 		"part": 0,
@@ -642,7 +706,8 @@
 	{
 		"name": {
 			"en-US": "Easter egg",
-			"fr": "Œuf de Pâques"
+			"fr": "Œuf de Pâques",
+			"pt-BR": "Ovo de Páscoa"
 		},
 		"cost": 0,
 		"part": 0,
@@ -652,7 +717,8 @@
 	{
 		"name": {
 			"en-US": "Fried egg",
-			"fr": "Œuf sur le plat"
+			"fr": "Œuf sur le plat",
+			"pt-BR": "Ovo frito"
 		},
 		"cost": 0,
 		"part": 0,
@@ -662,7 +728,8 @@
 	{
 		"name": {
 			"en-US": "Rabbit head",
-			"fr": "Tête de lapin"
+			"fr": "Tête de lapin",
+			"pt-BR": "Cabeça de coelho"
 		},
 		"cost": 0,
 		"part": 0,
@@ -672,7 +739,8 @@
 	{
 		"name": {
 			"en-US": "Chocolate body",
-			"fr": "Corps en chocolat"
+			"fr": "Corps en chocolat",
+			"pt-BR": "Corpo de chocolate"
 		},
 		"cost": 0,
 		"part": 1,
@@ -682,7 +750,8 @@
 	{
 		"name": {
 			"en-US": "Pacifier",
-			"fr": "Tétine"
+			"fr": "Tétine",
+			"pt-BR": "Chupeta"
 		},
 		"cost": 0,
 		"part": 0,
@@ -692,7 +761,8 @@
 	{
 		"name": {
 			"en-US": "Diaper",
-			"fr": "Couche-culotte"
+			"fr": "Couche-culotte",
+			"pt-BR": "Fralda"
 		},
 		"cost": 0,
 		"part": 1,
@@ -702,7 +772,8 @@
 	{
 		"name": {
 			"en-US": "Lab coat",
-			"fr": "Blouse de laboratoire"
+			"fr": "Blouse de laboratoire",
+			"pt-BR": "Casaco de laboratório"
 		},
 		"cost": 0,
 		"part": 1,
@@ -712,7 +783,8 @@
 	{
 		"name": {
 			"en-US": "Invisible Shicka",
-			"fr": "Shicka invisible"
+			"fr": "Shicka invisible",
+			"pt-BR": "Shicka invisível"
 		},
 		"cost": 0,
 		"part": 3,
@@ -722,7 +794,8 @@
 	{
 		"name": {
 			"en-US": "8-bit Shicka",
-			"fr": "Shicka 8-bit"
+			"fr": "Shicka 8-bit",
+			"pt-BR": "Shicka 8-bit"
 		},
 		"cost": 0,
 		"part": 3,
@@ -732,7 +805,8 @@
 	{
 		"name": {
 			"en-US": "8-bit bear",
-			"fr": "Ours 8-bit"
+			"fr": "Ours 8-bit",
+			"pt-BR": "Urso 8-bit"
 		},
 		"cost": 0,
 		"part": 2,
@@ -742,7 +816,8 @@
 	{
 		"name": {
 			"en-US": "Sackbear",
-			"fr": "Ours en toile de jute"
+			"fr": "Ours en toile de jute",
+			"pt-BR": "Sackbear"
 		},
 		"cost": 0,
 		"part": 2,
@@ -752,7 +827,8 @@
 	{
 		"name": {
 			"en-US": "Tower of Hanoi",
-			"fr": "Tour de Hanoï"
+			"fr": "Tour de Hanoï",
+			"pt-BR": "Torre de Hanói"
 		},
 		"cost": 0,
 		"part": 0,
@@ -762,7 +838,8 @@
 	{
 		"name": {
 			"en-US": "Black bear",
-			"fr": "Ours noir"
+			"fr": "Ours noir",
+			"pt-BR": "Urso pelagem escura"
 		},
 		"cost": 0,
 		"part": 2,
@@ -772,7 +849,8 @@
 	{
 		"name": {
 			"en-US": "Dark bear",
-			"fr": "Ours sombre"
+			"fr": "Ours sombre",
+			"pt-BR": "Urso pelagem negra"
 		},
 		"cost": 0,
 		"part": 2,
@@ -782,7 +860,8 @@
 	{
 		"name": {
 			"en-US": "Jacket (brown)",
-			"fr": "Veste (brune)"
+			"fr": "Veste (brune)",
+			"pt-BR": "Jaqueta (marrom)"
 		},
 		"cost": 0,
 		"part": 1,
@@ -792,7 +871,8 @@
 	{
 		"name": {
 			"en-US": "Jacket (denim)",
-			"fr": "Veste (denim)"
+			"fr": "Veste (denim)",
+			"pt-BR": "Jaqueta (denim)"
 		},
 		"cost": 0,
 		"part": 1,
@@ -802,7 +882,8 @@
 	{
 		"name": {
 			"en-US": "Penguin Shicka",
-			"fr": "Shicka manchot"
+			"fr": "Shicka manchot",
+			"pt-BR": "Shicka Pinguim"
 		},
 		"cost": 0,
 		"part": 3,
@@ -812,7 +893,8 @@
 	{
 		"name": {
 			"en-US": "Bear Shicka",
-			"fr": "Shicka ours"
+			"fr": "Shicka ours",
+			"pt-BR": "Urso Shicka"
 		},
 		"cost": 0,
 		"part": 3,
@@ -822,7 +904,8 @@
 	{
 		"name": {
 			"en-US": "Shicka bear",
-			"fr": "Ours Shicka"
+			"fr": "Ours Shicka",
+			"pt-BR": "Shicka urso"
 		},
 		"cost": 0,
 		"part": 2,
@@ -832,7 +915,8 @@
 	{
 		"name": {
 			"en-US": "Rainbow Shicka",
-			"fr": "Shicka arc-en-ciel"
+			"fr": "Shicka arc-en-ciel",
+			"pt-BR": "Shicka arco-íris"
 		},
 		"cost": 0,
 		"part": 3,
@@ -842,7 +926,8 @@
 	{
 		"name": {
 			"en-US": "VR headset",
-			"fr": "Casque de RV"
+			"fr": "Casque de RV",
+			"pt-BR": "Óculos RV"
 		},
 		"cost": 0,
 		"part": 0,
@@ -852,7 +937,8 @@
 	{
 		"name": {
 			"en-US": "Cosmic bear",
-			"fr": "Ours cosmique"
+			"fr": "Ours cosmique",
+			"pt-BR": "Urso cósmico"
 		},
 		"cost": 5,
 		"part": 2,
@@ -862,7 +948,8 @@
 	{
 		"name": {
 			"en-US": "Soccer cap",
-			"fr": "Chapeau de football"
+			"fr": "Chapeau de football",
+			"pt-BR": "Chapéu de futebol"
 		},
 		"cost": 10,
 		"part": 0,
@@ -872,7 +959,8 @@
 	{
 		"name": {
 			"en-US": "Bobble head",
-			"fr": "Tête à ressort"
+			"fr": "Tête à ressort",
+			"pt-BR": "Bobble head"
 		},
 		"cost": 1,
 		"part": 0,
@@ -882,7 +970,8 @@
 	{
 		"name": {
 			"en-US": "Bobble Shicka",
-			"fr": "Shicka à ressort"
+			"fr": "Shicka à ressort",
+			"pt-BR": "Shicka bobble"
 		},
 		"cost": 1,
 		"part": 3,
@@ -892,7 +981,8 @@
 	{
 		"name": {
 			"en-US": "Brittany hat",
-			"fr": "Chapeau breton"
+			"fr": "Chapeau breton",
+			"pt-BR": "Chapéu britânico"
 		},
 		"cost": 2,
 		"part": 0,
@@ -902,7 +992,8 @@
 	{
 		"name": {
 			"en-US": "Cape (red)",
-			"fr": "Cape (rouge)"
+			"fr": "Cape (rouge)",
+			"pt-BR": "Capa (vermelho)"
 		},
 		"cost": 1,
 		"part": 1,
@@ -912,7 +1003,8 @@
 	{
 		"name": {
 			"en-US": "Cape (bear)",
-			"fr": "Cape (ours)"
+			"fr": "Cape (ours)",
+			"pt-BR": "Capa (urso)"
 		},
 		"cost": 4,
 		"part": 1,
@@ -922,7 +1014,8 @@
 	{
 		"name": {
 			"en-US": "Cartoon eyes",
-			"fr": "Yeux cartoon"
+			"fr": "Yeux cartoon",
+			"pt-BR": "Olhos cartoon"
 		},
 		"cost": 0,
 		"part": 0,
@@ -932,7 +1025,8 @@
 	{
 		"name": {
 			"en-US": "Vampire head",
-			"fr": "Tête de vampire"
+			"fr": "Tête de vampire",
+			"pt-BR": "Cabeça de vampiro"
 		},
 		"cost": 0,
 		"part": 0,
@@ -942,7 +1036,8 @@
 	{
 		"name": {
 			"en-US": "Dice",
-			"fr": "Dé"
+			"fr": "Dé",
+			"pt-BR": "Dado"
 		},
 		"cost": 4,
 		"part": 0,
@@ -952,7 +1047,8 @@
 	{
 		"name": {
 			"en-US": "Witch hat",
-			"fr": "Chapeau de sorcière"
+			"fr": "Chapeau de sorcière",
+			"pt-BR": "Chapéu de bruxa"
 		},
 		"cost": 0,
 		"part": 0,
@@ -962,7 +1058,8 @@
 	{
 		"name": {
 			"en-US": "Cosmic Shicka",
-			"fr": "Shicka cosmique"
+			"fr": "Shicka cosmique",
+			"pt-BR": "Shicka cósmica"
 		},
 		"cost": 4,
 		"part": 3,
@@ -972,7 +1069,8 @@
 	{
 		"name": {
 			"en-US": "IMABEAR",
-			"fr": "IMABEAR"
+			"fr": "IMABEAR",
+			"pt-BR": "IMABEAR"
 		},
 		"cost": 4,
 		"part": 0,
@@ -982,7 +1080,8 @@
 	{
 		"name": {
 			"en-US": "Scarf (red)",
-			"fr": "Écharpe (rouge)"
+			"fr": "Écharpe (rouge)",
+			"pt-BR": "Cachecol (vermelho)"
 		},
 		"cost": 0,
 		"part": 1,
@@ -992,7 +1091,8 @@
 	{
 		"name": {
 			"en-US": "Scarf (blue)",
-			"fr": "Écharpe (bleue)"
+			"fr": "Écharpe (bleue)",
+			"pt-BR": "Cachecol (azul)"
 		},
 		"cost": 0,
 		"part": 1,
@@ -1002,7 +1102,8 @@
 	{
 		"name": {
 			"en-US": "Yeti mask",
-			"fr": "Masque de Yéti"
+			"fr": "Masque de Yéti",
+			"pt-BR": "Máscara de Yeti"
 		},
 		"cost": 0,
 		"part": 0,
@@ -1012,7 +1113,8 @@
 	{
 		"name": {
 			"en-US": "Turtle shell",
-			"fr": "Carapace de tortue"
+			"fr": "Carapace de tortue",
+			"pt-BR": "Casco de tartaruga"
 		},
 		"cost": 0,
 		"part": 1,
@@ -1022,7 +1124,8 @@
 	{
 		"name": {
 			"en-US": "The dust",
-			"fr": "La poussière"
+			"fr": "La poussière",
+			"pt-BR": "A Poeira"
 		},
 		"cost": 0,
 		"part": 1,
@@ -1032,7 +1135,8 @@
 	{
 		"name": {
 			"en-US": "Tiny bear",
-			"fr": "Ours riquiqui"
+			"fr": "Ours riquiqui",
+			"pt-BR": "Ursinho"
 		},
 		"cost": 0,
 		"part": 1,
@@ -1042,7 +1146,8 @@
 	{
 		"name": {
 			"en-US": "Purple bear",
-			"fr": "Ours violet"
+			"fr": "Ours violet",
+			"pt-BR": "Urso roxo"
 		},
 		"cost": 0,
 		"part": 2,
@@ -1052,7 +1157,8 @@
 	{
 		"name": {
 			"en-US": "Ghost trail",
-			"fr": "Traînée fantôme"
+			"fr": "Traînée fantôme",
+			"pt-BR": "Rastro fantasma"
 		},
 		"cost": 0,
 		"part": 1,

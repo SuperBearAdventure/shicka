@@ -2,25 +2,29 @@
 	{
 		"name": {
 			"en-US": "Head",
-			"fr": "Tête"
+			"fr": "Tête",
+			"pt-BR": "Cabeça"
 		}
 	},
 	{
 		"name": {
 			"en-US": "Body",
-			"fr": "Corps"
+			"fr": "Corps",
+			"pt-BR": "Corpo"
 		}
 	},
 	{
 		"name": {
 			"en-US": "Bear",
-			"fr": "Ours"
+			"fr": "Ours",
+			"pt-BR": "Urso"
 		}
 	},
 	{
 		"name": {
 			"en-US": "Shicka",
-			"fr": "Shicka"
+			"fr": "Shicka",
+			"pt-BR": "Shicka"
 		}
 	}
 ]

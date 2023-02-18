@@ -2,7 +2,8 @@
 	{
 		"name": {
 			"en-US": "Default",
-			"fr": "Défaut"
+			"fr": "Défaut",
+			"pt-BR": "Padrão"
 		},
 		"cost": 0,
 		"payoff": 0,
@@ -12,7 +13,8 @@
 	{
 		"name": {
 			"en-US": "Common",
-			"fr": "Commun"
+			"fr": "Commun",
+			"pt-BR": "Comum"
 		},
 		"cost": 100,
 		"payoff": -50,
@@ -22,7 +24,8 @@
 	{
 		"name": {
 			"en-US": "Rare",
-			"fr": "Rare"
+			"fr": "Rare",
+			"pt-BR": "Raro"
 		},
 		"cost": 300,
 		"payoff": 25,
@@ -32,7 +35,8 @@
 	{
 		"name": {
 			"en-US": "Epic",
-			"fr": "Épique"
+			"fr": "Épique",
+			"pt-BR": "Épico"
 		},
 		"cost": 1500,
 		"payoff": 175,
@@ -42,7 +46,8 @@
 	{
 		"name": {
 			"en-US": "Tristopio",
-			"fr": "Tristopio"
+			"fr": "Tristopio",
+			"pt-BR": "Tristopio"
 		},
 		"cost": 0,
 		"payoff": 0,
@@ -52,7 +57,8 @@
 	{
 		"name": {
 			"en-US": "Donor",
-			"fr": "Donateur"
+			"fr": "Donateur",
+			"pt-BR": "Doador"
 		},
 		"cost": 0,
 		"payoff": 0,
@@ -62,7 +68,8 @@
 	{
 		"name": {
 			"en-US": "Maybee",
-			"fr": "Isabeille"
+			"fr": "Isabeille",
+			"pt-BR": "Maybee"
 		},
 		"cost": 0,
 		"payoff": 0,

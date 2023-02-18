@@ -2,11 +2,13 @@
 	{
 		"name": {
 			"en-US": "Turtletown",
-			"fr": "Tortibourg"
+			"fr": "Tortibourg",
+			"pt-BR": "Aldeia das Tartarugas"
 		},
 		"boss": {
 			"en-US": "The Turtle Golem",
-			"fr": "Le Golem Tortue"
+			"fr": "Le Golem Tortue",
+			"pt-BR": "O Golem Tartaruga"
 		},
 		"coins": 150,
 		"stickers": 3
@@ -14,11 +16,13 @@
 	{
 		"name": {
 			"en-US": "Snow Valley",
-			"fr": "Vallée des Neiges"
+			"fr": "Vallée des Neiges",
+			"pt-BR": "Vale Nevado"
 		},
 		"boss": {
 			"en-US": "The Yeti",
-			"fr": "Le Yéti"
+			"fr": "Le Yéti",
+			"pt-BR": "O Yeti"
 		},
 		"coins": 150,
 		"stickers": 3
@@ -26,11 +30,13 @@
 	{
 		"name": {
 			"en-US": "Beemothep Desert",
-			"fr": "Désert Beemothep"
+			"fr": "Désert Beemothep",
+			"pt-BR": "Deserto Beemothep"
 		},
 		"boss": {
 			"en-US": "The Guardian",
-			"fr": "Le Gardien"
+			"fr": "Le Gardien",
+			"pt-BR": "O Guardião"
 		},
 		"coins": 150,
 		"stickers": 3
@@ -38,11 +44,13 @@
 	{
 		"name": {
 			"en-US": "Giant House",
-			"fr": "Maison Géante"
+			"fr": "Maison Géante",
+			"pt-BR": "Casa Gigante"
 		},
 		"boss": {
 			"en-US": "Test Subject no. 1706",
-			"fr": "Sujet de Test no 1706"
+			"fr": "Sujet de Test no 1706",
+			"pt-BR": "Cobaia de Testes nº 1706"
 		},
 		"coins": 200,
 		"stickers": 3
@@ -50,11 +58,13 @@
 	{
 		"name": {
 			"en-US": "The Hive",
-			"fr": "La Ruche"
+			"fr": "La Ruche",
+			"pt-BR": "A Colmeia"
 		},
 		"boss": {
 			"en-US": "Queen Beeatrice",
-			"fr": "Reine Mirabeille"
+			"fr": "Reine Mirabeille",
+			"pt-BR": "Rainha Beeatrice"
 		},
 		"coins": 120,
 		"stickers": 3
