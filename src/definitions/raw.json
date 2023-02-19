@@ -2,28 +2,34 @@
 	"commandName": "raw",
 	"commandDescription": {
 		"en-US": "Tells you what is the datum of this type with this identifier",
-		"fr": "Te dit quelle est la donnée de ce type avec cet identifiant"
+		"fr": "Te dit quelle est la donnée de ce type avec cet identifiant",
+		"pt-BR": "Te diz qual é o Datum desse tipo de identificador"
 	},
 	"typeOptionName": "type",
 	"typeOptionDescription": {
 		"en-US": "Some type",
-		"fr": "Un type"
+		"fr": "Un type",
+		"pt-BR": "Algum tipo"
 	},
 	"identifierOptionName": "identifier",
 	"identifierOptionDescription": {
 		"en-US": "Some identifier",
-		"fr": "Un identifiant"
+		"fr": "Un identifiant",
+		"pt-BR": "Algum identificador"
 	},
 	"help": {
 		"en-US": "Type `/$<commandName> $<typeOptionDescription> $<identifierOptionDescription>` to know what is the datum of `$<typeOptionDescription>` with `$<identifierOptionDescription>`",
-		"fr": "Tape `/$<commandName> $<typeOptionDescription> $<identifierOptionDescription>` pour savoir quel est la donnée d'`$<typeOptionDescription>` avec `$<identifierOptionDescription>`"
+		"fr": "Tape `/$<commandName> $<typeOptionDescription> $<identifierOptionDescription>` pour savoir quel est la donnée d'`$<typeOptionDescription>` avec `$<identifierOptionDescription>`",
+		"pt-BR": "Digite `/$<commandName> $<typeOptionDescription> $<identifierOptionDescription>` pra saber qual é o Datum de `$<typeOptionDescription>` com `$<identifierOptionDescription>`"
 	},
 	"noTypeReply": {
 		"en-US": "I do not know any datum with this name.\nPlease give me a type among $<typeConjunction> instead.",
-		"fr": "Je ne connais aucune donnée avec ce nom.\nMerci de me donner un type parmi $<typeConjunction> à la place."
+		"fr": "Je ne connais aucune donnée avec ce nom.\nMerci de me donner un type parmi $<typeConjunction> à la place.",
+		"pt-BR": "Eu não conheço nenhum Datum com esse nome.\nPor favor, me dê um tipo entre $<typeConjunction> em vez disso."
 	},
 	"noIdentifierReply": {
 		"en-US": "I do not know any datum with this identifier.\nPlease give me an identifier between `0` and `$<max>` instead.",
-		"fr": "Je ne connais aucune donnée avec cet identifiant.\nMerci de me donner un identifiant entre `0` et `$<max>` à la place."
+		"fr": "Je ne connais aucune donnée avec cet identifiant.\nMerci de me donner un identifiant entre `0` et `$<max>` à la place.",
+		"pt-BR": "Eu não conheço nenhum Datum com esse nome.\nPor favor, me dê um tipo entre `0` e `max` em vez disso."
 	}
 }

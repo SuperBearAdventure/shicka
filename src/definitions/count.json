@@ -2,14 +2,17 @@
 	"commandName": "count",
 	"commandDescription": {
 		"en-US": "Tells you what is the number of members on the server",
-		"fr": "Te dit quel est le nombre de membres sur le serveur"
+		"fr": "Te dit quel est le nombre de membres sur le serveur",
+		"pt-BR": "Te diz qual é o número de membros nesse servidor"
 	},
 	"help": {
 		"en-US": "Type `/$<commandName>` to know what is the number of members on the server",
-		"fr": "Tape `/$<commandName>` pour savoir quel est le nombre de membres sur le serveur"
+		"fr": "Tape `/$<commandName>` pour savoir quel est le nombre de membres sur le serveur",
+		"pt-BR": "Digite `/$<commandName>` pra saber qual é o número de membros nesse servidor"
 	},
 	"reply": {
 		"en-US": "There are $<memberCount> members on the official *$<name>* *Discord* server!",
-		"fr": "Il y a $<memberCount> membres sur le serveur *Discord* officiel de *$<name>* !"
+		"fr": "Il y a $<memberCount> membres sur le serveur *Discord* officiel de *$<name>* !",
+		"pt-BR": "Há $<memberCount> membros no servidor do *Discord* oficial do *$<name>*!"
 	}
 }

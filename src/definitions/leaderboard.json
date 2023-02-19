@@ -2,18 +2,22 @@
 	"commandName": "leaderboard",
 	"commandDescription": {
 		"en-US": "Tells you where to watch community speedruns of the game",
-		"fr": "Te dit où regarder des speedruns communautaires du jeu"
+		"fr": "Te dit où regarder des speedruns communautaires du jeu",
+		"pt-BR": "Te diz onde assistir as speedruns da comunidade do jogo"
 	},
 	"help": {
 		"en-US": "Type `/$<commandName>` to know where to watch community speedruns of the game",
-		"fr": "Tape `/$<commandName>` pour savoir où regarder des speedruns communautaires du jeu"
+		"fr": "Tape `/$<commandName>` pour savoir où regarder des speedruns communautaires du jeu",
+		"pt-BR": "Digite `/$<commandName>` pra saber onde assistir as speedruns da comunidade do jogo"
 	},
 	"reply": {
 		"en-US": "You can watch community speedruns there:\n$<linkList>",
-		"fr": "Tu peux regarder des speedruns communautaires là :\n$<linkList>"
+		"fr": "Tu peux regarder des speedruns communautaires là :\n$<linkList>",
+		"pt-BR": "Você pode assistir speedruns da comunidade aqui:\n$<linkList>"
 	},
 	"link": {
 		"en-US": "[*$<title>* leaderboard](<$<link>>)",
-		"fr": "[Classement *$<title>*](<$<link>>)"
+		"fr": "[Classement *$<title>*](<$<link>>)",
+		"pt-BR": "[Classificações em *$<title>*](<$<link>>)"
 	}
 }

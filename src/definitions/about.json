@@ -2,14 +2,17 @@
 	"commandName": "about",
 	"commandDescription": {
 		"en-US": "Tells you where I come from",
-		"fr": "Te dit d'où je viens"
+		"fr": "Te dit d'où je viens",
+		"pt-BR": "Te diz de onde eu vim"
 	},
 	"help": {
 		"en-US": "Type `/$<commandName>` to know where I come from",
-		"fr": "Tape `/$<commandName>` pour savoir d'où je viens"
+		"fr": "Tape `/$<commandName>` pour savoir d'où je viens",
+		"pt-BR": "Digite `/$<commandName>` pra saber de onde eu vim"
 	},
 	"reply": {
 		"en-US": "I am *$<bot>*, a bot made by *$<author>*, and I am open source!\nMy code is available [there](<$<link>>).",
-		"fr": "Je suis *$<bot>*, un robot fait par *$<author>*, et je suis open source !\nMon code est disponible [là](<$<link>>)."
+		"fr": "Je suis *$<bot>*, un robot fait par *$<author>*, et je suis open source !\nMon code est disponible [là](<$<link>>).",
+		"pt-BR": "Eu sou $<bot>*, um bot feito por *$<author>*, e sou open source!\nMeu código está disponível [aqui](<$<link>>)."
 	}
 }

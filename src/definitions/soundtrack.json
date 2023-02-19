@@ -2,22 +2,27 @@
 	"commandName": "soundtrack",
 	"commandDescription": {
 		"en-US": "Tells you where to listen to official music pieces of the game",
-		"fr": "Te dit où écouter des morceaux de musique officiels du jeu"
+		"fr": "Te dit où écouter des morceaux de musique officiels du jeu",
+		"pt-BR": "Te diz onde escutar as obras de música oficiais do jogo"
 	},
 	"help": {
 		"en-US": "Type `/$<commandName>` to know where to listen to official music pieces of the game",
-		"fr": "Tape `/$<commandName>` pour savoir où écouter des morceaux de musique officiels du jeu"
+		"fr": "Tape `/$<commandName>` pour savoir où écouter des morceaux de musique officiels du jeu",
+		"pt-BR": "Digite `/$<commandName>` pra saber onde escutar as obras de música oficiais do jogo"
 	},
 	"reply": {
 		"en-US": "You can listen to official music pieces of the game there:\n$<linkList>",
-		"fr": "Tu peux écouter des morceaux de musique officiels du jeu là :\n$<linkList>"
+		"fr": "Tu peux écouter des morceaux de musique officiels du jeu là :\n$<linkList>",
+		"pt-BR": "Você pode escutar as obras de música oficiais do jogo aqui\n$<linkList>"
 	},
 	"defaultReply": {
 		"en-US": "You can listen to official music pieces of the game [there](<$<link>>).",
-		"fr": "Tu peux écouter des morceaux de musique officiels du jeu [là](<$<link>>)."
+		"fr": "Tu peux écouter des morceaux de musique officiels du jeu [là](<$<link>>).",
+		"pt-BR": "Você pode escutar as obras de música oficiais do jogo [aqui](<$<link>>)."
 	},
 	"link": {
 		"en-US": "[*$<title>* soundtrack](<$<link>>) (*$<views>* views)",
-		"fr": "[Bande-son *$<title>*](<$<link>>) (*$<views>* vues)"
+		"fr": "[Bande-son *$<title>*](<$<link>>) (*$<views>* vues)",
+		"pt-BR": "[Faixa *$<title>*](<$<link>>) (*$<views>* visualizações)"
 	}
 }
