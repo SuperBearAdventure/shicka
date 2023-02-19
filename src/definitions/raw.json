@@ -30,6 +30,6 @@
 	"noIdentifierReply": {
 		"en-US": "I do not know any datum with this identifier.\nPlease give me an identifier between `0` and `$<max>` instead.",
 		"fr": "Je ne connais aucune donnée avec cet identifiant.\nMerci de me donner un identifiant entre `0` et `$<max>` à la place.",
-		"pt-BR": "Eu não conheço nenhum Datum com esse nome.\nPor favor, me dê um tipo entre `0` e `max` em vez disso."
+		"pt-BR": "Eu não conheço nenhum Datum com esse nome.\nPor favor, me dê um tipo entre `0` e `$<max>` em vez disso."
 	}
 }
