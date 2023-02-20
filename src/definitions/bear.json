@@ -2,47 +2,58 @@
 	"commandName": "bear",
 	"commandDescription": {
 		"en-US": "Tells you who is this bear",
-		"fr": "Te dit qui est cet ours"
+		"fr": "Te dit qui est cet ours",
+		"pt-BR": "Te diz quem é esse urso"
 	},
 	"bearOptionName": "bear",
 	"bearOptionDescription": {
 		"en-US": "Some bear",
-		"fr": "Un ours"
+		"fr": "Un ours",
+		"pt-BR": "Algum urso"
 	},
 	"help": {
 		"en-US": "Type `/$<commandName> $<bearOptionDescription>` to know who is `$<bearOptionDescription>`",
-		"fr": "Tape `/$<commandName> $<bearOptionDescription>` pour savoir qui est `$<bearOptionDescription>`"
+		"fr": "Tape `/$<commandName> $<bearOptionDescription>` pour savoir qui est `$<bearOptionDescription>`",
+		"pt-BR": "Digite `/$<commandName> $<bearOptionDescription>` pra saber quem é `$<bearOptionDescription>`"
 	},
 	"reply": {
 		"en-US": "**$<name>** has been imprisoned in **$<level>** and is wearing $<outfitNameConjunction>.\n$<goalConjunction>!",
-		"fr": "**$<name>** a été emprisonné·e dans **$<level>** et porte $<outfitNameConjunction>.\n$<goalConjunction> !"
+		"fr": "**$<name>** a été emprisonné·e dans **$<level>** et porte $<outfitNameConjunction>.\n$<goalConjunction> !",
+		"pt-BR": "**$<name>** foi capturado no(a) **$<level>** e está vestindo $<outfitNameConjunction>.\n$<goalConjunction>!"
 	},
 	"noOutfit": {
 		"en-US": "the bare minimum",
-		"fr": "le plus simple appareil"
+		"fr": "le plus simple appareil",
+		"pt-BR": "o mínimo necessário"
 	},
 	"bossGoal": {
 		"en-US": "Beat **$<boss>**",
-		"fr": "Bats **$<boss>**"
+		"fr": "Bats **$<boss>**",
+		"pt-BR": "Derrote **$<boss>**"
 	},
 	"coinsWithBossGoal": {
 		"en-US": "collect **$<coins> coins**",
-		"fr": "collecte **$<coins> pièces**"
+		"fr": "collecte **$<coins> pièces**",
+		"pt-BR": "Colete **$<coins> moedas**"
 	},
 	"coinsWithoutBossGoal": {
 		"en-US": "Collect **$<coins> coins**",
-		"fr": "Collecte **$<coins> pièces**"
+		"fr": "Collecte **$<coins> pièces**",
+		"pt-BR": "Colete **$<coins> moedas**"
 	},
 	"timeWithBossOrCoinsGoal": {
 		"en-US": "unlock the cage in less than **$<time>** to beat the gold time",
-		"fr": "déverrouille la cage en moins de **$<time>** pour battre le temps d'or"
+		"fr": "déverrouille la cage en moins de **$<time>** pour battre le temps d'or",
+		"pt-BR": "abra a jaula em menos que **$<time>** pra conseguir o tempo dourado"
 	},
 	"timeWithoutBossAndCoinsGoal": {
 		"en-US": "Unlock the cage in less than **$<time>** to beat the gold time",
-		"fr": "Déverrouille la cage en moins de **$<time>** pour battre le temps d'or"
+		"fr": "Déverrouille la cage en moins de **$<time>** pour battre le temps d'or",
+		"pt-BR": "Abra a jaula em menos que **$<time>** pra conseguir o tempo dourado"
 	},
 	"noGoal": {
 		"en-US": "Let's go",
-		"fr": "En route"
+		"fr": "En route",
+		"pt-BR": "Vamos lá"
 	}
 }

@@ -2,22 +2,27 @@
 	"commandName": "update",
 	"commandDescription": {
 		"en-US": "Tells you what is the latest update of the game",
-		"fr": "Te dit quelle est la dernière mise à jour du jeu"
+		"fr": "Te dit quelle est la dernière mise à jour du jeu",
+		"pt-BR": "Te diz qual é a última atualização do jogo"
 	},
 	"help": {
 		"en-US": "Type `/$<commandName>` to know what is the latest update of the game",
-		"fr": "Tape `/$<commandName>` pour savoir quelle est la dernière mise à jour du jeu"
+		"fr": "Tape `/$<commandName>` pour savoir quelle est la dernière mise à jour du jeu",
+		"pt-BR": "Digite `/$<commandName>` pra saber qual é a última atualização do jogo"
 	},
 	"reply": {
 		"en-US": "You can check and download the latest update of the game there:\n$<linkList>",
-		"fr": "Tu peux consulter et télécharger la dernière mise à jour du jeu là :\n$<linkList>"
+		"fr": "Tu peux consulter et télécharger la dernière mise à jour du jeu là :\n$<linkList>",
+		"pt-BR": "Você pode checar e baixar a última atualização do jogo aqui:\n$<linkList>"
 	},
 	"defaultReply": {
 		"en-US": "You can check and download the latest update of the game there:\n$<linkList>",
-		"fr": "Tu peux consulter et télécharger la dernière mise à jour du jeu là :\n$<linkList>"
+		"fr": "Tu peux consulter et télécharger la dernière mise à jour du jeu là :\n$<linkList>",
+		"pt-BR": "Você pode checar e baixar a última atualização do jogo aqui:\n$<linkList>"
 	},
 	"link": {
 		"en-US": "[*$<title>* platform](<$<link>>) (*$<version>* version as of *$<date>*)",
-		"fr": "[Plateforme *$<title>*](<$<link>>) (version *$<version>* au *$<date>*)"
+		"fr": "[Plateforme *$<title>*](<$<link>>) (version *$<version>* au *$<date>*)",
+		"pt-BR": "[Plataforma *$<title>*](<$<link>>) (Versão *$<version>* de *$<date>*)"
 	}
 }

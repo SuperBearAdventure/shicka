@@ -2,95 +2,116 @@
 	"commandName": "chat",
 	"commandDescription": {
 		"en-US": "Sends this content with these attachments or edits this message with them in this channel",
-		"fr": "Envoie ce contenu avec ces pièces jointes ou modifie ce message avec ceux-là dans ce salon"
+		"fr": "Envoie ce contenu avec ces pièces jointes ou modifie ce message avec ceux-là dans ce salon",
+		"pt-BR": "Envia o conteúdo com esses anexos ou edita a mensagem com eles nesse canal"
 	},
 	"postSubCommandName": "post",
 	"postSubCommandDescription": {
 		"en-US": "Sends this content in this channel",
-		"fr": "Envoie ce contenu dans ce salon"
+		"fr": "Envoie ce contenu dans ce salon",
+		"pt-BR": "Envia esse conteúdo pra esse canal"
 	},
 	"patchSubCommandName": "patch",
 	"patchSubCommandDescription": {
 		"en-US": "Edits this message with this content in this channel",
-		"fr": "Modifie de message avec ce contenu dans ce salon"
+		"fr": "Modifie de message avec ce contenu dans ce salon",
+		"pt-BR": "Edita a mensagem com esse conteúdo nesse canal"
 	},
 	"attachSubCommandName": "attach",
 	"attachSubCommandDescription": {
 		"en-US": "Adds at this position this attachment to this message in this channel",
-		"fr": "Ajoute à cette position cette pièce jointe à ce message dans ce salon"
+		"fr": "Ajoute à cette position cette pièce jointe à ce message dans ce salon",
+		"pt-BR": "Adiciona esse anexo nessa posição pra essa mensagem nesse canal"
 	},
 	"detachSubCommandName": "detach",
 	"detachSubCommandDescription": {
 		"en-US": "Removes at this position the attachment from this message in this channel",
-		"fr": "Retire à cette position la pièce jointe de ce message dans ce salon"
+		"fr": "Retire à cette position la pièce jointe de ce message dans ce salon",
+		"pt-BR": "Remove o anexo nessa posição dessa mensagem nesse canal"
 	},
 	"channelOptionName": "channel",
 	"channelOptionDescription": {
 		"en-US": "Some channel",
-		"fr": "Un salon"
+		"fr": "Un salon",
+		"pt-BR": "Algum canal"
 	},
 	"messageOptionName": "message",
 	"messageOptionDescription": {
 		"en-US": "Some message",
-		"fr": "Un message"
+		"fr": "Un message",
+		"pt-BR": "Alguma mensagem"
 	},
 	"contentOptionName": "content",
 	"contentOptionDescription": {
 		"en-US": "Some content",
-		"fr": "Un contenu"
+		"fr": "Un contenu",
+		"pt-BR": "Algum conteúdo"
 	},
 	"positionOptionName": "position",
 	"positionOptionDescription": {
 		"en-US": "Some position",
-		"fr": "Une position"
+		"fr": "Une position",
+		"pt-BR": "Alguma posição"
 	},
 	"attachmentOptionName": "attachment",
 	"attachmentOptionDescription": {
 		"en-US": "Some attachment",
-		"fr": "Une pièce jointe"
+		"fr": "Une pièce jointe",
+		"pt-BR": "Algum anexo"
 	},
 	"help": {
 		"en-US": "Type `/$<commandName> $<postSubCommandName> $<channelOptionDescription> $<contentOptionDescription>` to send `$<contentOptionDescription>` in `$<channelOptionDescription>`\nType `/$<commandName> $<patchSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<contentOptionDescription>` to edit `$<messageOptionDescription>` with `$<contentOptionDescription>` in `$<channelOptionDescription>`\nType `/$<commandName> $<attachSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription> $<attachmentOptionDescription>` to add at `$<positionOptionDescription>` `$<attachmentOptionDescription>` to `$<messageOptionDescription>` in `$<channelOptionDescription>`\nType `/$<commandName> $<detachSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription>` to remove at `$<positionOptionDescription>` the attachment of `$<messageOptionDescription>` in `$<channelOptionDescription>`",
-		"fr": "Tape `/$<commandName> $<postSubCommandName> $<channelOptionDescription> $<contentOptionDescription>` pour envoyer `$<contentOptionDescription>` dans `$<channelOptionDescription>`\nTape `/$<commandName> $<patchSubCommandName> $<channelOptionDescription> $<messageOptionDescription>` $<contentOptionDescription> pour modifier `$<messageOptionDescription>` avec `$<contentOptionDescription>` dans `$<channelOptionDescription>`\nTape `/$<commandName> $<attachSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription> $<attachmentOptionDescription>` pour ajouter à `$<positionOptionDescription>` `$<attachmentOptionDescription>` à `$<messageOptionDescription>` dans `$<channelOptionDescription>`\nTape `/$<commandName> $<detachSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription>` pour retirer à `$<positionOptionDescription>` la pièce jointe de `$<messageOptionDescription>` dans `$<channelOptionDescription>`"
+		"fr": "Tape `/$<commandName> $<postSubCommandName> $<channelOptionDescription> $<contentOptionDescription>` pour envoyer `$<contentOptionDescription>` dans `$<channelOptionDescription>`\nTape `/$<commandName> $<patchSubCommandName> $<channelOptionDescription> $<messageOptionDescription>` $<contentOptionDescription> pour modifier `$<messageOptionDescription>` avec `$<contentOptionDescription>` dans `$<channelOptionDescription>`\nTape `/$<commandName> $<attachSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription> $<attachmentOptionDescription>` pour ajouter à `$<positionOptionDescription>` `$<attachmentOptionDescription>` à `$<messageOptionDescription>` dans `$<channelOptionDescription>`\nTape `/$<commandName> $<detachSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription>` pour retirer à `$<positionOptionDescription>` la pièce jointe de `$<messageOptionDescription>` dans `$<channelOptionDescription>`",
+		"pt-BR": "Digite `/$<commandName> $<postSubCommandName> $<channelOptionDescription> $<contentOptionDescription>` pra enviar `$<contentOptionDescription>` em `$<channelOptionDescription>`\nDigite `/$<commandName> $<patchSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<contentOptionDescription>` pra editar `$<messageOptionDescription>` com `$<contentOptionDescription>` em `$<channelOptionDescription>`\nDigite `/$<commandName> $<attachSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription> $<attachmentOptionDescription>` pra adicionar em `$<positionOptionDescription>` `$<attachmentOptionDescription>` pra `$<messageOptionDescription>` em `$<channelOptionDescription>`\nDigite `/$<commandName> $<detachSubCommandName> $<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription>` pra remover em `$<positionOptionDescription>` o anexo de `$<messageOptionDescription>` em `$<channelOptionDescription>`"
 	},
 	"reply": {
 		"en-US": "I have edited the message.",
-		"fr": "J'ai modifié le message."
+		"fr": "J'ai modifié le message.",
+		"pt-BR": "Editei a mensagem."
 	},
 	"bareReply": {
 		"en-US": "I have sent the message.",
-		"fr": "J'ai envoyé le message."
+		"fr": "J'ai envoyé le message.",
+		"pt-BR": "Enviei a mensagem."
 	},
 	"noPrivacyReply": {
 		"en-US": "I can not reply to you in this channel.\nPlease ask me in a private channel instead.",
-		"fr": "Je ne peux pas te répondre dans ce salon.\nMerci de me demander dans un salon privé à la place."
+		"fr": "Je ne peux pas te répondre dans ce salon.\nMerci de me demander dans un salon privé à la place.",
+		"pt-BR": "Não posso te responder nesse canal.\nPor favor, me pergunte em um canal privado em vez disso."
 	},
 	"noChannelReply": {
 		"en-US": "I do not know any channel with this tag.",
-		"fr": "Je ne connais aucun salon avec cette étiquette."
+		"fr": "Je ne connais aucun salon avec cette étiquette.",
+		"pt-BR": "Não conheço nenhum canal com essa marcação."
 	},
 	"noMessageReply": {
 		"en-US": "I do not know any message with this identifier in this channel.",
-		"fr": "Je ne connais aucun message avec cet identifiant dans ce salon."
+		"fr": "Je ne connais aucun message avec cet identifiant dans ce salon.",
+		"pt-BR": "Não sei nenhuma mensagem com essa identificação nesse canal."
 	},
 	"noPositionReply": {
 		"en-US": "I do not know any slot with this position.\nPlease give me a position between `0` and `$<max>` instead.",
-		"fr": "Je ne connais aucun emplacement avec cette position.\nMerci de me donner une position entre `0` et `$<max>` à la place."
+		"fr": "Je ne connais aucun emplacement avec cette position.\nMerci de me donner une position entre `0` et `$<max>` à la place.",
+		"pt-BR": "Não sei nenhum espaço com essa posição.\nPor favor, me dê uma posição entre `0` e `$<max>` em vez disso."
 	},
 	"noInteractionReply": {
 		"en-US": "I can not edit interaction replies or follow-ups.",
-		"fr": "Je ne peux pas modifier de réponses ou de suites aux interactions."
+		"fr": "Je ne peux pas modifier de réponses ou de suites aux interactions.",
+		"pt-BR": "Eu não posso editar respostas de interação ou acompanhamentos."
 	},
 	"noContentOrAttachmentReply": {
 		"en-US": "Please keep a content or attachments.",
-		"fr": "Merci de garder un contenu ou des pièces jointes."
+		"fr": "Merci de garder un contenu ou des pièces jointes.",
+		"pt-BR": "Por favor, mantenha um conteúdo ou anexos."
 	},
 	"noPatchPermissionReply": {
 		"en-US": "I do not have the rights to edit this message.",
-		"fr": "Je n'ai pas les droits pour modifier ce message."
+		"fr": "Je n'ai pas les droits pour modifier ce message.",
+		"pt-BR": "Eu não tenho as permissões pra editar essa mensagem."
 	},
 	"noPostPermissionReply": {
 		"en-US": "I do not have the rights to send this message.",
-		"fr": "Je n'ai pas les droits pour envoyer ce message."
+		"fr": "Je n'ai pas les droits pour envoyer ce message.",
+		"pt-BR": "Eu não tenho as permissões pra enviar essa mensagem."
 	}
 }

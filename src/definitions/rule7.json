@@ -1,6 +1,7 @@
 {
 	"help": {
 		"en-US": "I will gently reprimand you if you write words which violate the rule 7 in $<channel>",
-		"fr": "Je te réprimanderai gentiment si tu écris des mots qui violent la règle 7 dans $<channel>"
+		"fr": "Je te réprimanderai gentiment si tu écris des mots qui violent la règle 7 dans $<channel>",
+		"pt-BR": "Eu irei gentilmente te repreender se você escrever palavras que violem a regra 7 em $<channel>"
 	}
 }

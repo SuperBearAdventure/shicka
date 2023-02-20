@@ -2,18 +2,22 @@
 	"commandName": "store",
 	"commandDescription": {
 		"en-US": "Tells you where to buy offical products of the game",
-		"fr": "Te dit où acheter des produits officiels du jeu"
+		"fr": "Te dit où acheter des produits officiels du jeu",
+		"pt-BR": "Te diz onde comprar os produtos oficiais do jogo"
 	},
 	"help": {
 		"en-US": "Type `/$<commandName>` to know where to buy offical products of the game",
-		"fr": "Tape `/$<commandName>` pour savoir où acheter des produits officiels du jeu"
+		"fr": "Tape `/$<commandName>` pour savoir où acheter des produits officiels du jeu",
+		"pt-BR": "Digite `/$<commandName>` pra saber onde comprar os produtos oficiais do jogo"
 	},
 	"reply": {
 		"en-US": "You can buy official products of the game there:\n$<linkList>",
-		"fr": "Tu peux acheter des produits officiels du jeu là :\n$<linkList>"
+		"fr": "Tu peux acheter des produits officiels du jeu là :\n$<linkList>",
+		"pt-BR": "Você pode comprar os produtos oficiais do jogo aqui:\n$<linkList>"
 	},
 	"link": {
 		"en-US": "[$<title> store](<$<link>>)",
-		"fr": "[Magasin $<title>](<$<link>>)"
+		"fr": "[Magasin $<title>](<$<link>>)",
+		"pt-BR": "[Loja $<title>](<$<link>>)"
 	}
 }

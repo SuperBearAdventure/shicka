@@ -2,22 +2,27 @@
 	"commandName": "roadmap",
 	"commandDescription": {
 		"en-US": "Tells you where to check the upcoming milestones of the game",
-		"fr": "Te dit où consulter les futurs jalons du jeu"
+		"fr": "Te dit où consulter les futurs jalons du jeu",
+		"pt-BR": "Te diz onde checar as próximas metas do jogo"
 	},
 	"help": {
 		"en-US": "Type `/$<commandName>` to know where to check the upcoming milestones of the game",
-		"fr": "Tape `/$<commandName>` pour savoir où consulter les futurs jalons du jeu"
+		"fr": "Tape `/$<commandName>` pour savoir où consulter les futurs jalons du jeu",
+		"pt-BR": "Digite `/$<commandName>` pra saber onde checar as próximas metas do jogo"
 	},
 	"reply": {
 		"en-US": "$<intent> check upcoming milestones of the game [there](<$<link>>).",
-		"fr": "$<intent> consulter de futurs jalons du jeu [là](<$<link>>)."
+		"fr": "$<intent> consulter de futurs jalons du jeu [là](<$<link>>).",
+		"pt-BR": "$<intent> checar as próximas metas do jogo [aqui](<$<link>>)."
 	},
 	"intentWithChannel": {
 		"en-US": "Before suggesting an idea in $<channel>, you can",
-		"fr": "Avant de suggérer une idée dans $<channel>, tu peux"
+		"fr": "Avant de suggérer une idée dans $<channel>, tu peux",
+		"pt-BR": "Antes de sugerir uma ideia em $<channel>, você pode"
 	},
 	"intentWithoutChannel": {
 		"en-US": "You can",
-		"fr": "Tu peux"
+		"fr": "Tu peux",
+		"pt-BR": "Você pode"
 	}
 }
