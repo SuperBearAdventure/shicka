@@ -28,6 +28,6 @@
 	"link": {
 		"en-US": "[$<title> tracker](<$<link>>)",
 		"fr": "[Suivi $<title>](<$<link>>)",
-		"pt-BR": "[Monitor $<title>](<$<link>>)"
+		"pt-BR": "[Observatório $<title>](<$<link>>)"
 	}
 }

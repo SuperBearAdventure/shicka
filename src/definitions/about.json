@@ -13,6 +13,6 @@
 	"reply": {
 		"en-US": "I am *$<bot>*, a bot made by *$<author>*, and I am open source!\nMy code is available [there](<$<link>>).",
 		"fr": "Je suis *$<bot>*, un robot fait par *$<author>*, et je suis open source !\nMon code est disponible [là](<$<link>>).",
-		"pt-BR": "Eu sou $<bot>*, um bot feito por *$<author>*, e sou open source!\nMeu código está disponível [aqui](<$<link>>)."
+		"pt-BR": "Eu sou *$<bot>*, um bot feito por *$<author>*, e sou open source!\nMeu código está disponível [aqui](<$<link>>)."
 	}
 }

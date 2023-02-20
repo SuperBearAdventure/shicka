@@ -14,7 +14,7 @@
 	"help": {
 		"en-US": "Type `/$<commandName>` to know what is playable in the shop\nType `/$<commandName> $<missionOptionDescription>` to know when `$<missionOptionDescription>` is playable in the shop",
 		"fr": "Tape `/$<commandName>` pour savoir ce qui est jouable dans la boutique\nTape `/$<commandName> $<missionOptionDescription>` pour savoir quand `$<missionOptionDescription>` est jouable dans la boutique",
-		"pt-BR": "Digite `/$<commandName>` pra saber o que está jogável na loja\nDigite `/$<commandName> $<missionOptionDescription>` pra saber quando `$<missionOptionDescription>` está jogável na loja"
+		"pt-BR": "Digite `/$<commandName>` pra saber o que está jogável na loja\nDigite `/$<commandName> $<missionOptionDescription>` pra saber quando `$<missionOptionDescription>` estará jogável na loja"
 	},
 	"reply": {
 		"en-US": "**$<challengeName>** in **$<levelName>** will be playable for 1 day starting:\n$<scheduleList>",
