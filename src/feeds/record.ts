@@ -49,7 +49,7 @@ const recordFeed: Feed = {
 				const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 					return channel.name === "🏅│records";
 				});
-				if (channel == null || !("messages" in channel)) {
+				if (channel == null || !("send" in channel)) {
 					continue;
 				}
 				for (const record of records) {
