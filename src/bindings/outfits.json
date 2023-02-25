@@ -201,7 +201,7 @@
 		"name": {
 			"en-US": "Fat body",
 			"fr": "Gros ventre",
-			"pt-BR": "Corpo gordo"
+			"pt-BR": "Barrigão"
 		},
 		"cost": 0,
 		"part": 1,
@@ -430,7 +430,7 @@
 	},
 	{
 		"name": {
-			"en-US": "Retro shicka",
+			"en-US": "Retro Shicka",
 			"fr": "Shicka rétro",
 			"pt-BR": "Shicka retrô"
 		},
@@ -1164,5 +1164,27 @@
 		"part": 1,
 		"rarity": 6,
 		"update": 74
+	},
+	{
+		"name": {
+			"en-US": "Cat head",
+			"fr": "Tête de chat",
+			"pt-BR": "Cabeça de gato"
+		},
+		"cost": 4,
+		"part": 0,
+		"rarity": 4,
+		"update": 76
+	},
+	{
+		"name": {
+			"en-US": "Deal with it",
+			"fr": "Deal with it",
+			"pt-BR": "Deal with it"
+		},
+		"cost": 0,
+		"part": 0,
+		"rarity": 3,
+		"update": 76
 	}
 ]
