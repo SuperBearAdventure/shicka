@@ -62,7 +62,7 @@ const rule7Trigger: Trigger = {
 			});
 		}
 		const rulesChannel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-			return channel.name === "❗│rules-info│❗";
+			return channel.name === "📕│rules-welcome";
 		});
 		if (rulesChannel != null) {
 			await message.reply({

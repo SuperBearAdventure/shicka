@@ -33,8 +33,8 @@ const data: Data[] = [
 		link: "https://www.speedrun.com/sba",
 	},
 	{
-		title: "Turtle Village",
-		link: "https://www.speedrun.com/sba/Turtle_Village",
+		title: "Turtletown",
+		link: "https://www.speedrun.com/sba/Turtletown",
 	},
 	{
 		title: "Snow Valley",

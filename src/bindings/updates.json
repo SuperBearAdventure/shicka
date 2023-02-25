@@ -803,5 +803,32 @@
 			"Story rewrite, new intro, new cutscenes",
 			"Huge improvements to level mechanics and gameplay"
 		]
+	},
+	{
+		"name": "10.0.1",
+		"date": {
+			"android": "2022-11-24",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"name": "10.1.0",
+		"date": {
+			"android": "2023-02-24",
+			"ios": null
+		},
+		"notes": [
+			"New cosmetic items",
+			"Various game feel and quality of life improvements"
+		]
+	},
+	{
+		"name": "10.1.1",
+		"date": {
+			"android": "2023-02-25",
+			"ios": null
+		},
+		"notes": []
 	}
 ]
