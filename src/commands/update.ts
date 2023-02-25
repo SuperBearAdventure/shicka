@@ -67,7 +67,7 @@ const updateCommand: Command = {
 							title: "Android",
 							link: "https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer",
 							version: result[1][2][140][0][0][0],
-							date: new Date(result[1][2][145][0][1][0] * 1000),
+							date: new Date(result[1][2][140][2][0]),
 						};
 					} catch {}
 				}
