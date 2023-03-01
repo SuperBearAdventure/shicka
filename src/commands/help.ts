@@ -75,6 +75,23 @@ function hasAdministratorPermission(channel: GuildBasedChannel, member: GuildMem
 	return member.permissions.has(PermissionsBitField.All);
 }
 function hasChannelPermission(permissions: Collection<string, ApplicationCommandPermissions[]>, applicationOrCommand: ClientApplication | ApplicationCommand, channel: GuildBasedChannel): boolean | null {
+	const allChannelsId: string = `${BigInt(channel.guild.id) - 1n}`;
+	const applicationOrCommandPermissions: ApplicationCommandPermissions[] | undefined = permissions.get(applicationOrCommand.id);
+	if (applicationOrCommandPermissions == null) {
+		return null;
+	}
+	const channelPermission: ApplicationCommandPermissions | undefined = applicationOrCommandPermissions.find((permission: ApplicationCommandPermissions): boolean => {
+		return permission.type === ApplicationCommandPermissionType.Channel && permission.id === channel.id;
+	});
+	if (channelPermission != null) {
+		return channelPermission.permission;
+	}
+	const allChannelsPermission: ApplicationCommandPermissions | undefined = applicationOrCommandPermissions.find((permission: ApplicationCommandPermissions): boolean => {
+		return permission.type === ApplicationCommandPermissionType.Channel && permission.id === allChannelsId;
+	});
+	if (allChannelsPermission != null) {
+		return allChannelsPermission.permission;
+	}
 	return null;
 }
 function hasMemberPermission(permissions: Collection<string, ApplicationCommandPermissions[]>, applicationOrCommand: ClientApplication | ApplicationCommand, member: GuildMember): boolean | null {
