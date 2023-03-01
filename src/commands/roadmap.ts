@@ -9,6 +9,9 @@ import type {Roadmap as RoadmapCompilation} from "../compilations.js";
 import type {Roadmap as RoadmapDefinition} from "../definitions.js";
 import type {Roadmap as RoadmapDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
+import {
+	ChannelType,
+} from "discord.js";
 import {roadmap as roadmapCompilation} from "../compilations.js";
 import {roadmap as roadmapDefinition} from "../definitions.js";
 import {composeAll, localize, resolve} from "../utils/string.js";
@@ -38,9 +41,15 @@ const roadmapCommand: Command = {
 		}
 		const {guild, locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
-		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-			return channel.name === "💡│game-suggestions";
-		});
+		const channel: GuildBasedChannel | null = ((): GuildBasedChannel | null => {
+			const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
+				return channel.name === "💡│game-suggestions";
+			});
+			if (channel == null || channel.type === ChannelType.GuildCategory || channel.isThread()) {
+				return null;
+			}
+			return channel;
+		})();
 		await interaction.reply({
 			content: replyLocalizations["en-US"]({
 				intent: (): string => {

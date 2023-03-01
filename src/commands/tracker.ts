@@ -10,6 +10,7 @@ import type {Tracker as TrackerDefinition} from "../definitions.js";
 import type {Tracker as TrackerDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {
+	ChannelType,
 	escapeMarkdown,
 } from "discord.js";
 import {tracker as trackerCompilation} from "../compilations.js";
@@ -64,9 +65,15 @@ const trackerCommand: Command = {
 		}
 		const {guild, locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
-		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-			return channel.name === "🐛│bug-report";
-		});
+		const channel: GuildBasedChannel | null = ((): GuildBasedChannel | null => {
+			const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
+				return channel.name === "🐛│bug-report";
+			});
+			if (channel == null || channel.type === ChannelType.GuildCategory || channel.isThread()) {
+				return null;
+			}
+			return channel;
+		})();
 		const links: Localized<(groups: {}) => string>[] = [];
 		for (const item of data) {
 			const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((locale: Locale): LinkGroups => {

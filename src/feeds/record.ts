@@ -11,6 +11,7 @@ import type {Record as RecordDependency} from "../dependencies.js";
 import type Feed from "../feeds.js";
 import type {Localized} from "../utils/string.js";
 import {
+	ChannelType,
 	escapeMarkdown,
 } from "discord.js";
 import fetch from "node-fetch";
@@ -48,9 +49,15 @@ const recordFeed: Feed = {
 			const end: number = middle + 10800000;
 			const records: string[] = await this.execute(start, end);
 			for (const guild of client.guilds.cache.values()) {
-				const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-					return channel.name === "🏅│records";
-				});
+				const channel: GuildBasedChannel | null = ((): GuildBasedChannel | null => {
+					const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
+						return channel.name === "🏅│records";
+					});
+					if (channel == null || channel.type === ChannelType.GuildCategory || channel.isThread()) {
+						return null;
+					}
+					return channel;
+				})();
 				if (channel == null || !channel.isTextBased()) {
 					continue;
 				}
@@ -171,10 +178,16 @@ const recordFeed: Feed = {
 	},
 	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		const {guild}: ChatInputCommandInteraction<"cached"> = interaction;
-		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-			return channel.name === "🏅│records";
-		});
-		if (channel == null) {
+		const channel: GuildBasedChannel | null = ((): GuildBasedChannel | null => {
+			const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
+				return channel.name === "🏅│records";
+			});
+			if (channel == null || channel.type === ChannelType.GuildCategory || channel.isThread()) {
+				return null;
+			}
+			return channel;
+		})();
+		if (channel == null || !channel.isTextBased()) {
 			return null;
 		}
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {

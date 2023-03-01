@@ -83,4 +83,4 @@ $ npm start
 
 ### Triggers
 
-- Some suggestions that violate the rule 7 will be flagged as such in the `#💡│game-suggestions` channel
+- Some suggestions from non-administrator members who do not have any of the `@Administrator`, `@Moderator`, `@Helper` and `@Cookie` roles and that violate the rule 7 will be flagged as such in the `#💡│game-suggestions` channel
