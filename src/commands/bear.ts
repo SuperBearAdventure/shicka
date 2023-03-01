@@ -126,7 +126,7 @@ const bearCommand: Command = {
 				},
 			};
 		})) : null;
-		const goals: Localized<(groups: {}) => string>[] = [bossGoal, coinsGoal, timeGoal].filter((goal: Localized<(groups: {}) => string> | null): goal is Localized<(groups: {}) => string> => {
+		const goals: Localized<(groups: {}) => string>[] = [bossGoal, coinsGoal, timeGoal].filter<Localized<(groups: {}) => string>>((goal: Localized<(groups: {}) => string> | null): goal is Localized<(groups: {}) => string> => {
 			return goal != null;
 		});
 		await interaction.reply({

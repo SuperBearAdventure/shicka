@@ -20,7 +20,7 @@ import {
 } from "./bindings.js";
 type Index = (Bear | Challenge | Level | Mission | Outfit | Part | Rarity | Update)[][];
 function indexBy<Left extends {[k in Key]: number}, Right, Key extends string>(leftArray: Left[], rightArray: Right[], key: Key): Left[][] {
-	const index: Left[][] = Array.from(rightArray, (): Left[] => {
+	const index: Left[][] = Array.from<Right, Left[]>(rightArray, (): Left[] => {
 		return [];
 	});
 	for (const value of leftArray) {

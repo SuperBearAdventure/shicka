@@ -170,7 +170,7 @@ const outfitCommand: Command = {
 				return rarities.map<Outfit[][]>((rarity: Rarity): Outfit[][] => {
 					if (rarity.slots === 0) {
 						const length: number = slicesPerRarity;
-						return Array.from({length}, (): Outfit[] => {
+						return Array.from<undefined, Outfit[]>({length}, (): Outfit[] => {
 							return [];
 						});
 					}
@@ -298,7 +298,7 @@ const outfitCommand: Command = {
 				},
 			};
 		})) : null;
-		const costs: Localized<(groups: {}) => string>[] = [tokensCost, coinsCost].filter((cost: Localized<(groups: {}) => string> | null): cost is Localized<(groups: {}) => string> => {
+		const costs: Localized<(groups: {}) => string>[] = [tokensCost, coinsCost].filter<Localized<(groups: {}) => string>>((cost: Localized<(groups: {}) => string> | null): cost is Localized<(groups: {}) => string> => {
 			return cost != null;
 		});
 		await interaction.reply({
