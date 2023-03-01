@@ -32,15 +32,12 @@ const roadmapCommand: Command = {
 			descriptionLocalizations: commandDescription,
 		};
 	},
-	async execute(interaction: Interaction): Promise<void> {
+	async execute(interaction: Interaction<"cached">): Promise<void> {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {guild, locale}: CommandInteraction = interaction;
+		const {guild, locale}: CommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
-		if (guild == null) {
-			return;
-		}
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 			return channel.name === "💡│game-suggestions";
 		});
@@ -77,7 +74,7 @@ const roadmapCommand: Command = {
 			ephemeral: true,
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
 				commandName: (): string => {

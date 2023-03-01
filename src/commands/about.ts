@@ -32,11 +32,11 @@ const aboutCommand: Command = {
 			descriptionLocalizations: commandDescription,
 		};
 	},
-	async execute(interaction: Interaction): Promise<void> {
+	async execute(interaction: Interaction<"cached">): Promise<void> {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {locale}: Interaction = interaction;
+		const {locale}: Interaction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		await interaction.reply({
 			content: replyLocalizations["en-US"]({
@@ -69,7 +69,7 @@ const aboutCommand: Command = {
 			ephemeral: true,
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
 				commandName: (): string => {

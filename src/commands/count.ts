@@ -30,15 +30,12 @@ const countCommand: Command = {
 			descriptionLocalizations: commandDescription,
 		};
 	},
-	async execute(interaction: Interaction): Promise<void> {
+	async execute(interaction: Interaction<"cached">): Promise<void> {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {guild, locale}: CommandInteraction = interaction;
+		const {guild, locale}: CommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
-		if (guild == null) {
-			return;
-		}
 		const {memberCount, name}: Guild = guild;
 		await interaction.reply({
 			content: replyLocalizations["en-US"]({
@@ -65,7 +62,7 @@ const countCommand: Command = {
 			ephemeral: true,
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
 				commandName: (): string => {

@@ -121,9 +121,9 @@ const outfitCommand: Command = {
 			],
 		};
 	},
-	async execute(interaction: Interaction): Promise<void> {
+	async execute(interaction: Interaction<"cached">): Promise<void> {
 		if (interaction.isAutocomplete()) {
-			const {locale, options}: AutocompleteInteraction = interaction;
+			const {locale, options}: AutocompleteInteraction<"cached"> = interaction;
 			const resolvedLocale: Locale = resolve(locale);
 			const {name, value}: AutocompleteFocusedOption = options.getFocused(true);
 			if (name !== outfitOptionName) {
@@ -149,7 +149,7 @@ const outfitCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {locale, options}: CommandInteraction = interaction;
+		const {locale, options}: CommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const slicesByRarityBySeed: {[k in string]: Outfit[][][]} = Object.create(null);
 		const slicesPerRarity: number = Math.ceil(Math.max(...rarities.map<number>((rarity: Rarity): number => {
@@ -354,7 +354,7 @@ const outfitCommand: Command = {
 			ephemeral: true,
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				commandName: (): string => {

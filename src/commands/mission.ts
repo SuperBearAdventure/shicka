@@ -55,9 +55,9 @@ const missionCommand: Command = {
 			],
 		};
 	},
-	async execute(interaction: Interaction): Promise<void> {
+	async execute(interaction: Interaction<"cached">): Promise<void> {
 		if (interaction.isAutocomplete()) {
-			const {locale, options}: AutocompleteInteraction = interaction;
+			const {locale, options}: AutocompleteInteraction<"cached"> = interaction;
 			const resolvedLocale: Locale = resolve(locale);
 			const {name, value}: AutocompleteFocusedOption = options.getFocused(true);
 			if (name !== missionOptionName) {
@@ -100,7 +100,7 @@ const missionCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {locale, options}: CommandInteraction = interaction;
+		const {locale, options}: CommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const missionCount: number = missions.length;
 		const now: number = Math.floor((interaction.createdTimestamp + 7200000) / 86400000);
@@ -230,7 +230,7 @@ const missionCommand: Command = {
 			ephemeral: true,
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				commandName: (): string => {

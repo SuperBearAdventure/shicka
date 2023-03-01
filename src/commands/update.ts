@@ -45,11 +45,11 @@ const updateCommand: Command = {
 			descriptionLocalizations: commandDescription,
 		};
 	},
-	async execute(interaction: Interaction): Promise<void> {
+	async execute(interaction: Interaction<"cached">): Promise<void> {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {locale}: CommandInteraction = interaction;
+		const {locale}: CommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		try {
 			const androidData: Data | null = await (async (): Promise<Data | null> => {
@@ -172,7 +172,7 @@ const updateCommand: Command = {
 			});
 		}
 	},
-	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
 				commandName: (): string => {

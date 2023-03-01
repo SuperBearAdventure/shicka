@@ -59,9 +59,9 @@ const bearCommand: Command = {
 			],
 		};
 	},
-	async execute(interaction: Interaction): Promise<void> {
+	async execute(interaction: Interaction<"cached">): Promise<void> {
 		if (interaction.isAutocomplete()) {
-			const {locale, options}: AutocompleteInteraction = interaction;
+			const {locale, options}: AutocompleteInteraction<"cached"> = interaction;
 			const resolvedLocale: Locale = resolve(locale);
 			const {name, value}: AutocompleteFocusedOption = options.getFocused(true);
 			if (name !== bearOptionName) {
@@ -87,7 +87,7 @@ const bearCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {locale, options}: CommandInteraction = interaction;
+		const {locale, options}: CommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const id: number = options.getInteger(bearOptionName, true);
 		const bear: Bear = bears[id];
@@ -202,7 +202,7 @@ const bearCommand: Command = {
 			ephemeral: true,
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				commandName: (): string => {
