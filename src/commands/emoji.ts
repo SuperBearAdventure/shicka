@@ -99,13 +99,13 @@ const emojiCommand: Command = {
 			defaultPermission: false,
 		};
 	},
-	async execute(interaction: Interaction): Promise<void> {
+	async execute(interaction: Interaction<"cached">): Promise<void> {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {channel, locale, options}: CommandInteraction = interaction;
+		const {channel, locale, options}: CommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
-		if (channel == null || !("name" in channel)) {
+		if (channel == null) {
 			await interaction.reply({
 				content: noPrivacyReplyLocalizations[resolvedLocale]({}),
 				ephemeral: true,
@@ -175,9 +175,9 @@ const emojiCommand: Command = {
 			],
 		});
 	},
-	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
-		const {channel}: CommandInteraction = interaction;
-		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
+	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+		const {channel}: CommandInteraction<"cached"> = interaction;
+		if (channel == null || !channels.has(channel.name)) {
 			return null;
 		}
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {

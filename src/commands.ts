@@ -22,8 +22,8 @@ import trailerCommand from "./commands/trailer.js";
 import updateCommand from "./commands/update.js";
 type Command = {
 	register(): ApplicationCommandData;
-	execute(interaction: Interaction): Promise<void>;
-	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null;
+	execute(interaction: Interaction<"cached">): Promise<void>;
+	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null;
 };
 const about: Command = aboutCommand;
 const bear: Command = bearCommand;

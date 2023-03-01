@@ -2,6 +2,7 @@ import type {
 	ApplicationCommandData,
 	CommandInteraction,
 	FileOptions,
+	GuildBasedChannel,
 	Interaction,
 	Message,
 	MessageAttachment,
@@ -202,13 +203,13 @@ const chatCommand: Command = {
 			defaultPermission: false,
 		};
 	},
-	async execute(interaction: Interaction): Promise<void> {
+	async execute(interaction: Interaction<"cached">): Promise<void> {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {channel, locale, options}: CommandInteraction = interaction;
+		const {channel, locale, options}: CommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
-		if (channel == null || !("name" in channel)) {
+		if (channel == null) {
 			await interaction.reply({
 				content: noPrivacyReplyLocalizations[resolvedLocale]({}),
 				ephemeral: true,
@@ -233,8 +234,8 @@ const chatCommand: Command = {
 			}
 		}
 		const subCommandName: string = options.getSubcommand(true);
-		const targetChannel: any = options.getChannel(channelOptionName, true);
-		if (!("messages" in targetChannel)) {
+		const targetChannel: GuildBasedChannel = options.getChannel(channelOptionName, true);
+		if (!("send" in targetChannel)) {
 			await interaction.reply({
 				content: noChannelReplyLocalizations[resolvedLocale]({}),
 				ephemeral: true,
@@ -290,7 +291,7 @@ const chatCommand: Command = {
 					},
 				],
 			});
-			const modalSubmitInteraction: ModalSubmitInteraction = await interaction.awaitModalSubmit({
+			const modalSubmitInteraction: ModalSubmitInteraction<"cached"> = await interaction.awaitModalSubmit({
 				filter: (modalSubmitInteraction: ModalSubmitInteraction): boolean => {
 					return modalSubmitInteraction.customId === interaction.id;
 				},
@@ -347,7 +348,7 @@ const chatCommand: Command = {
 					},
 				],
 			});
-			const modalSubmitInteraction: ModalSubmitInteraction = await interaction.awaitModalSubmit({
+			const modalSubmitInteraction: ModalSubmitInteraction<"cached"> = await interaction.awaitModalSubmit({
 				filter: (modalSubmitInteraction: ModalSubmitInteraction): boolean => {
 					return modalSubmitInteraction.customId === interaction.id;
 				},
@@ -505,9 +506,9 @@ const chatCommand: Command = {
 		}
 		return;
 	},
-	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
-		const {channel}: CommandInteraction = interaction;
-		if (channel == null || !("name" in channel) || !channels.has(channel.name)) {
+	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+		const {channel}: CommandInteraction<"cached"> = interaction;
+		if (channel == null || !channels.has(channel.name)) {
 			return null;
 		}
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {

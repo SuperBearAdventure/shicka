@@ -101,14 +101,13 @@ client.on("interactionCreate", async (interaction: Interaction): Promise<void> =
 	if (interaction.user.bot) {
 		return;
 	}
-	const {channel}: Interaction = interaction;
-	if (channel == null || !("name" in channel)) {
+	if (!interaction.inCachedGuild()) {
 		return;
 	}
 	if (!interaction.isAutocomplete() && !interaction.isCommand()) {
 		return;
 	}
-	const {commandName}: AutocompleteInteraction | CommandInteraction = interaction;
+	const {commandName}: AutocompleteInteraction<"cached"> | CommandInteraction<"cached"> = interaction;
 	if (!(commandName in commands)) {
 		return;
 	}
@@ -123,8 +122,7 @@ client.on("messageCreate", async (message: Message): Promise<void> => {
 	if (message.author.bot) {
 		return;
 	}
-	const {channel}: Message = message;
-	if (!("name" in channel)) {
+	if (!message.inGuild()) {
 		return;
 	}
 	for (const triggerName in triggers) {

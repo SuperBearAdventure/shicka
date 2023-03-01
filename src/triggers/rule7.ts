@@ -19,15 +19,8 @@ const {
 const pattern: RegExp = /\b(?:co-?op(?:erati(?:ons?|ve))?|consoles?|multi(?:-?player)?|online|pc|playstation|ps[45]|switch|xbox)\b/iu;
 const roles: Set<string> = new Set<string>(["Administrator", "Game Developer", "Helper", "Moderator", "Cookie"]);
 const rule7Trigger: Trigger = {
-	async execute(message: Message): Promise<void> {
-		const {guild}: Message = message;
-		if (guild == null) {
-			return;
-		}
-		const {channel}: Message = message;
-		if (!("name" in channel)) {
-			return;
-		}
+	async execute(message: Message<true>): Promise<void> {
+		const {channel}: Message<true> = message;
 		if (!channel.isThread() && channel.name !== "💡│game-suggestions") {
 			return;
 		}
@@ -37,11 +30,11 @@ const rule7Trigger: Trigger = {
 				return;
 			}
 		}
-		const {system}: Message = message;
+		const {system}: Message<true> = message;
 		if (system) {
 			return;
 		}
-		const {member}: Message = message;
+		const {member}: Message<true> = message;
 		if (member == null) {
 			return;
 		}
@@ -53,6 +46,7 @@ const rule7Trigger: Trigger = {
 		if (message.content.match(pattern) == null) {
 			return;
 		}
+		const {guild}: Message<true> = message;
 		const emoji: GuildEmoji | undefined = guild.emojis.cache.find((emoji: GuildEmoji): boolean => {
 			return emoji.name === "RULE7";
 		});
@@ -78,11 +72,8 @@ const rule7Trigger: Trigger = {
 			await message.react(emoji);
 		}
 	},
-	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
-		const {guild}: CommandInteraction = interaction;
-		if (guild == null) {
-			return null;
-		}
+	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+		const {guild}: CommandInteraction<"cached"> = interaction;
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 			return channel.name === "💡│game-suggestions";
 		});

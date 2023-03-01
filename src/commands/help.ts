@@ -65,11 +65,11 @@ const helpCommand: Command = {
 			descriptionLocalizations: commandDescription,
 		};
 	},
-	async execute(interaction: Interaction): Promise<void> {
+	async execute(interaction: Interaction<"cached">): Promise<void> {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {locale, user}: CommandInteraction = interaction;
+		const {locale, user}: CommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const descriptions: Localized<(groups: {}) => string>[] = [
 			Object.keys(commands).map<Command>((commandName: string): Command => {
@@ -158,7 +158,7 @@ const helpCommand: Command = {
 			});
 		}
 	},
-	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
+	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
 				commandName: (): string => {

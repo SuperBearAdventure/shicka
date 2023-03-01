@@ -167,11 +167,8 @@ const recordFeed: Feed = {
 		}
 		return records;
 	},
-	describe(interaction: CommandInteraction): Localized<(groups: {}) => string> | null {
-		const {guild}: CommandInteraction = interaction;
-		if (guild == null) {
-			return null;
-		}
+	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+		const {guild}: CommandInteraction<"cached"> = interaction;
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 			return channel.name === "🏅│records";
 		});
