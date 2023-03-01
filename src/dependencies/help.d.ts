@@ -2,7 +2,7 @@ type HelpGroups = {
 	commandName: () => string,
 };
 type ReplyGroups = {
-	user: () => string,
+	member: () => string,
 	featureList: () => string,
 };
 type HelpDependency = {

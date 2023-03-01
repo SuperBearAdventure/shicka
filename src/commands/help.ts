@@ -1,7 +1,14 @@
 import type {
+	ApplicationCommand,
 	ApplicationCommandData,
+	ApplicationCommandPermissions,
+	ClientApplication,
+	Collection,
 	CommandInteraction,
+	GuildBasedChannel,
+	GuildMember,
 	Interaction,
+	Role,
 } from "discord.js";
 import type Command from "../commands.js";
 import type {Help as HelpCompilation} from "../compilations.js";
@@ -10,6 +17,9 @@ import type {Help as HelpDependency} from "../dependencies.js";
 import type Feed from "../feeds.js";
 import type Trigger from "../triggers.js";
 import type {Locale, Localized} from "../utils/string.js";
+import {
+	Permissions,
+} from "discord.js";
 import * as commands from "../commands.js";
 import {help as helpCompilation} from "../compilations.js";
 import {help as helpDefinition} from "../definitions.js";
@@ -57,6 +67,80 @@ function naiveStream(content: string): string[] {
 	}
 	return chunks;
 }
+function hasAdministratorPermission(channel: GuildBasedChannel, member: GuildMember): boolean {
+	if (channel.guild.ownerId === member.id) {
+		return true;
+	}
+	return member.permissions.has(Permissions.ALL);
+}
+function hasChannelPermission(permissions: Collection<string, ApplicationCommandPermissions[]>, applicationOrCommand: ClientApplication | ApplicationCommand, channel: GuildBasedChannel): boolean | null {
+	return null;
+}
+function hasMemberPermission(permissions: Collection<string, ApplicationCommandPermissions[]>, applicationOrCommand: ClientApplication | ApplicationCommand, member: GuildMember): boolean | null {
+	const allUsersId: string = member.guild.id;
+	const applicationOrCommandPermissions: ApplicationCommandPermissions[] | undefined = permissions.get(applicationOrCommand.id);
+	if (applicationOrCommandPermissions == null) {
+		return null;
+	}
+	const userPermission: ApplicationCommandPermissions | undefined = applicationOrCommandPermissions.find((permission: ApplicationCommandPermissions): boolean => {
+		return permission.type === "USER" && permission.id === member.id;
+	});
+	if (userPermission != null) {
+		return userPermission.permission;
+	}
+	const roleCommandPermissions: ApplicationCommandPermissions[] = applicationOrCommandPermissions.filter((permission: ApplicationCommandPermissions): boolean => {
+		return permission.type === "ROLE" && member.roles.cache.some((role: Role): boolean => {
+			return permission.id === role.id;
+		});
+	});
+	if (roleCommandPermissions.length !== 0) {
+		return roleCommandPermissions.some((permission: ApplicationCommandPermissions): boolean => {
+			return permission.permission;
+		});
+	}
+	const allUsersPermission: ApplicationCommandPermissions | undefined = applicationOrCommandPermissions.find((permission: ApplicationCommandPermissions): boolean => {
+		return permission.type === "USER" && permission.id === allUsersId;
+	});
+	if (allUsersPermission != null) {
+		return allUsersPermission.permission;
+	}
+	return null;
+}
+function hasDefaultPermission(command: ApplicationCommand, channel: GuildBasedChannel, member: GuildMember): boolean {
+	if (command.defaultMemberPermissions == null) {
+		return true;
+	}
+	if (command.defaultMemberPermissions.toArray().length === 0) {
+		return false;
+	}
+	return channel.permissionsFor(member).has(command.defaultMemberPermissions);
+}
+function hasPermission(permissions: Collection<string, ApplicationCommandPermissions[]>, application: ClientApplication, command: ApplicationCommand, channel: GuildBasedChannel, member: GuildMember): boolean {
+	if (hasAdministratorPermission(channel, member)) {
+		return true;
+	}
+	const commandChannelPermission: boolean | null = hasChannelPermission(permissions, command, channel);
+	if (commandChannelPermission != null) {
+		if (!commandChannelPermission) {
+			return false;
+		}
+	} else {
+		const applicationChannelPermission: boolean | null = hasChannelPermission(permissions, application, channel);
+		if (applicationChannelPermission != null && !commandChannelPermission) {
+			return false;
+		}
+	}
+	const commandMemberPermission: boolean | null = hasMemberPermission(permissions, command, member);
+	if (commandMemberPermission != null) {
+		return commandMemberPermission;
+	} else {
+		const applicationMemberPermission: boolean | null = hasMemberPermission(permissions, application, member);
+		if (applicationMemberPermission != null && !commandMemberPermission) {
+			return false;
+		}
+	}
+	return hasDefaultPermission(command, channel, member);
+}
 const helpCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -69,12 +153,44 @@ const helpCommand: Command = {
 		if (!interaction.isCommand()) {
 			return;
 		}
-		const {locale, user}: CommandInteraction<"cached"> = interaction;
+		const {guild, locale, member}: CommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
+		const channel: GuildBasedChannel | null = ((): GuildBasedChannel | null => {
+			const {channel}: CommandInteraction<"cached"> = interaction;
+			if (channel == null) {
+				return null;
+			}
+			if (channel.isThread()) {
+				return channel.parent;
+			}
+			return channel;
+		})();
+		if (channel == null) {
+			return;
+		}
+		const permissions: Collection<string, ApplicationCommandPermissions[]> | undefined = await (async (): Promise<Collection<string, ApplicationCommandPermissions[]> | undefined> => {
+			try {
+				return await guild.commands.permissions.fetch({});
+			} catch {}
+		})();
+		if (permissions == null) {
+			return;
+		}
 		const descriptions: Localized<(groups: {}) => string>[] = [
-			Object.keys(commands).map<Command>((commandName: string): Command => {
+			Object.keys(commands).map<Command | null>((commandName: string): Command | null => {
 				const command: Command = commands[commandName as keyof typeof commands] as Command;
+				const applicationCommand: ApplicationCommand | undefined = guild.commands.cache.find((applicationCommand: ApplicationCommand): boolean => {
+					return applicationCommand.name === commandName;
+				});
+				if (applicationCommand == null || applicationCommand.client.application == null) {
+					return null;
+				}
+				if (!hasPermission(permissions, applicationCommand.client.application, applicationCommand, channel, member)) {
+					return null;
+				}
 				return command;
+			}).filter<Command>((command: Command | null): command is Command => {
+				return command != null;
 			}),
 			Object.keys(feeds).map<Feed>((feedName: string): Feed => {
 				const feed: Feed = feeds[feedName as keyof typeof feeds] as Feed;
@@ -98,8 +214,8 @@ const helpCommand: Command = {
 			};
 		});
 		const persistentContent: string = replyLocalizations["en-US"]({
-			user: (): string => {
-				return `${user}`;
+			member: (): string => {
+				return `${member}`;
 			},
 			featureList: (): string => {
 				return list(features["en-US"]({}));
@@ -129,8 +245,8 @@ const helpCommand: Command = {
 			return;
 		}
 		const ephemeralContent: string = replyLocalizations[resolvedLocale]({
-			user: (): string => {
-				return `${user}`;
+			member: (): string => {
+				return `${member}`;
 			},
 			featureList: (): string => {
 				return list(features[resolvedLocale]({}));
