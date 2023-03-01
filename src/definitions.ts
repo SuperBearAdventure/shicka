@@ -62,7 +62,6 @@ type Chat = {
 	help: Localized<string>,
 	reply: Localized<string>,
 	bareReply: Localized<string>,
-	noPrivacyReply: Localized<string>,
 	noChannelReply: Localized<string>,
 	noMessageReply: Localized<string>,
 	noPositionReply: Localized<string>,
@@ -85,7 +84,6 @@ type Emoji = {
 	stylesOptionName: string,
 	stylesOptionDescription: Localized<string>,
 	help: Localized<string>,
-	noPrivacyReply: Localized<string>,
 };
 type Help = {
 	commandName: string,

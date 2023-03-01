@@ -12,7 +12,6 @@ type HelpGroups = {
 };
 type ReplyGroups = {};
 type BareReplyGroups = {};
-type NoPrivacyReplyGroups = {};
 type NoChannelReplyGroups = {};
 type NoMessageReplyGroups = {};
 type NoPositionReplyGroups = {
@@ -26,7 +25,6 @@ type ChatDependency = {
 	help: HelpGroups,
 	reply: ReplyGroups,
 	bareReply: BareReplyGroups,
-	noPrivacyReply: NoPrivacyReplyGroups,
 	noChannelReply: NoChannelReplyGroups,
 	noMessageReply: NoMessageReplyGroups,
 	noPositionReply: NoPositionReplyGroups,

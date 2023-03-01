@@ -21,10 +21,5 @@
 		"en-US": "Type `/$<commandName> $<baseOptionDescription> $<stylesOptionDescription>` to create a new `$<baseOptionDescription>`-based emoji customized with `$<stylesOptionDescription>`",
 		"fr": "Tape `/$<commandName> $<baseOptionDescription> $<stylesOptionDescription>` pour créer un nouvel émoji basé sur `$<baseOptionDescription>` personnalisé avec `$<stylesOptionDescription>`",
 		"pt-BR": "Digite `/$<commandName> $<baseOptionDescription> $<stylesOptionDescription>` para criar um novo emoji baseado em `$<baseOptionDescription>` e customizado com `$<stylesOptionDescription>`"
-	},
-	"noPrivacyReply": {
-		"en-US": "I can not reply to you in this channel.\nPlease ask me in a private channel instead.",
-		"fr": "Je ne peux pas te répondre dans ce salon.\nMerci de me demander dans un salon privé à la place.",
-		"pt-BR": "Não posso te responder nesse canal.\nPor favor, me pergunte em um canal privado em vez disso."
 	}
 }

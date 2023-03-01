@@ -39,17 +39,17 @@ $ npm start
 
 - `/bear <bear>` gives the gold time, the location, and the outfits of the given bear
 
-- `/chat post <channel> <content>` sends the given content in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
+- `/chat post <channel> <content>` sends the given content in the given channel (only available to administrator members by default)
 
-- `/chat patch <channel> <message> <content>` edits the given message with the given content in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
+- `/chat patch <channel> <message> <content>` edits the given message with the given content in the given channel (only available to administrator members by default)
 
-- `/chat attach <channel> <message> <position> <attachment>` adds at the given position the given attachment to the given message in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
+- `/chat attach <channel> <message> <position> <attachment>` adds at the given position the given attachment to the given message in the given channel (only available to administrator members by default)
 
-- `/chat detach <channel> <message> <position>` removes at the given position the attachment from the given message in the given channel (only available in the `🔧│console`, `#🔎│logs`, `#🔰│helpers-room`, and `#🛡│moderators-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, and `@Moderator` roles)
+- `/chat detach <channel> <message> <position>` removes at the given position the attachment from the given message in the given channel (only available to administrator members by default)
 
 - `/count` gives the number of members of the guild
 
-- `/emoji <base> <style>{6}` draws the given base emoji with the given styles (only available in the `🔧・console`, `#🔎・logs`, `#🔰│helpers-room`, `#🛡・moderators-room`, and `#🍪・cookie-room` channels to the `@Administrator`, `@Game Developer`, `@Helper`, `@Moderator`, and `@Cookie` roles)
+- `/emoji <base> <style>{6}` draws the given base emoji with the given styles (only available to administrator members by default)
 
 - `/help` gives the feature list of this bot
 

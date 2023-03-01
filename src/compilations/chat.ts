@@ -5,7 +5,6 @@ import {compileAll} from "../utils/string.js";
 type HelpLocalizations = Localized<(groups: Chat["help"]) => string>;
 type ReplyLocalizations = Localized<(groups: Chat["reply"]) => string>;
 type BareReplyLocalizations = Localized<(groups: Chat["bareReply"]) => string>;
-type NoPrivacyReplyLocalizations = Localized<(groups: Chat["noPrivacyReply"]) => string>;
 type NoChannelReplyLocalizations = Localized<(groups: Chat["noChannelReply"]) => string>;
 type NoMessageReplyLocalizations = Localized<(groups: Chat["noMessageReply"]) => string>;
 type NoPositionReplyLocalizations = Localized<(groups: Chat["noPositionReply"]) => string>;
@@ -17,7 +16,6 @@ type ChatCompilation = {
 	help: HelpLocalizations,
 	reply: ReplyLocalizations,
 	bareReply: BareReplyLocalizations,
-	noPrivacyReply: NoPrivacyReplyLocalizations,
 	noChannelReply: NoChannelReplyLocalizations,
 	noMessageReply: NoMessageReplyLocalizations,
 	noPositionReply: NoPositionReplyLocalizations,
@@ -29,7 +27,6 @@ type ChatCompilation = {
 const helpLocalizations: HelpLocalizations = compileAll<Chat["help"]>(chat["help"]);
 const replyLocalizations: ReplyLocalizations = compileAll<Chat["reply"]>(chat["reply"]);
 const bareReplyLocalizations: BareReplyLocalizations = compileAll<Chat["bareReply"]>(chat["bareReply"]);
-const noPrivacyReplyLocalizations: NoPrivacyReplyLocalizations = compileAll<Chat["noPrivacyReply"]>(chat["noPrivacyReply"]);
 const noChannelReplyLocalizations: NoChannelReplyLocalizations = compileAll<Chat["noChannelReply"]>(chat["noChannelReply"]);
 const noMessageReplyLocalizations: NoMessageReplyLocalizations = compileAll<Chat["noMessageReply"]>(chat["noMessageReply"]);
 const noPositionReplyLocalizations: NoPositionReplyLocalizations = compileAll<Chat["noPositionReply"]>(chat["noPositionReply"]);
@@ -41,7 +38,6 @@ const chatCompilation: ChatCompilation = {
 	help: helpLocalizations,
 	reply: replyLocalizations,
 	bareReply: bareReplyLocalizations,
-	noPrivacyReply: noPrivacyReplyLocalizations,
 	noChannelReply: noChannelReplyLocalizations,
 	noMessageReply: noMessageReplyLocalizations,
 	noPositionReply: noPositionReplyLocalizations,
