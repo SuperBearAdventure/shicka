@@ -12,7 +12,7 @@ function editDistance(a: string, b: string, substitution: boolean): number {
 	if (lj === 0) {
 		return li;
 	}
-	const costs: number[] = Array.from({length: lj}, (value: string, key: number): number => (key));
+	const costs: number[] = Array.from<undefined, number>({length: lj}, (value: undefined, key: number): number => (key));
 	for (let i: number = 0; i < li; ++i) {
 		const item: string = a[i];
 		let extracted: number = i - 1;

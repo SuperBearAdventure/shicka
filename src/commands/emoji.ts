@@ -40,9 +40,9 @@ const {
 const {createCanvas, loadImage}: any = canvas;
 const here: string = import.meta.url;
 const root: string = here.slice(0, here.lastIndexOf("/"));
-const bases: Set<string> = new Set(["baaren", "shicka", "baaren-outlined", "shicka-outlined", "baaren-discord", "shicka-discord"]);
-const paints: Set<"fill" | "stroke"> = new Set(["fill", "stroke"]);
-const layers: Set<"background" | "foreground" | "marker"> = new Set(["background", "foreground", "marker"]);
+const bases: Set<"baaren" | "shicka" | "baaren-outlined" | "shicka-outlined" | "baaren-discord" | "shicka-discord"> = new Set<"baaren" | "shicka" | "baaren-outlined" | "shicka-outlined" | "baaren-discord" | "shicka-discord">(["baaren", "shicka", "baaren-outlined", "shicka-outlined", "baaren-discord", "shicka-discord"]);
+const paints: Set<"fill" | "stroke"> = new Set<"fill" | "stroke">(["fill", "stroke"]);
+const layers: Set<"background" | "foreground" | "marker"> = new Set<"background" | "foreground" | "marker">(["background", "foreground", "marker"]);
 const styles: {[k in string]: string} = Object.assign(Object.create(null), {
 	"dark-gold": "url(\"#dark-gold\")",
 	"light-gold": "url(\"#light-gold\")",
@@ -70,15 +70,15 @@ const emojiCommand: Command = {
 					description: baseOptionDescription["en-US"],
 					descriptionLocalizations: baseOptionDescription,
 					required: true,
-					choices: Array.from(bases, (base: string): ApplicationCommandOptionChoiceData => {
+					choices: Array.from<string, ApplicationCommandOptionChoiceData>(bases, (base: string): ApplicationCommandOptionChoiceData => {
 						return {
 							name: base,
 							value: base,
 						};
 					}),
 				},
-				...Array.from(paints, (paint: string): ApplicationCommandOptionData[] => {
-					return Array.from(layers, (layer: string): ApplicationCommandOptionData => {
+				...Array.from<string, ApplicationCommandOptionData[]>(paints, (paint: string): ApplicationCommandOptionData[] => {
+					return Array.from<string, ApplicationCommandOptionData>(layers, (layer: string): ApplicationCommandOptionData => {
 						const optionName: string = `${layer}-${paint}`;
 						const optionDescription: Localized<string> = stylesOptionDescription;
 						return {
@@ -86,7 +86,7 @@ const emojiCommand: Command = {
 							name: optionName,
 							description: optionDescription["en-US"],
 							descriptionLocalizations: optionDescription,
-							choices: Object.keys(styles).map((style: string): ApplicationCommandOptionChoiceData => {
+							choices: Object.keys(styles).map<ApplicationCommandOptionChoiceData>((style: string): ApplicationCommandOptionChoiceData => {
 								return {
 									name: style,
 									value: style,
@@ -94,7 +94,7 @@ const emojiCommand: Command = {
 							}),
 						};
 					});
-				}).flat(),
+				}).flat<ApplicationCommandOptionData[][]>(),
 			],
 			defaultPermission: false,
 		};
@@ -137,7 +137,7 @@ const emojiCommand: Command = {
 		if (svg == null) {
 			throw new Error();
 		}
-		const shapes: {[k in string]: SVGElement[]} = Object.assign(Object.create(null), Object.fromEntries(Array.from(layers, (key: string): [string, SVGElement[]] => {
+		const shapes: {[k in string]: SVGElement[]} = Object.assign(Object.create(null), Object.fromEntries(Array.from<string, [string, SVGElement[]]>(layers, (key: string): [string, SVGElement[]] => {
 			const value: SVGElement[] = [...svg.querySelectorAll<SVGElement>(`.${key}`)];
 			return [key, value];
 		})));

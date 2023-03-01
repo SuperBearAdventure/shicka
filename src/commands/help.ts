@@ -92,7 +92,7 @@ const helpCommand: Command = {
 		});
 		const features: Localized<(groups: {}) => string[]> = localize<(groups: {}) => string[]>((locale: Locale): (groups: {}) => string[] => {
 			return (groups: {}): string[] => {
-				return descriptions.map((description: Localized<(groups: {}) => string>): string[] => {
+				return descriptions.map<string[]>((description: Localized<(groups: {}) => string>): string[] => {
 					return description[locale](groups).split("\n");
 				}).flat<string[][]>();
 			};
