@@ -6,7 +6,6 @@ import type {
 	Interaction,
 	Message,
 	ModalSubmitInteraction,
-	ThreadChannel,
 } from "discord.js";
 import type Command from "../commands.js";
 import type {Chat as ChatCompilation} from "../compilations.js";
@@ -50,7 +49,6 @@ const {
 	help: helpLocalizations,
 	reply: replyLocalizations,
 	bareReply: bareReplyLocalizations,
-	noPrivacyReply: noPrivacyReplyLocalizations,
 	noChannelReply: noChannelReplyLocalizations,
 	noMessageReply: noMessageReplyLocalizations,
 	noPositionReply: noPositionReplyLocalizations,
@@ -60,7 +58,6 @@ const {
 	noPostPermissionReply: noPostPermissionReplyLocalizations,
 }: ChatCompilation = chatCompilation;
 const messagePattern: RegExp = /^(?:0|[1-9]\d*)$/;
-const channels: Set<string> = new Set<string>(["🔧│console", "🔎│logs", "🔰│helpers-room", "🛡│moderators-room"]);
 const chatCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -217,34 +214,10 @@ const chatCommand: Command = {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {channel, locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
+		const {locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
-		if (channel == null) {
-			await interaction.reply({
-				content: noPrivacyReplyLocalizations[resolvedLocale]({}),
-				ephemeral: true,
-			});
-			return;
-		}
-		if (!channel.isThread() && !channels.has(channel.name)) {
-			await interaction.reply({
-				content: noPrivacyReplyLocalizations[resolvedLocale]({}),
-				ephemeral: true,
-			});
-			return;
-		}
-		if (channel.isThread()) {
-			const {parent}: ThreadChannel = channel;
-			if (parent == null || !channels.has(parent.name)) {
-				await interaction.reply({
-					content: noPrivacyReplyLocalizations[resolvedLocale]({}),
-					ephemeral: true,
-				});
-				return;
-			}
-		}
 		const subCommandName: string = options.getSubcommand(true);
-		const targetChannel: GuildBasedChannel = options.getChannel(channelOptionName, true, [
+		const channel: GuildBasedChannel = options.getChannel(channelOptionName, true, [
 			ChannelType.GuildText,
 			ChannelType.GuildVoice,
 			ChannelType.GuildAnnouncement,
@@ -253,7 +226,7 @@ const chatCommand: Command = {
 			ChannelType.PrivateThread,
 			ChannelType.GuildStageVoice,
 		]);
-		if (!targetChannel.isTextBased()) {
+		if (!channel.isTextBased()) {
 			await interaction.reply({
 				content: noChannelReplyLocalizations[resolvedLocale]({}),
 				ephemeral: true,
@@ -270,19 +243,19 @@ const chatCommand: Command = {
 				});
 				return;
 			}
-			const targetMessage: Message<true> | undefined = await (async (): Promise<Message<true> | undefined> => {
+			const message: Message<true> | undefined = await (async (): Promise<Message<true> | undefined> => {
 				try {
-					return await targetChannel.messages.fetch(identifier);
+					return await channel.messages.fetch(identifier);
 				} catch {}
 			})();
-			if (targetMessage == null) {
+			if (message == null) {
 				await interaction.reply({
 					content: noMessageReplyLocalizations[resolvedLocale]({}),
 					ephemeral: true,
 				});
 				return;
 			}
-			if (targetMessage.interaction != null) {
+			if (message.interaction != null) {
 				await interaction.reply({
 					content: noInteractionReplyLocalizations[resolvedLocale]({}),
 					ephemeral: true,
@@ -301,7 +274,7 @@ const chatCommand: Command = {
 								style: TextInputStyle.Paragraph,
 								customId: contentOptionName,
 								label: contentOptionName,
-								value: targetMessage.content,
+								value: message.content,
 								minLength: 0,
 								maxLength: 2000,
 							},
@@ -316,7 +289,7 @@ const chatCommand: Command = {
 				time: 900000,
 			});
 			const content: string | null = modalSubmitInteraction.fields.getTextInputValue(contentOptionName) || null;
-			if (content == null && targetMessage.attachments.size === 0) {
+			if (content == null && message.attachments.size === 0) {
 				await modalSubmitInteraction.reply({
 					content: noContentOrAttachmentReplyLocalizations[resolvedLocale]({}),
 					ephemeral: true,
@@ -324,7 +297,7 @@ const chatCommand: Command = {
 				return;
 			}
 			try {
-				await targetMessage.edit({content});
+				await message.edit({content});
 			} catch {
 				await modalSubmitInteraction.reply({
 					content: noPatchPermissionReplyLocalizations[resolvedLocale]({}),
@@ -374,7 +347,7 @@ const chatCommand: Command = {
 			});
 			const content: string = modalSubmitInteraction.fields.getTextInputValue(contentOptionName);
 			try {
-				await targetChannel.send({content});
+				await channel.send({content});
 			} catch {
 				await modalSubmitInteraction.reply({
 					content: noPostPermissionReplyLocalizations[resolvedLocale]({}),
@@ -403,19 +376,19 @@ const chatCommand: Command = {
 			});
 			return;
 		}
-		const targetMessage: Message<true> | undefined = await (async (): Promise<Message<true> | undefined> => {
+		const message: Message<true> | undefined = await (async (): Promise<Message<true> | undefined> => {
 			try {
-				return await targetChannel.messages.fetch(identifier);
+				return await channel.messages.fetch(identifier);
 			} catch {}
 		})();
-		if (targetMessage == null) {
+		if (message == null) {
 			await interaction.reply({
 				content: noMessageReplyLocalizations[resolvedLocale]({}),
 				ephemeral: true,
 			});
 			return;
 		}
-		if (targetMessage.interaction != null) {
+		if (message.interaction != null) {
 			await interaction.reply({
 				content: noInteractionReplyLocalizations[resolvedLocale]({}),
 				ephemeral: true,
@@ -423,11 +396,11 @@ const chatCommand: Command = {
 			return;
 		}
 		if (subCommandName === detachSubCommandName) {
-			const targetContent: string = targetMessage.content;
-			const targetAttachments: Attachment[] = [...targetMessage.attachments.values()];
+			const content: string = message.content;
+			const attachments: Attachment[] = [...message.attachments.values()];
 			const position: number = options.getInteger(positionOptionName, true);
-			if (position < 0 || position >= targetAttachments.length) {
-				const max: number = targetAttachments.length - 1;
+			if (position < 0 || position >= attachments.length) {
+				const max: number = attachments.length - 1;
 				await interaction.reply({
 					content: noPositionReplyLocalizations[resolvedLocale]({
 						max: (): string => {
@@ -438,17 +411,16 @@ const chatCommand: Command = {
 				});
 				return;
 			}
-			if (targetContent === "" && targetAttachments.length === 1) {
+			if (content === "" && attachments.length === 1) {
 				await interaction.reply({
 					content: noContentOrAttachmentReplyLocalizations[resolvedLocale]({}),
 					ephemeral: true,
 				});
 				return;
 			}
-			const content: string = targetContent;
-			const files: Attachment[] = [...targetAttachments.slice(0, position), ...targetAttachments.slice(position + 1)];
+			const files: Attachment[] = [...attachments.slice(0, position), ...attachments.slice(position + 1)];
 			try {
-				await targetMessage.edit({content, files});
+				await message.edit({content, files});
 			} catch {
 				await interaction.reply({
 					content: noPatchPermissionReplyLocalizations[resolvedLocale]({}),
@@ -469,11 +441,11 @@ const chatCommand: Command = {
 			return;
 		}
 		if (subCommandName === attachSubCommandName) {
-			const targetContent: string = targetMessage.content;
-			const targetAttachments: Attachment[] = [...targetMessage.attachments.values()];
+			const content: string = message.content;
+			const attachments: Attachment[] = [...message.attachments.values()];
 			const position: number = options.getInteger(positionOptionName, true);
-			if (position < 0 || position >= targetAttachments.length + 1) {
-				const max: number = targetAttachments.length;
+			if (position < 0 || position >= attachments.length + 1) {
+				const max: number = attachments.length;
 				await interaction.reply({
 					content: noPositionReplyLocalizations[resolvedLocale]({
 						max: (): string => {
@@ -485,10 +457,9 @@ const chatCommand: Command = {
 				return;
 			}
 			const attachment: Attachment = options.getAttachment(attachmentOptionName, true);
-			const content: string = targetContent;
-			const files: Attachment[] = [...targetAttachments.slice(0, position), attachment, ...targetAttachments.slice(position)];
+			const files: Attachment[] = [...attachments.slice(0, position), attachment, ...attachments.slice(position)];
 			try {
-				await targetMessage.edit({content, files});
+				await message.edit({content, files});
 			} catch {
 				await interaction.reply({
 					content: noPatchPermissionReplyLocalizations[resolvedLocale]({}),
@@ -511,10 +482,6 @@ const chatCommand: Command = {
 		return;
 	},
 	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
-		const {channel}: ChatInputCommandInteraction<"cached"> = interaction;
-		if (channel == null || !channels.has(channel.name)) {
-			return null;
-		}
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				commandName: (): string => {

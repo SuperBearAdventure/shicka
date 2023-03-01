@@ -4,7 +4,6 @@ import type {
 	ApplicationCommandOptionData,
 	ChatInputCommandInteraction,
 	Interaction,
-	ThreadChannel,
 } from "discord.js";
 import type {
 	Canvas,
@@ -26,7 +25,7 @@ import {JSDOM} from "jsdom";
 import serialize from "w3c-xmlserializer";
 import {emoji as emojiCompilation} from "../compilations.js";
 import {emoji as emojiDefinition} from "../definitions.js";
-import {composeAll, localize, resolve} from "../utils/string.js";
+import {composeAll, localize} from "../utils/string.js";
 type HelpGroups = EmojiDependency["help"];
 const {
 	commandName,
@@ -38,7 +37,6 @@ const {
 }: EmojiDefinition = emojiDefinition;
 const {
 	help: helpLocalizations,
-	noPrivacyReply: noPrivacyReplyLocalizations,
 }: EmojiCompilation = emojiCompilation;
 const {createCanvas, loadImage}: any = canvas;
 const here: string = import.meta.url;
@@ -59,7 +57,6 @@ const styles: {[k in string]: string} = Object.assign(Object.create(null), {
 	"white": "#fff",
 	"none": "none",
 });
-const channels: Set<string> = new Set<string>(["🔧│console", "🔎│logs", "🔰│helpers-room", "🛡│moderators-room", "🍪│cookie-room"]);
 const emojiCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -107,32 +104,7 @@ const emojiCommand: Command = {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {channel, locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
-		const resolvedLocale: Locale = resolve(locale);
-		if (channel == null) {
-			await interaction.reply({
-				content: noPrivacyReplyLocalizations[resolvedLocale]({}),
-				ephemeral: true,
-			});
-			return;
-		}
-		if (!channel.isThread() && !channels.has(channel.name)) {
-			await interaction.reply({
-				content: noPrivacyReplyLocalizations[resolvedLocale]({}),
-				ephemeral: true,
-			});
-			return;
-		}
-		if (channel.isThread()) {
-			const {parent}: ThreadChannel = channel;
-			if (parent == null || !channels.has(parent.name)) {
-				await interaction.reply({
-					content: noPrivacyReplyLocalizations[resolvedLocale]({}),
-					ephemeral: true,
-				});
-				return;
-			}
-		}
+		const {options}: ChatInputCommandInteraction<"cached"> = interaction;
 		const base: string = options.getString(baseOptionName, true);
 		const wrapper: Element = new JSDOM(`<div xmlns="http://www.w3.org/1999/xhtml">${await readFile(fileURLToPath(`${root}/../emojis/${base}.svg`))}</div>`, {
 			contentType: "application/xhtml+xml",
@@ -180,10 +152,6 @@ const emojiCommand: Command = {
 		});
 	},
 	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
-		const {channel}: ChatInputCommandInteraction<"cached"> = interaction;
-		if (channel == null || !channels.has(channel.name)) {
-			return null;
-		}
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				commandName: (): string => {

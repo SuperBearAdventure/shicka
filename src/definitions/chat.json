@@ -74,11 +74,6 @@
 		"fr": "J'ai envoyé le message.",
 		"pt-BR": "Enviei a mensagem."
 	},
-	"noPrivacyReply": {
-		"en-US": "I can not reply to you in this channel.\nPlease ask me in a private channel instead.",
-		"fr": "Je ne peux pas te répondre dans ce salon.\nMerci de me demander dans un salon privé à la place.",
-		"pt-BR": "Não posso te responder nesse canal.\nPor favor, me pergunte em um canal privado em vez disso."
-	},
 	"noChannelReply": {
 		"en-US": "I do not know any channel with this tag.",
 		"fr": "Je ne connais aucun salon avec cette étiquette.",

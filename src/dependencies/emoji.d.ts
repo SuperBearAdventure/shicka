@@ -3,9 +3,7 @@ type HelpGroups = {
 	baseOptionDescription: () => string,
 	stylesOptionDescription: () => string,
 };
-type NoPrivacyReplyGroups = {};
 type EmojiDependency = {
 	help: HelpGroups,
-	noPrivacyReply: NoPrivacyReplyGroups,
 };
 export default EmojiDependency;
