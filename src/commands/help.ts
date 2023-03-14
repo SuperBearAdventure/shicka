@@ -2,9 +2,9 @@ import type {
 	ApplicationCommand,
 	ApplicationCommandData,
 	ApplicationCommandPermissions,
+	ChatInputCommandInteraction,
 	ClientApplication,
 	Collection,
-	CommandInteraction,
 	GuildBasedChannel,
 	GuildMember,
 	Interaction,
@@ -18,7 +18,8 @@ import type Feed from "../feeds.js";
 import type Trigger from "../triggers.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {
-	Permissions,
+	ApplicationCommandPermissionType,
+	PermissionsBitField,
 } from "discord.js";
 import * as commands from "../commands.js";
 import {help as helpCompilation} from "../compilations.js";
@@ -71,7 +72,7 @@ function hasAdministratorPermission(channel: GuildBasedChannel, member: GuildMem
 	if (channel.guild.ownerId === member.id) {
 		return true;
 	}
-	return member.permissions.has(Permissions.ALL);
+	return member.permissions.has(PermissionsBitField.All);
 }
 function hasChannelPermission(permissions: Collection<string, ApplicationCommandPermissions[]>, applicationOrCommand: ClientApplication | ApplicationCommand, channel: GuildBasedChannel): boolean | null {
 	return null;
@@ -83,13 +84,13 @@ function hasMemberPermission(permissions: Collection<string, ApplicationCommandP
 		return null;
 	}
 	const userPermission: ApplicationCommandPermissions | undefined = applicationOrCommandPermissions.find((permission: ApplicationCommandPermissions): boolean => {
-		return permission.type === "USER" && permission.id === member.id;
+		return permission.type === ApplicationCommandPermissionType.User && permission.id === member.id;
 	});
 	if (userPermission != null) {
 		return userPermission.permission;
 	}
 	const roleCommandPermissions: ApplicationCommandPermissions[] = applicationOrCommandPermissions.filter((permission: ApplicationCommandPermissions): boolean => {
-		return permission.type === "ROLE" && member.roles.cache.some((role: Role): boolean => {
+		return permission.type === ApplicationCommandPermissionType.Role && member.roles.cache.some((role: Role): boolean => {
 			return permission.id === role.id;
 		});
 	});
@@ -99,7 +100,7 @@ function hasMemberPermission(permissions: Collection<string, ApplicationCommandP
 		});
 	}
 	const allUsersPermission: ApplicationCommandPermissions | undefined = applicationOrCommandPermissions.find((permission: ApplicationCommandPermissions): boolean => {
-		return permission.type === "USER" && permission.id === allUsersId;
+		return permission.type === ApplicationCommandPermissionType.User && permission.id === allUsersId;
 	});
 	if (allUsersPermission != null) {
 		return allUsersPermission.permission;
@@ -150,13 +151,13 @@ const helpCommand: Command = {
 		};
 	},
 	async execute(interaction: Interaction<"cached">): Promise<void> {
-		if (!interaction.isCommand()) {
+		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {guild, locale, member}: CommandInteraction<"cached"> = interaction;
+		const {guild, locale, member}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const channel: GuildBasedChannel | null = ((): GuildBasedChannel | null => {
-			const {channel}: CommandInteraction<"cached"> = interaction;
+			const {channel}: ChatInputCommandInteraction<"cached"> = interaction;
 			if (channel == null) {
 				return null;
 			}
@@ -182,7 +183,7 @@ const helpCommand: Command = {
 				const applicationCommand: ApplicationCommand | undefined = guild.commands.cache.find((applicationCommand: ApplicationCommand): boolean => {
 					return applicationCommand.name === commandName;
 				});
-				if (applicationCommand == null || applicationCommand.client.application == null) {
+				if (applicationCommand == null) {
 					return null;
 				}
 				if (!hasPermission(permissions, applicationCommand.client.application, applicationCommand, channel, member)) {
@@ -274,7 +275,7 @@ const helpCommand: Command = {
 			});
 		}
 	},
-	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
 				commandName: (): string => {

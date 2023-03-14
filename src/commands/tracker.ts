@@ -1,7 +1,7 @@
 import type {
 	ApplicationCommandData,
 	GuildBasedChannel,
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
@@ -9,7 +9,9 @@ import type {Tracker as TrackerCompilation} from "../compilations.js";
 import type {Tracker as TrackerDefinition} from "../definitions.js";
 import type {Tracker as TrackerDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
-import {Util} from "discord.js";
+import {
+	escapeMarkdown,
+} from "discord.js";
 import {tracker as trackerCompilation} from "../compilations.js";
 import {tracker as trackerDefinition} from "../definitions.js";
 import {composeAll, list, localize, resolve} from "../utils/string.js";
@@ -57,10 +59,10 @@ const trackerCommand: Command = {
 		};
 	},
 	async execute(interaction: Interaction<"cached">): Promise<void> {
-		if (!interaction.isCommand()) {
+		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {guild, locale}: CommandInteraction<"cached"> = interaction;
+		const {guild, locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 			return channel.name === "🐛│bug-report";
@@ -70,7 +72,7 @@ const trackerCommand: Command = {
 			const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((locale: Locale): LinkGroups => {
 				return {
 					title: (): string => {
-						return Util.escapeMarkdown(item.title[locale]);
+						return escapeMarkdown(item.title[locale]);
 					},
 					link: (): string => {
 						return item.link;
@@ -116,7 +118,7 @@ const trackerCommand: Command = {
 			ephemeral: true,
 		});
 	},
-	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
 				commandName: (): string => {

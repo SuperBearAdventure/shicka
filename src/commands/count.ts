@@ -1,6 +1,6 @@
 import type {
 	ApplicationCommandData,
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	Guild,
 	Interaction,
 } from "discord.js";
@@ -9,7 +9,9 @@ import type {Count as CountCompilation} from "../compilations.js";
 import type {Count as CountDefinition} from "../definitions.js";
 import type {Count as CountDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
-import {Util} from "discord.js";
+import {
+	escapeMarkdown,
+} from "discord.js";
 import {count as countCompilation} from "../compilations.js";
 import {count as countDefinition} from "../definitions.js";
 import {composeAll, localize, resolve} from "../utils/string.js";
@@ -31,19 +33,19 @@ const countCommand: Command = {
 		};
 	},
 	async execute(interaction: Interaction<"cached">): Promise<void> {
-		if (!interaction.isCommand()) {
+		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {guild, locale}: CommandInteraction<"cached"> = interaction;
+		const {guild, locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const {memberCount, name}: Guild = guild;
 		await interaction.reply({
 			content: replyLocalizations["en-US"]({
 				memberCount: (): string => {
-					return Util.escapeMarkdown(`${memberCount}`);
+					return escapeMarkdown(`${memberCount}`);
 				},
 				name: (): string => {
-					return Util.escapeMarkdown(name);
+					return escapeMarkdown(name);
 				},
 			}),
 		});
@@ -53,16 +55,16 @@ const countCommand: Command = {
 		await interaction.followUp({
 			content: replyLocalizations[resolvedLocale]({
 				memberCount: (): string => {
-					return Util.escapeMarkdown(`${memberCount}`);
+					return escapeMarkdown(`${memberCount}`);
 				},
 				name: (): string => {
-					return Util.escapeMarkdown(name);
+					return escapeMarkdown(name);
 				},
 			}),
 			ephemeral: true,
 		});
 	},
-	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
 				commandName: (): string => {

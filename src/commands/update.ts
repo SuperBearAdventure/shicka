@@ -1,6 +1,6 @@
 import type {
 	ApplicationCommandData,
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	Interaction,
 } from "discord.js";
 import type {Response} from "node-fetch";
@@ -9,7 +9,9 @@ import type {Update as UpdateCompilation} from "../compilations.js";
 import type {Update as UpdateDefinition} from "../definitions.js";
 import type {Update as UpdateDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
-import {Util} from "discord.js";
+import {
+	escapeMarkdown,
+} from "discord.js";
 import {JSDOM} from "jsdom";
 import fetch from "node-fetch";
 import {update as updateCompilation} from "../compilations.js";
@@ -46,10 +48,10 @@ const updateCommand: Command = {
 		};
 	},
 	async execute(interaction: Interaction<"cached">): Promise<void> {
-		if (!interaction.isCommand()) {
+		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {locale}: CommandInteraction<"cached"> = interaction;
+		const {locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		try {
 			const androidData: Data | null = await (async (): Promise<Data | null> => {
@@ -108,7 +110,7 @@ const updateCommand: Command = {
 				const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((locale: Locale): LinkGroups => {
 					return {
 						title: (): string => {
-							return Util.escapeMarkdown(item.title);
+							return escapeMarkdown(item.title);
 						},
 						link: (): string => {
 							return item.link;
@@ -118,10 +120,10 @@ const updateCommand: Command = {
 								dateStyle: "long",
 								timeZone: "UTC",
 							});
-							return Util.escapeMarkdown(dateFormat.format(item.date));
+							return escapeMarkdown(dateFormat.format(item.date));
 						},
 						version: (): string => {
-							return Util.escapeMarkdown(item.version);
+							return escapeMarkdown(item.version);
 						},
 					};
 				}));
@@ -172,7 +174,7 @@ const updateCommand: Command = {
 			});
 		}
 	},
-	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
 				commandName: (): string => {

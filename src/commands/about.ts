@@ -1,6 +1,6 @@
 import type {
 	ApplicationCommandData,
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
@@ -8,7 +8,9 @@ import type {About as AboutCompilation} from "../compilations.js";
 import type {About as AboutDefinition} from "../definitions.js";
 import type {About as AboutDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
-import {Util} from "discord.js";
+import {
+	escapeMarkdown,
+} from "discord.js";
 import {about as aboutCompilation} from "../compilations.js";
 import {about as aboutDefinition} from "../definitions.js";
 import {composeAll, localize, resolve} from "../utils/string.js";
@@ -33,7 +35,7 @@ const aboutCommand: Command = {
 		};
 	},
 	async execute(interaction: Interaction<"cached">): Promise<void> {
-		if (!interaction.isCommand()) {
+		if (!interaction.isChatInputCommand()) {
 			return;
 		}
 		const {locale}: Interaction<"cached"> = interaction;
@@ -41,10 +43,10 @@ const aboutCommand: Command = {
 		await interaction.reply({
 			content: replyLocalizations["en-US"]({
 				bot: (): string => {
-					return Util.escapeMarkdown(bot);
+					return escapeMarkdown(bot);
 				},
 				author: (): string => {
-					return Util.escapeMarkdown(author);
+					return escapeMarkdown(author);
 				},
 				link: (): string => {
 					return link;
@@ -57,10 +59,10 @@ const aboutCommand: Command = {
 		await interaction.followUp({
 			content: replyLocalizations[resolvedLocale]({
 				bot: (): string => {
-					return Util.escapeMarkdown(bot);
+					return escapeMarkdown(bot);
 				},
 				author: (): string => {
-					return Util.escapeMarkdown(author);
+					return escapeMarkdown(author);
 				},
 				link: (): string => {
 					return link;
@@ -69,7 +71,7 @@ const aboutCommand: Command = {
 			ephemeral: true,
 		});
 	},
-	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
 				commandName: (): string => {

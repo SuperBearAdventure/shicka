@@ -1,10 +1,9 @@
 import type {
 	ApplicationCommandData,
 	ApplicationCommandOptionChoiceData,
-	ApplicationCommandOptionData,
 	AutocompleteFocusedOption,
 	AutocompleteInteraction,
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	Interaction,
 } from "discord.js";
 import type {Outfit, Rarity} from "../bindings.js";
@@ -13,7 +12,10 @@ import type {Outfit as OutfitCompilation} from "../compilations.js";
 import type {Outfit as OutfitDefinition} from "../definitions.js";
 import type {Outfit as OutfitDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
-import {Util} from "discord.js";
+import {
+	ApplicationCommandOptionType,
+	escapeMarkdown,
+} from "discord.js";
 import {outfits, rarities} from "../bindings.js";
 import {outfit as outfitCompilation} from "../compilations.js";
 import {outfit as outfitDefinition} from "../definitions.js";
@@ -109,15 +111,15 @@ const outfitCommand: Command = {
 			description: commandDescription["en-US"],
 			descriptionLocalizations: commandDescription,
 			options: [
-				((): ApplicationCommandOptionData & {minValue: number, maxValue: number} => ({
-					type: "INTEGER",
+				{
+					type: ApplicationCommandOptionType.Integer,
 					name: outfitOptionName,
 					description: outfitOptionDescription["en-US"],
 					descriptionLocalizations: outfitOptionDescription,
 					minValue: 0,
 					maxValue: outfits.length - 1,
 					autocomplete: true,
-				}))(),
+				},
 			],
 		};
 	},
@@ -135,7 +137,7 @@ const outfitCommand: Command = {
 				const outfitName: string = name[resolvedLocale];
 				return outfitName.toLowerCase();
 			});
-			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData>((outfit: Outfit): ApplicationCommandOptionChoiceData => {
+			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData<number>>((outfit: Outfit): ApplicationCommandOptionChoiceData<number> => {
 				const {id, name}: Outfit = outfit;
 				const outfitName: string = name[resolvedLocale];
 				return {
@@ -146,10 +148,10 @@ const outfitCommand: Command = {
 			await interaction.respond(suggestions);
 			return;
 		}
-		if (!interaction.isCommand()) {
+		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {locale, options}: CommandInteraction<"cached"> = interaction;
+		const {locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const slicesByRarityBySeed: {[k in string]: Outfit[][][]} = Object.create(null);
 		const slicesPerRarity: number = Math.ceil(Math.max(...rarities.map<number>((rarity: Rarity): number => {
@@ -190,7 +192,7 @@ const outfitCommand: Command = {
 							timeStyle: "short",
 							timeZone: "UTC",
 						});
-						return Util.escapeMarkdown(dateTimeFormat.format(dayDateTime));
+						return escapeMarkdown(dateTimeFormat.format(dayDateTime));
 					},
 					outfitNameConjunction: (): string => {
 						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(locale, {
@@ -198,7 +200,7 @@ const outfitCommand: Command = {
 							type: "conjunction",
 						});
 						return conjunctionFormat.format(scheduleOutfits.map<string>((outfit: Outfit): string => {
-							return `**${Util.escapeMarkdown(outfit.name[locale])}**`;
+							return `**${escapeMarkdown(outfit.name[locale])}**`;
 						}));
 					},
 				};
@@ -234,7 +236,7 @@ const outfitCommand: Command = {
 			await interaction.reply({
 				content: noSlotReplyLocalizations["en-US"]({
 					outfitName: (): string => {
-						return Util.escapeMarkdown(outfit.name["en-US"]);
+						return escapeMarkdown(outfit.name["en-US"]);
 					},
 				}),
 			});
@@ -244,7 +246,7 @@ const outfitCommand: Command = {
 			await interaction.followUp({
 				content: noSlotReplyLocalizations[resolvedLocale]({
 					outfitName: (): string => {
-						return Util.escapeMarkdown(outfit.name[resolvedLocale]);
+						return escapeMarkdown(outfit.name[resolvedLocale]);
 					},
 				}),
 				ephemeral: true,
@@ -275,7 +277,7 @@ const outfitCommand: Command = {
 								timeStyle: "short",
 								timeZone: "UTC",
 							});
-							return Util.escapeMarkdown(dateTimeFormat.format(dayDateTime));
+							return escapeMarkdown(dateTimeFormat.format(dayDateTime));
 						},
 					};
 				}));
@@ -286,7 +288,7 @@ const outfitCommand: Command = {
 		const tokensCost: Localized<(groups: {}) => string> | null = tokens !== 0 ? composeAll<TokensCostGroups, {}>(tokensCostLocalizations, localize<TokensCostGroups>((): TokensCostGroups => {
 			return {
 				tokens: (): string => {
-					return Util.escapeMarkdown(`${tokens}`);
+					return escapeMarkdown(`${tokens}`);
 				},
 			};
 		})) : null;
@@ -294,7 +296,7 @@ const outfitCommand: Command = {
 		const coinsCost: Localized<(groups: {}) => string> | null = coins !== 0 ? composeAll<CoinsCostGroups, {}>(coinsCostLocalizations, localize<CoinsCostGroups>((): CoinsCostGroups => {
 			return {
 				coins: (): string => {
-					return Util.escapeMarkdown(`${coins}`);
+					return escapeMarkdown(`${coins}`);
 				},
 			};
 		})) : null;
@@ -304,7 +306,7 @@ const outfitCommand: Command = {
 		await interaction.reply({
 			content: replyLocalizations["en-US"]({
 				outfitName: (): string => {
-					return Util.escapeMarkdown(outfit.name["en-US"]);
+					return escapeMarkdown(outfit.name["en-US"]);
 				},
 				costConjunction: (): string => {
 					if (costs.length !== 0) {
@@ -316,7 +318,7 @@ const outfitCommand: Command = {
 							return cost["en-US"]({});
 						}));
 					}
-					return Util.escapeMarkdown(noCostLocalizations["en-US"]({}));
+					return escapeMarkdown(noCostLocalizations["en-US"]({}));
 				},
 				scheduleList: (): string => {
 					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
@@ -331,7 +333,7 @@ const outfitCommand: Command = {
 		await interaction.followUp({
 			content: replyLocalizations[resolvedLocale]({
 				outfitName: (): string => {
-					return Util.escapeMarkdown(outfit.name[resolvedLocale]);
+					return escapeMarkdown(outfit.name[resolvedLocale]);
 				},
 				costConjunction: (): string => {
 					if (costs.length !== 0) {
@@ -343,7 +345,7 @@ const outfitCommand: Command = {
 							return cost[resolvedLocale]({});
 						}));
 					}
-					return Util.escapeMarkdown(noCostLocalizations[resolvedLocale]({}));
+					return escapeMarkdown(noCostLocalizations[resolvedLocale]({}));
 				},
 				scheduleList: (): string => {
 					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
@@ -354,7 +356,7 @@ const outfitCommand: Command = {
 			ephemeral: true,
 		});
 	},
-	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				commandName: (): string => {

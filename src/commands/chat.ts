@@ -1,11 +1,10 @@
 import type {
 	ApplicationCommandData,
-	CommandInteraction,
-	FileOptions,
+	Attachment,
+	ChatInputCommandInteraction,
 	GuildBasedChannel,
 	Interaction,
 	Message,
-	MessageAttachment,
 	ModalSubmitInteraction,
 	ThreadChannel,
 } from "discord.js";
@@ -14,7 +13,13 @@ import type {Chat as ChatCompilation} from "../compilations.js";
 import type {Chat as ChatDefinition} from "../definitions.js";
 import type {Chat as ChatDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
-import {Util} from "discord.js";
+import {
+	ApplicationCommandOptionType,
+	ChannelType,
+	ComponentType,
+	TextInputStyle,
+	escapeMarkdown,
+} from "discord.js";
 import {chat as chatCompilation} from "../compilations.js";
 import {chat as chatDefinition} from "../definitions.js";
 import {composeAll, localize, resolve} from "../utils/string.js";
@@ -64,51 +69,53 @@ const chatCommand: Command = {
 			descriptionLocalizations: commandDescription,
 			options: [
 				{
-					type: "SUB_COMMAND",
+					type: ApplicationCommandOptionType.Subcommand,
 					name: postSubCommandName,
 					description: postSubCommandDescription["en-US"],
 					descriptionLocalizations: postSubCommandDescription,
 					options: [
 						{
-							type: "CHANNEL",
+							type: ApplicationCommandOptionType.Channel,
 							name: channelOptionName,
 							description: channelOptionDescription["en-US"],
 							descriptionLocalizations: channelOptionDescription,
 							required: true,
 							channelTypes: [
-								"GUILD_TEXT",
-								"GUILD_VOICE",
-								"GUILD_NEWS",
-								"GUILD_NEWS_THREAD",
-								"GUILD_PUBLIC_THREAD",
-								"GUILD_PRIVATE_THREAD",
+								ChannelType.GuildText,
+								ChannelType.GuildVoice,
+								ChannelType.GuildAnnouncement,
+								ChannelType.AnnouncementThread,
+								ChannelType.PublicThread,
+								ChannelType.PrivateThread,
+								ChannelType.GuildStageVoice,
 							],
 						},
 					],
 				},
 				{
-					type: "SUB_COMMAND",
+					type: ApplicationCommandOptionType.Subcommand,
 					name: patchSubCommandName,
 					description: patchSubCommandDescription["en-US"],
 					descriptionLocalizations: patchSubCommandDescription,
 					options: [
 						{
-							type: "CHANNEL",
+							type: ApplicationCommandOptionType.Channel,
 							name: channelOptionName,
 							description: channelOptionDescription["en-US"],
 							descriptionLocalizations: channelOptionDescription,
 							required: true,
 							channelTypes: [
-								"GUILD_TEXT",
-								"GUILD_VOICE",
-								"GUILD_NEWS",
-								"GUILD_NEWS_THREAD",
-								"GUILD_PUBLIC_THREAD",
-								"GUILD_PRIVATE_THREAD",
+								ChannelType.GuildText,
+								ChannelType.GuildVoice,
+								ChannelType.GuildAnnouncement,
+								ChannelType.AnnouncementThread,
+								ChannelType.PublicThread,
+								ChannelType.PrivateThread,
+								ChannelType.GuildStageVoice,
 							],
 						},
 						{
-							type: "STRING",
+							type: ApplicationCommandOptionType.String,
 							name: messageOptionName,
 							description: messageOptionDescription["en-US"],
 							descriptionLocalizations: messageOptionDescription,
@@ -117,35 +124,36 @@ const chatCommand: Command = {
 					],
 				},
 				{
-					type: "SUB_COMMAND",
+					type: ApplicationCommandOptionType.Subcommand,
 					name: attachSubCommandName,
 					description: attachSubCommandDescription["en-US"],
 					descriptionLocalizations: attachSubCommandDescription,
 					options: [
 						{
-							type: "CHANNEL",
+							type: ApplicationCommandOptionType.Channel,
 							name: channelOptionName,
 							description: channelOptionDescription["en-US"],
 							descriptionLocalizations: channelOptionDescription,
 							required: true,
 							channelTypes: [
-								"GUILD_TEXT",
-								"GUILD_VOICE",
-								"GUILD_NEWS",
-								"GUILD_NEWS_THREAD",
-								"GUILD_PUBLIC_THREAD",
-								"GUILD_PRIVATE_THREAD",
+								ChannelType.GuildText,
+								ChannelType.GuildVoice,
+								ChannelType.GuildAnnouncement,
+								ChannelType.AnnouncementThread,
+								ChannelType.PublicThread,
+								ChannelType.PrivateThread,
+								ChannelType.GuildStageVoice,
 							],
 						},
 						{
-							type: "STRING",
+							type: ApplicationCommandOptionType.String,
 							name: messageOptionName,
 							description: messageOptionDescription["en-US"],
 							descriptionLocalizations: messageOptionDescription,
 							required: true,
 						},
 						{
-							type: "INTEGER",
+							type: ApplicationCommandOptionType.Integer,
 							name: positionOptionName,
 							description: positionOptionDescription["en-US"],
 							descriptionLocalizations: positionOptionDescription,
@@ -153,7 +161,7 @@ const chatCommand: Command = {
 							minValue: 0,
 						},
 						{
-							type: "ATTACHMENT",
+							type: ApplicationCommandOptionType.Attachment,
 							name: attachmentOptionName,
 							description: attachmentOptionDescription["en-US"],
 							descriptionLocalizations: attachmentOptionDescription,
@@ -162,35 +170,36 @@ const chatCommand: Command = {
 					],
 				},
 				{
-					type: "SUB_COMMAND",
+					type: ApplicationCommandOptionType.Subcommand,
 					name: detachSubCommandName,
 					description: detachSubCommandDescription["en-US"],
 					descriptionLocalizations: detachSubCommandDescription,
 					options: [
 						{
-							type: "CHANNEL",
+							type: ApplicationCommandOptionType.Channel,
 							name: channelOptionName,
 							description: channelOptionDescription["en-US"],
 							descriptionLocalizations: channelOptionDescription,
 							required: true,
 							channelTypes: [
-								"GUILD_TEXT",
-								"GUILD_VOICE",
-								"GUILD_NEWS",
-								"GUILD_NEWS_THREAD",
-								"GUILD_PUBLIC_THREAD",
-								"GUILD_PRIVATE_THREAD",
+								ChannelType.GuildText,
+								ChannelType.GuildVoice,
+								ChannelType.GuildAnnouncement,
+								ChannelType.AnnouncementThread,
+								ChannelType.PublicThread,
+								ChannelType.PrivateThread,
+								ChannelType.GuildStageVoice,
 							],
 						},
 						{
-							type: "STRING",
+							type: ApplicationCommandOptionType.String,
 							name: messageOptionName,
 							description: messageOptionDescription["en-US"],
 							descriptionLocalizations: messageOptionDescription,
 							required: true,
 						},
 						{
-							type: "INTEGER",
+							type: ApplicationCommandOptionType.Integer,
 							name: positionOptionName,
 							description: positionOptionDescription["en-US"],
 							descriptionLocalizations: positionOptionDescription,
@@ -200,14 +209,15 @@ const chatCommand: Command = {
 					],
 				},
 			],
-			defaultPermission: false,
+			defaultMemberPermissions: [],
+			dmPermission: false,
 		};
 	},
 	async execute(interaction: Interaction<"cached">): Promise<void> {
-		if (!interaction.isCommand()) {
+		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {channel, locale, options}: CommandInteraction<"cached"> = interaction;
+		const {channel, locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		if (channel == null) {
 			await interaction.reply({
@@ -234,8 +244,16 @@ const chatCommand: Command = {
 			}
 		}
 		const subCommandName: string = options.getSubcommand(true);
-		const targetChannel: GuildBasedChannel = options.getChannel(channelOptionName, true);
-		if (!("send" in targetChannel)) {
+		const targetChannel: GuildBasedChannel = options.getChannel(channelOptionName, true, [
+			ChannelType.GuildText,
+			ChannelType.GuildVoice,
+			ChannelType.GuildAnnouncement,
+			ChannelType.AnnouncementThread,
+			ChannelType.PublicThread,
+			ChannelType.PrivateThread,
+			ChannelType.GuildStageVoice,
+		]);
+		if (!targetChannel.isTextBased()) {
 			await interaction.reply({
 				content: noChannelReplyLocalizations[resolvedLocale]({}),
 				ephemeral: true,
@@ -252,7 +270,7 @@ const chatCommand: Command = {
 				});
 				return;
 			}
-			const targetMessage: Message | undefined = await (async (): Promise<Message | undefined> => {
+			const targetMessage: Message<true> | undefined = await (async (): Promise<Message<true> | undefined> => {
 				try {
 					return await targetChannel.messages.fetch(identifier);
 				} catch {}
@@ -276,11 +294,11 @@ const chatCommand: Command = {
 				title: contentOptionDescription[resolvedLocale],
 				components: [
 					{
-						type: "ACTION_ROW",
+						type: ComponentType.ActionRow,
 						components: [
 							{
-								type: "TEXT_INPUT",
-								style: "PARAGRAPH",
+								type: ComponentType.TextInput,
+								style: TextInputStyle.Paragraph,
 								customId: contentOptionName,
 								label: contentOptionName,
 								value: targetMessage.content,
@@ -332,11 +350,11 @@ const chatCommand: Command = {
 				title: contentOptionDescription[resolvedLocale],
 				components: [
 					{
-						type: "ACTION_ROW",
+						type: ComponentType.ActionRow,
 						components: [
 							{
-								type: "TEXT_INPUT",
-								style: "PARAGRAPH",
+								type: ComponentType.TextInput,
+								style: TextInputStyle.Paragraph,
 								customId: contentOptionName,
 								label: contentOptionName,
 								required: true,
@@ -385,7 +403,7 @@ const chatCommand: Command = {
 			});
 			return;
 		}
-		const targetMessage: Message | undefined = await (async (): Promise<Message | undefined> => {
+		const targetMessage: Message<true> | undefined = await (async (): Promise<Message<true> | undefined> => {
 			try {
 				return await targetChannel.messages.fetch(identifier);
 			} catch {}
@@ -406,14 +424,14 @@ const chatCommand: Command = {
 		}
 		if (subCommandName === detachSubCommandName) {
 			const targetContent: string = targetMessage.content;
-			const targetAttachments: MessageAttachment[] = [...targetMessage.attachments.values()];
+			const targetAttachments: Attachment[] = [...targetMessage.attachments.values()];
 			const position: number = options.getInteger(positionOptionName, true);
 			if (position < 0 || position >= targetAttachments.length) {
 				const max: number = targetAttachments.length - 1;
 				await interaction.reply({
 					content: noPositionReplyLocalizations[resolvedLocale]({
 						max: (): string => {
-							return Util.escapeMarkdown(`${max}`);
+							return escapeMarkdown(`${max}`);
 						},
 					}),
 					ephemeral: true,
@@ -428,16 +446,9 @@ const chatCommand: Command = {
 				return;
 			}
 			const content: string = targetContent;
-			const files: FileOptions[] = [...targetAttachments.slice(0, position), ...targetAttachments.slice(position + 1)].map<FileOptions>((attachment: MessageAttachment): FileOptions => {
-				const {name, url}: MessageAttachment = attachment;
-				return {
-					attachment: url,
-					name: name ?? "",
-				};
-			});
-			const attachments: MessageAttachment[] = [];
+			const files: Attachment[] = [...targetAttachments.slice(0, position), ...targetAttachments.slice(position + 1)];
 			try {
-				await targetMessage.edit({content, files, attachments});
+				await targetMessage.edit({content, files});
 			} catch {
 				await interaction.reply({
 					content: noPatchPermissionReplyLocalizations[resolvedLocale]({}),
@@ -459,32 +470,25 @@ const chatCommand: Command = {
 		}
 		if (subCommandName === attachSubCommandName) {
 			const targetContent: string = targetMessage.content;
-			const targetAttachments: MessageAttachment[] = [...targetMessage.attachments.values()];
+			const targetAttachments: Attachment[] = [...targetMessage.attachments.values()];
 			const position: number = options.getInteger(positionOptionName, true);
 			if (position < 0 || position >= targetAttachments.length + 1) {
 				const max: number = targetAttachments.length;
 				await interaction.reply({
 					content: noPositionReplyLocalizations[resolvedLocale]({
 						max: (): string => {
-							return Util.escapeMarkdown(`${max}`);
+							return escapeMarkdown(`${max}`);
 						},
 					}),
 					ephemeral: true,
 				});
 				return;
 			}
-			const attachment: MessageAttachment = options.getAttachment(attachmentOptionName, true);
+			const attachment: Attachment = options.getAttachment(attachmentOptionName, true);
 			const content: string = targetContent;
-			const files: FileOptions[] = [...targetAttachments.slice(0, position), attachment, ...targetAttachments.slice(position)].map<FileOptions>((attachment: MessageAttachment): FileOptions => {
-				const {name, url}: MessageAttachment = attachment;
-				return {
-					attachment: url,
-					name: name ?? "",
-				};
-			});
-			const attachments: MessageAttachment[] = [];
+			const files: Attachment[] = [...targetAttachments.slice(0, position), attachment, ...targetAttachments.slice(position)];
 			try {
-				await targetMessage.edit({content, files, attachments});
+				await targetMessage.edit({content, files});
 			} catch {
 				await interaction.reply({
 					content: noPatchPermissionReplyLocalizations[resolvedLocale]({}),
@@ -506,8 +510,8 @@ const chatCommand: Command = {
 		}
 		return;
 	},
-	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
-		const {channel}: CommandInteraction<"cached"> = interaction;
+	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+		const {channel}: ChatInputCommandInteraction<"cached"> = interaction;
 		if (channel == null || !channels.has(channel.name)) {
 			return null;
 		}

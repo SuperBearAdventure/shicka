@@ -1,7 +1,7 @@
 import type {
 	ApplicationCommandData,
 	AutocompleteInteraction,
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	Guild,
 	GuildMember,
 	Interaction,
@@ -14,7 +14,12 @@ import type Command from "./commands.js";
 import type Feed from "./feeds.js";
 import type Trigger from "./triggers.js";
 import type Greeting from "./greetings.js";
-import {Client, Intents, Util} from "discord.js";
+import {
+	ActivityType,
+	Client,
+	GatewayIntentBits,
+	escapeMarkdown,
+} from "discord.js";
 import * as commands from "./commands.js";
 import * as feeds from "./feeds.js";
 import * as triggers from "./triggers.js";
@@ -25,15 +30,16 @@ const {
 const capture: RegExp = /^.*$/su;
 const client: Client = new Client({
 	intents: [
-		Intents.FLAGS.GUILDS,
-		Intents.FLAGS.GUILD_MESSAGES,
-		Intents.FLAGS.GUILD_MEMBERS,
+		GatewayIntentBits.GuildMembers,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.MessageContent,
 	],
 	presence: {
 		activities: [
 			{
 				name: `/help - Super Bear Adventure`,
-				type: "PLAYING",
+				type: ActivityType.Playing,
 			},
 		],
 		status: "online",
@@ -64,9 +70,9 @@ client.on("guildMemberAdd", async (member: GuildMember): Promise<void> => {
 	const name: string = `${member}`;
 	const {hey}: {[k in string]: Greeting} = greetings;
 	const greeting: string = name.replace(capture, hey[Math.random() * hey.length | 0]);
-	const counting: string = memberCount % 10 !== 0 ? "" : `\nWe are now ${Util.escapeMarkdown(`${memberCount}`)} members!`;
+	const counting: string = memberCount % 10 !== 0 ? "" : `\nWe are now ${escapeMarkdown(`${memberCount}`)} members!`;
 	try {
-		const message: Message = await systemChannel.send({
+		const message: Message<true> = await systemChannel.send({
 			content: `${greeting}${counting}`,
 		});
 		await message.react("🇭");
@@ -82,11 +88,11 @@ client.on("guildMemberRemove", async (member: GuildMember | PartialGuildMember):
 	if (systemChannel == null) {
 		return;
 	}
-	const name: string = `**${Util.escapeMarkdown(member.user.username)}**`;
+	const name: string = `**${escapeMarkdown(member.user.username)}**`;
 	const {bye}: {[k in string]: Greeting} = greetings;
 	const greeting: string = name.replace(capture, bye[Math.random() * bye.length | 0]);
 	try {
-		const message: Message = await systemChannel.send({
+		const message: Message<true> = await systemChannel.send({
 			content: greeting,
 		});
 		await message.react("🇧");
@@ -104,10 +110,10 @@ client.on("interactionCreate", async (interaction: Interaction): Promise<void> =
 	if (!interaction.inCachedGuild()) {
 		return;
 	}
-	if (!interaction.isAutocomplete() && !interaction.isCommand()) {
+	if (!interaction.isAutocomplete() && !interaction.isChatInputCommand()) {
 		return;
 	}
-	const {commandName}: AutocompleteInteraction<"cached"> | CommandInteraction<"cached"> = interaction;
+	const {commandName}: AutocompleteInteraction<"cached"> | ChatInputCommandInteraction<"cached"> = interaction;
 	if (!(commandName in commands)) {
 		return;
 	}
