@@ -4,7 +4,7 @@ Bot for the official *Super Bear Adventure* *Discord* server
 
 ## Dependencies
 
-The bot uses *Discord.js 14.7.1* and requires *TypeScript 4.9.5* or more and *Node.js 16.15.0* or more.
+The bot uses *Discord.js 14.8.0* and requires *TypeScript 4.9.5* or more and *Node.js 16.15.0* or more.
 
 ## Configuring the bot
 
@@ -75,7 +75,7 @@ $ npm start
 
 - `/trailer` gives the links to the trailers of the game on `www.youtube.com`
 
-- `/update` checks the latest releases of the game on `play.google.com` and `itunes.apple.com`
+- `/update` gives the links to the latest updates of the game on `play.google.com` and `apps.apple.com`
 
 ### Feeds
 
