@@ -816,7 +816,7 @@
 		"name": "10.1.0",
 		"date": {
 			"android": "2023-02-24",
-			"ios": null
+			"ios": "2023-03-06"
 		},
 		"notes": [
 			"New cosmetic items",
@@ -830,5 +830,33 @@
 			"ios": null
 		},
 		"notes": []
+	},
+	{
+		"name": "10.1.2",
+		"date": {
+			"android": "2023-02-26",
+			"ios": null
+		},
+		"notes": []
+	},
+	{
+		"name": "10.1.3",
+		"date": {
+			"android": "2023-03-08",
+			"ios": "2023-03-08"
+		},
+		"notes": []
+	},
+	{
+		"name": "10.1.4",
+		"date": {
+			"android": "2023-03-15",
+			"ios": "2023-03-21"
+		},
+		"notes": [
+			"Improved UI",
+			"Added better font for some non-latin languages",
+			"Bug fixes"
+		]
 	}
 ]
