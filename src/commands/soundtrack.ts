@@ -1,6 +1,6 @@
 import type {
 	ApplicationCommandData,
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	Interaction,
 } from "discord.js";
 import type {Response} from "node-fetch";
@@ -9,7 +9,9 @@ import type {Soundtrack as SoundtrackCompilation} from "../compilations.js";
 import type {Soundtrack as SoundtrackDefinition} from "../definitions.js";
 import type {Soundtrack as SoundtrackDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
-import {Util} from "discord.js";
+import {
+	escapeMarkdown,
+} from "discord.js";
 import {JSDOM} from "jsdom";
 import fetch from "node-fetch";
 import {soundtrack as soundtrackCompilation} from "../compilations.js";
@@ -57,10 +59,10 @@ const soundtrackCommand: Command = {
 		};
 	},
 	async execute(interaction: Interaction<"cached">): Promise<void> {
-		if (!interaction.isCommand()) {
+		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {locale}: CommandInteraction<"cached"> = interaction;
+		const {locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		try {
 			const data: Data[] | null = await (async (): Promise<Data[] | null> => {
@@ -95,13 +97,13 @@ const soundtrackCommand: Command = {
 				const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((): LinkGroups => {
 					return {
 						title: (): string => {
-							return Util.escapeMarkdown(item.title);
+							return escapeMarkdown(item.title);
 						},
 						link: (): string => {
 							return item.link;
 						},
 						views: (): string => {
-							return Util.escapeMarkdown(item.views);
+							return escapeMarkdown(item.views);
 						},
 					};
 				}));
@@ -151,7 +153,7 @@ const soundtrackCommand: Command = {
 			});
 		}
 	},
-	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
 				commandName: (): string => {

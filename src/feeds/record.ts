@@ -1,6 +1,6 @@
 import type {
+	ChatInputCommandInteraction,
 	Client,
-	CommandInteraction,
 	GuildBasedChannel,
 	Message,
 } from "discord.js";
@@ -10,7 +10,9 @@ import type {Record as RecordCompilation} from "../compilations.js";
 import type {Record as RecordDependency} from "../dependencies.js";
 import type Feed from "../feeds.js";
 import type {Localized} from "../utils/string.js";
-import {Util} from "discord.js";
+import {
+	escapeMarkdown,
+} from "discord.js";
 import fetch from "node-fetch";
 import schedule from "node-schedule";
 import {record as recordCompilation} from "../compilations.js";
@@ -49,11 +51,11 @@ const recordFeed: Feed = {
 				const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 					return channel.name === "🏅│records";
 				});
-				if (channel == null || !("send" in channel)) {
+				if (channel == null || !channel.isTextBased()) {
 					continue;
 				}
 				for (const record of records) {
-					const message: Message = await channel.send({
+					const message: Message<true> = await channel.send({
 						content: record,
 					});
 					await message.react("🎉");
@@ -140,7 +142,7 @@ const recordFeed: Feed = {
 									return String.fromCodePoint(character + 127365);
 								}).join("") ?? null;
 								const player: string = `${playerFlag != null ? `${playerFlag} ` : ""}${playerName}`;
-								players.push(`*${Util.escapeMarkdown(player)}*`)
+								players.push(`*${escapeMarkdown(player)}*`)
 							}
 							const playerConjunction: string = players.length !== 0 ? conjunctionFormat.format(players) : "Someone";
 							const primary_t: number = run?.times?.primary_t ?? null;
@@ -157,7 +159,7 @@ const recordFeed: Feed = {
 								videos.push(uri);
 							}
 							const linkLine: string = videos.length !== 0 ? `\n${videos.join(" ")}` : "";
-							records.push(`${playerConjunction} set a new world record in the *${Util.escapeMarkdown(category)}* category: **${Util.escapeMarkdown(time)}**!${linkLine}`);
+							records.push(`${playerConjunction} set a new world record in the *${escapeMarkdown(category)}* category: **${escapeMarkdown(time)}**!${linkLine}`);
 						}
 					}
 				}
@@ -167,8 +169,8 @@ const recordFeed: Feed = {
 		}
 		return records;
 	},
-	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
-		const {guild}: CommandInteraction<"cached"> = interaction;
+	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+		const {guild}: ChatInputCommandInteraction<"cached"> = interaction;
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 			return channel.name === "🏅│records";
 		});

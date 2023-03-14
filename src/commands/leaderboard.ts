@@ -1,6 +1,6 @@
 import type {
 	ApplicationCommandData,
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
@@ -8,7 +8,9 @@ import type {Leaderboard as LeaderboardCompilation} from "../compilations.js";
 import type {Leaderboard as LeaderboardDefinition} from "../definitions.js";
 import type {Leaderboard as LeaderboardDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
-import {Util} from "discord.js";
+import {
+	escapeMarkdown,
+} from "discord.js";
 import {leaderboard as leaderboardCompilation} from "../compilations.js";
 import {leaderboard as leaderboardDefinition} from "../definitions.js";
 import {composeAll, list, localize, resolve} from "../utils/string.js";
@@ -70,17 +72,17 @@ const leaderboardCommand: Command = {
 		};
 	},
 	async execute(interaction: Interaction<"cached">): Promise<void> {
-		if (!interaction.isCommand()) {
+		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {locale}: CommandInteraction<"cached"> = interaction;
+		const {locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const links: Localized<(groups: {}) => string>[] = [];
 		for (const item of data) {
 			const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((): LinkGroups => {
 				return {
 					title: (): string => {
-						return Util.escapeMarkdown(item.title);
+						return escapeMarkdown(item.title);
 					},
 					link: (): string => {
 						return item.link;
@@ -112,7 +114,7 @@ const leaderboardCommand: Command = {
 			ephemeral: true,
 		});
 	},
-	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
 				commandName: (): string => {

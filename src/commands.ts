@@ -1,6 +1,6 @@
 import type {
 	ApplicationCommandData,
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	Interaction,
 } from "discord.js";
 import type {Localized} from "./utils/string.js";
@@ -23,7 +23,7 @@ import updateCommand from "./commands/update.js";
 type Command = {
 	register(): ApplicationCommandData;
 	execute(interaction: Interaction<"cached">): Promise<void>;
-	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null;
+	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null;
 };
 const about: Command = aboutCommand;
 const bear: Command = bearCommand;

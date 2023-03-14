@@ -2,7 +2,7 @@ import type {
 	ApplicationCommandData,
 	ApplicationCommandOptionChoiceData,
 	ApplicationCommandOptionData,
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	Interaction,
 	ThreadChannel,
 } from "discord.js";
@@ -18,6 +18,9 @@ import type {Emoji as EmojiDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {readFile} from "node:fs/promises";
 import {fileURLToPath} from "node:url";
+import {
+	ApplicationCommandOptionType,
+} from "discord.js";
 import canvas from "canvas";
 import {JSDOM} from "jsdom";
 import serialize from "w3c-xmlserializer";
@@ -65,12 +68,12 @@ const emojiCommand: Command = {
 			descriptionLocalizations: commandDescription,
 			options: [
 				{
-					type: "STRING",
+					type: ApplicationCommandOptionType.String,
 					name: baseOptionName,
 					description: baseOptionDescription["en-US"],
 					descriptionLocalizations: baseOptionDescription,
 					required: true,
-					choices: Array.from<string, ApplicationCommandOptionChoiceData>(bases, (base: string): ApplicationCommandOptionChoiceData => {
+					choices: Array.from<string, ApplicationCommandOptionChoiceData<string>>(bases, (base: string): ApplicationCommandOptionChoiceData<string> => {
 						return {
 							name: base,
 							value: base,
@@ -82,11 +85,11 @@ const emojiCommand: Command = {
 						const optionName: string = `${layer}-${paint}`;
 						const optionDescription: Localized<string> = stylesOptionDescription;
 						return {
-							type: "STRING",
+							type: ApplicationCommandOptionType.String,
 							name: optionName,
 							description: optionDescription["en-US"],
 							descriptionLocalizations: optionDescription,
-							choices: Object.keys(styles).map<ApplicationCommandOptionChoiceData>((style: string): ApplicationCommandOptionChoiceData => {
+							choices: Object.keys(styles).map<ApplicationCommandOptionChoiceData<string>>((style: string): ApplicationCommandOptionChoiceData<string> => {
 								return {
 									name: style,
 									value: style,
@@ -96,14 +99,15 @@ const emojiCommand: Command = {
 					});
 				}).flat<ApplicationCommandOptionData[][]>(),
 			],
-			defaultPermission: false,
+			defaultMemberPermissions: [],
+			dmPermission: false,
 		};
 	},
 	async execute(interaction: Interaction<"cached">): Promise<void> {
-		if (!interaction.isCommand()) {
+		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {channel, locale, options}: CommandInteraction<"cached"> = interaction;
+		const {channel, locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		if (channel == null) {
 			await interaction.reply({
@@ -175,8 +179,8 @@ const emojiCommand: Command = {
 			],
 		});
 	},
-	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
-		const {channel}: CommandInteraction<"cached"> = interaction;
+	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+		const {channel}: ChatInputCommandInteraction<"cached"> = interaction;
 		if (channel == null || !channels.has(channel.name)) {
 			return null;
 		}

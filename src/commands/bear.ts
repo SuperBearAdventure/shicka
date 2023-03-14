@@ -1,10 +1,9 @@
 import type {
 	ApplicationCommandData,
 	ApplicationCommandOptionChoiceData,
-	ApplicationCommandOptionData,
 	AutocompleteFocusedOption,
 	AutocompleteInteraction,
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	Interaction,
 } from "discord.js";
 import type {Bear, Level, Outfit} from "../bindings.js";
@@ -13,7 +12,10 @@ import type {Bear as BearCompilation} from "../compilations.js";
 import type {Bear as BearDefinition} from "../definitions.js";
 import type {Bear as BearDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
-import {Util} from "discord.js";
+import {
+	ApplicationCommandOptionType,
+	escapeMarkdown,
+} from "discord.js";
 import {bears, levels, outfits} from "../bindings.js";
 import {bear as bearCompilation} from "../compilations.js";
 import {bear as bearDefinition} from "../definitions.js";
@@ -46,8 +48,8 @@ const bearCommand: Command = {
 			description: commandDescription["en-US"],
 			descriptionLocalizations: commandDescription,
 			options: [
-				((): ApplicationCommandOptionData & {minValue: number, maxValue: number} => ({
-					type: "INTEGER",
+				{
+					type: ApplicationCommandOptionType.Integer,
 					name: bearOptionName,
 					description: bearOptionDescription["en-US"],
 					descriptionLocalizations: bearOptionDescription,
@@ -55,7 +57,7 @@ const bearCommand: Command = {
 					minValue: 0,
 					maxValue: bears.length - 1,
 					autocomplete: true,
-				}))(),
+				},
 			],
 		};
 	},
@@ -73,7 +75,7 @@ const bearCommand: Command = {
 				const bearName: string = name[resolvedLocale];
 				return bearName.toLowerCase();
 			});
-			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData>((bear: Bear): ApplicationCommandOptionChoiceData => {
+			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData<number>>((bear: Bear): ApplicationCommandOptionChoiceData<number> => {
 				const {id, name}: Bear = bear;
 				const bearName: string = name[resolvedLocale];
 				return {
@@ -84,10 +86,10 @@ const bearCommand: Command = {
 			await interaction.respond(suggestions);
 			return;
 		}
-		if (!interaction.isCommand()) {
+		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {locale, options}: CommandInteraction<"cached"> = interaction;
+		const {locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const id: number = options.getInteger(bearOptionName, true);
 		const bear: Bear = bears[id];
@@ -104,14 +106,14 @@ const bearCommand: Command = {
 		const bossGoal: Localized<(groups: {}) => string> | null = boss != null ? composeAll<BossGoalGroups, {}>(bossGoalLocalizations, localize<BossGoalGroups>((locale: Locale): BossGoalGroups => {
 			return {
 				boss: (): string => {
-					return Util.escapeMarkdown(boss[locale]);
+					return escapeMarkdown(boss[locale]);
 				},
 			};
 		})) : null;
 		const coinsGoal: Localized<(groups: {}) => string> | null = coins !== 0 ? composeAll<CoinsGoalGroups, {}>(bossGoal != null ? coinsWithBossGoalLocalizations : coinsWithoutBossGoalLocalizations, localize<CoinsGoalGroups>((): CoinsGoalGroups => {
 			return {
 				coins: (): string => {
-					return Util.escapeMarkdown(`${coins}`);
+					return escapeMarkdown(`${coins}`);
 				},
 			};
 		})) : null;
@@ -122,7 +124,7 @@ const bearCommand: Command = {
 		const timeGoal: Localized<(groups: {}) => string> | null = time !== "00:00.00" ? composeAll<TimeGoalGroups, {}>(bossGoal != null || coinsGoal != null ? timeWithBossOrCoinsGoalLocalizations : timeWithoutBossAndCoinsGoalLocalizations, localize<TimeGoalGroups>((): TimeGoalGroups => {
 			return {
 				time: (): string => {
-					return Util.escapeMarkdown(time);
+					return escapeMarkdown(time);
 				},
 			};
 		})) : null;
@@ -132,10 +134,10 @@ const bearCommand: Command = {
 		await interaction.reply({
 			content: replyLocalizations["en-US"]({
 				name: (): string => {
-					return Util.escapeMarkdown(name["en-US"]);
+					return escapeMarkdown(name["en-US"]);
 				},
 				level: (): string => {
-					return Util.escapeMarkdown(level.name["en-US"]);
+					return escapeMarkdown(level.name["en-US"]);
 				},
 				outfitNameConjunction: (): string => {
 					if (bearOutfits.length !== 0) {
@@ -144,10 +146,10 @@ const bearCommand: Command = {
 							type: "conjunction",
 						});
 						return conjunctionFormat.format(bearOutfits.map<string>((outfit: Outfit): string => {
-							return `*${Util.escapeMarkdown(outfit.name["en-US"])}*`;
+							return `*${escapeMarkdown(outfit.name["en-US"])}*`;
 						}));
 					}
-					return Util.escapeMarkdown(noOutfitLocalizations["en-US"]({}));
+					return escapeMarkdown(noOutfitLocalizations["en-US"]({}));
 				},
 				goalConjunction: (): string => {
 					if (goals.length !== 0) {
@@ -159,7 +161,7 @@ const bearCommand: Command = {
 							return goal["en-US"]({});
 						}));
 					}
-					return Util.escapeMarkdown(noGoalLocalizations["en-US"]({}));
+					return escapeMarkdown(noGoalLocalizations["en-US"]({}));
 				},
 			}),
 		});
@@ -169,10 +171,10 @@ const bearCommand: Command = {
 		await interaction.followUp({
 			content: replyLocalizations[resolvedLocale]({
 				name: (): string => {
-					return Util.escapeMarkdown(name[resolvedLocale]);
+					return escapeMarkdown(name[resolvedLocale]);
 				},
 				level: (): string => {
-					return Util.escapeMarkdown(level.name[resolvedLocale]);
+					return escapeMarkdown(level.name[resolvedLocale]);
 				},
 				outfitNameConjunction: (): string => {
 					if (bearOutfits.length !== 0) {
@@ -181,10 +183,10 @@ const bearCommand: Command = {
 							type: "conjunction",
 						});
 						return conjunctionFormat.format(bearOutfits.map<string>((outfit: Outfit): string => {
-							return `*${Util.escapeMarkdown(outfit.name[resolvedLocale])}*`;
+							return `*${escapeMarkdown(outfit.name[resolvedLocale])}*`;
 						}));
 					}
-					return Util.escapeMarkdown(noOutfitLocalizations[resolvedLocale]({}));
+					return escapeMarkdown(noOutfitLocalizations[resolvedLocale]({}));
 				},
 				goalConjunction: (): string => {
 					if (goals.length !== 0) {
@@ -196,13 +198,13 @@ const bearCommand: Command = {
 							return goal[resolvedLocale]({});
 						}));
 					}
-					return Util.escapeMarkdown(noGoalLocalizations[resolvedLocale]({}));
+					return escapeMarkdown(noGoalLocalizations[resolvedLocale]({}));
 				},
 			}),
 			ephemeral: true,
 		});
 	},
-	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				commandName: (): string => {

@@ -1,7 +1,7 @@
 import type {
 	ApplicationCommandData,
 	ApplicationCommandOptionChoiceData,
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	Interaction,
 } from "discord.js";
 import type Binding from "../bindings.js";
@@ -10,7 +10,10 @@ import type {Raw as RawCompilation} from "../compilations.js";
 import type {Raw as RawDefinition} from "../definitions.js";
 import type {Raw as RawDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
-import {Util} from "discord.js";
+import {
+	ApplicationCommandOptionType,
+	escapeMarkdown,
+} from "discord.js";
 import * as bindings from "../bindings.js";
 import {raw as rawCompilation} from "../compilations.js";
 import {raw as rawDefinition} from "../definitions.js";
@@ -37,7 +40,7 @@ const rawCommand: Command = {
 			descriptionLocalizations: commandDescription,
 			options: [
 				{
-					type: "STRING",
+					type: ApplicationCommandOptionType.String,
 					name: typeOptionName,
 					description: typeOptionDescription["en-US"],
 					descriptionLocalizations: typeOptionDescription,
@@ -47,7 +50,7 @@ const rawCommand: Command = {
 						return [bindingName, binding];
 					}).filter(([bindingName, binding]: [string, Binding]): boolean => {
 						return binding.length !== 0;
-					}).map<ApplicationCommandOptionChoiceData>(([bindingName, binding]: [string, Binding]): ApplicationCommandOptionChoiceData => {
+					}).map<ApplicationCommandOptionChoiceData<string>>(([bindingName, binding]: [string, Binding]): ApplicationCommandOptionChoiceData<string> => {
 						return {
 							name: bindingName,
 							value: bindingName,
@@ -55,7 +58,7 @@ const rawCommand: Command = {
 					}),
 				},
 				{
-					type: "INTEGER",
+					type: ApplicationCommandOptionType.Integer,
 					name: identifierOptionName,
 					description: identifierOptionDescription["en-US"],
 					descriptionLocalizations: identifierOptionDescription,
@@ -66,10 +69,10 @@ const rawCommand: Command = {
 		};
 	},
 	async execute(interaction: Interaction<"cached">): Promise<void> {
-		if (!interaction.isCommand()) {
+		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {locale, options}: CommandInteraction<"cached"> = interaction;
+		const {locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const bindingName: string = options.getString(typeOptionName, true);
 		if (!(bindingName in bindings)) {
@@ -81,7 +84,7 @@ const rawCommand: Command = {
 							type: "conjunction",
 						});
 						return conjunctionFormat.format(Object.keys(bindings).map<string>((bindingName: string): string => {
-							return `\`${Util.escapeMarkdown(bindingName)}\``;
+							return `\`${escapeMarkdown(bindingName)}\``;
 						}));
 					},
 				}),
@@ -96,7 +99,7 @@ const rawCommand: Command = {
 			await interaction.reply({
 				content: noIdentifierReplyLocalizations[resolvedLocale]({
 					max: (): string => {
-						return Util.escapeMarkdown(`${max}`);
+						return escapeMarkdown(`${max}`);
 					},
 				}),
 				ephemeral: true,
@@ -105,10 +108,10 @@ const rawCommand: Command = {
 		}
 		const datum: string = JSON.stringify(binding[identifier], null, "\t");
 		await interaction.reply({
-			content: `\`\`\`json\n${Util.escapeMarkdown(datum)}\n\`\`\``,
+			content: `\`\`\`json\n${escapeMarkdown(datum)}\n\`\`\``,
 		});
 	},
-	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				commandName: (): string => {

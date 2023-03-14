@@ -1,10 +1,9 @@
 import type {
 	ApplicationCommandData,
 	ApplicationCommandOptionChoiceData,
-	ApplicationCommandOptionData,
 	AutocompleteFocusedOption,
 	AutocompleteInteraction,
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	Interaction,
 } from "discord.js";
 import type {Challenge, Level, Mission} from "../bindings.js";
@@ -13,7 +12,10 @@ import type {Mission as MissionCompilation} from "../compilations.js";
 import type {Mission as MissionDefinition} from "../definitions.js";
 import type {Mission as MissionDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
-import {Util} from "discord.js";
+import {
+	ApplicationCommandOptionType,
+	escapeMarkdown,
+} from "discord.js";
 import {challenges, levels, missions} from "../bindings.js";
 import {mission as missionCompilation} from "../compilations.js";
 import {mission as missionDefinition} from "../definitions.js";
@@ -43,15 +45,15 @@ const missionCommand: Command = {
 			description: commandDescription["en-US"],
 			descriptionLocalizations: commandDescription,
 			options: [
-				((): ApplicationCommandOptionData & {minValue: number, maxValue: number} => ({
-					type: "INTEGER",
+				{
+					type: ApplicationCommandOptionType.Integer,
 					name: missionOptionName,
 					description: missionOptionDescription["en-US"],
 					descriptionLocalizations: missionOptionDescription,
 					minValue: 0,
 					maxValue: missions.length - 1,
 					autocomplete: true,
-				}))(),
+				},
 			],
 		};
 	},
@@ -77,7 +79,7 @@ const missionCommand: Command = {
 				});
 				return missionName.toLowerCase();
 			});
-			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData>((mission: Mission): ApplicationCommandOptionChoiceData => {
+			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData<number>>((mission: Mission): ApplicationCommandOptionChoiceData<number> => {
 				const {id}: Mission = mission;
 				const challenge: Challenge = challenges[mission.challenge];
 				const level: Level = levels[mission.level];
@@ -97,10 +99,10 @@ const missionCommand: Command = {
 			await interaction.respond(suggestions);
 			return;
 		}
-		if (!interaction.isCommand()) {
+		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {locale, options}: CommandInteraction<"cached"> = interaction;
+		const {locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const missionCount: number = missions.length;
 		const now: number = Math.floor((interaction.createdTimestamp + 7200000) / 86400000);
@@ -121,13 +123,13 @@ const missionCommand: Command = {
 							dateStyle: "long",
 							timeZone: "UTC",
 						});
-						return Util.escapeMarkdown(dateFormat.format(dayDate));
+						return escapeMarkdown(dateFormat.format(dayDate));
 					},
 					challengeName: (): string => {
-						return Util.escapeMarkdown(challenge.name[locale]);
+						return escapeMarkdown(challenge.name[locale]);
 					},
 					levelName: (): string => {
-						return Util.escapeMarkdown(level.name[locale]);
+						return escapeMarkdown(level.name[locale]);
 					},
 				};
 			}));
@@ -140,7 +142,7 @@ const missionCommand: Command = {
 						timeStyle: "short",
 						timeZone: "UTC",
 					});
-					return Util.escapeMarkdown(timeFormat.format(dayTime));
+					return escapeMarkdown(timeFormat.format(dayTime));
 				},
 				scheduleList: (): string => {
 					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
@@ -159,7 +161,7 @@ const missionCommand: Command = {
 						timeStyle: "short",
 						timeZone: "UTC",
 					});
-					return Util.escapeMarkdown(timeFormat.format(dayTime));
+					return escapeMarkdown(timeFormat.format(dayTime));
 				},
 				scheduleList: (): string => {
 					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
@@ -186,7 +188,7 @@ const missionCommand: Command = {
 								timeStyle: "short",
 								timeZone: "UTC",
 							});
-							return Util.escapeMarkdown(dateTimeFormat.format(dayDateTime));
+							return escapeMarkdown(dateTimeFormat.format(dayDateTime));
 						},
 					};
 				}));
@@ -198,10 +200,10 @@ const missionCommand: Command = {
 		await interaction.reply({
 			content: replyLocalizations["en-US"]({
 				challengeName: (): string => {
-					return Util.escapeMarkdown(challenge.name["en-US"]);
+					return escapeMarkdown(challenge.name["en-US"]);
 				},
 				levelName: (): string => {
-					return Util.escapeMarkdown(level.name["en-US"]);
+					return escapeMarkdown(level.name["en-US"]);
 				},
 				scheduleList: (): string => {
 					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
@@ -216,10 +218,10 @@ const missionCommand: Command = {
 		await interaction.followUp({
 			content: replyLocalizations[resolvedLocale]({
 				challengeName: (): string => {
-					return Util.escapeMarkdown(challenge.name[resolvedLocale]);
+					return escapeMarkdown(challenge.name[resolvedLocale]);
 				},
 				levelName: (): string => {
-					return Util.escapeMarkdown(level.name[resolvedLocale]);
+					return escapeMarkdown(level.name[resolvedLocale]);
 				},
 				scheduleList: (): string => {
 					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
@@ -230,7 +232,7 @@ const missionCommand: Command = {
 			ephemeral: true,
 		});
 	},
-	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				commandName: (): string => {

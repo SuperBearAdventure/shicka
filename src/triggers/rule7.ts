@@ -1,5 +1,5 @@
 import type {
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	GuildBasedChannel,
 	GuildEmoji,
 	Message,
@@ -72,8 +72,8 @@ const rule7Trigger: Trigger = {
 			await message.react(emoji);
 		}
 	},
-	describe(interaction: CommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
-		const {guild}: CommandInteraction<"cached"> = interaction;
+	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+		const {guild}: ChatInputCommandInteraction<"cached"> = interaction;
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 			return channel.name === "💡│game-suggestions";
 		});
