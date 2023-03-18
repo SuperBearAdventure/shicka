@@ -144,7 +144,7 @@ function hasPermission(permissions: Collection<string, ApplicationCommandPermiss
 		}
 	} else {
 		const applicationChannelPermission: boolean | null = hasChannelPermission(permissions, application, channel);
-		if (applicationChannelPermission != null && !commandChannelPermission) {
+		if (applicationChannelPermission != null && !applicationChannelPermission) {
 			return false;
 		}
 	}
@@ -153,7 +153,7 @@ function hasPermission(permissions: Collection<string, ApplicationCommandPermiss
 		return commandMemberPermission;
 	} else {
 		const applicationMemberPermission: boolean | null = hasMemberPermission(permissions, application, member);
-		if (applicationMemberPermission != null && !commandMemberPermission) {
+		if (applicationMemberPermission != null && !applicationMemberPermission) {
 			return false;
 		}
 	}
