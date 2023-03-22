@@ -70,10 +70,10 @@ const bearCommand: Command = {
 				await interaction.respond([]);
 				return;
 			}
-			const results: Bear[] = nearest<Bear>(value.toLowerCase(), bears, 7, (bear: Bear): string => {
+			const results: Bear[] = nearest<Bear>(value.toLocaleLowerCase(resolvedLocale), bears, 7, (bear: Bear): string => {
 				const {name}: Bear = bear;
 				const bearName: string = name[resolvedLocale];
-				return bearName.toLowerCase();
+				return bearName.toLocaleLowerCase(resolvedLocale);
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData<number>>((bear: Bear): ApplicationCommandOptionChoiceData<number> => {
 				const {id, name}: Bear = bear;

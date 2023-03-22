@@ -66,7 +66,7 @@ const missionCommand: Command = {
 				await interaction.respond([]);
 				return;
 			}
-			const results: Mission[] = nearest<Mission>(value.toLowerCase(), missions, 7, (mission: Mission): string => {
+			const results: Mission[] = nearest<Mission>(value.toLocaleLowerCase(resolvedLocale), missions, 7, (mission: Mission): string => {
 				const challenge: Challenge = challenges[mission.challenge];
 				const level: Level = levels[mission.level];
 				const missionName: string = missionNameLocalizations[resolvedLocale]({
@@ -77,7 +77,7 @@ const missionCommand: Command = {
 						return level.name[resolvedLocale];
 					},
 				});
-				return missionName.toLowerCase();
+				return missionName.toLocaleLowerCase(resolvedLocale);
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData<number>>((mission: Mission): ApplicationCommandOptionChoiceData<number> => {
 				const {id}: Mission = mission;
