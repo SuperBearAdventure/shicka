@@ -132,10 +132,10 @@ const outfitCommand: Command = {
 				await interaction.respond([]);
 				return;
 			}
-			const results: Outfit[] = nearest<Outfit>(value.toLowerCase(), outfits, 7, (outfit: Outfit): string => {
+			const results: Outfit[] = nearest<Outfit>(value.toLocaleLowerCase(resolvedLocale), outfits, 7, (outfit: Outfit): string => {
 				const {name}: Outfit = outfit;
 				const outfitName: string = name[resolvedLocale];
-				return outfitName.toLowerCase();
+				return outfitName.toLocaleLowerCase(resolvedLocale);
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData<number>>((outfit: Outfit): ApplicationCommandOptionChoiceData<number> => {
 				const {id, name}: Outfit = outfit;
