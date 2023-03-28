@@ -785,11 +785,7 @@
 			"android": null,
 			"ios": "2021-09-30"
 		},
-		"notes": [
-			"New camera behavior",
-			"Updated input system for better gamepad support",
-			"Various improvements and bug fixes"
-		]
+		"notes": []
 	},
 	{
 		"name": "10.0.0",
