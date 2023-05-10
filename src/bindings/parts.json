@@ -26,5 +26,12 @@
 			"fr": "Shicka",
 			"pt-BR": "Shicka"
 		}
+	},
+	{
+		"name": {
+			"en-US": "Filter",
+			"fr": "Filtre",
+			"pt-BR": "Filtro"
+		}
 	}
 ]

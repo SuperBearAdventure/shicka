@@ -854,5 +854,13 @@
 			"Added better font for some non-latin languages",
 			"Bug fixes"
 		]
+	},
+	{
+		"name": "10.2.0",
+		"date": {
+			"android": "2023-05-10",
+			"ios": null
+		},
+		"notes": []
 	}
 ]
