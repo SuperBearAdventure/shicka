@@ -56,9 +56,9 @@
 	},
 	{
 		"name": {
-			"en-US": "Donor",
-			"fr": "Donateur",
-			"pt-BR": "Doador"
+			"en-US": "Legendary",
+			"fr": "Légendaire",
+			"pt-BR": "Lendário"
 		},
 		"cost": 0,
 		"payoff": 0,

@@ -45,6 +45,17 @@
 	},
 	{
 		"name": {
+			"en-US": "Default",
+			"fr": "Défaut",
+			"pt-BR": "Padrão"
+		},
+		"cost": 0,
+		"part": 4,
+		"rarity": 0,
+		"update": 0
+	},
+	{
+		"name": {
 			"en-US": "Bandit mask",
 			"fr": "Masque de bandit",
 			"pt-BR": "Máscara de bandido"
@@ -551,9 +562,9 @@
 	},
 	{
 		"name": {
-			"en-US": "Shirt (donator)",
-			"fr": "T-shirt (donateur)",
-			"pt-BR": "Camisa (doador)"
+			"en-US": "SBA shirt",
+			"fr": "T-shirt SBA",
+			"pt-BR": "Camisa SBA"
 		},
 		"cost": 0,
 		"part": 1,
@@ -589,7 +600,7 @@
 			"pt-BR": "Rastro de arco-íris"
 		},
 		"cost": 0,
-		"part": 1,
+		"part": 4,
 		"rarity": 5,
 		"update": 24
 	},
@@ -672,9 +683,9 @@
 	},
 	{
 		"name": {
-			"en-US": "Donator crown",
-			"fr": "Couronne de donateur",
-			"pt-BR": "Coroa de doador"
+			"en-US": "Royal crown",
+			"fr": "Couronne royale",
+			"pt-BR": "Coroa Real"
 		},
 		"cost": 0,
 		"part": 0,
@@ -980,12 +991,12 @@
 	},
 	{
 		"name": {
-			"en-US": "Brittany hat",
-			"fr": "Chapeau breton",
-			"pt-BR": "Chapéu britânico"
+			"en-US": "Brittany cloud",
+			"fr": "Nuage breton",
+			"pt-BR": "Chapéu Bretânhico"
 		},
 		"cost": 2,
-		"part": 0,
+		"part": 4,
 		"rarity": 4,
 		"update": 53
 	},
@@ -1128,7 +1139,7 @@
 			"pt-BR": "A Poeira"
 		},
 		"cost": 0,
-		"part": 1,
+		"part": 4,
 		"rarity": 6,
 		"update": 74
 	},
@@ -1139,7 +1150,7 @@
 			"pt-BR": "Ursinho"
 		},
 		"cost": 0,
-		"part": 1,
+		"part": 4,
 		"rarity": 6,
 		"update": 74
 	},
@@ -1161,7 +1172,7 @@
 			"pt-BR": "Rastro fantasma"
 		},
 		"cost": 0,
-		"part": 1,
+		"part": 4,
 		"rarity": 6,
 		"update": 74
 	},
@@ -1186,5 +1197,49 @@
 		"part": 0,
 		"rarity": 3,
 		"update": 76
+	},
+	{
+		"name": {
+			"en-US": "Noire vision",
+			"fr": "Vision noire",
+			"pt-BR": "Visão Nóir"
+		},
+		"cost": 0,
+		"part": 4,
+		"rarity": 5,
+		"update": 81
+	},
+	{
+		"name": {
+			"en-US": "Pet bird",
+			"fr": "Oiseau apprivoisé",
+			"pt-BR": "Passarinho pet"
+		},
+		"cost": 0,
+		"part": 4,
+		"rarity": 5,
+		"update": 81
+	},
+	{
+		"name": {
+			"en-US": "Pet Violette",
+			"fr": "Violette apprivoisée",
+			"pt-BR": "Violette pet"
+		},
+		"cost": 0,
+		"part": 4,
+		"rarity": 5,
+		"update": 81
+	},
+	{
+		"name": {
+			"en-US": "Magical footsteps",
+			"fr": "Empreintes magiques",
+			"pt-BR": "Pegadas mágicas"
+		},
+		"cost": 0,
+		"part": 4,
+		"rarity": 5,
+		"update": 81
 	}
 ]
