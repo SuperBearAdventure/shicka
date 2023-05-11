@@ -859,8 +859,23 @@
 		"name": "10.2.0",
 		"date": {
 			"android": "2023-05-10",
-			"ios": null
+			"ios": "2023-05-11"
 		},
-		"notes": []
+		"notes": [
+			"Added Photo Mode",
+			"Added SBA Gold",
+			"Added new special items (including pets!)",
+			"Added motion blur option"
+		]
+	},
+	{
+		"name": "10.2.1",
+		"date": {
+			"android": "2023-05-10",
+			"ios": "2023-05-12"
+		},
+		"notes": [
+			"Fixed crash related to pets"
+		]
 	}
 ]
