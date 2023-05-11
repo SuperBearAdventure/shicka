@@ -12,7 +12,7 @@ import type {Locale, Localized} from "../utils/string.js";
 import {
 	escapeMarkdown,
 } from "discord.js";
-import {JSDOM} from "jsdom";
+import {JSDOM, VirtualConsole} from "jsdom";
 import fetch from "node-fetch";
 import {update as updateCompilation} from "../compilations.js";
 import {update as updateDefinition} from "../definitions.js";
@@ -56,7 +56,9 @@ const updateCommand: Command = {
 		try {
 			const androidData: Data | null = await (async (): Promise<Data | null> => {
 				const response: Response = await fetch("https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
-				const {window}: JSDOM = new JSDOM(await response.text());
+				const {window}: JSDOM = new JSDOM(await response.text(), {
+					virtualConsole: new VirtualConsole(),
+				});
 				const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("body > script")];
 				for (const {textContent} of scripts) {
 					if (textContent == null || !textContent.startsWith("AF_initDataCallback({") || !textContent.endsWith("});")) {
