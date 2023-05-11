@@ -12,7 +12,7 @@ import type {Locale, Localized} from "../utils/string.js";
 import {
 	escapeMarkdown,
 } from "discord.js";
-import {JSDOM} from "jsdom";
+import {JSDOM, VirtualConsole} from "jsdom";
 import fetch from "node-fetch";
 import {soundtrack as soundtrackCompilation} from "../compilations.js";
 import {soundtrack as soundtrackDefinition} from "../definitions.js";
@@ -67,7 +67,9 @@ const soundtrackCommand: Command = {
 		try {
 			const data: Data[] | null = await (async (): Promise<Data[] | null> => {
 				const response: Response = await fetch("https://www.youtube.com/playlist?list=PLDF2V3x1AdQBnalWW0q69H5LF1-wgAxN8");
-				const {window}: JSDOM = new JSDOM(await response.text());
+				const {window}: JSDOM = new JSDOM(await response.text(), {
+					virtualConsole: new VirtualConsole(),
+				});
 				const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("script")];
 				for (const {textContent} of scripts) {
 					if (textContent == null || !textContent.startsWith("var ytInitialData = ") || !textContent.endsWith(";")) {

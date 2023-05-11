@@ -12,7 +12,7 @@ import type {Locale, Localized} from "../utils/string.js";
 import {
 	escapeMarkdown,
 } from "discord.js";
-import {JSDOM} from "jsdom";
+import {JSDOM, VirtualConsole} from "jsdom";
 import fetch from "node-fetch";
 import {trailer as trailerCompilation} from "../compilations.js";
 import {trailer as trailerDefinition} from "../definitions.js";
@@ -70,7 +70,9 @@ const trailerCommand: Command = {
 		try {
 			const data: Data[] | null = await (async (): Promise<Data[] | null> => {
 				const response: Response = await fetch("https://www.youtube.com/playlist?list=PLEJBkn30KcVVuA8Z0s_NLruYrbvzV5ieK");
-				const {window}: JSDOM = new JSDOM(await response.text());
+				const {window}: JSDOM = new JSDOM(await response.text(), {
+					virtualConsole: new VirtualConsole(),
+				});
 				const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("script")];
 				for (const {textContent} of scripts) {
 					if (textContent == null || !textContent.startsWith("var ytInitialData = ") || !textContent.endsWith(";")) {
