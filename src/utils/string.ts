@@ -87,7 +87,7 @@ export function nearest<Type>(search: string, candidates: Type[], count: number,
 }
 export function list(items: string[]): string {
 	return items.map<string>((item: string): string => {
-		return `\u{2022} ${item}`;
+		return `- ${item}`;
 	}).join("\n");
 }
 function filter<K extends string, T, U extends T>(input: {[k in K]: T}, callback: (value: T, key: K, input: {[k in K]: T}) => value is U): {[k in K]: U} {
