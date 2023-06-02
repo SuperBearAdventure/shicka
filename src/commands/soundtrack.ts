@@ -50,6 +50,30 @@ function patch(text: string, table: Patch): string {
 	}
 	return table[text];
 }
+async function fetchData(): Promise<Data[] | null> {
+	const response: Response = await fetch("https://www.youtube.com/playlist?list=PLDF2V3x1AdQBnalWW0q69H5LF1-wgAxN8");
+	const {window}: JSDOM = new JSDOM(await response.text(), {
+		virtualConsole: new VirtualConsole(),
+	});
+	const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("script")];
+	for (const {textContent} of scripts) {
+		if (textContent == null || !textContent.startsWith("var ytInitialData = ") || !textContent.endsWith(";")) {
+			continue;
+		}
+		try {
+			const json: string = textContent.slice(textContent.indexOf("var ytInitialData = ") + 20, textContent.lastIndexOf(";"));
+			const result: any = JSON.parse(json);
+			return result.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].playlistVideoListRenderer.contents.map((item: any): Data => {
+				return {
+					title: item.playlistVideoRenderer.title.runs[0].text.replace(titlePattern, "$1"),
+					link: `https://www.youtube.com/watch?v=${item.playlistVideoRenderer.videoId}`,
+					views: patch(item.playlistVideoRenderer.videoInfo.runs[0].text, viewsPatch).replace(viewsPattern, "$1"),
+				};
+			});
+		} catch {}
+	}
+	return null;
+}
 const soundtrackCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -65,32 +89,7 @@ const soundtrackCommand: Command = {
 		const {locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		try {
-			const data: Data[] | null = await (async (): Promise<Data[] | null> => {
-				const response: Response = await fetch("https://www.youtube.com/playlist?list=PLDF2V3x1AdQBnalWW0q69H5LF1-wgAxN8");
-				const {window}: JSDOM = new JSDOM(await response.text(), {
-					virtualConsole: new VirtualConsole(),
-				});
-				const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("script")];
-				for (const {textContent} of scripts) {
-					if (textContent == null || !textContent.startsWith("var ytInitialData = ") || !textContent.endsWith(";")) {
-						continue;
-					}
-					try {
-						const json: string = textContent.slice(textContent.indexOf("var ytInitialData = ") + 20, textContent.lastIndexOf(";"));
-						const result: any = JSON.parse(json);
-						return result.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].playlistVideoListRenderer.contents.map((item: any): Data => {
-							return {
-								title: item.playlistVideoRenderer.title.runs[0].text.replace(titlePattern, "$1"),
-								link: `https://www.youtube.com/watch?v=${item.playlistVideoRenderer.videoId}`,
-								views: patch(item.playlistVideoRenderer.videoInfo.runs[0].text, viewsPatch).replace(viewsPattern, "$1"),
-							};
-						});
-					} catch (error: unknown) {
-						console.log(error)
-					}
-				}
-				return null;
-			})();
+			const data: Data[] | null = await fetchData();
 			if (data == null) {
 				throw new Error();
 			}

@@ -39,6 +39,52 @@ const links: string[] = [
 	"[*Android*](<https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer>)",
 	"[*iOS*](<https://apps.apple.com/app/id1531842415>)",
 ];
+async function fetchAndroidData(): Promise<Data | null> {
+	const response: Response = await fetch("https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
+	const {window}: JSDOM = new JSDOM(await response.text(), {
+		virtualConsole: new VirtualConsole(),
+	});
+	const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("body > script")];
+	for (const {textContent} of scripts) {
+		if (textContent == null || !textContent.startsWith("AF_initDataCallback({") || !textContent.endsWith("});")) {
+			continue;
+		}
+		try {
+			const json: string = textContent.slice(textContent.indexOf(", data:") + 7, textContent.lastIndexOf(", sideChannel: "));
+			const result: any = JSON.parse(json);
+			return {
+				title: "Android",
+				link: "https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer",
+				version: result[1][2][140][0][0][0],
+				date: new Date(result[1][2][145][0][1][0] * 1000),
+			};
+		} catch {}
+	}
+	return null;
+}
+async function fetchIosData(): Promise<Data | null> {
+	const response: Response = await fetch("https://apps.apple.com/app/id1531842415");
+	const {window}: JSDOM = new JSDOM(await response.text());
+	const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("body > script")];
+	for (const {textContent} of scripts) {
+		if (textContent == null || !textContent.startsWith("{\"") || !textContent.endsWith("}")) {
+			continue;
+		}
+		try {
+			const json: string = `${Object.entries(JSON.parse(textContent)).filter((entry: [string, any]): boolean => {
+				return entry[0].includes("1531842415");
+			})[0][1]}`;
+			const result: any = JSON.parse(json);
+			return {
+				title: "iOS",
+				link: "https://apps.apple.com/app/id1531842415",
+				version: result.d[0].attributes.platformAttributes.ios.versionHistory[0].versionDisplay,
+				date: new Date(result.d[0].attributes.platformAttributes.ios.versionHistory[0].releaseTimestamp),
+			};
+		} catch {}
+	}
+	return null;
+}
 const updateCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -54,55 +100,11 @@ const updateCommand: Command = {
 		const {locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		try {
-			const androidData: Data | null = await (async (): Promise<Data | null> => {
-				const response: Response = await fetch("https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
-				const {window}: JSDOM = new JSDOM(await response.text(), {
-					virtualConsole: new VirtualConsole(),
-				});
-				const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("body > script")];
-				for (const {textContent} of scripts) {
-					if (textContent == null || !textContent.startsWith("AF_initDataCallback({") || !textContent.endsWith("});")) {
-						continue;
-					}
-					try {
-						const json: string = textContent.slice(textContent.indexOf(", data:") + 7, textContent.lastIndexOf(", sideChannel: "));
-						const result: any = JSON.parse(json);
-						return {
-							title: "Android",
-							link: "https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer",
-							version: result[1][2][140][0][0][0],
-							date: new Date(result[1][2][145][0][1][0] * 1000),
-						};
-					} catch {}
-				}
-				return null;
-			})();
+			const androidData: Data | null = await fetchAndroidData();
 			if (androidData == null) {
 				throw new Error();
 			}
-			const iosData: Data | null = await (async (): Promise<Data | null> => {
-				const response: Response = await fetch("https://apps.apple.com/app/id1531842415");
-				const {window}: JSDOM = new JSDOM(await response.text());
-				const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("body > script")];
-				for (const {textContent} of scripts) {
-					if (textContent == null || !textContent.startsWith("{\"") || !textContent.endsWith("}")) {
-						continue;
-					}
-					try {
-						const json: string = `${Object.entries(JSON.parse(textContent)).filter((entry: [string, any]): boolean => {
-							return entry[0].includes("1531842415");
-						})[0][1]}`;
-						const result: any = JSON.parse(json);
-						return {
-							title: "iOS",
-							link: "https://apps.apple.com/app/id1531842415",
-							version: result.d[0].attributes.platformAttributes.ios.versionHistory[0].versionDisplay,
-							date: new Date(result.d[0].attributes.platformAttributes.ios.versionHistory[0].releaseTimestamp),
-						};
-					} catch {}
-				}
-				return null;
-			})();
+			const iosData: Data | null = await fetchIosData();
 			if (iosData == null) {
 				throw new Error();
 			}
