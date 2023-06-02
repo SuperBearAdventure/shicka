@@ -7,11 +7,11 @@ import type {Localized} from "./utils/string.js";
 import recordFeed from "./feeds/record.js";
 type Feed = {
 	register(client: Client): Job;
-	execute(start: number, end: number): Promise<string[]>;
+	execute(invocation: {timestamp: Date, client: Client<boolean>}): Promise<void>;
 	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null;
 };
-export default Feed;
 const record: Feed = recordFeed;
+export default Feed;
 export {
 	record,
 };
