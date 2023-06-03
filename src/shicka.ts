@@ -28,7 +28,16 @@ const {
 	SHICKA_DISCORD_TOKEN: discordToken = "",
 }: NodeJS.ProcessEnv = process.env;
 const capture: RegExp = /^.*$/su;
-const client: Client = new Client({
+async function submitGuildCommands(guild: Guild, commandRegistry: ApplicationCommandData[]): Promise<boolean> {
+	try {
+		await guild.commands.set(commandRegistry);
+	} catch (error: unknown) {
+		console.warn(error);
+		return false;
+	}
+	return true;
+}
+const client: Client<boolean> = new Client({
 	intents: [
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessages,
@@ -45,13 +54,20 @@ const client: Client = new Client({
 		status: "online",
 	},
 });
-client.once("ready", async (client: Client): Promise<void> => {
-	const menu: ApplicationCommandData[] = Object.keys(commands).map<ApplicationCommandData>((commandName: string): ApplicationCommandData => {
+client.once("ready", async (client: Client<boolean>): Promise<void> => {
+	const commandRegistry: ApplicationCommandData[] = Object.keys(commands).map<ApplicationCommandData>((commandName: string): ApplicationCommandData => {
 		const command: Command = commands[commandName as keyof typeof commands] as Command;
 		return command.register();
 	});
 	for (const guild of client.guilds.cache.values()) {
-		await guild.commands.set(menu);
+		try {
+			const submitted: boolean = await submitGuildCommands(guild, commandRegistry);
+			if (submitted == false) {
+				throw new Error();
+			}
+		} catch (error: unknown) {
+			console.error(error);
+		}
 	}
 	for (const feedName of Object.keys(feeds)) {
 		const feed: Feed = feeds[feedName as keyof typeof feeds] as Feed;
@@ -104,9 +120,6 @@ client.on("guildMemberRemove", async (member: GuildMember | PartialGuildMember):
 	}
 });
 client.on("interactionCreate", async (interaction: Interaction): Promise<void> => {
-	if (interaction.user.bot) {
-		return;
-	}
 	if (!interaction.inCachedGuild()) {
 		return;
 	}
