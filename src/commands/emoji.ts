@@ -5,11 +5,7 @@ import type {
 	ChatInputCommandInteraction,
 	Interaction,
 } from "discord.js";
-import type {
-	Canvas,
-	Image,
-	CanvasRenderingContext2D,
-} from "canvas";
+import type {Canvas, CanvasRenderingContext2D, Image} from "canvas";
 import type Command from "../commands.js";
 import type {Emoji as EmojiCompilation} from "../compilations.js";
 import type {Emoji as EmojiDefinition} from "../definitions.js";
