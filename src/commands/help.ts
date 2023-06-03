@@ -186,6 +186,7 @@ const helpCommand: Command = {
 		if (channel == null) {
 			return;
 		}
+		const applicationCommands: Collection<string, ApplicationCommand> = guild.commands.cache;
 		const permissions: Collection<string, ApplicationCommandPermissions[]> | undefined = await (async (): Promise<Collection<string, ApplicationCommandPermissions[]> | undefined> => {
 			try {
 				return await guild.commands.permissions.fetch({});
@@ -197,7 +198,7 @@ const helpCommand: Command = {
 		const descriptions: Localized<(groups: {}) => string>[] = [
 			Object.keys(commands).map<Command | null>((commandName: string): Command | null => {
 				const command: Command = commands[commandName as keyof typeof commands] as Command;
-				const applicationCommand: ApplicationCommand | undefined = guild.commands.cache.find((applicationCommand: ApplicationCommand): boolean => {
+				const applicationCommand: ApplicationCommand | undefined = applicationCommands.find((applicationCommand: ApplicationCommand): boolean => {
 					return applicationCommand.name === commandName;
 				});
 				if (applicationCommand == null) {
