@@ -1,4 +1,5 @@
 import type {
+	ApplicationCommand,
 	ApplicationCommandData,
 	ChatInputCommandInteraction,
 	Interaction,
@@ -38,7 +39,7 @@ const aboutCommand: Command = {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {locale}: Interaction<"cached"> = interaction;
+		const {locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		await interaction.reply({
 			content: replyLocalizations["en-US"]({
@@ -71,7 +72,7 @@ const aboutCommand: Command = {
 			ephemeral: true,
 		});
 	},
-	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
 				commandName: (): string => {

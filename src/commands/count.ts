@@ -1,4 +1,5 @@
 import type {
+	ApplicationCommand,
 	ApplicationCommandData,
 	ChatInputCommandInteraction,
 	Guild,
@@ -64,7 +65,7 @@ const countCommand: Command = {
 			ephemeral: true,
 		});
 	},
-	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
 				commandName: (): string => {

@@ -1,7 +1,9 @@
-type HelpGroups = {
-	channel: () => string,
+type HelpWithChannelsGroups = {
+	channels: () => string,
 };
+type HelpWithoutChannelsGroups = {};
 type Rule7Dependency = {
-	help: HelpGroups,
+	helpWithChannels: HelpWithChannelsGroups,
+	helpWithoutChannels: HelpWithoutChannelsGroups,
 };
 export default Rule7Dependency;
