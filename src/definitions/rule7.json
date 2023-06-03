@@ -1,14 +1,14 @@
 {
 	"ruleName": "rule7",
-	"ruleReason": "Gently reprimands you if you write words which violate the rule 7 in the given channel",
+	"ruleReason": "Flags messages which violate the rule 7 as such in the given channels",
 	"helpWithChannels": {
-		"en-US": "I will gently reprimand you if you write words which violate the rule 7 in $<channels>",
-		"fr": "Je te réprimanderai gentiment si tu écris des mots qui violent la règle 7 dans $<channels>",
-		"pt-BR": "Eu irei gentilmente te repreender se você escrever palavras que violem a regra 7 em $<channels>"
+		"en-US": "I flag messages which violate the rule 7 as such in $<channels>",
+		"fr": "Je signale les messages qui violent la règle 7 comme tels dans $<channels>",
+		"pt-BR": "Eu sinalizo mensagens que violam a regra 7 por fazerem isso em $<channels>"
 	},
 	"helpWithoutChannels": {
-		"en-US": "I will gently reprimand you if you write words which violate the rule 7",
-		"fr": "Je te réprimanderai gentiment si tu écris des mots qui violent la règle 7",
-		"pt-BR": "Eu irei gentilmente te repreender se você escrever palavras que violem a regra 7"
+		"en-US": "I flag messages which violate the rule 7 as such",
+		"fr": "Je signale les messages qui violent la règle 7 comme tels",
+		"pt-BR": "Eu sinalizo mensagens que violam a regra 7 por fazerem isso"
 	}
 }
