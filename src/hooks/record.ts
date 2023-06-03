@@ -1,7 +1,5 @@
 import type {
-	ChatInputCommandInteraction,
 	Client,
-	GuildBasedChannel,
 	Message,
 	Webhook,
 	WebhookCreateOptions,
@@ -23,7 +21,7 @@ import fetch from "node-fetch";
 import {record as recordCompilation} from "../compilations.js";
 import {record as recordDefinition} from "../definitions.js";
 import {composeAll, localize} from "../utils/string.js";
-type HelpGroups = RecordDependency["help"];
+type HelpWithChannelGroups = RecordDependency["helpWithChannel"];
 type Leaderboard = {
 	leaderboardName: string,
 };
@@ -44,7 +42,8 @@ const {
 	hookReason,
 }: RecordDefinition = recordDefinition;
 const {
-	help: helpLocalizations,
+	helpWithChannel: helpWithChannelLocalizations,
+	helpWithoutChannel: helpWithoutChannelLocalizations,
 }: RecordCompilation = recordCompilation;
 const {createCanvas, loadImage}: any = canvas;
 const hookChannel: string = "🏅│records";
@@ -217,27 +216,15 @@ const recordHook: Hook = {
 			}
 		}
 	},
-	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
-		const {guild}: ChatInputCommandInteraction<"cached"> = interaction;
-		const channel: GuildBasedChannel | null = ((): GuildBasedChannel | null => {
-			const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-				return channel.name === "🏅│records";
-			});
-			if (channel == null || channel.type === ChannelType.GuildCategory || channel.isThread()) {
-				return null;
-			}
-			return channel;
-		})();
-		if (channel == null) {
-			return null;
-		}
-		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+	describe(webhook: Webhook): Localized<(groups: {}) => string> {
+		const {channel}: Webhook = webhook;
+		return channel != null ? composeAll<HelpWithChannelGroups, {}>(helpWithChannelLocalizations, localize<HelpWithChannelGroups>((): HelpWithChannelGroups => {
 			return {
 				channel: (): string => {
 					return `${channel}`;
 				},
 			};
-		}));
+		})) : helpWithoutChannelLocalizations;
 	},
 };
 export default recordHook;

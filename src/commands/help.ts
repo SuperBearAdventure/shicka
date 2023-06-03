@@ -2,6 +2,8 @@ import type {
 	ApplicationCommand,
 	ApplicationCommandData,
 	ApplicationCommandPermissions,
+	AutoModerationAction,
+	AutoModerationActionMetadata,
 	AutoModerationRule,
 	ChatInputCommandInteraction,
 	Client,
@@ -10,7 +12,9 @@ import type {
 	GuildBasedChannel,
 	GuildMember,
 	Interaction,
+	NewsChannel,
 	Role,
+	TextChannel,
 	Webhook,
 } from "discord.js";
 import type Command from "../commands.js";
@@ -162,6 +166,24 @@ function hasPermission(permissions: Collection<string, ApplicationCommandPermiss
 	}
 	return hasDefaultPermission(command, channel, member);
 }
+function hasManageWebhooksPermission(channel: GuildBasedChannel, member: GuildMember): boolean {
+	if (channel.guild.ownerId === member.id) {
+		return true;
+	}
+	if (member.permissions.has(PermissionsBitField.All)) {
+		return true;
+	}
+	return channel.permissionsFor(member).has([PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.ManageWebhooks]);
+}
+function hasManageAutoModerationRulesPermission(channel: GuildBasedChannel, member: GuildMember): boolean {
+	if (channel.guild.ownerId === member.id) {
+		return true;
+	}
+	if (member.permissions.has(PermissionsBitField.All)) {
+		return true;
+	}
+	return channel.permissionsFor(member).has([PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.ManageGuild]);
+}
 const helpCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -215,7 +237,7 @@ const helpCommand: Command = {
 			return;
 		}
 		const descriptions: Localized<(groups: {}) => string>[] = [
-			Object.keys(commands).map<Command | null>((commandName: string): Command | null => {
+			Object.keys(commands).map<Localized<(groups: {}) => string> | null>((commandName: string): Localized<(groups: {}) => string> | null => {
 				const command: Command = commands[commandName as keyof typeof commands] as Command;
 				const applicationCommand: ApplicationCommand | undefined = applicationCommands.find((applicationCommand: ApplicationCommand): boolean => {
 					return applicationCommand.name === commandName;
@@ -226,11 +248,10 @@ const helpCommand: Command = {
 				if (!hasPermission(permissions, applicationCommand.client.application, applicationCommand, channel, member)) {
 					return null;
 				}
-				return command;
-			}).filter<Command>((command: Command | null): command is Command => {
-				return command != null;
+				const description: Localized<(groups: {}) => string> | null = command.describe(applicationCommand);
+				return description;
 			}),
-			Object.keys(hooks).map<Hook | null>((hookName: string): Hook | null => {
+			Object.keys(hooks).map<Localized<(groups: {}) => string> | null>((hookName: string): Localized<(groups: {}) => string> | null => {
 				const hook: Hook = hooks[hookName as keyof typeof hooks] as Hook;
 				const webhook: Webhook | undefined = webhooks.find((webhook: Webhook): boolean => {
 					return webhook.name === hookName;
@@ -241,16 +262,18 @@ const helpCommand: Command = {
 				if (!webhook.isIncoming()) {
 					return null;
 				}
-				const {owner}: Webhook = webhook;
+				const {channel, owner}: Webhook = webhook;
 				const {user}: Client<boolean> = webhook.client;
 				if (owner == null || user == null || owner.id !== user.id) {
 					return null;
 				}
-				return hook;
-			}).filter<Hook>((hook: Hook | null): hook is Hook => {
-				return hook != null;
+				if (channel == null || !hasManageWebhooksPermission(channel, member)) {
+					return null;
+				}
+				const description: Localized<(groups: {}) => string> | null = hook.describe(webhook);
+				return description;
 			}),
-			Object.keys(rules).map<Rule | null>((ruleName: string): Rule | null => {
+			Object.keys(rules).map<Localized<(groups: {}) => string> | null>((ruleName: string): Localized<(groups: {}) => string> | null => {
 				const rule: Rule = rules[ruleName as keyof typeof rules] as Rule;
 				const autoModerationRule: AutoModerationRule | undefined = autoModerationRules.find((autoModerationRule: AutoModerationRule): boolean => {
 					return autoModerationRule.name === ruleName;
@@ -265,14 +288,29 @@ const helpCommand: Command = {
 				if (!autoModerationRule.enabled) {
 					return null;
 				}
-				return rule;
-			}).filter<Rule>((rule: Rule | null): rule is Rule => {
-				return rule != null;
+				const channels: (TextChannel | NewsChannel)[] = autoModerationRule.actions.map<any | null>((action: AutoModerationAction): TextChannel | NewsChannel | null => {
+					const {metadata}: AutoModerationAction = action;
+					const {channelId}: AutoModerationActionMetadata = metadata;
+					if (channelId == null) {
+						return null
+					}
+					const channel: GuildBasedChannel | undefined = autoModerationRule.guild.channels.cache.get(channelId);
+					if (channel == null || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {
+						return null;
+					}
+					return channel;
+				}).filter<TextChannel | NewsChannel>((channel: TextChannel | NewsChannel | null): channel is TextChannel | NewsChannel => {
+					return channel != null;
+				});
+				if (channels.length === 0 || channels.some((channel: TextChannel | NewsChannel): boolean => {
+					return !hasManageAutoModerationRulesPermission(channel, member);
+				})) {
+					return null;
+				}
+				const description: Localized<(groups: {}) => string> = rule.describe(autoModerationRule);
+				return description;
 			}),
-		].flat<(Command | Hook | Rule)[][]>().map<Localized<(groups: {}) => string> | null>((action: Command | Hook | Rule): Localized<(groups: {}) => string> | null => {
-			const description: Localized<(groups: {}) => string> | null = action.describe(interaction);
-			return description;
-		}).filter<Localized<(groups: {}) => string>>((description: Localized<(groups: {}) => string> | null): description is Localized<(groups: {}) => string> => {
+		].flat<(Localized<(groups: {}) => string> | null)[][]>().filter<Localized<(groups: {}) => string>>((description: Localized<(groups: {}) => string> | null): description is Localized<(groups: {}) => string> => {
 			return description != null;
 		});
 		const features: Localized<(groups: {}) => string[]> = localize<(groups: {}) => string[]>((locale: Locale): (groups: {}) => string[] => {
@@ -343,7 +381,7 @@ const helpCommand: Command = {
 			});
 		}
 	},
-	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
 				commandName: (): string => {

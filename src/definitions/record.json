@@ -1,9 +1,14 @@
 {
 	"hookName": "record",
 	"hookReason": "Posts the latest world records of the game in the given channel",
-	"help": {
+	"helpWithChannel": {
 		"en-US": "I post the latest world records of the game in $<channel>",
 		"fr": "Je poste les derniers records du monde du jeu dans $<channel>",
 		"pt-BR": "Eu posto os recordes mundiais mais recentes do jogo em $<channel>"
+	},
+	"helpWithoutChannel": {
+		"en-US": "I post the latest world records of the game",
+		"fr": "Je poste les derniers records du monde du jeu",
+		"pt-BR": "Eu posto os recordes mundiais mais recentes do jogo"
 	}
 }

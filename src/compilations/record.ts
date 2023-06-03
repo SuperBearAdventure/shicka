@@ -2,12 +2,16 @@ import type {Record} from "../dependencies.js";
 import type {Localized} from "../utils/string.js";
 import {record} from "../definitions.js";
 import {compileAll} from "../utils/string.js";
-type HelpLocalizations = Localized<(groups: Record["help"]) => string>;
+type HelpWithChannelLocalizations = Localized<(groups: Record["helpWithChannel"]) => string>;
+type HelpWithoutChannelLocalizations = Localized<(groups: Record["helpWithoutChannel"]) => string>;
 type RecordCompilation = {
-	help: HelpLocalizations,
+	helpWithChannel: HelpWithChannelLocalizations,
+	helpWithoutChannel: HelpWithoutChannelLocalizations,
 };
-const helpLocalizations: HelpLocalizations = compileAll<Record["help"]>(record["help"]);
+const helpWithChannelLocalizations: HelpWithChannelLocalizations = compileAll<Record["helpWithChannel"]>(record["helpWithChannel"]);
+const helpWithoutChannelLocalizations: HelpWithoutChannelLocalizations = compileAll<Record["helpWithoutChannel"]>(record["helpWithoutChannel"]);
 const recordCompilation: RecordCompilation = {
-	help: helpLocalizations,
+	helpWithChannel: helpWithChannelLocalizations,
+	helpWithoutChannel: helpWithoutChannelLocalizations,
 };
 export default recordCompilation;

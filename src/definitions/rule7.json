@@ -1,9 +1,14 @@
 {
 	"ruleName": "rule7",
 	"ruleReason": "Gently reprimands you if you write words which violate the rule 7 in the given channel",
-	"help": {
-		"en-US": "I will gently reprimand you if you write words which violate the rule 7 in $<channel>",
-		"fr": "Je te réprimanderai gentiment si tu écris des mots qui violent la règle 7 dans $<channel>",
-		"pt-BR": "Eu irei gentilmente te repreender se você escrever palavras que violem a regra 7 em $<channel>"
+	"helpWithChannels": {
+		"en-US": "I will gently reprimand you if you write words which violate the rule 7 in $<channels>",
+		"fr": "Je te réprimanderai gentiment si tu écris des mots qui violent la règle 7 dans $<channels>",
+		"pt-BR": "Eu irei gentilmente te repreender se você escrever palavras que violem a regra 7 em $<channels>"
+	},
+	"helpWithoutChannels": {
+		"en-US": "I will gently reprimand you if you write words which violate the rule 7",
+		"fr": "Je te réprimanderai gentiment si tu écris des mots qui violent la règle 7",
+		"pt-BR": "Eu irei gentilmente te repreender se você escrever palavras que violem a regra 7"
 	}
 }

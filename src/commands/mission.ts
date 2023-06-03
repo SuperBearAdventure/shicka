@@ -1,4 +1,5 @@
 import type {
+	ApplicationCommand,
 	ApplicationCommandData,
 	ApplicationCommandOptionChoiceData,
 	AutocompleteFocusedOption,
@@ -232,7 +233,7 @@ const missionCommand: Command = {
 			ephemeral: true,
 		});
 	},
-	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				commandName: (): string => {

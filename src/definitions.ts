@@ -139,7 +139,8 @@ type Raw = {
 type Record = {
 	hookName: string,
 	hookReason: string,
-	help: Localized<string>,
+	helpWithChannel: Localized<string>,
+	helpWithoutChannel: Localized<string>,
 };
 type Roadmap = {
 	commandName: string,
@@ -152,7 +153,8 @@ type Roadmap = {
 type Rule7 = {
 	ruleName: string,
 	ruleReason: string,
-	help: Localized<string>,
+	helpWithChannels: Localized<string>,
+	helpWithoutChannels: Localized<string>,
 };
 type Soundtrack = {
 	commandName: string,

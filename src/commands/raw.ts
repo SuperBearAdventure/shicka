@@ -1,4 +1,5 @@
 import type {
+	ApplicationCommand,
 	ApplicationCommandData,
 	ApplicationCommandOptionChoiceData,
 	ChatInputCommandInteraction,
@@ -111,7 +112,7 @@ const rawCommand: Command = {
 			content: `\`\`\`json\n${escapeMarkdown(datum)}\n\`\`\``,
 		});
 	},
-	describe(interaction: ChatInputCommandInteraction<"cached">): Localized<(groups: {}) => string> | null {
+	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				commandName: (): string => {

@@ -1,7 +1,9 @@
-type HelpGroups = {
+type HelpWithChannelGroups = {
 	channel: () => string,
 };
-type HelpDependency = {
-	help: HelpGroups,
+type HelpWithoutChannelGroups = {};
+type RecordDependency = {
+	helpWithChannel: HelpWithChannelGroups,
+	helpWithoutChannel: HelpWithoutChannelGroups,
 };
-export default HelpDependency;
+export default RecordDependency;
