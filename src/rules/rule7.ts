@@ -6,6 +6,7 @@ import type {
 	AutoModerationActionOptions,
 	AutoModerationRule,
 	AutoModerationRuleCreateOptions,
+	Guild,
 	GuildBasedChannel,
 	GuildEmoji,
 	Message,
@@ -35,10 +36,19 @@ const {
 	helpWithChannels: helpWithChannelsLocalizations,
 	helpWithoutChannels: helpWithoutChannelsLocalizations,
 }: Rule7Compilation = rule7Compilation;
+const {
+	SHICKA_RULE7_DEFAULT_ALERT_ACTION_CHANNEL,
+	SHICKA_RULE7_DEFAULT_EXEMPT_CHANNELS,
+	SHICKA_RULE7_DEFAULT_EXEMPT_ROLES,
+	SHICKA_RULE7_REACTION_EMOJI,
+	SHICKA_RULE7_OVERRIDE_RULES_CHANNEL,
+}: NodeJS.ProcessEnv = process.env;
 const ruleTriggerRegexPattern: string = "\\bco-?op(?:erati(?:ons?|ve))?\\b|\\bconsoles?\\b|\\bmulti(?:-?player)?\\b|\\bonline\\b|\\bpc\\b|\\bplaystation\\b|\\bps[456]\\b|\\bswitch\\b|\\bxbox\\b";
-const ruleExemptChannels: Set<string> = new Set<string>([]);
-const ruleExemptRoles: Set<string> = new Set<string>(["Administrator", "Moderator", "Helper", "Cookie"]);
-const ruleAlertActionChannel: string = "🔎│logs";
+const ruleAlertActionChannel: string = SHICKA_RULE7_DEFAULT_ALERT_ACTION_CHANNEL ?? "";
+const ruleExemptChannels: string[] | null = SHICKA_RULE7_DEFAULT_EXEMPT_CHANNELS != null ? SHICKA_RULE7_DEFAULT_EXEMPT_CHANNELS.split("\n") : null;
+const ruleExemptRoles: string[] | null = SHICKA_RULE7_DEFAULT_EXEMPT_ROLES != null ? SHICKA_RULE7_DEFAULT_EXEMPT_ROLES.split("\n") : null;
+const ruleReactionEmoji: string = SHICKA_RULE7_REACTION_EMOJI ?? "";
+const ruleRulesChannel: string | null = SHICKA_RULE7_OVERRIDE_RULES_CHANNEL ?? null;
 const rule7Rule: Rule = {
 	register(): Omit<AutoModerationRuleCreateOptions, "exemptChannels" | "exemptRoles" | "actions"> & {exemptChannels?: string[], exemptRoles?: string[], actions: (Omit<AutoModerationActionOptions, "metadata"> & {metadata?: Omit<AutoModerationActionMetadataOptions, "channel"> & {channel?: string}})[]} {
 		return {
@@ -49,8 +59,8 @@ const rule7Rule: Rule = {
 			triggerMetadata: {
 				regexPatterns: [ruleTriggerRegexPattern],
 			},
-			exemptChannels: Array.from(ruleExemptChannels),
-			exemptRoles: Array.from(ruleExemptRoles),
+			...(ruleExemptChannels != null ? {exemptChannels: ruleExemptChannels} : {}),
+			...(ruleExemptRoles != null ? {exemptRoles: ruleExemptRoles} : {}),
 			actions: [
 				{
 					type: AutoModerationActionType.SendAlertMessage,
@@ -81,25 +91,30 @@ const rule7Rule: Rule = {
 		}
 		const {guild}: AutoModerationActionExecution = execution;
 		const emoji: GuildEmoji | undefined = guild.emojis.cache.find((emoji: GuildEmoji): boolean => {
-			return emoji.name === "RULE7";
+			const {name}: GuildEmoji = emoji;
+			if (name == null) {
+				return false;
+			}
+			return name === ruleReactionEmoji;
 		});
 		if (emoji != null) {
 			await message.reply({
 				content: `${emoji}`,
 			});
 		}
-		const rulesChannel: GuildBasedChannel | null = ((): GuildBasedChannel | null => {
+		const {rulesChannel}: Guild = guild;
+		const manualChannel: TextChannel | null = ruleRulesChannel != null ? ((): TextChannel | null => {
 			const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-				return channel.name === "📕│rules-welcome";
+				return channel.name === ruleRulesChannel;
 			});
-			if (channel == null || channel.type === ChannelType.GuildCategory || channel.isThread()) {
+			if (channel == null || channel.type !== ChannelType.GuildText) {
 				return null;
 			}
 			return channel;
-		})();
-		if (rulesChannel != null) {
+		})() : rulesChannel;
+		if (manualChannel != null) {
 			await message.reply({
-				content: `Please read and respect the rules in ${rulesChannel}!`,
+				content: `Please read and respect the rules in ${manualChannel}!`,
 			});
 		}
 		await message.react("🇷");

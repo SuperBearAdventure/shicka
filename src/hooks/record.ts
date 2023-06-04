@@ -45,8 +45,11 @@ const {
 	helpWithChannel: helpWithChannelLocalizations,
 	helpWithoutChannel: helpWithoutChannelLocalizations,
 }: RecordCompilation = recordCompilation;
+const {
+	SHICKA_RECORD_DEFAULT_CHANNEL,
+}: NodeJS.ProcessEnv = process.env;
 const {createCanvas, loadImage}: any = canvas;
-const hookChannel: string = "🏅│records";
+const hookChannel: string = SHICKA_RECORD_DEFAULT_CHANNEL ?? "";
 const hookAvatar: string = await (async (): Promise<string> => {
 	const url: string = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 64 64" width="256" height="256"><circle cx="16" cy="16" r="24" fill="#ccc"/><path d="M16,5L18,14L26,13L19,17L23,25L16,19L9,25L13,17L6,13L14,14Z" fill="#333" stroke="#333" stroke-width="2" stroke-linejoin="round"/></svg>`;
 	const image: Image = await loadImage(url);

@@ -45,8 +45,9 @@ const {
 	bareSchedule: bareScheduleLocalizations,
 }: OutfitCompilation = outfitCompilation;
 const {
-	SHICKA_SALT: salt = "",
+	SHICKA_OUTFIT_GENERATOR_SALT,
 }: NodeJS.ProcessEnv = process.env;
+const commandGeneratorSalt: string = SHICKA_OUTFIT_GENERATOR_SALT ?? "";
 function knuth(state: bigint): bigint {
 	return BigInt.asUintN(32, state * 2654435761n);
 }
@@ -169,7 +170,7 @@ const outfitCommand: Command = {
 			const day: number = now + k;
 			const seed: number = Math.floor(day / slicesPerRarity);
 			const slicesByRarity: Outfit[][][] = slicesByRarityBySeed[seed] ??= ((): Outfit[][][] => {
-				const generator: Iterator<bigint> = xorShift32(knuth(BigInt(seed) + BigInt(salt)) || BigInt(salt));
+				const generator: Iterator<bigint> = xorShift32(knuth(BigInt(seed) + BigInt(commandGeneratorSalt)) || BigInt(commandGeneratorSalt));
 				return rarities.map<Outfit[][]>((rarity: Rarity): Outfit[][] => {
 					if (rarity.slots === 0) {
 						const length: number = slicesPerRarity;
@@ -259,7 +260,7 @@ const outfitCommand: Command = {
 			const day: number = now + k;
 			const seed: number = Math.floor(day / slicesPerRarity);
 			const slicesByRarity: Outfit[][][] = slicesByRarityBySeed[seed] ??= ((): Outfit[][][] => {
-				const generator: Iterator<bigint> = xorShift32(knuth(BigInt(seed) + BigInt(salt)) || BigInt(salt));
+				const generator: Iterator<bigint> = xorShift32(knuth(BigInt(seed) + BigInt(commandGeneratorSalt)) || BigInt(commandGeneratorSalt));
 				return rarities.map<Outfit[][]>((rarity: Rarity): Outfit[][] => {
 					if (rarity.slots === 0) {
 						return [];

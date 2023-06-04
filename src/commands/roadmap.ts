@@ -27,7 +27,11 @@ const {
 	intentWithChannel: intentWithChannelLocalizations,
 	intentWithoutChannel: intentWithoutChannelLocalizations,
 }: RoadmapCompilation = roadmapCompilation;
+const {
+	SHICKA_ROADMAP_INTENT_CHANNEL,
+}: NodeJS.ProcessEnv = process.env;
 const link: string = "https://trello.com/b/3DPL9CwV/sba-to-do-list";
+const commandIntentChannel: string = SHICKA_ROADMAP_INTENT_CHANNEL ?? "";
 const roadmapCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -44,7 +48,7 @@ const roadmapCommand: Command = {
 		const resolvedLocale: Locale = resolve(locale);
 		const channel: GuildBasedChannel | null = ((): GuildBasedChannel | null => {
 			const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-				return channel.name === "💡│game-suggestions";
+				return channel.name === commandIntentChannel;
 			});
 			if (channel == null || channel.type === ChannelType.GuildCategory || channel.isThread()) {
 				return null;
