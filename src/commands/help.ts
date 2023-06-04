@@ -2,6 +2,7 @@ import type {
 	ApplicationCommand,
 	ApplicationCommandData,
 	ApplicationCommandPermissions,
+	AutoModerationRule,
 	ChatInputCommandInteraction,
 	Client,
 	ClientApplication,
@@ -17,7 +18,7 @@ import type {Help as HelpCompilation} from "../compilations.js";
 import type {Help as HelpDefinition} from "../definitions.js";
 import type {Help as HelpDependency} from "../dependencies.js";
 import type Hook from "../hooks.js";
-import type Trigger from "../triggers.js";
+import type Rule from "../rules.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {
 	ApplicationCommandPermissionType,
@@ -27,7 +28,7 @@ import * as commands from "../commands.js";
 import {help as helpCompilation} from "../compilations.js";
 import {help as helpDefinition} from "../definitions.js";
 import * as hooks from "../hooks.js";
-import * as triggers from "../triggers.js";
+import * as rules from "../rules.js";
 import {composeAll, list, localize, resolve} from "../utils/string.js";
 type HelpGroups = HelpDependency["help"];
 const {
@@ -205,6 +206,14 @@ const helpCommand: Command = {
 		if (webhooks == null) {
 			return;
 		}
+		const autoModerationRules: Collection<string, AutoModerationRule> | undefined = await (async (): Promise<Collection<string, AutoModerationRule> | undefined> => {
+			try {
+				return await guild.autoModerationRules.fetch();
+			} catch {}
+		})();
+		if (autoModerationRules == null) {
+			return;
+		}
 		const descriptions: Localized<(groups: {}) => string>[] = [
 			Object.keys(commands).map<Command | null>((commandName: string): Command | null => {
 				const command: Command = commands[commandName as keyof typeof commands] as Command;
@@ -241,11 +250,26 @@ const helpCommand: Command = {
 			}).filter<Hook>((hook: Hook | null): hook is Hook => {
 				return hook != null;
 			}),
-			Object.keys(triggers).map<Trigger>((triggerName: string): Trigger => {
-				const trigger: Trigger = triggers[triggerName as keyof typeof triggers] as Trigger;
-				return trigger;
+			Object.keys(rules).map<Rule | null>((ruleName: string): Rule | null => {
+				const rule: Rule = rules[ruleName as keyof typeof rules] as Rule;
+				const autoModerationRule: AutoModerationRule | undefined = autoModerationRules.find((autoModerationRule: AutoModerationRule): boolean => {
+					return autoModerationRule.name === ruleName;
+				});
+				if (autoModerationRule == null) {
+					return null;
+				}
+				const {user}: Client<boolean> = autoModerationRule.client;
+				if (user == null || autoModerationRule.creatorId !== user.id) {
+					return null;
+				}
+				if (!autoModerationRule.enabled) {
+					return null;
+				}
+				return rule;
+			}).filter<Rule>((rule: Rule | null): rule is Rule => {
+				return rule != null;
 			}),
-		].flat<(Command | Hook | Trigger)[][]>().map<Localized<(groups: {}) => string> | null>((action: Command | Hook | Trigger): Localized<(groups: {}) => string> | null => {
+		].flat<(Command | Hook | Rule)[][]>().map<Localized<(groups: {}) => string> | null>((action: Command | Hook | Rule): Localized<(groups: {}) => string> | null => {
 			const description: Localized<(groups: {}) => string> | null = action.describe(interaction);
 			return description;
 		}).filter<Localized<(groups: {}) => string>>((description: Localized<(groups: {}) => string> | null): description is Localized<(groups: {}) => string> => {
