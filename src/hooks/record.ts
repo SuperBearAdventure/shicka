@@ -3,20 +3,23 @@ import type {
 	Client,
 	GuildBasedChannel,
 	Message,
+	Webhook,
+	WebhookCreateOptions,
 } from "discord.js";
 import type {Response} from "node-fetch";
-import type {Job} from "node-schedule";
+import type {Job, RecurrenceSpecDateRange} from "node-schedule";
 import type {Record as RecordCompilation} from "../compilations.js";
+import type {Record as RecordDefinition} from "../definitions.js";
 import type {Record as RecordDependency} from "../dependencies.js";
-import type Feed from "../feeds.js";
+import type Hook from "../hooks.js";
 import type {Localized} from "../utils/string.js";
 import {
 	ChannelType,
 	escapeMarkdown,
 } from "discord.js";
 import fetch from "node-fetch";
-import schedule from "node-schedule";
 import {record as recordCompilation} from "../compilations.js";
+import {record as recordDefinition} from "../definitions.js";
 import {composeAll, localize} from "../utils/string.js";
 type HelpGroups = RecordDependency["help"];
 type Leaderboard = {
@@ -31,11 +34,19 @@ type Level = {
 	categories: {[k in string]: Category},
 };
 type Data = {
+	title: string,
 	content: string,
 };
 const {
+	hookName,
+	hookReason,
+}: RecordDefinition = recordDefinition;
+const {
 	help: helpLocalizations,
 }: RecordCompilation = recordCompilation;
+const hookChannel: string = "🏅│records";
+const jobRule: string = "1 3/6 * * *";
+const jobTz: string = "UTC";
 const games: string[] = ["9d3rrxyd", "w6jl2ned"];
 const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
@@ -138,6 +149,7 @@ async function fetchData(start: number, end: number): Promise<Data[] | null> {
 						}
 						const linkLine: string = videos.length !== 0 ? `\n${videos.join(" ")}` : "";
 						records.push({
+							title: `New world record in ${escapeMarkdown(category)}`,
 							content: `${playerConjunction} set a new world record in the *${escapeMarkdown(category)}* category: **${escapeMarkdown(time)}**!${linkLine}`,
 						});
 					}
@@ -148,18 +160,22 @@ async function fetchData(start: number, end: number): Promise<Data[] | null> {
 	} catch {}
 	return null;
 };
-const recordFeed: Feed = {
-	register(client: Client<boolean>): Job {
-		return schedule.scheduleJob({
-			rule: "1 3/6 * * *",
-			tz: "UTC",
-		}, async (timestamp: Date): Promise<void> => {
-			const invocation: {timestamp: Date, client: Client<boolean>} = {timestamp, client};
-			await this.execute(invocation);
-		});
+const recordHook: Hook = {
+	register(): {hookOptions: Omit<WebhookCreateOptions, "channel"> & {channel: string}, jobOptions: RecurrenceSpecDateRange} {
+		return {
+			hookOptions: {
+				name: hookName,
+				reason: hookReason,
+				channel: hookChannel,
+			},
+			jobOptions: {
+				rule: jobRule,
+				tz: jobTz,
+			},
+		};
 	},
-	async execute(invocation: {timestamp: Date, client: Client<boolean>}): Promise<void> {
-		const {timestamp, client}: {timestamp: Date, client: Client<boolean>} = invocation;
+	async execute(invocation: {job: Job, timestamp: Date, webhooks: Webhook[]}): Promise<void> {
+		const {timestamp, webhooks}: {timestamp: Date, webhooks: Webhook[]} = invocation;
 		const middle: number = Math.floor(timestamp.getTime() / 21600000) * 21600000;
 		const start: number = middle - 10800000;
 		const end: number = middle + 10800000;
@@ -167,23 +183,22 @@ const recordFeed: Feed = {
 		if (data == null) {
 			throw new Error();
 		}
-		for (const guild of client.guilds.cache.values()) {
-			const channel: GuildBasedChannel | null = ((): GuildBasedChannel | null => {
-				const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-					return channel.name === "🏅│records";
-				});
-				if (channel == null || channel.type === ChannelType.GuildCategory || channel.isThread()) {
-					return null;
-				}
-				return channel;
-			})();
-			if (channel == null || !channel.isTextBased()) {
+		for (const webhook of webhooks) {
+			const {channel}: Webhook = webhook;
+			const {user}: Client<boolean> = webhook.client;
+			if (user == null) {
 				continue;
 			}
+			const applicationName: string = user.username;
+			const applicationIcon: string = user.displayAvatarURL();
 			for (const item of data) {
 				const record: string = item.content;
-				const message: Message<boolean> = await channel.send({
+				const category: string = item.title;
+				const message: Message<boolean> = await webhook.send({
 					content: record,
+					username: applicationName,
+					avatarURL: applicationIcon,
+					...(channel != null && channel.type === ChannelType.GuildForum ? {threadName: category} : {}),
 				});
 				await message.react("🎉");
 			}
@@ -200,7 +215,7 @@ const recordFeed: Feed = {
 			}
 			return channel;
 		})();
-		if (channel == null || !channel.isTextBased()) {
+		if (channel == null) {
 			return null;
 		}
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
@@ -212,4 +227,4 @@ const recordFeed: Feed = {
 		}));
 	},
 };
-export default recordFeed;
+export default recordHook;

@@ -2,28 +2,40 @@ import type {
 	ApplicationCommandData,
 	AutocompleteInteraction,
 	ChatInputCommandInteraction,
+	Collection,
+	ForumChannel,
 	Guild,
+	GuildBasedChannel,
 	GuildMember,
 	Interaction,
 	Message,
+	NewsChannel,
 	PartialGuildMember,
+	StageChannel,
+	TextChannel,
 	ThreadChannel,
+	VoiceChannel,
+	Webhook,
+	WebhookCreateOptions,
 } from "discord.js";
-import type {Job} from "node-schedule";
+import type {Job, RecurrenceSpecDateRange} from "node-schedule";
 import type Command from "./commands.js";
-import type Feed from "./feeds.js";
+import type Hook from "./hooks.js";
 import type Trigger from "./triggers.js";
 import type Greeting from "./greetings.js";
 import {
 	ActivityType,
+	ChannelType,
 	Client,
 	GatewayIntentBits,
 	escapeMarkdown,
 } from "discord.js";
+import schedule from "node-schedule";
 import * as commands from "./commands.js";
-import * as feeds from "./feeds.js";
+import * as hooks from "./hooks.js";
 import * as triggers from "./triggers.js";
 import * as greetings from "./greetings.js";
+type WebhookCreateOptionsResolvable = Omit<WebhookCreateOptions, "channel"> & {channel: string};
 const {
 	SHICKA_DISCORD_TOKEN: discordToken = "",
 }: NodeJS.ProcessEnv = process.env;
@@ -34,6 +46,77 @@ async function submitGuildCommands(guild: Guild, commandRegistry: ApplicationCom
 	} catch (error: unknown) {
 		console.warn(error);
 		return false;
+	}
+	return true;
+}
+async function submitGuildHooks(guild: Guild, hookRegistry: WebhookCreateOptionsResolvable[]): Promise<boolean> {
+	const guildWebhooks: Collection<string, Webhook> | undefined = await (async (): Promise<Collection<string, Webhook> | undefined> => {
+		try {
+			return await guild.fetchWebhooks();
+		} catch (error: unknown) {
+			console.warn(error);
+		}
+	})();
+	if (guildWebhooks == null) {
+		return false;
+	}
+	const ownGuildWebhooks: {[k in string]: Webhook[]} = Object.create(null);
+	for (const webhook of guildWebhooks.values()) {
+		if (!webhook.isIncoming()) {
+			continue;
+		}
+		const {owner}: Webhook = webhook;
+		const {user}: Client<boolean> = webhook.client;
+		if (owner == null || user == null || owner.id !== user.id) {
+			continue;
+		}
+		(ownGuildWebhooks[webhook.name] ??= []).push(webhook);
+	}
+	for (const [hookName, webhooks] of Object.entries(ownGuildWebhooks)) {
+		if (hookName in hooks && webhooks.length === 1) {
+			continue;
+		}
+		for (const webhook of webhooks) {
+			try {
+				await webhook.delete();
+			} catch (error: unknown) {
+				console.warn(error);
+				return false;
+			}
+		}
+		delete ownGuildWebhooks[hookName];
+	}
+	for (const hookOptionsResolvable of hookRegistry) {
+		const hookName: string = hookOptionsResolvable.name;
+		if (hookName in ownGuildWebhooks) {
+			continue;
+		}
+		const {
+			channel: channelResolvable,
+			...otherHookOptions
+		}: WebhookCreateOptionsResolvable = hookOptionsResolvable;
+		const channel: TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | null = ((): TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | null => {
+			const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
+				return channel.name === channelResolvable;
+			});
+			if (channel == null || channel.type === ChannelType.GuildCategory || channel.isThread()) {
+				return null;
+			}
+			return channel;
+		})();
+		if (channel == null) {
+			continue;
+		}
+		const hookOptions: WebhookCreateOptions = {
+			channel,
+			...otherHookOptions,
+		};
+		try {
+			await guild.channels.createWebhook(hookOptions);
+		} catch (error: unknown) {
+			console.warn(error);
+			return false;
+		}
 	}
 	return true;
 }
@@ -69,12 +152,47 @@ client.once("ready", async (client: Client<boolean>): Promise<void> => {
 			console.error(error);
 		}
 	}
-	for (const feedName of Object.keys(feeds)) {
-		const feed: Feed = feeds[feedName as keyof typeof feeds] as Feed;
-		const job: Job = feed.register(client);
-		job.on("error", (error: unknown): void => {
-			console.error(error);
+	const hookRegistry: WebhookCreateOptionsResolvable[] = Object.keys(hooks).map<{hookOptions: WebhookCreateOptionsResolvable, jobOptions: RecurrenceSpecDateRange}>((hookName: string): {hookOptions: WebhookCreateOptionsResolvable, jobOptions: RecurrenceSpecDateRange} => {
+		const hook: Hook = hooks[hookName as keyof typeof hooks] as Hook;
+		return hook.register();
+	}).map<WebhookCreateOptionsResolvable>(({hookOptions, jobOptions}: {hookOptions: WebhookCreateOptionsResolvable, jobOptions: RecurrenceSpecDateRange}): WebhookCreateOptionsResolvable => {
+		const hookName: string = hookOptions.name;
+		const job: Job = schedule.scheduleJob(hookName, jobOptions, async (timestamp: Date): Promise<void> => {
+			const webhooks: Webhook[] = [];
+			for (const guild of client.guilds.cache.values()) {
+				const guildWebhooks: Collection<string, Webhook> | undefined = await (async (): Promise<Collection<string, Webhook> | undefined> => {
+					try {
+						return await guild.fetchWebhooks();
+					} catch {}
+				})();
+				if (guildWebhooks == null) {
+					continue;
+				}
+				for (const webhook of guildWebhooks.values()) {
+					if (webhook.name !== hookName) {
+						continue;
+					}
+					webhooks.push(webhook);
+				}
+			}
+			const webhookJobInvocation: {job: Job, timestamp: Date, webhooks: Webhook[]} = {
+				job,
+				timestamp,
+				webhooks,
+			};
+			client.emit("webhookJobInvocation", webhookJobInvocation);
 		});
+		return hookOptions;
+	});
+	for (const guild of client.guilds.cache.values()) {
+		try {
+			const submitted: boolean = await submitGuildHooks(guild, hookRegistry);
+			if (submitted == false) {
+				throw new Error();
+			}
+		} catch (error: unknown) {
+			console.error(error);
+		}
 	}
 	console.log("Ready!");
 });
@@ -179,6 +297,38 @@ client.on("threadUpdate", async (oldChannel: ThreadChannel, newChannel: ThreadCh
 			console.error(error);
 		}
 		return;
+	}
+});
+client.on("webhookJobInvocation", async (invocation: {job: Job, timestamp: Date, webhooks: Webhook[]}): Promise<void> => {
+	const {job, timestamp, webhooks}: {job: Job, timestamp: Date, webhooks: Webhook[]} = invocation;
+	const ownWebhooks: Webhook[] = [];
+	for (const webhook of webhooks) {
+		if (!webhook.isIncoming()) {
+			continue;
+		}
+		const {owner}: Webhook = webhook;
+		const {user}: Client<boolean> = webhook.client;
+		if (owner == null || user == null || owner.id !== user.id) {
+			continue;
+		}
+		ownWebhooks.push(webhook);
+	}
+	if (webhooks.length === 0) {
+		return;
+	}
+	const hookName: string = job.name;
+	if (!(hookName in hooks)) {
+		return;
+	}
+	try {
+		const hook: Hook = hooks[hookName as keyof typeof hooks] as Hook;
+		await hook.execute({
+			job,
+			timestamp,
+			webhooks: ownWebhooks,
+		});
+	} catch (error: unknown) {
+		console.error(error);
 	}
 });
 await client.login(discordToken);

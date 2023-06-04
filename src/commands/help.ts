@@ -3,18 +3,20 @@ import type {
 	ApplicationCommandData,
 	ApplicationCommandPermissions,
 	ChatInputCommandInteraction,
+	Client,
 	ClientApplication,
 	Collection,
 	GuildBasedChannel,
 	GuildMember,
 	Interaction,
 	Role,
+	Webhook,
 } from "discord.js";
 import type Command from "../commands.js";
 import type {Help as HelpCompilation} from "../compilations.js";
 import type {Help as HelpDefinition} from "../definitions.js";
 import type {Help as HelpDependency} from "../dependencies.js";
-import type Feed from "../feeds.js";
+import type Hook from "../hooks.js";
 import type Trigger from "../triggers.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {
@@ -24,7 +26,7 @@ import {
 import * as commands from "../commands.js";
 import {help as helpCompilation} from "../compilations.js";
 import {help as helpDefinition} from "../definitions.js";
-import * as feeds from "../feeds.js";
+import * as hooks from "../hooks.js";
 import * as triggers from "../triggers.js";
 import {composeAll, list, localize, resolve} from "../utils/string.js";
 type HelpGroups = HelpDependency["help"];
@@ -195,6 +197,14 @@ const helpCommand: Command = {
 		if (permissions == null) {
 			return;
 		}
+		const webhooks: Collection<string, Webhook> | undefined = await (async (): Promise<Collection<string, Webhook> | undefined> => {
+			try {
+				return await guild.fetchWebhooks();
+			} catch {}
+		})();
+		if (webhooks == null) {
+			return;
+		}
 		const descriptions: Localized<(groups: {}) => string>[] = [
 			Object.keys(commands).map<Command | null>((commandName: string): Command | null => {
 				const command: Command = commands[commandName as keyof typeof commands] as Command;
@@ -211,15 +221,31 @@ const helpCommand: Command = {
 			}).filter<Command>((command: Command | null): command is Command => {
 				return command != null;
 			}),
-			Object.keys(feeds).map<Feed>((feedName: string): Feed => {
-				const feed: Feed = feeds[feedName as keyof typeof feeds] as Feed;
-				return feed;
+			Object.keys(hooks).map<Hook | null>((hookName: string): Hook | null => {
+				const hook: Hook = hooks[hookName as keyof typeof hooks] as Hook;
+				const webhook: Webhook | undefined = webhooks.find((webhook: Webhook): boolean => {
+					return webhook.name === hookName;
+				});
+				if (webhook == null) {
+					return null;
+				}
+				if (!webhook.isIncoming()) {
+					return null;
+				}
+				const {owner}: Webhook = webhook;
+				const {user}: Client<boolean> = webhook.client;
+				if (owner == null || user == null || owner.id !== user.id) {
+					return null;
+				}
+				return hook;
+			}).filter<Hook>((hook: Hook | null): hook is Hook => {
+				return hook != null;
 			}),
 			Object.keys(triggers).map<Trigger>((triggerName: string): Trigger => {
 				const trigger: Trigger = triggers[triggerName as keyof typeof triggers] as Trigger;
 				return trigger;
 			}),
-		].flat<(Command | Feed | Trigger)[][]>().map<Localized<(groups: {}) => string> | null>((action: Command | Feed | Trigger): Localized<(groups: {}) => string> | null => {
+		].flat<(Command | Hook | Trigger)[][]>().map<Localized<(groups: {}) => string> | null>((action: Command | Hook | Trigger): Localized<(groups: {}) => string> | null => {
 			const description: Localized<(groups: {}) => string> | null = action.describe(interaction);
 			return description;
 		}).filter<Localized<(groups: {}) => string>>((description: Localized<(groups: {}) => string> | null): description is Localized<(groups: {}) => string> => {
