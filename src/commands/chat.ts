@@ -7,6 +7,7 @@ import type {
 	Interaction,
 	Message,
 	ModalSubmitInteraction,
+	ThreadChannel,
 } from "discord.js";
 import type Command from "../commands.js";
 import type {Chat as ChatCompilation} from "../compilations.js";
@@ -86,6 +87,7 @@ const chatCommand: Command = {
 								ChannelType.PublicThread,
 								ChannelType.PrivateThread,
 								ChannelType.GuildStageVoice,
+								ChannelType.GuildForum,
 							],
 						},
 					],
@@ -110,6 +112,7 @@ const chatCommand: Command = {
 								ChannelType.PublicThread,
 								ChannelType.PrivateThread,
 								ChannelType.GuildStageVoice,
+								ChannelType.GuildForum,
 							],
 						},
 						{
@@ -141,6 +144,7 @@ const chatCommand: Command = {
 								ChannelType.PublicThread,
 								ChannelType.PrivateThread,
 								ChannelType.GuildStageVoice,
+								ChannelType.GuildForum,
 							],
 						},
 						{
@@ -187,6 +191,7 @@ const chatCommand: Command = {
 								ChannelType.PublicThread,
 								ChannelType.PrivateThread,
 								ChannelType.GuildStageVoice,
+								ChannelType.GuildForum,
 							],
 						},
 						{
@@ -226,8 +231,9 @@ const chatCommand: Command = {
 			ChannelType.PublicThread,
 			ChannelType.PrivateThread,
 			ChannelType.GuildStageVoice,
+			ChannelType.GuildForum,
 		]);
-		if (!channel.isTextBased()) {
+		if (channel == null) {
 			await interaction.reply({
 				content: noChannelReplyLocalizations[resolvedLocale]({}),
 				ephemeral: true,
@@ -244,8 +250,22 @@ const chatCommand: Command = {
 				});
 				return;
 			}
+			if (channel.isThread() && channel.id === identifier) {
+				await interaction.reply({
+					content: noMessageReplyLocalizations[resolvedLocale]({}),
+					ephemeral: true,
+				});
+				return;
+			}
 			const message: Message<true> | undefined = await (async (): Promise<Message<true> | undefined> => {
 				try {
+					if (channel.type === ChannelType.GuildForum) {
+						const thread: ThreadChannel | undefined = channel.threads.cache.get(identifier);
+						if (thread == null) {
+							return;
+						}
+						return await thread.messages.fetch(identifier);
+					}
 					return await channel.messages.fetch(identifier);
 				} catch {}
 			})();
@@ -275,6 +295,7 @@ const chatCommand: Command = {
 								style: TextInputStyle.Paragraph,
 								customId: contentOptionName,
 								label: contentOptionName,
+								required: false,
 								value: message.content,
 								minLength: 0,
 								maxLength: 2000,
@@ -348,7 +369,15 @@ const chatCommand: Command = {
 			});
 			const content: string = modalSubmitInteraction.fields.getTextInputValue(contentOptionName);
 			try {
-				await channel.send({content});
+				if (channel.type === ChannelType.GuildForum) {
+					const name: string = "New post";
+					await channel.threads.create({
+						name,
+						message: {content},
+					});
+				} else {
+					await channel.send({content});
+				}
 			} catch {
 				await modalSubmitInteraction.reply({
 					content: noPostPermissionReplyLocalizations[resolvedLocale]({}),
@@ -377,8 +406,22 @@ const chatCommand: Command = {
 			});
 			return;
 		}
+		if (channel.isThread() && channel.id === identifier) {
+			await interaction.reply({
+				content: noMessageReplyLocalizations[resolvedLocale]({}),
+				ephemeral: true,
+			});
+			return;
+		}
 		const message: Message<true> | undefined = await (async (): Promise<Message<true> | undefined> => {
 			try {
+				if (channel.type === ChannelType.GuildForum) {
+					const thread: ThreadChannel | undefined = channel.threads.cache.get(identifier);
+					if (thread == null) {
+						return;
+					}
+					return await thread.messages.fetch(identifier);
+				}
 				return await channel.messages.fetch(identifier);
 			} catch {}
 		})();

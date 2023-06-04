@@ -6,12 +6,15 @@ import type {
 	AutoModerationActionOptions,
 	AutoModerationRule,
 	AutoModerationRuleCreateOptions,
+	ForumChannel,
 	Guild,
 	GuildBasedChannel,
 	GuildEmoji,
 	Message,
 	NewsChannel,
+	TextBasedChannel,
 	TextChannel,
+	ThreadChannel,
 } from "discord.js";
 import type {Rule7 as Rule7Compilation} from "../compilations.js";
 import type {Rule7 as Rule7Definition} from "../definitions.js";
@@ -73,7 +76,9 @@ const rule7Rule: Rule = {
 		};
 	},
 	async execute(execution: AutoModerationActionExecution): Promise<void> {
-		const {channel}: AutoModerationActionExecution = execution;
+		const {channel}: Omit<AutoModerationActionExecution, "channel"> & {channel: TextBasedChannel | ForumChannel | null} = ((): Omit<AutoModerationActionExecution, "channel"> & {channel: TextBasedChannel | ForumChannel | null} => {
+			return execution;
+		})();
 		if (channel == null) {
 			return;
 		}
@@ -81,8 +86,18 @@ const rule7Rule: Rule = {
 		if (messageId == null) {
 			return;
 		}
+		if (channel.isThread() && channel.id === messageId) {
+			return;
+		}
 		const message: Message<boolean> | undefined = await (async (): Promise<Message<boolean> | undefined> => {
 			try {
+				if (channel.type === ChannelType.GuildForum) {
+					const thread: ThreadChannel | undefined = channel.threads.cache.get(messageId);
+					if (thread == null) {
+						return;
+					}
+					return await thread.messages.fetch(messageId);
+				}
 				return await channel.messages.fetch(messageId);
 			} catch {}
 		})();
