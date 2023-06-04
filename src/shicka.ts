@@ -1,5 +1,10 @@
 import type {
 	ApplicationCommandData,
+	AutoModerationActionExecution,
+	AutoModerationActionMetadataOptions,
+	AutoModerationActionOptions,
+	AutoModerationRule,
+	AutoModerationRuleCreateOptions,
 	AutocompleteInteraction,
 	ChatInputCommandInteraction,
 	Collection,
@@ -11,6 +16,7 @@ import type {
 	Message,
 	NewsChannel,
 	PartialGuildMember,
+	Role,
 	StageChannel,
 	TextChannel,
 	ThreadChannel,
@@ -21,7 +27,7 @@ import type {
 import type {Job, RecurrenceSpecDateRange} from "node-schedule";
 import type Command from "./commands.js";
 import type Hook from "./hooks.js";
-import type Trigger from "./triggers.js";
+import type Rule from "./rules.js";
 import type Greeting from "./greetings.js";
 import {
 	ActivityType,
@@ -33,9 +39,10 @@ import {
 import schedule from "node-schedule";
 import * as commands from "./commands.js";
 import * as hooks from "./hooks.js";
-import * as triggers from "./triggers.js";
+import * as rules from "./rules.js";
 import * as greetings from "./greetings.js";
 type WebhookCreateOptionsResolvable = Omit<WebhookCreateOptions, "channel"> & {channel: string};
+type AutoModerationRuleCreateOptionsResolvable = Omit<AutoModerationRuleCreateOptions, "exemptChannels" | "exemptRoles" | "actions"> & {exemptChannels?: string[], exemptRoles?: string[], actions: (Omit<AutoModerationActionOptions, "metadata"> & {metadata?: Omit<AutoModerationActionMetadataOptions, "channel"> & {channel?: string}})[]};
 const {
 	SHICKA_DISCORD_TOKEN: discordToken = "",
 }: NodeJS.ProcessEnv = process.env;
@@ -120,12 +127,136 @@ async function submitGuildHooks(guild: Guild, hookRegistry: WebhookCreateOptions
 	}
 	return true;
 }
+async function submitGuildRules(guild: Guild, ruleRegistry: AutoModerationRuleCreateOptionsResolvable[]): Promise<boolean> {
+	const guildAutoModerationRules: Collection<string, AutoModerationRule> | undefined = await (async (): Promise<Collection<string, AutoModerationRule> | undefined> => {
+		try {
+			return await guild.autoModerationRules.fetch();
+		} catch (error: unknown) {
+			console.warn(error);
+		}
+	})();
+	if (guildAutoModerationRules == null) {
+		return false;
+	}
+	const ownGuildAutoModerationRules: {[k in string]: AutoModerationRule[]} = Object.create(null);
+	for (const autoModerationRule of guildAutoModerationRules.values()) {
+		const {user}: Client<boolean> = autoModerationRule.client;
+		if (user == null || autoModerationRule.creatorId !== user.id) {
+			continue;
+		}
+		(ownGuildAutoModerationRules[autoModerationRule.name] ??= []).push(autoModerationRule);
+	}
+	for (const [ruleName, autoModerationRules] of Object.entries(ownGuildAutoModerationRules)) {
+		if (ruleName in rules && autoModerationRules.length === 1) {
+			continue;
+		}
+		for (const autoModerationRule of autoModerationRules) {
+			try {
+				await autoModerationRule.delete();
+			} catch (error: unknown) {
+				console.warn(error);
+				return false;
+			}
+		}
+		delete ownGuildAutoModerationRules[ruleName];
+	}
+	for (const ruleOptionsResolvable of ruleRegistry) {
+		const ruleName: string = ruleOptionsResolvable.name;
+		if (ruleName in ownGuildAutoModerationRules) {
+			continue;
+		}
+		const {
+			exemptChannels: exemptChannelsResolvable,
+			exemptRoles: exemptRolesResolvable,
+			actions: actionsResolvable,
+			...otherRuleOptions
+		}: AutoModerationRuleCreateOptionsResolvable = ruleOptionsResolvable;
+		const exemptChannels: (TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel)[] | null = exemptChannelsResolvable != null ? exemptChannelsResolvable.map<TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | null>((exemptChannelResolvable: string): TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | null => {
+			const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
+				return channel.name === exemptChannelResolvable;
+			});
+			if (channel == null || channel.type === ChannelType.GuildCategory || channel.isThread()) {
+				return null;
+			}
+			return channel;
+		}).filter<TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel>((exemptChannel: TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | null): exemptChannel is TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel => {
+			return exemptChannel != null;
+		}) : null;
+		const exemptRoles: Role[] | null = exemptRolesResolvable != null ? exemptRolesResolvable.map<Role | null>((exemptRoleResolvable: string): Role | null => {
+			const role: Role | undefined = guild.roles.cache.find((role: Role): boolean => {
+				return role.name === exemptRoleResolvable;
+			});
+			if (role == null) {
+				return null;
+			}
+			return role;
+		}).filter<Role>((exemptRole: Role | null): exemptRole is Role => {
+			return exemptRole != null;
+		}) : null;
+		const actions: AutoModerationActionOptions[] = actionsResolvable.map<AutoModerationActionOptions | null>((actionResolvable: Omit<AutoModerationActionOptions, "metadata"> & {metadata?: Omit<AutoModerationActionMetadataOptions, "channel"> & {channel?: string}}): AutoModerationActionOptions | null => {
+			const {
+				metadata: metadataResolvable,
+				...otherActionOptions
+			}: Omit<AutoModerationActionOptions, "metadata"> & {metadata?: Omit<AutoModerationActionMetadataOptions, "channel"> & {channel?: string}} = actionResolvable;
+			const metadata: AutoModerationActionMetadataOptions | null = metadataResolvable != null ? ((): AutoModerationActionMetadataOptions | null => {
+				const {
+					channel: channelResolvable,
+					...otherMetadataOptions
+				}: Omit<AutoModerationActionMetadataOptions, "channel"> & {channel?: string} = metadataResolvable;
+				const channel: TextChannel | NewsChannel | null = channelResolvable != null ? ((): TextChannel | NewsChannel | null => {
+					const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
+						return channel.name === channelResolvable;
+					});
+					if (channel == null || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {
+						return null;
+					}
+					return channel;
+				})() : null;
+				if (channelResolvable != null && channel == null) {
+					return null;
+				}
+				const metadata: AutoModerationActionMetadataOptions = {
+					...(channel != null ? {channel} : {}),
+					...otherMetadataOptions
+				};
+				return metadata;
+			})() : null;
+			if (metadataResolvable != null && metadata == null) {
+				return null;
+			}
+			const action: AutoModerationActionOptions = {
+				...(metadata != null ? {metadata} : {}),
+				...otherActionOptions,
+			};
+			return action;
+		}).filter<AutoModerationActionOptions>((action: AutoModerationActionOptions | null): action is AutoModerationActionOptions => {
+			return action != null;
+		});
+		if (actionsResolvable.length !== 0 && actions.length === 0) {
+			continue;
+		}
+		const ruleOptions: AutoModerationRuleCreateOptions = {
+			...(exemptChannels != null ? {exemptChannels} : {}),
+			...(exemptRoles != null ? {exemptRoles} : {}),
+			actions,
+			...otherRuleOptions,
+		};
+		try {
+			await guild.autoModerationRules.create(ruleOptions);
+		} catch (error: unknown) {
+			console.warn(error);
+			return false;
+		}
+	}
+	return true;
+}
 const client: Client<boolean> = new Client({
 	intents: [
+		GatewayIntentBits.AutoModerationConfiguration,
+		GatewayIntentBits.AutoModerationExecution,
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.Guilds,
-		GatewayIntentBits.MessageContent,
 	],
 	presence: {
 		activities: [
@@ -194,7 +325,41 @@ client.once("ready", async (client: Client<boolean>): Promise<void> => {
 			console.error(error);
 		}
 	}
+	const ruleRegistry: AutoModerationRuleCreateOptionsResolvable[] = Object.keys(rules).map<AutoModerationRuleCreateOptionsResolvable>((ruleName: string): AutoModerationRuleCreateOptionsResolvable => {
+		const rule: Rule = rules[ruleName as keyof typeof rules] as Rule;
+		return rule.register();
+	});
+	for (const guild of client.guilds.cache.values()) {
+		try {
+			const submitted: boolean = await submitGuildRules(guild, ruleRegistry);
+			if (submitted == false) {
+				throw new Error();
+			}
+		} catch (error: unknown) {
+			console.error(error);
+		}
+	}
 	console.log("Ready!");
+});
+client.on("autoModerationActionExecution", async (execution: AutoModerationActionExecution): Promise<void> => {
+	const {autoModerationRule}: AutoModerationActionExecution = execution;
+	if (autoModerationRule == null) {
+		return;
+	}
+	const {user}: Client<boolean> = autoModerationRule.client;
+	if (user == null || autoModerationRule.creatorId !== user.id) {
+		return;
+	}
+	const ruleName: string = autoModerationRule.name;
+	if (!(ruleName in rules)) {
+		return;
+	}
+	try {
+		const rule: Rule = rules[ruleName as keyof typeof rules] as Rule;
+		await rule.execute(execution);
+	} catch (error: unknown) {
+		console.error(error);
+	}
 });
 client.on("guildMemberAdd", async (member: GuildMember): Promise<void> => {
 	const {memberCount, systemChannel}: Guild = member.guild;
@@ -253,22 +418,6 @@ client.on("interactionCreate", async (interaction: Interaction): Promise<void> =
 		await command.execute(interaction);
 	} catch (error: unknown) {
 		console.error(error);
-	}
-});
-client.on("messageCreate", async (message: Message): Promise<void> => {
-	if (message.author.bot) {
-		return;
-	}
-	if (!message.inGuild()) {
-		return;
-	}
-	for (const triggerName in triggers) {
-		try {
-			const trigger: Trigger = triggers[triggerName as keyof typeof triggers] as Trigger;
-			await trigger.execute(message);
-		} catch (error: unknown) {
-			console.error(error);
-		}
 	}
 });
 client.on("threadCreate", async (channel: ThreadChannel, newlyCreated: boolean): Promise<void> => {

@@ -81,6 +81,6 @@ $ npm start
 
 - `record` posts the latest world records of the game on `www.speedrun.com` in the given channel (set to `#🏅│records` by default)
 
-### Triggers
+### Rules
 
-- Some suggestions from non-administrator members who do not have any of the `@Administrator`, `@Moderator`, `@Helper` and `@Cookie` roles and that violate the rule 7 will be flagged as such in the `#💡│game-suggestions` channel
+- `rule7` flags messages which violate the rule 7 as such in the given channel (set to `#🔎│logs` by default) except when posted in any of the given exempted channels (set to none by default), when posted by non-administrator members having any of the given exempted roles (set to `@Administrator`, `@Moderator`, `@Helper` and `@Cookie` by default) or when posted by administrator members

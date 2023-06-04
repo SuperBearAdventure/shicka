@@ -150,6 +150,8 @@ type Roadmap = {
 	intentWithoutChannel: Localized<string>,
 };
 type Rule7 = {
+	ruleName: string,
+	ruleReason: string,
 	help: Localized<string>,
 };
 type Soundtrack = {
