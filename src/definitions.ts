@@ -137,6 +137,8 @@ type Raw = {
 	noIdentifierReply: Localized<string>,
 };
 type Record = {
+	hookName: string,
+	hookReason: string,
 	help: Localized<string>,
 };
 type Roadmap = {

@@ -77,9 +77,9 @@ $ npm start
 
 - `/update` gives the links to the latest updates of the game on `play.google.com` and `apps.apple.com`
 
-### Feeds
+### Hooks
 
-- The latest world records of the game on `www.speedrun.com` are regularly published in the `#🏅│records` channel
+- `record` posts the latest world records of the game on `www.speedrun.com` in the given channel (set to `#🏅│records` by default)
 
 ### Triggers
 
