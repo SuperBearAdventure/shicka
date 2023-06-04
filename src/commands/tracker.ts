@@ -34,6 +34,9 @@ const {
 	intentWithoutChannel: intentWithoutChannelLocalizations,
 	link: linkLocalizations,
 }: TrackerCompilation = trackerCompilation;
+const {
+	SHICKA_TRACKER_INTENT_CHANNEL,
+}: NodeJS.ProcessEnv = process.env;
 const data: Data[] = [
 	{
 		title: {
@@ -52,6 +55,7 @@ const data: Data[] = [
 		link: "https://trello.com/b/yTojOuqv/super-bear-adventure-bugs",
 	},
 ];
+const commandIntentChannel: string = SHICKA_TRACKER_INTENT_CHANNEL ?? "";
 const trackerCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -68,7 +72,7 @@ const trackerCommand: Command = {
 		const resolvedLocale: Locale = resolve(locale);
 		const channel: GuildBasedChannel | null = ((): GuildBasedChannel | null => {
 			const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-				return channel.name === "🐛│bug-report";
+				return channel.name === commandIntentChannel;
 			});
 			if (channel == null || channel.type === ChannelType.GuildCategory || channel.isThread()) {
 				return null;
