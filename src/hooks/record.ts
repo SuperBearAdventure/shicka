@@ -148,12 +148,17 @@ async function fetchData(start: number, end: number): Promise<Data[] | null> {
 							players.push(`*${escapeMarkdown(player)}*`)
 						}
 						const playerConjunction: string = players.length !== 0 ? conjunctionFormat.format(players) : "Someone";
-						const primary_t: number = run?.times?.primary_t ?? null;
-						const minutes: string = `${primary_t / 60 | 0}`.padStart(2, "0");
-						const seconds: string = `${primary_t % 60 | 0}`.padStart(2, "0");
-						const centiseconds: string = `${primary_t * 100 % 100 | 0}`.padStart(2, "0");
-						const time: string = `${minutes}:${seconds}.${centiseconds}`;
+						const primary_t: number | null = run?.times?.primary_t ?? null;
+						const time: string = primary_t != null ? ((): string => {
+							const minutes: string = `${primary_t / 60 | 0}`.padStart(2, "0");
+							const seconds: string = `${primary_t % 60 | 0}`.padStart(2, "0");
+							const centiseconds: string = `${primary_t * 100 % 100 | 0}`.padStart(2, "0");
+							const time: string = `${minutes}:${seconds}.${centiseconds}`;
+							return `: **${escapeMarkdown(time)}**`;
+						})() : "";
 						const category: string = `${levelName}${categoryName}${leaderboardName}`;
+						const page: string | null = run?.weblink ?? null
+						const pageLink: string = page != null ?`[a new world record](<${page}>)` : "a new world record";
 						const videos: string[] = [];
 						for (const {uri} of run?.videos?.links ?? []) {
 							if (uri == null) {
@@ -161,10 +166,10 @@ async function fetchData(start: number, end: number): Promise<Data[] | null> {
 							}
 							videos.push(uri);
 						}
-						const linkLine: string = videos.length !== 0 ? `\n${videos.join(" ")}` : "";
+						const videoLinkLine: string = videos.length !== 0 ? `\n${videos.join(" ")}` : "";
 						records.push({
 							title: `New world record in ${escapeMarkdown(category)}`,
-							content: `${playerConjunction} set a new world record in the *${escapeMarkdown(category)}* category: **${escapeMarkdown(time)}**!${linkLine}`,
+							content: `${playerConjunction} set ${pageLink} in the *${escapeMarkdown(category)}* category${time}!${videoLinkLine}`,
 						});
 					}
 				}
