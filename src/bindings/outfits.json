@@ -1241,5 +1241,38 @@
 		"part": 4,
 		"rarity": 5,
 		"update": 81
+	},
+	{
+		"name": {
+			"en-US": "Cute face",
+			"fr": "Bouille trognonne",
+			"pt-BR": "Cara fofa"
+		},
+		"cost": 0,
+		"part": 0,
+		"rarity": 2,
+		"update": 83
+	},
+	{
+		"name": {
+			"en-US": "Birthday cake",
+			"fr": "Gâteau d'anniversaire",
+			"pt-BR": "Bolo de Aniversário"
+		},
+		"cost": 0,
+		"part": 0,
+		"rarity": 2,
+		"update": 83
+	},
+	{
+		"name": {
+			"en-US": "Red bear",
+			"fr": "Ours rouge",
+			"pt-BR": "Urso vermelho"
+		},
+		"cost": 0,
+		"part": 2,
+		"rarity": 3,
+		"update": 83
 	}
 ]

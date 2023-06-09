@@ -32,7 +32,7 @@ const {
 }: LeaderboardCompilation = leaderboardCompilation;
 const data: Data[] = [
 	{
-		title: "Full-game",
+		title: "Full-game Base Categories",
 		link: "https://www.speedrun.com/sba",
 	},
 	{
@@ -52,6 +52,10 @@ const data: Data[] = [
 		link: "https://www.speedrun.com/sba/Giant_House",
 	},
 	{
+		title: "The Hive",
+		link: "https://www.speedrun.com/sbace/The_Hive",
+	},
+	{
 		title: "Missions",
 		link: "https://www.speedrun.com/sbace/Missions",
 	},
@@ -60,7 +64,7 @@ const data: Data[] = [
 		link: "https://www.speedrun.com/sbace/Races",
 	},
 	{
-		title: "Category Extensions",
+		title: "Full-game Category Extensions",
 		link: "https://www.speedrun.com/sbace",
 	},
 ];
