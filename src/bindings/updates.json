@@ -877,5 +877,19 @@
 		"notes": [
 			"Fixed crash related to pets"
 		]
+	},
+	{
+		"name": "10.3.0",
+		"date": {
+			"android": "2023-06-09",
+			"ios": null
+		},
+		"notes": [
+			"Improved level visuals",
+			"UI overhaul for various menus",
+			"Added new cosmetic items",
+			"Added gold time to the hive",
+			"Bug fixes"
+		]
 	}
 ]
