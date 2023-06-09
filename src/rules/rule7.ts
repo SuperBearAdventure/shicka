@@ -9,6 +9,7 @@ import type {
 	TextChannel,
 	ThreadChannel,
 } from "discord.js";
+import type {Canvas, CanvasRenderingContext2D, Image} from "canvas";
 import type {Rule7 as Rule7Compilation} from "../compilations.js";
 import type {Rule7 as Rule7Definition} from "../definitions.js";
 import type {Rule7 as Rule7Dependency} from "../dependencies.js";
@@ -21,6 +22,7 @@ import {
 	AutoModerationRuleTriggerType,
 	ChannelType,
 } from "discord.js";
+import canvas from "canvas";
 import {rule7 as rule7Compilation} from "../compilations.js";
 import {rule7 as rule7Definition} from "../definitions.js";
 import {composeAll, localize} from "../utils/string.js";
@@ -40,12 +42,22 @@ const {
 	SHICKA_RULE7_REACTION_EMOJI,
 	SHICKA_RULE7_OVERRIDE_RULES_CHANNEL,
 }: NodeJS.ProcessEnv = process.env;
+const {createCanvas, loadImage}: any = canvas;
 const ruleTriggerRegexPattern: string = "\\bco-?op(?:erati(?:ons?|ve))?\\b|\\bmulti(?:-?player)?\\b|\\bonline\\b|\\bpc\\b|\\bplaystation\\b|\\bps[456]\\b|\\bxbox\\b";
 const ruleAlertActionChannel: string = SHICKA_RULE7_DEFAULT_ALERT_ACTION_CHANNEL ?? "";
 const ruleExemptChannels: string[] | null = SHICKA_RULE7_DEFAULT_EXEMPT_CHANNELS != null ? SHICKA_RULE7_DEFAULT_EXEMPT_CHANNELS.split("\n") : null;
 const ruleExemptRoles: string[] | null = SHICKA_RULE7_DEFAULT_EXEMPT_ROLES != null ? SHICKA_RULE7_DEFAULT_EXEMPT_ROLES.split("\n") : null;
 const ruleReactionEmoji: string = SHICKA_RULE7_REACTION_EMOJI ?? "";
 const ruleRulesChannel: string | null = SHICKA_RULE7_OVERRIDE_RULES_CHANNEL ?? null;
+const ruleAvatar: string = await (async (): Promise<string> => {
+	const url: string = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 64 64" width="256" height="256"><symbol id="letter-R" viewBox="0 0 24 32"><path d="M6,26L6,6L12,6Q18,6,18,12Q18,18,12,18L6,18M12,18L18,26"/></symbol><symbol id="letter-u" viewBox="0 0 20 32"><path d="M14,10L14,22Q14,26,10,26Q6,26,6,22L6,10M14,22L14,26"/></symbol><symbol id="letter-l" viewBox="0 0 14 32"><path d="M8,26Q6,26,6,24L6,6"/></symbol><symbol id="letter-e" viewBox="0 0 20 32"><path d="M14,22Q14,26,10,26Q6,26,6,22L6,14Q6,10,10,10Q14,10,14,14Q14,18,10,18Q6,18,6,22"/></symbol><symbol id="letter-7" viewBox="0 0 20 32"><path d="M6,10L6,6L14,6L14,10L10,26"/></symbol><symbol id="rule7" viewBox="0 0 68 32"><use href="#letter-R" x="0" y="0" width="24" height="32"/><use href="#letter-u" x="17" y="0" width="20" height="32"/><use href="#letter-l" x="30" y="0" width="14" height="32"/><use href="#letter-e" x="36" y="0" width="20" height="32"/><use href="#letter-7" x="48" y="0" width="20" height="32"/></symbol><circle cx="16" cy="16" r="24" fill="#ccc"/><use href="#rule7" x="-1" y="8" width="34" height="16" fill="none" stroke="#333" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+	const image: Image = await loadImage(url);
+	const canvas: Canvas = createCanvas(256, 256);
+	const context: CanvasRenderingContext2D = canvas.getContext("2d");
+	context.drawImage(image, 0, 0, 256, 256);
+	const data: string = canvas.toDataURL();
+	return data;
+})();
 const rule7Rule: Rule = {
 	register(): AutoModerationRuleData {
 		return {
