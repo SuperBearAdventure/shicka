@@ -1,4 +1,6 @@
+import type {IncomingMessage, Server, ServerResponse} from "node:http";
 import type {
+	ApplicationRoleConnectionMetadataEditOptions,
 	AutoModerationActionMetadataOptions,
 	AutoModerationActionOptions,
 	AutoModerationRuleCreateOptions,
@@ -17,6 +19,7 @@ import type {
 	VoiceChannel,
 	WebhookCreateOptions,
 } from "discord.js";
+import type {Response} from "node-fetch";
 import type {Job} from "node-schedule";
 import type Command from "./commands.js";
 import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "./commands.js";
@@ -24,13 +27,18 @@ import type Hook from "./hooks.js";
 import type {Webhook, WebhookData, WebjobInvocation} from "./hooks.js";
 import type Rule from "./rules.js";
 import type {AutoModerationActionExecution, AutoModerationRule, AutoModerationRuleData} from "./rules.js";
+import crypto from "node:crypto";
+import http from "node:http";
+import cookie from "cookie";
 import {
 	ActivityType,
 	ApplicationCommandType,
+	ApplicationRoleConnectionMetadataType,
 	ChannelType,
 	Client,
 	GatewayIntentBits,
 } from "discord.js";
+import fetch from "node-fetch";
 import schedule from "node-schedule";
 import * as commands from "./commands.js";
 import * as hooks from "./hooks.js";
@@ -39,9 +47,42 @@ type WebhookCreateOptionsResolvable = WebhookData["hookOptions"];
 type WebjobEvent = WebjobInvocation["event"];
 type AutoModerationRuleCreateOptionsResolvable = AutoModerationRuleData;
 const {
+	PORT,
 	SHICKA_DISCORD_TOKEN,
+	// SHICKA_GOOGLE_TOKEN,
+	SHICKA_ORIGIN,
+	SHICKA_VERIFICATION_PATHNAME,
+	SHICKA_DISCORD_CLIENT_ID,
+	SHICKA_DISCORD_CLIENT_SECRET,
+	SHICKA_DISCORD_REDIRECT_PATHNAME,
+	SHICKA_GOOGLE_CLIENT_ID,
+	SHICKA_GOOGLE_CLIENT_SECRET,
+	SHICKA_GOOGLE_REDIRECT_PATHNAME,
 }: NodeJS.ProcessEnv = process.env;
+const port: string = PORT ?? "8080";
 const discordToken: string = SHICKA_DISCORD_TOKEN ?? "";
+// const googleToken: string = SHICKA_GOOGLE_TOKEN ?? "";
+const origin: string = SHICKA_ORIGIN ?? "http://127.0.0.1:8080";
+const verificationPathname: string = SHICKA_VERIFICATION_PATHNAME ?? "/connections/";
+const discordClientId: string = SHICKA_DISCORD_CLIENT_ID ?? "";
+const discordClientSecret: string = SHICKA_DISCORD_CLIENT_SECRET ?? "";
+const discordRedirectPathname: string = SHICKA_DISCORD_REDIRECT_PATHNAME ?? "/connections/discord/";
+const googleClientId: string = SHICKA_GOOGLE_CLIENT_ID ?? "";
+const googleClientSecret: string = SHICKA_GOOGLE_CLIENT_SECRET ?? "";
+const googleRedirectPathname: string = SHICKA_GOOGLE_REDIRECT_PATHNAME ?? "/connections/google/";
+async function submitConnections(client: Client<boolean>, connectionRegistry: ApplicationRoleConnectionMetadataEditOptions[]): Promise<boolean> {
+	try {
+		const {application}: Client = client;
+		if (application == null) {
+			return false;
+		}
+		await application.editRoleConnectionMetadataRecords(connectionRegistry);
+	} catch (error: unknown) {
+		console.warn(error);
+		return false;
+	}
+	return true;
+}
 async function submitGuildCommands(guild: Guild, commandRegistry: ApplicationCommandData[]): Promise<boolean> {
 	try {
 		await guild.commands.set(commandRegistry);
@@ -263,6 +304,32 @@ const client: Client<boolean> = new Client({
 	},
 });
 client.once("ready", async (client: Client<true>): Promise<void> => {
+	const connectionRegistry: ApplicationRoleConnectionMetadataEditOptions[] = [
+		{
+			type: ApplicationRoleConnectionMetadataType.BooleanEqual,
+			key: "backer_android",
+			name: "Backer on Android",
+			nameLocalizations: {
+				"en-US": "Backer on Android",
+				"fr": "Backer on Android",
+				"pt-BR": "Backer on Android",
+			},
+			description: "Tells if the given member bought SBA Gold on Android",
+			descriptionLocalizations: {
+				"en-US": "Tells if the given member bought SBA Gold on Android",
+				"fr": "Tells if the given member bought SBA Gold on Android",
+				"pt-BR": "Tells if the given member bought SBA Gold on Android",
+			},
+		},
+	];
+	try {
+		const submitted: boolean = await submitConnections(client, connectionRegistry);;
+		if (submitted == false) {
+			throw new Error();
+		}
+	} catch (error: unknown) {
+		console.error(error);
+	}
 	const commandRegistry: ApplicationCommandData[] = Object.keys(commands).map<ApplicationCommandData>((commandName: string): ApplicationCommandData => {
 		const command: Command = commands[commandName as keyof typeof commands];
 		return command.register();
@@ -396,7 +463,7 @@ client.once("ready", async (client: Client<true>): Promise<void> => {
 			console.error(error);
 		}
 	}
-	console.log("Ready!");
+	console.log("Client ready!");
 });
 client.on("autoModerationActionExecution", async (execution: AutoModerationActionExecution): Promise<void> => {
 	const {autoModerationRule}: AutoModerationActionExecution = execution;
@@ -515,3 +582,373 @@ client.on("webjobInvocation", async (invocation: WebjobInvocation): Promise<void
 	}
 });
 await client.login(discordToken);
+// function generateCodeVerifier(): string {
+// 	return crypto.randomBytes(128).toString().replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "~");
+// }
+// function generateCodeChallenge(codeVerifier: string): string {
+// 	return crypto.createHash("sha256").update(codeVerifier).digest("base64url");
+// }
+function generateIdentifier(): string {
+	return crypto.randomUUID();
+}
+const discordRedirectLink: string = new URL(discordRedirectPathname, origin).href;
+const googleRedirectLink: string = new URL(googleRedirectPathname, origin).href;
+const discordUsers: {[k in string]: string} = Object.create(null);
+const googleUsers: {[k in string]: string} = Object.create(null);
+const discordTokens: {[k in string]: string} = Object.create(null);
+const googleTokens: {[k in string]: string} = Object.create(null);
+const server: Server = http.createServer(async (request: IncomingMessage, response: ServerResponse): Promise<void> => {
+	const method: string | undefined = request.method;
+	const path: string | undefined = request.url;
+	let content: string | Buffer;
+	let contentType: string;
+	try {
+		if (method == null) {
+			throw new Error("No method");
+		}
+		if (path == null) {
+			throw new Error("No URL");
+		}
+		const {pathname, searchParams}: URL = new URL(path, origin);
+		switch (pathname) {
+			case verificationPathname: {
+				switch (method) {
+					case "GET": {
+						const discordContent: string = `		<form action="${discordRedirectPathname}" method="POST">
+			<p><button type="submit">Authorize accessing Discord</button></p>
+		</form>
+`;
+						const googleContent: string = `		<form action="${googleRedirectPathname}" method="POST">
+			<p><button type="submit">Authorize accessing Google</button></p>
+		</form>
+`;
+						const shickaContent: string = `		<form action="${verificationPathname}" method="POST">
+			<p><button type="submit">Link accounts</button></p>
+		</form>
+`;
+						content = `<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<title>Shicka connections</title>
+		<meta name="viewport" content="width=device-width" />
+		<meta name="color-scheme" content="dark light" />
+	</head>
+	<body>
+${discordContent}${googleContent}${shickaContent}	</body>
+</html>
+`;
+						contentType = "text/html; charset=utf-8";
+						response.statusCode = 200;
+						break;
+					}
+					case "POST": {
+						const originHeader: string | undefined = request.headers.origin;
+						if (originHeader !== origin) {
+							throw new Error();
+						}
+						const cookieHeader: string | undefined = request.headers.cookie;
+						if (cookieHeader == null) {
+							throw new Error();
+						}
+						const cookies: {[k in string]: string | undefined} = cookie.parse(cookieHeader); // IDEA: chain sessions
+						const discordSession: string | undefined = cookies["shicka_discord_session"];
+						if (discordSession == null) {
+							throw new Error();
+						}
+						if (!(discordSession in discordUsers)) {
+							throw new Error();
+						}
+						const discordUserId: string = discordUsers[discordSession];
+						if (!(discordUserId in discordTokens)) {
+							throw new Error();
+						}
+						const discordAccessToken: string = discordTokens[discordUserId];
+						const googleSession: string | undefined = cookies["shicka_google_session"];
+						if (googleSession == null) {
+							throw new Error();
+						}
+						if (!(googleSession in googleUsers)) {
+							throw new Error();
+						}
+						const googleUserId: string = googleUsers[googleSession];
+						if (!(googleUserId in googleTokens)) {
+							throw new Error();
+						}
+						const googleAccessToken: string = googleTokens[googleUserId];
+						const productLink: string = `https://androidpublisher.googleapis.com/androidpublisher/v3/applications/com.Earthkwak.Platformer/purchases/products/com.earthkwak.platformer.donator/tokens/${googleAccessToken}`; // FIXME: use the product purchase token
+						const productResponse: Response = await fetch(productLink);
+						if (!productResponse.ok) {
+							throw new Error(); // FIXME: set the `backer` boolean to `false`
+						}
+						const productData: any = await productResponse.json();
+						const backer: boolean = productData.purchaseState === 0;
+						const metadata: {[k in string]: any} = {
+							"backer": backer,
+						};
+						const roleConnectionLink: string = `https://discord.com/api/v10/users/@me/applications/${discordClientId}/role-connection`;
+						const roleConnectionResponse: Response = await fetch(roleConnectionLink, {
+							body: JSON.stringify({
+								"metadata": metadata,
+							}),
+							headers: {
+								"authorization": `Bearer ${discordAccessToken}`,
+								"content-type": "application/json",
+							},
+							method: "PUT",
+						});
+						if (!roleConnectionResponse.ok) {
+							throw new Error();
+						}
+						// const roleConnectionData: any = await roleConnectionResponse.json();
+						response.setHeader("location", verificationPathname);
+						content = "302 Found";
+						contentType = "text/plain; charset=utf-8";
+						response.statusCode = 302;
+						break;
+					}
+					default: {
+						throw new Error();
+					}
+				}
+				break;
+			}
+			case discordRedirectPathname: {
+				switch (method) {
+					case "GET": {
+						const code: string | null = searchParams.get("code");
+						if (code == null) {
+							throw new Error();
+						}
+						const discordState: string | null = searchParams.get("state");
+						if (discordState == null) {
+							throw new Error();
+						}
+						const cookieHeader: string | undefined = request.headers.cookie;
+						if (cookieHeader == null) {
+							throw new Error();
+						}
+						const cookies: {[k in string]: string | undefined} = cookie.parse(cookieHeader);
+						const clientState: string | undefined = cookies["shicka_discord_state"];
+						if (clientState == null) {
+							throw new Error();
+						}
+						if (clientState !== discordState) {
+							throw new Error();
+						}
+						const tokenLink: string = "https://discord.com/api/v10/oauth2/token";
+						const tokenSearchParams: URLSearchParams = new URLSearchParams({
+							"client_id": discordClientId,
+							"client_secret": discordClientSecret,
+							"code": code,
+							// "code_verifier": codeVerifier,
+							"grant_type": "authorization_code",
+							"redirect_uri": discordRedirectLink,
+						});
+						const tokenResponse: Response = await fetch(tokenLink, {
+							body: tokenSearchParams,
+							headers: {
+								"content-type": "application/x-www-form-urlencoded",
+							},
+							method: "POST",
+						});
+						if (!tokenResponse.ok) {
+							throw new Error();
+						}
+						const tokenData: any = await tokenResponse.json();
+						const accessToken: string = tokenData.access_token;
+						// const refreshToken: string = tokenData.refresh_token;
+						// const expiresIn: string = tokenData.expires_in;
+						const userLink: string = "https://discord.com/api/v10/oauth2/@me";
+						const userResponse: Response = await fetch(userLink, {
+							headers: {
+								"authorization": `Bearer ${accessToken}`,
+							},
+						});
+						if (!userResponse.ok) {
+							throw new Error();
+						}
+						const userData: any = await userResponse.json();
+						const userId: string = userData.user.id;
+						const session: string = generateIdentifier();
+						discordUsers[session] = userId;
+						discordTokens[userId] = accessToken; // TODO: duration
+						response.setHeader("location", verificationPathname);
+						response.setHeader("set-cookie", [
+							cookie.serialize("shicka_discord_state", "", {
+								httpOnly: true,
+								maxAge: 0,
+								path: "/",
+							}),
+							cookie.serialize("shicka_discord_session", session, {
+								httpOnly: true,
+								path: "/",
+							}),
+						]); // TODO: duration
+						content = "302 Found";
+						contentType = "text/plain; charset=utf-8";
+						response.statusCode = 302;
+						break;
+					}
+					case "POST": {
+						const originHeader: string | undefined = request.headers.origin;
+						if (originHeader !== origin) {
+							throw new Error();
+						}
+						const authorizationLink: string = "https://discord.com/api/oauth2/authorize";
+						// const codeVerifier: string = generateCodeVerifier();
+						// const codeChallenge: string = generateCodeChallenge(codeVerifier);
+						const state: string = generateIdentifier();
+						const authorizationSearchParams: URLSearchParams = new URLSearchParams({
+							"client_id": discordClientId,
+							// "code_challenge": codeChallenge,
+							// "code_challenge_method": "S256",
+							// "prompt": "consent",
+							"scope": "identify role_connections.write",
+							"state": state,
+							"redirect_uri": discordRedirectLink,
+							"response_type": "code",
+						});
+						response.setHeader("location", `${authorizationLink}?${authorizationSearchParams}`);
+						response.setHeader("set-cookie", cookie.serialize("shicka_discord_state", state, {
+							httpOnly: true,
+							path: "/",
+						})); // TODO: duration
+						content = "302 Found";
+						contentType = "text/plain; charset=utf-8";
+						response.statusCode = 302;
+						break;
+					}
+					default: {
+						throw new Error();
+					}
+				}
+				break;
+			}
+			case googleRedirectPathname: {
+				switch (method) {
+					case "GET": {
+						const code: string | null = searchParams.get("code");
+						if (code == null) {
+							throw new Error();
+						}
+						const googleState: string | null = searchParams.get("state");
+						if (googleState == null) {
+							throw new Error();
+						}
+						const cookieHeader: string | undefined = request.headers.cookie;
+						if (cookieHeader == null) {
+							throw new Error();
+						}
+						const cookies: {[k in string]: string | undefined} = cookie.parse(cookieHeader);
+						const clientState: string | undefined = cookies["shicka_google_state"];
+						if (clientState == null) {
+							throw new Error();
+						}
+						if (clientState !== googleState) {
+							throw new Error();
+						}
+						const tokenLink: string = "https://oauth2.googleapis.com/token";
+						const tokenSearchParams: URLSearchParams = new URLSearchParams({
+							"client_id": googleClientId,
+							"client_secret": googleClientSecret,
+							"code": code,
+							// "code_verifier": codeVerifier,
+							"grant_type": "authorization_code",
+							"redirect_uri": googleRedirectLink,
+						});
+						const tokenResponse: Response = await fetch(tokenLink, {
+							body: tokenSearchParams,
+							headers: {
+								"content-type": "application/x-www-form-urlencoded",
+							},
+							method: "POST",
+						});
+						if (!tokenResponse.ok) {
+							throw new Error();
+						}
+						const tokenData: any = await tokenResponse.json();
+						const accessToken: string = tokenData.access_token;
+						// const refreshToken: string = tokenData.refresh_token;
+						// const expiresIn: string = tokenData.expires_in;
+						const userLink: string = "https://www.googleapis.com/oauth2/v3/userinfo";
+						const userResponse: Response = await fetch(userLink, {
+							headers: {
+								"authorization": `Bearer ${accessToken}`,
+							},
+						});
+						if (!userResponse.ok) {
+							throw new Error();
+						}
+						const userData: any = await userResponse.json();
+						const userId: string = userData.sub; // TODO: duration
+						const session: string = generateIdentifier();
+						googleUsers[session] = userId;
+						googleTokens[userId] = accessToken;
+						response.setHeader("location", verificationPathname);
+						response.setHeader("set-cookie", [
+							cookie.serialize("shicka_google_state", "", {
+								httpOnly: true,
+								maxAge: 0,
+								path: "/",
+							}),
+							cookie.serialize("shicka_google_session", session, {
+								httpOnly: true,
+								path: "/",
+							}),
+						]); // TODO: duration
+						content = "302 Found";
+						contentType = "text/plain; charset=utf-8";
+						response.statusCode = 302;
+						break;
+					}
+					case "POST": {
+						const originHeader: string | undefined = request.headers.origin;
+						if (originHeader !== origin) {
+							throw new Error();
+						}
+						const authorizationLink: string = "https://accounts.google.com/o/oauth2/v2/auth";
+						// const codeVerifier: string = generateCodeVerifier();
+						// const codeChallenge: string = generateCodeChallenge(codeVerifier);
+						const state: string = generateIdentifier();
+						const authorizationSearchParams: URLSearchParams = new URLSearchParams({
+							"client_id": googleClientId,
+							// "code_challenge": codeChallenge,
+							// "code_challenge_method": "S256",
+							// "prompt": "consent",
+							"scope": "https://www.googleapis.com/auth/androidpublisher https://www.googleapis.com/auth/userinfo.profile",
+							"state": state,
+							"redirect_uri": googleRedirectLink,
+							"response_type": "code",
+						});
+						response.setHeader("location", `${authorizationLink}?${authorizationSearchParams}`);
+						response.setHeader("set-cookie", cookie.serialize("shicka_google_state", state, {
+							httpOnly: true,
+							path: "/",
+						})); // TODO: duration
+						content = "302 Found";
+						contentType = "text/plain; charset=utf-8";
+						response.statusCode = 302;
+						break;
+					}
+					default: {
+						throw new Error();
+					}
+				}
+				break;
+			}
+			default: {
+				throw new Error();
+			}
+		}
+	} catch (error: unknown) {
+		console.warn(error);
+		content = "500 Internal Server Error";
+		contentType = "text/plain; charset=utf-8";
+		response.statusCode = 500;
+	}
+	response.setHeader("content-type", contentType);
+	response.end(content);
+});
+server.listen(Number(port), (): void => {
+	console.log("Server ready!");
+});
