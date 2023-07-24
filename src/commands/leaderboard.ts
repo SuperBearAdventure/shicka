@@ -37,31 +37,31 @@ const data: Data[] = [
 	},
 	{
 		title: "Turtletown",
-		link: "https://www.speedrun.com/sba/Turtletown",
+		link: "https://www.speedrun.com/sba?x=l_r9gn1qpd",
 	},
 	{
 		title: "Snow Valley",
-		link: "https://www.speedrun.com/sba/Snow_Valley",
+		link: "https://www.speedrun.com/sba?x=l_o9xo3rp9",
 	},
 	{
 		title: "Beemothep Desert",
-		link: "https://www.speedrun.com/sba/Beemothep_Desert",
+		link: "https://www.speedrun.com/sba?x=l_495zlx39",
 	},
 	{
 		title: "Giant House",
-		link: "https://www.speedrun.com/sba/Giant_House",
+		link: "https://www.speedrun.com/sba?x=l_rdqo542w",
 	},
 	{
 		title: "The Hive",
-		link: "https://www.speedrun.com/sbace/The_Hive",
+		link: "https://www.speedrun.com/sbace?x=l_gdr5onk9",
 	},
 	{
 		title: "Missions",
-		link: "https://www.speedrun.com/sbace/Missions",
+		link: "https://www.speedrun.com/sbace?x=l_r9gnozkd",
 	},
 	{
 		title: "Races",
-		link: "https://www.speedrun.com/sbace/Races",
+		link: "https://www.speedrun.com/sbace?x=l_ldykv1zw",
 	},
 	{
 		title: "Full-game Category Extensions",
