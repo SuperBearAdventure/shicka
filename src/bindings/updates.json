@@ -882,7 +882,7 @@
 		"name": "10.3.0",
 		"date": {
 			"android": "2023-06-09",
-			"ios": null
+			"ios": "2023-06-11"
 		},
 		"notes": [
 			"Improved level visuals",
@@ -890,6 +890,30 @@
 			"Added new cosmetic items",
 			"Added gold time to the hive",
 			"Bug fixes"
+		]
+	},
+	{
+		"name": "10.3.1",
+		"date": {
+			"android": "2023-06-17",
+			"ios": "2023-06-19"
+		},
+		"notes": [
+			"Fixed shicka skins in some cutscenes",
+			"Cutscenes are now skippable in speed run mode",
+			"Improved performance",
+			"Bug fixes"
+		]
+	},
+	{
+		"name": "10.3.2",
+		"date": {
+			"android": "2023-06-27",
+			"ios": "2023-06-28"
+		},
+		"notes": [
+			"Revamped Turtle Golem boss fight",
+			"Many bug fixes!"
 		]
 	}
 ]
