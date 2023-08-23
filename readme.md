@@ -4,7 +4,7 @@ Bot for the official *Super Bear Adventure* *Discord* server
 
 ## Dependencies
 
-The bot uses *Discord.js 14.8.0* and requires *TypeScript 5.0.2* or more and *Node.js 16.15.0* or more.
+The bot uses *Discord.js 14.13.0* and requires *TypeScript 5.1.6* or more and *Node.js 16.15.0* or more.
 
 ## Configuring the bot
 

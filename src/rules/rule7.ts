@@ -6,13 +6,11 @@ import type {
 	AutoModerationActionOptions,
 	AutoModerationRule,
 	AutoModerationRuleCreateOptions,
-	ForumChannel,
 	Guild,
 	GuildBasedChannel,
 	GuildEmoji,
 	Message,
 	NewsChannel,
-	TextBasedChannel,
 	TextChannel,
 	ThreadChannel,
 } from "discord.js";
@@ -76,9 +74,7 @@ const rule7Rule: Rule = {
 		};
 	},
 	async execute(execution: AutoModerationActionExecution): Promise<void> {
-		const {channel}: Omit<AutoModerationActionExecution, "channel"> & {channel: TextBasedChannel | ForumChannel | null} = ((): Omit<AutoModerationActionExecution, "channel"> & {channel: TextBasedChannel | ForumChannel | null} => {
-			return execution;
-		})();
+		const {channel}: AutoModerationActionExecution = execution;
 		if (channel == null) {
 			return;
 		}
