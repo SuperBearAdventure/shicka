@@ -38,4 +38,4 @@ type OutfitDependency = {
 	schedule: ScheduleGroups,
 	bareSchedule: BareScheduleGroups,
 };
-export default OutfitDependency;
+export type {OutfitDependency as default};

@@ -238,7 +238,7 @@ const helpCommand: Command = {
 		}
 		const descriptions: Localized<(groups: {}) => string>[] = [
 			Object.keys(commands).map<Localized<(groups: {}) => string> | null>((commandName: string): Localized<(groups: {}) => string> | null => {
-				const command: Command = commands[commandName as keyof typeof commands] as Command;
+				const command: Command = commands[commandName as keyof typeof commands];
 				const applicationCommand: ApplicationCommand | undefined = applicationCommands.find((applicationCommand: ApplicationCommand): boolean => {
 					return applicationCommand.name === commandName;
 				});
@@ -252,7 +252,7 @@ const helpCommand: Command = {
 				return description;
 			}),
 			Object.keys(hooks).map<Localized<(groups: {}) => string> | null>((hookName: string): Localized<(groups: {}) => string> | null => {
-				const hook: Hook = hooks[hookName as keyof typeof hooks] as Hook;
+				const hook: Hook = hooks[hookName as keyof typeof hooks];
 				const webhook: Webhook | undefined = webhooks.find((webhook: Webhook): boolean => {
 					return webhook.name === hookName;
 				});
@@ -274,7 +274,7 @@ const helpCommand: Command = {
 				return description;
 			}),
 			Object.keys(rules).map<Localized<(groups: {}) => string> | null>((ruleName: string): Localized<(groups: {}) => string> | null => {
-				const rule: Rule = rules[ruleName as keyof typeof rules] as Rule;
+				const rule: Rule = rules[ruleName as keyof typeof rules];
 				const autoModerationRule: AutoModerationRule | undefined = autoModerationRules.find((autoModerationRule: AutoModerationRule): boolean => {
 					return autoModerationRule.name === ruleName;
 				});

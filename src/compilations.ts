@@ -53,7 +53,7 @@ const store: Store = storeCompilation;
 const tracker: Tracker = trackerCompilation;
 const trailer: Trailer = trailerCompilation;
 const update: Update = updateCompilation;
-export default Compilation;
+export type {Compilation as default};
 export type {
 	About,
 	Bear,

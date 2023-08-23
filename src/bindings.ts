@@ -75,7 +75,7 @@ const outfits: Outfit[] = bind<Omit<Outfit, "id">>(outfitsBinding);
 const parts: Part[] = bind<Omit<Part, "id">>(partsBinding);
 const rarities: Rarity[] = bind<Omit<Rarity, "id">>(raritiesBinding);
 const updates: Update[] = bind<Omit<Update, "id">>(updatesBinding);
-export default Binding;
+export type {Binding as default};
 export type {
 	Bear,
 	Challenge,

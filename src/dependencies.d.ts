@@ -35,7 +35,7 @@ type Tracker = TrackerDependency;
 type Trailer = TrailerDependency;
 type Update = UpdateDependency;
 type Dependency = About | Bear | Chat | Count | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
-export default Dependency;
+export type {Dependency as default};
 export type {
 	About,
 	Bear,

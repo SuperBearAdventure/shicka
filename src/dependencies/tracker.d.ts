@@ -20,4 +20,4 @@ type TrackerDependency = {
 	intentWithoutChannel: IntentWithoutChannelGroups,
 	link: LinkGroups,
 };
-export default TrackerDependency;
+export type {TrackerDependency as default};

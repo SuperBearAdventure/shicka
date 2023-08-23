@@ -215,7 +215,7 @@ const store: Store = storeDefinition;
 const tracker: Tracker = trackerDefinition;
 const trailer: Trailer = trailerDefinition;
 const update: Update = updateDefinition;
-export default Definition;
+export type {Definition as default};
 export type {
 	About,
 	Bear,

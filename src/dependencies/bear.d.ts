@@ -28,4 +28,4 @@ type BearDependency = {
 	timeGoal: TimeGoalGroups,
 	noGoal: NoGoalGroups,
 };
-export default BearDependency;
+export type {BearDependency as default};

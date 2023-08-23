@@ -47,7 +47,7 @@ const rawCommand: Command = {
 					descriptionLocalizations: typeOptionDescription,
 					required: true,
 					choices: Object.keys(bindings).map<[string, Binding]>((bindingName: string): [string, Binding] => {
-						const binding: Binding = bindings[bindingName as keyof typeof bindings] as Binding;
+						const binding: Binding = bindings[bindingName as keyof typeof bindings];
 						return [bindingName, binding];
 					}).filter(([bindingName, binding]: [string, Binding]): boolean => {
 						return binding.length !== 0;
@@ -93,7 +93,7 @@ const rawCommand: Command = {
 			});
 			return;
 		}
-		const binding: Binding = bindings[bindingName as keyof typeof bindings] as Binding;
+		const binding: Binding = bindings[bindingName as keyof typeof bindings];
 		const identifier: number = options.getInteger(identifierOptionName, true);
 		if (identifier < 0 || identifier >= binding.length) {
 			const max: number = binding.length - 1;

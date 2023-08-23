@@ -6,4 +6,4 @@ type RecordDependency = {
 	helpWithChannel: HelpWithChannelGroups,
 	helpWithoutChannel: HelpWithoutChannelGroups,
 };
-export default RecordDependency;
+export type {RecordDependency as default};

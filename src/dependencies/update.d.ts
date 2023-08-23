@@ -19,4 +19,4 @@ type UpdateDependency = {
 	defaultReply: DefaultReplyGroups,
 	link: LinkGroups,
 };
-export default UpdateDependency;
+export type {UpdateDependency as default};

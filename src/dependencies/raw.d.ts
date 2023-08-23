@@ -14,4 +14,4 @@ type RawDependency = {
 	noTypeReply: NoTypeReplyGroups,
 	noIdentifierReply: NoIdentifierReplyGroups,
 };
-export default RawDependency;
+export type {RawDependency as default};
