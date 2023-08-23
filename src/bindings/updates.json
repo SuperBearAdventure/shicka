@@ -915,5 +915,23 @@
 			"Revamped Turtle Golem boss fight",
 			"Many bug fixes!"
 		]
+	},
+	{
+		"name": "10.4.0",
+		"date": {
+			"android": "2023-08-22",
+			"ios": "2023-08-22"
+		},
+		"notes": [
+			"Added Capitalus Tokens",
+			"Added Capitalos' Wheel of Fortune",
+			"New fancy splash screen",
+			"Added Bear Village secret climb challenge",
+			"Improved settings menu",
+			"Revamped tutorial",
+			"Various level updates",
+			"Improved interaction bubbles",
+			"Misc changes and bug fixes"
+		]
 	}
 ]
