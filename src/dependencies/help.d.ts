@@ -9,4 +9,4 @@ type HelpDependency = {
 	help: HelpGroups,
 	reply: ReplyGroups,
 };
-export default HelpDependency;
+export type {HelpDependency as default};

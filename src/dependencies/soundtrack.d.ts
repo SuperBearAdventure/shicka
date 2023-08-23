@@ -18,4 +18,4 @@ type SoundtrackDependency = {
 	defaultReply: DefaultReplyGroups,
 	link: LinkGroups,
 };
-export default SoundtrackDependency;
+export type {SoundtrackDependency as default};

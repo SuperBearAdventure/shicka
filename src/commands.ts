@@ -41,7 +41,7 @@ const store: Command = storeCommand;
 const tracker: Command = trackerCommand;
 const trailer: Command = trailerCommand;
 const update: Command = updateCommand;
-export default Command;
+export type {Command as default};
 export {
 	about,
 	bear,

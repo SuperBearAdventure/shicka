@@ -15,4 +15,4 @@ type RoadmapDependency = {
 	intentWithChannel: IntentWithChannelGroups,
 	intentWithoutChannel: IntentWithoutChannelGroups,
 };
-export default RoadmapDependency;
+export type {RoadmapDependency as default};

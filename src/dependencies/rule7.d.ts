@@ -6,4 +6,4 @@ type Rule7Dependency = {
 	helpWithChannels: HelpWithChannelsGroups,
 	helpWithoutChannels: HelpWithoutChannelsGroups,
 };
-export default Rule7Dependency;
+export type {Rule7Dependency as default};

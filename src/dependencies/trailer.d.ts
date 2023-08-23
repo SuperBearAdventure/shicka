@@ -18,4 +18,4 @@ type TrailerDependency = {
 	defaultReply: DefaultReplyGroups,
 	link: LinkGroups,
 };
-export default TrailerDependency;
+export type {TrailerDependency as default};

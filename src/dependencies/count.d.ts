@@ -9,4 +9,4 @@ type CountDependency = {
 	help: HelpGroups,
 	reply: ReplyGroups,
 };
-export default CountDependency;
+export type {CountDependency as default};

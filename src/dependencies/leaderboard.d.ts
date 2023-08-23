@@ -13,4 +13,4 @@ type LeaderboardDependency = {
 	reply: ReplyGroups,
 	link: LinkGroups,
 };
-export default LeaderboardDependency;
+export type {LeaderboardDependency as default};

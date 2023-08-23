@@ -13,7 +13,7 @@ type Rule = {
 	describe(autoModerationRule: AutoModerationRule): Localized<(groups: {}) => string>;
 };
 const rule7: Rule = rule7Rule;
-export default Rule;
+export type {Rule as default};
 export {
 	rule7,
 };

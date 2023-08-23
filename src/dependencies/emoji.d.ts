@@ -6,4 +6,4 @@ type HelpGroups = {
 type EmojiDependency = {
 	help: HelpGroups,
 };
-export default EmojiDependency;
+export type {EmojiDependency as default};

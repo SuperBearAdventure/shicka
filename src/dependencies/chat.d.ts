@@ -33,4 +33,4 @@ type ChatDependency = {
 	noPatchPermissionReply: NoPatchPermissionReplyGroups,
 	noPostPermissionReply: NoPostPermissionReplyGroups,
 };
-export default ChatDependency;
+export type {ChatDependency as default};

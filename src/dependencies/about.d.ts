@@ -10,4 +10,4 @@ type AboutDependency = {
 	help: HelpGroups,
 	reply: ReplyGroups,
 };
-export default AboutDependency;
+export type {AboutDependency as default};

@@ -2,14 +2,14 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "exactOptionalPropertyTypes": true,
-    "forceConsistentCasingInFileNames": true,
-    "importsNotUsedAsValues": "preserve",
+    "isolatedModules": true,
     "module": "nodenext",
     "outDir": "bin",
     "resolveJsonModule": true,
     "rootDir": "src",
     "skipLibCheck": true,
     "strict": true,
+    "verbatimModuleSyntax": true,
     "target": "esnext"
   }
 }

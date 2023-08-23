@@ -275,7 +275,7 @@ const client: Client<boolean> = new Client({
 });
 client.once("ready", async (client: Client<boolean>): Promise<void> => {
 	const commandRegistry: ApplicationCommandData[] = Object.keys(commands).map<ApplicationCommandData>((commandName: string): ApplicationCommandData => {
-		const command: Command = commands[commandName as keyof typeof commands] as Command;
+		const command: Command = commands[commandName as keyof typeof commands];
 		return command.register();
 	});
 	for (const guild of client.guilds.cache.values()) {
@@ -289,7 +289,7 @@ client.once("ready", async (client: Client<boolean>): Promise<void> => {
 		}
 	}
 	const hookRegistry: WebhookCreateOptionsResolvable[] = Object.keys(hooks).map<{hookOptions: WebhookCreateOptionsResolvable, jobOptions: RecurrenceSpecDateRange}>((hookName: string): {hookOptions: WebhookCreateOptionsResolvable, jobOptions: RecurrenceSpecDateRange} => {
-		const hook: Hook = hooks[hookName as keyof typeof hooks] as Hook;
+		const hook: Hook = hooks[hookName as keyof typeof hooks];
 		return hook.register();
 	}).map<WebhookCreateOptionsResolvable>(({hookOptions, jobOptions}: {hookOptions: WebhookCreateOptionsResolvable, jobOptions: RecurrenceSpecDateRange}): WebhookCreateOptionsResolvable => {
 		const hookName: string = hookOptions.name;
@@ -331,7 +331,7 @@ client.once("ready", async (client: Client<boolean>): Promise<void> => {
 		}
 	}
 	const ruleRegistry: AutoModerationRuleCreateOptionsResolvable[] = Object.keys(rules).map<AutoModerationRuleCreateOptionsResolvable>((ruleName: string): AutoModerationRuleCreateOptionsResolvable => {
-		const rule: Rule = rules[ruleName as keyof typeof rules] as Rule;
+		const rule: Rule = rules[ruleName as keyof typeof rules];
 		return rule.register();
 	});
 	for (const guild of client.guilds.cache.values()) {
@@ -360,7 +360,7 @@ client.on("autoModerationActionExecution", async (execution: AutoModerationActio
 		return;
 	}
 	try {
-		const rule: Rule = rules[ruleName as keyof typeof rules] as Rule;
+		const rule: Rule = rules[ruleName as keyof typeof rules];
 		await rule.execute(execution);
 	} catch (error: unknown) {
 		console.error(error);
@@ -439,7 +439,7 @@ client.on("interactionCreate", async (interaction: Interaction): Promise<void> =
 		return;
 	}
 	try {
-		const command: Command = commands[commandName as keyof typeof commands] as Command;
+		const command: Command = commands[commandName as keyof typeof commands];
 		await command.execute(interaction);
 	} catch (error: unknown) {
 		console.error(error);
@@ -495,7 +495,7 @@ client.on("webhookJobInvocation", async (invocation: {job: Job, timestamp: Date,
 		return;
 	}
 	try {
-		const hook: Hook = hooks[hookName as keyof typeof hooks] as Hook;
+		const hook: Hook = hooks[hookName as keyof typeof hooks];
 		await hook.execute({
 			job,
 			timestamp,

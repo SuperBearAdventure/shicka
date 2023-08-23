@@ -74,7 +74,7 @@ const missionsByLevel: Mission[][] = indexMissionsByLevel(missions, levels);
 const outfitsByPart: Outfit[][] = indexOutfitsByPart(outfits, parts);
 const outfitsByRarity: Outfit[][] = indexOutfitsByRarity(outfits, rarities);
 const outfitsByUpdate: Outfit[][] = indexOutfitsByUpdate(outfits, updates);
-export default Index;
+export type {Index as default};
 export type {
 	Bear,
 	Mission,

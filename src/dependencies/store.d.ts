@@ -13,4 +13,4 @@ type StoreDependency = {
 	reply: ReplyGroups,
 	link: LinkGroups,
 };
-export default StoreDependency;
+export type {StoreDependency as default};

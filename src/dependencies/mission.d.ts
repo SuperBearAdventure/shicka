@@ -31,4 +31,4 @@ type MissionDependency = {
 	schedule: ScheduleGroups,
 	bareSchedule: BareScheduleGroups,
 };
-export default MissionDependency;
+export type {MissionDependency as default};

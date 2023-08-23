@@ -11,7 +11,7 @@ type Hook = {
 	describe(webhook: Webhook): Localized<(groups: {}) => string>;
 };
 const record: Hook = recordHook;
-export default Hook;
+export type {Hook as default};
 export {
 	record,
 };
