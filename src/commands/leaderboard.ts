@@ -52,6 +52,10 @@ const data: Data[] = [
 		link: "https://www.speedrun.com/sba?x=l_rdqo542w",
 	},
 	{
+		title: "Bear Village",
+		link: "https://www.speedrun.com/sbace?x=l_xd0mnpjw",
+	},
+	{
 		title: "The Hive",
 		link: "https://www.speedrun.com/sbace?x=l_gdr5onk9",
 	},
