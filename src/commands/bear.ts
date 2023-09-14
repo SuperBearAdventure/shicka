@@ -112,9 +112,9 @@ const bearCommand: Command = {
 			};
 		})) : null;
 		const coinsGoal: Localized<(groups: {}) => string> | null = coins !== 0 ? composeAll<CoinsGoalGroups, {}>(bossGoal != null ? coinsWithBossGoalLocalizations : coinsWithoutBossGoalLocalizations, localize<CoinsGoalGroups>((locale: Locale): CoinsGoalGroups => {
+			const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat(locale);
 			return {
 				coins: (): string => {
-					const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat(locale);
 					return escapeMarkdown(cardinalFormat.format(coins));
 				},
 			};
@@ -133,76 +133,38 @@ const bearCommand: Command = {
 		const goals: Localized<(groups: {}) => string>[] = [bossGoal, coinsGoal, timeGoal].filter<Localized<(groups: {}) => string>>((goal: Localized<(groups: {}) => string> | null): goal is Localized<(groups: {}) => string> => {
 			return goal != null;
 		});
-		await interaction.reply({
-			content: replyLocalizations["en-US"]({
+		function formatMessage(locale: Locale): string {
+			const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(locale, {
+				style: "long",
+				type: "conjunction",
+			});
+			return replyLocalizations[locale]({
 				name: (): string => {
-					return escapeMarkdown(name["en-US"]);
+					return escapeMarkdown(name[locale]);
 				},
 				level: (): string => {
-					return escapeMarkdown(level.name["en-US"]);
+					return escapeMarkdown(level.name[locale]);
 				},
 				outfitNameConjunction: (): string => {
-					if (bearOutfits.length !== 0) {
-						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
-							style: "long",
-							type: "conjunction",
-						});
-						return conjunctionFormat.format(bearOutfits.map<string>((outfit: Outfit): string => {
-							return `*${escapeMarkdown(outfit.name["en-US"])}*`;
-						}));
-					}
-					return escapeMarkdown(noOutfitLocalizations["en-US"]({}));
+					return bearOutfits.length !== 0 ? conjunctionFormat.format(bearOutfits.map<string>((outfit: Outfit): string => {
+						return `*${escapeMarkdown(outfit.name[locale])}*`;
+					})) : escapeMarkdown(noOutfitLocalizations[locale]({}));
 				},
 				goalConjunction: (): string => {
-					if (goals.length !== 0) {
-						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
-							style: "long",
-							type: "conjunction",
-						});
-						return conjunctionFormat.format(goals.map<string>((goal: Localized<(groups: {}) => string>): string => {
-							return goal["en-US"]({});
-						}));
-					}
-					return escapeMarkdown(noGoalLocalizations["en-US"]({}));
+					return goals.length !== 0 ? conjunctionFormat.format(goals.map<string>((goal: Localized<(groups: {}) => string>): string => {
+						return goal[locale]({});
+					})) : escapeMarkdown(noGoalLocalizations[locale]({}));
 				},
-			}),
+			});
+		}
+		await interaction.reply({
+			content: formatMessage("en-US"),
 		});
 		if (resolvedLocale === "en-US") {
 			return;
 		}
 		await interaction.followUp({
-			content: replyLocalizations[resolvedLocale]({
-				name: (): string => {
-					return escapeMarkdown(name[resolvedLocale]);
-				},
-				level: (): string => {
-					return escapeMarkdown(level.name[resolvedLocale]);
-				},
-				outfitNameConjunction: (): string => {
-					if (bearOutfits.length !== 0) {
-						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(resolvedLocale, {
-							style: "long",
-							type: "conjunction",
-						});
-						return conjunctionFormat.format(bearOutfits.map<string>((outfit: Outfit): string => {
-							return `*${escapeMarkdown(outfit.name[resolvedLocale])}*`;
-						}));
-					}
-					return escapeMarkdown(noOutfitLocalizations[resolvedLocale]({}));
-				},
-				goalConjunction: (): string => {
-					if (goals.length !== 0) {
-						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(resolvedLocale, {
-							style: "long",
-							type: "conjunction",
-						});
-						return conjunctionFormat.format(goals.map<string>((goal: Localized<(groups: {}) => string>): string => {
-							return goal[resolvedLocale]({});
-						}));
-					}
-					return escapeMarkdown(noGoalLocalizations[resolvedLocale]({}));
-				},
-			}),
+			content: formatMessage(resolvedLocale),
 			ephemeral: true,
 		});
 	},

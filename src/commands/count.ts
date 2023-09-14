@@ -40,30 +40,25 @@ const countCommand: Command = {
 		const {guild, locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const {memberCount, name}: Guild = guild;
-		await interaction.reply({
-			content: replyLocalizations["en-US"]({
+		function formatMessage(locale: Locale): string {
+			const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat(locale);
+			return replyLocalizations[locale]({
 				memberCount: (): string => {
-					const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat("en-US");
 					return escapeMarkdown(cardinalFormat.format(memberCount));
 				},
 				name: (): string => {
 					return escapeMarkdown(name);
 				},
-			}),
+			});
+		}
+		await interaction.reply({
+			content: formatMessage("en-US"),
 		});
 		if (resolvedLocale === "en-US") {
 			return;
 		}
 		await interaction.followUp({
-			content: replyLocalizations[resolvedLocale]({
-				memberCount: (): string => {
-					const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat(resolvedLocale);
-					return escapeMarkdown(cardinalFormat.format(memberCount));
-				},
-				name: (): string => {
-					return escapeMarkdown(name);
-				},
-			}),
+			content: formatMessage(resolvedLocale),
 			ephemeral: true,
 		});
 	},

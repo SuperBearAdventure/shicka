@@ -155,12 +155,12 @@ const rule7Rule: Rule = {
 			return channel != null;
 		});
 		return channels.length !== 0 ? composeAll<HelpWithChannelsGroups, {}>(helpWithChannelsLocalizations, localize<HelpWithChannelsGroups>((locale: Locale): HelpWithChannelsGroups => {
+			const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(locale, {
+				style: "long",
+				type: "conjunction",
+			});
 			return {
 				channelMentions: (): string => {
-					const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(locale, {
-						style: "long",
-						type: "conjunction",
-					});
 					return conjunctionFormat.format(channels.map<string>((channel: TextChannel | NewsChannel): string => {
 						return `<#${channel.id}>`;
 					}));

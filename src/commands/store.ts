@@ -76,26 +76,23 @@ const storeCommand: Command = {
 			}));
 			links.push(link);
 		}
-		await interaction.reply({
-			content: replyLocalizations["en-US"]({
+		function formatMessage(locale: Locale): string {
+			return replyLocalizations[locale]({
 				linkList: (): string => {
 					return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
-						return link["en-US"]({});
+						return link[locale]({});
 					}));
 				},
-			}),
+			});
+		}
+		await interaction.reply({
+			content: formatMessage("en-US"),
 		});
 		if (resolvedLocale === "en-US") {
 			return;
 		}
 		await interaction.followUp({
-			content: replyLocalizations[resolvedLocale]({
-				linkList: (): string => {
-					return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
-						return link[resolvedLocale]({});
-					}));
-				},
-			}),
+			content: formatMessage(resolvedLocale),
 			ephemeral: true,
 		});
 	},
