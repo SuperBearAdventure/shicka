@@ -41,8 +41,8 @@ const aboutCommand: Command = {
 		}
 		const {locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
-		await interaction.reply({
-			content: replyLocalizations["en-US"]({
+		function formatMessage(locale: Locale): string {
+			return replyLocalizations[locale]({
 				bot: (): string => {
 					return escapeMarkdown(bot);
 				},
@@ -52,23 +52,16 @@ const aboutCommand: Command = {
 				link: (): string => {
 					return link;
 				},
-			}),
+			});
+		}
+		await interaction.reply({
+			content: formatMessage("en-US"),
 		});
 		if (resolvedLocale === "en-US") {
 			return;
 		}
 		await interaction.followUp({
-			content: replyLocalizations[resolvedLocale]({
-				bot: (): string => {
-					return escapeMarkdown(bot);
-				},
-				author: (): string => {
-					return escapeMarkdown(author);
-				},
-				link: (): string => {
-					return link;
-				},
-			}),
+			content: formatMessage(resolvedLocale),
 			ephemeral: true,
 		});
 	},

@@ -113,6 +113,10 @@ const updateCommand: Command = {
 			const links: Localized<(groups: {}) => string>[] = [];
 			for (const item of data) {
 				const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((locale: Locale): LinkGroups => {
+					const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
+						dateStyle: "long",
+						timeZone: "UTC",
+					});
 					return {
 						title: (): string => {
 							return escapeMarkdown(item.title);
@@ -121,10 +125,6 @@ const updateCommand: Command = {
 							return item.link;
 						},
 						date: (): string => {
-							const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
-								dateStyle: "long",
-								timeZone: "UTC",
-							});
 							return escapeMarkdown(dateFormat.format(item.date));
 						},
 						version: (): string => {
@@ -134,47 +134,43 @@ const updateCommand: Command = {
 				}));
 				links.push(link);
 			}
-			await interaction.reply({
-				content: replyLocalizations["en-US"]({
+			function formatMessage(locale: Locale): string {
+				return replyLocalizations[locale]({
 					linkList: (): string => {
 						return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
-							return link["en-US"]({})
+							return link[locale]({});
 						}));
 					},
-				}),
+				});
+			}
+			await interaction.reply({
+				content: formatMessage("en-US"),
 			});
 			if (resolvedLocale === "en-US") {
 				return;
 			}
 			await interaction.followUp({
-				content: replyLocalizations[resolvedLocale]({
-					linkList: (): string => {
-						return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
-							return link[resolvedLocale]({})
-						}));
-					},
-				}),
+				content: formatMessage(resolvedLocale),
 				ephemeral: true,
 			});
 		} catch (error: unknown) {
 			console.warn(error);
 			const linkList: string = list(links);
-			await interaction.reply({
-				content: defaultReplyLocalizations["en-US"]({
+			function formatMessage(locale: Locale): string {
+				return defaultReplyLocalizations[locale]({
 					linkList: (): string => {
 						return linkList;
 					},
-				}),
+				});
+			}
+			await interaction.reply({
+				content: formatMessage("en-US"),
 			});
 			if (resolvedLocale === "en-US") {
 				return;
 			}
 			await interaction.followUp({
-				content: defaultReplyLocalizations[resolvedLocale]({
-					linkList: (): string => {
-						return linkList;
-					},
-				}),
+				content: formatMessage(resolvedLocale),
 				ephemeral: true,
 			});
 		}

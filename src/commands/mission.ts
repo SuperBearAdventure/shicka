@@ -118,12 +118,12 @@ const missionCommand: Command = {
 			const level: Level = levels[mission.level];
 			const dayDate: Date = new Date(day * 86400000);
 			const schedule: Localized<(groups: {}) => string> = composeAll<BareScheduleGroups, {}>(bareScheduleLocalizations, localize<BareScheduleGroups>((locale: Locale): BareScheduleGroups => {
+				const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
+					dateStyle: "long",
+					timeZone: "UTC",
+				});
 				return {
 					dayDate: (): string => {
-						const dateFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
-							dateStyle: "long",
-							timeZone: "UTC",
-						});
 						return escapeMarkdown(dateFormat.format(dayDate));
 					},
 					challengeName: (): string => {
@@ -136,40 +136,30 @@ const missionCommand: Command = {
 			}));
 			schedules.push(schedule);
 		}
-		await interaction.reply({
-			content: bareReplyLocalizations["en-US"]({
+		function formatMessage(locale: Locale): string {
+			const timeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
+				timeStyle: "short",
+				timeZone: "UTC",
+			});
+			return bareReplyLocalizations[locale]({
 				dayTime: (): string => {
-					const timeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US", {
-						timeStyle: "short",
-						timeZone: "UTC",
-					});
 					return escapeMarkdown(timeFormat.format(dayTime));
 				},
 				scheduleList: (): string => {
 					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
-						return schedule["en-US"]({})
+						return schedule[locale]({})
 					}));
 				},
-			}),
+			});
+		}
+		await interaction.reply({
+			content: formatMessage("en-US"),
 		});
 		if (resolvedLocale === "en-US") {
 			return;
 		}
 		await interaction.followUp({
-			content: bareReplyLocalizations[resolvedLocale]({
-				dayTime: (): string => {
-					const timeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(resolvedLocale, {
-						timeStyle: "short",
-						timeZone: "UTC",
-					});
-					return escapeMarkdown(timeFormat.format(dayTime));
-				},
-				scheduleList: (): string => {
-					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
-						return schedule[resolvedLocale]({})
-					}));
-				},
-			}),
+			content: formatMessage(resolvedLocale),
 			ephemeral: true,
 		});
 		return;
@@ -182,13 +172,13 @@ const missionCommand: Command = {
 			if (missions[seed] === mission) {
 				const dayDateTime: Date = new Date(day * 86400000 + 36000000);
 				const schedule: Localized<(groups: {}) => string> = composeAll<ScheduleGroups, {}>(scheduleLocalizations, localize<ScheduleGroups>((locale: Locale): ScheduleGroups => {
+					const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
+						dateStyle: "long",
+						timeStyle: "short",
+						timeZone: "UTC",
+					});
 					return {
 						dayDateTime: (): string => {
-							const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
-								dateStyle: "long",
-								timeStyle: "short",
-								timeZone: "UTC",
-							});
 							return escapeMarkdown(dateTimeFormat.format(dayDateTime));
 						},
 					};
@@ -198,38 +188,29 @@ const missionCommand: Command = {
 		}
 		const challenge: Challenge = challenges[mission.challenge];
 		const level: Level = levels[mission.level];
-		await interaction.reply({
-			content: replyLocalizations["en-US"]({
+		function formatMessage(locale: Locale): string {
+			return replyLocalizations[locale]({
 				challengeName: (): string => {
-					return escapeMarkdown(challenge.name["en-US"]);
+					return escapeMarkdown(challenge.name[locale]);
 				},
 				levelName: (): string => {
-					return escapeMarkdown(level.name["en-US"]);
+					return escapeMarkdown(level.name[locale]);
 				},
 				scheduleList: (): string => {
 					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
-						return schedule["en-US"]({})
+						return schedule[locale]({})
 					}));
 				},
-			}),
+			});
+		}
+		await interaction.reply({
+			content: formatMessage("en-US"),
 		});
 		if (resolvedLocale === "en-US") {
 			return;
 		}
 		await interaction.followUp({
-			content: replyLocalizations[resolvedLocale]({
-				challengeName: (): string => {
-					return escapeMarkdown(challenge.name[resolvedLocale]);
-				},
-				levelName: (): string => {
-					return escapeMarkdown(level.name[resolvedLocale]);
-				},
-				scheduleList: (): string => {
-					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
-						return schedule[resolvedLocale]({})
-					}));
-				},
-			}),
+			content: formatMessage(resolvedLocale),
 			ephemeral: true,
 		});
 	},

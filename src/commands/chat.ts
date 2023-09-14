@@ -327,14 +327,17 @@ const chatCommand: Command = {
 				});
 				return;
 			}
+			function formatMessage(locale: Locale): string {
+				return replyLocalizations[locale]({});
+			}
 			await modalSubmitInteraction.reply({
-				content: replyLocalizations["en-US"]({}),
+				content: formatMessage("en-US"),
 			});
 			if (resolvedLocale === "en-US") {
 				return;
 			}
 			await modalSubmitInteraction.followUp({
-				content: replyLocalizations[resolvedLocale]({}),
+				content: formatMessage(resolvedLocale),
 				ephemeral: true,
 			});
 			return;
@@ -385,14 +388,17 @@ const chatCommand: Command = {
 				});
 				return;
 			}
+			function formatMessage(locale: Locale): string {
+				return bareReplyLocalizations[locale]({});
+			}
 			await modalSubmitInteraction.reply({
-				content: bareReplyLocalizations["en-US"]({}),
+				content: formatMessage("en-US"),
 			});
 			if (resolvedLocale === "en-US") {
 				return;
 			}
 			await modalSubmitInteraction.followUp({
-				content: bareReplyLocalizations[resolvedLocale]({}),
+				content: formatMessage(resolvedLocale),
 				ephemeral: true,
 			});
 			return;
@@ -472,14 +478,17 @@ const chatCommand: Command = {
 				});
 				return;
 			}
+			function formatMessage(locale: Locale): string {
+				return replyLocalizations[locale]({});
+			}
 			await interaction.reply({
-				content: replyLocalizations["en-US"]({}),
+				content: formatMessage("en-US"),
 			});
 			if (resolvedLocale === "en-US") {
 				return;
 			}
 			await interaction.followUp({
-				content: replyLocalizations[resolvedLocale]({}),
+				content: formatMessage(resolvedLocale),
 				ephemeral: true,
 			});
 			return;
@@ -511,14 +520,17 @@ const chatCommand: Command = {
 				});
 				return;
 			}
+			function formatMessage(locale: Locale): string {
+				return replyLocalizations[locale]({});
+			}
 			await interaction.reply({
-				content: replyLocalizations["en-US"]({}),
+				content: formatMessage("en-US"),
 			});
 			if (resolvedLocale === "en-US") {
 				return;
 			}
 			await interaction.followUp({
-				content: replyLocalizations[resolvedLocale]({}),
+				content: formatMessage(resolvedLocale),
 				ephemeral: true,
 			});
 			return;

@@ -77,13 +77,13 @@ const rawCommand: Command = {
 		const resolvedLocale: Locale = resolve(locale);
 		const bindingName: string = options.getString(typeOptionName, true);
 		if (!(bindingName in bindings)) {
+			const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(resolvedLocale, {
+				style: "long",
+				type: "conjunction",
+			});
 			await interaction.reply({
 				content: noTypeReplyLocalizations[resolvedLocale]({
 					typeConjunction: (): string => {
-						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(resolvedLocale, {
-							style: "long",
-							type: "conjunction",
-						});
 						return conjunctionFormat.format(Object.keys(bindings).map<string>((bindingName: string): string => {
 							return `\`${escapeMarkdown(bindingName)}\``;
 						}));

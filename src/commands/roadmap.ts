@@ -55,36 +55,28 @@ const roadmapCommand: Command = {
 			}
 			return channel;
 		})();
-		await interaction.reply({
-			content: replyLocalizations["en-US"]({
+		function formatMessage(locale: Locale): string {
+			return replyLocalizations[locale]({
 				intent: (): string => {
-					return channel != null ? intentWithChannelLocalizations["en-US"]({
+					return channel != null ? intentWithChannelLocalizations[locale]({
 						channelMention: (): string => {
 							return `<#${channel.id}>`;
 						},
-					}) : intentWithoutChannelLocalizations["en-US"]({});
+					}) : intentWithoutChannelLocalizations[locale]({});
 				},
 				link: (): string => {
 					return link;
 				},
-			}),
+			});
+		}
+		await interaction.reply({
+			content: formatMessage("en-US"),
 		});
 		if (resolvedLocale === "en-US") {
 			return;
 		}
 		await interaction.followUp({
-			content: replyLocalizations[resolvedLocale]({
-				intent: (): string => {
-					return channel != null ? intentWithChannelLocalizations[resolvedLocale]({
-						channelMention: (): string => {
-							return `<#${channel.id}>`;
-						},
-					}) : intentWithoutChannelLocalizations[resolvedLocale]({});
-				},
-				link: (): string => {
-					return link;
-				},
-			}),
+			content: formatMessage(resolvedLocale),
 			ephemeral: true,
 		});
 	},

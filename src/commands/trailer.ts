@@ -114,46 +114,42 @@ const trailerCommand: Command = {
 				}));
 				links.push(link);
 			}
-			await interaction.reply({
-				content: replyLocalizations["en-US"]({
+			function formatMessage(locale: Locale): string {
+				return replyLocalizations[locale]({
 					linkList: (): string => {
 						return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
-							return link["en-US"]({});
+							return link[locale]({});
 						}));
 					},
-				}),
+				});
+			}
+			await interaction.reply({
+				content: formatMessage("en-US"),
 			});
 			if (resolvedLocale === "en-US") {
 				return;
 			}
 			await interaction.followUp({
-				content: replyLocalizations[resolvedLocale]({
-					linkList: (): string => {
-						return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
-							return link[resolvedLocale]({});
-						}));
-					},
-				}),
+				content: formatMessage(resolvedLocale),
 				ephemeral: true,
 			});
 		} catch (error: unknown) {
 			console.warn(error);
-			await interaction.reply({
-				content: defaultReplyLocalizations["en-US"]({
+			function formatMessage(locale: Locale): string {
+				return defaultReplyLocalizations[locale]({
 					link: (): string => {
 						return link;
 					},
-				}),
+				});
+			}
+			await interaction.reply({
+				content: formatMessage("en-US"),
 			});
 			if (resolvedLocale === "en-US") {
 				return;
 			}
 			await interaction.followUp({
-				content: defaultReplyLocalizations[resolvedLocale]({
-					link: (): string => {
-						return link;
-					},
-				}),
+				content: formatMessage(resolvedLocale),
 				ephemeral: true,
 			});
 		}

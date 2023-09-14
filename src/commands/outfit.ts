@@ -187,20 +187,20 @@ const outfitCommand: Command = {
 			}).flat<Outfit[][]>();
 			const dayDateTime: Date = new Date(day * 21600000);
 			const schedule: Localized<(groups: {}) => string> = composeAll<BareScheduleGroups, {}>(bareScheduleLocalizations, localize<BareScheduleGroups>((locale: Locale): BareScheduleGroups => {
+				const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
+					dateStyle: "long",
+					timeStyle: "short",
+					timeZone: "UTC",
+				});
+				const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(locale, {
+					style: "long",
+					type: "conjunction",
+				});
 				return {
 					dayDateTime: (): string => {
-						const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
-							dateStyle: "long",
-							timeStyle: "short",
-							timeZone: "UTC",
-						});
 						return escapeMarkdown(dateTimeFormat.format(dayDateTime));
 					},
 					outfitNameConjunction: (): string => {
-						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(locale, {
-							style: "long",
-							type: "conjunction",
-						});
 						return conjunctionFormat.format(scheduleOutfits.map<string>((outfit: Outfit): string => {
 							return `**${escapeMarkdown(outfit.name[locale])}**`;
 						}));
@@ -209,48 +209,44 @@ const outfitCommand: Command = {
 			}));
 			schedules.push(schedule);
 		}
-		await interaction.reply({
-			content: bareReplyLocalizations["en-US"]({
+		function formatMessage(locale: Locale): string {
+			return bareReplyLocalizations[locale]({
 				scheduleList: (): string => {
 					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
-						return schedule["en-US"]({});
+						return schedule[locale]({});
 					}));
 				},
-			}),
+			});
+		}
+		await interaction.reply({
+			content: formatMessage("en-US"),
 		});
 		if (resolvedLocale === "en-US") {
 			return;
 		}
 		await interaction.followUp({
-			content: bareReplyLocalizations[resolvedLocale]({
-				scheduleList: (): string => {
-					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
-						return schedule[resolvedLocale]({});
-					}));
-				},
-			}),
+			content: formatMessage(resolvedLocale),
 			ephemeral: true,
 		});
 		return;
 		}
 		const outfit: Outfit = outfits[id];
 		if (rarities[outfit.rarity].slots === 0) {
-			await interaction.reply({
-				content: noSlotReplyLocalizations["en-US"]({
+			function formatMessage(locale: Locale): string {
+				return noSlotReplyLocalizations[locale]({
 					outfitName: (): string => {
-						return escapeMarkdown(outfit.name["en-US"]);
+						return escapeMarkdown(outfit.name[locale]);
 					},
-				}),
+				});
+			}
+			await interaction.reply({
+				content: formatMessage("en-US"),
 			});
 			if (resolvedLocale === "en-US") {
 				return;
 			}
 			await interaction.followUp({
-				content: noSlotReplyLocalizations[resolvedLocale]({
-					outfitName: (): string => {
-						return escapeMarkdown(outfit.name[resolvedLocale]);
-					},
-				}),
+				content: formatMessage(resolvedLocale),
 				ephemeral: true,
 			});
 			return;
@@ -272,13 +268,13 @@ const outfitCommand: Command = {
 			if (slicesByRarity[outfit.rarity][index].includes(outfit)) {
 				const dayDateTime: Date = new Date(day * 21600000);
 				const schedule: Localized<(groups: {}) => string> = composeAll<ScheduleGroups, {}>(scheduleLocalizations, localize<ScheduleGroups>((locale: Locale): ScheduleGroups => {
+					const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
+						dateStyle: "long",
+						timeStyle: "short",
+						timeZone: "UTC",
+					});
 					return {
 						dayDateTime: (): string => {
-							const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
-								dateStyle: "long",
-								timeStyle: "short",
-								timeZone: "UTC",
-							});
 							return escapeMarkdown(dateTimeFormat.format(dayDateTime));
 						},
 					};
@@ -288,18 +284,18 @@ const outfitCommand: Command = {
 		}
 		const tokens: number = outfit.cost;
 		const tokensCost: Localized<(groups: {}) => string> | null = tokens !== 0 ? composeAll<TokensCostGroups, {}>(tokensCostLocalizations, localize<TokensCostGroups>((locale: Locale): TokensCostGroups => {
+			const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat(locale);
 			return {
 				tokens: (): string => {
-					const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat(locale);
 					return escapeMarkdown(cardinalFormat.format(tokens));
 				},
 			};
 		})) : null;
 		const coins: number = rarities[outfit.rarity].cost;
 		const coinsCost: Localized<(groups: {}) => string> | null = coins !== 0 ? composeAll<CoinsCostGroups, {}>(coinsCostLocalizations, localize<CoinsCostGroups>((locale: Locale): CoinsCostGroups => {
+			const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat(locale);
 			return {
 				coins: (): string => {
-					const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat(locale);
 					return escapeMarkdown(cardinalFormat.format(coins));
 				},
 			};
@@ -307,56 +303,35 @@ const outfitCommand: Command = {
 		const costs: Localized<(groups: {}) => string>[] = [tokensCost, coinsCost].filter<Localized<(groups: {}) => string>>((cost: Localized<(groups: {}) => string> | null): cost is Localized<(groups: {}) => string> => {
 			return cost != null;
 		});
-		await interaction.reply({
-			content: replyLocalizations["en-US"]({
+		function formatMessage(locale: Locale): string {
+			const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(locale, {
+				style: "long",
+				type: "conjunction",
+			});
+			return replyLocalizations[locale]({
 				outfitName: (): string => {
-					return escapeMarkdown(outfit.name["en-US"]);
+					return escapeMarkdown(outfit.name[locale]);
 				},
 				costConjunction: (): string => {
-					if (costs.length !== 0) {
-						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
-							style: "long",
-							type: "conjunction",
-						});
-						return conjunctionFormat.format(costs.map<string>((cost: Localized<(groups: {}) => string>): string => {
-							return cost["en-US"]({});
-						}));
-					}
-					return escapeMarkdown(noCostLocalizations["en-US"]({}));
+					return costs.length !== 0 ? conjunctionFormat.format(costs.map<string>((cost: Localized<(groups: {}) => string>): string => {
+						return cost[locale]({});
+					})) : escapeMarkdown(noCostLocalizations[locale]({}));
 				},
 				scheduleList: (): string => {
 					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
-						return schedule["en-US"]({})
+						return schedule[locale]({})
 					}));
 				},
-			}),
+			});
+		}
+		await interaction.reply({
+			content: formatMessage("en-US"),
 		});
 		if (resolvedLocale === "en-US") {
 			return;
 		}
 		await interaction.followUp({
-			content: replyLocalizations[resolvedLocale]({
-				outfitName: (): string => {
-					return escapeMarkdown(outfit.name[resolvedLocale]);
-				},
-				costConjunction: (): string => {
-					if (costs.length !== 0) {
-						const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(resolvedLocale, {
-							style: "long",
-							type: "conjunction",
-						});
-						return conjunctionFormat.format(costs.map<string>((cost: Localized<(groups: {}) => string>): string => {
-							return cost[resolvedLocale]({});
-						}));
-					}
-					return escapeMarkdown(noCostLocalizations[resolvedLocale]({}));
-				},
-				scheduleList: (): string => {
-					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
-						return schedule[resolvedLocale]({})
-					}));
-				},
-			}),
+			content: formatMessage(resolvedLocale),
 			ephemeral: true,
 		});
 	},

@@ -314,14 +314,17 @@ const helpCommand: Command = {
 				}).flat<string[][]>();
 			};
 		});
-		const persistentContent: string = replyLocalizations["en-US"]({
-			memberMention: (): string => {
-				return `<@${member.id}>`;
-			},
-			featureList: (): string => {
-				return list(features["en-US"]({}));
-			},
-		});
+		function formatMessage(locale: Locale): string {
+			return replyLocalizations[locale]({
+				memberMention: (): string => {
+					return `<@${member.id}>`;
+				},
+				featureList: (): string => {
+					return list(features[locale]({}));
+				},
+			});
+		}
+		const persistentContent: string = formatMessage("en-US");
 		const persistentContentChunks: string[] = naiveStream(persistentContent);
 		let replied: boolean = false;
 		for (const chunk of persistentContentChunks) {
@@ -345,14 +348,7 @@ const helpCommand: Command = {
 		if (resolvedLocale === "en-US") {
 			return;
 		}
-		const ephemeralContent: string = replyLocalizations[resolvedLocale]({
-			memberMention: (): string => {
-				return `<@${member.id}>`;
-			},
-			featureList: (): string => {
-				return list(features[resolvedLocale]({}));
-			},
-		});
+		const ephemeralContent: string = formatMessage(resolvedLocale);
 		const ephemeralContentChunks: string[] = naiveStream(ephemeralContent);
 		for (const chunk of ephemeralContentChunks) {
 			if (!replied) {
