@@ -138,7 +138,7 @@ const rule7Rule: Rule = {
 		}
 	},
 	describe(autoModerationRule: AutoModerationRule): Localized<(groups: {}) => string> {
-		const channels: (TextChannel | NewsChannel)[] = autoModerationRule.actions.map<any | null>((action: AutoModerationAction): TextChannel | NewsChannel | null => {
+		const channels: (TextChannel | NewsChannel)[] = autoModerationRule.actions.map<TextChannel | NewsChannel | null>((action: AutoModerationAction): TextChannel | NewsChannel | null => {
 			const {metadata}: AutoModerationAction = action;
 			const {channelId}: AutoModerationActionMetadata = metadata;
 			if (channelId == null) {
