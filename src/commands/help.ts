@@ -167,19 +167,13 @@ function hasPermission(permissions: Collection<string, ApplicationCommandPermiss
 	return hasDefaultPermission(command, channel, member);
 }
 function hasManageWebhooksPermission(channel: GuildBasedChannel, member: GuildMember): boolean {
-	if (channel.guild.ownerId === member.id) {
-		return true;
-	}
-	if (member.permissions.has(PermissionsBitField.All)) {
+	if (hasAdministratorPermission(channel, member)) {
 		return true;
 	}
 	return channel.permissionsFor(member).has([PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.ManageWebhooks]);
 }
 function hasManageAutoModerationRulesPermission(channel: GuildBasedChannel, member: GuildMember): boolean {
-	if (channel.guild.ownerId === member.id) {
-		return true;
-	}
-	if (member.permissions.has(PermissionsBitField.All)) {
+	if (hasAdministratorPermission(channel, member)) {
 		return true;
 	}
 	return channel.permissionsFor(member).has([PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.ManageGuild]);
