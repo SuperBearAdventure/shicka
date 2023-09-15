@@ -55,16 +55,10 @@ const roadmapCommand: Command = {
 		})();
 		function formatMessage(locale: Locale): string {
 			return replyLocalizations[locale]({
-				intent: (): string => {
-					return channel != null ? intentWithChannelLocalizations[locale]({
-						channelMention: (): string => {
-							return `<#${channel.id}>`;
-						},
-					}) : intentWithoutChannelLocalizations[locale]({});
-				},
-				link: (): string => {
-					return link;
-				},
+				intent: channel != null ? intentWithChannelLocalizations[locale]({
+					channelMention: `<#${channel.id}>`,
+				}) : intentWithoutChannelLocalizations[locale]({}),
+				link: link,
 			});
 		}
 		await interaction.reply({
@@ -81,9 +75,7 @@ const roadmapCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
-				commandMention: (): string => {
-					return `</${commandName}:${applicationCommand.id}>`;
-				},
+				commandMention: `</${commandName}:${applicationCommand.id}>`,
 			};
 		}));
 	},

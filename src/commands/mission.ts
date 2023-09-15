@@ -69,12 +69,8 @@ const missionCommand: Command = {
 				const challenge: Challenge = challenges[mission.challenge];
 				const level: Level = levels[mission.level];
 				const missionName: string = missionNameLocalizations[resolvedLocale]({
-					challengeName: (): string => {
-						return challenge.name[resolvedLocale];
-					},
-					levelName: (): string => {
-						return level.name[resolvedLocale];
-					},
+					challengeName: challenge.name[resolvedLocale],
+					levelName: level.name[resolvedLocale],
 				});
 				return missionName.toLocaleLowerCase(resolvedLocale);
 			});
@@ -83,12 +79,8 @@ const missionCommand: Command = {
 				const challenge: Challenge = challenges[mission.challenge];
 				const level: Level = levels[mission.level];
 				const missionName: string = missionNameLocalizations[resolvedLocale]({
-					challengeName: (): string => {
-						return challenge.name[resolvedLocale];
-					},
-					levelName: (): string => {
-						return level.name[resolvedLocale];
-					},
+					challengeName: challenge.name[resolvedLocale],
+					levelName: level.name[resolvedLocale],
 				});
 				return {
 					name: missionName,
@@ -121,15 +113,9 @@ const missionCommand: Command = {
 					timeZone: "UTC",
 				});
 				return {
-					dayDate: (): string => {
-						return escapeMarkdown(dateFormat.format(dayDate));
-					},
-					challengeName: (): string => {
-						return escapeMarkdown(challenge.name[locale]);
-					},
-					levelName: (): string => {
-						return escapeMarkdown(level.name[locale]);
-					},
+					dayDate: escapeMarkdown(dateFormat.format(dayDate)),
+					challengeName: escapeMarkdown(challenge.name[locale]),
+					levelName: escapeMarkdown(level.name[locale]),
 				};
 			}));
 			schedules.push(schedule);
@@ -140,14 +126,10 @@ const missionCommand: Command = {
 				timeZone: "UTC",
 			});
 			return bareReplyLocalizations[locale]({
-				dayTime: (): string => {
-					return escapeMarkdown(timeFormat.format(dayTime));
-				},
-				scheduleList: (): string => {
-					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
-						return schedule[locale]({})
-					}));
-				},
+				dayTime: escapeMarkdown(timeFormat.format(dayTime)),
+				scheduleList: list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
+					return schedule[locale]({})
+				})),
 			});
 		}
 		await interaction.reply({
@@ -176,9 +158,7 @@ const missionCommand: Command = {
 						timeZone: "UTC",
 					});
 					return {
-						dayDateTime: (): string => {
-							return escapeMarkdown(dateTimeFormat.format(dayDateTime));
-						},
+						dayDateTime: escapeMarkdown(dateTimeFormat.format(dayDateTime)),
 					};
 				}));
 				schedules.push(schedule);
@@ -188,17 +168,11 @@ const missionCommand: Command = {
 		const level: Level = levels[mission.level];
 		function formatMessage(locale: Locale): string {
 			return replyLocalizations[locale]({
-				challengeName: (): string => {
-					return escapeMarkdown(challenge.name[locale]);
-				},
-				levelName: (): string => {
-					return escapeMarkdown(level.name[locale]);
-				},
-				scheduleList: (): string => {
-					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
-						return schedule[locale]({})
-					}));
-				},
+				challengeName: escapeMarkdown(challenge.name[locale]),
+				levelName: escapeMarkdown(level.name[locale]),
+				scheduleList: list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
+					return schedule[locale]({})
+				})),
 			});
 		}
 		await interaction.reply({
@@ -215,12 +189,8 @@ const missionCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
-				commandMention: (): string => {
-					return `</${commandName}:${applicationCommand.id}>`;
-				},
-				missionOptionDescription: (): string => {
-					return missionOptionDescription[locale];
-				},
+				commandMention: `</${commandName}:${applicationCommand.id}>`,
+				missionOptionDescription: missionOptionDescription[locale],
 			};
 		}));
 	},

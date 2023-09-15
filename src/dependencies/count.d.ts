@@ -1,9 +1,9 @@
 type HelpGroups = {
-	commandMention: () => string,
+	commandMention: string,
 };
 type ReplyGroups = {
-	memberCount: () => string,
-	name: () => string,
+	memberCount: string,
+	name: string,
 };
 type CountDependency = {
 	help: HelpGroups,

@@ -1,20 +1,20 @@
 type HelpGroups = {
-	postSubCommandMention: () => string,
-	patchSubCommandMention: () => string,
-	attachSubCommandMention: () => string,
-	detachSubCommandMention: () => string,
-	channelOptionDescription: () => string,
-	messageOptionDescription: () => string,
-	contentOptionDescription: () => string,
-	positionOptionDescription: () => string,
-	attachmentOptionDescription: () => string,
+	postSubCommandMention: string,
+	patchSubCommandMention: string,
+	attachSubCommandMention: string,
+	detachSubCommandMention: string,
+	channelOptionDescription: string,
+	messageOptionDescription: string,
+	contentOptionDescription: string,
+	positionOptionDescription: string,
+	attachmentOptionDescription: string,
 };
 type ReplyGroups = {};
 type BareReplyGroups = {};
 type NoChannelReplyGroups = {};
 type NoMessageReplyGroups = {};
 type NoPositionReplyGroups = {
-	max: () => string,
+	max: string,
 };
 type NoContentOrAttachmentReplyGroups = {};
 type NoInteractionReplyGroups = {};

@@ -1,8 +1,8 @@
 type HelpGroups = {
-	approveSubCommandMention: () => string,
-	refuseSubCommandMention: () => string,
-	channelOptionDescription: () => string,
-	messageOptionDescription: () => string,
+	approveSubCommandMention: string,
+	refuseSubCommandMention: string,
+	channelOptionDescription: string,
+	messageOptionDescription: string,
 };
 type NoChannelReplyGroups = {};
 type NoMessageReplyGroups = {};

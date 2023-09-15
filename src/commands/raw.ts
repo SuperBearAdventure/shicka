@@ -81,11 +81,9 @@ const rawCommand: Command = {
 			});
 			await interaction.reply({
 				content: noTypeReplyLocalizations[resolvedLocale]({
-					typeConjunction: (): string => {
-						return conjunctionFormat.format(Object.keys(bindings).map<string>((bindingName: string): string => {
-							return `\`${escapeMarkdown(bindingName)}\``;
-						}));
-					},
+					typeConjunction: conjunctionFormat.format(Object.keys(bindings).map<string>((bindingName: string): string => {
+						return `\`${escapeMarkdown(bindingName)}\``;
+						})),
 				}),
 				ephemeral: true,
 			});
@@ -97,9 +95,7 @@ const rawCommand: Command = {
 			const max: number = binding.length - 1;
 			await interaction.reply({
 				content: noIdentifierReplyLocalizations[resolvedLocale]({
-					max: (): string => {
-						return escapeMarkdown(`${max}`);
-					},
+					max: escapeMarkdown(`${max}`),
 				}),
 				ephemeral: true,
 			});
@@ -113,15 +109,9 @@ const rawCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
-				commandMention: (): string => {
-					return `</${commandName}:${applicationCommand.id}>`;
-				},
-				typeOptionDescription: (): string => {
-					return typeOptionDescription[locale];
-				},
-				identifierOptionDescription: (): string => {
-					return identifierOptionDescription[locale];
-				},
+				commandMention: `</${commandName}:${applicationCommand.id}>`,
+				typeOptionDescription: typeOptionDescription[locale],
+				identifierOptionDescription: identifierOptionDescription[locale],
 			};
 		}));
 	},

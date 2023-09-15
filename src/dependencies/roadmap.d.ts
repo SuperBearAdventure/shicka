@@ -1,12 +1,12 @@
 type HelpGroups = {
-	commandMention: () => string,
+	commandMention: string,
 };
 type ReplyGroups = {
-	intent: () => string,
-	link: () => string,
+	intent: string,
+	link: string,
 };
 type IntentWithChannelGroups = {
-	channelMention: () => string,
+	channelMention: string,
 };
 type IntentWithoutChannelGroups = {};
 type RoadmapDependency = {

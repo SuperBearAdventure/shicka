@@ -195,25 +195,19 @@ const outfitCommand: Command = {
 					type: "conjunction",
 				});
 				return {
-					dayDateTime: (): string => {
-						return escapeMarkdown(dateTimeFormat.format(dayDateTime));
-					},
-					outfitNameConjunction: (): string => {
-						return conjunctionFormat.format(scheduleOutfits.map<string>((outfit: Outfit): string => {
-							return `**${escapeMarkdown(outfit.name[locale])}**`;
-						}));
-					},
+					dayDateTime: escapeMarkdown(dateTimeFormat.format(dayDateTime)),
+					outfitNameConjunction: conjunctionFormat.format(scheduleOutfits.map<string>((outfit: Outfit): string => {
+						return `**${escapeMarkdown(outfit.name[locale])}**`;
+					})),
 				};
 			}));
 			schedules.push(schedule);
 		}
 		function formatMessage(locale: Locale): string {
 			return bareReplyLocalizations[locale]({
-				scheduleList: (): string => {
-					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
-						return schedule[locale]({});
-					}));
-				},
+				scheduleList: list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
+					return schedule[locale]({});
+				})),
 			});
 		}
 		await interaction.reply({
@@ -232,9 +226,7 @@ const outfitCommand: Command = {
 		if (rarities[outfit.rarity].slots === 0) {
 			function formatMessage(locale: Locale): string {
 				return noSlotReplyLocalizations[locale]({
-					outfitName: (): string => {
-						return escapeMarkdown(outfit.name[locale]);
-					},
+					outfitName: escapeMarkdown(outfit.name[locale]),
 				});
 			}
 			await interaction.reply({
@@ -272,9 +264,7 @@ const outfitCommand: Command = {
 						timeZone: "UTC",
 					});
 					return {
-						dayDateTime: (): string => {
-							return escapeMarkdown(dateTimeFormat.format(dayDateTime));
-						},
+						dayDateTime: escapeMarkdown(dateTimeFormat.format(dayDateTime)),
 					};
 				}));
 				schedules.push(schedule);
@@ -284,18 +274,14 @@ const outfitCommand: Command = {
 		const tokensCost: Localized<(groups: {}) => string> | null = tokens !== 0 ? composeAll<TokensCostGroups, {}>(tokensCostLocalizations, localize<TokensCostGroups>((locale: Locale): TokensCostGroups => {
 			const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat(locale);
 			return {
-				tokens: (): string => {
-					return escapeMarkdown(cardinalFormat.format(tokens));
-				},
+				tokens: escapeMarkdown(cardinalFormat.format(tokens)),
 			};
 		})) : null;
 		const coins: number = rarities[outfit.rarity].cost;
 		const coinsCost: Localized<(groups: {}) => string> | null = coins !== 0 ? composeAll<CoinsCostGroups, {}>(coinsCostLocalizations, localize<CoinsCostGroups>((locale: Locale): CoinsCostGroups => {
 			const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat(locale);
 			return {
-				coins: (): string => {
-					return escapeMarkdown(cardinalFormat.format(coins));
-				},
+				coins: escapeMarkdown(cardinalFormat.format(coins)),
 			};
 		})) : null;
 		const costs: Localized<(groups: {}) => string>[] = [tokensCost, coinsCost].filter<Localized<(groups: {}) => string>>((cost: Localized<(groups: {}) => string> | null): cost is Localized<(groups: {}) => string> => {
@@ -307,19 +293,17 @@ const outfitCommand: Command = {
 				type: "conjunction",
 			});
 			return replyLocalizations[locale]({
-				outfitName: (): string => {
-					return escapeMarkdown(outfit.name[locale]);
-				},
-				costConjunction: (): string => {
-					return costs.length !== 0 ? conjunctionFormat.format(costs.map<string>((cost: Localized<(groups: {}) => string>): string => {
+				outfitName: escapeMarkdown(outfit.name[locale]),
+				costConjunction: costs.length !== 0 ? (
+					conjunctionFormat.format(costs.map<string>((cost: Localized<(groups: {}) => string>): string => {
 						return cost[locale]({});
-					})) : escapeMarkdown(noCostLocalizations[locale]({}));
-				},
-				scheduleList: (): string => {
-					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
-						return schedule[locale]({})
-					}));
-				},
+					}))
+				) : (
+					escapeMarkdown(noCostLocalizations[locale]({}))
+				),
+				scheduleList: list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
+					return schedule[locale]({})
+				})),
 			});
 		}
 		await interaction.reply({
@@ -336,12 +320,8 @@ const outfitCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
-				commandMention: (): string => {
-					return `</${commandName}:${applicationCommand.id}>`;
-				},
-				outfitOptionDescription: (): string => {
-					return outfitOptionDescription[locale];
-				},
+				commandMention: `</${commandName}:${applicationCommand.id}>`,
+				outfitOptionDescription: outfitOptionDescription[locale],
 			};
 		}));
 	},

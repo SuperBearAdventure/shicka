@@ -1,9 +1,9 @@
 type HelpWithChannelGroups = {
-	channelMention: () => string,
+	channelMention: string,
 };
 type HelpWithoutChannelGroups = {};
 type GreetingGroups = {
-	memberMention: () => string,
+	memberMention: string,
 };
 type DepartureDependency = {
 	helpWithChannel: HelpWithChannelGroups,

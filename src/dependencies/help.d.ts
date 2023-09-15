@@ -1,9 +1,9 @@
 type HelpGroups = {
-	commandMention: () => string,
+	commandMention: string,
 };
 type ReplyGroups = {
-	memberMention: () => string,
-	featureList: () => string,
+	memberMention: string,
+	featureList: string,
 };
 type HelpDependency = {
 	help: HelpGroups,

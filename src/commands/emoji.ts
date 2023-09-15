@@ -149,15 +149,9 @@ const emojiCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
-				commandMention: (): string => {
-					return `</${commandName}:${applicationCommand.id}>`;
-				},
-				baseOptionDescription: (): string => {
-					return baseOptionDescription[locale];
-				},
-				stylesOptionDescription: (): string => {
-					return stylesOptionDescription[locale];
-				},
+				commandMention: `</${commandName}:${applicationCommand.id}>`,
+				baseOptionDescription: baseOptionDescription[locale],
+				stylesOptionDescription: stylesOptionDescription[locale],
 			};
 		}));
 	},

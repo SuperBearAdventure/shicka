@@ -1,7 +1,7 @@
 type HelpGroups = {
-	commandMention: () => string,
-	baseOptionDescription: () => string,
-	stylesOptionDescription: () => string,
+	commandMention: string,
+	baseOptionDescription: string,
+	stylesOptionDescription: string,
 };
 type EmojiDependency = {
 	help: HelpGroups,

@@ -96,26 +96,18 @@ const soundtrackCommand: Command = {
 			for (const item of data) {
 				const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((): LinkGroups => {
 					return {
-						title: (): string => {
-							return escapeMarkdown(item.title);
-						},
-						link: (): string => {
-							return item.link;
-						},
-						views: (): string => {
-							return escapeMarkdown(item.views);
-						},
+						title: escapeMarkdown(item.title),
+						link: item.link,
+						views: escapeMarkdown(item.views),
 					};
 				}));
 				links.push(link);
 			}
 			function formatMessage(locale: Locale): string {
 				return replyLocalizations[locale]({
-					linkList: (): string => {
-						return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
-							return link[locale]({});
-						}));
-					},
+					linkList: list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
+						return link[locale]({});
+					})),
 				});
 			}
 			await interaction.reply({
@@ -132,9 +124,7 @@ const soundtrackCommand: Command = {
 			console.warn(error);
 			function formatMessage(locale: Locale): string {
 				return defaultReplyLocalizations[locale]({
-					link: (): string => {
-						return link;
-					},
+					link: link,
 				});
 			}
 			await interaction.reply({
@@ -152,9 +142,7 @@ const soundtrackCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
-				commandMention: (): string => {
-					return `</${commandName}:${applicationCommand.id}>`;
-				},
+				commandMention: `</${commandName}:${applicationCommand.id}>`,
 			};
 		}));
 	},

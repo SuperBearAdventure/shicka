@@ -64,23 +64,17 @@ const storeCommand: Command = {
 		for (const item of data) {
 			const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((locale: Locale): LinkGroups => {
 				return {
-					title: (): string => {
-						return escapeMarkdown(item.title[locale]);
-					},
-					link: (): string => {
-						return item.link;
-					},
+					title: escapeMarkdown(item.title[locale]),
+					link: item.link,
 				};
 			}));
 			links.push(link);
 		}
 		function formatMessage(locale: Locale): string {
 			return replyLocalizations[locale]({
-				linkList: (): string => {
-					return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
-						return link[locale]({});
-					}));
-				},
+				linkList: list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
+					return link[locale]({});
+				})),
 			});
 		}
 		await interaction.reply({
@@ -97,9 +91,7 @@ const storeCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
-				commandMention: (): string => {
-					return `</${commandName}:${applicationCommand.id}>`;
-				},
+				commandMention: `</${commandName}:${applicationCommand.id}>`,
 			};
 		}));
 	},
