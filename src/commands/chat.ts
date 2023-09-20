@@ -528,20 +528,17 @@ const chatCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
-				commandName: (): string => {
-					return commandName;
+				postSubCommandMention: (): string => {
+					return `</${commandName} ${postSubCommandName}:${applicationCommand.id}>`;
 				},
-				postSubCommandName: (): string => {
-					return postSubCommandName;
+				patchSubCommandMention: (): string => {
+					return `</${commandName} ${patchSubCommandName}:${applicationCommand.id}>`;
 				},
-				patchSubCommandName: (): string => {
-					return patchSubCommandName;
+				attachSubCommandMention: (): string => {
+					return `</${commandName} ${attachSubCommandName}:${applicationCommand.id}>`;
 				},
-				attachSubCommandName: (): string => {
-					return attachSubCommandName;
-				},
-				detachSubCommandName: (): string => {
-					return detachSubCommandName;
+				detachSubCommandMention: (): string => {
+					return `</${commandName} ${detachSubCommandName}:${applicationCommand.id}>`;
 				},
 				channelOptionDescription: (): string => {
 					return channelOptionDescription[locale];

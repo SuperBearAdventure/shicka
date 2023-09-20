@@ -1,9 +1,8 @@
 type HelpGroups = {
-	commandName: () => string,
-	postSubCommandName: () => string,
-	patchSubCommandName: () => string,
-	attachSubCommandName: () => string,
-	detachSubCommandName: () => string,
+	postSubCommandMention: () => string,
+	patchSubCommandMention: () => string,
+	attachSubCommandMention: () => string,
+	detachSubCommandMention: () => string,
 	channelOptionDescription: () => string,
 	messageOptionDescription: () => string,
 	contentOptionDescription: () => string,

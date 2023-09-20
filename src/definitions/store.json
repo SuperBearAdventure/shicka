@@ -6,9 +6,9 @@
 		"pt-BR": "Te diz onde comprar os produtos oficiais do jogo"
 	},
 	"help": {
-		"en-US": "Type `/$<commandName>` to know where to buy offical products of the game",
-		"fr": "Tape `/$<commandName>` pour savoir où acheter des produits officiels du jeu",
-		"pt-BR": "Digite `/$<commandName>` pra saber onde comprar os produtos oficiais do jogo"
+		"en-US": "Type $<commandMention> to know where to buy offical products of the game",
+		"fr": "Tape $<commandMention> pour savoir où acheter des produits officiels du jeu",
+		"pt-BR": "Digite $<commandMention> pra saber onde comprar os produtos oficiais do jogo"
 	},
 	"reply": {
 		"en-US": "You can buy official products of the game there:\n$<linkList>",

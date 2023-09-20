@@ -1,5 +1,5 @@
 type HelpWithChannelsGroups = {
-	channels: () => string,
+	channelMentions: () => string,
 };
 type HelpWithoutChannelsGroups = {};
 type Rule7Dependency = {

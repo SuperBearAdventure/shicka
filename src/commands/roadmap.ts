@@ -59,8 +59,8 @@ const roadmapCommand: Command = {
 			content: replyLocalizations["en-US"]({
 				intent: (): string => {
 					return channel != null ? intentWithChannelLocalizations["en-US"]({
-						channel: (): string => {
-							return `${channel}`;
+						channelMention: (): string => {
+							return `<#${channel.id}>`;
 						},
 					}) : intentWithoutChannelLocalizations["en-US"]({});
 				},
@@ -76,8 +76,8 @@ const roadmapCommand: Command = {
 			content: replyLocalizations[resolvedLocale]({
 				intent: (): string => {
 					return channel != null ? intentWithChannelLocalizations[resolvedLocale]({
-						channel: (): string => {
-							return `${channel}`;
+						channelMention: (): string => {
+							return `<#${channel.id}>`;
 						},
 					}) : intentWithoutChannelLocalizations[resolvedLocale]({});
 				},
@@ -91,8 +91,8 @@ const roadmapCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
-				commandName: (): string => {
-					return commandName;
+				commandMention: (): string => {
+					return `</${commandName}:${applicationCommand.id}>`;
 				},
 			};
 		}));

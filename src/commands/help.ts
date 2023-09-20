@@ -315,8 +315,8 @@ const helpCommand: Command = {
 			};
 		});
 		const persistentContent: string = replyLocalizations["en-US"]({
-			member: (): string => {
-				return `${member}`;
+			memberMention: (): string => {
+				return `<@${member.id}>`;
 			},
 			featureList: (): string => {
 				return list(features["en-US"]({}));
@@ -346,8 +346,8 @@ const helpCommand: Command = {
 			return;
 		}
 		const ephemeralContent: string = replyLocalizations[resolvedLocale]({
-			member: (): string => {
-				return `${member}`;
+			memberMention: (): string => {
+				return `<@${member.id}>`;
 			},
 			featureList: (): string => {
 				return list(features[resolvedLocale]({}));
@@ -378,8 +378,8 @@ const helpCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
-				commandName: (): string => {
-					return commandName;
+				commandMention: (): string => {
+					return `</${commandName}:${applicationCommand.id}>`;
 				},
 			};
 		}));

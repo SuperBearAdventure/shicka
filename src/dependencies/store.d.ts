@@ -1,5 +1,5 @@
 type HelpGroups = {
-	commandName: () => string,
+	commandMention: () => string,
 };
 type ReplyGroups = {
 	linkList: () => string,

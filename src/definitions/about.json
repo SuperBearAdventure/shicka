@@ -6,9 +6,9 @@
 		"pt-BR": "Te diz de onde eu vim"
 	},
 	"help": {
-		"en-US": "Type `/$<commandName>` to know where I come from",
-		"fr": "Tape `/$<commandName>` pour savoir d'où je viens",
-		"pt-BR": "Digite `/$<commandName>` pra saber de onde eu vim"
+		"en-US": "Type $<commandMention> to know where I come from",
+		"fr": "Tape $<commandMention> pour savoir d'où je viens",
+		"pt-BR": "Digite $<commandMention> pra saber de onde eu vim"
 	},
 	"reply": {
 		"en-US": "I am *$<bot>*, a bot made by *$<author>*, and I am open source!\nMy code is available [there](<$<link>>).",
