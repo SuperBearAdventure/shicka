@@ -6,9 +6,9 @@
 		"pt-BR": "Te diz onde escutar as obras musicais oficiais do jogo"
 	},
 	"help": {
-		"en-US": "Type `/$<commandName>` to know where to listen to official music pieces of the game",
-		"fr": "Tape `/$<commandName>` pour savoir où écouter des morceaux de musique officiels du jeu",
-		"pt-BR": "Digite `/$<commandName>` pra saber onde escutar as obras musicais oficiais do jogo"
+		"en-US": "Type $<commandMention> to know where to listen to official music pieces of the game",
+		"fr": "Tape $<commandMention> pour savoir où écouter des morceaux de musique officiels du jeu",
+		"pt-BR": "Digite $<commandMention> pra saber onde escutar as obras musicais oficiais do jogo"
 	},
 	"reply": {
 		"en-US": "You can listen to official music pieces of the game there:\n$<linkList>",

@@ -18,9 +18,9 @@
 		"pt-BR": "Algum identificador"
 	},
 	"help": {
-		"en-US": "Type `/$<commandName> $<typeOptionDescription> $<identifierOptionDescription>` to know what is the datum of `$<typeOptionDescription>` with `$<identifierOptionDescription>`",
-		"fr": "Tape `/$<commandName> $<typeOptionDescription> $<identifierOptionDescription>` pour savoir quel est la donnée d'`$<typeOptionDescription>` avec `$<identifierOptionDescription>`",
-		"pt-BR": "Digite `/$<commandName> $<typeOptionDescription> $<identifierOptionDescription>` pra saber qual é o Datum de `$<typeOptionDescription>` com `$<identifierOptionDescription>`"
+		"en-US": "Type $<commandMention> `$<typeOptionDescription> $<identifierOptionDescription>` to know what is the datum of `$<typeOptionDescription>` with `$<identifierOptionDescription>`",
+		"fr": "Tape $<commandMention> `$<typeOptionDescription> $<identifierOptionDescription>` pour savoir quel est la donnée d'`$<typeOptionDescription>` avec `$<identifierOptionDescription>`",
+		"pt-BR": "Digite $<commandMention> `$<typeOptionDescription> $<identifierOptionDescription>` pra saber qual é o Datum de `$<typeOptionDescription>` com `$<identifierOptionDescription>`"
 	},
 	"noTypeReply": {
 		"en-US": "I do not know any datum with this name.\nPlease give me a type among $<typeConjunction> instead.",

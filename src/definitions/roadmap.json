@@ -6,9 +6,9 @@
 		"pt-BR": "Te diz onde checar as próximas metas do jogo"
 	},
 	"help": {
-		"en-US": "Type `/$<commandName>` to know where to check the upcoming milestones of the game",
-		"fr": "Tape `/$<commandName>` pour savoir où consulter les futurs jalons du jeu",
-		"pt-BR": "Digite `/$<commandName>` pra saber onde checar as próximas metas do jogo"
+		"en-US": "Type $<commandMention> to know where to check the upcoming milestones of the game",
+		"fr": "Tape $<commandMention> pour savoir où consulter les futurs jalons du jeu",
+		"pt-BR": "Digite $<commandMention> pra saber onde checar as próximas metas do jogo"
 	},
 	"reply": {
 		"en-US": "$<intent> check upcoming milestones of the game [there](<$<link>>).",
@@ -16,9 +16,9 @@
 		"pt-BR": "$<intent> checar as próximas metas do jogo [aqui](<$<link>>)."
 	},
 	"intentWithChannel": {
-		"en-US": "Before suggesting an idea in $<channel>, you can",
-		"fr": "Avant de suggérer une idée dans $<channel>, tu peux",
-		"pt-BR": "Antes de sugerir uma ideia em $<channel>, você pode"
+		"en-US": "Before suggesting an idea in $<channelMention>, you can",
+		"fr": "Avant de suggérer une idée dans $<channelMention>, tu peux",
+		"pt-BR": "Antes de sugerir uma ideia em $<channelMention>, você pode"
 	},
 	"intentWithoutChannel": {
 		"en-US": "You can",

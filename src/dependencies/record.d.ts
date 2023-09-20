@@ -1,5 +1,5 @@
 type HelpWithChannelGroups = {
-	channel: () => string,
+	channelMention: () => string,
 };
 type HelpWithoutChannelGroups = {};
 type RecordDependency = {

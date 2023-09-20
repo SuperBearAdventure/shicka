@@ -101,16 +101,18 @@ const rule7Rule: Rule = {
 			return;
 		}
 		const {guild}: AutoModerationActionExecution = execution;
-		const emoji: GuildEmoji | undefined = guild.emojis.cache.find((emoji: GuildEmoji): boolean => {
-			const {name}: GuildEmoji = emoji;
-			if (name == null) {
-				return false;
+		const emoji: GuildEmoji | null = ((): GuildEmoji | null => {
+			const emoji: GuildEmoji | undefined = guild.emojis.cache.find((emoji: GuildEmoji): boolean => {
+				return (emoji.name ?? "") === ruleReactionEmoji;
+			});
+			if (emoji == null || (emoji.animated ?? true)) {
+				return null;
 			}
-			return name === ruleReactionEmoji;
-		});
+			return emoji;
+		})();
 		if (emoji != null) {
 			await message.reply({
-				content: `${emoji}`,
+				content: `<:${ruleReactionEmoji}:${emoji.id}>`,
 			});
 		}
 		const {rulesChannel}: Guild = guild;
@@ -125,7 +127,7 @@ const rule7Rule: Rule = {
 		})() : rulesChannel;
 		if (manualChannel != null) {
 			await message.reply({
-				content: `Please read and respect the rules in ${manualChannel}!`,
+				content: `Please read and respect the rules in <#${manualChannel.id}>!`,
 			});
 		}
 		await message.react("🇷");
@@ -154,13 +156,13 @@ const rule7Rule: Rule = {
 		});
 		return channels.length !== 0 ? composeAll<HelpWithChannelsGroups, {}>(helpWithChannelsLocalizations, localize<HelpWithChannelsGroups>((locale: Locale): HelpWithChannelsGroups => {
 			return {
-				channels: (): string => {
+				channelMentions: (): string => {
 					const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat(locale, {
 						style: "long",
 						type: "conjunction",
 					});
 					return conjunctionFormat.format(channels.map<string>((channel: TextChannel | NewsChannel): string => {
-						return `${channel}`;
+						return `<#${channel.id}>`;
 					}));
 				},
 			};

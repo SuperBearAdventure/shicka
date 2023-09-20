@@ -6,9 +6,9 @@
 		"pt-BR": "Te diz onde assistir os trailers oficiais do jogo"
 	},
 	"help": {
-		"en-US": "Type `/$<commandName>` to know where to watch official trailers of the game",
-		"fr": "Tape `/$<commandName>` pour savoir où regarder des bandes-annonces officielles du jeu",
-		"pt-BR": "Digite `/$<commandName>` pra saber onde assistir os trailers oficiais do jogo"
+		"en-US": "Type $<commandMention> to know where to watch official trailers of the game",
+		"fr": "Tape $<commandMention> pour savoir où regarder des bandes-annonces officielles du jeu",
+		"pt-BR": "Digite $<commandMention> pra saber onde assistir os trailers oficiais do jogo"
 	},
 	"reply": {
 		"en-US": "You can watch official trailers of the game there:\n$<linkList>",

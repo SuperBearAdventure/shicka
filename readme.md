@@ -45,47 +45,47 @@ $ npm start
 
 ### Commands
 
-- `/about` gives the link to this repository on `github.com`
+- `about` gives the link to this repository on `github.com`
 
-- `/bear <bear>` gives the gold time, the location, and the outfits of the given bear
+- `bear <bear>` gives the gold time, the location, and the outfits of the given bear
 
-- `/chat post <channel> <content>` sends the given content in the given channel (only available to administrator members by default)
+- `chat post <channel> <content>` sends the given content in the given channel (only available to administrator members by default)
 
-- `/chat patch <channel> <message> <content>` edits the given message with the given content in the given channel (only available to administrator members by default)
+- `chat patch <channel> <message> <content>` edits the given message with the given content in the given channel (only available to administrator members by default)
 
-- `/chat attach <channel> <message> <position> <attachment>` adds at the given position the given attachment to the given message in the given channel (only available to administrator members by default)
+- `chat attach <channel> <message> <position> <attachment>` adds at the given position the given attachment to the given message in the given channel (only available to administrator members by default)
 
-- `/chat detach <channel> <message> <position>` removes at the given position the attachment from the given message in the given channel (only available to administrator members by default)
+- `chat detach <channel> <message> <position>` removes at the given position the attachment from the given message in the given channel (only available to administrator members by default)
 
-- `/count` gives the number of members of the guild
+- `count` gives the number of members of the guild
 
-- `/emoji <base> <style>{6}` draws the given base emoji with the given styles (only available to administrator members by default)
+- `emoji <base> <style>{6}` draws the given base emoji with the given styles (only available to administrator members by default)
 
-- `/help` gives the feature list of this bot
+- `help` gives the feature list of this bot
 
-- `/leaderboard` gives the links to the speedrun leaderboards of the game on `www.speedrun.com`
+- `leaderboard` gives the links to the speedrun leaderboards of the game on `www.speedrun.com`
 
-- `/mission` gives the schedule of the next three missions in the shop
+- `mission` gives the schedule of the next three missions in the shop
 
-- `/mission <mission>` gives the schedule of at least the next two occurences of the given mission in the shop
+- `mission <mission>` gives the schedule of at least the next two occurences of the given mission in the shop
 
-- `/outfit` gives the schedule of the next six sets of outfits in the shop
+- `outfit` gives the schedule of the next six sets of outfits in the shop
 
-- `/outfit <outfit>` gives the schedule of at least the next two occurrences of the given outfit in the shop
+- `outfit <outfit>` gives the schedule of at least the next two occurrences of the given outfit in the shop
 
-- `/raw <type> <identifier>` gives the datum of the given type with the given identifier
+- `raw <type> <identifier>` gives the datum of the given type with the given identifier
 
-- `/roadmap` gives the link to the todo list of the game on `trello.com`
+- `roadmap` gives the link to the todo list of the game on `trello.com`
 
-- `/soundtrack` gives the links to the music pieces of the game on `www.youtube.com`
+- `soundtrack` gives the links to the music pieces of the game on `www.youtube.com`
 
-- `/store` gives the links to the online stores of the game on `superbearadventure.myspreadshop.net` and `superbearadventure.myspreadshop.com`
+- `store` gives the links to the online stores of the game on `superbearadventure.myspreadshop.net` and `superbearadventure.myspreadshop.com`
 
-- `/tracker` gives the links to the issue trackers of the game on `github.com` and `trello.com`
+- `tracker` gives the links to the issue trackers of the game on `github.com` and `trello.com`
 
-- `/trailer` gives the links to the trailers of the game on `www.youtube.com`
+- `trailer` gives the links to the trailers of the game on `www.youtube.com`
 
-- `/update` gives the links to the latest updates of the game on `play.google.com` and `apps.apple.com`
+- `update` gives the links to the latest updates of the game on `play.google.com` and `apps.apple.com`
 
 ### Hooks
 

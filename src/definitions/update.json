@@ -6,9 +6,9 @@
 		"pt-BR": "Te diz qual é a última atualização do jogo"
 	},
 	"help": {
-		"en-US": "Type `/$<commandName>` to know what is the latest update of the game",
-		"fr": "Tape `/$<commandName>` pour savoir quelle est la dernière mise à jour du jeu",
-		"pt-BR": "Digite `/$<commandName>` pra saber qual é a última atualização do jogo"
+		"en-US": "Type $<commandMention> to know what is the latest update of the game",
+		"fr": "Tape $<commandMention> pour savoir quelle est la dernière mise à jour du jeu",
+		"pt-BR": "Digite $<commandMention> pra saber qual é a última atualização do jogo"
 	},
 	"reply": {
 		"en-US": "You can check and download the latest update of the game there:\n$<linkList>",

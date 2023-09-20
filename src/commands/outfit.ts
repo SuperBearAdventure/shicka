@@ -363,8 +363,8 @@ const outfitCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
-				commandName: (): string => {
-					return commandName;
+				commandMention: (): string => {
+					return `</${commandName}:${applicationCommand.id}>`;
 				},
 				outfitOptionDescription: (): string => {
 					return outfitOptionDescription[locale];

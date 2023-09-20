@@ -6,9 +6,9 @@
 		"pt-BR": "Te diz qual é o número de membros nesse servidor"
 	},
 	"help": {
-		"en-US": "Type `/$<commandName>` to know what is the number of members on the server",
-		"fr": "Tape `/$<commandName>` pour savoir quel est le nombre de membres sur le serveur",
-		"pt-BR": "Digite `/$<commandName>` pra saber qual é o número de membros nesse servidor"
+		"en-US": "Type $<commandMention> to know what is the number of members on the server",
+		"fr": "Tape $<commandMention> pour savoir quel est le nombre de membres sur le serveur",
+		"pt-BR": "Digite $<commandMention> pra saber qual é o número de membros nesse servidor"
 	},
 	"reply": {
 		"en-US": "There are $<memberCount> members on the official *$<name>* *Discord* server!",

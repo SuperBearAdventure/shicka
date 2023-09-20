@@ -12,9 +12,9 @@
 		"pt-BR": "Alguma roupa"
 	},
 	"help": {
-		"en-US": "Type `/$<commandName>` to know what is for sale in the shop\nType `/$<commandName> $<outfitOptionDescription>` to know when `$<outfitOptionDescription>` is for sale in the shop",
-		"fr": "Tape `/$<commandName>` pour savoir ce qui est en vente dans la boutique\nTape `/$<commandName> $<outfitOptionDescription>` pour savoir quand `$<outfitOptionDescription>` est en vente dans la boutique",
-		"pt-BR": "Digite `/$<commandName>` pra saber o que está à venda na loja\nDigite `/$<commandName> $<outfitOptionDescription>` pra saber quando `$<outfitOptionDescription>` estará à venda na loja"
+		"en-US": "Type $<commandMention> to know what is for sale in the shop\nType $<commandMention> `$<outfitOptionDescription>` to know when `$<outfitOptionDescription>` is for sale in the shop",
+		"fr": "Tape $<commandMention> pour savoir ce qui est en vente dans la boutique\nTape $<commandMention> `$<outfitOptionDescription>` pour savoir quand `$<outfitOptionDescription>` est en vente dans la boutique",
+		"pt-BR": "Digite $<commandMention> pra saber o que está à venda na loja\nDigite $<commandMention> `$<outfitOptionDescription>` pra saber quando `$<outfitOptionDescription>` estará à venda na loja"
 	},
 	"reply": {
 		"en-US": "**$<outfitName>** will be for sale in the shop for $<costConjunction> for 6 hours starting:\n$<scheduleList>",

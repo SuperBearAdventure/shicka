@@ -6,9 +6,9 @@
 		"pt-BR": "Te diz onde checar bugs conhecidos do jogo"
 	},
 	"help": {
-		"en-US": "Type `/$<commandName>` to know where to check known bugs of the game",
-		"fr": "Tape `/$<commandName>` pour savoir où consulter des bogues connus du jeu",
-		"pt-BR": "Digite `/$<commandName>` pra saber onde checar bugs conhecidos do jogo"
+		"en-US": "Type $<commandMention> to know where to check known bugs of the game",
+		"fr": "Tape $<commandMention> pour savoir où consulter des bogues connus du jeu",
+		"pt-BR": "Digite $<commandMention> pra saber onde checar bugs conhecidos do jogo"
 	},
 	"reply": {
 		"en-US": "$<intent> check the known bugs of the game there:\n$<linkList>",
@@ -16,9 +16,9 @@
 		"pt-BR": "$<intent> checar bugs conhecidos do jogo aqui:\n$<linkList>"
 	},
 	"intentWithChannel": {
-		"en-US": "Before reporting a bug in $<channel>, you can",
-		"fr": "Avant de rapporter un bogue dans $<channel>, tu peux",
-		"pt-BR": "Antes de reportar um bug em $<channel>, você pode"
+		"en-US": "Before reporting a bug in $<channelMention>, you can",
+		"fr": "Avant de rapporter un bogue dans $<channelMention>, tu peux",
+		"pt-BR": "Antes de reportar um bug em $<channelMention>, você pode"
 	},
 	"intentWithoutChannel": {
 		"en-US": "You can",

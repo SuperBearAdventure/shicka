@@ -12,9 +12,9 @@
 		"pt-BR": "Algum urso"
 	},
 	"help": {
-		"en-US": "Type `/$<commandName> $<bearOptionDescription>` to know who is `$<bearOptionDescription>`",
-		"fr": "Tape `/$<commandName> $<bearOptionDescription>` pour savoir qui est `$<bearOptionDescription>`",
-		"pt-BR": "Digite `/$<commandName> $<bearOptionDescription>` pra saber quem é `$<bearOptionDescription>`"
+		"en-US": "Type $<commandMention> `$<bearOptionDescription>` to know who is `$<bearOptionDescription>`",
+		"fr": "Tape $<commandMention> `$<bearOptionDescription>` pour savoir qui est `$<bearOptionDescription>`",
+		"pt-BR": "Digite $<commandMention> `$<bearOptionDescription>` pra saber quem é `$<bearOptionDescription>`"
 	},
 	"reply": {
 		"en-US": "**$<name>** has been imprisoned in **$<level>** and is wearing $<outfitNameConjunction>.\n$<goalConjunction>!",

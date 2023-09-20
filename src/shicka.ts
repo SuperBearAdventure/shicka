@@ -382,7 +382,7 @@ client.on("guildMemberAdd", async (member: GuildMember): Promise<void> => {
 	if (welcomeChannel == null) {
 		return;
 	}
-	const name: string = `${member}`;
+	const name: string = `<@${member.id}>`;
 	const {hey}: {[k in string]: Greeting} = greetings;
 	const greeting: string = name.replace(capture, hey[Math.random() * hey.length | 0]);
 	const counting: string = memberCount % 10 !== 0 ? "" : `\nWe are now ${escapeMarkdown(cardinalFormat.format(memberCount))} members!`;

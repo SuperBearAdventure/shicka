@@ -1,5 +1,5 @@
 type HelpGroups = {
-	commandName: () => string,
+	commandMention: () => string,
 	bearOptionDescription: () => string,
 };
 type ReplyGroups = {

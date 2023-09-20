@@ -6,13 +6,13 @@
 		"pt-BR": "Te diz quais recursos eu apresento"
 	},
 	"help": {
-		"en-US": "Type `/$<commandName>` to know what are the features I offer",
-		"fr": "Tape `/$<commandName>` pour savoir quelles sont les fonctionnalités que je propose",
-		"pt-BR": "Digite `/$<commandName>` pra saber quais são os recursos que apresento"
+		"en-US": "Type $<commandMention> to know what are the features I offer",
+		"fr": "Tape $<commandMention> pour savoir quelles sont les fonctionnalités que je propose",
+		"pt-BR": "Digite $<commandMention> pra saber quais são os recursos que apresento"
 	},
 	"reply": {
-		"en-US": "Hey $<member>, there you are!\nI can give you some advice about the server:\n$<featureList>",
-		"fr": "Ah $<member>, tu es là !\nJe peux te donner des conseils sur le serveur :\n$<featureList>",
-		"pt-BR": "Opa $<member>, aí está você!\nEu posso te dar algumas dicas sobre o servidor:\n$<featureList>"
+		"en-US": "Hey $<memberMention>, there you are!\nI can give you some advice about the server:\n$<featureList>",
+		"fr": "Ah $<memberMention>, tu es là !\nJe peux te donner des conseils sur le serveur :\n$<featureList>",
+		"pt-BR": "Opa $<memberMention>, aí está você!\nEu posso te dar algumas dicas sobre o servidor:\n$<featureList>"
 	}
 }
