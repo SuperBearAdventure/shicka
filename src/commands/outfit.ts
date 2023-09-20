@@ -287,18 +287,20 @@ const outfitCommand: Command = {
 			}
 		}
 		const tokens: number = outfit.cost;
-		const tokensCost: Localized<(groups: {}) => string> | null = tokens !== 0 ? composeAll<TokensCostGroups, {}>(tokensCostLocalizations, localize<TokensCostGroups>((): TokensCostGroups => {
+		const tokensCost: Localized<(groups: {}) => string> | null = tokens !== 0 ? composeAll<TokensCostGroups, {}>(tokensCostLocalizations, localize<TokensCostGroups>((locale: Locale): TokensCostGroups => {
 			return {
 				tokens: (): string => {
-					return escapeMarkdown(`${tokens}`);
+					const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat(locale);
+					return escapeMarkdown(cardinalFormat.format(tokens));
 				},
 			};
 		})) : null;
 		const coins: number = rarities[outfit.rarity].cost;
-		const coinsCost: Localized<(groups: {}) => string> | null = coins !== 0 ? composeAll<CoinsCostGroups, {}>(coinsCostLocalizations, localize<CoinsCostGroups>((): CoinsCostGroups => {
+		const coinsCost: Localized<(groups: {}) => string> | null = coins !== 0 ? composeAll<CoinsCostGroups, {}>(coinsCostLocalizations, localize<CoinsCostGroups>((locale: Locale): CoinsCostGroups => {
 			return {
 				coins: (): string => {
-					return escapeMarkdown(`${coins}`);
+					const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat(locale);
+					return escapeMarkdown(cardinalFormat.format(coins));
 				},
 			};
 		})) : null;

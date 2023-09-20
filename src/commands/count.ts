@@ -43,7 +43,8 @@ const countCommand: Command = {
 		await interaction.reply({
 			content: replyLocalizations["en-US"]({
 				memberCount: (): string => {
-					return escapeMarkdown(`${memberCount}`);
+					const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat("en-US");
+					return escapeMarkdown(cardinalFormat.format(memberCount));
 				},
 				name: (): string => {
 					return escapeMarkdown(name);
@@ -56,7 +57,8 @@ const countCommand: Command = {
 		await interaction.followUp({
 			content: replyLocalizations[resolvedLocale]({
 				memberCount: (): string => {
-					return escapeMarkdown(`${memberCount}`);
+					const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat(resolvedLocale);
+					return escapeMarkdown(cardinalFormat.format(memberCount));
 				},
 				name: (): string => {
 					return escapeMarkdown(name);
