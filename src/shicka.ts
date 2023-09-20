@@ -52,6 +52,7 @@ const discordToken: string = SHICKA_DISCORD_TOKEN ?? "";
 const byeSystemChannel: string | null = SHICKA_BYE_OVERRIDE_SYSTEM_CHANNEL ?? null;
 const heySystemChannel: string | null = SHICKA_HEY_OVERRIDE_SYSTEM_CHANNEL ?? null;
 const capture: RegExp = /^.*$/su;
+const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat("en-US");
 async function submitGuildCommands(guild: Guild, commandRegistry: ApplicationCommandData[]): Promise<boolean> {
 	try {
 		await guild.commands.set(commandRegistry);
@@ -384,7 +385,7 @@ client.on("guildMemberAdd", async (member: GuildMember): Promise<void> => {
 	const name: string = `${member}`;
 	const {hey}: {[k in string]: Greeting} = greetings;
 	const greeting: string = name.replace(capture, hey[Math.random() * hey.length | 0]);
-	const counting: string = memberCount % 10 !== 0 ? "" : `\nWe are now ${escapeMarkdown(`${memberCount}`)} members!`;
+	const counting: string = memberCount % 10 !== 0 ? "" : `\nWe are now ${escapeMarkdown(cardinalFormat.format(memberCount))} members!`;
 	try {
 		const message: Message<true> = await welcomeChannel.send({
 			content: `${greeting}${counting}`,

@@ -111,10 +111,11 @@ const bearCommand: Command = {
 				},
 			};
 		})) : null;
-		const coinsGoal: Localized<(groups: {}) => string> | null = coins !== 0 ? composeAll<CoinsGoalGroups, {}>(bossGoal != null ? coinsWithBossGoalLocalizations : coinsWithoutBossGoalLocalizations, localize<CoinsGoalGroups>((): CoinsGoalGroups => {
+		const coinsGoal: Localized<(groups: {}) => string> | null = coins !== 0 ? composeAll<CoinsGoalGroups, {}>(bossGoal != null ? coinsWithBossGoalLocalizations : coinsWithoutBossGoalLocalizations, localize<CoinsGoalGroups>((locale: Locale): CoinsGoalGroups => {
 			return {
 				coins: (): string => {
-					return escapeMarkdown(`${coins}`);
+					const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat(locale);
+					return escapeMarkdown(cardinalFormat.format(coins));
 				},
 			};
 		})) : null;
