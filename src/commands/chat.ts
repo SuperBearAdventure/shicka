@@ -1,9 +1,7 @@
 import type {
-	Attachment,
 	ChatInputCommandInteraction,
 	GuildBasedChannel,
 	Message,
-	ModalSubmitInteraction,
 	ThreadChannel,
 } from "discord.js";
 import type Command from "../commands.js";
@@ -13,13 +11,12 @@ import type {Chat as ChatDefinition} from "../definitions.js";
 import type {Chat as ChatDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
 	ChannelType,
-	ComponentType,
-	TextInputStyle,
 } from "discord.js";
-import {attach as attachCommand, detach as detachCommand, patch as patchCommand} from "../commands.js";
+import attachSubCommand from "./chat/attach.js";
+import detachSubCommand from "./chat/detach.js";
+import patchSubCommand from "./chat/patch.js";
+import postSubCommand from "./chat/post.js";
 import {chat as chatCompilation} from "../compilations.js";
 import {chat as chatDefinition} from "../definitions.js";
 import {composeAll, localize, resolve} from "../utils/string.js";
@@ -28,29 +25,16 @@ const {
 	commandName,
 	commandDescription,
 	postSubCommandName,
-	postSubCommandDescription,
 	patchSubCommandName,
-	patchSubCommandDescription,
 	attachSubCommandName,
-	attachSubCommandDescription,
 	detachSubCommandName,
-	detachSubCommandDescription,
 	channelOptionName,
-	channelOptionDescription,
 	messageOptionName,
-	messageOptionDescription,
-	contentOptionName,
-	contentOptionDescription,
-	attachmentsOptionName,
-	attachmentsOptionDescription,
 }: ChatDefinition = chatDefinition;
 const {
 	help: helpLocalizations,
-	reply: replyLocalizations,
 	noChannelReply: noChannelReplyLocalizations,
 	noMessageReply: noMessageReplyLocalizations,
-	noContentOrAttachmentReply: noContentOrAttachmentReplyLocalizations,
-	noPermissionReply: noPermissionReplyLocalizations,
 }: ChatCompilation = chatCompilation;
 const messagePattern: RegExp = /^(?:0|[1-9]\d*)$/;
 const chatCommand: Command = {
@@ -60,131 +44,10 @@ const chatCommand: Command = {
 			description: commandDescription["en-US"],
 			descriptionLocalizations: commandDescription,
 			options: [
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: postSubCommandName,
-					description: postSubCommandDescription["en-US"],
-					descriptionLocalizations: postSubCommandDescription,
-					options: [
-						{
-							type: ApplicationCommandOptionType.Channel,
-							name: channelOptionName,
-							description: channelOptionDescription["en-US"],
-							descriptionLocalizations: channelOptionDescription,
-							required: false,
-							channelTypes: [
-								ChannelType.GuildText,
-								ChannelType.GuildVoice,
-								ChannelType.GuildAnnouncement,
-								ChannelType.AnnouncementThread,
-								ChannelType.PublicThread,
-								ChannelType.PrivateThread,
-								ChannelType.GuildStageVoice,
-								ChannelType.GuildForum,
-								ChannelType.GuildMedia,
-							],
-						},
-					],
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: patchSubCommandName,
-					description: patchSubCommandDescription["en-US"],
-					descriptionLocalizations: patchSubCommandDescription,
-					options: [
-						{
-							type: ApplicationCommandOptionType.Channel,
-							name: channelOptionName,
-							description: channelOptionDescription["en-US"],
-							descriptionLocalizations: channelOptionDescription,
-							required: true,
-							channelTypes: [
-								ChannelType.GuildText,
-								ChannelType.GuildVoice,
-								ChannelType.GuildAnnouncement,
-								ChannelType.AnnouncementThread,
-								ChannelType.PublicThread,
-								ChannelType.PrivateThread,
-								ChannelType.GuildStageVoice,
-								ChannelType.GuildForum,
-								ChannelType.GuildMedia,
-							],
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: messageOptionName,
-							description: messageOptionDescription["en-US"],
-							descriptionLocalizations: messageOptionDescription,
-							required: true,
-						},
-					],
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: attachSubCommandName,
-					description: attachSubCommandDescription["en-US"],
-					descriptionLocalizations: attachSubCommandDescription,
-					options: [
-						{
-							type: ApplicationCommandOptionType.Channel,
-							name: channelOptionName,
-							description: channelOptionDescription["en-US"],
-							descriptionLocalizations: channelOptionDescription,
-							required: true,
-							channelTypes: [
-								ChannelType.GuildText,
-								ChannelType.GuildVoice,
-								ChannelType.GuildAnnouncement,
-								ChannelType.AnnouncementThread,
-								ChannelType.PublicThread,
-								ChannelType.PrivateThread,
-								ChannelType.GuildStageVoice,
-								ChannelType.GuildForum,
-								ChannelType.GuildMedia,
-							],
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: messageOptionName,
-							description: messageOptionDescription["en-US"],
-							descriptionLocalizations: messageOptionDescription,
-							required: true,
-						},
-					],
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: detachSubCommandName,
-					description: detachSubCommandDescription["en-US"],
-					descriptionLocalizations: detachSubCommandDescription,
-					options: [
-						{
-							type: ApplicationCommandOptionType.Channel,
-							name: channelOptionName,
-							description: channelOptionDescription["en-US"],
-							descriptionLocalizations: channelOptionDescription,
-							required: true,
-							channelTypes: [
-								ChannelType.GuildText,
-								ChannelType.GuildVoice,
-								ChannelType.GuildAnnouncement,
-								ChannelType.AnnouncementThread,
-								ChannelType.PublicThread,
-								ChannelType.PrivateThread,
-								ChannelType.GuildStageVoice,
-								ChannelType.GuildForum,
-								ChannelType.GuildMedia,
-							],
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: messageOptionName,
-							description: messageOptionDescription["en-US"],
-							descriptionLocalizations: messageOptionDescription,
-							required: true,
-						},
-					],
-				},
+				postSubCommand.register(),
+				patchSubCommand.register(),
+				attachSubCommand.register(),
+				detachSubCommand.register(),
 			],
 			defaultMemberPermissions: [],
 		};
@@ -215,83 +78,7 @@ const chatCommand: Command = {
 				});
 				return;
 			}
-			await interaction.showModal({
-				customId: interaction.id,
-				title: postSubCommandDescription[resolvedLocale],
-				components: [
-					{
-						type: ComponentType.Label,
-						label: contentOptionDescription[resolvedLocale],
-						component: {
-							type: ComponentType.TextInput,
-							style: TextInputStyle.Paragraph,
-							customId: contentOptionName,
-							...{} as {label: string},
-							value: "",
-							required: false,
-							minLength: 0,
-							maxLength: 2000,
-						},
-					},
-					{
-						type: ComponentType.Label,
-						label: attachmentsOptionDescription[resolvedLocale],
-						component: {
-							type: ComponentType.FileUpload,
-							customId: attachmentsOptionName,
-							required: false,
-							minValues: 0,
-							maxValues: 10,
-						},
-					},
-				],
-			});
-			const modalSubmitInteraction: ModalSubmitInteraction<"cached"> = await interaction.awaitModalSubmit({
-				filter: (modalSubmitInteraction: ModalSubmitInteraction): boolean => {
-					return modalSubmitInteraction.customId === interaction.id;
-				},
-				time: 900000,
-			});
-			await modalSubmitInteraction.deferReply({
-				ephemeral: true,
-			});
-			const content: string = modalSubmitInteraction.fields.getTextInputValue(contentOptionName);
-			const files: Attachment[] = [...modalSubmitInteraction.fields.getUploadedFiles(attachmentsOptionName, false)?.values() ?? []];
-			if (content === "" && files.length === 0) {
-				await modalSubmitInteraction.editReply({
-					content: noContentOrAttachmentReplyLocalizations[resolvedLocale]({}),
-				});
-				return;
-			}
-			try {
-				if (channel.isThreadOnly()) {
-					const name: string = "New post";
-					await channel.threads.create({
-						name,
-						message: {content, files},
-					});
-				} else {
-					await channel.send({content, files});
-				}
-			} catch {
-				await modalSubmitInteraction.editReply({
-					content: noPermissionReplyLocalizations[resolvedLocale]({}),
-				});
-				return;
-			}
-			function formatMessage(locale: Locale): string {
-				return replyLocalizations[locale]({});
-			}
-			await modalSubmitInteraction.editReply({
-				content: formatMessage("en-US"),
-			});
-			if (resolvedLocale === "en-US") {
-				return;
-			}
-			await modalSubmitInteraction.followUp({
-				content: formatMessage(resolvedLocale),
-				ephemeral: true,
-			});
+			await postSubCommand.interact(interaction, channel);
 			return;
 		}
 		const channel: GuildBasedChannel = options.getChannel(channelOptionName, true, [
@@ -348,53 +135,32 @@ const chatCommand: Command = {
 			return;
 		}
 		if (subCommandName === patchSubCommandName) {
-			await patchCommand.interact(Object.assign(Object.create(interaction), {
-				commandType: ApplicationCommandType.Message,
-				get targetMessage(): Message<true> {
-					return message;
-				},
-			}));
+			await patchSubCommand.interact(interaction, message);
 			return;
 		}
 		if (subCommandName === attachSubCommandName) {
-			await attachCommand.interact(Object.assign(Object.create(interaction), {
-				commandType: ApplicationCommandType.Message,
-				get targetMessage(): Message<true> {
-					return message;
-				},
-			}));
+			await attachSubCommand.interact(interaction, message);
 			return;
 		}
 		if (subCommandName === detachSubCommandName) {
-			await detachCommand.interact(Object.assign(Object.create(interaction), {
-				commandType: ApplicationCommandType.Message,
-				get targetMessage(): Message<true> {
-					return message;
-				},
-			}));
+			await detachSubCommand.interact(interaction, message);
 			return;
 		}
 	},
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
-				postSubCommandMention: (): string => {
-					return `</${commandName} ${postSubCommandName}:${applicationCommand.id}>`;
+				postSubCommandHelp: (): string => {
+					return postSubCommand.describe(applicationCommand)[locale]({});
 				},
-				patchSubCommandMention: (): string => {
-					return `</${commandName} ${patchSubCommandName}:${applicationCommand.id}>`;
+				patchSubCommandHelp: (): string => {
+					return patchSubCommand.describe(applicationCommand)[locale]({});
 				},
-				attachSubCommandMention: (): string => {
-					return `</${commandName} ${attachSubCommandName}:${applicationCommand.id}>`;
+				attachSubCommandHelp: (): string => {
+					return attachSubCommand.describe(applicationCommand)[locale]({});
 				},
-				detachSubCommandMention: (): string => {
-					return `</${commandName} ${detachSubCommandName}:${applicationCommand.id}>`;
-				},
-				channelOptionDescription: (): string => {
-					return channelOptionDescription[locale];
-				},
-				messageOptionDescription: (): string => {
-					return messageOptionDescription[locale];
+				detachSubCommandHelp: (): string => {
+					return detachSubCommand.describe(applicationCommand)[locale]({});
 				},
 			};
 		}));

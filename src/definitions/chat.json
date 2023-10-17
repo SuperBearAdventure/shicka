@@ -54,9 +54,29 @@
 		"pt-BR": "Alguns anexos"
 	},
 	"help": {
-		"en-US": "Type $<postSubCommandMention> `$<channelOptionDescription>` to send a message in `$<channelOptionDescription>`\nType $<patchSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` to rewrite the content of `$<messageOptionDescription>` in `$<channelOptionDescription>`\nType $<attachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` to add at a position attachments to `$<messageOptionDescription>` in `$<channelOptionDescription>`\nType $<detachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` to remove attachments of `$<messageOptionDescription>` in `$<channelOptionDescription>`",
-		"fr": "Tape $<postSubCommandMention> `$<channelOptionDescription>` pour envoyer un message dans `$<channelOptionDescription>`\nTape $<patchSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pour réécrire le contenu d'`$<messageOptionDescription>` dans `$<channelOptionDescription>`\nTape $<attachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pour ajouter à une position des pièces jointes à `$<messageOptionDescription>` dans `$<channelOptionDescription>`\nTape $<detachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pour retirer des pièces jointes d'`$<messageOptionDescription>` dans `$<channelOptionDescription>`",
-		"pt-BR": "Digite $<postSubCommandMention> `$<channelOptionDescription>` pra enviar uma mensagem em `$<channelOptionDescription>`\nDigite $<patchSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pra reescrever o conteúdo de `$<messageOptionDescription>` em `$<channelOptionDescription>`\nDigite $<attachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pra adicionar em uma posição anexos a `$<messageOptionDescription>` em `$<channelOptionDescription>`\nDigite $<detachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pra remover annexos de `$<messageOptionDescription>` em `$<channelOptionDescription>`"
+		"en-US": "$<postSubCommandHelp>\n$<patchSubCommandHelp>\n$<attachSubCommandHelp>\n$<detachSubCommandHelp>",
+		"fr": "$<postSubCommandHelp>\n$<patchSubCommandHelp>\n$<attachSubCommandHelp>\n$<detachSubCommandHelp>",
+		"pt-BR": "$<postSubCommandHelp>\n$<patchSubCommandHelp>\n$<attachSubCommandHelp>\n$<detachSubCommandHelp>"
+	},
+	"postHelp": {
+		"en-US": "Type $<postSubCommandMention> `$<channelOptionDescription>` to send a message in `$<channelOptionDescription>",
+		"fr": "Tape $<postSubCommandMention> `$<channelOptionDescription>` pour envoyer un message dans `$<channelOptionDescription>`",
+		"pt-BR": "Digite $<postSubCommandMention> `$<channelOptionDescription>` pra enviar uma mensagem em `$<channelOptionDescription>`"
+	},
+	"patchHelp": {
+		"en-US": "Type $<patchSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` to rewrite the content of `$<messageOptionDescription>` in `$<channelOptionDescription>`",
+		"fr": "Tape $<patchSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pour réécrire le contenu d'`$<messageOptionDescription>` dans `$<channelOptionDescription>`",
+		"pt-BR": "Digite $<patchSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pra reescrever o conteúdo de `$<messageOptionDescription>` em `$<channelOptionDescription>`"
+	},
+	"attachHelp": {
+		"en-US": "Type $<attachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` to add at a position attachments to `$<messageOptionDescription>` in `$<channelOptionDescription>`",
+		"fr": "Tape $<attachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pour ajouter à une position des pièces jointes à `$<messageOptionDescription>` dans `$<channelOptionDescription>`",
+		"pt-BR": "Digite $<attachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pra adicionar em uma posição anexos a `$<messageOptionDescription>` em `$<channelOptionDescription>`"
+	},
+	"detachHelp": {
+		"en-US": "Type $<detachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` to remove attachments of `$<messageOptionDescription>` in `$<channelOptionDescription>`",
+		"fr": "Tape $<detachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pour retirer des pièces jointes d'`$<messageOptionDescription>` dans `$<channelOptionDescription>`",
+		"pt-BR": "Digite $<detachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pra remover annexos de `$<messageOptionDescription>` em `$<channelOptionDescription>`"
 	},
 	"reply": {
 		"en-US": "I have sent the message.",
