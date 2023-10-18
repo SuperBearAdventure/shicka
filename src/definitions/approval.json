@@ -1,0 +1,14 @@
+{
+	"hookName": "approval",
+	"hookReason": "Posts the latest member approval in the given channel",
+	"helpWithChannel": {
+		"en-US": "I post the latest member approval in $<channelMention>",
+		"fr": "Je poste la dernière approbation de membre dans $<channelMention>",
+		"pt-BR": "Eu posto a aprovação mais recente de membro em $<channelMention>"
+	},
+	"helpWithoutChannel": {
+		"en-US": "I post the latest member approval",
+		"fr": "Je poste la dernière approbation de membre",
+		"pt-BR": "Eu posto a aprovação mais recente de membro"
+	}
+}

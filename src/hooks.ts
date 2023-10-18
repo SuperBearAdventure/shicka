@@ -7,7 +7,9 @@ import type {
 import type {Job, RecurrenceSpecDateRange} from "node-schedule";
 import type {Localized} from "./utils/string.js";
 import arrivalHook from "./hooks/arrival.js";
+import approvalHook from "./hooks/approval.js";
 import departureHook from "./hooks/departure.js";
+import refusalHook from "./hooks/refusal.js";
 import recordHook from "./hooks/record.js";
 type WebhookData = (
 	{
@@ -48,8 +50,10 @@ type Hook = {
 	describe(webhook: Webhook): Localized<(groups: {}) => string>;
 };
 const arrival: Hook = arrivalHook;
+const approval: Hook = approvalHook;
 const departure: Hook = departureHook;
 const record: Hook = recordHook;
+const refusal: Hook = refusalHook;
 export type {Hook as default};
 export type {
 	Webhook,
@@ -57,7 +61,9 @@ export type {
 	WebjobInvocation,
 };
 export {
+	approval,
 	arrival,
 	departure,
 	record,
+	refusal,
 };

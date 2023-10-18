@@ -9,9 +9,13 @@ $ export SHICKA_DISCORD_TOKEN=<your-discord-token-here>
 $ export SHICKA_OUTFIT_GENERATOR_SALT=<your-outfit-generator-salt-here>
 $ export SHICKA_ROADMAP_INTENT_CHANNEL=<your-roadmap-intent-channel-here>
 $ export SHICKA_TRACKER_INTENT_CHANNEL=<your-tracker-intent-channel-here>
+$ export SHICKA_APPROVAL_DEFAULT_CHANNEL=<your-approval-default-channel-here>
+$ export SHICKA_APPROVAL_VERIFICATION_ROLE=<your-approval-verification-role-here>
 $ export SHICKA_ARRIVAL_DEFAULT_CHANNEL=<your-arrival-default-channel-here>
 $ export SHICKA_DEPARTURE_DEFAULT_CHANNEL=<your-departure-default-channel-here>
 $ export SHICKA_RECORD_DEFAULT_CHANNEL=<your-record-default-channel-here>
+$ export SHICKA_REFUSAL_DEFAULT_CHANNEL=<your-refusal-default-channel-here>
+$ export SHICKA_REFUSAL_UNVERIFICATION_ROLE=<your-refusal-unverification-role-here>
 $ export SHICKA_RULE7_DEFAULT_ALERT_ACTION_CHANNEL=<your-rule7-default-alert-action-channel-here>
 $ export SHICKA_RULE7_DEFAULT_EXEMPT_CHANNELS=<your-rule7-default-exempt-channels-here>
 $ export SHICKA_RULE7_DEFAULT_EXEMPT_ROLES=<your-rule7-default-exempt-roles-here>
@@ -85,11 +89,15 @@ $ npm start
 
 ### Hooks
 
+- `approval` posts the latest member approval in the server in the given channel (set to `$SHICKA_APPROVAL_DEFAULT_CHANNEL` by default)
+
 - `arrival` posts the latest member arrival to the server in the given channel (set to `$SHICKA_ARRIVAL_DEFAULT_CHANNEL` by default)
 
 - `departure` posts the latest member departure from the server in the given channel (set to `$SHICKA_DEPARTURE_DEFAULT_CHANNEL` by default)
 
 - `record` posts the latest world records of the game on `www.speedrun.com` in the given channel (set to `$SHICKA_RECORD_DEFAULT_CHANNEL` by default)
+
+- `refusal` posts the latest member refusal in the server in the given channel (set to `$SHICKA_REFUSAL_DEFAULT_CHANNEL` by default)
 
 ### Rules
 
