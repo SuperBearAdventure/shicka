@@ -1,0 +1,14 @@
+{
+	"hookName": "refusal",
+	"hookReason": "Posts the latest member refusal in the given channel",
+	"helpWithChannel": {
+		"en-US": "I post the latest member refusal in $<channelMention>",
+		"fr": "Je poste le dernier refus de membre dans $<channelMention>",
+		"pt-BR": "Eu posto a recusa mais recente de membro em $<channelMention>"
+	},
+	"helpWithoutChannel": {
+		"en-US": "I post the latest member refusal",
+		"fr": "Je poste le dernier refus de membre",
+		"pt-BR": "Eu posto a recusa mais recente de membro"
+	}
+}

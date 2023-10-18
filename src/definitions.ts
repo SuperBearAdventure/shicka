@@ -1,5 +1,6 @@
 import type {Localized} from "./utils/string.js";
 import aboutDefinition from "./definitions/about.json" assert {type: "json"};
+import approvalDefinition from "./definitions/approval.json" assert {type: "json"};
 import arrivalDefinition from "./definitions/arrival.json" assert {type: "json"};
 import bearDefinition from "./definitions/bear.json" assert {type: "json"};
 import chatDefinition from "./definitions/chat.json" assert {type: "json"};
@@ -12,6 +13,7 @@ import missionDefinition from "./definitions/mission.json" assert {type: "json"}
 import outfitDefinition from "./definitions/outfit.json" assert {type: "json"};
 import rawDefinition from "./definitions/raw.json" assert {type: "json"};
 import recordDefinition from "./definitions/record.json" assert {type: "json"};
+import refusalDefinition from "./definitions/refusal.json" assert {type: "json"};
 import roadmapDefinition from "./definitions/roadmap.json" assert {type: "json"};
 import rule7Definition from "./definitions/rule7.json" assert {type: "json"};
 import soundtrackDefinition from "./definitions/soundtrack.json" assert {type: "json"};
@@ -24,6 +26,12 @@ type About = {
 	commandDescription: Localized<string>,
 	help: Localized<string>,
 	reply: Localized<string>,
+};
+type Approval = {
+	hookName: string,
+	hookReason: string,
+	helpWithChannel: Localized<string>,
+	helpWithoutChannel: Localized<string>,
 };
 type Arrival = {
 	hookName: string,
@@ -158,6 +166,12 @@ type Record = {
 	helpWithChannel: Localized<string>,
 	helpWithoutChannel: Localized<string>,
 };
+type Refusal = {
+	hookName: string,
+	hookReason: string,
+	helpWithChannel: Localized<string>,
+	helpWithoutChannel: Localized<string>,
+};
 type Roadmap = {
 	commandName: string,
 	commandDescription: Localized<string>,
@@ -212,8 +226,9 @@ type Update = {
 	defaultReply: Localized<string>,
 	link: Localized<string>,
 };
-type Definition = About | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
+type Definition = About | Approval | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
 const about: About = aboutDefinition;
+const approval: Approval = approvalDefinition;
 const arrival: Arrival = arrivalDefinition;
 const bear: Bear = bearDefinition;
 const chat: Chat = chatDefinition;
@@ -226,6 +241,7 @@ const mission: Mission = missionDefinition;
 const outfit: Outfit = outfitDefinition;
 const raw: Raw = rawDefinition;
 const record: Record = recordDefinition;
+const refusal: Refusal = refusalDefinition;
 const roadmap: Roadmap = roadmapDefinition;
 const rule7: Rule7 = rule7Definition;
 const soundtrack: Soundtrack = soundtrackDefinition;
@@ -236,6 +252,7 @@ const update: Update = updateDefinition;
 export type {Definition as default};
 export type {
 	About,
+	Approval,
 	Arrival,
 	Bear,
 	Chat,
@@ -248,6 +265,7 @@ export type {
 	Outfit,
 	Raw,
 	Record,
+	Refusal,
 	Roadmap,
 	Rule7,
 	Soundtrack,
@@ -258,6 +276,7 @@ export type {
 };
 export {
 	about,
+	approval,
 	arrival,
 	bear,
 	chat,
@@ -270,6 +289,7 @@ export {
 	outfit,
 	raw,
 	record,
+	refusal,
 	roadmap,
 	rule7,
 	soundtrack,

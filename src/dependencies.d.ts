@@ -1,4 +1,5 @@
 import type AboutDependency from "./dependencies/about.js";
+import type ApprovalDependency from "./dependencies/approval.js";
 import type ArrivalDependency from "./dependencies/arrival.js";
 import type BearDependency from "./dependencies/bear.js";
 import type ChatDependency from "./dependencies/chat.js";
@@ -11,6 +12,7 @@ import type MissionDependency from "./dependencies/mission.js";
 import type OutfitDependency from "./dependencies/outfit.js";
 import type RawDependency from "./dependencies/raw.js";
 import type RecordDependency from "./dependencies/record.js";
+import type RefusalDependency from "./dependencies/refusal.js";
 import type RoadmapDependency from "./dependencies/roadmap.js";
 import type Rule7Dependency from "./dependencies/rule7.js";
 import type SoundtrackDependency from "./dependencies/soundtrack.js";
@@ -19,6 +21,7 @@ import type TrackerDependency from "./dependencies/tracker.js";
 import type TrailerDependency from "./dependencies/trailer.js";
 import type UpdateDependency from "./dependencies/update.js";
 type About = AboutDependency;
+type Approval = ApprovalDependency;
 type Arrival = ArrivalDependency;
 type Bear = BearDependency;
 type Chat = ChatDependency;
@@ -31,6 +34,7 @@ type Mission = MissionDependency;
 type Outfit = OutfitDependency;
 type Raw = RawDependency;
 type Record = RecordDependency;
+type Refusal = RefusalDependency;
 type Roadmap = RoadmapDependency;
 type Rule7 = Rule7Dependency;
 type Soundtrack = SoundtrackDependency;
@@ -38,10 +42,11 @@ type Store = StoreDependency;
 type Tracker = TrackerDependency;
 type Trailer = TrailerDependency;
 type Update = UpdateDependency;
-type Dependency = About | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
+type Dependency = About | Approval | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
 export type {Dependency as default};
 export type {
 	About,
+	Approval,
 	Arrival,
 	Bear,
 	Chat,
@@ -54,6 +59,7 @@ export type {
 	Outfit,
 	Raw,
 	Record,
+	Refusal,
 	Roadmap,
 	Rule7,
 	Soundtrack,
