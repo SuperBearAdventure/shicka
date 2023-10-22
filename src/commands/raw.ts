@@ -1,12 +1,10 @@
 import type {
-	ApplicationCommand,
-	ApplicationCommandData,
 	ApplicationCommandOptionChoiceData,
 	ChatInputCommandInteraction,
-	Interaction,
 } from "discord.js";
 import type Binding from "../bindings.js";
 import type Command from "../commands.js";
+import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Raw as RawCompilation} from "../compilations.js";
 import type {Raw as RawDefinition} from "../definitions.js";
 import type {Raw as RawDependency} from "../dependencies.js";
@@ -69,7 +67,7 @@ const rawCommand: Command = {
 			],
 		};
 	},
-	async execute(interaction: Interaction<"cached">): Promise<void> {
+	async interact(interaction: ApplicationUserInteraction): Promise<void> {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}

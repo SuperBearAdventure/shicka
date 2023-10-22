@@ -1,11 +1,9 @@
 import type {
-	ApplicationCommand,
-	ApplicationCommandData,
 	ChatInputCommandInteraction,
 	Guild,
-	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Count as CountCompilation} from "../compilations.js";
 import type {Count as CountDefinition} from "../definitions.js";
 import type {Count as CountDependency} from "../dependencies.js";
@@ -33,7 +31,7 @@ const countCommand: Command = {
 			descriptionLocalizations: commandDescription,
 		};
 	},
-	async execute(interaction: Interaction<"cached">): Promise<void> {
+	async interact(interaction: ApplicationUserInteraction): Promise<void> {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}

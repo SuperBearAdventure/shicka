@@ -1,14 +1,12 @@
 import type {
-	ApplicationCommand,
-	ApplicationCommandData,
 	ApplicationCommandOptionChoiceData,
 	AutocompleteFocusedOption,
 	AutocompleteInteraction,
 	ChatInputCommandInteraction,
-	Interaction,
 } from "discord.js";
 import type {Bear, Level, Outfit} from "../bindings.js";
 import type Command from "../commands.js";
+import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Bear as BearCompilation} from "../compilations.js";
 import type {Bear as BearDefinition} from "../definitions.js";
 import type {Bear as BearDependency} from "../dependencies.js";
@@ -62,7 +60,7 @@ const bearCommand: Command = {
 			],
 		};
 	},
-	async execute(interaction: Interaction<"cached">): Promise<void> {
+	async interact(interaction: ApplicationUserInteraction): Promise<void> {
 		if (interaction.isAutocomplete()) {
 			const {locale, options}: AutocompleteInteraction<"cached"> = interaction;
 			const resolvedLocale: Locale = resolve(locale);

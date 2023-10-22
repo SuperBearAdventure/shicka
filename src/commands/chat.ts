@@ -1,15 +1,13 @@
 import type {
-	ApplicationCommand,
-	ApplicationCommandData,
 	Attachment,
 	ChatInputCommandInteraction,
 	GuildBasedChannel,
-	Interaction,
 	Message,
 	ModalSubmitInteraction,
 	ThreadChannel,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Chat as ChatCompilation} from "../compilations.js";
 import type {Chat as ChatDefinition} from "../definitions.js";
 import type {Chat as ChatDependency} from "../dependencies.js";
@@ -216,7 +214,7 @@ const chatCommand: Command = {
 			dmPermission: false,
 		};
 	},
-	async execute(interaction: Interaction<"cached">): Promise<void> {
+	async interact(interaction: ApplicationUserInteraction): Promise<void> {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}

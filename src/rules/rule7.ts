@@ -1,11 +1,6 @@
 import type {
 	AutoModerationAction,
-	AutoModerationActionExecution,
 	AutoModerationActionMetadata,
-	AutoModerationActionMetadataOptions,
-	AutoModerationActionOptions,
-	AutoModerationRule,
-	AutoModerationRuleCreateOptions,
 	Guild,
 	GuildBasedChannel,
 	GuildEmoji,
@@ -18,6 +13,7 @@ import type {Rule7 as Rule7Compilation} from "../compilations.js";
 import type {Rule7 as Rule7Definition} from "../definitions.js";
 import type {Rule7 as Rule7Dependency} from "../dependencies.js";
 import type Rule from "../rules.js";
+import type {AutoModerationActionExecution, AutoModerationRule, AutoModerationRuleData} from "../rules.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {
 	AutoModerationActionType,
@@ -51,7 +47,7 @@ const ruleExemptRoles: string[] | null = SHICKA_RULE7_DEFAULT_EXEMPT_ROLES != nu
 const ruleReactionEmoji: string = SHICKA_RULE7_REACTION_EMOJI ?? "";
 const ruleRulesChannel: string | null = SHICKA_RULE7_OVERRIDE_RULES_CHANNEL ?? null;
 const rule7Rule: Rule = {
-	register(): Omit<AutoModerationRuleCreateOptions, "exemptChannels" | "exemptRoles" | "actions"> & {exemptChannels?: string[], exemptRoles?: string[], actions: (Omit<AutoModerationActionOptions, "metadata"> & {metadata?: Omit<AutoModerationActionMetadataOptions, "channel"> & {channel?: string}})[]} {
+	register(): AutoModerationRuleData {
 		return {
 			name: ruleName,
 			reason: ruleReason,

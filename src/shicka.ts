@@ -1,12 +1,7 @@
 import type {
-	ApplicationCommandData,
-	AutoModerationActionExecution,
 	AutoModerationActionMetadataOptions,
 	AutoModerationActionOptions,
-	AutoModerationRule,
 	AutoModerationRuleCreateOptions,
-	AutocompleteInteraction,
-	ChatInputCommandInteraction,
 	Collection,
 	ForumChannel,
 	Guild,
@@ -21,14 +16,16 @@ import type {
 	TextChannel,
 	ThreadChannel,
 	VoiceChannel,
-	Webhook,
 	WebhookCreateOptions,
 } from "discord.js";
-import type {Job, RecurrenceSpecDateRange} from "node-schedule";
+import type {Job} from "node-schedule";
 import type Command from "./commands.js";
+import type {/* ApplicationCommand, */ ApplicationCommandData, ApplicationUserInteraction} from "./commands.js";
 import type Hook from "./hooks.js";
+import type {Webhook, WebhookData, WebjobInvocation} from "./hooks.js";
 import type Rule from "./rules.js";
 import type Greeting from "./greetings.js";
+import type {AutoModerationActionExecution, AutoModerationRule, AutoModerationRuleData} from "./rules.js";
 import {
 	ActivityType,
 	ChannelType,
@@ -41,8 +38,8 @@ import * as commands from "./commands.js";
 import * as hooks from "./hooks.js";
 import * as rules from "./rules.js";
 import * as greetings from "./greetings.js";
-type WebhookCreateOptionsResolvable = Omit<WebhookCreateOptions, "channel"> & {channel: string};
-type AutoModerationRuleCreateOptionsResolvable = Omit<AutoModerationRuleCreateOptions, "exemptChannels" | "exemptRoles" | "actions"> & {exemptChannels?: string[], exemptRoles?: string[], actions: (Omit<AutoModerationActionOptions, "metadata"> & {metadata?: Omit<AutoModerationActionMetadataOptions, "channel"> & {channel?: string}})[]};
+type WebhookCreateOptionsResolvable = WebhookData["hookOptions"];
+type AutoModerationRuleCreateOptionsResolvable = AutoModerationRuleData;
 const {
 	SHICKA_DISCORD_TOKEN,
 	SHICKA_BYE_OVERRIDE_SYSTEM_CHANNEL,
@@ -289,10 +286,11 @@ client.once("ready", async (client: Client<boolean>): Promise<void> => {
 			console.error(error);
 		}
 	}
-	const hookRegistry: WebhookCreateOptionsResolvable[] = Object.keys(hooks).map<{hookOptions: WebhookCreateOptionsResolvable, jobOptions: RecurrenceSpecDateRange}>((hookName: string): {hookOptions: WebhookCreateOptionsResolvable, jobOptions: RecurrenceSpecDateRange} => {
+	const hookRegistry: WebhookCreateOptionsResolvable[] = Object.keys(hooks).map<WebhookData>((hookName: string): WebhookData => {
 		const hook: Hook = hooks[hookName as keyof typeof hooks];
 		return hook.register();
-	}).map<WebhookCreateOptionsResolvable>(({hookOptions, jobOptions}: {hookOptions: WebhookCreateOptionsResolvable, jobOptions: RecurrenceSpecDateRange}): WebhookCreateOptionsResolvable => {
+	}).map<WebhookCreateOptionsResolvable>((webhookData: WebhookData): WebhookCreateOptionsResolvable => {
+		const {hookOptions, jobOptions}: WebhookData = webhookData;
 		const hookName: string = hookOptions.name;
 		const job: Job = schedule.scheduleJob(hookName, jobOptions, async (timestamp: Date): Promise<void> => {
 			const webhooks: Webhook[] = [];
@@ -312,12 +310,12 @@ client.once("ready", async (client: Client<boolean>): Promise<void> => {
 					webhooks.push(webhook);
 				}
 			}
-			const webhookJobInvocation: {job: Job, timestamp: Date, webhooks: Webhook[]} = {
+			const invocation: WebjobInvocation = {
 				job,
 				timestamp,
 				webhooks,
 			};
-			client.emit("webhookJobInvocation", webhookJobInvocation);
+			client.emit("webjobInvocation", invocation);
 		});
 		return hookOptions;
 	});
@@ -435,13 +433,13 @@ client.on("interactionCreate", async (interaction: Interaction): Promise<void> =
 	if (!interaction.isAutocomplete() && !interaction.isChatInputCommand()) {
 		return;
 	}
-	const {commandName}: AutocompleteInteraction<"cached"> | ChatInputCommandInteraction<"cached"> = interaction;
+	const {commandName}: ApplicationUserInteraction = interaction;
 	if (!(commandName in commands)) {
 		return;
 	}
 	try {
 		const command: Command = commands[commandName as keyof typeof commands];
-		await command.execute(interaction);
+		await command.interact(interaction);
 	} catch (error: unknown) {
 		console.error(error);
 	}
@@ -474,8 +472,8 @@ client.on("threadUpdate", async (oldChannel: ThreadChannel, newChannel: ThreadCh
 		return;
 	}
 });
-client.on("webhookJobInvocation", async (invocation: {job: Job, timestamp: Date, webhooks: Webhook[]}): Promise<void> => {
-	const {job, timestamp, webhooks}: {job: Job, timestamp: Date, webhooks: Webhook[]} = invocation;
+client.on("webjobInvocation", async (invocation: WebjobInvocation): Promise<void> => {
+	const {job, timestamp, webhooks}: WebjobInvocation = invocation;
 	const ownWebhooks: Webhook[] = [];
 	for (const webhook of webhooks) {
 		if (!webhook.isIncoming()) {
@@ -497,7 +495,7 @@ client.on("webhookJobInvocation", async (invocation: {job: Job, timestamp: Date,
 	}
 	try {
 		const hook: Hook = hooks[hookName as keyof typeof hooks];
-		await hook.execute({
+		await hook.invoke({
 			job,
 			timestamp,
 			webhooks: ownWebhooks,

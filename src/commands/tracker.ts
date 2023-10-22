@@ -1,11 +1,9 @@
 import type {
-	ApplicationCommand,
-	ApplicationCommandData,
 	GuildBasedChannel,
 	ChatInputCommandInteraction,
-	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Tracker as TrackerCompilation} from "../compilations.js";
 import type {Tracker as TrackerDefinition} from "../definitions.js";
 import type {Tracker as TrackerDependency} from "../dependencies.js";
@@ -64,7 +62,7 @@ const trackerCommand: Command = {
 			descriptionLocalizations: commandDescription,
 		};
 	},
-	async execute(interaction: Interaction<"cached">): Promise<void> {
+	async interact(interaction: ApplicationUserInteraction): Promise<void> {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}

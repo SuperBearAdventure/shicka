@@ -1,11 +1,9 @@
 import type {
-	ApplicationCommand,
-	ApplicationCommandData,
 	ChatInputCommandInteraction,
-	Interaction,
 } from "discord.js";
 import type {Response} from "node-fetch";
 import type Command from "../commands.js";
+import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Trailer as TrailerCompilation} from "../compilations.js";
 import type {Trailer as TrailerDefinition} from "../definitions.js";
 import type {Trailer as TrailerDependency} from "../dependencies.js";
@@ -86,7 +84,7 @@ const trailerCommand: Command = {
 			descriptionLocalizations: commandDescription,
 		};
 	},
-	async execute(interaction: Interaction<"cached">): Promise<void> {
+	async interact(interaction: ApplicationUserInteraction): Promise<void> {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}
