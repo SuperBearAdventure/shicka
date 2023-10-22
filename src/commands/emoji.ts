@@ -1,13 +1,11 @@
 import type {
-	ApplicationCommand,
-	ApplicationCommandData,
 	ApplicationCommandOptionChoiceData,
 	ApplicationCommandOptionData,
 	ChatInputCommandInteraction,
-	Interaction,
 } from "discord.js";
 import type {Canvas, CanvasRenderingContext2D, Image} from "canvas";
 import type Command from "../commands.js";
+import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Emoji as EmojiCompilation} from "../compilations.js";
 import type {Emoji as EmojiDefinition} from "../definitions.js";
 import type {Emoji as EmojiDependency} from "../dependencies.js";
@@ -97,7 +95,7 @@ const emojiCommand: Command = {
 			dmPermission: false,
 		};
 	},
-	async execute(interaction: Interaction<"cached">): Promise<void> {
+	async interact(interaction: ApplicationUserInteraction): Promise<void> {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}

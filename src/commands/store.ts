@@ -1,10 +1,8 @@
 import type {
-	ApplicationCommand,
-	ApplicationCommandData,
 	ChatInputCommandInteraction,
-	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Store as StoreCompilation} from "../compilations.js";
 import type {Store as StoreDefinition} from "../definitions.js";
 import type {Store as StoreDependency} from "../dependencies.js";
@@ -56,7 +54,7 @@ const storeCommand: Command = {
 			descriptionLocalizations: commandDescription,
 		};
 	},
-	async execute(interaction: Interaction<"cached">): Promise<void> {
+	async interact(interaction: ApplicationUserInteraction): Promise<void> {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}

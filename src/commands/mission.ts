@@ -1,14 +1,12 @@
 import type {
-	ApplicationCommand,
-	ApplicationCommandData,
 	ApplicationCommandOptionChoiceData,
 	AutocompleteFocusedOption,
 	AutocompleteInteraction,
 	ChatInputCommandInteraction,
-	Interaction,
 } from "discord.js";
 import type {Challenge, Level, Mission} from "../bindings.js";
 import type Command from "../commands.js";
+import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Mission as MissionCompilation} from "../compilations.js";
 import type {Mission as MissionDefinition} from "../definitions.js";
 import type {Mission as MissionDependency} from "../dependencies.js";
@@ -58,7 +56,7 @@ const missionCommand: Command = {
 			],
 		};
 	},
-	async execute(interaction: Interaction<"cached">): Promise<void> {
+	async interact(interaction: ApplicationUserInteraction): Promise<void> {
 		if (interaction.isAutocomplete()) {
 			const {locale, options}: AutocompleteInteraction<"cached"> = interaction;
 			const resolvedLocale: Locale = resolve(locale);

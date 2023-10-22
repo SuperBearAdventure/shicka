@@ -1,10 +1,8 @@
 import type {
-	ApplicationCommand,
-	ApplicationCommandData,
 	ChatInputCommandInteraction,
-	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Leaderboard as LeaderboardCompilation} from "../compilations.js";
 import type {Leaderboard as LeaderboardDefinition} from "../definitions.js";
 import type {Leaderboard as LeaderboardDependency} from "../dependencies.js";
@@ -80,7 +78,7 @@ const leaderboardCommand: Command = {
 			descriptionLocalizations: commandDescription,
 		};
 	},
-	async execute(interaction: Interaction<"cached">): Promise<void> {
+	async interact(interaction: ApplicationUserInteraction): Promise<void> {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}

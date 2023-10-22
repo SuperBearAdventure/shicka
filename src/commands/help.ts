@@ -1,6 +1,4 @@
 import type {
-	ApplicationCommand,
-	ApplicationCommandData,
 	ApplicationCommandPermissions,
 	AutoModerationAction,
 	AutoModerationActionMetadata,
@@ -11,13 +9,13 @@ import type {
 	Collection,
 	GuildBasedChannel,
 	GuildMember,
-	Interaction,
 	NewsChannel,
 	Role,
 	TextChannel,
 	Webhook,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Help as HelpCompilation} from "../compilations.js";
 import type {Help as HelpDefinition} from "../definitions.js";
 import type {Help as HelpDependency} from "../dependencies.js";
@@ -186,7 +184,7 @@ const helpCommand: Command = {
 			descriptionLocalizations: commandDescription,
 		};
 	},
-	async execute(interaction: Interaction<"cached">): Promise<void> {
+	async interact(interaction: ApplicationUserInteraction): Promise<void> {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}

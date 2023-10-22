@@ -1,14 +1,12 @@
 import type {
-	ApplicationCommand,
-	ApplicationCommandData,
 	ApplicationCommandOptionChoiceData,
 	AutocompleteFocusedOption,
 	AutocompleteInteraction,
 	ChatInputCommandInteraction,
-	Interaction,
 } from "discord.js";
 import type {Outfit, Rarity} from "../bindings.js";
 import type Command from "../commands.js";
+import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Outfit as OutfitCompilation} from "../compilations.js";
 import type {Outfit as OutfitDefinition} from "../definitions.js";
 import type {Outfit as OutfitDependency} from "../dependencies.js";
@@ -125,7 +123,7 @@ const outfitCommand: Command = {
 			],
 		};
 	},
-	async execute(interaction: Interaction<"cached">): Promise<void> {
+	async interact(interaction: ApplicationUserInteraction): Promise<void> {
 		if (interaction.isAutocomplete()) {
 			const {locale, options}: AutocompleteInteraction<"cached"> = interaction;
 			const resolvedLocale: Locale = resolve(locale);

@@ -1,16 +1,14 @@
 import type {
 	Client,
 	Message,
-	Webhook,
-	WebhookCreateOptions,
 } from "discord.js";
 import type {Canvas, CanvasRenderingContext2D, Image} from "canvas";
 import type {Response} from "node-fetch";
-import type {Job, RecurrenceSpecDateRange} from "node-schedule";
 import type {Record as RecordCompilation} from "../compilations.js";
 import type {Record as RecordDefinition} from "../definitions.js";
 import type {Record as RecordDependency} from "../dependencies.js";
 import type Hook from "../hooks.js";
+import type {Webhook, WebhookData, WebjobInvocation} from "../hooks.js";
 import type {Localized} from "../utils/string.js";
 import {
 	ChannelType,
@@ -180,7 +178,7 @@ async function fetchData(start: number, end: number): Promise<Data[] | null> {
 	return null;
 };
 const recordHook: Hook = {
-	register(): {hookOptions: Omit<WebhookCreateOptions, "channel"> & {channel: string}, jobOptions: RecurrenceSpecDateRange} {
+	register(): WebhookData {
 		return {
 			hookOptions: {
 				name: hookName,
@@ -194,8 +192,8 @@ const recordHook: Hook = {
 			},
 		};
 	},
-	async execute(invocation: {job: Job, timestamp: Date, webhooks: Webhook[]}): Promise<void> {
-		const {timestamp, webhooks}: {timestamp: Date, webhooks: Webhook[]} = invocation;
+	async invoke(invocation: WebjobInvocation): Promise<void> {
+		const {timestamp, webhooks}: WebjobInvocation = invocation;
 		const middle: number = Math.floor(timestamp.getTime() / 21600000) * 21600000;
 		const start: number = middle - 10800000;
 		const end: number = middle + 10800000;

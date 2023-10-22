@@ -1,11 +1,9 @@
 import type {
-	ApplicationCommand,
-	ApplicationCommandData,
 	GuildBasedChannel,
 	ChatInputCommandInteraction,
-	Interaction,
 } from "discord.js";
 import type Command from "../commands.js";
+import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Roadmap as RoadmapCompilation} from "../compilations.js";
 import type {Roadmap as RoadmapDefinition} from "../definitions.js";
 import type {Roadmap as RoadmapDependency} from "../dependencies.js";
@@ -40,7 +38,7 @@ const roadmapCommand: Command = {
 			descriptionLocalizations: commandDescription,
 		};
 	},
-	async execute(interaction: Interaction<"cached">): Promise<void> {
+	async interact(interaction: ApplicationUserInteraction): Promise<void> {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}

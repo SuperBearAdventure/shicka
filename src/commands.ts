@@ -1,7 +1,8 @@
 import type {
 	ApplicationCommand,
 	ApplicationCommandData,
-	Interaction,
+	AutocompleteInteraction,
+	ChatInputCommandInteraction,
 } from "discord.js";
 import type {Localized} from "./utils/string.js";
 import aboutCommand from "./commands/about.js";
@@ -20,9 +21,10 @@ import storeCommand from "./commands/store.js";
 import trackerCommand from "./commands/tracker.js";
 import trailerCommand from "./commands/trailer.js";
 import updateCommand from "./commands/update.js";
+type ApplicationUserInteraction = AutocompleteInteraction<"cached"> | ChatInputCommandInteraction<"cached">;
 type Command = {
 	register(): ApplicationCommandData;
-	execute(interaction: Interaction<"cached">): Promise<void>;
+	interact(interaction: ApplicationUserInteraction): Promise<void>;
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string>;
 };
 const about: Command = aboutCommand;
@@ -42,6 +44,11 @@ const tracker: Command = trackerCommand;
 const trailer: Command = trailerCommand;
 const update: Command = updateCommand;
 export type {Command as default};
+export type {
+	ApplicationCommand,
+	ApplicationCommandData,
+	ApplicationUserInteraction,
+};
 export {
 	about,
 	bear,

@@ -1,11 +1,9 @@
 import type {
-	ApplicationCommand,
-	ApplicationCommandData,
 	ChatInputCommandInteraction,
-	Interaction,
 } from "discord.js";
 import type {Response} from "node-fetch";
 import type Command from "../commands.js";
+import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Soundtrack as SoundtrackCompilation} from "../compilations.js";
 import type {Soundtrack as SoundtrackDefinition} from "../definitions.js";
 import type {Soundtrack as SoundtrackDependency} from "../dependencies.js";
@@ -83,7 +81,7 @@ const soundtrackCommand: Command = {
 			descriptionLocalizations: commandDescription,
 		};
 	},
-	async execute(interaction: Interaction<"cached">): Promise<void> {
+	async interact(interaction: ApplicationUserInteraction): Promise<void> {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}
