@@ -413,7 +413,7 @@ client.on("guildMemberRemove", async (member: GuildMember | PartialGuildMember):
 	if (farewellChannel == null) {
 		return;
 	}
-	const name: string = `**${escapeMarkdown(member.user.username)}**`;
+	const name: string = `**${escapeMarkdown(member.user.username)}**${member.user.discriminator != null && member.user.discriminator !== "0" ? `#**${escapeMarkdown(member.user.discriminator)}**` : ""}${member.user.globalName != null ? ` (**${escapeMarkdown(member.user.globalName)}**)` : ""}`;
 	const {bye}: {[k in string]: Greeting} = greetings;
 	const greeting: string = name.replace(capture, bye[Math.random() * bye.length | 0]);
 	try {
