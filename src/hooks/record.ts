@@ -180,6 +180,7 @@ async function fetchData(start: number, end: number): Promise<Data[] | null> {
 const recordHook: Hook = {
 	register(): WebhookData {
 		return {
+			type: "cronWebjobInvocation",
 			hookOptions: {
 				name: hookName,
 				reason: hookReason,
@@ -193,7 +194,10 @@ const recordHook: Hook = {
 		};
 	},
 	async invoke(invocation: WebjobInvocation): Promise<void> {
-		const {timestamp, client, webhooks}: WebjobInvocation = invocation;
+		if (invocation.event.type !== "cronWebjobInvocation") {
+			return;
+		}
+		const [timestamp]: [timestamp: Date] = invocation.event.data;
 		const middle: number = Math.floor(timestamp.getTime() / 21600000) * 21600000;
 		const start: number = middle - 10800000;
 		const end: number = middle + 10800000;
@@ -201,6 +205,7 @@ const recordHook: Hook = {
 		if (data == null) {
 			throw new Error();
 		}
+		const {client, webhooks}: WebjobInvocation = invocation;
 		const {user}: Client<true> = client;
 		const applicationName: string = user.username;
 		const applicationIcon: string = user.displayAvatarURL();
