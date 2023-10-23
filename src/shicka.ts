@@ -70,14 +70,15 @@ async function submitGuildHooks(guild: Guild, hookRegistry: WebhookCreateOptions
 	if (guildWebhooks == null) {
 		return false;
 	}
+	const {client}: Guild = guild;
+	const {user}: Client<true> = client;
 	const ownGuildWebhooks: {[k in string]: Webhook[]} = Object.create(null);
 	for (const webhook of guildWebhooks.values()) {
 		if (!webhook.isIncoming()) {
 			continue;
 		}
 		const {owner}: Webhook = webhook;
-		const {user}: Client<boolean> = webhook.client;
-		if (owner == null || user == null || owner.id !== user.id) {
+		if (owner == null || owner.id !== user.id) {
 			continue;
 		}
 		(ownGuildWebhooks[webhook.name] ??= []).push(webhook);
@@ -141,10 +142,11 @@ async function submitGuildRules(guild: Guild, ruleRegistry: AutoModerationRuleCr
 	if (guildAutoModerationRules == null) {
 		return false;
 	}
+	const {client}: Guild = guild;
+	const {user}: Client<true> = client;
 	const ownGuildAutoModerationRules: {[k in string]: AutoModerationRule[]} = Object.create(null);
 	for (const autoModerationRule of guildAutoModerationRules.values()) {
-		const {user}: Client<boolean> = autoModerationRule.client;
-		if (user == null || autoModerationRule.creatorId !== user.id) {
+		if (autoModerationRule.creatorId !== user.id) {
 			continue;
 		}
 		(ownGuildAutoModerationRules[autoModerationRule.name] ??= []).push(autoModerationRule);
@@ -271,7 +273,7 @@ const client: Client<boolean> = new Client({
 		status: "online",
 	},
 });
-client.once("ready", async (client: Client<boolean>): Promise<void> => {
+client.once("ready", async (client: Client<true>): Promise<void> => {
 	const commandRegistry: ApplicationCommandData[] = Object.keys(commands).map<ApplicationCommandData>((commandName: string): ApplicationCommandData => {
 		const command: Command = commands[commandName as keyof typeof commands];
 		return command.register();
@@ -313,6 +315,7 @@ client.once("ready", async (client: Client<boolean>): Promise<void> => {
 			const invocation: WebjobInvocation = {
 				job,
 				timestamp,
+				client,
 				webhooks,
 			};
 			client.emit("webjobInvocation", invocation);
@@ -350,8 +353,9 @@ client.on("autoModerationActionExecution", async (execution: AutoModerationActio
 	if (autoModerationRule == null) {
 		return;
 	}
-	const {user}: Client<boolean> = autoModerationRule.client;
-	if (user == null || autoModerationRule.creatorId !== user.id) {
+	const {client}: AutoModerationRule = autoModerationRule;
+	const {user}: Client<true> = client;
+	if (autoModerationRule.creatorId !== user.id) {
 		return;
 	}
 	const ruleName: string = autoModerationRule.name;
@@ -473,15 +477,15 @@ client.on("threadUpdate", async (oldChannel: ThreadChannel, newChannel: ThreadCh
 	}
 });
 client.on("webjobInvocation", async (invocation: WebjobInvocation): Promise<void> => {
-	const {job, timestamp, webhooks}: WebjobInvocation = invocation;
+	const {job, timestamp, client, webhooks}: WebjobInvocation = invocation;
+	const {user}: Client<true> = client;
 	const ownWebhooks: Webhook[] = [];
 	for (const webhook of webhooks) {
 		if (!webhook.isIncoming()) {
 			continue;
 		}
 		const {owner}: Webhook = webhook;
-		const {user}: Client<boolean> = webhook.client;
-		if (owner == null || user == null || owner.id !== user.id) {
+		if (owner == null || owner.id !== user.id) {
 			continue;
 		}
 		ownWebhooks.push(webhook);
@@ -498,6 +502,7 @@ client.on("webjobInvocation", async (invocation: WebjobInvocation): Promise<void
 		await hook.invoke({
 			job,
 			timestamp,
+			client,
 			webhooks: ownWebhooks,
 		});
 	} catch (error: unknown) {

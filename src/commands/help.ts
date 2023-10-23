@@ -188,7 +188,7 @@ const helpCommand: Command = {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {guild, locale, member}: ChatInputCommandInteraction<"cached"> = interaction;
+		const {client, guild, locale, member}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const channel: GuildBasedChannel | null = ((): GuildBasedChannel | null => {
 			const {channel}: ChatInputCommandInteraction<"cached"> = interaction;
@@ -228,6 +228,7 @@ const helpCommand: Command = {
 		if (autoModerationRules == null) {
 			return;
 		}
+		const {user}: Client<true> = client;
 		const descriptions: Localized<(groups: {}) => string>[] = [
 			Object.keys(commands).map<Localized<(groups: {}) => string> | null>((commandName: string): Localized<(groups: {}) => string> | null => {
 				const command: Command = commands[commandName as keyof typeof commands];
@@ -255,8 +256,7 @@ const helpCommand: Command = {
 					return null;
 				}
 				const {channel, owner}: Webhook = webhook;
-				const {user}: Client<boolean> = webhook.client;
-				if (owner == null || user == null || owner.id !== user.id) {
+				if (owner == null || owner.id !== user.id) {
 					return null;
 				}
 				if (channel == null || !hasManageWebhooksPermission(channel, member)) {
@@ -273,8 +273,7 @@ const helpCommand: Command = {
 				if (autoModerationRule == null) {
 					return null;
 				}
-				const {user}: Client<boolean> = autoModerationRule.client;
-				if (user == null || autoModerationRule.creatorId !== user.id) {
+				if (autoModerationRule.creatorId !== user.id) {
 					return null;
 				}
 				if (!autoModerationRule.enabled) {
