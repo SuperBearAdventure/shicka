@@ -2,6 +2,7 @@ import type {
 	AutoModerationActionMetadataOptions,
 	AutoModerationActionOptions,
 	AutoModerationRuleCreateOptions,
+	ClientEvents,
 	Collection,
 	ForumChannel,
 	Guild,
@@ -40,6 +41,7 @@ import * as hooks from "./hooks.js";
 import * as rules from "./rules.js";
 import * as greetings from "./greetings.js";
 type WebhookCreateOptionsResolvable = WebhookData["hookOptions"];
+type WebjobEvent = WebjobInvocation["event"];
 type AutoModerationRuleCreateOptionsResolvable = AutoModerationRuleData;
 const {
 	SHICKA_DISCORD_TOKEN,
@@ -290,18 +292,43 @@ client.once("ready", async (client: Client<true>): Promise<void> => {
 		const hook: Hook = hooks[hookName as keyof typeof hooks];
 		return hook.register();
 	}).map<WebhookCreateOptionsResolvable>((webhookData: WebhookData): WebhookCreateOptionsResolvable => {
-		const {hookOptions, jobOptions}: WebhookData = webhookData;
+		const {hookOptions}: WebhookData = webhookData;
 		const hookName: string = hookOptions.name;
-		const job: Job = schedule.scheduleJob(hookName, jobOptions, async (timestamp: Date): Promise<void> => {
-			const webhooks: Webhook[] = [];
-			for (const guild of client.guilds.cache.values()) {
+		if (webhookData.type !== "cronWebjobInvocation") {
+			const {type}: WebhookData & {type: keyof ClientEvents} = webhookData;
+			const job: {name: string} = {
+				name: hookName,
+			};
+			client.on(type, async (...data: ClientEvents[keyof ClientEvents]): Promise<void> => {
+				let guild: Guild | null = null;
+				for (let k: number = data.length - 1; k >= 0; --k) {
+					const datum: ClientEvents[keyof ClientEvents][number] = data[k];
+					if (typeof datum === "boolean" || typeof datum === "number" || typeof datum === "string" || datum == null) {
+						continue;
+					}
+					if ("systemChannel" in datum) {
+						guild = datum;
+						break;
+					}
+					if (!("guild" in datum) || datum.guild == null) {
+						continue;
+					}
+					if ("systemChannel" in datum.guild) {
+						guild = datum.guild;
+						break;
+					}
+				}
+				if (guild == null) {
+					return;
+				}
+				const webhooks: Webhook[] = [];
 				const guildWebhooks: Collection<string, Webhook> | undefined = await (async (): Promise<Collection<string, Webhook> | undefined> => {
 					try {
 						return await guild.fetchWebhooks();
 					} catch {}
 				})();
 				if (guildWebhooks == null) {
-					continue;
+					return;
 				}
 				for (const webhook of guildWebhooks.values()) {
 					if (webhook.name !== hookName) {
@@ -309,15 +336,51 @@ client.once("ready", async (client: Client<true>): Promise<void> => {
 					}
 					webhooks.push(webhook);
 				}
-			}
-			const invocation: WebjobInvocation = {
-				job,
-				timestamp,
-				client,
-				webhooks,
-			};
-			client.emit("webjobInvocation", invocation);
-		});
+				const event: WebjobEvent = {
+					type,
+					data,
+				};
+				const invocation: WebjobInvocation = {
+					job,
+					event,
+					client,
+					webhooks,
+				};
+				client.emit("webjobInvocation", invocation);
+			});
+		} else {
+			const {type, jobOptions}: WebhookData & {type: "cronWebjobInvocation"} = webhookData;
+			const job: Job = schedule.scheduleJob(hookName, jobOptions, async (...data: [timestamp: Date]): Promise<void> => {
+				const webhooks: Webhook[] = [];
+				for (const guild of client.guilds.cache.values()) {
+					const guildWebhooks: Collection<string, Webhook> | undefined = await (async (): Promise<Collection<string, Webhook> | undefined> => {
+						try {
+							return await guild.fetchWebhooks();
+						} catch {}
+					})();
+					if (guildWebhooks == null) {
+						continue;
+					}
+					for (const webhook of guildWebhooks.values()) {
+						if (webhook.name !== hookName) {
+							continue;
+						}
+						webhooks.push(webhook);
+					}
+				}
+				const event: WebjobEvent = {
+					type,
+					data,
+				};
+				const invocation: WebjobInvocation = {
+					job,
+					event,
+					client,
+					webhooks,
+				};
+				client.emit("webjobInvocation", invocation);
+			});
+		}
 		return hookOptions;
 	});
 	for (const guild of client.guilds.cache.values()) {
@@ -493,7 +556,7 @@ client.on("threadUpdate", async (oldChannel: ThreadChannel, newChannel: ThreadCh
 	}
 });
 client.on("webjobInvocation", async (invocation: WebjobInvocation): Promise<void> => {
-	const {job, timestamp, client, webhooks}: WebjobInvocation = invocation;
+	const {job, client, webhooks}: WebjobInvocation = invocation;
 	const {user}: Client<true> = client;
 	const ownWebhooks: Webhook[] = [];
 	for (const webhook of webhooks) {
@@ -516,9 +579,7 @@ client.on("webjobInvocation", async (invocation: WebjobInvocation): Promise<void
 	try {
 		const hook: Hook = hooks[hookName as keyof typeof hooks];
 		await hook.invoke({
-			job,
-			timestamp,
-			client,
+			...invocation,
 			webhooks: ownWebhooks,
 		});
 	} catch (error: unknown) {
