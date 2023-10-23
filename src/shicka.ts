@@ -20,7 +20,7 @@ import type {
 } from "discord.js";
 import type {Job} from "node-schedule";
 import type Command from "./commands.js";
-import type {/* ApplicationCommand, */ ApplicationCommandData, ApplicationUserInteraction} from "./commands.js";
+import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "./commands.js";
 import type Hook from "./hooks.js";
 import type {Webhook, WebhookData, WebjobInvocation} from "./hooks.js";
 import type Rule from "./rules.js";
@@ -28,6 +28,7 @@ import type Greeting from "./greetings.js";
 import type {AutoModerationActionExecution, AutoModerationRule, AutoModerationRuleData} from "./rules.js";
 import {
 	ActivityType,
+	ApplicationCommandType,
 	ChannelType,
 	Client,
 	GatewayIntentBits,
@@ -74,9 +75,6 @@ async function submitGuildHooks(guild: Guild, hookRegistry: WebhookCreateOptions
 	const {user}: Client<true> = client;
 	const ownGuildWebhooks: {[k in string]: Webhook[]} = Object.create(null);
 	for (const webhook of guildWebhooks.values()) {
-		if (!webhook.isIncoming()) {
-			continue;
-		}
 		const {owner}: Webhook = webhook;
 		if (owner == null || owner.id !== user.id) {
 			continue;
@@ -353,6 +351,9 @@ client.on("autoModerationActionExecution", async (execution: AutoModerationActio
 	if (autoModerationRule == null) {
 		return;
 	}
+	if (!autoModerationRule.enabled) {
+		return;
+	}
 	const {client}: AutoModerationRule = autoModerationRule;
 	const {user}: Client<true> = client;
 	if (autoModerationRule.creatorId !== user.id) {
@@ -437,7 +438,22 @@ client.on("interactionCreate", async (interaction: Interaction): Promise<void> =
 	if (!interaction.isAutocomplete() && !interaction.isChatInputCommand()) {
 		return;
 	}
-	const {commandName}: ApplicationUserInteraction = interaction;
+	const {command}: ApplicationUserInteraction = interaction;
+	if (command == null) {
+		return;
+	}
+	if (command.guild == null) {
+		return;
+	}
+	if (command.type !== ApplicationCommandType.ChatInput) {
+		return;
+	}
+	const {client}: ApplicationCommand = command;
+	const {user}: Client<true> = client;
+	if (command.applicationId !== user.id) {
+		return;
+	}
+	const commandName: string = command.name;
 	if (!(commandName in commands)) {
 		return;
 	}
