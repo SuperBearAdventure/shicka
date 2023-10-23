@@ -1,7 +1,9 @@
 import type AboutDependency from "./dependencies/about.js";
+import type ArrivalDependency from "./dependencies/arrival.js";
 import type BearDependency from "./dependencies/bear.js";
 import type ChatDependency from "./dependencies/chat.js";
 import type CountDependency from "./dependencies/count.js";
+import type DepartureDependency from "./dependencies/departure.js";
 import type EmojiDependency from "./dependencies/emoji.js";
 import type HelpDependency from "./dependencies/help.js";
 import type LeaderboardDependency from "./dependencies/leaderboard.js";
@@ -17,9 +19,11 @@ import type TrackerDependency from "./dependencies/tracker.js";
 import type TrailerDependency from "./dependencies/trailer.js";
 import type UpdateDependency from "./dependencies/update.js";
 type About = AboutDependency;
+type Arrival = ArrivalDependency;
 type Bear = BearDependency;
 type Chat = ChatDependency;
 type Count = CountDependency;
+type Departure = DepartureDependency;
 type Emoji = EmojiDependency;
 type Help = HelpDependency;
 type Leaderboard = LeaderboardDependency;
@@ -34,13 +38,15 @@ type Store = StoreDependency;
 type Tracker = TrackerDependency;
 type Trailer = TrailerDependency;
 type Update = UpdateDependency;
-type Dependency = About | Bear | Chat | Count | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
+type Dependency = About | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
 export type {Dependency as default};
 export type {
 	About,
+	Arrival,
 	Bear,
 	Chat,
 	Count,
+	Departure,
 	Emoji,
 	Help,
 	Leaderboard,

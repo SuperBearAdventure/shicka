@@ -1,0 +1,21 @@
+{
+	"hookName": "departure",
+	"hookReason": "Posts the latest member departure in the given channel",
+	"helpWithChannel": {
+		"en-US": "I post the latest member departure in $<channelMention>",
+		"fr": "Je poste le dernier départ de membre dans $<channelMention>",
+		"pt-BR": "Eu posto a partida mais recente de membro em $<channelMention>"
+	},
+	"helpWithoutChannel": {
+		"en-US": "I post the latest member departure",
+		"fr": "Je poste le dernier départ de membre",
+		"pt-BR": "Eu posto a partida mais recente de membro"
+	},
+	"greetings": [
+		"$<memberMention> went along to help others to save bears, bye! :bear:",
+		"$<memberMention> left the SBA community, bye! :wave:",
+		"Baaren's adventure keeps going, without $<memberMention>! :baby_chick:",
+		"Looks like $<memberMention> and Baaren went separate ways... :eyes:",
+		"Smell! $<memberMention> has abandoned some super tasty honey! :honey_pot:"
+	]
+}

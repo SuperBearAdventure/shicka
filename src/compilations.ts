@@ -1,7 +1,9 @@
 import aboutCompilation from "./compilations/about.js";
+import arrivalCompilation from "./compilations/arrival.js";
 import bearCompilation from "./compilations/bear.js";
 import chatCompilation from "./compilations/chat.js";
 import countCompilation from "./compilations/count.js";
+import departureCompilation from "./compilations/departure.js";
 import emojiCompilation from "./compilations/emoji.js";
 import helpCompilation from "./compilations/help.js";
 import leaderboardCompilation from "./compilations/leaderboard.js";
@@ -17,9 +19,11 @@ import trackerCompilation from "./compilations/tracker.js";
 import trailerCompilation from "./compilations/trailer.js";
 import updateCompilation from "./compilations/update.js";
 type About = typeof aboutCompilation;
+type Arrival = typeof arrivalCompilation;
 type Bear = typeof bearCompilation;
 type Chat = typeof chatCompilation;
 type Count = typeof countCompilation;
+type Departure = typeof departureCompilation;
 type Emoji = typeof emojiCompilation;
 type Help = typeof helpCompilation;
 type Leaderboard = typeof leaderboardCompilation;
@@ -34,11 +38,13 @@ type Store = typeof storeCompilation;
 type Tracker = typeof trackerCompilation;
 type Trailer = typeof trailerCompilation;
 type Update = typeof updateCompilation;
-type Compilation = About | Bear | Chat | Count | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
+type Compilation = About | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
 const about: About = aboutCompilation;
+const arrival: Arrival = arrivalCompilation;
 const bear: Bear = bearCompilation;
 const chat: Chat = chatCompilation;
 const count: Count = countCompilation;
+const departure: Departure = departureCompilation;
 const emoji: Emoji = emojiCompilation;
 const help: Help = helpCompilation;
 const leaderboard: Leaderboard = leaderboardCompilation;
@@ -56,9 +62,11 @@ const update: Update = updateCompilation;
 export type {Compilation as default};
 export type {
 	About,
+	Arrival,
 	Bear,
 	Chat,
 	Count,
+	Departure,
 	Emoji,
 	Help,
 	Leaderboard,
@@ -76,9 +84,11 @@ export type {
 };
 export {
 	about,
+	arrival,
 	bear,
 	chat,
 	count,
+	departure,
 	emoji,
 	help,
 	leaderboard,

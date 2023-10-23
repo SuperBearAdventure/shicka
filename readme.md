@@ -13,14 +13,14 @@ $ export SHICKA_DISCORD_TOKEN=<your-discord-token-here>
 $ export SHICKA_OUTFIT_GENERATOR_SALT=<your-outfit-generator-salt-here>
 $ export SHICKA_ROADMAP_INTENT_CHANNEL=<your-roadmap-intent-channel-here>
 $ export SHICKA_TRACKER_INTENT_CHANNEL=<your-tracker-intent-channel-here>
+$ export SHICKA_ARRIVAL_DEFAULT_CHANNEL=<your-arrival-default-channel-here>
+$ export SHICKA_DEPARTURE_DEFAULT_CHANNEL=<your-departure-default-channel-here>
 $ export SHICKA_RECORD_DEFAULT_CHANNEL=<your-record-default-channel-here>
 $ export SHICKA_RULE7_DEFAULT_ALERT_ACTION_CHANNEL=<your-rule7-default-alert-action-channel-here>
 $ export SHICKA_RULE7_DEFAULT_EXEMPT_CHANNELS=<your-rule7-default-exempt-channels-here>
 $ export SHICKA_RULE7_DEFAULT_EXEMPT_ROLES=<your-rule7-default-exempt-roles-here>
 $ export SHICKA_RULE7_REACTION_EMOJI=<your-rule7-reaction-emoji-here>
 $ export SHICKA_RULE7_OVERRIDE_RULES_CHANNEL=<your-rule7-override-rules-channel-here>
-$ export SHICKA_BYE_OVERRIDE_SYSTEM_CHANNEL=<your-bye-override-system-channel-here>
-$ export SHICKA_HEY_OVERRIDE_SYSTEM_CHANNEL=<your-hey-override-system-channel-here>
 ```
 
 ## Linting the bot
@@ -88,6 +88,10 @@ $ npm start
 - `update` gives the links to the latest updates of the game on `play.google.com` and `apps.apple.com`
 
 ### Hooks
+
+- `arrival` posts the latest member arrival to the server in the given channel (set to `$SHICKA_ARRIVAL_DEFAULT_CHANNEL` by default)
+
+- `departure` posts the latest member departure from the server in the given channel (set to `$SHICKA_DEPARTURE_DEFAULT_CHANNEL` by default)
 
 - `record` posts the latest world records of the game on `www.speedrun.com` in the given channel (set to `$SHICKA_RECORD_DEFAULT_CHANNEL` by default)
 
