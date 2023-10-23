@@ -1,8 +1,10 @@
 import type {Localized} from "./utils/string.js";
 import aboutDefinition from "./definitions/about.json" assert {type: "json"};
+import arrivalDefinition from "./definitions/arrival.json" assert {type: "json"};
 import bearDefinition from "./definitions/bear.json" assert {type: "json"};
 import chatDefinition from "./definitions/chat.json" assert {type: "json"};
 import countDefinition from "./definitions/count.json" assert {type: "json"};
+import departureDefinition from "./definitions/departure.json" assert {type: "json"};
 import emojiDefinition from "./definitions/emoji.json" assert {type: "json"};
 import helpDefinition from "./definitions/help.json" assert {type: "json"};
 import leaderboardDefinition from "./definitions/leaderboard.json" assert {type: "json"};
@@ -22,6 +24,13 @@ type About = {
 	commandDescription: Localized<string>,
 	help: Localized<string>,
 	reply: Localized<string>,
+};
+type Arrival = {
+	hookName: string,
+	hookReason: string,
+	helpWithChannel: Localized<string>,
+	helpWithoutChannel: Localized<string>,
+	greetings: string[],
 };
 type Bear = {
 	commandName: string,
@@ -75,6 +84,13 @@ type Count = {
 	commandDescription: Localized<string>,
 	help: Localized<string>,
 	reply: Localized<string>,
+};
+type Departure = {
+	hookName: string,
+	hookReason: string,
+	helpWithChannel: Localized<string>,
+	helpWithoutChannel: Localized<string>,
+	greetings: string[],
 };
 type Emoji = {
 	commandName: string,
@@ -196,11 +212,13 @@ type Update = {
 	defaultReply: Localized<string>,
 	link: Localized<string>,
 };
-type Definition = About | Bear | Chat | Count | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
+type Definition = About | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
 const about: About = aboutDefinition;
+const arrival: Arrival = arrivalDefinition;
 const bear: Bear = bearDefinition;
 const chat: Chat = chatDefinition;
 const count: Count = countDefinition;
+const departure: Departure = departureDefinition;
 const emoji: Emoji = emojiDefinition;
 const help: Help = helpDefinition;
 const leaderboard: Leaderboard = leaderboardDefinition;
@@ -218,9 +236,11 @@ const update: Update = updateDefinition;
 export type {Definition as default};
 export type {
 	About,
+	Arrival,
 	Bear,
 	Chat,
 	Count,
+	Departure,
 	Emoji,
 	Help,
 	Leaderboard,
@@ -238,9 +258,11 @@ export type {
 };
 export {
 	about,
+	arrival,
 	bear,
 	chat,
 	count,
+	departure,
 	emoji,
 	help,
 	leaderboard,

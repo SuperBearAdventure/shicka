@@ -105,7 +105,7 @@ function map<K extends string, T, U>(input: {[k in K]: T}, callback: (value: T, 
 		];
 	})) as {[k in K]: U});
 }
-function compile<Groups extends {[k in string]: () => string}>(template: string): (groups: Groups) => string {
+export function compile<Groups extends {[k in string]: () => string}>(template: string): (groups: Groups) => string {
 	return (groups: Groups): string => {
 		return template.replaceAll(groupsPattern, ($0: string, $1: string): string => {
 			return groups[$1]() ?? $0;
@@ -117,7 +117,7 @@ export function compileAll<Groups extends {[k in string]: () => string}>(templat
 		return compile<Groups>(template);
 	});
 }
-function compose<InputGroups extends {[k in string]: () => string}, OutputGroups extends {[k in string]: () => string}>(template: (groups: InputGroups & OutputGroups) => string, inputGroups: InputGroups): (outputGroups: OutputGroups) => string {
+export function compose<InputGroups extends {[k in string]: () => string}, OutputGroups extends {[k in string]: () => string}>(template: (groups: InputGroups & OutputGroups) => string, inputGroups: InputGroups): (outputGroups: OutputGroups) => string {
 	return (outputGroups: OutputGroups): string => {
 		return template({...outputGroups, ...inputGroups});
 	};

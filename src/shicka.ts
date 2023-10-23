@@ -7,11 +7,8 @@ import type {
 	ForumChannel,
 	Guild,
 	GuildBasedChannel,
-	GuildMember,
 	Interaction,
-	Message,
 	NewsChannel,
-	PartialGuildMember,
 	Role,
 	StageChannel,
 	TextChannel,
@@ -25,7 +22,6 @@ import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteract
 import type Hook from "./hooks.js";
 import type {Webhook, WebhookData, WebjobInvocation} from "./hooks.js";
 import type Rule from "./rules.js";
-import type Greeting from "./greetings.js";
 import type {AutoModerationActionExecution, AutoModerationRule, AutoModerationRuleData} from "./rules.js";
 import {
 	ActivityType,
@@ -33,26 +29,18 @@ import {
 	ChannelType,
 	Client,
 	GatewayIntentBits,
-	escapeMarkdown,
 } from "discord.js";
 import schedule from "node-schedule";
 import * as commands from "./commands.js";
 import * as hooks from "./hooks.js";
 import * as rules from "./rules.js";
-import * as greetings from "./greetings.js";
 type WebhookCreateOptionsResolvable = WebhookData["hookOptions"];
 type WebjobEvent = WebjobInvocation["event"];
 type AutoModerationRuleCreateOptionsResolvable = AutoModerationRuleData;
 const {
 	SHICKA_DISCORD_TOKEN,
-	SHICKA_BYE_OVERRIDE_SYSTEM_CHANNEL,
-	SHICKA_HEY_OVERRIDE_SYSTEM_CHANNEL,
 }: NodeJS.ProcessEnv = process.env;
 const discordToken: string = SHICKA_DISCORD_TOKEN ?? "";
-const byeSystemChannel: string | null = SHICKA_BYE_OVERRIDE_SYSTEM_CHANNEL ?? null;
-const heySystemChannel: string | null = SHICKA_HEY_OVERRIDE_SYSTEM_CHANNEL ?? null;
-const capture: RegExp = /^.*$/su;
-const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat("en-US");
 async function submitGuildCommands(guild: Guild, commandRegistry: ApplicationCommandData[]): Promise<boolean> {
 	try {
 		await guild.commands.set(commandRegistry);
@@ -429,67 +417,6 @@ client.on("autoModerationActionExecution", async (execution: AutoModerationActio
 	try {
 		const rule: Rule = rules[ruleName as keyof typeof rules];
 		await rule.execute(execution);
-	} catch (error: unknown) {
-		console.error(error);
-	}
-});
-client.on("guildMemberAdd", async (member: GuildMember): Promise<void> => {
-	const {guild}: GuildMember = member;
-	const {memberCount, systemChannel}: Guild = guild;
-	const welcomeChannel: TextChannel | null = heySystemChannel != null ? ((): TextChannel | null => {
-		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-			return channel.name === heySystemChannel;
-		});
-		if (channel == null || channel.type !== ChannelType.GuildText) {
-			return null;
-		}
-		return channel;
-	})() : systemChannel;
-	if (welcomeChannel == null) {
-		return;
-	}
-	const name: string = `<@${member.id}>`;
-	const {hey}: {[k in string]: Greeting} = greetings;
-	const greeting: string = name.replace(capture, hey[Math.random() * hey.length | 0]);
-	const counting: string = memberCount % 10 !== 0 ? "" : `\nWe are now ${escapeMarkdown(cardinalFormat.format(memberCount))} members!`;
-	try {
-		const message: Message<true> = await welcomeChannel.send({
-			content: `${greeting}${counting}`,
-		});
-		await message.react("🇭");
-		await message.react("🇪");
-		await message.react("🇾");
-		await message.react("👋");
-	} catch (error: unknown) {
-		console.error(error);
-	}
-});
-client.on("guildMemberRemove", async (member: GuildMember | PartialGuildMember): Promise<void> => {
-	const {guild}: GuildMember | PartialGuildMember = member;
-	const {systemChannel}: Guild = guild;
-	const farewellChannel: TextChannel | null = byeSystemChannel != null ? ((): TextChannel | null => {
-		const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-			return channel.name === byeSystemChannel;
-		});
-		if (channel == null || channel.type !== ChannelType.GuildText) {
-			return null;
-		}
-		return channel;
-	})() : systemChannel;
-	if (farewellChannel == null) {
-		return;
-	}
-	const name: string = `**${escapeMarkdown(member.user.username)}**${member.user.discriminator != null && member.user.discriminator !== "0" ? `#**${escapeMarkdown(member.user.discriminator)}**` : ""}${member.user.globalName != null ? ` (**${escapeMarkdown(member.user.globalName)}**)` : ""}`;
-	const {bye}: {[k in string]: Greeting} = greetings;
-	const greeting: string = name.replace(capture, bye[Math.random() * bye.length | 0]);
-	try {
-		const message: Message<true> = await farewellChannel.send({
-			content: greeting,
-		});
-		await message.react("🇧");
-		await message.react("🇾");
-		await message.react("🇪");
-		await message.react("👋");
 	} catch (error: unknown) {
 		console.error(error);
 	}

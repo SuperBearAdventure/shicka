@@ -6,6 +6,8 @@ import type {
 } from "discord.js";
 import type {Job, RecurrenceSpecDateRange} from "node-schedule";
 import type {Localized} from "./utils/string.js";
+import arrivalHook from "./hooks/arrival.js";
+import departureHook from "./hooks/departure.js";
 import recordHook from "./hooks/record.js";
 type WebhookData = (
 	{
@@ -45,6 +47,8 @@ type Hook = {
 	invoke(invocation: WebjobInvocation): Promise<void>;
 	describe(webhook: Webhook): Localized<(groups: {}) => string>;
 };
+const arrival: Hook = arrivalHook;
+const departure: Hook = departureHook;
 const record: Hook = recordHook;
 export type {Hook as default};
 export type {
@@ -53,5 +57,7 @@ export type {
 	WebjobInvocation,
 };
 export {
+	arrival,
+	departure,
 	record,
 };
