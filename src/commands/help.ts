@@ -24,6 +24,7 @@ import type Rule from "../rules.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {
 	ApplicationCommandPermissionType,
+	ApplicationCommandType,
 	PermissionsBitField,
 } from "discord.js";
 import * as commands from "../commands.js";
@@ -238,6 +239,15 @@ const helpCommand: Command = {
 				if (applicationCommand == null) {
 					return null;
 				}
+				if (applicationCommand.guild == null) {
+					return null;
+				}
+				if (applicationCommand.type !== ApplicationCommandType.ChatInput) {
+					return null;
+				}
+				if (applicationCommand.applicationId !== user.id) {
+					return null;
+				}
 				if (!hasPermission(permissions, applicationCommand.client.application, applicationCommand, channel, member)) {
 					return null;
 				}
@@ -273,10 +283,10 @@ const helpCommand: Command = {
 				if (autoModerationRule == null) {
 					return null;
 				}
-				if (autoModerationRule.creatorId !== user.id) {
+				if (!autoModerationRule.enabled) {
 					return null;
 				}
-				if (!autoModerationRule.enabled) {
+				if (autoModerationRule.creatorId !== user.id) {
 					return null;
 				}
 				const channels: (TextChannel | NewsChannel)[] = autoModerationRule.actions.map<TextChannel | NewsChannel | null>((action: AutoModerationAction): TextChannel | NewsChannel | null => {
