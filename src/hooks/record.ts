@@ -193,7 +193,7 @@ const recordHook: Hook = {
 		};
 	},
 	async invoke(invocation: WebjobInvocation): Promise<void> {
-		const {timestamp, webhooks}: WebjobInvocation = invocation;
+		const {timestamp, client, webhooks}: WebjobInvocation = invocation;
 		const middle: number = Math.floor(timestamp.getTime() / 21600000) * 21600000;
 		const start: number = middle - 10800000;
 		const end: number = middle + 10800000;
@@ -201,14 +201,11 @@ const recordHook: Hook = {
 		if (data == null) {
 			throw new Error();
 		}
+		const {user}: Client<true> = client;
+		const applicationName: string = user.username;
+		const applicationIcon: string = user.displayAvatarURL();
 		for (const webhook of webhooks) {
 			const {channel}: Webhook = webhook;
-			const {user}: Client<boolean> = webhook.client;
-			if (user == null) {
-				continue;
-			}
-			const applicationName: string = user.username;
-			const applicationIcon: string = user.displayAvatarURL();
 			for (const item of data) {
 				const record: string = item.content;
 				const category: string = item.title;

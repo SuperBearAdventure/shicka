@@ -1,4 +1,5 @@
 import type {
+	Client,
 	Webhook,
 	WebhookCreateOptions,
 } from "discord.js";
@@ -14,6 +15,7 @@ type WebhookData = {
 type WebjobInvocation = {
 	job: Job,
 	timestamp: Date,
+	client: Client<true>,
 	webhooks: Webhook[],
 };
 type Hook = {
