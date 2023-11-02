@@ -93,7 +93,7 @@ $ npm start
 
 ### Hooks
 
-- `approval` posts the latest member approval in the server in the given channel (set to `$SHICKA_APPROVAL_DEFAULT_CHANNEL` by default)
+- `approval` posts the latest member approval in the server in the given channel (set to `$SHICKA_APPROVAL_DEFAULT_CHANNEL` by default) and sends a direct message
 
 - `arrival` posts the latest member arrival to the server in the given channel (set to `$SHICKA_ARRIVAL_DEFAULT_CHANNEL` by default)
 
@@ -101,7 +101,7 @@ $ npm start
 
 - `record` posts the latest world records of the game on `www.speedrun.com` in the given channel (set to `$SHICKA_RECORD_DEFAULT_CHANNEL` by default)
 
-- `refusal` posts the latest member refusal in the server in the given channel (set to `$SHICKA_REFUSAL_DEFAULT_CHANNEL` by default)
+- `refusal` posts the latest member refusal in the server in the given channel (set to `$SHICKA_REFUSAL_DEFAULT_CHANNEL` by default) and sends a direct message
 
 ### Rules
 
