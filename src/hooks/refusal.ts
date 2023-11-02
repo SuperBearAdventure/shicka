@@ -16,6 +16,7 @@ import type {Webhook, WebhookData, WebjobInvocation} from "../hooks.js";
 import type {Localized} from "../utils/string.js";
 import {
 	ChannelType,
+	escapeMarkdown,
 } from "discord.js";
 import canvas from "canvas";
 import {refusal as refusalCompilation} from "../compilations.js";
@@ -70,7 +71,7 @@ const refusalHook: Hook = {
 		}
 		const [oldMember, newMember]: ClientEvents["guildMemberUpdate"] = (invocation.event as WebjobEvent<"guildMemberUpdate">).data;
 		const {guild}: GuildMember | PartialGuildMember = newMember;
-		const {roles}: Guild = guild;
+		const {name, roles}: Guild = guild;
 		const unverificationRole: Role | undefined = roles.cache.find((role: Role): boolean => {
 			return role.name === hookUnverificationRole;
 		});
@@ -124,6 +125,8 @@ const refusalHook: Hook = {
 			await message.react("🇪");
 			await message.react("👋");
 		}
+		const content: string = `You did not manage to get verified in the official *${escapeMarkdown(name)}* *Discord* server...\nPlease make sure to read and respect the rules before retrying the verification process.\nSee you there...`;
+		await newMember.send({content});
 	},
 	describe(webhook: Webhook): Localized<(groups: {}) => string> {
 		const {channel}: Webhook = webhook;

@@ -16,6 +16,7 @@ import type {Webhook, WebhookData, WebjobInvocation} from "../hooks.js";
 import type {Localized} from "../utils/string.js";
 import {
 	ChannelType,
+	escapeMarkdown,
 } from "discord.js";
 import canvas from "canvas";
 import {approval as approvalCompilation} from "../compilations.js";
@@ -70,7 +71,7 @@ const approvalHook: Hook = {
 		}
 		const [oldMember, newMember]: ClientEvents["guildMemberUpdate"] = (invocation.event as WebjobEvent<"guildMemberUpdate">).data;
 		const {guild}: GuildMember | PartialGuildMember = newMember;
-		const {roles}: Guild = guild;
+		const {name, roles}: Guild = guild;
 		const unverificationRole: Role | undefined = roles.cache.find((role: Role): boolean => {
 			return role.name === hookUnverificationRole;
 		});
@@ -124,6 +125,8 @@ const approvalHook: Hook = {
 			await message.react("🇾");
 			await message.react("👋");
 		}
+		const content: string = `You managed to get verified in the official *${escapeMarkdown(name)}* *Discord* server!\nYou should now be able to interact with the community.\nSee you there!`;
+		await newMember.send({content});
 	},
 	describe(webhook: Webhook): Localized<(groups: {}) => string> {
 		const {channel}: Webhook = webhook;
