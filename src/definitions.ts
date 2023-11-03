@@ -20,7 +20,9 @@ import soundtrackDefinition from "./definitions/soundtrack.json" assert {type: "
 import storeDefinition from "./definitions/store.json" assert {type: "json"};
 import trackerDefinition from "./definitions/tracker.json" assert {type: "json"};
 import trailerDefinition from "./definitions/trailer.json" assert {type: "json"};
+import unverificationDefinition from "./definitions/unverification.json" assert {type: "json"};
 import updateDefinition from "./definitions/update.json" assert {type: "json"};
+import verificationDefinition from "./definitions/verification.json" assert {type: "json"};
 type About = {
 	commandName: string,
 	commandDescription: Localized<string>,
@@ -218,6 +220,14 @@ type Trailer = {
 	defaultReply: Localized<string>,
 	link: Localized<string>,
 };
+type Unverification = {
+	commandName: string,
+	commandDescription: Localized<string>,
+	help: Localized<string>,
+	reply: Localized<string>,
+	noMemberReply: Localized<string>,
+	noPermissionReply: Localized<string>,
+};
 type Update = {
 	commandName: string,
 	commandDescription: Localized<string>,
@@ -226,7 +236,15 @@ type Update = {
 	defaultReply: Localized<string>,
 	link: Localized<string>,
 };
-type Definition = About | Approval | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
+type Verification = {
+	commandName: string,
+	commandDescription: Localized<string>,
+	help: Localized<string>,
+	reply: Localized<string>,
+	noMemberReply: Localized<string>,
+	noPermissionReply: Localized<string>,
+};
+type Definition = About | Approval | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Unverification | Update | Verification;
 const about: About = aboutDefinition;
 const approval: Approval = approvalDefinition;
 const arrival: Arrival = arrivalDefinition;
@@ -248,7 +266,9 @@ const soundtrack: Soundtrack = soundtrackDefinition;
 const store: Store = storeDefinition;
 const tracker: Tracker = trackerDefinition;
 const trailer: Trailer = trailerDefinition;
+const unverification: Unverification = unverificationDefinition;
 const update: Update = updateDefinition;
+const verification: Verification = verificationDefinition;
 export type {Definition as default};
 export type {
 	About,
@@ -272,7 +292,9 @@ export type {
 	Store,
 	Tracker,
 	Trailer,
+	Unverification,
 	Update,
+	Verification,
 };
 export {
 	about,
@@ -296,5 +318,7 @@ export {
 	store,
 	tracker,
 	trailer,
+	unverification,
 	update,
+	verification,
 };

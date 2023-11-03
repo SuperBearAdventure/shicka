@@ -85,7 +85,11 @@ $ npm start
 
 - `trailer` gives the links to the trailers of the game on `www.youtube.com`
 
+- `unverification` refuses the author of the given message
+
 - `update` gives the links to the latest updates of the game on `play.google.com` and `apps.apple.com`
+
+- `verification` approves the author of the given message
 
 ### Hooks
 

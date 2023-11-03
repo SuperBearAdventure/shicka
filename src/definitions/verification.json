@@ -1,0 +1,28 @@
+{
+	"commandName": "verification",
+	"commandDescription": {
+		"en-US": "Approves this member",
+		"fr": "Approuve ce membre",
+		"pt-BR": "Aprova esse membro"
+	},
+	"help": {
+		"en-US": "Press **$<commandMention>** to approve a member",
+		"fr": "Appuie sur **$<commandMention>** pour approuver un membre",
+		"pt-BR": "Pressione **$<commandMention>** pra aprovar um membro"
+	},
+	"reply": {
+		"en-US": "I have approved the member.",
+		"fr": "J'ai approuvé le membre.",
+		"pt-BR": "Aprovei o membro."
+	},
+	"noMemberReply": {
+		"en-US": "I do not know any member with this tag.",
+		"fr": "Je ne connais aucun membre avec cette étiquette.",
+		"pt-BR": "Não conheço nenhum membro com essa marcação."
+	},
+	"noPermissionReply": {
+		"en-US": "I do not have the rights to verify this member.",
+		"fr": "Je n'ai pas les droits pour vérifier ce membre.",
+		"pt-BR": "Eu não tenho as permissões pra verificar esse membro."
+	}
+}
