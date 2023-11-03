@@ -22,7 +22,9 @@ import soundtrackCommand from "./commands/soundtrack.js";
 import storeCommand from "./commands/store.js";
 import trackerCommand from "./commands/tracker.js";
 import trailerCommand from "./commands/trailer.js";
+import unverificationCommand from "./commands/unverification.js";
 import updateCommand from "./commands/update.js";
+import verificationCommand from "./commands/verification.js";
 type ApplicationCommandData = ChatInputApplicationCommandData | MessageApplicationCommandData;
 type ApplicationUserInteraction = AutocompleteInteraction<"cached"> | ChatInputCommandInteraction<"cached"> | MessageContextMenuCommandInteraction<"cached">;
 type Command = {
@@ -45,7 +47,9 @@ const soundtrack: Command = soundtrackCommand;
 const store: Command = storeCommand;
 const tracker: Command = trackerCommand;
 const trailer: Command = trailerCommand;
+const unverification: Command = unverificationCommand;
 const update: Command = updateCommand;
+const verification: Command = verificationCommand;
 export type {Command as default};
 export type {
 	ApplicationCommand,
@@ -68,5 +72,7 @@ export {
 	store,
 	tracker,
 	trailer,
+	unverification,
 	update,
+	verification,
 };

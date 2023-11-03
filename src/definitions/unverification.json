@@ -1,0 +1,28 @@
+{
+	"commandName": "unverification",
+	"commandDescription": {
+		"en-US": "Refuses this member",
+		"fr": "Refuse ce membre",
+		"pt-BR": "Recusa esse membro"
+	},
+	"help": {
+		"en-US": "Press **$<commandMention>** to refuse a member",
+		"fr": "Appuie sur **$<commandMention>** pour refuser un membre",
+		"pt-BR": "Pressione **$<commandMention>** pra recusar um membro"
+	},
+	"reply": {
+		"en-US": "I have refused the member.",
+		"fr": "J'ai refusé le membre.",
+		"pt-BR": "Recusei o membro."
+	},
+	"noMemberReply": {
+		"en-US": "I do not know any member with this tag.",
+		"fr": "Je ne connais aucun membre avec cette étiquette.",
+		"pt-BR": "Não conheço nenhum membro com essa marcação."
+	},
+	"noPermissionReply": {
+		"en-US": "I do not have the rights to unverify this member.",
+		"fr": "Je n'ai pas les droits pour dévérifier ce membre.",
+		"pt-BR": "Eu não tenho as permissões pra desverificar esse membro."
+	}
+}

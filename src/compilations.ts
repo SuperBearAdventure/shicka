@@ -19,7 +19,9 @@ import soundtrackCompilation from "./compilations/soundtrack.js";
 import storeCompilation from "./compilations/store.js";
 import trackerCompilation from "./compilations/tracker.js";
 import trailerCompilation from "./compilations/trailer.js";
+import unverificationCompilation from "./compilations/unverification.js";
 import updateCompilation from "./compilations/update.js";
+import verificationCompilation from "./compilations/verification.js";
 type About = typeof aboutCompilation;
 type Approval = typeof approvalCompilation;
 type Arrival = typeof arrivalCompilation;
@@ -41,8 +43,10 @@ type Soundtrack = typeof soundtrackCompilation;
 type Store = typeof storeCompilation;
 type Tracker = typeof trackerCompilation;
 type Trailer = typeof trailerCompilation;
+type Unverification = typeof unverificationCompilation;
 type Update = typeof updateCompilation;
-type Compilation = About | Approval | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
+type Verification = typeof verificationCompilation;
+type Compilation = About | Approval | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Unverification | Update | Verification;
 const about: About = aboutCompilation;
 const approval: Approval = approvalCompilation;
 const arrival: Arrival = arrivalCompilation;
@@ -64,7 +68,9 @@ const soundtrack: Soundtrack = soundtrackCompilation;
 const store: Store = storeCompilation;
 const tracker: Tracker = trackerCompilation;
 const trailer: Trailer = trailerCompilation;
+const unverification: Unverification = unverificationCompilation;
 const update: Update = updateCompilation;
+const verification: Verification = verificationCompilation;
 export type {Compilation as default};
 export type {
 	About,
@@ -88,7 +94,9 @@ export type {
 	Store,
 	Tracker,
 	Trailer,
+	Unverification,
 	Update,
+	Verification,
 };
 export {
 	about,
@@ -112,5 +120,7 @@ export {
 	store,
 	tracker,
 	trailer,
+	unverification,
 	update,
+	verification,
 };
