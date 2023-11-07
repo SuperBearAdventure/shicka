@@ -953,5 +953,17 @@
 		"notes": [
 			"Bug fixes"
 		]
+	},
+	{
+		"name": "10.5.0",
+		"date": {
+			"android": "2023-11-07",
+			"ios": "2023-11-07"
+		},
+		"notes": [
+			"New vehicle physics in the Beemothep Desert",
+			"Added go-kart to the arcade world",
+			"Lots of bug fixes and tweaks"
+		]
 	}
 ]
