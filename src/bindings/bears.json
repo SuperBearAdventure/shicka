@@ -142,7 +142,7 @@
 	{
 		"name": {
 			"en-US": "Rodolph",
-			"fr": "Rodolph",
+			"fr": "Rodolphe",
 			"pt-BR": "Rodolph"
 		},
 		"gold": 25,
@@ -254,7 +254,7 @@
 	{
 		"name": {
 			"en-US": "Alexander",
-			"fr": "Alexander",
+			"fr": "Alexandre",
 			"pt-BR": "Alexander"
 		},
 		"gold": 35,
@@ -268,7 +268,7 @@
 	{
 		"name": {
 			"en-US": "Zephyr",
-			"fr": "Zephyr",
+			"fr": "Zéphyr",
 			"pt-BR": "Zephyr"
 		},
 		"gold": 570,
@@ -296,7 +296,7 @@
 	{
 		"name": {
 			"en-US": "Numerobis",
-			"fr": "Numerobis",
+			"fr": "Numérobis",
 			"pt-BR": "Numerobis"
 		},
 		"gold": 40,
@@ -310,7 +310,7 @@
 	{
 		"name": {
 			"en-US": "Cleo",
-			"fr": "Cleo",
+			"fr": "Cléo",
 			"pt-BR": "Cleo"
 		},
 		"gold": 25,
@@ -324,7 +324,7 @@
 	{
 		"name": {
 			"en-US": "Ramses",
-			"fr": "Ramses",
+			"fr": "Ramsès",
 			"pt-BR": "Ramses"
 		},
 		"gold": 55,
@@ -436,7 +436,7 @@
 	{
 		"name": {
 			"en-US": "Felix",
-			"fr": "Felix",
+			"fr": "Félix",
 			"pt-BR": "Felix"
 		},
 		"gold": 40,
