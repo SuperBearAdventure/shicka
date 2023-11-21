@@ -13,7 +13,6 @@ import type Hook from "../hooks.js";
 import type {Webhook, WebhookData, WebjobInvocation} from "../hooks.js";
 import type {Localized} from "../utils/string.js";
 import {
-	ChannelType,
 	escapeMarkdown,
 } from "discord.js";
 import canvas from "canvas";
@@ -86,7 +85,7 @@ const arrivalHook: Hook = {
 				content: arrival,
 				username: applicationName,
 				avatarURL: applicationIcon,
-				...(channel != null && channel.type === ChannelType.GuildForum ? {threadName: welcome} : {}),
+				...(channel != null && channel.isThreadOnly() ? {threadName: welcome} : {}),
 			});
 			await message.react("🇭");
 			await message.react("🇪");

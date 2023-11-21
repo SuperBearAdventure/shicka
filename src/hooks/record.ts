@@ -11,7 +11,6 @@ import type Hook from "../hooks.js";
 import type {Webhook, WebhookData, WebjobInvocation} from "../hooks.js";
 import type {Localized} from "../utils/string.js";
 import {
-	ChannelType,
 	escapeMarkdown,
 } from "discord.js";
 import canvas from "canvas";
@@ -218,7 +217,7 @@ const recordHook: Hook = {
 					content: record,
 					username: applicationName,
 					avatarURL: applicationIcon,
-					...(channel != null && channel.type === ChannelType.GuildForum ? {threadName: category} : {}),
+					...(channel != null && channel.isThreadOnly() ? {threadName: category} : {}),
 				});
 				await message.react("🎉");
 			}

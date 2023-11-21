@@ -11,7 +11,6 @@ import type Hook from "../hooks.js";
 import type {Webhook, WebhookData, WebjobInvocation} from "../hooks.js";
 import type {Localized} from "../utils/string.js";
 import {
-	ChannelType,
 	escapeMarkdown,
 } from "discord.js";
 import canvas from "canvas";
@@ -80,7 +79,7 @@ const departureHook: Hook = {
 				content: departure,
 				username: applicationName,
 				avatarURL: applicationIcon,
-				...(channel != null && channel.type === ChannelType.GuildForum ? {threadName: farewell} : {}),
+				...(channel != null && channel.isThreadOnly() ? {threadName: farewell} : {}),
 			});
 			await message.react("🇧");
 			await message.react("🇾");
