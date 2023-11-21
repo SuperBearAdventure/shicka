@@ -426,7 +426,7 @@ client.on("interactionCreate", async (interaction: Interaction): Promise<void> =
 	if (!interaction.inCachedGuild()) {
 		return;
 	}
-	if (!interaction.isAutocomplete() && !interaction.isChatInputCommand()) {
+	if (!interaction.isAutocomplete() && !interaction.isChatInputCommand() &&!interaction.isMessageContextMenuCommand()) {
 		return;
 	}
 	const {command}: ApplicationUserInteraction = interaction;
@@ -436,7 +436,7 @@ client.on("interactionCreate", async (interaction: Interaction): Promise<void> =
 	if (command.guild == null) {
 		return;
 	}
-	if (command.type !== ApplicationCommandType.ChatInput) {
+	if (command.type !== ApplicationCommandType.ChatInput && command.type !== ApplicationCommandType.Message) {
 		return;
 	}
 	const {client}: ApplicationCommand = command;

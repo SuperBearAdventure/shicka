@@ -496,7 +496,6 @@ const chatCommand: Command = {
 			});
 			return;
 		}
-		return;
 	},
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
