@@ -1,8 +1,10 @@
 import type {
 	ApplicationCommand,
-	ApplicationCommandData,
 	AutocompleteInteraction,
+	ChatInputApplicationCommandData,
 	ChatInputCommandInteraction,
+	MessageApplicationCommandData,
+	MessageContextMenuCommandInteraction,
 } from "discord.js";
 import type {Localized} from "./utils/string.js";
 import aboutCommand from "./commands/about.js";
@@ -21,7 +23,8 @@ import storeCommand from "./commands/store.js";
 import trackerCommand from "./commands/tracker.js";
 import trailerCommand from "./commands/trailer.js";
 import updateCommand from "./commands/update.js";
-type ApplicationUserInteraction = AutocompleteInteraction<"cached"> | ChatInputCommandInteraction<"cached">;
+type ApplicationCommandData = ChatInputApplicationCommandData | MessageApplicationCommandData;
+type ApplicationUserInteraction = AutocompleteInteraction<"cached"> | ChatInputCommandInteraction<"cached"> | MessageContextMenuCommandInteraction<"cached">;
 type Command = {
 	register(): ApplicationCommandData;
 	interact(interaction: ApplicationUserInteraction): Promise<void>;

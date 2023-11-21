@@ -242,7 +242,7 @@ const helpCommand: Command = {
 				if (applicationCommand.guild == null) {
 					return null;
 				}
-				if (applicationCommand.type !== ApplicationCommandType.ChatInput) {
+				if (applicationCommand.type !== ApplicationCommandType.ChatInput && applicationCommand.type !== ApplicationCommandType.Message) {
 					return null;
 				}
 				if (applicationCommand.applicationId !== user.id) {
