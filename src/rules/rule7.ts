@@ -83,7 +83,7 @@ const rule7Rule: Rule = {
 		}
 		const message: Message<boolean> | undefined = await (async (): Promise<Message<boolean> | undefined> => {
 			try {
-				if (channel.type === ChannelType.GuildForum) {
+				if (channel.isThreadOnly()) {
 					const thread: ThreadChannel | undefined = channel.threads.cache.get(messageId);
 					if (thread == null) {
 						return;

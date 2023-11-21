@@ -86,6 +86,7 @@ const chatCommand: Command = {
 								ChannelType.PrivateThread,
 								ChannelType.GuildStageVoice,
 								ChannelType.GuildForum,
+								ChannelType.GuildMedia,
 							],
 						},
 					],
@@ -111,6 +112,7 @@ const chatCommand: Command = {
 								ChannelType.PrivateThread,
 								ChannelType.GuildStageVoice,
 								ChannelType.GuildForum,
+								ChannelType.GuildMedia,
 							],
 						},
 						{
@@ -143,6 +145,7 @@ const chatCommand: Command = {
 								ChannelType.PrivateThread,
 								ChannelType.GuildStageVoice,
 								ChannelType.GuildForum,
+								ChannelType.GuildMedia,
 							],
 						},
 						{
@@ -190,6 +193,7 @@ const chatCommand: Command = {
 								ChannelType.PrivateThread,
 								ChannelType.GuildStageVoice,
 								ChannelType.GuildForum,
+								ChannelType.GuildMedia,
 							],
 						},
 						{
@@ -230,6 +234,7 @@ const chatCommand: Command = {
 			ChannelType.PrivateThread,
 			ChannelType.GuildStageVoice,
 			ChannelType.GuildForum,
+			ChannelType.GuildMedia,
 		]);
 		if (channel == null) {
 			await interaction.reply({
@@ -268,7 +273,7 @@ const chatCommand: Command = {
 			});
 			const content: string = modalSubmitInteraction.fields.getTextInputValue(contentOptionName);
 			try {
-				if (channel.type === ChannelType.GuildForum) {
+				if (channel.isThreadOnly()) {
 					const name: string = "New post";
 					await channel.threads.create({
 						name,
@@ -317,7 +322,7 @@ const chatCommand: Command = {
 		}
 		const message: Message<true> | undefined = await (async (): Promise<Message<true> | undefined> => {
 			try {
-				if (channel.type === ChannelType.GuildForum) {
+				if (channel.isThreadOnly()) {
 					const thread: ThreadChannel | undefined = channel.threads.cache.get(identifier);
 					if (thread == null) {
 						return;

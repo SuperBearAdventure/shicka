@@ -8,6 +8,7 @@ import type {
 	Guild,
 	GuildBasedChannel,
 	Interaction,
+	MediaChannel,
 	NewsChannel,
 	Role,
 	StageChannel,
@@ -94,7 +95,7 @@ async function submitGuildHooks(guild: Guild, hookRegistry: WebhookCreateOptions
 			channel: channelResolvable,
 			...otherHookOptions
 		}: WebhookCreateOptionsResolvable = hookOptionsResolvable;
-		const channel: TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | null = ((): TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | null => {
+		const channel: TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null = ((): TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null => {
 			const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 				return channel.name === channelResolvable;
 			});
@@ -164,7 +165,7 @@ async function submitGuildRules(guild: Guild, ruleRegistry: AutoModerationRuleCr
 			actions: actionsResolvable,
 			...otherRuleOptions
 		}: AutoModerationRuleCreateOptionsResolvable = ruleOptionsResolvable;
-		const exemptChannels: (TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel)[] | null = exemptChannelsResolvable != null ? exemptChannelsResolvable.map<TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | null>((exemptChannelResolvable: string): TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | null => {
+		const exemptChannels: (TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel)[] | null = exemptChannelsResolvable != null ? exemptChannelsResolvable.map<TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null>((exemptChannelResolvable: string): TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null => {
 			const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
 				return channel.name === exemptChannelResolvable;
 			});
@@ -172,7 +173,7 @@ async function submitGuildRules(guild: Guild, ruleRegistry: AutoModerationRuleCr
 				return null;
 			}
 			return channel;
-		}).filter<TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel>((exemptChannel: TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | null): exemptChannel is TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel => {
+		}).filter<TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel>((exemptChannel: TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null): exemptChannel is TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel => {
 			return exemptChannel != null;
 		}) : null;
 		const exemptRoles: Role[] | null = exemptRolesResolvable != null ? exemptRolesResolvable.map<Role | null>((exemptRoleResolvable: string): Role | null => {
@@ -496,7 +497,7 @@ client.on("webjobInvocation", async (invocation: WebjobInvocation): Promise<void
 		}
 		ownWebhooks.push(webhook);
 	}
-	if (webhooks.length === 0) {
+	if (ownWebhooks.length === 0) {
 		return;
 	}
 	const hookName: string = job.name;
