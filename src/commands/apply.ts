@@ -45,15 +45,15 @@ const applyCommand: Command = {
 		const {member, guild, locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const {roles}: Guild = guild;
-		const applyingRole: Role | undefined = roles.cache.find((role: Role): boolean => {
+		const applyingRole: Role | null = roles.cache.find((role: Role): boolean => {
 			return role.name === commandApplyingRole;
-		});
+		}) ?? null;
 		if (applyingRole == null) {
 			return;
 		}
-		const verifiedRole: Role | undefined = roles.cache.find((role: Role): boolean => {
+		const verifiedRole: Role | null = roles.cache.find((role: Role): boolean => {
 			return role.name === commandVerifiedRole;
-		});
+		}) ?? null;
 		if (verifiedRole == null) {
 			return;
 		}

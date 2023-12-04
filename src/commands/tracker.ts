@@ -1,6 +1,12 @@
 import type {
 	ChatInputCommandInteraction,
+	ForumChannel,
 	GuildBasedChannel,
+	MediaChannel,
+	NewsChannel,
+	StageChannel,
+	TextChannel,
+	VoiceChannel,
 } from "discord.js";
 import type Command from "../commands.js";
 import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
@@ -68,15 +74,9 @@ const trackerCommand: Command = {
 		}
 		const {guild, locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
-		const channel: GuildBasedChannel | null = ((): GuildBasedChannel | null => {
-			const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-				return channel.name === commandIntentChannel;
-			});
-			if (channel == null || channel.type === ChannelType.GuildCategory || channel.isThread()) {
-				return null;
-			}
-			return channel;
-		})();
+		const channel: TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null = guild.channels.cache.find((channel: GuildBasedChannel): channel is TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel => {
+			return channel.type !== ChannelType.GuildCategory && !channel.isThread() && channel.name === commandIntentChannel;
+		}) ?? null;
 		const links: Localized<(groups: {}) => string>[] = [];
 		for (const item of data) {
 			const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((locale: Locale): LinkGroups => {

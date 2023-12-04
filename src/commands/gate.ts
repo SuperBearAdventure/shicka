@@ -157,17 +157,29 @@ const gateCommand: Command = {
 			});
 			return;
 		}
-		const message: Message<true> | undefined = await (async (): Promise<Message<true> | undefined> => {
+		const message: Message<true> | null = await (async (): Promise<Message<true> | null> => {
 			try {
 				if (channel.isThreadOnly()) {
-					const thread: ThreadChannel<boolean> | undefined = channel.threads.cache.get(identifier);
+					const thread: ThreadChannel<boolean> | null = await (async (): Promise<ThreadChannel<boolean> | null> => {
+						try {
+							const thread: ThreadChannel<true> | null = channel.threads.cache.get(identifier) ?? null;
+							if (thread == null) {
+								return await channel.threads.fetch(identifier);
+							}
+							return thread;
+						} catch {
+							return null;
+						}
+					})();
 					if (thread == null) {
-						return;
+						return null;
 					}
 					return await thread.messages.fetch(identifier);
 				}
 				return await channel.messages.fetch(identifier);
-			} catch {}
+			} catch {
+				return null;
+			}
 		})();
 		if (message == null) {
 			await interaction.reply({

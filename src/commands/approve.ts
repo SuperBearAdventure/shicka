@@ -52,31 +52,30 @@ const approveCommand: Command = {
 		const {guild, locale, targetMessage}: MessageContextMenuCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const {roles}: Guild = guild;
-		const applyingRole: Role | undefined = roles.cache.find((role: Role): boolean => {
+		const applyingRole: Role | null = roles.cache.find((role: Role): boolean => {
 			return role.name === commandApplyingRole;
-		});
+		}) ?? null;
 		if (applyingRole == null) {
 			return;
 		}
-		const verifiedRole: Role | undefined = roles.cache.find((role: Role): boolean => {
+		const verifiedRole: Role | null = roles.cache.find((role: Role): boolean => {
 			return role.name === commandVerifiedRole;
-		});
+		}) ?? null;
 		if (verifiedRole == null) {
 			return;
 		}
-		const member: GuildMember | undefined = await (async (): Promise<GuildMember | undefined> => {
+		const member: GuildMember | null = await (async (): Promise<GuildMember | null> => {
 			try {
-				const {author, member}: Message<true> = targetMessage;
+				const {author}: Message<true> = targetMessage;
+				const memberId: string = author.id;
+				const member: GuildMember | null = guild.members.cache.get(memberId) ?? null;
 				if (member == null) {
-					const memberId: string = author.id;
-					const member: GuildMember | undefined = guild.members.cache.get(memberId);
-					if (member == null) {
-						return await guild.members.fetch(memberId);
-					}
-					return member;
+					return await guild.members.fetch(memberId);
 				}
 				return member;
-			} catch {}
+			} catch {
+				return null;
+			}
 		})();
 		if (member == null) {
 			await interaction.reply({
@@ -96,9 +95,9 @@ const approveCommand: Command = {
 			return;
 		}
 		await targetMessage.react("✅");
-		const reaction: MessageReaction | undefined = targetMessage.reactions.cache.find((reaction: MessageReaction): boolean => {
+		const reaction: MessageReaction | null = targetMessage.reactions.cache.find((reaction: MessageReaction): boolean => {
 			return (reaction.emoji.name ?? "") === "❎";
-		});
+		}) ?? null;
 		if (reaction != null) {
 			await reaction.users.remove();
 		}

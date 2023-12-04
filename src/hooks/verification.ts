@@ -66,12 +66,12 @@ const verificationHook: Hook = {
 		const [oldMember, newMember]: ClientEvents["guildMemberUpdate"] = (invocation.event as WebjobEvent<"guildMemberUpdate">).data;
 		const {guild}: GuildMember = newMember;
 		const {roles}: Guild = guild;
-		const applyingRole: Role | undefined = roles.cache.find((role: Role): boolean => {
+		const applyingRole: Role | null = roles.cache.find((role: Role): boolean => {
 			return role.name === hookApplyingRole;
-		});
-		const verifiedRole: Role | undefined = roles.cache.find((role: Role): boolean => {
+		}) ?? null;
+		const verifiedRole: Role | null = roles.cache.find((role: Role): boolean => {
 			return role.name === hookVerifiedRole;
-		});
+		}) ?? null;
 		if (verifiedRole == null) {
 			return;
 		}
