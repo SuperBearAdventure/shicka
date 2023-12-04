@@ -30,6 +30,7 @@ import {
 	ChannelType,
 	Client,
 	GatewayIntentBits,
+	Partials,
 } from "discord.js";
 import schedule from "node-schedule";
 import * as commands from "./commands.js";
@@ -97,7 +98,7 @@ async function submitGuildHooks(guild: Guild, hookRegistry: WebhookCreateOptions
 			...otherHookOptions
 		}: WebhookCreateOptionsResolvable = hookOptionsResolvable;
 		const channel: TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null = guild.channels.cache.find((channel: GuildBasedChannel): channel is TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel => {
-			return channel.type !== ChannelType.GuildCategory && !channel.isThread() && channel.name === channelResolvable;
+			return !channel.partial && channel.type !== ChannelType.GuildCategory && !channel.isThread() && channel.name === channelResolvable;
 		}) ?? null;
 		if (channel == null) {
 			continue;
@@ -163,7 +164,7 @@ async function submitGuildRules(guild: Guild, ruleRegistry: AutoModerationRuleCr
 		}: AutoModerationRuleCreateOptionsResolvable = ruleOptionsResolvable;
 		const exemptChannels: (TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel)[] | null = exemptChannelsResolvable != null ? exemptChannelsResolvable.map<TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null>((exemptChannelResolvable: string): TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null => {
 			return guild.channels.cache.find((channel: GuildBasedChannel): channel is TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel => {
-				return channel.type !== ChannelType.GuildCategory && !channel.isThread() && channel.name === exemptChannelResolvable;
+				return !channel.partial && channel.type !== ChannelType.GuildCategory && !channel.isThread() && channel.name === exemptChannelResolvable;
 			}) ?? null;
 		}).filter<TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel>((exemptChannel: TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null): exemptChannel is TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel => {
 			return exemptChannel != null;
@@ -186,7 +187,7 @@ async function submitGuildRules(guild: Guild, ruleRegistry: AutoModerationRuleCr
 					...otherMetadataOptions
 				}: Omit<AutoModerationActionMetadataOptions, "channel"> & {channel?: string} = metadataResolvable;
 				const channel: TextChannel | NewsChannel | null = channelResolvable != null ? guild.channels.cache.find((channel: GuildBasedChannel): channel is TextChannel | NewsChannel => {
-					return !channel.isThread() && !channel.isVoiceBased() && channel.isTextBased() && channel.name === channelResolvable;
+					return !channel.partial && !channel.isThread() && !channel.isVoiceBased() && channel.isTextBased() && channel.name === channelResolvable;
 				}) ?? null : null;
 				if (channelResolvable != null && channel == null) {
 					return null;
@@ -233,6 +234,13 @@ const client: Client<boolean> = new Client({
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.Guilds,
+	],
+	partials: [
+		Partials.User,
+		Partials.Channel,
+		Partials.GuildMember,
+		Partials.Message,
+		Partials.Reaction,
 	],
 	presence: {
 		activities: [

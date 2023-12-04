@@ -4,6 +4,7 @@ import type {
 	Message,
 	MessageContextMenuCommandInteraction,
 	MessageReaction,
+	PartialMessageReaction,
 	Role,
 } from "discord.js";
 import type Command from "../commands.js";
@@ -69,7 +70,7 @@ const refuseCommand: Command = {
 				const {author}: Message<true> = targetMessage;
 				const memberId: string = author.id;
 				const member: GuildMember | null = guild.members.cache.get(memberId) ?? null;
-				if (member == null) {
+				if (member == null || member.partial) {
 					return await guild.members.fetch(memberId);
 				}
 				return member;
@@ -95,8 +96,8 @@ const refuseCommand: Command = {
 			return;
 		}
 		await targetMessage.react("❎");
-		const reaction: MessageReaction | null = targetMessage.reactions.cache.find((reaction: MessageReaction): boolean => {
-			return (reaction.emoji.name ?? "") === "✅";
+		const reaction: MessageReaction | null = targetMessage.reactions.cache.find((reaction: MessageReaction | PartialMessageReaction): reaction is MessageReaction => {
+			return !reaction.partial && (reaction.emoji.name ?? "") === "✅";
 		}) ?? null;
 		if (reaction != null) {
 			await reaction.users.remove();

@@ -62,6 +62,9 @@ const departureHook: Hook = {
 			return;
 		}
 		const [member]: ClientEvents["guildMemberRemove"] = (invocation.event as WebjobEvent<"guildMemberRemove">).data;
+		if (member.partial) {
+			return;
+		}
 		const greeting: string = greetings[Math.random() * greetings.length | 0]({
 			memberMention: (): string => {
 				return `**${escapeMarkdown(member.user.username)}**${member.user.discriminator != null && member.user.discriminator !== "0" ? `#**${escapeMarkdown(member.user.discriminator)}**` : ""}${member.user.globalName != null ? ` (**${escapeMarkdown(member.user.globalName)}**)` : ""}`;

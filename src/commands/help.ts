@@ -302,7 +302,7 @@ const helpCommand: Command = {
 						return null;
 					}
 					const channel: GuildBasedChannel | null = autoModerationRule.guild.channels.cache.get(channelId) ?? null;
-					if (channel == null || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {
+					if (channel == null || channel.partial || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {
 						return null;
 					}
 					return channel;

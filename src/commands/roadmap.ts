@@ -51,7 +51,7 @@ const roadmapCommand: Command = {
 		const {guild, locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const channel: TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null = guild.channels.cache.find((channel: GuildBasedChannel): channel is TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel => {
-			return channel.type !== ChannelType.GuildCategory && !channel.isThread() && channel.name === commandIntentChannel;
+			return !channel.partial && channel.type !== ChannelType.GuildCategory && !channel.isThread() && channel.name === commandIntentChannel;
 		}) ?? null;
 		function formatMessage(locale: Locale): string {
 			return replyLocalizations[locale]({

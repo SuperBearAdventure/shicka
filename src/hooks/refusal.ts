@@ -68,6 +68,9 @@ const refusalHook: Hook = {
 			return;
 		}
 		const [oldMember, newMember]: ClientEvents["guildMemberUpdate"] = (invocation.event as WebjobEvent<"guildMemberUpdate">).data;
+		if (oldMember.partial) {
+			return;
+		}
 		const {guild}: GuildMember = newMember;
 		const {name, roles}: Guild = guild;
 		const applyingRole: Role | null = roles.cache.find((role: Role): boolean => {

@@ -87,7 +87,7 @@ const rule7Rule: Rule = {
 					const thread: ThreadChannel<boolean> | null = await (async (): Promise<ThreadChannel<boolean> | null> => {
 						try {
 							const thread: ThreadChannel<true> | null = channel.threads.cache.get(messageId) ?? null;
-							if (thread == null) {
+							if (thread == null || thread.partial) {
 								return await channel.threads.fetch(messageId);
 							}
 							return thread;
@@ -119,7 +119,7 @@ const rule7Rule: Rule = {
 		}
 		const {rulesChannel}: Guild = guild;
 		const manualChannel: TextChannel | null = ruleRulesChannel != null ? guild.channels.cache.find((channel: GuildBasedChannel): channel is TextChannel => {
-			return channel.type !== ChannelType.GuildText && channel.name === ruleRulesChannel;
+			return !channel.partial && channel.type !== ChannelType.GuildText && channel.name === ruleRulesChannel;
 		}) ?? null : rulesChannel;
 		if (manualChannel != null) {
 			await message.reply({
@@ -143,7 +143,7 @@ const rule7Rule: Rule = {
 				return null;
 			}
 			const channel: GuildBasedChannel | null = autoModerationRule.guild.channels.cache.get(channelId) ?? null;
-			if (channel == null || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {
+			if (channel == null || channel.partial || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {
 				return null;
 			}
 			return channel;

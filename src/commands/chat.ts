@@ -328,7 +328,7 @@ const chatCommand: Command = {
 					const thread: ThreadChannel<boolean> | null = await (async (): Promise<ThreadChannel<boolean> | null> => {
 						try {
 							const thread: ThreadChannel<true> | null = channel.threads.cache.get(identifier) ?? null;
-							if (thread == null) {
+							if (thread == null || thread.partial) {
 								return await channel.threads.fetch(identifier);
 							}
 							return thread;
