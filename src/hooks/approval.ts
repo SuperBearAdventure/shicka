@@ -35,13 +35,13 @@ const {
 }: ApprovalCompilation = approvalCompilation;
 const {
 	SHICKA_APPROVAL_DEFAULT_CHANNEL,
-	SHICKA_APPROVAL_VERIFICATION_ROLE,
-	SHICKA_REFUSAL_APPLICATION_ROLE,
+	SHICKA_APPLICATION_APPLYING_ROLE,
+	SHICKA_VERIFICATION_VERIFIED_ROLE,
 }: NodeJS.ProcessEnv = process.env;
 const {createCanvas, loadImage}: any = canvas;
 const hookChannel: string = SHICKA_APPROVAL_DEFAULT_CHANNEL ?? "";
-const hookApplicationRole: string = SHICKA_REFUSAL_APPLICATION_ROLE ?? "";
-const hookVerificationRole: string = SHICKA_APPROVAL_VERIFICATION_ROLE ?? "";
+const hookApplyingRole: string = SHICKA_APPLICATION_APPLYING_ROLE ?? "";
+const hookVerifiedRole: string = SHICKA_VERIFICATION_VERIFIED_ROLE ?? "";
 const hookAvatar: string = await (async (): Promise<string> => {
 	const url: string = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 64 64" width="256" height="256"><circle cx="16" cy="16" r="24" fill="#ccc"/><path d="M6,17L12,23L26,9" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 	const image: Image = await loadImage(url);
@@ -70,32 +70,32 @@ const approvalHook: Hook = {
 		const [oldMember, newMember]: ClientEvents["guildMemberUpdate"] = (invocation.event as WebjobEvent<"guildMemberUpdate">).data;
 		const {guild}: GuildMember = newMember;
 		const {name, roles}: Guild = guild;
-		const applicationRole: Role | undefined = roles.cache.find((role: Role): boolean => {
-			return role.name === hookApplicationRole;
+		const applyingRole: Role | undefined = roles.cache.find((role: Role): boolean => {
+			return role.name === hookApplyingRole;
 		});
-		if (applicationRole == null) {
+		if (applyingRole == null) {
 			return;
 		}
-		const verificationRole: Role | undefined = roles.cache.find((role: Role): boolean => {
-			return role.name === hookVerificationRole;
+		const verifiedRole: Role | undefined = roles.cache.find((role: Role): boolean => {
+			return role.name === hookVerifiedRole;
 		});
-		if (verificationRole == null) {
+		if (verifiedRole == null) {
 			return;
 		}
 		if (oldMember.roles.cache.every((role: Role): boolean => {
-			return role.name !== hookApplicationRole;
+			return role.name !== hookApplyingRole;
 		}) && oldMember.roles.cache.some((role: Role): boolean => {
-			return role.name === hookVerificationRole;
+			return role.name === hookVerifiedRole;
 		})) {
 			return;
 		}
 		if (newMember.roles.cache.some((role: Role): boolean => {
-			return role.name === hookApplicationRole;
+			return role.name === hookApplyingRole;
 		})) {
 			return;
 		}
 		if (newMember.roles.cache.every((role: Role): boolean => {
-			return role.name !== hookVerificationRole;
+			return role.name !== hookVerifiedRole;
 		})) {
 			return;
 		}
