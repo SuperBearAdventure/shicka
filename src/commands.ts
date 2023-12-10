@@ -19,6 +19,7 @@ import helpCommand from "./commands/help.js";
 import leaderboardCommand from "./commands/leaderboard.js";
 import missionCommand from "./commands/mission.js";
 import outfitCommand from "./commands/outfit.js";
+import patchCommand from "./commands/patch.js";
 import rawCommand from "./commands/raw.js";
 import refuseCommand from "./commands/refuse.js";
 import roadmapCommand from "./commands/roadmap.js";
@@ -47,6 +48,7 @@ const help: Command = helpCommand;
 const leaderboard: Command = leaderboardCommand;
 const mission: Command = missionCommand;
 const outfit: Command = outfitCommand;
+const patch: Command = patchCommand;
 const raw: Command = rawCommand;
 const refuse: Command = refuseCommand;
 const roadmap: Command = roadmapCommand;
@@ -75,6 +77,7 @@ export {
 	leaderboard,
 	mission,
 	outfit,
+	patch,
 	raw,
 	refuse,
 	roadmap,

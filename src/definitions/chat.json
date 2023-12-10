@@ -14,7 +14,7 @@
 	"patchSubCommandName": "patch",
 	"patchSubCommandDescription": {
 		"en-US": "Edits this message with this content in this channel",
-		"fr": "Modifie de message avec ce contenu dans ce salon",
+		"fr": "Modifie ce message avec ce contenu dans ce salon",
 		"pt-BR": "Edita a mensagem com esse conteúdo nesse canal"
 	},
 	"attachSubCommandName": "attach",
