@@ -17,6 +17,7 @@ $ export SHICKA_DEPARTURE_DEFAULT_CHANNEL=<your-departure-default-channel-here>
 $ export SHICKA_RECORD_DEFAULT_CHANNEL=<your-record-default-channel-here>
 $ export SHICKA_REFUSAL_APPLICATION_ROLE=<your-refusal-application-role-here>
 $ export SHICKA_REFUSAL_DEFAULT_CHANNEL=<your-refusal-default-channel-here>
+$ export SHICKA_VERIFICATION_DEFAULT_CHANNEL=<your-verification-default-channel-here>
 $ export SHICKA_RULE7_DEFAULT_ALERT_ACTION_CHANNEL=<your-rule7-default-alert-action-channel-here>
 $ export SHICKA_RULE7_DEFAULT_EXEMPT_CHANNELS=<your-rule7-default-exempt-channels-here>
 $ export SHICKA_RULE7_DEFAULT_EXEMPT_ROLES=<your-rule7-default-exempt-roles-here>
@@ -94,6 +95,8 @@ $ npm start
 
 - `update` gives the links to the latest updates of the game on `play.google.com` and `apps.apple.com`
 
+- `verify` makes the member exit the waiting room (only available to administrator members by default)
+
 ### Hooks
 
 - `application` posts the latest member application in the server in the given channel (set to `$SHICKA_APPLICATION_DEFAULT_CHANNEL` by default)
@@ -107,6 +110,8 @@ $ npm start
 - `record` posts the latest world records of the game on `www.speedrun.com` in the given channel (set to `$SHICKA_RECORD_DEFAULT_CHANNEL` by default)
 
 - `refusal` posts the latest member refusal in the server in the given channel (set to `$SHICKA_REFUSAL_DEFAULT_CHANNEL` by default) and sends a direct message
+
+- `verification` posts the latest member verification in the server in the given channel (set to `$SHICKA_VERIFICATION_DEFAULT_CHANNEL` by default)
 
 ### Rules
 

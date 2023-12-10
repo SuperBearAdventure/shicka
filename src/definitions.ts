@@ -25,6 +25,8 @@ import storeDefinition from "./definitions/store.json" assert {type: "json"};
 import trackerDefinition from "./definitions/tracker.json" assert {type: "json"};
 import trailerDefinition from "./definitions/trailer.json" assert {type: "json"};
 import updateDefinition from "./definitions/update.json" assert {type: "json"};
+import verificationDefinition from "./definitions/verification.json" assert {type: "json"};
+import verifyDefinition from "./definitions/verify.json" assert {type: "json"};
 type About = {
 	commandName: string,
 	commandDescription: Localized<string>,
@@ -259,7 +261,20 @@ type Update = {
 	defaultReply: Localized<string>,
 	link: Localized<string>,
 };
-type Definition = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
+type Verification = {
+	hookName: string,
+	hookReason: string,
+	helpWithChannel: Localized<string>,
+	helpWithoutChannel: Localized<string>,
+};
+type Verify = {
+	commandName: string,
+	commandDescription: Localized<string>,
+	help: Localized<string>,
+	reply: Localized<string>,
+	noPermissionReply: Localized<string>,
+};
+type Definition = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
 const about: About = aboutDefinition;
 const application: Application = applicationDefinition;
 const apply: Apply = applyDefinition;
@@ -286,6 +301,8 @@ const store: Store = storeDefinition;
 const tracker: Tracker = trackerDefinition;
 const trailer: Trailer = trailerDefinition;
 const update: Update = updateDefinition;
+const verification: Verification = verificationDefinition;
+const verify: Verify = verifyDefinition;
 export type {Definition as default};
 export type {
 	About,
@@ -314,6 +331,8 @@ export type {
 	Tracker,
 	Trailer,
 	Update,
+	Verification,
+	Verify,
 };
 export {
 	about,
@@ -342,4 +361,6 @@ export {
 	tracker,
 	trailer,
 	update,
+	verification,
+	verify,
 };

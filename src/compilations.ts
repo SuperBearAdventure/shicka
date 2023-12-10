@@ -24,6 +24,8 @@ import storeCompilation from "./compilations/store.js";
 import trackerCompilation from "./compilations/tracker.js";
 import trailerCompilation from "./compilations/trailer.js";
 import updateCompilation from "./compilations/update.js";
+import verificationCompilation from "./compilations/verification.js";
+import verifyCompilation from "./compilations/verify.js";
 type About = typeof aboutCompilation;
 type Application = typeof applicationCompilation;
 type Apply = typeof applyCompilation;
@@ -50,7 +52,9 @@ type Store = typeof storeCompilation;
 type Tracker = typeof trackerCompilation;
 type Trailer = typeof trailerCompilation;
 type Update = typeof updateCompilation;
-type Compilation = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
+type Verification = typeof verificationCompilation;
+type Verify = typeof verifyCompilation;
+type Compilation = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
 const about: About = aboutCompilation;
 const application: Application = applicationCompilation;
 const apply: Apply = applyCompilation;
@@ -77,6 +81,8 @@ const store: Store = storeCompilation;
 const tracker: Tracker = trackerCompilation;
 const trailer: Trailer = trailerCompilation;
 const update: Update = updateCompilation;
+const verification: Verification = verificationCompilation;
+const verify: Verify = verifyCompilation;
 export type {Compilation as default};
 export type {
 	About,
@@ -105,6 +111,8 @@ export type {
 	Tracker,
 	Trailer,
 	Update,
+	Verification,
+	Verify,
 };
 export {
 	about,
@@ -133,4 +141,6 @@ export {
 	tracker,
 	trailer,
 	update,
+	verification,
+	verify,
 };

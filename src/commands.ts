@@ -26,6 +26,7 @@ import storeCommand from "./commands/store.js";
 import trackerCommand from "./commands/tracker.js";
 import trailerCommand from "./commands/trailer.js";
 import updateCommand from "./commands/update.js";
+import verifyCommand from "./commands/verify.js";
 type ApplicationCommandData = ChatInputApplicationCommandData | MessageApplicationCommandData;
 type ApplicationUserInteraction = AutocompleteInteraction<"cached"> | ChatInputCommandInteraction<"cached"> | MessageContextMenuCommandInteraction<"cached">;
 type Command = {
@@ -52,6 +53,7 @@ const store: Command = storeCommand;
 const tracker: Command = trackerCommand;
 const trailer: Command = trailerCommand;
 const update: Command = updateCommand;
+const verify: Command = verifyCommand;
 export type {Command as default};
 export type {
 	ApplicationCommand,
@@ -78,4 +80,5 @@ export {
 	tracker,
 	trailer,
 	update,
+	verify,
 };
