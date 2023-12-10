@@ -1,0 +1,39 @@
+{
+	"commandName": "patch",
+	"commandDescription": {
+		"en-US": "Edits this message",
+		"fr": "Modifie ce message",
+		"pt-BR": "Edita a mensagem"
+	},
+	"contentOptionName": "content",
+	"contentOptionDescription": {
+		"en-US": "Some content",
+		"fr": "Un contenu",
+		"pt-BR": "Algum conteúdo"
+	},
+	"help": {
+		"en-US": "Press **$<commandMention>** to edit a message",
+		"fr": "Appuie sur **$<commandMention>** pour modifier un message",
+		"pt-BR": "Pressione **$<commandMention>** pra editar uma mensagem"
+	},
+	"reply": {
+		"en-US": "I have edited the message.",
+		"fr": "J'ai modifié le message.",
+		"pt-BR": "Editei a mensagem."
+	},
+	"noInteractionReply": {
+		"en-US": "I can not edit interaction replies or follow-ups.",
+		"fr": "Je ne peux pas modifier de réponses ou de suites aux interactions.",
+		"pt-BR": "Eu não posso editar respostas de interação ou acompanhamentos."
+	},
+	"noContentOrAttachmentReply": {
+		"en-US": "Please keep a content or attachments.",
+		"fr": "Merci de garder un contenu ou des pièces jointes.",
+		"pt-BR": "Por favor, mantenha um conteúdo ou anexos."
+	},
+	"noPermissionReply": {
+		"en-US": "I do not have the rights to edit this message.",
+		"fr": "Je n'ai pas les droits pour modifier ce message.",
+		"pt-BR": "Eu não tenho as permissões pra editar essa mensagem."
+	}
+}

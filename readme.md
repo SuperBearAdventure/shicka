@@ -83,6 +83,8 @@ $ npm start
 
 - `outfit <outfit>` gives the schedule of at least the next two occurrences of the given outfit in the shop
 
+- `patch <content>` is a shortcut for `chat patch <channel> <message> <content>` (only available to administrator members by default)
+
 - `raw <type> <identifier>` gives the datum of the given type with the given identifier
 
 - `refuse` is a shortcut for `gate refuse <channel> <message>` (only available to administrator members by default)

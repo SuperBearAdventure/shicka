@@ -14,11 +14,13 @@ import type {Chat as ChatDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {
 	ApplicationCommandOptionType,
+	ApplicationCommandType,
 	ChannelType,
 	ComponentType,
 	TextInputStyle,
 	escapeMarkdown,
 } from "discord.js";
+import {patch as patchCommand} from "../commands.js";
 import {chat as chatCompilation} from "../compilations.js";
 import {chat as chatDefinition} from "../definitions.js";
 import {composeAll, localize, resolve} from "../utils/string.js";
@@ -347,63 +349,12 @@ const chatCommand: Command = {
 			return;
 		}
 		if (subCommandName === patchSubCommandName) {
-			await interaction.showModal({
-				customId: interaction.id,
-				title: contentOptionDescription[resolvedLocale],
-				components: [
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.TextInput,
-								style: TextInputStyle.Paragraph,
-								customId: contentOptionName,
-								label: contentOptionName,
-								required: false,
-								value: message.content,
-								minLength: 0,
-								maxLength: 2000,
-							},
-						],
-					},
-				],
-			});
-			const modalSubmitInteraction: ModalSubmitInteraction<"cached"> = await interaction.awaitModalSubmit({
-				filter: (modalSubmitInteraction: ModalSubmitInteraction): boolean => {
-					return modalSubmitInteraction.customId === interaction.id;
+			await patchCommand.interact(Object.assign(Object.create(interaction), {
+				commandType: ApplicationCommandType.Message,
+				get targetMessage(): Message<true> {
+					return message;
 				},
-				time: 900000,
-			});
-			const content: string | null = modalSubmitInteraction.fields.getTextInputValue(contentOptionName) || null;
-			if (content == null && message.attachments.size === 0) {
-				await modalSubmitInteraction.reply({
-					content: noContentOrAttachmentReplyLocalizations[resolvedLocale]({}),
-					ephemeral: true,
-				});
-				return;
-			}
-			try {
-				await message.edit({content});
-			} catch {
-				await modalSubmitInteraction.reply({
-					content: noPatchPermissionReplyLocalizations[resolvedLocale]({}),
-					ephemeral: true,
-				});
-				return;
-			}
-			function formatMessage(locale: Locale): string {
-				return replyLocalizations[locale]({});
-			}
-			await modalSubmitInteraction.reply({
-				content: formatMessage("en-US"),
-			});
-			if (resolvedLocale === "en-US") {
-				return;
-			}
-			await modalSubmitInteraction.followUp({
-				content: formatMessage(resolvedLocale),
-				ephemeral: true,
-			});
+			}));
 			return;
 		}
 		if (subCommandName === attachSubCommandName) {
@@ -438,6 +389,7 @@ const chatCommand: Command = {
 			}
 			await interaction.reply({
 				content: formatMessage("en-US"),
+				ephemeral: true,
 			});
 			if (resolvedLocale === "en-US") {
 				return;
@@ -486,6 +438,7 @@ const chatCommand: Command = {
 			}
 			await interaction.reply({
 				content: formatMessage("en-US"),
+				ephemeral: true,
 			});
 			if (resolvedLocale === "en-US") {
 				return;

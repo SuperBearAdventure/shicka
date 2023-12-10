@@ -14,6 +14,7 @@ import type HelpDependency from "./dependencies/help.js";
 import type LeaderboardDependency from "./dependencies/leaderboard.js";
 import type MissionDependency from "./dependencies/mission.js";
 import type OutfitDependency from "./dependencies/outfit.js";
+import type PatchDependency from "./dependencies/patch.js";
 import type RawDependency from "./dependencies/raw.js";
 import type RecordDependency from "./dependencies/record.js";
 import type RefusalDependency from "./dependencies/refusal.js";
@@ -43,6 +44,7 @@ type Help = HelpDependency;
 type Leaderboard = LeaderboardDependency;
 type Mission = MissionDependency;
 type Outfit = OutfitDependency;
+type Patch = PatchDependency;
 type Raw = RawDependency;
 type Record = RecordDependency;
 type Refusal = RefusalDependency;
@@ -56,7 +58,7 @@ type Trailer = TrailerDependency;
 type Update = UpdateDependency;
 type Verification = VerificationDependency;
 type Verify = VerifyDependency;
-type Dependency = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
+type Dependency = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Leaderboard | Mission | Outfit | Patch | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
 export type {Dependency as default};
 export type {
 	About,
@@ -75,6 +77,7 @@ export type {
 	Leaderboard,
 	Mission,
 	Outfit,
+	Patch,
 	Raw,
 	Record,
 	Refusal,
