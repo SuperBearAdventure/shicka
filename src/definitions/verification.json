@@ -1,0 +1,14 @@
+{
+	"hookName": "verification",
+	"hookReason": "Posts the latest member verification in the given channel",
+	"helpWithChannel": {
+		"en-US": "I post the latest member verification in $<channelMention>",
+		"fr": "Je poste la dernière vérification de membre dans $<channelMention>",
+		"pt-BR": "Eu posto a verificação mais recente de membro em $<channelMention>"
+	},
+	"helpWithoutChannel": {
+		"en-US": "I post the latest member verification",
+		"fr": "Je poste la dernière vérification de membre",
+		"pt-BR": "Eu posto a verificação mais recente de membro"
+	}
+}

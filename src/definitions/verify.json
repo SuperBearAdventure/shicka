@@ -1,0 +1,23 @@
+{
+	"commandName": "verify",
+	"commandDescription": {
+		"en-US": "Makes you exit the waiting room",
+		"fr": "Te fait sortir de la salle d'attente",
+		"pt-BR": "Makes you exit the waiting room"
+	},
+	"help": {
+		"en-US": "Type $<commandMention> to exit the waiting room",
+		"fr": "Tape $<commandMention> pour sortir de la salle d'attente",
+		"pt-BR": "Type $<commandMention> to exit the waiting room"
+	},
+	"reply": {
+		"en-US": "I have handled your verification. Welcome to the official *$<name>* *Discord* server!",
+		"fr": "J'ai géré ta vérification. Bienvenue sur le serveur *Discord* officiel de *$<name>* !",
+		"pt-BR": "I have handled your verification. Welcome to the official *$<name>* *Discord* server!"
+	},
+	"noPermissionReply": {
+		"en-US": "I do not have the rights to handle your verification.",
+		"fr": "Je n'ai pas les droits pour gérer ta vérification.",
+		"pt-BR": "I do not have the rights to handle your verification."
+	}
+}

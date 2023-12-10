@@ -12,6 +12,7 @@ import approvalHook from "./hooks/approval.js";
 import departureHook from "./hooks/departure.js";
 import refusalHook from "./hooks/refusal.js";
 import recordHook from "./hooks/record.js";
+import verificationHook from "./hooks/verification.js";
 type WebhookData = (
 	{
 		type: keyof ClientEvents,
@@ -56,6 +57,7 @@ const approval: Hook = approvalHook;
 const departure: Hook = departureHook;
 const record: Hook = recordHook;
 const refusal: Hook = refusalHook;
+const verification: Hook = verificationHook;
 export type {Hook as default};
 export type {
 	Webhook,
@@ -69,4 +71,5 @@ export {
 	departure,
 	record,
 	refusal,
+	verification,
 };

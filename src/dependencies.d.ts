@@ -24,6 +24,8 @@ import type StoreDependency from "./dependencies/store.js";
 import type TrackerDependency from "./dependencies/tracker.js";
 import type TrailerDependency from "./dependencies/trailer.js";
 import type UpdateDependency from "./dependencies/update.js";
+import type VerificationDependency from "./dependencies/verification.js";
+import type VerifyDependency from "./dependencies/verify.js";
 type About = AboutDependency;
 type Application = ApplicationDependency;
 type Apply = ApplyDependency;
@@ -50,7 +52,9 @@ type Store = StoreDependency;
 type Tracker = TrackerDependency;
 type Trailer = TrailerDependency;
 type Update = UpdateDependency;
-type Dependency = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
+type Verification = VerificationDependency;
+type Verify = VerifyDependency;
+type Dependency = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
 export type {Dependency as default};
 export type {
 	About,
@@ -79,4 +83,6 @@ export type {
 	Tracker,
 	Trailer,
 	Update,
+	Verification,
+	Verify,
 };
