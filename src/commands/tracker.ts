@@ -1,6 +1,6 @@
 import type {
-	GuildBasedChannel,
 	ChatInputCommandInteraction,
+	GuildBasedChannel,
 } from "discord.js";
 import type Command from "../commands.js";
 import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";

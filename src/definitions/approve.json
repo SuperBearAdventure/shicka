@@ -1,5 +1,5 @@
 {
-	"commandName": "verification",
+	"commandName": "approve",
 	"commandDescription": {
 		"en-US": "Approves this member",
 		"fr": "Approuve ce membre",

@@ -1,6 +1,9 @@
 import type {Localized} from "./utils/string.js";
 import aboutDefinition from "./definitions/about.json" assert {type: "json"};
+import applicationDefinition from "./definitions/application.json" assert {type: "json"};
+import applyDefinition from "./definitions/apply.json" assert {type: "json"};
 import approvalDefinition from "./definitions/approval.json" assert {type: "json"};
+import approveDefinition from "./definitions/approve.json" assert {type: "json"};
 import arrivalDefinition from "./definitions/arrival.json" assert {type: "json"};
 import bearDefinition from "./definitions/bear.json" assert {type: "json"};
 import chatDefinition from "./definitions/chat.json" assert {type: "json"};
@@ -14,26 +17,46 @@ import outfitDefinition from "./definitions/outfit.json" assert {type: "json"};
 import rawDefinition from "./definitions/raw.json" assert {type: "json"};
 import recordDefinition from "./definitions/record.json" assert {type: "json"};
 import refusalDefinition from "./definitions/refusal.json" assert {type: "json"};
+import refuseDefinition from "./definitions/refuse.json" assert {type: "json"};
 import roadmapDefinition from "./definitions/roadmap.json" assert {type: "json"};
 import rule7Definition from "./definitions/rule7.json" assert {type: "json"};
 import soundtrackDefinition from "./definitions/soundtrack.json" assert {type: "json"};
 import storeDefinition from "./definitions/store.json" assert {type: "json"};
 import trackerDefinition from "./definitions/tracker.json" assert {type: "json"};
 import trailerDefinition from "./definitions/trailer.json" assert {type: "json"};
-import unverificationDefinition from "./definitions/unverification.json" assert {type: "json"};
 import updateDefinition from "./definitions/update.json" assert {type: "json"};
-import verificationDefinition from "./definitions/verification.json" assert {type: "json"};
 type About = {
 	commandName: string,
 	commandDescription: Localized<string>,
 	help: Localized<string>,
 	reply: Localized<string>,
 };
+type Application = {
+	hookName: string,
+	hookReason: string,
+	helpWithChannel: Localized<string>,
+	helpWithoutChannel: Localized<string>,
+};
+type Apply = {
+	commandName: string,
+	commandDescription: Localized<string>,
+	help: Localized<string>,
+	reply: Localized<string>,
+	noPermissionReply: Localized<string>,
+};
 type Approval = {
 	hookName: string,
 	hookReason: string,
 	helpWithChannel: Localized<string>,
 	helpWithoutChannel: Localized<string>,
+};
+type Approve = {
+	commandName: string,
+	commandDescription: Localized<string>,
+	help: Localized<string>,
+	reply: Localized<string>,
+	noMemberReply: Localized<string>,
+	noPermissionReply: Localized<string>,
 };
 type Arrival = {
 	hookName: string,
@@ -174,6 +197,14 @@ type Refusal = {
 	helpWithChannel: Localized<string>,
 	helpWithoutChannel: Localized<string>,
 };
+type Refuse = {
+	commandName: string,
+	commandDescription: Localized<string>,
+	help: Localized<string>,
+	reply: Localized<string>,
+	noMemberReply: Localized<string>,
+	noPermissionReply: Localized<string>,
+};
 type Roadmap = {
 	commandName: string,
 	commandDescription: Localized<string>,
@@ -220,14 +251,6 @@ type Trailer = {
 	defaultReply: Localized<string>,
 	link: Localized<string>,
 };
-type Unverification = {
-	commandName: string,
-	commandDescription: Localized<string>,
-	help: Localized<string>,
-	reply: Localized<string>,
-	noMemberReply: Localized<string>,
-	noPermissionReply: Localized<string>,
-};
 type Update = {
 	commandName: string,
 	commandDescription: Localized<string>,
@@ -236,17 +259,12 @@ type Update = {
 	defaultReply: Localized<string>,
 	link: Localized<string>,
 };
-type Verification = {
-	commandName: string,
-	commandDescription: Localized<string>,
-	help: Localized<string>,
-	reply: Localized<string>,
-	noMemberReply: Localized<string>,
-	noPermissionReply: Localized<string>,
-};
-type Definition = About | Approval | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Unverification | Update | Verification;
+type Definition = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
 const about: About = aboutDefinition;
+const application: Application = applicationDefinition;
+const apply: Apply = applyDefinition;
 const approval: Approval = approvalDefinition;
+const approve: Approve = approveDefinition;
 const arrival: Arrival = arrivalDefinition;
 const bear: Bear = bearDefinition;
 const chat: Chat = chatDefinition;
@@ -260,19 +278,21 @@ const outfit: Outfit = outfitDefinition;
 const raw: Raw = rawDefinition;
 const record: Record = recordDefinition;
 const refusal: Refusal = refusalDefinition;
+const refuse: Refuse = refuseDefinition;
 const roadmap: Roadmap = roadmapDefinition;
 const rule7: Rule7 = rule7Definition;
 const soundtrack: Soundtrack = soundtrackDefinition;
 const store: Store = storeDefinition;
 const tracker: Tracker = trackerDefinition;
 const trailer: Trailer = trailerDefinition;
-const unverification: Unverification = unverificationDefinition;
 const update: Update = updateDefinition;
-const verification: Verification = verificationDefinition;
 export type {Definition as default};
 export type {
 	About,
+	Application,
+	Apply,
 	Approval,
+	Approve,
 	Arrival,
 	Bear,
 	Chat,
@@ -286,19 +306,21 @@ export type {
 	Raw,
 	Record,
 	Refusal,
+	Refuse,
 	Roadmap,
 	Rule7,
 	Soundtrack,
 	Store,
 	Tracker,
 	Trailer,
-	Unverification,
 	Update,
-	Verification,
 };
 export {
 	about,
+	application,
+	apply,
 	approval,
+	approve,
 	arrival,
 	bear,
 	chat,
@@ -312,13 +334,12 @@ export {
 	raw,
 	record,
 	refusal,
+	refuse,
 	roadmap,
 	rule7,
 	soundtrack,
 	store,
 	tracker,
 	trailer,
-	unverification,
 	update,
-	verification,
 };

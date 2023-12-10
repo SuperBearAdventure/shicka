@@ -323,7 +323,7 @@ const chatCommand: Command = {
 		const message: Message<true> | undefined = await (async (): Promise<Message<true> | undefined> => {
 			try {
 				if (channel.isThreadOnly()) {
-					const thread: ThreadChannel | undefined = channel.threads.cache.get(identifier);
+					const thread: ThreadChannel<boolean> | undefined = channel.threads.cache.get(identifier);
 					if (thread == null) {
 						return;
 					}

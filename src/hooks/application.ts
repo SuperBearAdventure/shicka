@@ -3,24 +3,20 @@ import type {
 	ClientEvents,
 	Guild,
 	GuildMember,
-	Message,
 	Role,
 } from "discord.js";
 import type {Canvas, CanvasRenderingContext2D, Image} from "canvas";
-import type {Approval as ApprovalCompilation} from "../compilations.js";
-import type {Approval as ApprovalDefinition} from "../definitions.js";
-import type {Approval as ApprovalDependency} from "../dependencies.js";
+import type {Application as ApplicationCompilation} from "../compilations.js";
+import type {Application as ApplicationDefinition} from "../definitions.js";
+import type {Application as ApplicationDependency} from "../dependencies.js";
 import type Hook from "../hooks.js";
 import type {Webhook, WebhookData, WebjobInvocation} from "../hooks.js";
 import type {Localized} from "../utils/string.js";
-import {
-	escapeMarkdown,
-} from "discord.js";
 import canvas from "canvas";
-import {approval as approvalCompilation} from "../compilations.js";
-import {approval as approvalDefinition} from "../definitions.js";
+import {application as applicationCompilation} from "../compilations.js";
+import {application as applicationDefinition} from "../definitions.js";
 import {composeAll, localize} from "../utils/string.js";
-type HelpWithChannelGroups = ApprovalDependency["helpWithChannel"];
+type HelpWithChannelGroups = ApplicationDependency["helpWithChannel"];
 type WebjobEvent<K extends keyof ClientEvents> = {
 	type: K,
 	data: ClientEvents[K],
@@ -28,22 +24,22 @@ type WebjobEvent<K extends keyof ClientEvents> = {
 const {
 	hookName,
 	hookReason,
-}: ApprovalDefinition = approvalDefinition;
+}: ApplicationDefinition = applicationDefinition;
 const {
 	helpWithChannel: helpWithChannelLocalizations,
 	helpWithoutChannel: helpWithoutChannelLocalizations,
-}: ApprovalCompilation = approvalCompilation;
+}: ApplicationCompilation = applicationCompilation;
 const {
-	SHICKA_APPROVAL_DEFAULT_CHANNEL,
+	SHICKA_APPLICATION_DEFAULT_CHANNEL,
 	SHICKA_APPROVAL_VERIFICATION_ROLE,
 	SHICKA_REFUSAL_APPLICATION_ROLE,
 }: NodeJS.ProcessEnv = process.env;
 const {createCanvas, loadImage}: any = canvas;
-const hookChannel: string = SHICKA_APPROVAL_DEFAULT_CHANNEL ?? "";
+const hookChannel: string = SHICKA_APPLICATION_DEFAULT_CHANNEL ?? "";
 const hookApplicationRole: string = SHICKA_REFUSAL_APPLICATION_ROLE ?? "";
 const hookVerificationRole: string = SHICKA_APPROVAL_VERIFICATION_ROLE ?? "";
 const hookAvatar: string = await (async (): Promise<string> => {
-	const url: string = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 64 64" width="256" height="256"><circle cx="16" cy="16" r="24" fill="#ccc"/><path d="M6,17L12,23L26,9" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+	const url: string = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 64 64" width="256" height="256"><circle cx="16" cy="16" r="24" fill="#ccc"/><path d="M19,6L13,26" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 	const image: Image = await loadImage(url);
 	const canvas: Canvas = createCanvas(256, 256);
 	const context: CanvasRenderingContext2D = canvas.getContext("2d");
@@ -51,7 +47,7 @@ const hookAvatar: string = await (async (): Promise<string> => {
 	const data: string = canvas.toDataURL();
 	return data;
 })();
-const approvalHook: Hook = {
+const applicationHook: Hook = {
 	register(): WebhookData {
 		return {
 			type: "guildMemberUpdate",
@@ -69,7 +65,7 @@ const approvalHook: Hook = {
 		}
 		const [oldMember, newMember]: ClientEvents["guildMemberUpdate"] = (invocation.event as WebjobEvent<"guildMemberUpdate">).data;
 		const {guild}: GuildMember = newMember;
-		const {name, roles}: Guild = guild;
+		const {roles}: Guild = guild;
 		const applicationRole: Role | undefined = roles.cache.find((role: Role): boolean => {
 			return role.name === hookApplicationRole;
 		});
@@ -82,49 +78,43 @@ const approvalHook: Hook = {
 		if (verificationRole == null) {
 			return;
 		}
-		if (oldMember.roles.cache.every((role: Role): boolean => {
-			return role.name !== hookApplicationRole;
-		}) && oldMember.roles.cache.some((role: Role): boolean => {
-			return role.name === hookVerificationRole;
-		})) {
-			return;
-		}
-		if (newMember.roles.cache.some((role: Role): boolean => {
+		if (oldMember.roles.cache.some((role: Role): boolean => {
 			return role.name === hookApplicationRole;
-		})) {
-			return;
-		}
-		if (newMember.roles.cache.every((role: Role): boolean => {
+		}) && oldMember.roles.cache.every((role: Role): boolean => {
 			return role.name !== hookVerificationRole;
 		})) {
 			return;
 		}
+		if (newMember.roles.cache.every((role: Role): boolean => {
+			return role.name !== hookApplicationRole;
+		})) {
+			return;
+		}
+		if (newMember.roles.cache.some((role: Role): boolean => {
+			return role.name === hookVerificationRole;
+		})) {
+			return;
+		}
 		const memberMention: string = `<@${newMember.id}>`;
-		const greeting: string = `${memberMention} has been approved.`;
+		const status: string = `${memberMention} is applying.`;
 		const {client, webhooks}: WebjobInvocation = invocation;
 		const {user}: Client<true> = client;
 		const applicationName: string = user.username;
 		const applicationIcon: string = user.displayAvatarURL();
 		for (const webhook of webhooks) {
 			const {channel}: Webhook = webhook;
-			const approval: string = greeting;
-			const welcome: string = "New member approval in the server";
-			const message: Message<boolean> = await webhook.send({
-				content: approval,
+			const application: string = status;
+			const title: string = "New member application in the server";
+			webhook.send({
+				content: application,
 				username: applicationName,
 				avatarURL: applicationIcon,
-				...(channel != null && channel.isThreadOnly() ? {threadName: welcome} : {}),
+				...(channel != null && channel.isThreadOnly() ? {threadName: title} : {}),
 				allowedMentions: {
 					parse: [],
 				},
 			});
-			await message.react("🇭");
-			await message.react("🇪");
-			await message.react("🇾");
-			await message.react("👋");
 		}
-		const content: string = `You managed to get verified in the official *${escapeMarkdown(name)}* *Discord* server!\nYou should now be able to interact with the community.\nSee you there!`;
-		await newMember.send({content});
 	},
 	describe(webhook: Webhook): Localized<(groups: {}) => string> {
 		const {channel}: Webhook = webhook;
@@ -137,4 +127,4 @@ const approvalHook: Hook = {
 		})) : helpWithoutChannelLocalizations;
 	},
 };
-export default approvalHook;
+export default applicationHook;

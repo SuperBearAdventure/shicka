@@ -9,13 +9,14 @@ $ export SHICKA_DISCORD_TOKEN=<your-discord-token-here>
 $ export SHICKA_OUTFIT_GENERATOR_SALT=<your-outfit-generator-salt-here>
 $ export SHICKA_ROADMAP_INTENT_CHANNEL=<your-roadmap-intent-channel-here>
 $ export SHICKA_TRACKER_INTENT_CHANNEL=<your-tracker-intent-channel-here>
+$ export SHICKA_APPLICATION_DEFAULT_CHANNEL=<your-application-default-channel-here>
 $ export SHICKA_APPROVAL_DEFAULT_CHANNEL=<your-approval-default-channel-here>
 $ export SHICKA_APPROVAL_VERIFICATION_ROLE=<your-approval-verification-role-here>
 $ export SHICKA_ARRIVAL_DEFAULT_CHANNEL=<your-arrival-default-channel-here>
 $ export SHICKA_DEPARTURE_DEFAULT_CHANNEL=<your-departure-default-channel-here>
 $ export SHICKA_RECORD_DEFAULT_CHANNEL=<your-record-default-channel-here>
+$ export SHICKA_REFUSAL_APPLICATION_ROLE=<your-refusal-application-role-here>
 $ export SHICKA_REFUSAL_DEFAULT_CHANNEL=<your-refusal-default-channel-here>
-$ export SHICKA_REFUSAL_UNVERIFICATION_ROLE=<your-refusal-unverification-role-here>
 $ export SHICKA_RULE7_DEFAULT_ALERT_ACTION_CHANNEL=<your-rule7-default-alert-action-channel-here>
 $ export SHICKA_RULE7_DEFAULT_EXEMPT_CHANNELS=<your-rule7-default-exempt-channels-here>
 $ export SHICKA_RULE7_DEFAULT_EXEMPT_ROLES=<your-rule7-default-exempt-roles-here>
@@ -47,6 +48,10 @@ $ npm start
 
 - `about` gives the link to this repository on `github.com`
 
+- `apply` makes the member enter the waiting room (only available to administrator members by default)
+
+- `approve` approves the author of the given message (only available to administrator members by default)
+
 - `bear <bear>` gives the gold time, the location, and the outfits of the given bear
 
 - `chat post <channel> <content>` sends the given content in the given channel (only available to administrator members by default)
@@ -75,6 +80,8 @@ $ npm start
 
 - `raw <type> <identifier>` gives the datum of the given type with the given identifier
 
+- `refuse` refuses the author of the given message (only available to administrator members by default)
+
 - `roadmap` gives the link to the todo list of the game on `trello.com`
 
 - `soundtrack` gives the links to the music pieces of the game on `www.youtube.com`
@@ -85,13 +92,11 @@ $ npm start
 
 - `trailer` gives the links to the trailers of the game on `www.youtube.com`
 
-- `unverification` refuses the author of the given message
-
 - `update` gives the links to the latest updates of the game on `play.google.com` and `apps.apple.com`
 
-- `verification` approves the author of the given message
-
 ### Hooks
+
+- `application` posts the latest member application in the server in the given channel (set to `$SHICKA_APPLICATION_DEFAULT_CHANNEL` by default)
 
 - `approval` posts the latest member approval in the server in the given channel (set to `$SHICKA_APPROVAL_DEFAULT_CHANNEL` by default) and sends a direct message
 

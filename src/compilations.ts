@@ -1,5 +1,8 @@
 import aboutCompilation from "./compilations/about.js";
+import applicationCompilation from "./compilations/application.js";
+import applyCompilation from "./compilations/apply.js";
 import approvalCompilation from "./compilations/approval.js";
+import approveCompilation from "./compilations/approve.js";
 import arrivalCompilation from "./compilations/arrival.js";
 import bearCompilation from "./compilations/bear.js";
 import chatCompilation from "./compilations/chat.js";
@@ -13,17 +16,19 @@ import outfitCompilation from "./compilations/outfit.js";
 import rawCompilation from "./compilations/raw.js";
 import recordCompilation from "./compilations/record.js";
 import refusalCompilation from "./compilations/refusal.js";
+import refuseCompilation from "./compilations/refuse.js";
 import roadmapCompilation from "./compilations/roadmap.js";
 import rule7Compilation from "./compilations/rule7.js";
 import soundtrackCompilation from "./compilations/soundtrack.js";
 import storeCompilation from "./compilations/store.js";
 import trackerCompilation from "./compilations/tracker.js";
 import trailerCompilation from "./compilations/trailer.js";
-import unverificationCompilation from "./compilations/unverification.js";
 import updateCompilation from "./compilations/update.js";
-import verificationCompilation from "./compilations/verification.js";
 type About = typeof aboutCompilation;
+type Application = typeof applicationCompilation;
+type Apply = typeof applyCompilation;
 type Approval = typeof approvalCompilation;
+type Approve = typeof approveCompilation;
 type Arrival = typeof arrivalCompilation;
 type Bear = typeof bearCompilation;
 type Chat = typeof chatCompilation;
@@ -37,18 +42,20 @@ type Outfit = typeof outfitCompilation;
 type Raw = typeof rawCompilation;
 type Record = typeof recordCompilation;
 type Refusal = typeof refusalCompilation;
+type Refuse = typeof refuseCompilation;
 type Roadmap = typeof roadmapCompilation;
 type Rule7 = typeof rule7Compilation;
 type Soundtrack = typeof soundtrackCompilation;
 type Store = typeof storeCompilation;
 type Tracker = typeof trackerCompilation;
 type Trailer = typeof trailerCompilation;
-type Unverification = typeof unverificationCompilation;
 type Update = typeof updateCompilation;
-type Verification = typeof verificationCompilation;
-type Compilation = About | Approval | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Unverification | Update | Verification;
+type Compilation = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update;
 const about: About = aboutCompilation;
+const application: Application = applicationCompilation;
+const apply: Apply = applyCompilation;
 const approval: Approval = approvalCompilation;
+const approve: Approve = approveCompilation;
 const arrival: Arrival = arrivalCompilation;
 const bear: Bear = bearCompilation;
 const chat: Chat = chatCompilation;
@@ -62,19 +69,21 @@ const outfit: Outfit = outfitCompilation;
 const raw: Raw = rawCompilation;
 const record: Record = recordCompilation;
 const refusal: Refusal = refusalCompilation;
+const refuse: Refuse = refuseCompilation;
 const roadmap: Roadmap = roadmapCompilation;
 const rule7: Rule7 = rule7Compilation;
 const soundtrack: Soundtrack = soundtrackCompilation;
 const store: Store = storeCompilation;
 const tracker: Tracker = trackerCompilation;
 const trailer: Trailer = trailerCompilation;
-const unverification: Unverification = unverificationCompilation;
 const update: Update = updateCompilation;
-const verification: Verification = verificationCompilation;
 export type {Compilation as default};
 export type {
 	About,
+	Application,
+	Apply,
 	Approval,
+	Approve,
 	Arrival,
 	Bear,
 	Chat,
@@ -88,19 +97,21 @@ export type {
 	Raw,
 	Record,
 	Refusal,
+	Refuse,
 	Roadmap,
 	Rule7,
 	Soundtrack,
 	Store,
 	Tracker,
 	Trailer,
-	Unverification,
 	Update,
-	Verification,
 };
 export {
 	about,
+	application,
+	apply,
 	approval,
+	approve,
 	arrival,
 	bear,
 	chat,
@@ -114,13 +125,12 @@ export {
 	raw,
 	record,
 	refusal,
+	refuse,
 	roadmap,
 	rule7,
 	soundtrack,
 	store,
 	tracker,
 	trailer,
-	unverification,
 	update,
-	verification,
 };
