@@ -51,7 +51,7 @@ $ npm start
 
 - `apply` makes the member enter the waiting room (only available to administrator members by default)
 
-- `approve` approves the author of the given message (only available to administrator members by default)
+- `approve` is a shortcut for `gate approve <channel> <message>` (only available to administrator members by default)
 
 - `bear <bear>` gives the gold time, the location, and the outfits of the given bear
 
@@ -67,6 +67,10 @@ $ npm start
 
 - `emoji <base> <style>{6}` draws the given base emoji with the given styles (only available to administrator members by default)
 
+- `gate approve <channel> <message>` approves the author of the given message (only available to administrator members by default)
+
+- `gate refuse <channel> <message>` refuses the author of the given message (only available to administrator members by default)
+
 - `help` gives the feature list of this bot
 
 - `leaderboard` gives the links to the speedrun leaderboards of the game on `www.speedrun.com`
@@ -81,7 +85,7 @@ $ npm start
 
 - `raw <type> <identifier>` gives the datum of the given type with the given identifier
 
-- `refuse` refuses the author of the given message (only available to administrator members by default)
+- `refuse` is a shortcut for `gate refuse <channel> <message>` (only available to administrator members by default)
 
 - `roadmap` gives the link to the todo list of the game on `trello.com`
 

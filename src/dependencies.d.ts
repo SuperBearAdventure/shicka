@@ -9,6 +9,7 @@ import type ChatDependency from "./dependencies/chat.js";
 import type CountDependency from "./dependencies/count.js";
 import type DepartureDependency from "./dependencies/departure.js";
 import type EmojiDependency from "./dependencies/emoji.js";
+import type GateDependency from "./dependencies/gate.js";
 import type HelpDependency from "./dependencies/help.js";
 import type LeaderboardDependency from "./dependencies/leaderboard.js";
 import type MissionDependency from "./dependencies/mission.js";
@@ -37,6 +38,7 @@ type Chat = ChatDependency;
 type Count = CountDependency;
 type Departure = DepartureDependency;
 type Emoji = EmojiDependency;
+type Gate = GateDependency;
 type Help = HelpDependency;
 type Leaderboard = LeaderboardDependency;
 type Mission = MissionDependency;
@@ -54,7 +56,7 @@ type Trailer = TrailerDependency;
 type Update = UpdateDependency;
 type Verification = VerificationDependency;
 type Verify = VerifyDependency;
-type Dependency = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
+type Dependency = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
 export type {Dependency as default};
 export type {
 	About,
@@ -68,6 +70,7 @@ export type {
 	Count,
 	Departure,
 	Emoji,
+	Gate,
 	Help,
 	Leaderboard,
 	Mission,
