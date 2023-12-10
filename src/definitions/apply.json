@@ -3,21 +3,21 @@
 	"commandDescription": {
 		"en-US": "Makes you enter the waiting room",
 		"fr": "Te fait entrer dans la salle d'attente",
-		"pt-BR": "Makes you enter the waiting room"
+		"pt-BR": "Faz você entrar na sala de espera"
 	},
 	"help": {
 		"en-US": "Type $<commandMention> to enter the waiting room",
 		"fr": "Tape $<commandMention> pour entrer dans la salle d'attente",
-		"pt-BR": "Type $<commandMention> to enter the waiting room"
+		"pt-BR": "Digite $<commandMention> para entrar na sala de espera"
 	},
 	"reply": {
 		"en-US": "I will process your application once all the verification steps have been completed.",
 		"fr": "Je traiterai ta candidature une fois que toutes les étapes de vérification auront été remplies.",
-		"pt-BR": "I will process your application once all the verification steps have been completed."
+		"pt-BR": "Vou prosseguir com sua solicitação assim que todos os passos da verificação forem concluídos."
 	},
 	"noPermissionReply": {
 		"en-US": "I do not have the rights to process your application.",
 		"fr": "Je n'ai pas les droits pour traiter ta candidature.",
-		"pt-BR": "I do not have the rights to process your application."
+		"pt-BR": "Eu não tenho as permissões pra lidar com sua solicitação."
 	}
 }
