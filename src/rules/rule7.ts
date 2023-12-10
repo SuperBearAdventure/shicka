@@ -81,10 +81,10 @@ const rule7Rule: Rule = {
 		if (channel.isThread() && channel.id === messageId) {
 			return;
 		}
-		const message: Message<boolean> | undefined = await (async (): Promise<Message<boolean> | undefined> => {
+		const message: Message<true> | undefined = await (async (): Promise<Message<true> | undefined> => {
 			try {
 				if (channel.isThreadOnly()) {
-					const thread: ThreadChannel | undefined = channel.threads.cache.get(messageId);
+					const thread: ThreadChannel<boolean> | undefined = channel.threads.cache.get(messageId);
 					if (thread == null) {
 						return;
 					}
@@ -140,7 +140,7 @@ const rule7Rule: Rule = {
 			const {metadata}: AutoModerationAction = action;
 			const {channelId}: AutoModerationActionMetadata = metadata;
 			if (channelId == null) {
-				return null
+				return null;
 			}
 			const channel: GuildBasedChannel | undefined = autoModerationRule.guild.channels.cache.get(channelId);
 			if (channel == null || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {

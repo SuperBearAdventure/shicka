@@ -1,41 +1,41 @@
 import type {
 	Guild,
+	GuildMember,
 	Message,
+	MessageContextMenuCommandInteraction,
 	MessageReaction,
 	Role,
-	MessageContextMenuCommandInteraction,
-	GuildMember,
 } from "discord.js";
 import type Command from "../commands.js";
 import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
-import type {Unverification as UnverificationCompilation} from "../compilations.js";
-import type {Unverification as UnverificationDefinition} from "../definitions.js";
-import type {Unverification as UnverificationDependency} from "../dependencies.js";
+import type {Approve as ApproveCompilation} from "../compilations.js";
+import type {Approve as ApproveDefinition} from "../definitions.js";
+import type {Approve as ApproveDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {
 	ApplicationCommandType,
 } from "discord.js";
-import {unverification as unverificationCompilation} from "../compilations.js";
-import {unverification as unverificationDefinition} from "../definitions.js";
+import {approve as approveCompilation} from "../compilations.js";
+import {approve as approveDefinition} from "../definitions.js";
 import {composeAll, localize, resolve} from "../utils/string.js";
-type HelpGroups = UnverificationDependency["help"];
+type HelpGroups = ApproveDependency["help"];
 const {
 	commandName,
 	commandDescription,
-}: UnverificationDefinition = unverificationDefinition;
+}: ApproveDefinition = approveDefinition;
 const {
 	help: helpLocalizations,
 	reply: replyLocalizations,
 	noMemberReply: noMemberReplyLocalizations,
 	noPermissionReply: noPermissionReplyLocalizations,
-}: UnverificationCompilation = unverificationCompilation;
+}: ApproveCompilation = approveCompilation;
 const {
 	SHICKA_APPROVAL_VERIFICATION_ROLE,
-	SHICKA_REFUSAL_UNVERIFICATION_ROLE,
+	SHICKA_REFUSAL_APPLICATION_ROLE,
 }: NodeJS.ProcessEnv = process.env;
-const commandUnverificationRole: string = SHICKA_REFUSAL_UNVERIFICATION_ROLE ?? "";
+const commandApplicationRole: string = SHICKA_REFUSAL_APPLICATION_ROLE ?? "";
 const commandVerificationRole: string = SHICKA_APPROVAL_VERIFICATION_ROLE ?? "";
-const unverificationCommand: Command = {
+const approveCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			type: ApplicationCommandType.Message,
@@ -52,10 +52,10 @@ const unverificationCommand: Command = {
 		const {guild, locale, targetMessage}: MessageContextMenuCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const {roles}: Guild = guild;
-		const unverificationRole: Role | undefined = roles.cache.find((role: Role): boolean => {
-			return role.name === commandUnverificationRole;
+		const applicationRole: Role | undefined = roles.cache.find((role: Role): boolean => {
+			return role.name === commandApplicationRole;
 		});
-		if (unverificationRole == null) {
+		if (applicationRole == null) {
 			return;
 		}
 		const verificationRole: Role | undefined = roles.cache.find((role: Role): boolean => {
@@ -86,8 +86,8 @@ const unverificationCommand: Command = {
 			return;
 		}
 		try {
-			await member.roles.remove(verificationRole);
-			await member.roles.remove(unverificationRole);
+			await member.roles.add(verificationRole);
+			await member.roles.remove(applicationRole);
 		} catch {
 			await interaction.reply({
 				content: noPermissionReplyLocalizations[resolvedLocale]({}),
@@ -95,15 +95,25 @@ const unverificationCommand: Command = {
 			});
 			return;
 		}
-		await targetMessage.react("❎");
+		await targetMessage.react("✅");
 		const reaction: MessageReaction | undefined = targetMessage.reactions.cache.find((reaction: MessageReaction): boolean => {
-			return (reaction.emoji.name ?? "") === "✅";
+			return (reaction.emoji.name ?? "") === "❎";
 		});
 		if (reaction != null) {
 			await reaction.users.remove();
 		}
+		function formatMessage(locale: Locale): string {
+			return replyLocalizations[locale]({});
+		}
 		await interaction.reply({
-			content: replyLocalizations[resolvedLocale]({}),
+			content: formatMessage("en-US"),
+			ephemeral: true,
+		});
+		if (resolvedLocale === "en-US") {
+			return;
+		}
+		await interaction.reply({
+			content: formatMessage(resolvedLocale),
 			ephemeral: true,
 		});
 	},
@@ -117,4 +127,4 @@ const unverificationCommand: Command = {
 		}));
 	},
 };
-export default unverificationCommand;
+export default approveCommand;

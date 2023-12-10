@@ -1,5 +1,5 @@
 {
-	"commandName": "unverification",
+	"commandName": "refuse",
 	"commandDescription": {
 		"en-US": "Refuses this member",
 		"fr": "Refuse ce membre",

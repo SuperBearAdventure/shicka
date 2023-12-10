@@ -4,10 +4,10 @@ type HelpGroups = {
 type ReplyGroups = {};
 type NoMemberReplyGroups = {};
 type NoPermissionReplyGroups = {};
-type UnverificationDependency = {
+type RefuseDependency = {
 	help: HelpGroups,
 	reply: ReplyGroups,
 	noMemberReply: NoMemberReplyGroups,
 	noPermissionReply: NoPermissionReplyGroups,
 };
-export type {UnverificationDependency as default};
+export type {RefuseDependency as default};

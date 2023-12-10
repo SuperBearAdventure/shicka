@@ -293,7 +293,7 @@ const helpCommand: Command = {
 					const {metadata}: AutoModerationAction = action;
 					const {channelId}: AutoModerationActionMetadata = metadata;
 					if (channelId == null) {
-						return null
+						return null;
 					}
 					const channel: GuildBasedChannel | undefined = autoModerationRule.guild.channels.cache.get(channelId);
 					if (channel == null || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {

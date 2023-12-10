@@ -455,7 +455,7 @@ client.on("interactionCreate", async (interaction: Interaction): Promise<void> =
 		console.error(error);
 	}
 });
-client.on("threadCreate", async (channel: ThreadChannel, newlyCreated: boolean): Promise<void> => {
+client.on("threadCreate", async (channel: ThreadChannel<boolean>, newlyCreated: boolean): Promise<void> => {
 	if (newlyCreated && channel.joinable) {
 		try {
 			await channel.join();
@@ -465,7 +465,7 @@ client.on("threadCreate", async (channel: ThreadChannel, newlyCreated: boolean):
 		return;
 	}
 });
-client.on("threadUpdate", async (oldChannel: ThreadChannel, newChannel: ThreadChannel): Promise<void> => {
+client.on("threadUpdate", async (oldChannel: ThreadChannel<boolean>, newChannel: ThreadChannel<boolean>): Promise<void> => {
 	if (oldChannel.archived && !newChannel.archived && newChannel.joinable) {
 		try {
 			await newChannel.join();

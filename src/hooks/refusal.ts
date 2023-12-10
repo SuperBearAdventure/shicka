@@ -4,7 +4,6 @@ import type {
 	Guild,
 	GuildMember,
 	Message,
-	PartialGuildMember,
 	Role,
 } from "discord.js";
 import type {Canvas, CanvasRenderingContext2D, Image} from "canvas";
@@ -36,12 +35,12 @@ const {
 }: RefusalCompilation = refusalCompilation;
 const {
 	SHICKA_APPROVAL_VERIFICATION_ROLE,
+	SHICKA_REFUSAL_APPLICATION_ROLE,
 	SHICKA_REFUSAL_DEFAULT_CHANNEL,
-	SHICKA_REFUSAL_UNVERIFICATION_ROLE,
 }: NodeJS.ProcessEnv = process.env;
 const {createCanvas, loadImage}: any = canvas;
 const hookChannel: string = SHICKA_REFUSAL_DEFAULT_CHANNEL ?? "";
-const hookUnverificationRole: string = SHICKA_REFUSAL_UNVERIFICATION_ROLE ?? "";
+const hookApplicationRole: string = SHICKA_REFUSAL_APPLICATION_ROLE ?? "";
 const hookVerificationRole: string = SHICKA_APPROVAL_VERIFICATION_ROLE ?? "";
 const hookAvatar: string = await (async (): Promise<string> => {
 	const url: string = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 64 64" width="256" height="256"><circle cx="16" cy="16" r="24" fill="#ccc"/><path d="M8,8L24,24M8,24L24,8" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
@@ -69,12 +68,12 @@ const refusalHook: Hook = {
 			return;
 		}
 		const [oldMember, newMember]: ClientEvents["guildMemberUpdate"] = (invocation.event as WebjobEvent<"guildMemberUpdate">).data;
-		const {guild}: GuildMember | PartialGuildMember = newMember;
+		const {guild}: GuildMember = newMember;
 		const {name, roles}: Guild = guild;
-		const unverificationRole: Role | undefined = roles.cache.find((role: Role): boolean => {
-			return role.name === hookUnverificationRole;
+		const applicationRole: Role | undefined = roles.cache.find((role: Role): boolean => {
+			return role.name === hookApplicationRole;
 		});
-		if (unverificationRole == null) {
+		if (applicationRole == null) {
 			return;
 		}
 		const verificationRole: Role | undefined = roles.cache.find((role: Role): boolean => {
@@ -84,14 +83,14 @@ const refusalHook: Hook = {
 			return;
 		}
 		if (oldMember.roles.cache.every((role: Role): boolean => {
-			return role.name !== hookUnverificationRole;
+			return role.name !== hookApplicationRole;
 		}) && oldMember.roles.cache.every((role: Role): boolean => {
 			return role.name !== hookVerificationRole;
 		})) {
 			return;
 		}
 		if (newMember.roles.cache.some((role: Role): boolean => {
-			return role.name === hookUnverificationRole;
+			return role.name === hookApplicationRole;
 		})) {
 			return;
 		}

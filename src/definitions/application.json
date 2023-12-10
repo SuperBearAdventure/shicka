@@ -1,0 +1,14 @@
+{
+	"hookName": "application",
+	"hookReason": "Posts the latest member application in the given channel",
+	"helpWithChannel": {
+		"en-US": "I post the latest member application in $<channelMention>",
+		"fr": "Je poste la dernière candidature de membre dans $<channelMention>",
+		"pt-BR": "Eu posto a solicitação mais recente de membro em $<channelMention>"
+	},
+	"helpWithoutChannel": {
+		"en-US": "I post the latest member application",
+		"fr": "Je poste la dernière candidature de membre",
+		"pt-BR": "Eu posto a solicitação mais recente de membro"
+	}
+}
