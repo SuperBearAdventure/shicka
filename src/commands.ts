@@ -14,6 +14,7 @@ import bearCommand from "./commands/bear.js";
 import chatCommand from "./commands/chat.js";
 import countCommand from "./commands/count.js";
 import emojiCommand from "./commands/emoji.js";
+import gateCommand from "./commands/gate.js";
 import helpCommand from "./commands/help.js";
 import leaderboardCommand from "./commands/leaderboard.js";
 import missionCommand from "./commands/mission.js";
@@ -41,6 +42,7 @@ const bear: Command = bearCommand;
 const chat: Command = chatCommand;
 const count: Command = countCommand;
 const emoji: Command = emojiCommand;
+const gate: Command = gateCommand;
 const help: Command = helpCommand;
 const leaderboard: Command = leaderboardCommand;
 const mission: Command = missionCommand;
@@ -68,6 +70,7 @@ export {
 	chat,
 	count,
 	emoji,
+	gate,
 	help,
 	leaderboard,
 	mission,

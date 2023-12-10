@@ -10,6 +10,7 @@ import chatDefinition from "./definitions/chat.json" assert {type: "json"};
 import countDefinition from "./definitions/count.json" assert {type: "json"};
 import departureDefinition from "./definitions/departure.json" assert {type: "json"};
 import emojiDefinition from "./definitions/emoji.json" assert {type: "json"};
+import gateDefinition from "./definitions/gate.json" assert {type: "json"};
 import helpDefinition from "./definitions/help.json" assert {type: "json"};
 import leaderboardDefinition from "./definitions/leaderboard.json" assert {type: "json"};
 import missionDefinition from "./definitions/mission.json" assert {type: "json"};
@@ -135,6 +136,21 @@ type Emoji = {
 	stylesOptionName: string,
 	stylesOptionDescription: Localized<string>,
 	help: Localized<string>,
+};
+type Gate = {
+	commandName: string,
+	commandDescription: Localized<string>,
+	approveSubCommandName: string,
+	approveSubCommandDescription: Localized<string>,
+	refuseSubCommandName: string,
+	refuseSubCommandDescription: Localized<string>,
+	channelOptionName: string,
+	channelOptionDescription: Localized<string>,
+	messageOptionName: string,
+	messageOptionDescription: Localized<string>,
+	help: Localized<string>,
+	noChannelReply: Localized<string>,
+	noMessageReply: Localized<string>,
 };
 type Help = {
 	commandName: string,
@@ -274,7 +290,7 @@ type Verify = {
 	reply: Localized<string>,
 	noPermissionReply: Localized<string>,
 };
-type Definition = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
+type Definition = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Leaderboard | Mission | Outfit | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
 const about: About = aboutDefinition;
 const application: Application = applicationDefinition;
 const apply: Apply = applyDefinition;
@@ -286,6 +302,7 @@ const chat: Chat = chatDefinition;
 const count: Count = countDefinition;
 const departure: Departure = departureDefinition;
 const emoji: Emoji = emojiDefinition;
+const gate: Gate = gateDefinition;
 const help: Help = helpDefinition;
 const leaderboard: Leaderboard = leaderboardDefinition;
 const mission: Mission = missionDefinition;
@@ -316,6 +333,7 @@ export type {
 	Count,
 	Departure,
 	Emoji,
+	Gate,
 	Help,
 	Leaderboard,
 	Mission,
@@ -346,6 +364,7 @@ export {
 	count,
 	departure,
 	emoji,
+	gate,
 	help,
 	leaderboard,
 	mission,

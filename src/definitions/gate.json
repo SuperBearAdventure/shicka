@@ -1,0 +1,47 @@
+{
+	"commandName": "gate",
+	"commandDescription": {
+		"en-US": "Approves or refuses this member",
+		"fr": "Approuve ou refuse ce membre",
+		"pt-BR": "Aprova ou recusa esse membro"
+	},
+	"approveSubCommandName": "approve",
+	"approveSubCommandDescription": {
+		"en-US": "Approves this member",
+		"fr": "Approuve ce membre",
+		"pt-BR": "Aprova esse membro"
+	},
+	"refuseSubCommandName": "refuse",
+	"refuseSubCommandDescription": {
+		"en-US": "Refuses this member",
+		"fr": "Refuse ce membre",
+		"pt-BR": "Recusa esse membro"
+	},
+	"channelOptionName": "channel",
+	"channelOptionDescription": {
+		"en-US": "Some channel",
+		"fr": "Un salon",
+		"pt-BR": "Algum canal"
+	},
+	"messageOptionName": "message",
+	"messageOptionDescription": {
+		"en-US": "Some message",
+		"fr": "Un message",
+		"pt-BR": "Alguma mensagem"
+	},
+	"help": {
+		"en-US": "Type $<approveSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` to approve the author of `$<messageOptionDescription>` in `$<channelOptionDescription>`\nType $<refuseSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` to refuse the author of `$<messageOptionDescription>` in `$<channelOptionDescription>`",
+		"fr": "Tape $<approveSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pour approuver l'auteur d'`$<messageOptionDescription>` dans `$<channelOptionDescription>`\nTape $<refuseSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pour refuser l'auteur d'`$<messageOptionDescription>` dans `$<channelOptionDescription>`",
+		"pt-BR": "Digite $<approveSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pra aprovar o autor de `$<messageOptionDescription>` em `$<channelOptionDescription>`\nDigite $<refuseSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pra recusar o autor de `$<messageOptionDescription>` em `$<channelOptionDescription>`"
+	},
+	"noChannelReply": {
+		"en-US": "I do not know any channel with this tag.",
+		"fr": "Je ne connais aucun salon avec cette étiquette.",
+		"pt-BR": "Não conheço nenhum canal com essa marcação."
+	},
+	"noMessageReply": {
+		"en-US": "I do not know any message with this identifier in this channel.",
+		"fr": "Je ne connais aucun message avec cet identifiant dans ce salon.",
+		"pt-BR": "Não sei nenhuma mensagem com essa identificação nesse canal."
+	}
+}
