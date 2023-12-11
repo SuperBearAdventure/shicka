@@ -3,7 +3,8 @@
 		"name": "1.0.0",
 		"date": {
 			"android": "2017-06-10",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -11,7 +12,8 @@
 		"name": "1.0.1",
 		"date": {
 			"android": "2017-06-10",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Collecting coins underwater gives you oxygen",
@@ -22,7 +24,8 @@
 		"name": "1.0.2",
 		"date": {
 			"android": "2017-06-17",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Added time challenges for each bear",
@@ -37,7 +40,8 @@
 		"name": "1.1.0",
 		"date": {
 			"android": "2017-07-13",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Level 1 enlarged: new zones and 8 bears to release",
@@ -51,7 +55,8 @@
 		"name": "1.1.1",
 		"date": {
 			"android": "2017-08-02",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Added sharing button to show your best scores",
@@ -63,7 +68,8 @@
 		"name": "1.1.2",
 		"date": {
 			"android": "2017-08-19",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Added 2 new hats: Gas mask and Swollen head",
@@ -75,7 +81,8 @@
 		"name": "1.1.3",
 		"date": {
 			"android": "2017-09-10",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Fixed the joystick on Android 6.0",
@@ -88,7 +95,8 @@
 		"name": "1.2.0",
 		"date": {
 			"android": "2017-11-02",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Added a new level: Snow Valley",
@@ -102,7 +110,8 @@
 		"name": "1.2.1",
 		"date": {
 			"android": "2017-11-05",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Improved pause menu",
@@ -113,7 +122,8 @@
 		"name": "1.3.0",
 		"date": {
 			"android": "2017-12-02",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"New hub world",
@@ -128,7 +138,8 @@
 		"name": "1.3.1",
 		"date": {
 			"android": "2017-12-03",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Bug fixes"
@@ -138,7 +149,8 @@
 		"name": "1.3.2",
 		"date": {
 			"android": "2017-12-09",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Bug fixes",
@@ -150,7 +162,8 @@
 		"name": "1.3.3",
 		"date": {
 			"android": "2017-12-16",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Added the test world, a new area to test feature of upcoming update",
@@ -162,7 +175,8 @@
 		"name": "1.3.4",
 		"date": {
 			"android": "2017-12-29",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Added an early version of the desert in the test world",
@@ -180,7 +194,8 @@
 		"name": "1.3.4.1",
 		"date": {
 			"android": "2017-12-29",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Fixed yeti boss"
@@ -190,7 +205,8 @@
 		"name": "1.3.4.2",
 		"date": {
 			"android": "2018-01-02",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Fixed german language and added a rate game button"
@@ -200,7 +216,8 @@
 		"name": "1.3.5",
 		"date": {
 			"android": "2018-01-14",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Added gamepad support (tested with Xbox360 controller and Dualshock 4)",
@@ -213,7 +230,8 @@
 		"name": "1.4.0",
 		"date": {
 			"android": "2018-04-08",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"New desert level with 8 new bears to save, a new boss fight, new enemies, new gameplay mechanics and a lore",
@@ -227,7 +245,8 @@
 		"name": "1.4.1",
 		"date": {
 			"android": "2018-04-28",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Improved options menu",
@@ -239,7 +258,8 @@
 		"name": "1.4.2",
 		"date": {
 			"android": "2018-05-10",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Added a new booster: coin detector",
@@ -250,7 +270,8 @@
 		"name": "1.5.0",
 		"date": {
 			"android": "2018-07-01",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Added Google Play Games services: cloud saves, achievements, leaderboards for each bear",
@@ -265,7 +286,8 @@
 		"name": "1.5.1",
 		"date": {
 			"android": "2018-07-14",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Improved options menu",
@@ -277,7 +299,8 @@
 		"name": "1.6.0",
 		"date": {
 			"android": "2018-09-15",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Added the hive with a final boss fight and ending",
@@ -290,7 +313,8 @@
 		"name": "1.6.1",
 		"date": {
 			"android": "2018-09-30",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Added the ability to resume the level after saving a bear",
@@ -302,7 +326,8 @@
 		"name": "1.6.2",
 		"date": {
 			"android": "2018-10-14",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Added the donor status",
@@ -314,7 +339,8 @@
 		"name": "1.6.2.1",
 		"date": {
 			"android": "2018-10-16",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -322,7 +348,8 @@
 		"name": "1.6.3",
 		"date": {
 			"android": "2018-11-02",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Improved camera",
@@ -334,7 +361,8 @@
 		"name": "1.6.4",
 		"date": {
 			"android": "2018-11-21",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Overhauled cosmetic unlocking system",
@@ -345,7 +373,8 @@
 		"name": "1.6.4.1",
 		"date": {
 			"android": "2018-11-22",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -353,7 +382,8 @@
 		"name": "1.6.4.2",
 		"date": {
 			"android": "2018-11-29",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -361,7 +391,8 @@
 		"name": "1.6.5",
 		"date": {
 			"android": "2019-03-10",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Major changes to player movement and added diving",
@@ -373,7 +404,8 @@
 		"name": "1.6.5.1",
 		"date": {
 			"android": "2019-03-16",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -381,7 +413,8 @@
 		"name": "1.6.5.2",
 		"date": {
 			"android": "2019-03-16",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -389,7 +422,8 @@
 		"name": "1.6.6",
 		"date": {
 			"android": "2019-04-21",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Easter update (easter cosmetics and easter eggs to find in the hub)",
@@ -400,7 +434,8 @@
 		"name": "1.6.6.1",
 		"date": {
 			"android": "2019-04-29",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -408,7 +443,8 @@
 		"name": "1.6.6.2",
 		"date": {
 			"android": "2019-05-04",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -416,7 +452,8 @@
 		"name": "1.7.0",
 		"date": {
 			"android": "2019-08-03",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"NEW LEVEL: Giant House!",
@@ -428,7 +465,8 @@
 		"name": "1.7.0.1",
 		"date": {
 			"android": "2019-08-04",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -436,7 +474,8 @@
 		"name": "1.7.0.2",
 		"date": {
 			"android": "2019-08-05",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -444,7 +483,8 @@
 		"name": "1.7.1",
 		"date": {
 			"android": "2019-08-09",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Improved the arcade world and fixed bugs"
@@ -454,7 +494,8 @@
 		"name": "1.7.2",
 		"date": {
 			"android": "2019-08-28",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -462,7 +503,8 @@
 		"name": "1.7.2.1",
 		"date": {
 			"android": "2019-08-29",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -470,7 +512,8 @@
 		"name": "1.7.2.2",
 		"date": {
 			"android": "2019-09-08",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -478,7 +521,8 @@
 		"name": "1.8.0",
 		"date": {
 			"android": "2020-02-29",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Graphics overhaul! The game now looks very different.",
@@ -491,7 +535,8 @@
 		"name": "1.8.0.1",
 		"date": {
 			"android": "2020-03-01",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -499,7 +544,8 @@
 		"name": "1.8.0.2",
 		"date": {
 			"android": "2020-03-10",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -507,7 +553,8 @@
 		"name": "1.8.0.3",
 		"date": {
 			"android": "2020-03-14",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Bug fixes"
@@ -517,7 +564,8 @@
 		"name": "1.8.1",
 		"date": {
 			"android": "2020-03-23",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"LOTS of bug fixes",
@@ -529,7 +577,8 @@
 		"name": "1.8.2",
 		"date": {
 			"android": "2020-03-30",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"New cosmetics and bug fixes",
@@ -540,7 +589,8 @@
 		"name": "1.8.3",
 		"date": {
 			"android": "2020-04-10",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -548,7 +598,8 @@
 		"name": "1.8.4",
 		"date": {
 			"android": "2020-04-21",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Added cutscenes to show new areas when you unlock them",
@@ -561,7 +612,8 @@
 		"name": "1.8.5",
 		"date": {
 			"android": "2020-05-07",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Vehicle physics improvement",
@@ -573,7 +625,8 @@
 		"name": "1.8.5.1",
 		"date": {
 			"android": "2020-05-07",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -581,7 +634,8 @@
 		"name": "1.9.0",
 		"date": {
 			"android": "2020-08-18",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Added daily missions with unique changes to levels",
@@ -594,7 +648,8 @@
 		"name": "1.9.0.1",
 		"date": {
 			"android": "2020-08-19",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -602,7 +657,8 @@
 		"name": "1.9.1",
 		"date": {
 			"android": "2020-08-29",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Bug fixes and visual improvements"
@@ -612,7 +668,8 @@
 		"name": "1.9.1.1",
 		"date": {
 			"android": "2020-09-15",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": [
 			"Bug fixes"
@@ -622,7 +679,8 @@
 		"name": "1.9.2",
 		"date": {
 			"android": null,
-			"ios": "2020-09-19"
+			"ios": "2020-09-19",
+			"switch": null
 		},
 		"notes": []
 	},
@@ -630,7 +688,8 @@
 		"name": "1.9.3",
 		"date": {
 			"android": "2020-10-01",
-			"ios": "2020-10-09"
+			"ios": "2020-10-09",
+			"switch": null
 		},
 		"notes": [
 			"New mini-game and new racetrack in the arcade world",
@@ -642,7 +701,8 @@
 		"name": "1.9.4",
 		"date": {
 			"android": "2020-10-26",
-			"ios": "2020-11-03"
+			"ios": "2020-11-03",
+			"switch": null
 		},
 		"notes": [
 			"New death screen",
@@ -654,7 +714,8 @@
 		"name": "1.9.4.1",
 		"date": {
 			"android": "2020-11-03",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -662,7 +723,8 @@
 		"name": "1.9.5",
 		"date": {
 			"android": "2020-11-18",
-			"ios": "2020-11-26"
+			"ios": "2020-11-26",
+			"switch": null
 		},
 		"notes": [
 			"All enemies now have a unique behavior",
@@ -675,7 +737,8 @@
 		"name": "1.9.5.1",
 		"date": {
 			"android": "2020-11-29",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -683,7 +746,8 @@
 		"name": "1.9.6",
 		"date": {
 			"android": "2021-01-21",
-			"ios": "2021-01-24"
+			"ios": "2021-01-24",
+			"switch": null
 		},
 		"notes": [
 			"Complete UI overhaul!",
@@ -696,7 +760,8 @@
 		"name": "1.9.6.1",
 		"date": {
 			"android": "2021-01-24",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -704,7 +769,8 @@
 		"name": "1.9.7",
 		"date": {
 			"android": "2021-03-08",
-			"ios": "2021-03-14"
+			"ios": "2021-03-14",
+			"switch": null
 		},
 		"notes": [
 			"Added hidden stickers to collect",
@@ -718,7 +784,8 @@
 		"name": "1.9.7.1",
 		"date": {
 			"android": "2021-03-14",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -726,7 +793,8 @@
 		"name": "1.9.7.2",
 		"date": {
 			"android": "2021-03-19",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -734,7 +802,8 @@
 		"name": "1.9.7.3",
 		"date": {
 			"android": "2021-04-01",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -742,7 +811,8 @@
 		"name": "1.9.8",
 		"date": {
 			"android": "2021-06-07",
-			"ios": "2021-06-18"
+			"ios": "2021-06-18",
+			"switch": null
 		},
 		"notes": [
 			"Improved bears in the hub",
@@ -755,7 +825,8 @@
 		"name": "1.9.8.1",
 		"date": {
 			"android": "2021-06-16",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -763,7 +834,8 @@
 		"name": "1.9.9",
 		"date": {
 			"android": "2021-07-23",
-			"ios": "2021-09-27"
+			"ios": "2021-09-27",
+			"switch": null
 		},
 		"notes": [
 			"New camera behavior",
@@ -775,7 +847,8 @@
 		"name": "1.9.9.1",
 		"date": {
 			"android": "2021-09-15",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -783,7 +856,8 @@
 		"name": "1.9.10",
 		"date": {
 			"android": null,
-			"ios": "2021-09-30"
+			"ios": "2021-09-30",
+			"switch": null
 		},
 		"notes": []
 	},
@@ -791,7 +865,8 @@
 		"name": "10.0.0",
 		"date": {
 			"android": "2022-11-08",
-			"ios": "2022-11-13"
+			"ios": "2022-11-13",
+			"switch": null
 		},
 		"notes": [
 			"New Hive level, new boss fights, new shop, new items",
@@ -804,7 +879,8 @@
 		"name": "10.0.1",
 		"date": {
 			"android": "2022-11-24",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -812,7 +888,8 @@
 		"name": "10.1.0",
 		"date": {
 			"android": "2023-02-24",
-			"ios": "2023-03-06"
+			"ios": "2023-03-06",
+			"switch": null
 		},
 		"notes": [
 			"New cosmetic items",
@@ -823,7 +900,8 @@
 		"name": "10.1.1",
 		"date": {
 			"android": "2023-02-25",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -831,7 +909,8 @@
 		"name": "10.1.2",
 		"date": {
 			"android": "2023-02-26",
-			"ios": null
+			"ios": null,
+			"switch": null
 		},
 		"notes": []
 	},
@@ -839,7 +918,8 @@
 		"name": "10.1.3",
 		"date": {
 			"android": "2023-03-08",
-			"ios": "2023-03-08"
+			"ios": "2023-03-08",
+			"switch": null
 		},
 		"notes": []
 	},
@@ -847,7 +927,8 @@
 		"name": "10.1.4",
 		"date": {
 			"android": "2023-03-15",
-			"ios": "2023-03-21"
+			"ios": "2023-03-21",
+			"switch": null
 		},
 		"notes": [
 			"Improved UI",
@@ -859,7 +940,8 @@
 		"name": "10.2.0",
 		"date": {
 			"android": "2023-05-10",
-			"ios": "2023-05-11"
+			"ios": "2023-05-11",
+			"switch": null
 		},
 		"notes": [
 			"Added Photo Mode",
@@ -872,7 +954,8 @@
 		"name": "10.2.1",
 		"date": {
 			"android": "2023-05-10",
-			"ios": "2023-05-12"
+			"ios": "2023-05-12",
+			"switch": null
 		},
 		"notes": [
 			"Fixed crash related to pets"
@@ -882,7 +965,8 @@
 		"name": "10.3.0",
 		"date": {
 			"android": "2023-06-09",
-			"ios": "2023-06-11"
+			"ios": "2023-06-11",
+			"switch": null
 		},
 		"notes": [
 			"Improved level visuals",
@@ -896,7 +980,8 @@
 		"name": "10.3.1",
 		"date": {
 			"android": "2023-06-17",
-			"ios": "2023-06-19"
+			"ios": "2023-06-19",
+			"switch": null
 		},
 		"notes": [
 			"Fixed shicka skins in some cutscenes",
@@ -909,7 +994,8 @@
 		"name": "10.3.2",
 		"date": {
 			"android": "2023-06-27",
-			"ios": "2023-06-28"
+			"ios": "2023-06-28",
+			"switch": null
 		},
 		"notes": [
 			"Revamped Turtle Golem boss fight",
@@ -920,7 +1006,8 @@
 		"name": "10.4.0",
 		"date": {
 			"android": "2023-08-22",
-			"ios": "2023-08-22"
+			"ios": "2023-08-22",
+			"switch": null
 		},
 		"notes": [
 			"Added Capitalus Tokens",
@@ -938,7 +1025,8 @@
 		"name": "10.4.1",
 		"date": {
 			"android": "2023-08-24",
-			"ios": "2023-08-26"
+			"ios": "2023-08-26",
+			"switch": null
 		},
 		"notes": [
 			"Bug fixes"
@@ -948,7 +1036,8 @@
 		"name": "10.4.2",
 		"date": {
 			"android": "2023-09-02",
-			"ios": "2023-09-03"
+			"ios": "2023-09-03",
+			"switch": null
 		},
 		"notes": [
 			"Bug fixes"
@@ -958,12 +1047,35 @@
 		"name": "10.5.0",
 		"date": {
 			"android": "2023-11-07",
-			"ios": "2023-11-07"
+			"ios": "2023-11-07",
+			"switch": "2023-12-12"
 		},
 		"notes": [
 			"New vehicle physics in the Beemothep Desert",
 			"Added go-kart to the arcade world",
 			"Lots of bug fixes and tweaks"
+		]
+	},
+	{
+		"name": "10.5.1",
+		"date": {
+			"android": "2023-11-07",
+			"ios": "2023-11-08",
+			"switch": null
+		},
+		"notes": [
+			"Bug fixes"
+		]
+	},
+	{
+		"name": "10.5.2",
+		"date": {
+			"android": "2023-12-08",
+			"ios": "2023-12-10",
+			"switch": null
+		},
+		"notes": [
+			"Bug fixes"
 		]
 	}
 ]

@@ -37,6 +37,7 @@ const {
 const links: string[] = [
 	"[*Android*](<https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer>)",
 	"[*iOS*](<https://apps.apple.com/app/id1531842415>)",
+	"[*Switch*](<https://www.nintendo.com/store/products/super-bear-adventure-switch/>)",
 ];
 async function fetchAndroidData(): Promise<Data | null> {
 	const response: Response = await fetch("https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
@@ -84,6 +85,30 @@ async function fetchIosData(): Promise<Data | null> {
 	}
 	return null;
 }
+async function fetchSwitchData(): Promise<Data | null> {
+	const response: Response = await fetch("https://www.nintendo.com/store/products/super-bear-adventure-switch/");
+	const {window}: JSDOM = new JSDOM(await response.text());
+	const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("body > script")];
+	for (const {textContent} of scripts) {
+		if (textContent == null || !textContent.startsWith("{\"props\":") || !textContent.endsWith("}")) {
+			continue;
+		}
+		try {
+			const json: string =  textContent.slice(textContent.indexOf("{\"pageProps\":") + 13, textContent.lastIndexOf(",\"__N_SSP\":"));
+			const result: any = JSON.parse(json);
+			return {
+				title: "Switch",
+				link: "https://www.nintendo.com/store/products/super-bear-adventure-switch/",
+				version: "10.5.0+",
+				date: new Date(result.initialApolloState[`StoreProduct:${JSON.stringify({
+					sku: result.analytics.product.sku,
+					locale: "en_US",
+				})}`].releaseDate),
+			};
+		} catch {}
+	}
+	return null;
+}
 const updateCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -107,7 +132,11 @@ const updateCommand: Command = {
 			if (iosData == null) {
 				throw new Error();
 			}
-			const data: Data[] = [androidData, iosData];
+			const switchData: Data | null = await fetchSwitchData();
+			if (switchData == null) {
+				throw new Error();
+			}
+			const data: Data[] = [androidData, iosData, switchData];
 			const links: Localized<(groups: {}) => string>[] = [];
 			for (const item of data) {
 				const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((locale: Locale): LinkGroups => {
