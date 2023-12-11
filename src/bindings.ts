@@ -56,6 +56,7 @@ type Update = {
 	date: {
 		android: string | null,
 		ios: string | null,
+		switch: string | null,
 	},
 	notes: string[],
 };
