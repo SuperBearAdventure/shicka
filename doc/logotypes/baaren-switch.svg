@@ -1,0 +1,385 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" stroke-linecap="round" stroke-linejoin="round">
+	<clipPath id="clip">
+		<circle cx="128" cy="128" r="96"/>
+	</clipPath>
+	<circle cx="128" cy="128" r="96" fill="#e60012"/>
+	<g clip-path="url(#clip)" stroke-width="8">
+		<g>
+			<animate
+				attributeName="display"
+				dur="3.2s"
+				calcMode="discrete"
+				repeatCount="indefinite"
+				keyTimes="0; .05; .0625; .075; .125; .1375; .15; .25; .2625; .275; .325; .3375; .35;"
+				values="inline; none; none; none; none; none; inline; none; none; none; none; none; inline;"
+			/>
+			<path d="
+				M191,80
+				L161,80
+				L158,92
+				L240,256
+				L256,256
+				L256,210
+				Z
+				M136,108
+				L168,108
+				L242,256
+				L169,256
+				L136,190
+				Z
+			" fill="#a1000d" stroke="#a1000d"/>
+			<path d="
+				M65,80
+				L95,80
+				L183,256
+				L129,256
+				L57,112
+				Z
+				M88,108
+				L120,108
+				L194,256
+				L118,256
+				L80,180
+				Z
+			" fill="#a1000d" stroke="#a1000d"/>
+			<path d="
+				M191,80
+				L161,80
+				L158,92
+				L167,92
+				A13,13,0,1,1,184,109
+				L185,118
+				L199,112
+				Z
+				M136,108
+				L168,108
+				L176,180
+				L136,190
+				Z
+			" fill="#ffffff" stroke="#ffffff"/>
+			<path d="
+				M148,132
+				L148,144
+				Z
+				M127,164
+				L129,164
+				Z
+				M128,152
+				L144,156
+				L144,180
+				L128,184
+			" fill="#a1000d" stroke="#a1000d"/>
+			<path d="
+				M65,80
+				L95,80
+				L98,92
+				L89,92
+				A13,13,0,1,0,72,109
+				L71,118
+				L57,112
+				Z
+				M120,182
+				L120,190
+				L80,180
+				L88,108
+				L120,108
+				L120,154
+			" paint-order="stroke fill" fill="#a1000d" stroke="#ffffff"/>
+			<path d="
+				M108,132
+				L108,144
+				Z
+				M127,164
+				L129,164
+				Z
+				M120,154
+				L112,156
+				L112,180
+				L120,182
+			" fill="#a1000d" stroke="#ffffff"/>
+		</g>
+		<g>
+			<animate
+				attributeName="display"
+				dur="3.2s"
+				calcMode="discrete"
+				repeatCount="indefinite"
+				keyTimes="0; .05; .0625; .075; .125; .1375; .15; .25; .2625; .275; .325; .3375; .35;"
+				values="none; inline; none; none; none; inline; none; inline; none; none; none; inline; none;"
+			/>
+			<path d="
+				M191,78
+				L161,78
+				L158,90
+				L241,256
+				L256,256
+				L256,208
+				Z
+				M136,106
+				L168,106
+				L243,256
+				L170,256
+				L136,188
+				Z
+			" fill="#a1000d" stroke="#a1000d"/>
+			<path d="
+				M65,80
+				L95,80
+				L183,256
+				L129,256
+				L57,112
+				Z
+				M88,108
+				L120,108
+				L194,256
+				L118,256
+				L80,180
+				Z
+			" fill="#a1000d" stroke="#a1000d"/>
+			<path d="
+				M191,78
+				L161,78
+				L158,90
+				L167,90
+				A13,13,0,1,1,184,107
+				L185,116
+				L199,110
+				Z
+				M136,106
+				L168,106
+				L176,178
+				L136,188
+				Z
+			" fill="#ffffff" stroke="#ffffff"/>
+			<path d="
+				M148,133
+				L148,141
+				Z
+				M127,162
+				L129,160
+				Z
+				M128,150
+				L144,154
+				L144,178
+				L128,182
+			" fill="#a1000d" stroke="#a1000d"/>
+			<path d="
+				M65,80
+				L95,80
+				L98,92
+				L89,92
+				A13,13,0,1,0,72,109
+				L71,118
+				L57,112
+				Z
+				M120,182
+				L120,190
+				L80,180
+				L88,108
+				L120,108
+				L120,154
+			" paint-order="stroke fill" fill="#a1000d" stroke="#ffffff"/>
+			<path d="
+				M108,135
+				L108,143
+				Z
+				M127,164
+				L129,162
+				Z
+				M120,154
+				L112,156
+				L112,180
+				L120,182
+			" fill="#a1000d" stroke="#ffffff"/>
+		</g>
+		<g>
+			<animate
+				attributeName="display"
+				dur="3.2s"
+				calcMode="discrete"
+				repeatCount="indefinite"
+				keyTimes="0; .05; .0625; .075; .125; .1375; .15; .25; .2625; .275; .325; .3375; .35;"
+				values="none; none; inline; none; inline; none; none; none; inline; none; inline; none; none;"
+			/>
+			<path d="
+				M191,75
+				L161,75
+				L158,87
+				L242.5,256
+				L256,256
+				L256,205
+				Z
+				M136,103
+				L168,103
+				L244.5,256
+				L172,256
+				L136,184
+				Z
+			" fill="#a1000d" stroke="#a1000d"/>
+			<path d="
+				M65,81
+				L95,81
+				L182.5,256
+				L128.5,256
+				L57,113
+				Z
+				M88,109
+				L120,109
+				L193.5,256
+				L118,256
+				L80,180
+				Z
+			" fill="#a1000d" stroke="#a1000d"/>
+			<path d="
+				M191,75
+				L161,75
+				L158,87
+				L167,87
+				A13,13,0,1,1,184,104
+				L185,113
+				L199,107
+				Z
+				M136,103
+				L168,103
+				L176,174
+				L136,184
+				Z
+			" fill="#ffffff" stroke="#ffffff"/>
+			<path d="
+				M148,132
+				L148,136
+				Z
+				M127,157
+				L129,151
+				Z
+				M128,145
+				L144,149
+				L144,173
+				L128,177
+			" fill="#a1000d" stroke="#a1000d"/>
+			<path d="
+				M65,81
+				L95,81
+				L98,93
+				L89,93
+				A13,13,0,1,0,72,110
+				L71,119
+				L57,113
+				Z
+				M120,181
+				L120,190
+				L80,180
+				L88,109
+				L120,109
+				L120,153
+			" paint-order="stroke fill" fill="#a1000d" stroke="#ffffff"/>
+			<path d="
+				M108,138
+				L108,142
+				Z
+				M127,163
+				L129,157
+				Z
+				M120,153
+				L112,155
+				L112,179
+				L120,181
+			" fill="#a1000d" stroke="#ffffff"/>
+		</g>
+		<g>
+			<animate
+				attributeName="display"
+				dur="3.2s"
+				calcMode="discrete"
+				repeatCount="indefinite"
+				keyTimes="0; .05; .0625; .075; .125; .1375; .15; .25; .2625; .275; .325; .3375; .35;"
+				values="none; none; none; inline; none; none; none; none; none; inline; none; none; none;"
+			/>
+			<path d="
+				M191,68
+				L161,68
+				L158,80
+				L246,256
+				L256,256
+				L256,198
+				Z
+				M136,96
+				L168,96
+				L248,256
+				L176,256
+				L136,176
+				Z
+			" fill="#a1000d" stroke="#a1000d"/>
+			<path d="
+				M65,82
+				L95,82
+				L182,256
+				L128,256
+				L57,114
+				Z
+				M88,110
+				L120,110
+				L193,256
+				L118,256
+				L80,180
+				Z
+			" fill="#a1000d" stroke="#a1000d"/>
+			<path d="
+				M191,68
+				L161,68
+				L158,80
+				L167,80
+				A13,13,0,1,1,184,97
+				L185,106
+				L199,100
+				Z
+				M136,96
+				L168,96
+				L176,166
+				L136,176
+				Z
+			" fill="#ffffff" stroke="#ffffff"/>
+			<path d="
+				M151,127
+				L148,127
+				Z
+				M127,148
+				L129,134
+				Z
+				M128,136
+				L144,140
+				L144,164
+				L128,168
+			" fill="#a1000d" stroke="#a1000d"/>
+			<path d="
+				M65,82
+				L95,82
+				L98,94
+				L89,94
+				A13,13,0,1,0,72,111
+				L71,120
+				L57,114
+				Z
+				M120,180
+				L120,190
+				L80,180
+				L88,110
+				L120,110
+				L120,152
+			" paint-order="stroke fill" fill="#a1000d" stroke="#ffffff"/>
+			<path d="
+				M105,141
+				L108,141
+				Z
+				M127,162
+				L129,148
+				Z
+				M120,152
+				L112,154
+				L112,178
+				L120,180
+			" fill="#a1000d" stroke="#ffffff"/>
+		</g>
+	</g>
+	<circle cx="128" cy="128" r="96" fill="none" stroke="#ffffff" stroke-width="4"/>
+</svg>
