@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" stroke-linecap="round" stroke-linejoin="round">
+	<clipPath id="clip">
+		<circle cx="128" cy="128" r="96"/>
+	</clipPath>
+	<circle cx="128" cy="128" r="96" fill="#e60012"/>
+	<g clip-path="url(#clip)" stroke-width="8">
+		<path d="
+			M191,68
+			L161,68
+			L158,80
+			L246,256
+			L256,256
+			L256,198
+			Z
+			M136,96
+			L168,96
+			L248,256
+			L176,256
+			L136,176
+			Z
+		" fill="#a1000d" stroke="#a1000d"/>
+		<path d="
+			M65,82
+			L95,82
+			L182,256
+			L128,256
+			L57,114
+			Z
+			M88,110
+			L120,110
+			L193,256
+			L118,256
+			L80,180
+			Z
+		" fill="#a1000d" stroke="#a1000d"/>
+		<path d="
+			M191,68
+			L161,68
+			L158,80
+			L167,80
+			A13,13,0,1,1,184,97
+			L185,106
+			L199,100
+			Z
+			M136,96
+			L168,96
+			L176,166
+			L136,176
+			Z
+		" fill="#ffffff" stroke="#ffffff"/>
+		<path d="
+			M151,127
+			L148,127
+			Z
+			M127,148
+			L129,134
+			Z
+			M128,136
+			L144,140
+			L144,164
+			L128,168
+		" fill="#a1000d" stroke="#a1000d"/>
+		<path d="
+			M65,82
+			L95,82
+			L98,94
+			L89,94
+			A13,13,0,1,0,72,111
+			L71,120
+			L57,114
+			Z
+			M120,180
+			L120,190
+			L80,180
+			L88,110
+			L120,110
+			L120,152
+		" paint-order="stroke fill" fill="#a1000d" stroke="#ffffff"/>
+		<path d="
+			M105,141
+			L108,141
+			Z
+			M127,162
+			L129,148
+			Z
+			M120,152
+			L112,154
+			L112,178
+			L120,180
+		" fill="#a1000d" stroke="#ffffff"/>
+	</g>
+	<circle cx="128" cy="128" r="96" fill="none" stroke="#ffffff" stroke-width="4"/>
+</svg>
