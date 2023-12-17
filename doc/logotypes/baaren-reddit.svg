@@ -1,0 +1,245 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" stroke-linecap="round" stroke-linejoin="round">
+	<clipPath id="clip">
+		<circle cx="128" cy="128" r="96"/>
+	</clipPath>
+	<circle cx="128" cy="128" r="96" fill="#ff4500"/>
+	<g clip-path="url(#clip)" stroke-width="8">
+		<g>
+			<animate
+				attributeName="display"
+				dur="3.2s"
+				calcMode="discrete"
+				repeatCount="indefinite"
+				keyTimes="0; .05; .0625; .075; .125; .1375; .15; .25; .2625; .275; .325; .3375; .35;"
+				values="inline; none; none; none; none; none; inline; none; none; none; none; none; inline;"
+			/>
+			<path d="
+				M65,88
+				L95,88
+				L98,100
+				L89,100
+				A13,13,0,1,0,72,117
+				L71,126
+				L57,120
+				Z
+				M191,88
+				L161,88
+				L158,100
+				L167,100
+				A13,13,0,1,1,184,117
+				L185,126
+				L199,120
+				Z
+				M88,116
+				L128,116
+				L134,62
+				L155,62
+				A5,5,0,1,1,165,62
+				A5,5,0,1,1,155,62
+				L134,62
+				L128,116
+				L168,116
+				L176,188
+				L128,200
+				L80,188
+				Z
+			" fill="#ffffff" stroke="#ffffff"/>
+			<path d="
+				M108,140
+				L108,152
+				Z
+				M148,140
+				L148,152
+				Z
+				M127,172
+				L129,172
+				Z
+				M112,164
+				L128,160
+				L144,164
+				L144,188
+				L128,192
+				L112,188
+				Z
+			" fill="none" stroke="#ff4500"/>
+		</g>
+		<g>
+			<animate
+				attributeName="display"
+				dur="3.2s"
+				calcMode="discrete"
+				repeatCount="indefinite"
+				keyTimes="0; .05; .0625; .075; .125; .1375; .15; .25; .2625; .275; .325; .3375; .35;"
+				values="none; inline; none; none; none; inline; none; inline; none; none; none; inline; none;"
+			/>
+			<path d="
+				M65,88
+				L95,88
+				L98,100
+				L89,100
+				A13,13,0,1,0,72,117
+				L71,126
+				L57,120
+				Z
+				M191,88
+				L161,88
+				L158,100
+				L167,100
+				A13,13,0,1,1,184,117
+				L185,126
+				L199,120
+				Z
+				M88,116
+				L128,116
+				L131,62
+				L139,62
+				A5,5,0,1,1,149,62
+				A5,5,0,1,1,139,62
+				L131,62
+				L128,116
+				L168,116
+				L176,188
+				L128,200
+				L80,188
+				Z
+			" fill="#ffffff" stroke="#ffffff"/>
+			<path d="
+				M108,143
+				L108,151
+				Z
+				M148,143
+				L148,151
+				Z
+				M127,172
+				L129,172
+				Z
+				M112,164
+				L128,160
+				L144,164
+				L144,188
+				L128,192
+				L112,188
+				Z
+			" fill="none" stroke="#ff4500"/>
+		</g>
+		<g>
+			<animate
+				attributeName="display"
+				dur="3.2s"
+				calcMode="discrete"
+				repeatCount="indefinite"
+				keyTimes="0; .05; .0625; .075; .125; .1375; .15; .25; .2625; .275; .325; .3375; .35;"
+				values="none; none; inline; none; inline; none; none; none; inline; none; inline; none; none;"
+			/>
+			<path d="
+				M65,89
+				L95,89
+				L98,101
+				L89,101
+				A13,13,0,1,0,72,118
+				L71,127
+				L57,121
+				Z
+				M191,89
+				L161,89
+				L158,101
+				L167,101
+				A13,13,0,1,1,184,118
+				L185,127
+				L199,121
+				Z
+				M88,117
+				L128,117
+				L125,64
+				L117,64
+				A5,5,0,1,1,107,64
+				A5,5,0,1,1,117,64
+				L125,64
+				L128,117
+				L168,117
+				L176,188
+				L128,200
+				L80,188
+				Z
+			" fill="#ffffff" stroke="#ffffff"/>
+			<path d="
+				M108,146
+				L108,150
+				Z
+				M148,146
+				L148,150
+				Z
+				M127,171
+				L129,171
+				Z
+				M112,163
+				L128,159
+				L144,163
+				L144,187
+				L128,191
+				L112,187
+				Z
+			" fill="none" stroke="#ff4500"/>
+		</g>
+		<g>
+			<animate
+				attributeName="display"
+				dur="3.2s"
+				calcMode="discrete"
+				repeatCount="indefinite"
+				keyTimes="0; .05; .0625; .075; .125; .1375; .15; .25; .2625; .275; .325; .3375; .35;"
+				values="none; none; none; inline; none; none; none; none; none; inline; none; none; none;"
+			/>
+			<path d="
+				M65,90
+				L95,90
+				L98,102
+				L89,102
+				A13,13,0,1,0,72,119
+				L71,128
+				L57,122
+				Z
+				M191,90
+				L161,90
+				L158,102
+				L167,102
+				A13,13,0,1,1,184,119
+				L185,128
+				L199,122
+				Z
+				M88,118
+				L128,118
+				L122,66
+				L101,66
+				A5,5,0,1,1,91,66
+				A5,5,0,1,1,101,66
+				L122,66
+				L128,118
+				L168,118
+				L176,188
+				L128,200
+				L80,188
+				Z
+			" fill="#ffffff" stroke="#ffffff"/>
+			<path d="
+				M105,149
+				L108,149
+				Z
+				M151,149
+				L148,149
+				Z
+				M127,170
+				L129,170
+				Z
+				M112,162
+				L128,158
+				L144,162
+				L144,186
+				L128,190
+				L112,186
+				Z
+			" fill="none" stroke="#ff4500"/>
+		</g>
+	</g>
+	<circle cx="128" cy="128" r="96" fill="none" stroke="#ff4500" stroke-width="4"/>
+</svg>
