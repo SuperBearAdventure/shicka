@@ -41,15 +41,9 @@ const aboutCommand: Command = {
 		const resolvedLocale: Locale = resolve(locale);
 		function formatMessage(locale: Locale): string {
 			return replyLocalizations[locale]({
-				bot: (): string => {
-					return escapeMarkdown(bot);
-				},
-				author: (): string => {
-					return escapeMarkdown(author);
-				},
-				link: (): string => {
-					return link;
-				},
+				bot: escapeMarkdown(bot),
+				author: escapeMarkdown(author),
+				link: link,
 			});
 		}
 		await interaction.reply({
@@ -66,9 +60,7 @@ const aboutCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
-				commandMention: (): string => {
-					return `</${commandName}:${applicationCommand.id}>`;
-				},
+				commandMention: `</${commandName}:${applicationCommand.id}>`,
 			};
 		}));
 	},

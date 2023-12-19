@@ -365,9 +365,7 @@ const chatCommand: Command = {
 				const max: number = attachments.length;
 				await interaction.reply({
 					content: noPositionReplyLocalizations[resolvedLocale]({
-						max: (): string => {
-							return escapeMarkdown(`${max}`);
-						},
+						max: escapeMarkdown(`${max}`),
 					}),
 					ephemeral: true,
 				});
@@ -408,9 +406,7 @@ const chatCommand: Command = {
 				const max: number = attachments.length - 1;
 				await interaction.reply({
 					content: noPositionReplyLocalizations[resolvedLocale]({
-						max: (): string => {
-							return escapeMarkdown(`${max}`);
-						},
+						max: escapeMarkdown(`${max}`),
 					}),
 					ephemeral: true,
 				});
@@ -453,33 +449,15 @@ const chatCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
-				postSubCommandMention: (): string => {
-					return `</${commandName} ${postSubCommandName}:${applicationCommand.id}>`;
-				},
-				patchSubCommandMention: (): string => {
-					return `</${commandName} ${patchSubCommandName}:${applicationCommand.id}>`;
-				},
-				attachSubCommandMention: (): string => {
-					return `</${commandName} ${attachSubCommandName}:${applicationCommand.id}>`;
-				},
-				detachSubCommandMention: (): string => {
-					return `</${commandName} ${detachSubCommandName}:${applicationCommand.id}>`;
-				},
-				channelOptionDescription: (): string => {
-					return channelOptionDescription[locale];
-				},
-				messageOptionDescription: (): string => {
-					return messageOptionDescription[locale];
-				},
-				contentOptionDescription: (): string => {
-					return contentOptionDescription[locale];
-				},
-				positionOptionDescription: (): string => {
-					return positionOptionDescription[locale];
-				},
-				attachmentOptionDescription: (): string => {
-					return attachmentOptionDescription[locale];
-				},
+				postSubCommandMention: `</${commandName} ${postSubCommandName}:${applicationCommand.id}>`,
+				patchSubCommandMention: `</${commandName} ${patchSubCommandName}:${applicationCommand.id}>`,
+				attachSubCommandMention: `</${commandName} ${attachSubCommandName}:${applicationCommand.id}>`,
+				detachSubCommandMention: `</${commandName} ${detachSubCommandName}:${applicationCommand.id}>`,
+				channelOptionDescription: channelOptionDescription[locale],
+				messageOptionDescription: messageOptionDescription[locale],
+				contentOptionDescription: contentOptionDescription[locale],
+				positionOptionDescription: positionOptionDescription[locale],
+				attachmentOptionDescription: attachmentOptionDescription[locale],
 			};
 		}));
 	},

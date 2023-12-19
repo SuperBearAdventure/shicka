@@ -105,24 +105,24 @@ function map<K extends string, T, U>(input: {[k in K]: T}, callback: (value: T, 
 		];
 	})) as {[k in K]: U});
 }
-export function compile<Groups extends {[k in string]: () => string}>(template: string): (groups: Groups) => string {
+export function compile<Groups extends {[k in string]: string}>(template: string): (groups: Groups) => string {
 	return (groups: Groups): string => {
 		return template.replaceAll(groupsPattern, ($0: string, $1: string): string => {
-			return groups[$1]() ?? $0;
+			return groups[$1] ?? $0;
 		});
 	};
 }
-export function compileAll<Groups extends {[k in string]: () => string}>(templates: Localized<string>): Localized<(groups: Groups) => string> {
+export function compileAll<Groups extends {[k in string]: string}>(templates: Localized<string>): Localized<(groups: Groups) => string> {
 	return map<Locale, string, (groups: Groups) => string>(templates, (template: string): (groups: Groups) => string => {
 		return compile<Groups>(template);
 	});
 }
-export function compose<InputGroups extends {[k in string]: () => string}, OutputGroups extends {[k in string]: () => string}>(template: (groups: InputGroups & OutputGroups) => string, inputGroups: InputGroups): (outputGroups: OutputGroups) => string {
+export function compose<InputGroups extends {[k in string]: string}, OutputGroups extends {[k in string]: string}>(template: (groups: InputGroups & OutputGroups) => string, inputGroups: InputGroups): (outputGroups: OutputGroups) => string {
 	return (outputGroups: OutputGroups): string => {
 		return template({...outputGroups, ...inputGroups});
 	};
 }
-export function composeAll<InputGroups extends {[k in string]: () => string}, OutputGroups extends {[k in string]: () => string}>(templates: Localized<(groups: InputGroups & OutputGroups) => string>, inputGroups: Localized<InputGroups>): Localized<(outputGroups: OutputGroups) => string> {
+export function composeAll<InputGroups extends {[k in string]: string}, OutputGroups extends {[k in string]: string}>(templates: Localized<(groups: InputGroups & OutputGroups) => string>, inputGroups: Localized<InputGroups>): Localized<(outputGroups: OutputGroups) => string> {
 	return map<Locale, (groups: InputGroups & OutputGroups) => string, (groups: OutputGroups) => string>(templates, (template: (groups: InputGroups & OutputGroups) => string, locale: Locale): (groups: OutputGroups) => string => {
 		return compose<InputGroups, OutputGroups>(template, inputGroups[locale]);
 	});

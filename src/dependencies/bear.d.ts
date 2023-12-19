@@ -1,22 +1,22 @@
 type HelpGroups = {
-	commandMention: () => string,
-	bearOptionDescription: () => string,
+	commandMention: string,
+	bearOptionDescription: string,
 };
 type ReplyGroups = {
-	name: () => string,
-	level: () => string,
-	outfitNameConjunction: () => string,
-	goalConjunction: () => string,
+	name: string,
+	level: string,
+	outfitNameConjunction: string,
+	goalConjunction: string,
 };
 type NoOutfitGroups = {};
 type BossGoalGroups = {
-	boss: () => string,
+	boss: string,
 };
 type CoinsGoalGroups = {
-	coins: () => string,
+	coins: string,
 };
 type TimeGoalGroups = {
-	time: () => string,
+	time: string,
 };
 type NoGoalGroups = {};
 type BearDependency = {

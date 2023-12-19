@@ -198,18 +198,10 @@ const gateCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
-				approveSubCommandMention: (): string => {
-					return `</${commandName} ${approveSubCommandName}:${applicationCommand.id}>`;
-				},
-				refuseSubCommandMention: (): string => {
-					return `</${commandName} ${refuseSubCommandName}:${applicationCommand.id}>`;
-				},
-				channelOptionDescription: (): string => {
-					return channelOptionDescription[locale];
-				},
-				messageOptionDescription: (): string => {
-					return messageOptionDescription[locale];
-				},
+				approveSubCommandMention: `</${commandName} ${approveSubCommandName}:${applicationCommand.id}>`,
+				refuseSubCommandMention: `</${commandName} ${refuseSubCommandName}:${applicationCommand.id}>`,
+				channelOptionDescription: channelOptionDescription[locale],
+				messageOptionDescription: messageOptionDescription[locale],
 			};
 		}));
 	},

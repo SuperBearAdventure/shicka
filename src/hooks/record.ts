@@ -227,9 +227,7 @@ const recordHook: Hook = {
 		const {channel}: Webhook = webhook;
 		return channel != null ? composeAll<HelpWithChannelGroups, {}>(helpWithChannelLocalizations, localize<HelpWithChannelGroups>((): HelpWithChannelGroups => {
 			return {
-				channelMention: (): string => {
-					return `<#${channel.id}>`;
-				},
+				channelMention: `<#${channel.id}>`,
 			};
 		})) : helpWithoutChannelLocalizations;
 	},

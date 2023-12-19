@@ -85,9 +85,7 @@ const applyCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
-				commandMention: (): string => {
-					return `</${commandName}:${applicationCommand.id}>`;
-				},
+				commandMention: `</${commandName}:${applicationCommand.id}>`,
 			};
 		}));
 	},

@@ -1,16 +1,16 @@
 type HelpGroups = {
-	commandMention: () => string,
+	commandMention: string,
 };
 type ReplyGroups = {
-	linkList: () => string,
+	linkList: string,
 };
 type DefaultReplyGroups = {
-	link: () => string,
+	link: string,
 };
 type LinkGroups = {
-	title: () => string,
-	link: () => string,
-	views: () => string,
+	title: string,
+	link: string,
+	views: string,
 };
 type TrailerDependency = {
 	help: HelpGroups,

@@ -71,9 +71,7 @@ const verifyCommand: Command = {
 		}
 		function formatMessage(locale: Locale): string {
 			return replyLocalizations[locale]({
-				name: (): string => {
-					return escapeMarkdown(name);
-				},
+				name: escapeMarkdown(name),
 			});
 		}
 		await interaction.reply({
@@ -91,9 +89,7 @@ const verifyCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
-				commandMention: (): string => {
-					return `</${commandName}:${applicationCommand.id}>`;
-				},
+				commandMention: `</${commandName}:${applicationCommand.id}>`,
 			};
 		}));
 	},

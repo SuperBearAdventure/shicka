@@ -1,5 +1,5 @@
 type HelpWithChannelGroups = {
-	channelMention: () => string,
+	channelMention: string,
 };
 type HelpWithoutChannelGroups = {};
 type ApplicationDependency = {

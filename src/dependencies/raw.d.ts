@@ -1,13 +1,13 @@
 type HelpGroups = {
-	commandMention: () => string,
-	typeOptionDescription: () => string,
-	identifierOptionDescription: () => string,
+	commandMention: string,
+	typeOptionDescription: string,
+	identifierOptionDescription: string,
 };
 type NoTypeReplyGroups = {
-	typeConjunction: () => string,
+	typeConjunction: string,
 };
 type NoIdentifierReplyGroups = {
-	max: () => string,
+	max: string,
 };
 type RawDependency = {
 	help: HelpGroups,

@@ -1,17 +1,17 @@
 type HelpGroups = {
-	commandMention: () => string,
+	commandMention: string,
 };
 type ReplyGroups = {
-	intent: () => string,
-	linkList: () => string,
+	intent: string,
+	linkList: string,
 };
 type IntentWithChannelGroups = {
-	channelMention: () => string,
+	channelMention: string,
 };
 type IntentWithoutChannelGroups = {};
 type LinkGroups = {
-	title: () => string,
-	link: () => string,
+	title: string,
+	link: string,
 };
 type TrackerDependency = {
 	help: HelpGroups,

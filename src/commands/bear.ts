@@ -104,17 +104,13 @@ const bearCommand: Command = {
 		const coins: number | null = bear.id % 8 === 3 ? levels[bear.level].coins - 25 : 0;
 		const bossGoal: Localized<(groups: {}) => string> | null = boss != null ? composeAll<BossGoalGroups, {}>(bossGoalLocalizations, localize<BossGoalGroups>((locale: Locale): BossGoalGroups => {
 			return {
-				boss: (): string => {
-					return escapeMarkdown(boss[locale]);
-				},
+				boss: escapeMarkdown(boss[locale]),
 			};
 		})) : null;
 		const coinsGoal: Localized<(groups: {}) => string> | null = coins !== 0 ? composeAll<CoinsGoalGroups, {}>(bossGoal != null ? coinsWithBossGoalLocalizations : coinsWithoutBossGoalLocalizations, localize<CoinsGoalGroups>((locale: Locale): CoinsGoalGroups => {
 			const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat(locale);
 			return {
-				coins: (): string => {
-					return escapeMarkdown(cardinalFormat.format(coins));
-				},
+				coins: escapeMarkdown(cardinalFormat.format(coins)),
 			};
 		})) : null;
 		const minutes: string = `${gold / 60 | 0}`.padStart(2, "0");
@@ -123,9 +119,7 @@ const bearCommand: Command = {
 		const time: string = `${minutes}:${seconds}.${centiseconds}`;
 		const timeGoal: Localized<(groups: {}) => string> | null = time !== "00:00.00" ? composeAll<TimeGoalGroups, {}>(bossGoal != null || coinsGoal != null ? timeWithBossOrCoinsGoalLocalizations : timeWithoutBossAndCoinsGoalLocalizations, localize<TimeGoalGroups>((): TimeGoalGroups => {
 			return {
-				time: (): string => {
-					return escapeMarkdown(time);
-				},
+				time: escapeMarkdown(time),
 			};
 		})) : null;
 		const goals: Localized<(groups: {}) => string>[] = [bossGoal, coinsGoal, timeGoal].filter<Localized<(groups: {}) => string>>((goal: Localized<(groups: {}) => string> | null): goal is Localized<(groups: {}) => string> => {
@@ -137,22 +131,22 @@ const bearCommand: Command = {
 				type: "conjunction",
 			});
 			return replyLocalizations[locale]({
-				name: (): string => {
-					return escapeMarkdown(name[locale]);
-				},
-				level: (): string => {
-					return escapeMarkdown(level.name[locale]);
-				},
-				outfitNameConjunction: (): string => {
-					return bearOutfits.length !== 0 ? conjunctionFormat.format(bearOutfits.map<string>((outfit: Outfit): string => {
+				name: escapeMarkdown(name[locale]),
+				level: escapeMarkdown(level.name[locale]),
+				outfitNameConjunction: bearOutfits.length !== 0 ? (
+					conjunctionFormat.format(bearOutfits.map<string>((outfit: Outfit): string => {
 						return `*${escapeMarkdown(outfit.name[locale])}*`;
-					})) : escapeMarkdown(noOutfitLocalizations[locale]({}));
-				},
-				goalConjunction: (): string => {
-					return goals.length !== 0 ? conjunctionFormat.format(goals.map<string>((goal: Localized<(groups: {}) => string>): string => {
+					}))
+				) : (
+					escapeMarkdown(noOutfitLocalizations[locale]({}))
+				),
+				goalConjunction: goals.length !== 0 ? (
+					conjunctionFormat.format(goals.map<string>((goal: Localized<(groups: {}) => string>): string => {
 						return goal[locale]({});
-					})) : escapeMarkdown(noGoalLocalizations[locale]({}));
-				},
+					}))
+				) : (
+					escapeMarkdown(noGoalLocalizations[locale]({}))
+				),
 			});
 		}
 		await interaction.reply({
@@ -169,12 +163,8 @@ const bearCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
-				commandMention: (): string => {
-					return `</${commandName}:${applicationCommand.id}>`;
-				},
-				bearOptionDescription: (): string => {
-					return bearOptionDescription[locale];
-				},
+				commandMention: `</${commandName}:${applicationCommand.id}>`,
+				bearOptionDescription: bearOptionDescription[locale],
 			};
 		}));
 	},

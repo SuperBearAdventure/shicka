@@ -120,9 +120,7 @@ const approveCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
-				commandMention: (): string => {
-					return commandDescription[locale];
-				},
+				commandMention: commandDescription[locale],
 			};
 		}));
 	},

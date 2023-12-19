@@ -156,11 +156,9 @@ const rule7Rule: Rule = {
 				type: "conjunction",
 			});
 			return {
-				channelMentions: (): string => {
-					return conjunctionFormat.format(channels.map<string>((channel: TextChannel | NewsChannel): string => {
-						return `<#${channel.id}>`;
-					}));
-				},
+				channelMentions: conjunctionFormat.format(channels.map<string>((channel: TextChannel | NewsChannel): string => {
+					return `<#${channel.id}>`;
+				})),
 			};
 		})) : helpWithoutChannelsLocalizations;
 	},

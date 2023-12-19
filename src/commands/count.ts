@@ -41,12 +41,8 @@ const countCommand: Command = {
 		function formatMessage(locale: Locale): string {
 			const cardinalFormat: Intl.NumberFormat = new Intl.NumberFormat(locale);
 			return replyLocalizations[locale]({
-				memberCount: (): string => {
-					return escapeMarkdown(cardinalFormat.format(memberCount));
-				},
-				name: (): string => {
-					return escapeMarkdown(name);
-				},
+				memberCount: escapeMarkdown(cardinalFormat.format(memberCount)),
+				name: escapeMarkdown(name),
 			});
 		}
 		await interaction.reply({
@@ -63,9 +59,7 @@ const countCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
-				commandMention: (): string => {
-					return `</${commandName}:${applicationCommand.id}>`;
-				},
+				commandMention: `</${commandName}:${applicationCommand.id}>`,
 			};
 		}));
 	},

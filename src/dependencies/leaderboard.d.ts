@@ -1,12 +1,12 @@
 type HelpGroups = {
-	commandMention: () => string,
+	commandMention: string,
 };
 type ReplyGroups = {
-	linkList: () => string,
+	linkList: string,
 };
 type LinkGroups = {
-	title: () => string,
-	link: () => string,
+	title: string,
+	link: string,
 };
 type LeaderboardDependency = {
 	help: HelpGroups,

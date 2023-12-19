@@ -1,31 +1,31 @@
 type HelpGroups = {
-	commandMention: () => string,
-	outfitOptionDescription: () => string,
+	commandMention: string,
+	outfitOptionDescription: string,
 };
 type ReplyGroups = {
-	outfitName: () => string,
-	costConjunction: () => string,
-	scheduleList: () => string,
+	outfitName: string,
+	costConjunction: string,
+	scheduleList: string,
 };
 type BareReplyGroups = {
-	scheduleList: () => string,
+	scheduleList: string,
 };
 type NoSlotReplyGroups = {
-	outfitName: () => string,
+	outfitName: string,
 };
 type TokensCostGroups = {
-	tokens: () => string,
+	tokens: string,
 };
 type CoinsCostGroups = {
-	coins: () => string,
+	coins: string,
 };
 type NoCostGroups = {};
 type ScheduleGroups = {
-	dayDateTime: () => string,
+	dayDateTime: string,
 };
 type BareScheduleGroups = {
-	dayDateTime: () => string,
-	outfitNameConjunction: () => string,
+	dayDateTime: string,
+	outfitNameConjunction: string,
 };
 type OutfitDependency = {
 	help: HelpGroups,

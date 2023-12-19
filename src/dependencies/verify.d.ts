@@ -1,8 +1,8 @@
 type HelpGroups = {
-	commandMention: () => string,
+	commandMention: string,
 };
 type ReplyGroups = {
-	name: () => string,
+	name: string,
 };
 type NoPermissionReplyGroups = {};
 type VerifyDependency = {

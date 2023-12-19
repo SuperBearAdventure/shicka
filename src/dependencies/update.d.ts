@@ -1,17 +1,17 @@
 type HelpGroups = {
-	commandMention: () => string,
+	commandMention: string,
 };
 type ReplyGroups = {
-	linkList: () => string,
+	linkList: string,
 };
 type DefaultReplyGroups = {
-	linkList: () => string,
+	linkList: string,
 };
 type LinkGroups = {
-	title: () => string,
-	link: () => string,
-	version: () => string,
-	date: () => string,
+	title: string,
+	link: string,
+	version: string,
+	date: string,
 };
 type UpdateDependency = {
 	help: HelpGroups,

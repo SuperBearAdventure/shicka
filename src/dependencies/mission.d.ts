@@ -1,27 +1,27 @@
 type HelpGroups = {
-	commandMention: () => string,
-	missionOptionDescription: () => string,
+	commandMention: string,
+	missionOptionDescription: string,
 };
 type ReplyGroups = {
-	challengeName: () => string,
-	levelName: () => string,
-	scheduleList: () => string,
+	challengeName: string,
+	levelName: string,
+	scheduleList: string,
 };
 type BareReplyGroups = {
-	dayTime: () => string,
-	scheduleList: () => string,
+	dayTime: string,
+	scheduleList: string,
 };
 type MissionNameGroups = {
-	challengeName: () => string,
-	levelName: () => string,
+	challengeName: string,
+	levelName: string,
 };
 type ScheduleGroups = {
-	dayDateTime: () => string,
+	dayDateTime: string,
 };
 type BareScheduleGroups = {
-	dayDate: () => string,
-	challengeName: () => string,
-	levelName: () => string,
+	dayDate: string,
+	challengeName: string,
+	levelName: string,
 };
 type MissionDependency = {
 	help: HelpGroups,

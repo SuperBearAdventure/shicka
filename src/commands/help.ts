@@ -323,12 +323,8 @@ const helpCommand: Command = {
 		});
 		function formatMessage(locale: Locale): string {
 			return replyLocalizations[locale]({
-				memberMention: (): string => {
-					return `<@${member.id}>`;
-				},
-				featureList: (): string => {
-					return list(features[locale]({}));
-				},
+				memberMention: `<@${member.id}>`,
+				featureList: list(features[locale]({})),
 			});
 		}
 		const persistentContent: string = formatMessage("en-US");
@@ -381,9 +377,7 @@ const helpCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
-				commandMention: (): string => {
-					return `</${commandName}:${applicationCommand.id}>`;
-				},
+				commandMention: `</${commandName}:${applicationCommand.id}>`,
 			};
 		}));
 	},

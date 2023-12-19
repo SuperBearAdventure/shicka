@@ -68,9 +68,7 @@ const arrivalHook: Hook = {
 		const {guild}: GuildMember = member;
 		const {memberCount}: Guild = guild;
 		const greeting: string = greetings[Math.random() * greetings.length | 0]({
-			memberMention: (): string => {
-				return `<@${member.id}>`;
-			},
+			memberMention: `<@${member.id}>`,
 		});
 		const counting: string = memberCount % 10 !== 0 ? "" : `\nWe are now ${escapeMarkdown(cardinalFormat.format(memberCount))} members!`;
 		const {client, webhooks}: WebjobInvocation = invocation;
@@ -97,9 +95,7 @@ const arrivalHook: Hook = {
 		const {channel}: Webhook = webhook;
 		return channel != null ? composeAll<HelpWithChannelGroups, {}>(helpWithChannelLocalizations, localize<HelpWithChannelGroups>((): HelpWithChannelGroups => {
 			return {
-				channelMention: (): string => {
-					return `<#${channel.id}>`;
-				},
+				channelMention: `<#${channel.id}>`,
 			};
 		})) : helpWithoutChannelLocalizations;
 	},

@@ -145,29 +145,19 @@ const updateCommand: Command = {
 						timeZone: "UTC",
 					});
 					return {
-						title: (): string => {
-							return escapeMarkdown(item.title);
-						},
-						link: (): string => {
-							return item.link;
-						},
-						date: (): string => {
-							return escapeMarkdown(dateFormat.format(item.date));
-						},
-						version: (): string => {
-							return escapeMarkdown(item.version);
-						},
+						title: escapeMarkdown(item.title),
+						link: item.link,
+						date: escapeMarkdown(dateFormat.format(item.date)),
+						version: escapeMarkdown(item.version),
 					};
 				}));
 				links.push(link);
 			}
 			function formatMessage(locale: Locale): string {
 				return replyLocalizations[locale]({
-					linkList: (): string => {
-						return list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
-							return link[locale]({});
-						}));
-					},
+					linkList: list(links.map<string>((link: Localized<(groups: {}) => string>): string => {
+						return link[locale]({});
+					})),
 				});
 			}
 			await interaction.reply({
@@ -185,9 +175,7 @@ const updateCommand: Command = {
 			const linkList: string = list(links);
 			function formatMessage(locale: Locale): string {
 				return defaultReplyLocalizations[locale]({
-					linkList: (): string => {
-						return linkList;
-					},
+					linkList: linkList,
 				});
 			}
 			await interaction.reply({
@@ -205,9 +193,7 @@ const updateCommand: Command = {
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
 			return {
-				commandMention: (): string => {
-					return `</${commandName}:${applicationCommand.id}>`;
-				},
+				commandMention: `</${commandName}:${applicationCommand.id}>`,
 			};
 		}));
 	},

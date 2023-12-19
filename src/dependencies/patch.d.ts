@@ -1,5 +1,5 @@
 type HelpGroups = {
-	commandMention: () => string,
+	commandMention: string,
 };
 type ReplyGroups = {};
 type NoContentOrAttachmentReplyGroups = {};

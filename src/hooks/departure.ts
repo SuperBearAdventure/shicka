@@ -63,9 +63,7 @@ const departureHook: Hook = {
 		}
 		const [member]: ClientEvents["guildMemberRemove"] = (invocation.event as WebjobEvent<"guildMemberRemove">).data;
 		const greeting: string = greetings[Math.random() * greetings.length | 0]({
-			memberMention: (): string => {
-				return `**${escapeMarkdown(member.user.username)}**${member.user.discriminator != null && member.user.discriminator !== "0" ? `#**${escapeMarkdown(member.user.discriminator)}**` : ""}${member.user.globalName != null ? ` (**${escapeMarkdown(member.user.globalName)}**)` : ""}`;
-			},
+			memberMention: `**${escapeMarkdown(member.user.username)}**${member.user.discriminator != null && member.user.discriminator !== "0" ? `#**${escapeMarkdown(member.user.discriminator)}**` : ""}${member.user.globalName != null ? ` (**${escapeMarkdown(member.user.globalName)}**)` : ""}`,
 		});
 		const {client, webhooks}: WebjobInvocation = invocation;
 		const {user}: Client<true> = client;
@@ -91,9 +89,7 @@ const departureHook: Hook = {
 		const {channel}: Webhook = webhook;
 		return channel != null ? composeAll<HelpWithChannelGroups, {}>(helpWithChannelLocalizations, localize<HelpWithChannelGroups>((): HelpWithChannelGroups => {
 			return {
-				channelMention: (): string => {
-					return `<#${channel.id}>`;
-				},
+				channelMention: `<#${channel.id}>`,
 			};
 		})) : helpWithoutChannelLocalizations;
 	},
