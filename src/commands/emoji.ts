@@ -36,7 +36,7 @@ const {
 const {createCanvas, loadImage}: any = canvas;
 const here: string = import.meta.url;
 const root: string = here.slice(0, here.lastIndexOf("/"));
-const bases: Set<"baaren" | "shicka" | "baaren-outlined" | "shicka-outlined" | "baaren-discord" | "shicka-discord"> = new Set<"baaren" | "shicka" | "baaren-outlined" | "shicka-outlined" | "baaren-discord" | "shicka-discord">(["baaren", "shicka", "baaren-outlined", "shicka-outlined", "baaren-discord", "shicka-discord"]);
+const bases: Set<"baaren" | "shicka" | "baaren-outlined" | "shicka-outlined" | "baaren-discord" | "shicka-discord" | "baaren-pixel" | "shicka-pixel"> = new Set<"baaren" | "shicka" | "baaren-outlined" | "shicka-outlined" | "baaren-discord" | "shicka-discord" | "baaren-pixel" | "shicka-pixel">(["baaren", "shicka", "baaren-outlined", "shicka-outlined", "baaren-discord", "shicka-discord", "baaren-pixel", "shicka-pixel"]);
 const paints: Set<"fill" | "stroke"> = new Set<"fill" | "stroke">(["fill", "stroke"]);
 const layers: Set<"background" | "foreground" | "marker"> = new Set<"background" | "foreground" | "marker">(["background", "foreground", "marker"]);
 const styles: {[k in string]: string} = Object.assign(Object.create(null), {
