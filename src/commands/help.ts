@@ -82,19 +82,19 @@ function hasAdministratorPermission(channel: GuildBasedChannel, member: GuildMem
 }
 function hasChannelPermission(permissions: Collection<string, ApplicationCommandPermissions[]>, applicationOrCommand: ClientApplication | ApplicationCommand, channel: GuildBasedChannel): boolean | null {
 	const allChannelsId: string = `${BigInt(channel.guild.id) - 1n}`;
-	const applicationOrCommandPermissions: ApplicationCommandPermissions[] | undefined = permissions.get(applicationOrCommand.id);
+	const applicationOrCommandPermissions: ApplicationCommandPermissions[] | null = permissions.get(applicationOrCommand.id) ?? null;
 	if (applicationOrCommandPermissions == null) {
 		return null;
 	}
-	const channelPermission: ApplicationCommandPermissions | undefined = applicationOrCommandPermissions.find((permission: ApplicationCommandPermissions): boolean => {
+	const channelPermission: ApplicationCommandPermissions | null = applicationOrCommandPermissions.find((permission: ApplicationCommandPermissions): boolean => {
 		return permission.type === ApplicationCommandPermissionType.Channel && permission.id === channel.id;
-	});
+	}) ?? null;
 	if (channelPermission != null) {
 		return channelPermission.permission;
 	}
-	const allChannelsPermission: ApplicationCommandPermissions | undefined = applicationOrCommandPermissions.find((permission: ApplicationCommandPermissions): boolean => {
+	const allChannelsPermission: ApplicationCommandPermissions | null = applicationOrCommandPermissions.find((permission: ApplicationCommandPermissions): boolean => {
 		return permission.type === ApplicationCommandPermissionType.Channel && permission.id === allChannelsId;
-	});
+	}) ?? null;
 	if (allChannelsPermission != null) {
 		return allChannelsPermission.permission;
 	}
@@ -102,13 +102,13 @@ function hasChannelPermission(permissions: Collection<string, ApplicationCommand
 }
 function hasMemberPermission(permissions: Collection<string, ApplicationCommandPermissions[]>, applicationOrCommand: ClientApplication | ApplicationCommand, member: GuildMember): boolean | null {
 	const allUsersId: string = member.guild.id;
-	const applicationOrCommandPermissions: ApplicationCommandPermissions[] | undefined = permissions.get(applicationOrCommand.id);
+	const applicationOrCommandPermissions: ApplicationCommandPermissions[] | null = permissions.get(applicationOrCommand.id) ?? null;
 	if (applicationOrCommandPermissions == null) {
 		return null;
 	}
-	const userPermission: ApplicationCommandPermissions | undefined = applicationOrCommandPermissions.find((permission: ApplicationCommandPermissions): boolean => {
+	const userPermission: ApplicationCommandPermissions | null = applicationOrCommandPermissions.find((permission: ApplicationCommandPermissions): boolean => {
 		return permission.type === ApplicationCommandPermissionType.User && permission.id === member.id;
-	});
+	}) ?? null;
 	if (userPermission != null) {
 		return userPermission.permission;
 	}
@@ -122,9 +122,9 @@ function hasMemberPermission(permissions: Collection<string, ApplicationCommandP
 			return permission.permission;
 		});
 	}
-	const allUsersPermission: ApplicationCommandPermissions | undefined = applicationOrCommandPermissions.find((permission: ApplicationCommandPermissions): boolean => {
+	const allUsersPermission: ApplicationCommandPermissions | null = applicationOrCommandPermissions.find((permission: ApplicationCommandPermissions): boolean => {
 		return permission.type === ApplicationCommandPermissionType.User && permission.id === allUsersId;
-	});
+	}) ?? null;
 	if (allUsersPermission != null) {
 		return allUsersPermission.permission;
 	}
@@ -205,26 +205,32 @@ const helpCommand: Command = {
 			return;
 		}
 		const applicationCommands: Collection<string, ApplicationCommand> = guild.commands.cache;
-		const permissions: Collection<string, ApplicationCommandPermissions[]> | undefined = await (async (): Promise<Collection<string, ApplicationCommandPermissions[]> | undefined> => {
+		const permissions: Collection<string, ApplicationCommandPermissions[]> | null = await (async (): Promise<Collection<string, ApplicationCommandPermissions[]> | null> => {
 			try {
 				return await guild.commands.permissions.fetch({});
-			} catch {}
+			} catch {
+				return null;
+			}
 		})();
 		if (permissions == null) {
 			return;
 		}
-		const webhooks: Collection<string, Webhook> | undefined = await (async (): Promise<Collection<string, Webhook> | undefined> => {
+		const webhooks: Collection<string, Webhook> | null = await (async (): Promise<Collection<string, Webhook> | null> => {
 			try {
 				return await guild.fetchWebhooks();
-			} catch {}
+			} catch {
+				return null;
+			}
 		})();
 		if (webhooks == null) {
 			return;
 		}
-		const autoModerationRules: Collection<string, AutoModerationRule> | undefined = await (async (): Promise<Collection<string, AutoModerationRule> | undefined> => {
+		const autoModerationRules: Collection<string, AutoModerationRule> | null = await (async (): Promise<Collection<string, AutoModerationRule> | null> => {
 			try {
 				return await guild.autoModerationRules.fetch();
-			} catch {}
+			} catch {
+				return null;
+			}
 		})();
 		if (autoModerationRules == null) {
 			return;
@@ -233,9 +239,9 @@ const helpCommand: Command = {
 		const descriptions: Localized<(groups: {}) => string>[] = [
 			Object.keys(commands).map<Localized<(groups: {}) => string> | null>((commandName: string): Localized<(groups: {}) => string> | null => {
 				const command: Command = commands[commandName as keyof typeof commands];
-				const applicationCommand: ApplicationCommand | undefined = applicationCommands.find((applicationCommand: ApplicationCommand): boolean => {
+				const applicationCommand: ApplicationCommand | null = applicationCommands.find((applicationCommand: ApplicationCommand): boolean => {
 					return applicationCommand.name === commandName;
-				});
+				}) ?? null;
 				if (applicationCommand == null) {
 					return null;
 				}
@@ -256,9 +262,9 @@ const helpCommand: Command = {
 			}),
 			Object.keys(hooks).map<Localized<(groups: {}) => string> | null>((hookName: string): Localized<(groups: {}) => string> | null => {
 				const hook: Hook = hooks[hookName as keyof typeof hooks];
-				const webhook: Webhook | undefined = webhooks.find((webhook: Webhook): boolean => {
+				const webhook: Webhook | null = webhooks.find((webhook: Webhook): boolean => {
 					return webhook.name === hookName;
-				});
+				}) ?? null;
 				if (webhook == null) {
 					return null;
 				}
@@ -277,9 +283,9 @@ const helpCommand: Command = {
 			}),
 			Object.keys(rules).map<Localized<(groups: {}) => string> | null>((ruleName: string): Localized<(groups: {}) => string> | null => {
 				const rule: Rule = rules[ruleName as keyof typeof rules];
-				const autoModerationRule: AutoModerationRule | undefined = autoModerationRules.find((autoModerationRule: AutoModerationRule): boolean => {
+				const autoModerationRule: AutoModerationRule | null = autoModerationRules.find((autoModerationRule: AutoModerationRule): boolean => {
 					return autoModerationRule.name === ruleName;
-				});
+				}) ?? null;
 				if (autoModerationRule == null) {
 					return null;
 				}
@@ -295,8 +301,8 @@ const helpCommand: Command = {
 					if (channelId == null) {
 						return null;
 					}
-					const channel: GuildBasedChannel | undefined = autoModerationRule.guild.channels.cache.get(channelId);
-					if (channel == null || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {
+					const channel: GuildBasedChannel | null = autoModerationRule.guild.channels.cache.get(channelId) ?? null;
+					if (channel == null || channel.partial || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {
 						return null;
 					}
 					return channel;

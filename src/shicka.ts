@@ -30,6 +30,7 @@ import {
 	ChannelType,
 	Client,
 	GatewayIntentBits,
+	Partials,
 } from "discord.js";
 import schedule from "node-schedule";
 import * as commands from "./commands.js";
@@ -52,11 +53,12 @@ async function submitGuildCommands(guild: Guild, commandRegistry: ApplicationCom
 	return true;
 }
 async function submitGuildHooks(guild: Guild, hookRegistry: WebhookCreateOptionsResolvable[]): Promise<boolean> {
-	const guildWebhooks: Collection<string, Webhook> | undefined = await (async (): Promise<Collection<string, Webhook> | undefined> => {
+	const guildWebhooks: Collection<string, Webhook> | null = await (async (): Promise<Collection<string, Webhook> | null> => {
 		try {
 			return await guild.fetchWebhooks();
 		} catch (error: unknown) {
 			console.warn(error);
+			return null;
 		}
 	})();
 	if (guildWebhooks == null) {
@@ -95,15 +97,9 @@ async function submitGuildHooks(guild: Guild, hookRegistry: WebhookCreateOptions
 			channel: channelResolvable,
 			...otherHookOptions
 		}: WebhookCreateOptionsResolvable = hookOptionsResolvable;
-		const channel: TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null = ((): TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null => {
-			const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-				return channel.name === channelResolvable;
-			});
-			if (channel == null || channel.type === ChannelType.GuildCategory || channel.isThread()) {
-				return null;
-			}
-			return channel;
-		})();
+		const channel: TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null = guild.channels.cache.find((channel: GuildBasedChannel): channel is TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel => {
+			return !channel.partial && channel.type !== ChannelType.GuildCategory && !channel.isThread() && channel.name === channelResolvable;
+		}) ?? null;
 		if (channel == null) {
 			continue;
 		}
@@ -121,11 +117,12 @@ async function submitGuildHooks(guild: Guild, hookRegistry: WebhookCreateOptions
 	return true;
 }
 async function submitGuildRules(guild: Guild, ruleRegistry: AutoModerationRuleCreateOptionsResolvable[]): Promise<boolean> {
-	const guildAutoModerationRules: Collection<string, AutoModerationRule> | undefined = await (async (): Promise<Collection<string, AutoModerationRule> | undefined> => {
+	const guildAutoModerationRules: Collection<string, AutoModerationRule> | null = await (async (): Promise<Collection<string, AutoModerationRule> | null> => {
 		try {
 			return await guild.autoModerationRules.fetch();
 		} catch (error: unknown) {
 			console.warn(error);
+			return null;
 		}
 	})();
 	if (guildAutoModerationRules == null) {
@@ -166,24 +163,16 @@ async function submitGuildRules(guild: Guild, ruleRegistry: AutoModerationRuleCr
 			...otherRuleOptions
 		}: AutoModerationRuleCreateOptionsResolvable = ruleOptionsResolvable;
 		const exemptChannels: (TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel)[] | null = exemptChannelsResolvable != null ? exemptChannelsResolvable.map<TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null>((exemptChannelResolvable: string): TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null => {
-			const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-				return channel.name === exemptChannelResolvable;
-			});
-			if (channel == null || channel.type === ChannelType.GuildCategory || channel.isThread()) {
-				return null;
-			}
-			return channel;
+			return guild.channels.cache.find((channel: GuildBasedChannel): channel is TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel => {
+				return !channel.partial && channel.type !== ChannelType.GuildCategory && !channel.isThread() && channel.name === exemptChannelResolvable;
+			}) ?? null;
 		}).filter<TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel>((exemptChannel: TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel | null): exemptChannel is TextChannel | NewsChannel | VoiceChannel | StageChannel | ForumChannel | MediaChannel => {
 			return exemptChannel != null;
 		}) : null;
 		const exemptRoles: Role[] | null = exemptRolesResolvable != null ? exemptRolesResolvable.map<Role | null>((exemptRoleResolvable: string): Role | null => {
-			const role: Role | undefined = guild.roles.cache.find((role: Role): boolean => {
+			return guild.roles.cache.find((role: Role): boolean => {
 				return role.name === exemptRoleResolvable;
-			});
-			if (role == null) {
-				return null;
-			}
-			return role;
+			}) ?? null;
 		}).filter<Role>((exemptRole: Role | null): exemptRole is Role => {
 			return exemptRole != null;
 		}) : null;
@@ -197,15 +186,9 @@ async function submitGuildRules(guild: Guild, ruleRegistry: AutoModerationRuleCr
 					channel: channelResolvable,
 					...otherMetadataOptions
 				}: Omit<AutoModerationActionMetadataOptions, "channel"> & {channel?: string} = metadataResolvable;
-				const channel: TextChannel | NewsChannel | null = channelResolvable != null ? ((): TextChannel | NewsChannel | null => {
-					const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-						return channel.name === channelResolvable;
-					});
-					if (channel == null || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {
-						return null;
-					}
-					return channel;
-				})() : null;
+				const channel: TextChannel | NewsChannel | null = channelResolvable != null ? guild.channels.cache.find((channel: GuildBasedChannel): channel is TextChannel | NewsChannel => {
+					return !channel.partial && !channel.isThread() && !channel.isVoiceBased() && channel.isTextBased() && channel.name === channelResolvable;
+				}) ?? null : null;
 				if (channelResolvable != null && channel == null) {
 					return null;
 				}
@@ -251,6 +234,13 @@ const client: Client<boolean> = new Client({
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.Guilds,
+	],
+	partials: [
+		Partials.User,
+		Partials.Channel,
+		Partials.GuildMember,
+		Partials.Message,
+		Partials.Reaction,
 	],
 	presence: {
 		activities: [
@@ -311,10 +301,12 @@ client.once("ready", async (client: Client<true>): Promise<void> => {
 					return;
 				}
 				const webhooks: Webhook[] = [];
-				const guildWebhooks: Collection<string, Webhook> | undefined = await (async (): Promise<Collection<string, Webhook> | undefined> => {
+				const guildWebhooks: Collection<string, Webhook> | null = await (async (): Promise<Collection<string, Webhook> | null> => {
 					try {
 						return await guild.fetchWebhooks();
-					} catch {}
+					} catch {
+						return null;
+					}
 				})();
 				if (guildWebhooks == null) {
 					return;
@@ -342,10 +334,12 @@ client.once("ready", async (client: Client<true>): Promise<void> => {
 			const job: Job = schedule.scheduleJob(hookName, jobOptions, async (...data: [timestamp: Date]): Promise<void> => {
 				const webhooks: Webhook[] = [];
 				for (const guild of client.guilds.cache.values()) {
-					const guildWebhooks: Collection<string, Webhook> | undefined = await (async (): Promise<Collection<string, Webhook> | undefined> => {
+					const guildWebhooks: Collection<string, Webhook> | null = await (async (): Promise<Collection<string, Webhook> | null> => {
 						try {
 							return await guild.fetchWebhooks();
-						} catch {}
+						} catch {
+							return null;
+						}
 					})();
 					if (guildWebhooks == null) {
 						continue;

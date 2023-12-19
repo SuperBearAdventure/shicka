@@ -135,7 +135,7 @@ async function fetchData(start: number, end: number): Promise<Data[] | null> {
 								continue;
 							}
 							const playerFlag: string | null = location?.country?.code?.slice?.(0, 2).split("").map((string: string): string => {
-								const character: number | undefined = string.codePointAt(0);
+								const character: number | null = string.codePointAt(0) ?? null;
 								if (character == null) {
 									return "";
 								}
@@ -154,7 +154,7 @@ async function fetchData(start: number, end: number): Promise<Data[] | null> {
 							return `: **${escapeMarkdown(time)}**`;
 						})() : "";
 						const category: string = `${levelName}${categoryName}${leaderboardName}`;
-						const page: string | null = run?.weblink ?? null
+						const page: string | null = run?.weblink ?? null;
 						const pageLink: string = page != null ?`[a new world record](<${page}>)` : "a new world record";
 						const videos: string[] = [];
 						for (const {uri} of run?.videos?.links ?? []) {

@@ -81,46 +81,46 @@ const rule7Rule: Rule = {
 		if (channel.isThread() && channel.id === messageId) {
 			return;
 		}
-		const message: Message<true> | undefined = await (async (): Promise<Message<true> | undefined> => {
+		const message: Message<true> | null = await (async (): Promise<Message<true> | null> => {
 			try {
 				if (channel.isThreadOnly()) {
-					const thread: ThreadChannel<boolean> | undefined = channel.threads.cache.get(messageId);
+					const thread: ThreadChannel<boolean> | null = await (async (): Promise<ThreadChannel<boolean> | null> => {
+						try {
+							const thread: ThreadChannel<true> | null = channel.threads.cache.get(messageId) ?? null;
+							if (thread == null || thread.partial) {
+								return await channel.threads.fetch(messageId);
+							}
+							return thread;
+						} catch {
+							return null;
+						}
+					})();
 					if (thread == null) {
-						return;
+						return null;
 					}
 					return await thread.messages.fetch(messageId);
 				}
 				return await channel.messages.fetch(messageId);
-			} catch {}
+			} catch {
+				return null;
+			}
 		})();
 		if (message == null) {
 			return;
 		}
 		const {guild}: AutoModerationActionExecution = execution;
-		const emoji: GuildEmoji | null = ((): GuildEmoji | null => {
-			const emoji: GuildEmoji | undefined = guild.emojis.cache.find((emoji: GuildEmoji): boolean => {
-				return (emoji.name ?? "") === ruleReactionEmoji;
-			});
-			if (emoji == null || (emoji.animated ?? true)) {
-				return null;
-			}
-			return emoji;
-		})();
+		const emoji: GuildEmoji | null = guild.emojis.cache.find((emoji: GuildEmoji): boolean => {
+			return !(emoji.animated ?? true) && (emoji.name ?? "") === ruleReactionEmoji;
+		}) ?? null;
 		if (emoji != null) {
 			await message.reply({
 				content: `<:${ruleReactionEmoji}:${emoji.id}>`,
 			});
 		}
 		const {rulesChannel}: Guild = guild;
-		const manualChannel: TextChannel | null = ruleRulesChannel != null ? ((): TextChannel | null => {
-			const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-				return channel.name === ruleRulesChannel;
-			});
-			if (channel == null || channel.type !== ChannelType.GuildText) {
-				return null;
-			}
-			return channel;
-		})() : rulesChannel;
+		const manualChannel: TextChannel | null = ruleRulesChannel != null ? guild.channels.cache.find((channel: GuildBasedChannel): channel is TextChannel => {
+			return !channel.partial && channel.type !== ChannelType.GuildText && channel.name === ruleRulesChannel;
+		}) ?? null : rulesChannel;
 		if (manualChannel != null) {
 			await message.reply({
 				content: `Please read and respect the rules in <#${manualChannel.id}>!`,
@@ -142,8 +142,8 @@ const rule7Rule: Rule = {
 			if (channelId == null) {
 				return null;
 			}
-			const channel: GuildBasedChannel | undefined = autoModerationRule.guild.channels.cache.get(channelId);
-			if (channel == null || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {
+			const channel: GuildBasedChannel | null = autoModerationRule.guild.channels.cache.get(channelId) ?? null;
+			if (channel == null || channel.partial || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {
 				return null;
 			}
 			return channel;
