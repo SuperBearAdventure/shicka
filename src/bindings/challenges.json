@@ -3,49 +3,56 @@
 		"name": {
 			"en-US": "Floor is lava",
 			"fr": "Le sol est en lave",
-			"pt-BR": "O Chão é Lava"
+			"pt-BR": "O Chão é Lava",
+			"ru": "Пол это лава"
 		}
 	},
 	{
 		"name": {
 			"en-US": "Paper plane flight",
 			"fr": "Voltige",
-			"pt-BR": "Voo com Avião de Papel"
+			"pt-BR": "Voo com Avião de Papel",
+			"ru": "Полёт на бумажном самолёте"
 		}
 	},
 	{
 		"name": {
 			"en-US": "Egg hunt",
 			"fr": "Chasse aux œufs",
-			"pt-BR": "Caça aos Ovos"
+			"pt-BR": "Caça aos Ovos",
+			"ru": "Охота за яйцами"
 		}
 	},
 	{
 		"name": {
 			"en-US": "Parkour",
 			"fr": "Parkour",
-			"pt-BR": "Parkour"
+			"pt-BR": "Parkour",
+			"ru": "Паркур"
 		}
 	},
 	{
 		"name": {
 			"en-US": "Electricity issue",
 			"fr": "Problème électrique",
-			"pt-BR": "Problema Elétrico"
+			"pt-BR": "Problema Elétrico",
+			"ru": "Проблемы с электричеством"
 		}
 	},
 	{
 		"name": {
 			"en-US": "Flooding",
 			"fr": "Inondation",
-			"pt-BR": "Inundação"
+			"pt-BR": "Inundação",
+			"ru": "Наводнение"
 		}
 	},
 	{
 		"name": {
 			"en-US": "Rally",
 			"fr": "Rallye",
-			"pt-BR": "Rali"
+			"pt-BR": "Rali",
+			"ru": "Гонки"
 		}
 	}
 ]

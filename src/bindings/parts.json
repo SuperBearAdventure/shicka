@@ -3,35 +3,40 @@
 		"name": {
 			"en-US": "Head",
 			"fr": "Tête",
-			"pt-BR": "Cabeça"
+			"pt-BR": "Cabeça",
+			"ru": "Голова"
 		}
 	},
 	{
 		"name": {
 			"en-US": "Body",
 			"fr": "Corps",
-			"pt-BR": "Corpo"
+			"pt-BR": "Corpo",
+			"ru": "Медведь"
 		}
 	},
 	{
 		"name": {
 			"en-US": "Bear",
 			"fr": "Ours",
-			"pt-BR": "Urso"
+			"pt-BR": "Urso",
+			"ru": "Медведь"
 		}
 	},
 	{
 		"name": {
 			"en-US": "Shicka",
 			"fr": "Shicka",
-			"pt-BR": "Shicka"
+			"pt-BR": "Shicka",
+			"ru": "Шика"
 		}
 	},
 	{
 		"name": {
 			"en-US": "Filter",
 			"fr": "Filtre",
-			"pt-BR": "Filtro"
+			"pt-BR": "Filtro",
+			"ru": "Фильтра"
 		}
 	}
 ]
