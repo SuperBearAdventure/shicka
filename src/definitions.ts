@@ -186,6 +186,8 @@ type Gate = {
 	messageOptionName: string,
 	messageOptionDescription: Localized<string>,
 	help: Localized<string>,
+	approveHelp: Localized<string>,
+	refuseHelp: Localized<string>,
 	noChannelReply: Localized<string>,
 	noMessageReply: Localized<string>,
 };
