@@ -60,16 +60,36 @@
 		"pt-BR": "Algum anexo"
 	},
 	"help": {
-		"en-US": "Type $<postSubCommandMention> `$<channelOptionDescription> $<contentOptionDescription>` to send `$<contentOptionDescription>` in `$<channelOptionDescription>`\nType $<patchSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription> $<contentOptionDescription>` to edit `$<messageOptionDescription>` with `$<contentOptionDescription>` in `$<channelOptionDescription>`\nType $<attachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription> $<attachmentOptionDescription>` to add at `$<positionOptionDescription>` `$<attachmentOptionDescription>` to `$<messageOptionDescription>` in `$<channelOptionDescription>`\nType $<detachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription>` to remove at `$<positionOptionDescription>` the attachment of `$<messageOptionDescription>` in `$<channelOptionDescription>`",
-		"fr": "Tape $<postSubCommandMention> `$<channelOptionDescription> $<contentOptionDescription>` pour envoyer `$<contentOptionDescription>` dans `$<channelOptionDescription>`\nTape $<patchSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` $<contentOptionDescription> pour modifier `$<messageOptionDescription>` avec `$<contentOptionDescription>` dans `$<channelOptionDescription>`\nTape $<attachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription> $<attachmentOptionDescription>` pour ajouter à `$<positionOptionDescription>` `$<attachmentOptionDescription>` à `$<messageOptionDescription>` dans `$<channelOptionDescription>`\nTape $<detachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription>` pour retirer à `$<positionOptionDescription>` la pièce jointe d'`$<messageOptionDescription>` dans `$<channelOptionDescription>`",
-		"pt-BR": "Digite $<postSubCommandMention> `$<channelOptionDescription> $<contentOptionDescription>` pra enviar `$<contentOptionDescription>` em `$<channelOptionDescription>`\nDigite $<patchSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription> $<contentOptionDescription>` pra editar `$<messageOptionDescription>` com `$<contentOptionDescription>` em `$<channelOptionDescription>`\nDigite $<attachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription> $<attachmentOptionDescription>` pra adicionar em `$<positionOptionDescription>` `$<attachmentOptionDescription>` pra `$<messageOptionDescription>` em `$<channelOptionDescription>`\nDigite $<detachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription>` pra remover em `$<positionOptionDescription>` o anexo de `$<messageOptionDescription>` em `$<channelOptionDescription>`"
+		"en-US": "$<postSubCommandHelp>\n$<patchSubCommandHelp>\n$<attachSubCommandHelp>\n$<detachSubCommandHelp>",
+		"fr": "$<postSubCommandHelp>\n$<patchSubCommandHelp>\n$<attachSubCommandHelp>\n$<detachSubCommandHelp>",
+		"pt-BR": "$<postSubCommandHelp>\n$<patchSubCommandHelp>\n$<attachSubCommandHelp>\n$<detachSubCommandHelp>"
 	},
-	"reply": {
+	"postHelp": {
+		"en-US": "Type $<postSubCommandMention> `$<channelOptionDescription> $<contentOptionDescription>` to send `$<contentOptionDescription>` in `$<channelOptionDescription>`",
+		"fr": "Tape $<postSubCommandMention> `$<channelOptionDescription> $<contentOptionDescription>` pour envoyer `$<contentOptionDescription>` dans `$<channelOptionDescription>`",
+		"pt-BR": "Digite $<postSubCommandMention> `$<channelOptionDescription> $<contentOptionDescription>` pra enviar `$<contentOptionDescription>` em `$<channelOptionDescription>`"
+	},
+	"patchHelp": {
+		"en-US": "Type $<patchSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription> $<contentOptionDescription>` to edit `$<messageOptionDescription>` with `$<contentOptionDescription>` in `$<channelOptionDescription>`",
+		"fr": "Tape $<patchSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` $<contentOptionDescription> pour modifier `$<messageOptionDescription>` avec `$<contentOptionDescription>` dans `$<channelOptionDescription>`",
+		"pt-BR": "Digite $<patchSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription> $<contentOptionDescription>` pra editar `$<messageOptionDescription>` com `$<contentOptionDescription>` em `$<channelOptionDescription>`"
+	},
+	"attachHelp": {
+		"en-US": "Type $<attachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription> $<attachmentOptionDescription>` to add at `$<positionOptionDescription>` `$<attachmentOptionDescription>` to `$<messageOptionDescription>` in `$<channelOptionDescription>`",
+		"fr": "Tape $<attachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription> $<attachmentOptionDescription>` pour ajouter à `$<positionOptionDescription>` `$<attachmentOptionDescription>` à `$<messageOptionDescription>` dans `$<channelOptionDescription>`",
+		"pt-BR": "Digite $<attachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription> $<attachmentOptionDescription>` pra adicionar em `$<positionOptionDescription>` `$<attachmentOptionDescription>` pra `$<messageOptionDescription>` em `$<channelOptionDescription>`"
+	},
+	"detachHelp": {
+		"en-US": "Type $<detachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription>` to remove at `$<positionOptionDescription>` the attachment of `$<messageOptionDescription>` in `$<channelOptionDescription>`",
+		"fr": "Tape $<detachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription>` pour retirer à `$<positionOptionDescription>` la pièce jointe d'`$<messageOptionDescription>` dans `$<channelOptionDescription>`",
+		"pt-BR": "Digite $<detachSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription> $<positionOptionDescription>` pra remover em `$<positionOptionDescription>` o anexo de `$<messageOptionDescription>` em `$<channelOptionDescription>`"
+	},
+	"patchReply": {
 		"en-US": "I have edited the message.",
 		"fr": "J'ai modifié le message.",
 		"pt-BR": "Editei a mensagem."
 	},
-	"bareReply": {
+	"postReply": {
 		"en-US": "I have sent the message.",
 		"fr": "J'ai envoyé le message.",
 		"pt-BR": "Enviei a mensagem."
