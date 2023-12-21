@@ -30,9 +30,29 @@
 		"pt-BR": "Alguma mensagem"
 	},
 	"help": {
-		"en-US": "Type $<approveSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` to approve the author of `$<messageOptionDescription>` in `$<channelOptionDescription>`\nType $<refuseSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` to refuse the author of `$<messageOptionDescription>` in `$<channelOptionDescription>`",
-		"fr": "Tape $<approveSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pour approuver l'auteur d'`$<messageOptionDescription>` dans `$<channelOptionDescription>`\nTape $<refuseSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pour refuser l'auteur d'`$<messageOptionDescription>` dans `$<channelOptionDescription>`",
-		"pt-BR": "Digite $<approveSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pra aprovar o autor de `$<messageOptionDescription>` em `$<channelOptionDescription>`\nDigite $<refuseSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pra recusar o autor de `$<messageOptionDescription>` em `$<channelOptionDescription>`"
+		"en-US": "$<approveSubCommandHelp>\n$<refuseSubCommandHelp>",
+		"fr": "$<approveSubCommandHelp>\n$<refuseSubCommandHelp>",
+		"pt-BR": "$<approveSubCommandHelp>\n$<refuseSubCommandHelp>"
+	},
+	"approveHelp": {
+		"en-US": "Type $<approveSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` to approve the author of `$<messageOptionDescription>` in `$<channelOptionDescription>`",
+		"fr": "Tape $<approveSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pour approuver l'auteur d'`$<messageOptionDescription>` dans `$<channelOptionDescription>`",
+		"pt-BR": "Digite $<approveSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pra aprovar o autor de `$<messageOptionDescription>` em `$<channelOptionDescription>`"
+	},
+	"refuseHelp": {
+		"en-US": "Type $<refuseSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` to refuse the author of `$<messageOptionDescription>` in `$<channelOptionDescription>`",
+		"fr": "Tape $<refuseSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pour refuser l'auteur d'`$<messageOptionDescription>` dans `$<channelOptionDescription>`",
+		"pt-BR": "Digite $<refuseSubCommandMention> `$<channelOptionDescription> $<messageOptionDescription>` pra recusar o autor de `$<messageOptionDescription>` em `$<channelOptionDescription>`"
+	},
+	"approveReply": {
+		"en-US": "I have approved the member.",
+		"fr": "J'ai approuvé le membre.",
+		"pt-BR": "Aprovei o membro."
+	},
+	"refuseReply": {
+		"en-US": "I have refused the member.",
+		"fr": "J'ai refusé le membre.",
+		"pt-BR": "Recusei o membro."
 	},
 	"noChannelReply": {
 		"en-US": "I do not know any channel with this tag.",
@@ -43,5 +63,15 @@
 		"en-US": "I do not know any message with this identifier in this channel.",
 		"fr": "Je ne connais aucun message avec cet identifiant dans ce salon.",
 		"pt-BR": "Não sei nenhuma mensagem com essa identificação nesse canal."
+	},
+	"noApprovePermissionReply": {
+		"en-US": "I do not have the rights to verify this member.",
+		"fr": "Je n'ai pas les droits pour vérifier ce membre.",
+		"pt-BR": "Eu não tenho as permissões pra verificar esse membro."
+	},
+	"noRefusePermissionReply": {
+		"en-US": "I do not have the rights to unverify this member.",
+		"fr": "Je n'ai pas les droits pour dévérifier ce membre.",
+		"pt-BR": "Eu não tenho as permissões pra desverificar esse membro."
 	}
 }

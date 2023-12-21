@@ -11,11 +11,10 @@ import type {Gate as GateDefinition} from "../definitions.js";
 import type {Gate as GateDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
 	ChannelType,
 } from "discord.js";
-import {approve as approveCommand, refuse as refuseCommand} from "../commands.js";
+import approveSubCommand from "./gate/approve.js";
+import refuseSubCommand from "./gate/refuse.js";
 import {gate as gateCompilation} from "../compilations.js";
 import {gate as gateDefinition} from "../definitions.js";
 import {composeAll, localize, resolve} from "../utils/string.js";
@@ -24,13 +23,9 @@ const {
 	commandName,
 	commandDescription,
 	approveSubCommandName,
-	approveSubCommandDescription,
 	refuseSubCommandName,
-	refuseSubCommandDescription,
 	channelOptionName,
-	channelOptionDescription,
 	messageOptionName,
-	messageOptionDescription,
 }: GateDefinition = gateDefinition;
 const {
 	help: helpLocalizations,
@@ -45,72 +40,8 @@ const gateCommand: Command = {
 			description: commandDescription["en-US"],
 			descriptionLocalizations: commandDescription,
 			options: [
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: approveSubCommandName,
-					description: approveSubCommandDescription["en-US"],
-					descriptionLocalizations: approveSubCommandDescription,
-					options: [
-						{
-							type: ApplicationCommandOptionType.Channel,
-							name: channelOptionName,
-							description: channelOptionDescription["en-US"],
-							descriptionLocalizations: channelOptionDescription,
-							required: true,
-							channelTypes: [
-								ChannelType.GuildText,
-								ChannelType.GuildVoice,
-								ChannelType.GuildAnnouncement,
-								ChannelType.AnnouncementThread,
-								ChannelType.PublicThread,
-								ChannelType.PrivateThread,
-								ChannelType.GuildStageVoice,
-								ChannelType.GuildForum,
-								ChannelType.GuildMedia,
-							],
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: messageOptionName,
-							description: messageOptionDescription["en-US"],
-							descriptionLocalizations: messageOptionDescription,
-							required: true,
-						},
-					],
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: refuseSubCommandName,
-					description: refuseSubCommandDescription["en-US"],
-					descriptionLocalizations: refuseSubCommandDescription,
-					options: [
-						{
-							type: ApplicationCommandOptionType.Channel,
-							name: channelOptionName,
-							description: channelOptionDescription["en-US"],
-							descriptionLocalizations: channelOptionDescription,
-							required: true,
-							channelTypes: [
-								ChannelType.GuildText,
-								ChannelType.GuildVoice,
-								ChannelType.GuildAnnouncement,
-								ChannelType.AnnouncementThread,
-								ChannelType.PublicThread,
-								ChannelType.PrivateThread,
-								ChannelType.GuildStageVoice,
-								ChannelType.GuildForum,
-								ChannelType.GuildMedia,
-							],
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: messageOptionName,
-							description: messageOptionDescription["en-US"],
-							descriptionLocalizations: messageOptionDescription,
-							required: true,
-						},
-					],
-				},
+				approveSubCommand.register(),
+				refuseSubCommand.register(),
 			],
 			defaultMemberPermissions: [],
 			dmPermission: false,
@@ -177,38 +108,22 @@ const gateCommand: Command = {
 			return;
 		}
 		if (subCommandName === approveSubCommandName) {
-			await approveCommand.interact(Object.assign(Object.create(interaction), {
-				commandType: ApplicationCommandType.Message,
-				get targetMessage(): Message<true> {
-					return message;
-				},
-			}));
+			await approveSubCommand.interact(interaction, message);
 			return;
 		}
 		if (subCommandName === refuseSubCommandName) {
-			await refuseCommand.interact(Object.assign(Object.create(interaction), {
-				commandType: ApplicationCommandType.Message,
-				get targetMessage(): Message<true> {
-					return message;
-				},
-			}));
+			await refuseSubCommand.interact(interaction, message);
 			return;
 		}
 	},
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
 		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
-				approveSubCommandMention: (): string => {
-					return `</${commandName} ${approveSubCommandName}:${applicationCommand.id}>`;
+				approveSubCommandHelp: (): string => {
+					return approveSubCommand.describe(applicationCommand)[locale]({});
 				},
-				refuseSubCommandMention: (): string => {
-					return `</${commandName} ${refuseSubCommandName}:${applicationCommand.id}>`;
-				},
-				channelOptionDescription: (): string => {
-					return channelOptionDescription[locale];
-				},
-				messageOptionDescription: (): string => {
-					return messageOptionDescription[locale];
+				refuseSubCommandHelp: (): string => {
+					return refuseSubCommand.describe(applicationCommand)[locale]({});
 				},
 			};
 		}));

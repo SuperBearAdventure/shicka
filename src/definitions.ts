@@ -154,8 +154,14 @@ type Gate = {
 	messageOptionName: string,
 	messageOptionDescription: Localized<string>,
 	help: Localized<string>,
+	approveHelp: Localized<string>,
+	refuseHelp: Localized<string>,
+	// approveReply: Localized<string>,
+	// refuseReply: Localized<string>,
 	noChannelReply: Localized<string>,
 	noMessageReply: Localized<string>,
+	// noApprovePermissionReply: Localized<string>,
+	// noRefusePermissionReply: Localized<string>,
 };
 type Help = {
 	commandName: string,
