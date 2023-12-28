@@ -15,13 +15,13 @@ import {JSDOM, VirtualConsole} from "jsdom";
 import fetch from "node-fetch";
 import {update as updateCompilation} from "../compilations.js";
 import {update as updateDefinition} from "../definitions.js";
-import {composeAll, list, localize, resolve} from "../utils/string.js";
+import {compareDates, compareVersions, composeAll, list, localize, parseVersion, resolve, stringifyVersion} from "../utils/string.js";
 type HelpGroups = UpdateDependency["help"];
 type LinkGroups = UpdateDependency["link"];
 type Data = {
 	title: string,
 	link: string,
-	version: string,
+	version: number[],
 	date: Date,
 };
 const {
@@ -39,6 +39,14 @@ const links: string[] = [
 	"[*iOS*](<https://apps.apple.com/app/id1531842415>)",
 	"[*Switch*](<https://www.nintendo.com/store/products/super-bear-adventure-switch/>)",
 ];
+function compareData(a: Data, b: Data): number {
+	const versionComparison: number = compareVersions(a.version, b.version);
+	if (versionComparison !== 0) {
+		return versionComparison;
+	}
+	const dateComparison: number = compareDates(a.date, b.date);
+	return dateComparison;
+}
 async function fetchAndroidData(): Promise<Data | null> {
 	const response: Response = await fetch("https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
 	const {window}: JSDOM = new JSDOM(await response.text(), {
@@ -55,7 +63,7 @@ async function fetchAndroidData(): Promise<Data | null> {
 			return {
 				title: "Android",
 				link: "https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer",
-				version: result[1][2][140][0][0][0],
+				version: parseVersion(result[1][2][140][0][0][0]),
 				date: new Date(result[1][2][145][0][1][0] * 1000),
 			};
 		} catch {}
@@ -78,7 +86,7 @@ async function fetchIosData(): Promise<Data | null> {
 			return {
 				title: "iOS",
 				link: "https://apps.apple.com/app/id1531842415",
-				version: result.d[0].attributes.platformAttributes.ios.versionHistory[0].versionDisplay,
+				version: parseVersion(result.d[0].attributes.platformAttributes.ios.versionHistory[0].versionDisplay),
 				date: new Date(result.d[0].attributes.platformAttributes.ios.versionHistory[0].releaseTimestamp),
 			};
 		} catch {}
@@ -99,7 +107,7 @@ async function fetchSwitchData(): Promise<Data | null> {
 			return {
 				title: "Switch",
 				link: "https://www.nintendo.com/store/products/super-bear-adventure-switch/",
-				version: "10.5.0+",
+				version: parseVersion("10.5.0"),
 				date: new Date(result.initialApolloState[`StoreProduct:${JSON.stringify({
 					sku: result.analytics.product.sku,
 					locale: "en_US",
@@ -108,6 +116,29 @@ async function fetchSwitchData(): Promise<Data | null> {
 		} catch {}
 	}
 	return null;
+}
+async function fetchTentativeData(): Promise<[androidData: Data, iosData: Data, switchData: Data]> {
+	const response: Response = await fetch("https://superbearadventure.com/game-version.json");
+	const result: any = await response.json();
+	const androidData: Data = {
+		title: "Android",
+		link: "https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer",
+		version: parseVersion(result.android.version),
+		date: new Date(result.android.date),
+	};
+	const iosData: Data = {
+		title: "iOS",
+		link: "https://apps.apple.com/app/id1531842415",
+		version: parseVersion(result.ios.version),
+		date: new Date(result.ios.date),
+	};
+	const switchData: Data = {
+		title: "Switch",
+		link: "https://www.nintendo.com/store/products/super-bear-adventure-switch/",
+		version: parseVersion(result.switch.version),
+		date: new Date(result.switch.date),
+	};
+	return [androidData, iosData, switchData];
 }
 const updateCommand: Command = {
 	register(): ApplicationCommandData {
@@ -136,7 +167,12 @@ const updateCommand: Command = {
 			if (switchData == null) {
 				throw new Error();
 			}
-			const data: Data[] = [androidData, iosData, switchData];
+			const tentativeData: [androidData: Data, iosData: Data, switchData: Data] = await fetchTentativeData();
+			const data: Data[] = [
+				androidData,
+				iosData,
+				compareData(tentativeData[2], switchData) >= 0 ? tentativeData[2] : switchData,
+			];
 			const links: Localized<(groups: {}) => string>[] = [];
 			for (const item of data) {
 				const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((locale: Locale): LinkGroups => {
@@ -155,7 +191,7 @@ const updateCommand: Command = {
 							return escapeMarkdown(dateFormat.format(item.date));
 						},
 						version: (): string => {
-							return escapeMarkdown(item.version);
+							return escapeMarkdown(stringifyVersion(item.version));
 						},
 					};
 				}));

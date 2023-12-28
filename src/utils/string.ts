@@ -90,6 +90,41 @@ export function list(items: string[]): string {
 		return `- ${item}`;
 	}).join("\n");
 }
+export function compareDates(a: Date, b: Date): number {
+	const aTimestamp: number = a.getTime();
+	const bTimestamp: number = b.getTime();
+	if (aTimestamp < bTimestamp) {
+		return -1;
+	}
+	if (aTimestamp > bTimestamp) {
+		return 1;
+	}
+	return 0;
+}
+export function compareVersions(a: number[], b: number[]): number {
+	for (let k: number = 0, aLength: number = a.length, bLength: number = b.length; k < aLength && k < bLength; ++k) {
+		const aPart: number = a[k];
+		const bPart: number = b[k];
+		if (aPart < bPart) {
+			return -1;
+		}
+		if (aPart > bPart) {
+			return 1;
+		}
+		continue;
+	}
+	return 0;
+}
+export function parseVersion(value: string): number[] {
+	return value.split(".").map((part: string): number => {
+		return Number(part);
+	});
+};
+export function stringifyVersion(value: number[]): string {
+	return value.map((part: number): string => {
+		return `${part}`;
+	}).join(".");
+};
 function filter<K extends string, T, U extends T>(input: {[k in K]: T}, callback: (value: T, key: K, input: {[k in K]: T}) => value is U): {[k in K]: U} {
 	return Object.assign<{[k in K]: U}, {[k in K]: U}>(Object.create(null), Object.fromEntries<T>(Object.entries<T>(input).filter<[K, U]>((entry: [string, T]): entry is [K, U] => {
 		const [key, value]: [K, T] = entry as [K, T];
