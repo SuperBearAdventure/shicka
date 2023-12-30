@@ -16,6 +16,8 @@ import leaderboardDefinition from "./definitions/leaderboard.json" assert {type:
 import missionDefinition from "./definitions/mission.json" assert {type: "json"};
 import outfitDefinition from "./definitions/outfit.json" assert {type: "json"};
 import patchDefinition from "./definitions/patch.json" assert {type: "json"};
+import patchingDefinition from "./definitions/patching.json" assert {type: "json"};
+import postingDefinition from "./definitions/posting.json" assert {type: "json"};
 import rawDefinition from "./definitions/raw.json" assert {type: "json"};
 import recordDefinition from "./definitions/record.json" assert {type: "json"};
 import refusalDefinition from "./definitions/refusal.json" assert {type: "json"};
@@ -206,6 +208,18 @@ type Patch = {
 	noContentOrAttachmentReply: Localized<string>,
 	noPermissionReply: Localized<string>,
 };
+type Patching = {
+	hookName: string,
+	hookReason: string,
+	helpWithChannel: Localized<string>,
+	helpWithoutChannel: Localized<string>,
+};
+type Posting = {
+	hookName: string,
+	hookReason: string,
+	helpWithChannel: Localized<string>,
+	helpWithoutChannel: Localized<string>,
+};
 type Raw = {
 	commandName: string,
 	commandDescription: Localized<string>,
@@ -304,7 +318,7 @@ type Verify = {
 	reply: Localized<string>,
 	noPermissionReply: Localized<string>,
 };
-type Definition = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Leaderboard | Mission | Outfit | Patch | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
+type Definition = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Leaderboard | Mission | Outfit | Patch | Patching | Posting | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
 const about: About = aboutDefinition;
 const application: Application = applicationDefinition;
 const apply: Apply = applyDefinition;
@@ -322,6 +336,8 @@ const leaderboard: Leaderboard = leaderboardDefinition;
 const mission: Mission = missionDefinition;
 const outfit: Outfit = outfitDefinition;
 const patch: Patch = patchDefinition;
+const patching: Patching = patchingDefinition;
+const posting: Posting = postingDefinition;
 const raw: Raw = rawDefinition;
 const record: Record = recordDefinition;
 const refusal: Refusal = refusalDefinition;
@@ -354,6 +370,8 @@ export type {
 	Mission,
 	Outfit,
 	Patch,
+	Patching,
+	Posting,
 	Raw,
 	Record,
 	Refusal,
@@ -386,6 +404,8 @@ export {
 	mission,
 	outfit,
 	patch,
+	patching,
+	posting,
 	raw,
 	record,
 	refusal,

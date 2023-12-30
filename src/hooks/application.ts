@@ -105,7 +105,7 @@ const applicationHook: Hook = {
 			const {channel}: Webhook = webhook;
 			const application: string = status;
 			const title: string = "New member application in the server";
-			webhook.send({
+			await webhook.send({
 				content: application,
 				username: applicationName,
 				avatarURL: applicationIcon,

@@ -1,0 +1,14 @@
+{
+	"hookName": "posting",
+	"hookReason": "Posts the latest message post in the given channel",
+	"helpWithChannel": {
+		"en-US": "I post the latest message post in $<channelMention>",
+		"fr": "Je poste le dernier post de message dans $<channelMention>",
+		"pt-BR": "Eu posto o post mais recente de mensagem em $<channelMention>"
+	},
+	"helpWithoutChannel": {
+		"en-US": "I post the latest message post",
+		"fr": "Je poste le dernier post de message",
+		"pt-BR": "Eu posto o post mais recente de mensagem"
+	}
+}
