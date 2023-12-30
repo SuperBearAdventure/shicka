@@ -112,7 +112,7 @@ const refuseCommand: Command = {
 		if (resolvedLocale === "en-US") {
 			return;
 		}
-		await interaction.reply({
+		await interaction.followUp({
 			content: formatMessage(resolvedLocale),
 			ephemeral: true,
 		});
