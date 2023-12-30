@@ -14,6 +14,8 @@ $ export SHICKA_APPLICATION_APPLYING_ROLE=<your-application-applying-role-here>
 $ export SHICKA_APPROVAL_DEFAULT_CHANNEL=<your-approval-default-channel-here>
 $ export SHICKA_ARRIVAL_DEFAULT_CHANNEL=<your-arrival-default-channel-here>
 $ export SHICKA_DEPARTURE_DEFAULT_CHANNEL=<your-departure-default-channel-here>
+$ export SHICKA_PATCHING_DEFAULT_CHANNEL=<your-patching-default-channel-here>
+$ export SHICKA_POSTING_DEFAULT_CHANNEL=<your-posting-default-channel-here>
 $ export SHICKA_RECORD_DEFAULT_CHANNEL=<your-record-default-channel-here>
 $ export SHICKA_REFUSAL_DEFAULT_CHANNEL=<your-refusal-default-channel-here>
 $ export SHICKA_VERIFICATION_DEFAULT_CHANNEL=<your-verification-default-channel-here>
@@ -112,6 +114,10 @@ $ npm start
 - `arrival` posts the latest member arrival to the server in the given channel (set to `$SHICKA_ARRIVAL_DEFAULT_CHANNEL` by default)
 
 - `departure` posts the latest member departure from the server in the given channel (set to `$SHICKA_DEPARTURE_DEFAULT_CHANNEL` by default)
+
+- `patching` posts the latest message patch on the server in the given channel (set to `$SHICKA_PATCHING_DEFAULT_CHANNEL` by default)
+
+- `posting` posts the latest message post on the server in the given channel (set to `$SHICKA_POSTING_DEFAULT_CHANNEL` by default)
 
 - `record` posts the latest world records of the game on `www.speedrun.com` in the given channel (set to `$SHICKA_RECORD_DEFAULT_CHANNEL` by default)
 

@@ -15,6 +15,8 @@ import leaderboardCompilation from "./compilations/leaderboard.js";
 import missionCompilation from "./compilations/mission.js";
 import outfitCompilation from "./compilations/outfit.js";
 import patchCompilation from "./compilations/patch.js";
+import patchingCompilation from "./compilations/patching.js";
+import postingCompilation from "./compilations/posting.js";
 import rawCompilation from "./compilations/raw.js";
 import recordCompilation from "./compilations/record.js";
 import refusalCompilation from "./compilations/refusal.js";
@@ -45,6 +47,8 @@ type Leaderboard = typeof leaderboardCompilation;
 type Mission = typeof missionCompilation;
 type Outfit = typeof outfitCompilation;
 type Patch = typeof patchCompilation;
+type Patching = typeof patchingCompilation;
+type Posting = typeof postingCompilation;
 type Raw = typeof rawCompilation;
 type Record = typeof recordCompilation;
 type Refusal = typeof refusalCompilation;
@@ -58,7 +62,7 @@ type Trailer = typeof trailerCompilation;
 type Update = typeof updateCompilation;
 type Verification = typeof verificationCompilation;
 type Verify = typeof verifyCompilation;
-type Compilation = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Leaderboard | Mission | Outfit | Patch | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
+type Compilation = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Leaderboard | Mission | Outfit | Patch | Patching | Posting | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
 const about: About = aboutCompilation;
 const application: Application = applicationCompilation;
 const apply: Apply = applyCompilation;
@@ -76,6 +80,8 @@ const leaderboard: Leaderboard = leaderboardCompilation;
 const mission: Mission = missionCompilation;
 const outfit: Outfit = outfitCompilation;
 const patch: Patch = patchCompilation;
+const patching: Patching = patchingCompilation;
+const posting: Posting = postingCompilation;
 const raw: Raw = rawCompilation;
 const record: Record = recordCompilation;
 const refusal: Refusal = refusalCompilation;
@@ -108,6 +114,8 @@ export type {
 	Mission,
 	Outfit,
 	Patch,
+	Patching,
+	Posting,
 	Raw,
 	Record,
 	Refusal,
@@ -140,6 +148,8 @@ export {
 	mission,
 	outfit,
 	patch,
+	patching,
+	posting,
 	raw,
 	record,
 	refusal,

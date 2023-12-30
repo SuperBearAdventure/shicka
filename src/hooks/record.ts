@@ -48,7 +48,7 @@ const {
 const {createCanvas, loadImage}: any = canvas;
 const hookChannel: string = SHICKA_RECORD_DEFAULT_CHANNEL ?? "";
 const hookAvatar: string = await (async (): Promise<string> => {
-	const url: string = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 64 64" width="256" height="256"><circle cx="16" cy="16" r="24" fill="#ccc"/><path d="M16,5L18,14L26,13L19,17L23,25L16,19L9,25L13,17L6,13L14,14Z" fill="#333" stroke="#333" stroke-width="2" stroke-linejoin="round"/></svg>`;
+	const url: string = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 64 64" width="256" height="256"><circle cx="16" cy="16" r="24" fill="#ccc"/><path d="M16,5L18,14L26,13L19,17L23,25L16,19L9,25L13,17L6,13L14,14Z" fill="none" stroke="#333" stroke-width="2" stroke-linejoin="round"/></svg>`;
 	const image: Image = await loadImage(url);
 	const canvas: Canvas = createCanvas(256, 256);
 	const context: CanvasRenderingContext2D = canvas.getContext("2d");

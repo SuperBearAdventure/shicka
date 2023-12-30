@@ -1,0 +1,14 @@
+{
+	"hookName": "patching",
+	"hookReason": "Posts the latest message patch in the given channel",
+	"helpWithChannel": {
+		"en-US": "I post the latest message patch in $<channelMention>",
+		"fr": "Je poste le dernier patch de message dans $<channelMention>",
+		"pt-BR": "Eu posto o patch mais recente de mensagem em $<channelMention>"
+	},
+	"helpWithoutChannel": {
+		"en-US": "I post the latest message patch",
+		"fr": "Je poste le dernier patch de message",
+		"pt-BR": "Eu posto o patch mais recente de mensagem"
+	}
+}

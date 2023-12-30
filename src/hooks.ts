@@ -10,6 +10,8 @@ import applicationHook from "./hooks/application.js";
 import arrivalHook from "./hooks/arrival.js";
 import approvalHook from "./hooks/approval.js";
 import departureHook from "./hooks/departure.js";
+import patchingHook from "./hooks/patching.js";
+import postingHook from "./hooks/posting.js";
 import refusalHook from "./hooks/refusal.js";
 import recordHook from "./hooks/record.js";
 import verificationHook from "./hooks/verification.js";
@@ -55,6 +57,8 @@ const application: Hook = applicationHook;
 const arrival: Hook = arrivalHook;
 const approval: Hook = approvalHook;
 const departure: Hook = departureHook;
+const patching: Hook = patchingHook;
+const posting: Hook = postingHook;
 const record: Hook = recordHook;
 const refusal: Hook = refusalHook;
 const verification: Hook = verificationHook;
@@ -69,6 +73,8 @@ export {
 	approval,
 	arrival,
 	departure,
+	patching,
+	posting,
 	record,
 	refusal,
 	verification,
