@@ -9,7 +9,9 @@ type NoChannelReplyLocalizations = Localized<(groups: Chat["noChannelReply"]) =>
 type NoMessageReplyLocalizations = Localized<(groups: Chat["noMessageReply"]) => string>;
 type NoPositionReplyLocalizations = Localized<(groups: Chat["noPositionReply"]) => string>;
 type NoContentOrAttachmentReplyLocalizations = Localized<(groups: Chat["noContentOrAttachmentReply"]) => string>;
+type NoAuthorReplyLocalizations = Localized<(groups: Chat["noAuthorReply"]) => string>;
 type NoInteractionReplyLocalizations = Localized<(groups: Chat["noInteractionReply"]) => string>;
+type NoReplyReplyLocalizations = Localized<(groups: Chat["noReplyReply"]) => string>;
 type NoPatchPermissionReplyLocalizations = Localized<(groups: Chat["noPatchPermissionReply"]) => string>;
 type NoPostPermissionReplyLocalizations = Localized<(groups: Chat["noPostPermissionReply"]) => string>;
 type ChatCompilation = {
@@ -20,7 +22,9 @@ type ChatCompilation = {
 	noMessageReply: NoMessageReplyLocalizations,
 	noPositionReply: NoPositionReplyLocalizations,
 	noContentOrAttachmentReply: NoContentOrAttachmentReplyLocalizations,
+	noAuthorReply: NoAuthorReplyLocalizations,
 	noInteractionReply: NoInteractionReplyLocalizations,
+	noReplyReply: NoReplyReplyLocalizations,
 	noPatchPermissionReply: NoPatchPermissionReplyLocalizations,
 	noPostPermissionReply: NoPostPermissionReplyLocalizations,
 };
@@ -30,7 +34,9 @@ const bareReplyLocalizations: BareReplyLocalizations = compileAll<Chat["bareRepl
 const noChannelReplyLocalizations: NoChannelReplyLocalizations = compileAll<Chat["noChannelReply"]>(chat["noChannelReply"]);
 const noMessageReplyLocalizations: NoMessageReplyLocalizations = compileAll<Chat["noMessageReply"]>(chat["noMessageReply"]);
 const noPositionReplyLocalizations: NoPositionReplyLocalizations = compileAll<Chat["noPositionReply"]>(chat["noPositionReply"]);
+const noAuthorReplyLocalizations: NoAuthorReplyLocalizations = compileAll<Chat["noAuthorReply"]>(chat["noAuthorReply"]);
 const noInteractionReplyLocalizations: NoInteractionReplyLocalizations = compileAll<Chat["noInteractionReply"]>(chat["noInteractionReply"]);
+const noReplyReplyLocalizations: NoReplyReplyLocalizations = compileAll<Chat["noReplyReply"]>(chat["noReplyReply"]);
 const noContentOrAttachmentReplyLocalizations: NoContentOrAttachmentReplyLocalizations = compileAll<Chat["noContentOrAttachmentReply"]>(chat["noContentOrAttachmentReply"]);
 const noPatchPermissionReplyLocalizations: NoPatchPermissionReplyLocalizations = compileAll<Chat["noPatchPermissionReply"]>(chat["noPatchPermissionReply"]);
 const noPostPermissionReplyLocalizations: NoPostPermissionReplyLocalizations = compileAll<Chat["noPostPermissionReply"]>(chat["noPostPermissionReply"]);
@@ -42,7 +48,9 @@ const chatCompilation: ChatCompilation = {
 	noMessageReply: noMessageReplyLocalizations,
 	noPositionReply: noPositionReplyLocalizations,
 	noContentOrAttachmentReply: noContentOrAttachmentReplyLocalizations,
+	noAuthorReply: noAuthorReplyLocalizations,
 	noInteractionReply: noInteractionReplyLocalizations,
+	noReplyReply: noReplyReplyLocalizations,
 	noPatchPermissionReply: noPatchPermissionReplyLocalizations,
 	noPostPermissionReply: noPostPermissionReplyLocalizations,
 };

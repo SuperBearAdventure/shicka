@@ -28,7 +28,9 @@ type ChatDependency = {
 	noMessageReply: NoMessageReplyGroups,
 	noPositionReply: NoPositionReplyGroups,
 	noContentOrAttachmentReply: NoContentOrAttachmentReplyGroups,
+	noAuthorReply: NoAuthorReplyGroups,
 	noInteractionReply: NoInteractionReplyGroups,
+	noReplyReply: NoReplyReplyGroups,
 	noPatchPermissionReply: NoPatchPermissionReplyGroups,
 	noPostPermissionReply: NoPostPermissionReplyGroups,
 };
