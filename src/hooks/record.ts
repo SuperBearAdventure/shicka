@@ -219,7 +219,9 @@ const recordHook: Hook = {
 					avatarURL: applicationIcon,
 					...(channel != null && channel.isThreadOnly() ? {threadName: category} : {}),
 				});
-				await message.react("🎉");
+				try {
+					await message.react("🎉");
+				} catch {}
 			}
 		}
 	},

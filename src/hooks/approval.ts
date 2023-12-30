@@ -118,10 +118,12 @@ const approvalHook: Hook = {
 					parse: [],
 				},
 			});
-			await message.react("🇭");
-			await message.react("🇪");
-			await message.react("🇾");
-			await message.react("👋");
+			try {
+				await message.react("🇭");
+				await message.react("🇪");
+				await message.react("🇾");
+				await message.react("👋");
+			} catch {}
 		}
 		const content: string = `You managed to get verified in the official *${escapeMarkdown(name)}* *Discord* server!\nYou should now be able to interact with the community.\nSee you there!`;
 		await newMember.send({content});

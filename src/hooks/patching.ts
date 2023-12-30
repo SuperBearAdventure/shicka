@@ -96,16 +96,18 @@ const patchingHook: Hook = {
 					parse: [],
 				},
 			});
-			const replyMessage: Message<boolean> = await message.reply({
-				content: "Here is the old message:",
-			});
-			await replyMessage.reply({
-				content: oldMessage.content,
-				files: [...oldMessage.attachments.values()],
-				allowedMentions: {
-					parse: [],
-				},
-			});
+			try {
+				const replyMessage: Message<boolean> = await message.reply({
+					content: "Here is the old message:",
+				});
+				await replyMessage.reply({
+					content: oldMessage.content,
+					files: [...oldMessage.attachments.values()],
+					allowedMentions: {
+						parse: [],
+					},
+				});
+			} catch {}
 		}
 	},
 	describe(webhook: Webhook): Localized<(groups: {}) => string> {

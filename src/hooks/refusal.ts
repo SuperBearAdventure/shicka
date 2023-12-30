@@ -118,10 +118,12 @@ const refusalHook: Hook = {
 					parse: [],
 				},
 			});
-			await message.react("🇧");
-			await message.react("🇾");
-			await message.react("🇪");
-			await message.react("👋");
+			try {
+				await message.react("🇧");
+				await message.react("🇾");
+				await message.react("🇪");
+				await message.react("👋");
+			} catch {}
 		}
 		const content: string = `You did not manage to get verified in the official *${escapeMarkdown(name)}* *Discord* server...\nPlease make sure to read and respect the rules before retrying the verification process.\nSee you there...`;
 		await newMember.send({content});

@@ -118,34 +118,38 @@ const rule7Rule: Rule = {
 			}
 			return emoji;
 		})();
-		if (emoji != null) {
-			await message.reply({
-				content: `<:${ruleReactionEmoji}:${emoji.id}>`,
-			});
-		}
-		const {rulesChannel}: Guild = guild;
-		const manualChannel: TextChannel | null = ruleRulesChannel != null ? ((): TextChannel | null => {
-			const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
-				return channel.name === ruleRulesChannel;
-			});
-			if (channel == null || channel.type !== ChannelType.GuildText) {
-				return null;
+		try {
+			if (emoji != null) {
+				await message.reply({
+					content: `<:${ruleReactionEmoji}:${emoji.id}>`,
+				});
 			}
-			return channel;
-		})() : rulesChannel;
-		if (manualChannel != null) {
-			await message.reply({
-				content: `Please read and respect the rules in <#${manualChannel.id}>!`,
-			});
-		}
-		await message.react("🇷");
-		await message.react("🇺");
-		await message.react("🇱");
-		await message.react("🇪");
-		await message.react("7️⃣");
-		if (emoji != null) {
-			await message.react(emoji);
-		}
+			const {rulesChannel}: Guild = guild;
+			const manualChannel: TextChannel | null = ruleRulesChannel != null ? ((): TextChannel | null => {
+				const channel: GuildBasedChannel | undefined = guild.channels.cache.find((channel: GuildBasedChannel): boolean => {
+					return channel.name === ruleRulesChannel;
+				});
+				if (channel == null || channel.type !== ChannelType.GuildText) {
+					return null;
+				}
+				return channel;
+			})() : rulesChannel;
+			if (manualChannel != null) {
+				await message.reply({
+					content: `Please read and respect the rules in <#${manualChannel.id}>!`,
+				});
+			}
+		} catch {}
+		try {
+			await message.react("🇷");
+			await message.react("🇺");
+			await message.react("🇱");
+			await message.react("🇪");
+			await message.react("7️⃣");
+			if (emoji != null) {
+				await message.react(emoji);
+			}
+		} catch {}
 	},
 	describe(autoModerationRule: AutoModerationRule): Localized<(groups: {}) => string> {
 		const channels: (TextChannel | NewsChannel)[] = autoModerationRule.actions.map<TextChannel | NewsChannel | null>((action: AutoModerationAction): TextChannel | NewsChannel | null => {
