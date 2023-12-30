@@ -89,10 +89,20 @@
 		"fr": "Je ne connais aucun emplacement avec cette position.\nMerci de me donner une position entre `0` et `$<max>` à la place.",
 		"pt-BR": "Não sei nenhum espaço com essa posição.\nPor favor, me dê uma posição entre `0` e `$<max>` em vez disso."
 	},
+	"noAuthorReply": {
+		"en-US": "I can not edit messages I am not the authoress of.",
+		"fr": "Je ne peux pas modifier de messages dont je ne suis pas l'autrice.",
+		"pt-BR": "Eu não posso editar mensagens das quais não sou a autora."
+	},
 	"noInteractionReply": {
 		"en-US": "I can not edit interaction replies or follow-ups.",
-		"fr": "Je ne peux pas modifier de réponses ou de suites aux interactions.",
+		"fr": "Je ne peux pas modifier de réponses ou de suites à des interactions.",
 		"pt-BR": "Eu não posso editar respostas de interação ou acompanhamentos."
+	},
+	"noReplyReply": {
+		"en-US": "I can not edit message replies.",
+		"fr": "Je ne peux pas modifier de réponses à des messages.",
+		"pt-BR": "Eu não posso editar respostas das mensagens."
 	},
 	"noContentOrAttachmentReply": {
 		"en-US": "Please keep a content or attachments.",

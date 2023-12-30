@@ -1,6 +1,7 @@
 import type {
 	Attachment,
 	ChatInputCommandInteraction,
+	Client,
 	GuildBasedChannel,
 	Message,
 	ModalSubmitInteraction,
@@ -17,6 +18,7 @@ import {
 	ApplicationCommandType,
 	ChannelType,
 	ComponentType,
+	MessageType,
 	TextInputStyle,
 	escapeMarkdown,
 } from "discord.js";
@@ -54,7 +56,9 @@ const {
 	noChannelReply: noChannelReplyLocalizations,
 	noMessageReply: noMessageReplyLocalizations,
 	noPositionReply: noPositionReplyLocalizations,
+	noAuthorReply: noAuthorReplyLocalizations,
 	noInteractionReply: noInteractionReplyLocalizations,
+	noReplyReply: noReplyReplyLocalizations,
 	noContentOrAttachmentReply: noContentOrAttachmentReplyLocalizations,
 	noPatchPermissionReply: noPatchPermissionReplyLocalizations,
 	noPostPermissionReply: noPostPermissionReplyLocalizations,
@@ -224,7 +228,7 @@ const chatCommand: Command = {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
+		const {client, locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const subCommandName: string = options.getSubcommand(true);
 		const channel: GuildBasedChannel = options.getChannel(channelOptionName, true, [
@@ -296,6 +300,7 @@ const chatCommand: Command = {
 			}
 			await modalSubmitInteraction.reply({
 				content: formatMessage("en-US"),
+				ephemeral: true,
 			});
 			if (resolvedLocale === "en-US") {
 				return;
@@ -341,9 +346,25 @@ const chatCommand: Command = {
 			});
 			return;
 		}
+		const {author}: Message<true> = message;
+		const {user}: Client<true> = client;
+		if (author.id !== user.id) {
+			await interaction.reply({
+				content: noAuthorReplyLocalizations[resolvedLocale]({}),
+				ephemeral: true,
+			});
+			return;
+		}
 		if (message.interaction != null) {
 			await interaction.reply({
 				content: noInteractionReplyLocalizations[resolvedLocale]({}),
+				ephemeral: true,
+			});
+			return;
+		}
+		if (message.type !== MessageType.Default) {
+			await interaction.reply({
+				content: noReplyReplyLocalizations[resolvedLocale]({}),
 				ephemeral: true,
 			});
 			return;
