@@ -1077,5 +1077,18 @@
 		"notes": [
 			"Bug fixes"
 		]
+	},
+	{
+		"name": "10.5.3",
+		"date": {
+			"android": "2023-12-28",
+			"ios": "2023-12-29",
+			"switch": null
+		},
+		"notes": [
+			"Improved Giant Shicka movement",
+			"Improved game performance",
+			"Lots of bug fixes"
+		]
 	}
 ]
