@@ -81,10 +81,12 @@ const departureHook: Hook = {
 				avatarURL: applicationIcon,
 				...(channel != null && channel.isThreadOnly() ? {threadName: farewell} : {}),
 			});
-			await message.react("🇧");
-			await message.react("🇾");
-			await message.react("🇪");
-			await message.react("👋");
+			try {
+				await message.react("🇧");
+				await message.react("🇾");
+				await message.react("🇪");
+				await message.react("👋");
+			} catch {}
 		}
 	},
 	describe(webhook: Webhook): Localized<(groups: {}) => string> {

@@ -95,13 +95,15 @@ const approveCommand: Command = {
 			});
 			return;
 		}
-		await targetMessage.react("✅");
-		const reaction: MessageReaction | undefined = targetMessage.reactions.cache.find((reaction: MessageReaction): boolean => {
-			return (reaction.emoji.name ?? "") === "❎";
-		});
-		if (reaction != null) {
-			await reaction.users.remove();
-		}
+		try {
+			await targetMessage.react("✅");
+			const reaction: MessageReaction | undefined = targetMessage.reactions.cache.find((reaction: MessageReaction): boolean => {
+				return (reaction.emoji.name ?? "") === "❎";
+			});
+			if (reaction != null) {
+				await reaction.users.remove();
+			}
+		} catch {}
 		function formatMessage(locale: Locale): string {
 			return replyLocalizations[locale]({});
 		}

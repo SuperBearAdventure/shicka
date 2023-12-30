@@ -87,10 +87,12 @@ const arrivalHook: Hook = {
 				avatarURL: applicationIcon,
 				...(channel != null && channel.isThreadOnly() ? {threadName: welcome} : {}),
 			});
-			await message.react("🇭");
-			await message.react("🇪");
-			await message.react("🇾");
-			await message.react("👋");
+			try {
+				await message.react("🇭");
+				await message.react("🇪");
+				await message.react("🇾");
+				await message.react("👋");
+			} catch {}
 		}
 	},
 	describe(webhook: Webhook): Localized<(groups: {}) => string> {
