@@ -1,91 +1,36 @@
 [
 	{
 		"name": {
-			"en-US": "Default",
-			"fr": "Défaut",
-			"pt-BR": "Padrão"
-		},
-		"cost": 0,
-		"part": 0,
-		"rarity": 0,
-		"update": 0
-	},
-	{
-		"name": {
-			"en-US": "Default",
-			"fr": "Défaut",
-			"pt-BR": "Padrão"
-		},
-		"cost": 0,
-		"part": 1,
-		"rarity": 0,
-		"update": 0
-	},
-	{
-		"name": {
-			"en-US": "Default",
-			"fr": "Défaut",
-			"pt-BR": "Padrão"
-		},
-		"cost": 0,
-		"part": 2,
-		"rarity": 0,
-		"update": 0
-	},
-	{
-		"name": {
-			"en-US": "Default",
-			"fr": "Défaut",
-			"pt-BR": "Padrão"
-		},
-		"cost": 0,
-		"part": 3,
-		"rarity": 0,
-		"update": 0
-	},
-	{
-		"name": {
-			"en-US": "Default",
-			"fr": "Défaut",
-			"pt-BR": "Padrão"
-		},
-		"cost": 0,
-		"part": 4,
-		"rarity": 0,
-		"update": 0
-	},
-	{
-		"name": {
 			"en-US": "Bandit mask",
 			"fr": "Masque de bandit",
 			"pt-BR": "Máscara de bandido"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 0
+		"rarity": 0,
+		"update": 0,
+		"variations": 5
 	},
 	{
 		"name": {
-			"en-US": "Cap (red)",
-			"fr": "Casquette (rouge)",
-			"pt-BR": "Boné (vermelho)"
+			"en-US": "Classic cap",
+			"fr": "Casquette classique",
+			"pt-BR": "Boné clássico"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 0
+		"rarity": 0,
+		"update": 0,
+		"variations": 6
 	},
 	{
 		"name": {
-			"en-US": "Cap (blue)",
-			"fr": "Casquette (bleue)",
-			"pt-BR": "Boné (azul)"
+			"en-US": "Modern cap",
+			"fr": "Casquette moderne",
+			"pt-BR": "Boné moderno"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 0
+		"rarity": 0,
+		"update": 92,
+		"variations": 6
 	},
 	{
 		"name": {
@@ -94,9 +39,9 @@
 			"pt-BR": "Unicórnio"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 0
+		"rarity": 1,
+		"update": 0,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -105,9 +50,9 @@
 			"pt-BR": "Cabelo punk"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 0
+		"rarity": 0,
+		"update": 0,
+		"variations": 5
 	},
 	{
 		"name": {
@@ -116,9 +61,9 @@
 			"pt-BR": "Fez"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 0
+		"rarity": 0,
+		"update": 0,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -127,9 +72,9 @@
 			"pt-BR": "Coroa"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 3,
-		"update": 0
+		"rarity": 2,
+		"update": 0,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -138,9 +83,9 @@
 			"pt-BR": "Olhos brancos"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 0
+		"rarity": 0,
+		"update": 0,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -149,9 +94,9 @@
 			"pt-BR": "OLHÕES"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 0
+		"rarity": 1,
+		"update": 0,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -160,20 +105,20 @@
 			"pt-BR": "ORELHÕES"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 0
+		"rarity": 0,
+		"update": 0,
+		"variations": 1
 	},
 	{
 		"name": {
-			"en-US": "Long hair (black)",
-			"fr": "Cheveux longs (noirs)",
-			"pt-BR": "Cabelo longo (negro)"
+			"en-US": "Long hair",
+			"fr": "Cheveux longs",
+			"pt-BR": "Cabelo longo"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 0
+		"rarity": 0,
+		"update": 0,
+		"variations": 4
 	},
 	{
 		"name": {
@@ -182,9 +127,9 @@
 			"pt-BR": "Máscara de gás"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 5
+		"rarity": 0,
+		"update": 5,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -193,9 +138,9 @@
 			"pt-BR": "Cabeça inflada"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 5
+		"rarity": 0,
+		"update": 5,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -204,9 +149,9 @@
 			"pt-BR": "Urso polar"
 		},
 		"cost": 0,
-		"part": 2,
-		"rarity": 1,
-		"update": 9
+		"rarity": 0,
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -215,9 +160,9 @@
 			"pt-BR": "Barrigão"
 		},
 		"cost": 0,
-		"part": 1,
-		"rarity": 1,
-		"update": 9
+		"rarity": 0,
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -226,9 +171,9 @@
 			"pt-BR": "Corpo musculoso"
 		},
 		"cost": 0,
-		"part": 1,
-		"rarity": 1,
-		"update": 9
+		"rarity": 0,
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -237,9 +182,9 @@
 			"pt-BR": "Gravata-borboleta"
 		},
 		"cost": 0,
-		"part": 1,
-		"rarity": 1,
-		"update": 9
+		"rarity": 0,
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -248,9 +193,9 @@
 			"pt-BR": "Urso dourado"
 		},
 		"cost": 0,
-		"part": 2,
-		"rarity": 3,
-		"update": 9
+		"rarity": 2,
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -259,9 +204,9 @@
 			"pt-BR": "Shicka dourada"
 		},
 		"cost": 0,
-		"part": 3,
-		"rarity": 3,
-		"update": 9
+		"rarity": 2,
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -270,9 +215,9 @@
 			"pt-BR": "Shicka vermelha"
 		},
 		"cost": 0,
-		"part": 3,
-		"rarity": 1,
-		"update": 9
+		"rarity": 0,
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -281,9 +226,9 @@
 			"pt-BR": "Shicka verde"
 		},
 		"cost": 0,
-		"part": 3,
-		"rarity": 1,
-		"update": 9
+		"rarity": 0,
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -292,9 +237,9 @@
 			"pt-BR": "Urso rosa"
 		},
 		"cost": 0,
-		"part": 2,
-		"rarity": 2,
-		"update": 9
+		"rarity": 1,
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -303,9 +248,9 @@
 			"pt-BR": "Óculos"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 9
+		"rarity": 0,
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -314,9 +259,9 @@
 			"pt-BR": "Roupa do Capitalus"
 		},
 		"cost": 0,
-		"part": 1,
-		"rarity": 2,
-		"update": 9
+		"rarity": 1,
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -325,9 +270,9 @@
 			"pt-BR": "Auréola de anjo"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 9
+		"rarity": 1,
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -336,20 +281,20 @@
 			"pt-BR": "Touca de Papai Noel"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 9
+		"rarity": 1,
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
-			"en-US": "Beard (black)",
-			"fr": "Barbe (noire)",
-			"pt-BR": "Barba (negra)"
+			"en-US": "Beard",
+			"fr": "Barbe",
+			"pt-BR": "Barba"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 9
+		"rarity": 0,
+		"update": 9,
+		"variations": 5
 	},
 	{
 		"name": {
@@ -358,9 +303,9 @@
 			"pt-BR": "De ponta-cabeça"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 9
+		"rarity": 1,
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -369,42 +314,42 @@
 			"pt-BR": "Shicka penagem negra"
 		},
 		"cost": 0,
-		"part": 3,
-		"rarity": 2,
-		"update": 9
-	},
-	{
-		"name": {
-			"en-US": "Beard (white)",
-			"fr": "Barbe (blanche)",
-			"pt-BR": "Barba (branca)"
-		},
-		"cost": 0,
-		"part": 0,
 		"rarity": 1,
-		"update": 9
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
-			"en-US": "Long hair (white)",
-			"fr": "Cheveux longs (blancs)",
-			"pt-BR": "Cabelo longo (branco)"
+			"en-US": "Mustache",
+			"fr": "Moustache",
+			"pt-BR": "Bigode"
 		},
 		"cost": 0,
-		"part": 0,
+		"rarity": 0,
+		"update": 92,
+		"variations": 5
+	},
+	{
+		"name": {
+			"en-US": "Short hair",
+			"fr": "Cheveux courts",
+			"pt-BR": "Cabelo curto"
+		},
+		"cost": 0,
+		"rarity": 0,
+		"update": 92,
+		"variations": 4
+	},
+	{
+		"name": {
+			"en-US": "Moose antlers",
+			"fr": "Bois d'orignal",
+			"pt-BR": "Chifres de rena"
+		},
+		"cost": 0,
 		"rarity": 1,
-		"update": 9
-	},
-	{
-		"name": {
-			"en-US": "Santa head",
-			"fr": "Tête du père Noël",
-			"pt-BR": "Cabeça de Papai Noel"
-		},
-		"cost": 0,
-		"part": 0,
-		"rarity": 3,
-		"update": 9
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -413,20 +358,20 @@
 			"pt-BR": "Urso de negócios"
 		},
 		"cost": 0,
-		"part": 1,
-		"rarity": 1,
-		"update": 9
+		"rarity": 0,
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
-			"en-US": "Shirt (red)",
-			"fr": "T-shirt (rouge)",
-			"pt-BR": "Camisa (vermelha)"
+			"en-US": "Shirt",
+			"fr": "Tee-shirt",
+			"pt-BR": "Camisa"
 		},
 		"cost": 0,
-		"part": 1,
-		"rarity": 1,
-		"update": 9
+		"rarity": 0,
+		"update": 9,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -435,9 +380,9 @@
 			"pt-BR": "Urso retrô"
 		},
 		"cost": 0,
-		"part": 2,
-		"rarity": 2,
-		"update": 11
+		"rarity": 1,
+		"update": 11,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -446,9 +391,9 @@
 			"pt-BR": "Shicka retrô"
 		},
 		"cost": 0,
-		"part": 3,
-		"rarity": 2,
-		"update": 11
+		"rarity": 1,
+		"update": 11,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -457,9 +402,9 @@
 			"pt-BR": "Chapéu de banana"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 11
+		"rarity": 1,
+		"update": 11,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -468,9 +413,9 @@
 			"pt-BR": "Roupa de Papai Noel"
 		},
 		"cost": 0,
-		"part": 1,
-		"rarity": 2,
-		"update": 11
+		"rarity": 1,
+		"update": 11,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -479,9 +424,9 @@
 			"pt-BR": "Urso desértico"
 		},
 		"cost": 0,
-		"part": 2,
-		"rarity": 1,
-		"update": 17
+		"rarity": 0,
+		"update": 17,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -490,9 +435,9 @@
 			"pt-BR": "Urso crocodilo"
 		},
 		"cost": 0,
-		"part": 2,
-		"rarity": 1,
-		"update": 17
+		"rarity": 0,
+		"update": 17,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -501,9 +446,9 @@
 			"pt-BR": "Cabeça de feneco"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 17
+		"rarity": 1,
+		"update": 17,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -512,9 +457,9 @@
 			"pt-BR": "Shicka fantasma"
 		},
 		"cost": 0,
-		"part": 3,
-		"rarity": 2,
-		"update": 17
+		"rarity": 1,
+		"update": 17,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -523,9 +468,9 @@
 			"pt-BR": "Urso arco-íris"
 		},
 		"cost": 0,
-		"part": 2,
-		"rarity": 3,
-		"update": 20
+		"rarity": 2,
+		"update": 20,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -534,9 +479,9 @@
 			"pt-BR": "Máscara de urso"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 22
+		"rarity": 1,
+		"update": 22,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -545,9 +490,9 @@
 			"pt-BR": "Rosto neutro"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 22
+		"rarity": 0,
+		"update": 22,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -556,9 +501,9 @@
 			"pt-BR": "Sem cabeça"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 22
+		"rarity": 1,
+		"update": 22,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -567,9 +512,9 @@
 			"pt-BR": "Camisa SBA"
 		},
 		"cost": 0,
-		"part": 1,
-		"rarity": 5,
-		"update": 24
+		"rarity": 4,
+		"update": 24,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -578,9 +523,9 @@
 			"pt-BR": "Panda"
 		},
 		"cost": 0,
-		"part": 2,
-		"rarity": 5,
-		"update": 24
+		"rarity": 4,
+		"update": 24,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -589,9 +534,9 @@
 			"pt-BR": "Cabeça do Capitalus"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 5,
-		"update": 24
+		"rarity": 4,
+		"update": 24,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -600,9 +545,9 @@
 			"pt-BR": "Rastro de arco-íris"
 		},
 		"cost": 0,
-		"part": 4,
-		"rarity": 5,
-		"update": 24
+		"rarity": 4,
+		"update": 24,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -611,9 +556,9 @@
 			"pt-BR": "Contorno"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 24
+		"rarity": 1,
+		"update": 24,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -622,20 +567,20 @@
 			"pt-BR": "Corpo de esqueleto"
 		},
 		"cost": 0,
-		"part": 1,
-		"rarity": 1,
-		"update": 24
+		"rarity": 0,
+		"update": 24,
+		"variations": 1
 	},
 	{
 		"name": {
-			"en-US": "Shirt (spooky)",
-			"fr": "T-shirt (effrayant)",
-			"pt-BR": "Camisa (assustadora)"
+			"en-US": "Spooky shirt",
+			"fr": "Tee-shirt effayant",
+			"pt-BR": "Camisa assustadora"
 		},
 		"cost": 0,
-		"part": 1,
-		"rarity": 2,
-		"update": 24
+		"rarity": 1,
+		"update": 24,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -644,9 +589,9 @@
 			"pt-BR": "Cabeça machadada"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 24
+		"rarity": 0,
+		"update": 24,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -655,9 +600,9 @@
 			"pt-BR": "Abóbora"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 24
+		"rarity": 1,
+		"update": 24,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -666,9 +611,9 @@
 			"pt-BR": "Abóbora de halloween"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 3,
-		"update": 24
+		"rarity": 2,
+		"update": 24,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -677,9 +622,9 @@
 			"pt-BR": "Caveira"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 24
+		"rarity": 0,
+		"update": 24,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -688,9 +633,9 @@
 			"pt-BR": "Coroa Real"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 5,
-		"update": 24
+		"rarity": 4,
+		"update": 24,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -699,9 +644,9 @@
 			"pt-BR": "Cabeça de ovo"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 33
+		"rarity": 1,
+		"update": 33,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -710,9 +655,9 @@
 			"pt-BR": "Chapéu de ovo"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 33
+		"rarity": 0,
+		"update": 33,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -721,9 +666,9 @@
 			"pt-BR": "Ovo de Páscoa"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 3,
-		"update": 33
+		"rarity": 2,
+		"update": 33,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -732,9 +677,9 @@
 			"pt-BR": "Ovo frito"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 33
+		"rarity": 1,
+		"update": 33,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -743,9 +688,9 @@
 			"pt-BR": "Cabeça de coelho"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 33
+		"rarity": 1,
+		"update": 33,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -754,9 +699,9 @@
 			"pt-BR": "Corpo de chocolate"
 		},
 		"cost": 0,
-		"part": 1,
-		"rarity": 1,
-		"update": 33
+		"rarity": 0,
+		"update": 33,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -765,9 +710,9 @@
 			"pt-BR": "Chupeta"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 1,
-		"update": 36
+		"rarity": 0,
+		"update": 36,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -776,9 +721,9 @@
 			"pt-BR": "Fralda"
 		},
 		"cost": 0,
-		"part": 1,
-		"rarity": 1,
-		"update": 36
+		"rarity": 0,
+		"update": 36,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -787,9 +732,9 @@
 			"pt-BR": "Casaco de laboratório"
 		},
 		"cost": 0,
-		"part": 1,
-		"rarity": 1,
-		"update": 36
+		"rarity": 0,
+		"update": 36,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -798,9 +743,9 @@
 			"pt-BR": "Shicka invisível"
 		},
 		"cost": 0,
-		"part": 3,
-		"rarity": 1,
-		"update": 36
+		"rarity": 0,
+		"update": 36,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -809,9 +754,9 @@
 			"pt-BR": "Shicka 8-bit"
 		},
 		"cost": 0,
-		"part": 3,
-		"rarity": 3,
-		"update": 40
+		"rarity": 2,
+		"update": 40,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -820,9 +765,9 @@
 			"pt-BR": "Urso 8-bit"
 		},
 		"cost": 0,
-		"part": 2,
-		"rarity": 3,
-		"update": 40
+		"rarity": 2,
+		"update": 40,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -831,9 +776,9 @@
 			"pt-BR": "Sackbear"
 		},
 		"cost": 0,
-		"part": 2,
-		"rarity": 1,
-		"update": 40
+		"rarity": 0,
+		"update": 40,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -842,9 +787,9 @@
 			"pt-BR": "Torre de Hanói"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 48
+		"rarity": 1,
+		"update": 48,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -853,9 +798,9 @@
 			"pt-BR": "Urso pelagem escura"
 		},
 		"cost": 0,
-		"part": 2,
-		"rarity": 1,
-		"update": 48
+		"rarity": 0,
+		"update": 48,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -864,31 +809,31 @@
 			"pt-BR": "Urso pelagem negra"
 		},
 		"cost": 0,
-		"part": 2,
+		"rarity": 0,
+		"update": 48,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Jacket",
+			"fr": "Veste",
+			"pt-BR": "Jaqueta"
+		},
+		"cost": 0,
+		"rarity": 0,
+		"update": 48,
+		"variations": 2
+	},
+	{
+		"name": {
+			"en-US": "Duck pyjamas",
+			"fr": "Pyjama canard",
+			"pt-BR": "Pijamas de pato"
+		},
+		"cost": 0,
 		"rarity": 1,
-		"update": 48
-	},
-	{
-		"name": {
-			"en-US": "Jacket (brown)",
-			"fr": "Veste (brune)",
-			"pt-BR": "Jaqueta (marrom)"
-		},
-		"cost": 0,
-		"part": 1,
-		"rarity": 2,
-		"update": 48
-	},
-	{
-		"name": {
-			"en-US": "Jacket (denim)",
-			"fr": "Veste (denim)",
-			"pt-BR": "Jaqueta (denim)"
-		},
-		"cost": 0,
-		"part": 1,
-		"rarity": 2,
-		"update": 48
+		"update": 92,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -897,9 +842,9 @@
 			"pt-BR": "Shicka Pinguim"
 		},
 		"cost": 0,
-		"part": 3,
-		"rarity": 2,
-		"update": 50
+		"rarity": 1,
+		"update": 50,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -908,9 +853,9 @@
 			"pt-BR": "Urso Shicka"
 		},
 		"cost": 0,
-		"part": 3,
-		"rarity": 2,
-		"update": 50
+		"rarity": 1,
+		"update": 50,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -919,9 +864,9 @@
 			"pt-BR": "Shicka urso"
 		},
 		"cost": 0,
-		"part": 2,
-		"rarity": 3,
-		"update": 50
+		"rarity": 2,
+		"update": 50,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -930,9 +875,9 @@
 			"pt-BR": "Shicka arco-íris"
 		},
 		"cost": 0,
-		"part": 3,
-		"rarity": 3,
-		"update": 50
+		"rarity": 2,
+		"update": 50,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -941,9 +886,9 @@
 			"pt-BR": "Óculos RV"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 3,
-		"update": 53
+		"rarity": 2,
+		"update": 53,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -951,10 +896,10 @@
 			"fr": "Ours cosmique",
 			"pt-BR": "Urso cósmico"
 		},
-		"cost": 5,
-		"part": 2,
-		"rarity": 4,
-		"update": 53
+		"cost": 3,
+		"rarity": 3,
+		"update": 53,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -962,10 +907,10 @@
 			"fr": "Chapeau de football",
 			"pt-BR": "Chapéu de futebol"
 		},
-		"cost": 10,
-		"part": 0,
-		"rarity": 4,
-		"update": 53
+		"cost": 5,
+		"rarity": 3,
+		"update": 53,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -974,9 +919,9 @@
 			"pt-BR": "Cabeça bobble"
 		},
 		"cost": 1,
-		"part": 0,
-		"rarity": 4,
-		"update": 53
+		"rarity": 3,
+		"update": 53,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -985,9 +930,9 @@
 			"pt-BR": "Shicka bobble"
 		},
 		"cost": 1,
-		"part": 3,
-		"rarity": 4,
-		"update": 53
+		"rarity": 3,
+		"update": 53,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -996,31 +941,31 @@
 			"pt-BR": "Chapéu Bretânhico"
 		},
 		"cost": 2,
-		"part": 4,
-		"rarity": 4,
-		"update": 53
+		"rarity": 3,
+		"update": 53,
+		"variations": 1
 	},
 	{
 		"name": {
-			"en-US": "Cape (red)",
-			"fr": "Cape (rouge)",
-			"pt-BR": "Capa (vermelho)"
+			"en-US": "Cape",
+			"fr": "Cape",
+			"pt-BR": "Capa"
+		},
+		"cost": 2,
+		"rarity": 3,
+		"update": 55,
+		"variations": 2
+	},
+	{
+		"name": {
+			"en-US": "Balloon",
+			"fr": "Ballon de baudruche",
+			"pt-BR": "Balão"
 		},
 		"cost": 1,
-		"part": 1,
-		"rarity": 4,
-		"update": 55
-	},
-	{
-		"name": {
-			"en-US": "Cape (bear)",
-			"fr": "Cape (ours)",
-			"pt-BR": "Capa (urso)"
-		},
-		"cost": 4,
-		"part": 1,
-		"rarity": 4,
-		"update": 55
+		"rarity": 3,
+		"update": 92,
+		"variations": 4
 	},
 	{
 		"name": {
@@ -1029,9 +974,9 @@
 			"pt-BR": "Olhos cartoon"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 55
+		"rarity": 1,
+		"update": 55,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1040,9 +985,9 @@
 			"pt-BR": "Cabeça de vampiro"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 3,
-		"update": 59
+		"rarity": 2,
+		"update": 59,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1051,9 +996,9 @@
 			"pt-BR": "Dado"
 		},
 		"cost": 4,
-		"part": 0,
-		"rarity": 4,
-		"update": 59
+		"rarity": 3,
+		"update": 59,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1062,9 +1007,9 @@
 			"pt-BR": "Chapéu de bruxa"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 3,
-		"update": 59
+		"rarity": 2,
+		"update": 59,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1072,10 +1017,10 @@
 			"fr": "Shicka cosmique",
 			"pt-BR": "Shicka cósmica"
 		},
-		"cost": 4,
-		"part": 3,
-		"rarity": 4,
-		"update": 65
+		"cost": 2,
+		"rarity": 3,
+		"update": 65,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1084,31 +1029,31 @@
 			"pt-BR": "IMABEAR"
 		},
 		"cost": 4,
-		"part": 0,
-		"rarity": 4,
-		"update": 69
+		"rarity": 3,
+		"update": 69,
+		"variations": 1
 	},
 	{
 		"name": {
-			"en-US": "Scarf (red)",
-			"fr": "Écharpe (rouge)",
-			"pt-BR": "Cachecol (vermelho)"
+			"en-US": "Scarf",
+			"fr": "Écharpe",
+			"pt-BR": "Cachecol"
 		},
 		"cost": 0,
-		"part": 1,
-		"rarity": 1,
-		"update": 71
+		"rarity": 0,
+		"update": 71,
+		"variations": 2
 	},
 	{
 		"name": {
-			"en-US": "Scarf (blue)",
-			"fr": "Écharpe (bleue)",
-			"pt-BR": "Cachecol (azul)"
+			"en-US": "Bandana",
+			"fr": "Bandana",
+			"pt-BR": "Lenço"
 		},
 		"cost": 0,
-		"part": 1,
-		"rarity": 1,
-		"update": 71
+		"rarity": 0,
+		"update": 92,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1117,9 +1062,9 @@
 			"pt-BR": "Máscara de Yeti"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 6,
-		"update": 74
+		"rarity": 5,
+		"update": 74,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1128,9 +1073,9 @@
 			"pt-BR": "Casco de tartaruga"
 		},
 		"cost": 0,
-		"part": 1,
-		"rarity": 6,
-		"update": 74
+		"rarity": 5,
+		"update": 74,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1139,9 +1084,9 @@
 			"pt-BR": "A poeira"
 		},
 		"cost": 0,
-		"part": 4,
-		"rarity": 6,
-		"update": 74
+		"rarity": 5,
+		"update": 74,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1150,9 +1095,9 @@
 			"pt-BR": "Ursinho"
 		},
 		"cost": 0,
-		"part": 4,
-		"rarity": 6,
-		"update": 74
+		"rarity": 5,
+		"update": 74,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1161,9 +1106,9 @@
 			"pt-BR": "Urso roxo"
 		},
 		"cost": 0,
-		"part": 2,
-		"rarity": 6,
-		"update": 74
+		"rarity": 5,
+		"update": 74,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1172,9 +1117,9 @@
 			"pt-BR": "Rastro fantasma"
 		},
 		"cost": 0,
-		"part": 4,
-		"rarity": 6,
-		"update": 74
+		"rarity": 5,
+		"update": 74,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1182,10 +1127,10 @@
 			"fr": "Tête de chat",
 			"pt-BR": "Cabeça de gato"
 		},
-		"cost": 4,
-		"part": 0,
-		"rarity": 4,
-		"update": 76
+		"cost": 2,
+		"rarity": 3,
+		"update": 76,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1194,9 +1139,9 @@
 			"pt-BR": "Óculos daora"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 3,
-		"update": 76
+		"rarity": 2,
+		"update": 76,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1205,9 +1150,9 @@
 			"pt-BR": "Visão Nóir"
 		},
 		"cost": 0,
-		"part": 4,
-		"rarity": 5,
-		"update": 81
+		"rarity": 4,
+		"update": 81,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1216,9 +1161,9 @@
 			"pt-BR": "Passarinho pet"
 		},
 		"cost": 0,
-		"part": 4,
-		"rarity": 5,
-		"update": 81
+		"rarity": 4,
+		"update": 81,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1227,9 +1172,9 @@
 			"pt-BR": "Violette pet"
 		},
 		"cost": 0,
-		"part": 4,
-		"rarity": 5,
-		"update": 81
+		"rarity": 4,
+		"update": 81,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1238,9 +1183,9 @@
 			"pt-BR": "Pegadas mágicas"
 		},
 		"cost": 0,
-		"part": 4,
-		"rarity": 5,
-		"update": 81
+		"rarity": 4,
+		"update": 81,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1249,9 +1194,9 @@
 			"pt-BR": "Cara fofa"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 83
+		"rarity": 1,
+		"update": 83,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1260,9 +1205,9 @@
 			"pt-BR": "Bolo de Aniversário"
 		},
 		"cost": 0,
-		"part": 0,
-		"rarity": 2,
-		"update": 83
+		"rarity": 1,
+		"update": 83,
+		"variations": 1
 	},
 	{
 		"name": {
@@ -1271,8 +1216,316 @@
 			"pt-BR": "Urso vermelho"
 		},
 		"cost": 0,
-		"part": 2,
+		"rarity": 2,
+		"update": 83,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Night Bear music disk",
+			"fr": "Disque de Night Bear",
+			"pt-BR": "Disco de música do Night Bear"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Summer Bear music disk",
+			"fr": "Disque de Summer Bear",
+			"pt-BR": "Disco de música do Summer Bear"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Rapper Bear music disk",
+			"fr": "Disque de Rapper Bear",
+			"pt-BR": "Disco de música do Rapper Bear"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Sheriff Bear music disk",
+			"fr": "Disque de Sheriff Bear",
+			"pt-BR": "Disco de música do Sheriff Bear"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Synthwave sky",
+			"fr": "Ciel synthwave",
+			"pt-BR": "Céu Synthwave"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Sunset glasses",
+			"fr": "Lunettes de soleil couchant",
+			"pt-BR": "Óculos de pôr do sol"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Night Bear's jacket",
+			"fr": "Veste de Night Bear",
+			"pt-BR": "Jaqueta do Night Bear"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Fingerless gloves",
+			"fr": "Mitaines",
+			"pt-BR": "Luvas sem dedos"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Muscle car",
+			"fr": "Voiture de sport",
+			"pt-BR": "Carro esportivo"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Flip flops",
+			"fr": "Tongs",
+			"pt-BR": "Chinelos"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Surfboard",
+			"fr": "Planche de surf",
+			"pt-BR": "Prancha de surf"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Hawaiian shirt",
+			"fr": "Chemise hawaïenne",
+			"pt-BR": "Camisa havaiana"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Shark tooth necklace",
+			"fr": "Collier dent de requin",
+			"pt-BR": "Cordão de dente de tubarão"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Dollar necklace",
+			"fr": "Collier dollar",
+			"pt-BR": "Cordão de dólar"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Golden watch",
+			"fr": "Montre en or",
+			"pt-BR": "Relógio dourado"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Hoodie",
+			"fr": "Sweat à capuche",
+			"pt-BR": "Moletom"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Shutter glasses",
+			"fr": "Lunettes vénitiennes",
+			"pt-BR": "Óculos persiana"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Cowboy hat",
+			"fr": "Chapeau de cowboy",
+			"pt-BR": "Chapéu de Cowboy"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Toothpick",
+			"fr": "Cure-dent",
+			"pt-BR": "Palito de dente"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Cowboy boots",
+			"fr": "Bottes de cowboy",
+			"pt-BR": "Botas de Cowboy"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Cowboy jacket",
+			"fr": "Veste de cowboy",
+			"pt-BR": "Jaqueta de Cowboy"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Tumbleweeds",
+			"fr": "Virevoltants",
+			"pt-BR": "Bola de feno"
+		},
+		"cost": 0,
+		"rarity": 6,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "DJ headset",
+			"fr": "Casque de DJ",
+			"pt-BR": "Fones de DJ"
+		},
+		"cost": 0,
+		"rarity": 2,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Screen glasses",
+			"fr": "Lunettes écran",
+			"pt-BR": "Óculos de tela"
+		},
+		"cost": 1,
 		"rarity": 3,
-		"update": 83
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Jelly bear",
+			"fr": "Ours gélifié",
+			"pt-BR": "Ursinho de bala"
+		},
+		"cost": 0,
+		"rarity": 1,
+		"update": 92,
+		"variations": 4
+	},
+	{
+		"name": {
+			"en-US": "Larry the frog",
+			"fr": "Larry la grenouille",
+			"pt-BR": "Larry o sapo"
+		},
+		"cost": 0,
+		"rarity": 4,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Baguette",
+			"fr": "Baguette",
+			"pt-BR": "Baguete"
+		},
+		"cost": 1,
+		"rarity": 3,
+		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Boxing gloves",
+			"fr": "Gants de boxe",
+			"pt-BR": "Luvas de boxe"
+		},
+		"cost": 0,
+		"rarity": 1,
+		"update": 92,
+		"variations": 1
 	}
 ]

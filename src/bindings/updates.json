@@ -1083,12 +1083,25 @@
 		"date": {
 			"android": "2023-12-28",
 			"ios": "2023-12-29",
-			"switch": null
+			"switch": "2024-01-05"
 		},
 		"notes": [
 			"Improved Giant Shicka movement",
 			"Improved game performance",
 			"Lots of bug fixes"
+		]
+	},
+	{
+		"name": "11.0.0",
+		"date": {
+			"android": "2024-04-03",
+			"ios": "2024-04-04",
+			"switch": null
+		},
+		"notes": [
+			"Cosmetic system overhaul: combine and level up items for more creative freedom",
+			"Added Pierre Music Kit Vol.1: new DLC with unique outfits and songs",
+			"New speedrun features and boss changes"
 		]
 	}
 ]

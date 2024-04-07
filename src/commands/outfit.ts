@@ -160,11 +160,11 @@ const outfitCommand: Command = {
 			}
 			return outfitsByRarity[rarity.id].length / rarity.slots;
 		})));
-		const now: number = Math.floor(interaction.createdTimestamp / 21600000);
+		const now: number = Math.floor(interaction.createdTimestamp / 28800000);
 		const id: number | null = options.getInteger(outfitOptionName);
 		if (id == null) {
 		const schedules: Localized<(groups: {}) => string>[] = [];
-		for (let k: number = -2; k < 4; ++k) {
+		for (let k: number = -2; k < 3; ++k) {
 			const day: number = now + k;
 			const seed: number = Math.floor(day / slicesPerRarity);
 			const slicesByRarity: Outfit[][][] = slicesByRarityBySeed[seed] ??= ((): Outfit[][][] => {
@@ -183,7 +183,7 @@ const outfitCommand: Command = {
 			const scheduleOutfits: Outfit[] = slicesByRarity.map<Outfit[]>((slices: Outfit[][]): Outfit[] => {
 				return slices[index];
 			}).flat<Outfit[][]>();
-			const dayDateTime: Date = new Date(day * 21600000);
+			const dayDateTime: Date = new Date(day * 28800000);
 			const schedule: Localized<(groups: {}) => string> = composeAll<BareScheduleGroups, {}>(bareScheduleLocalizations, localize<BareScheduleGroups>((locale: Locale): BareScheduleGroups => {
 				const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
 					dateStyle: "long",
@@ -250,7 +250,7 @@ const outfitCommand: Command = {
 			return;
 		}
 		const schedules: Localized<(groups: {}) => string>[] = [];
-		for (let k: number = -2; k < 4 || schedules.length < 2; ++k) {
+		for (let k: number = -2; k < 3 || schedules.length < 2; ++k) {
 			const day: number = now + k;
 			const seed: number = Math.floor(day / slicesPerRarity);
 			const slicesByRarity: Outfit[][][] = slicesByRarityBySeed[seed] ??= ((): Outfit[][][] => {
@@ -264,7 +264,7 @@ const outfitCommand: Command = {
 			})();
 			const index: number = day - seed * slicesPerRarity;
 			if (slicesByRarity[outfit.rarity][index].includes(outfit)) {
-				const dayDateTime: Date = new Date(day * 21600000);
+				const dayDateTime: Date = new Date(day * 28800000);
 				const schedule: Localized<(groups: {}) => string> = composeAll<ScheduleGroups, {}>(scheduleLocalizations, localize<ScheduleGroups>((locale: Locale): ScheduleGroups => {
 					const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
 						dateStyle: "long",

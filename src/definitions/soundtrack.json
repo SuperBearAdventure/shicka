@@ -13,12 +13,12 @@
 	"reply": {
 		"en-US": "You can listen to official music pieces of the game there:\n$<linkList>",
 		"fr": "Tu peux écouter des morceaux de musique officiels du jeu là :\n$<linkList>",
-		"pt-BR": "Você pode escutar as obras musicais oficiais do jogo aqui\n$<linkList>"
+		"pt-BR": "Você pode escutar as obras musicais oficiais do jogo aqui:\n$<linkList>"
 	},
 	"defaultReply": {
-		"en-US": "You can listen to official music pieces of the game [there](<$<link>>).",
-		"fr": "Tu peux écouter des morceaux de musique officiels du jeu [là](<$<link>>).",
-		"pt-BR": "Você pode escutar as obras musicais oficiais do jogo [aqui](<$<link>>)."
+		"en-US": "You can listen to official music pieces of the game there:\n$<linkList>",
+		"fr": "Tu peux écouter des morceaux de musique officiels du jeu là :\n$<linkList>",
+		"pt-BR": "Você pode escutar as obras musicais oficiais do jogo aqui:\n$<linkList>"
 	},
 	"link": {
 		"en-US": "[*$<title>* soundtrack](<$<link>>) (*$<views>* views)",

@@ -8,7 +8,7 @@
 	"outfitOptionName": "outfit",
 	"outfitOptionDescription": {
 		"en-US": "Some outfit",
-		"fr": "Un costume",
+		"fr": "Une tenue",
 		"pt-BR": "Alguma roupa"
 	},
 	"help": {
@@ -17,14 +17,14 @@
 		"pt-BR": "Digite $<commandMention> pra saber o que está à venda na loja\nDigite $<commandMention> `$<outfitOptionDescription>` pra saber quando `$<outfitOptionDescription>` estará à venda na loja"
 	},
 	"reply": {
-		"en-US": "**$<outfitName>** will be for sale in the shop for $<costConjunction> for 6 hours starting:\n$<scheduleList>",
-		"fr": "**$<outfitName>** sera en vente dans la boutique pour $<costConjunction> durant 6 heures à partir de :\n$<scheduleList>",
-		"pt-BR": "**$<outfitName>** vai estar à venda na loja por $<costConjunction> por 6 horas, começando em:\n$<scheduleList>"
+		"en-US": "**$<outfitName>** will be for sale in the shop for $<costConjunction> for 8 hours starting:\n$<scheduleList>",
+		"fr": "**$<outfitName>** sera en vente dans la boutique pour $<costConjunction> durant 8 heures à partir de :\n$<scheduleList>",
+		"pt-BR": "**$<outfitName>** vai estar à venda na loja por $<costConjunction> por 8 horas, começando em:\n$<scheduleList>"
 	},
 	"bareReply": {
-		"en-US": "The outfits for sale in the shop change every 6 hours:\n$<scheduleList>",
-		"fr": "Les costumes en vente dans la boutique changent toutes les 6 heures :\n$<scheduleList>",
-		"pt-BR": "As roupas à venda na loja mudam a cada 6 horas:\n$<scheduleList>"
+		"en-US": "The outfits for sale in the shop change every 8 hours:\n$<scheduleList>",
+		"fr": "Les tenues en vente dans la boutique changent toutes les 8 heures :\n$<scheduleList>",
+		"pt-BR": "As roupas à venda na loja mudam a cada 8 horas:\n$<scheduleList>"
 	},
 	"noSlotReply": {
 		"en-US": "**$<outfitName>** is not for sale.",

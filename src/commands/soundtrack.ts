@@ -36,21 +36,24 @@ const {
 	defaultReply: defaultReplyLocalizations,
 	link: linkLocalizations,
 }: SoundtrackCompilation = soundtrackCompilation;
-const titlePattern: RegExp = /^Super Bear Adventure - (.*) \(Original Soundtrack\)$/su;
+const titlePattern: RegExp = /^Super Bear Adventure - (.*) \((?:Original Soundtrack|Visualizer)\)$/su;
 const viewsPatch: Patch = {
 	"No views": "0 views",
 	"1 view": "1 views",
 };
 const viewsPattern: RegExp = /^(.*) views$/su;
-const link: string = "https://www.youtube.com/playlist?list=PLDF2V3x1AdQBnalWW0q69H5LF1-wgAxN8";
+const links: string[] = [
+	"[*Original Soundtrack*](<https://www.youtube.com/playlist?list=PLDF2V3x1AdQBnalWW0q69H5LF1-wgAxN8>)",
+	"[*Pierre Music Kit, Vol. 1*](<https://www.youtube.com/watch?playlist?list=PLDF2V3x1AdQARk2uRTdyEBRfQgeNIfFcZ>)"
+];
 function patch(text: string, table: Patch): string {
 	if (!(text in table)) {
 		return text;
 	}
 	return table[text];
 }
-async function fetchData(): Promise<Data[] | null> {
-	const response: Response = await fetch("https://www.youtube.com/playlist?list=PLDF2V3x1AdQBnalWW0q69H5LF1-wgAxN8");
+async function fetchData(link: string): Promise<Data[] | null> {
+	const response: Response = await fetch(link);
 	const {window}: JSDOM = new JSDOM(await response.text(), {
 		virtualConsole: new VirtualConsole(),
 	});
@@ -73,6 +76,14 @@ async function fetchData(): Promise<Data[] | null> {
 	}
 	return null;
 }
+async function fetchOriginalSoundtrackData(): Promise<Data[] | null> {
+	const result: Data[] | null = await fetchData("https://www.youtube.com/playlist?list=PLDF2V3x1AdQBnalWW0q69H5LF1-wgAxN8");
+	return result;
+}
+async function fetchPierreMusicKitVolume1Data(): Promise<Data[] | null> {
+	const result: Data[] | null = await fetchData("https://www.youtube.com/playlist?list=PLDF2V3x1AdQARk2uRTdyEBRfQgeNIfFcZ");
+	return result;
+}
 const soundtrackCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -88,10 +99,18 @@ const soundtrackCommand: Command = {
 		const {locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		try {
-			const data: Data[] | null = await fetchData();
-			if (data == null) {
+			const originalSoundtrackData: Data[] | null = await fetchOriginalSoundtrackData();
+			if (originalSoundtrackData == null) {
 				throw new Error();
 			}
+			const pierreMusicKitVolume1Data: Data[] | null = await fetchPierreMusicKitVolume1Data();
+			if (pierreMusicKitVolume1Data == null) {
+				throw new Error();
+			}
+			const data: Data[] = [
+				...originalSoundtrackData,
+				...pierreMusicKitVolume1Data,
+			];
 			const links: Localized<(groups: {}) => string>[] = [];
 			for (const item of data) {
 				const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((): LinkGroups => {
@@ -130,10 +149,11 @@ const soundtrackCommand: Command = {
 			});
 		} catch (error: unknown) {
 			console.warn(error);
+			const linkList: string = list(links);
 			function formatMessage(locale: Locale): string {
 				return defaultReplyLocalizations[locale]({
-					link: (): string => {
-						return link;
+					linkList: (): string => {
+						return linkList;
 					},
 				});
 			}
