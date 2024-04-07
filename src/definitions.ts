@@ -78,6 +78,8 @@ type Bear = {
 	bearOptionDescription: Localized<string>,
 	help: Localized<string>,
 	reply: Localized<string>,
+	variableOutfit: Localized<string>,
+	invariableOutfit: Localized<string>,
 	noOutfit: Localized<string>,
 	bossGoal: Localized<string>,
 	coinsWithBossGoal: Localized<string>,

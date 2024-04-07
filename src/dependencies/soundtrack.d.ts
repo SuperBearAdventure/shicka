@@ -5,7 +5,7 @@ type ReplyGroups = {
 	linkList: () => string,
 };
 type DefaultReplyGroups = {
-	link: () => string,
+	linkList: () => string,
 };
 type LinkGroups = {
 	title: () => string,

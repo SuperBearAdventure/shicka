@@ -4,15 +4,16 @@ import challengesBinding from "./bindings/challenges.json" assert {type: "json"}
 import levelsBinding from "./bindings/levels.json" assert {type: "json"};
 import missionsBinding from "./bindings/missions.json" assert {type: "json"};
 import outfitsBinding from "./bindings/outfits.json" assert {type: "json"};
-import partsBinding from "./bindings/parts.json" assert {type: "json"};
 import raritiesBinding from "./bindings/rarities.json" assert {type: "json"};
 import updatesBinding from "./bindings/updates.json" assert {type: "json"};
 type Bear = {
 	id: number,
 	name: Localized<string>,
+	diamond: number,
 	gold: number,
 	level: number,
 	outfits: number[],
+	variations: number[]
 };
 type Challenge = {
 	id: number,
@@ -34,20 +35,16 @@ type Outfit = {
 	id: number,
 	name: Localized<string>,
 	cost: number,
-	part: number,
 	rarity: number,
 	update: number,
-};
-type Part = {
-	id: number,
-	name: Localized<string>,
+	variations: number,
 };
 type Rarity = {
 	id: number,
 	name: Localized<string>,
 	cost: number,
-	payoff: number,
-	probability: number,
+	payoffs: number[],
+	probabilities: number[],
 	slots: number,
 };
 type Update = {
@@ -60,7 +57,7 @@ type Update = {
 	},
 	notes: string[],
 };
-type Binding = (Bear | Challenge | Level | Mission | Outfit | Part | Rarity | Update)[];
+type Binding = (Bear | Challenge | Level | Mission | Outfit | Rarity | Update)[];
 function bind<Type>(array: Type[]): (Type & {id: number})[] {
 	const binding: (Type & {id: number})[] = [];
 	for (const [key, value] of array.entries()) {
@@ -73,7 +70,6 @@ const challenges: Challenge[] = bind<Omit<Challenge, "id">>(challengesBinding);
 const levels: Level[] = bind<Omit<Level, "id">>(levelsBinding);
 const missions: Mission[] = bind<Omit<Mission, "id">>(missionsBinding);
 const outfits: Outfit[] = bind<Omit<Outfit, "id">>(outfitsBinding);
-const parts: Part[] = bind<Omit<Part, "id">>(partsBinding);
 const rarities: Rarity[] = bind<Omit<Rarity, "id">>(raritiesBinding);
 const updates: Update[] = bind<Omit<Update, "id">>(updatesBinding);
 export type {Binding as default};
@@ -83,7 +79,6 @@ export type {
 	Level,
 	Mission,
 	Outfit,
-	Part,
 	Rarity,
 	Update,
 };
@@ -93,7 +88,6 @@ export {
 	levels,
 	missions,
 	outfits,
-	parts,
 	rarities,
 	updates,
 };

@@ -37,7 +37,7 @@ const {
 	link: linkLocalizations,
 }: TrailerCompilation = trailerCompilation;
 const titlePatch: Patch = {
-	"Super Bear Adventure - Official Game Trailer": "Super Bear Adventure - Graphics Update Trailer"
+	"Super Bear Adventure - Old Game Trailer": "Super Bear Adventure - Graphics Update Trailer"
 };
 const titlePattern: RegExp = /^Super Bear Adventure - (.*) Trailer$/su;
 const viewsPatch: Patch = {

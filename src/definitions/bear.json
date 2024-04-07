@@ -21,6 +21,16 @@
 		"fr": "**$<name>** a été emprisonné·e dans **$<level>** et porte $<outfitNameConjunction>.\n$<goalConjunction> !",
 		"pt-BR": "**$<name>** foi capturado no(a) **$<level>** e está vestindo $<outfitNameConjunction>.\n$<goalConjunction>!"
 	},
+	"variableOutfit": {
+		"en-US": "*$<outfit>* (*level $<variation>*)",
+		"fr": "*$<outfit>* (*niveau $<variation>*)",
+		"pt-BR": "*$<outfit>* (*nível $<variation>*)"
+	},
+	"invariableOutfit": {
+		"en-US": "*$<outfit>*",
+		"fr": "*$<outfit>*",
+		"pt-BR": "*$<outfit>*"
+	},
 	"noOutfit": {
 		"en-US": "the bare minimum",
 		"fr": "le plus simple appareil",

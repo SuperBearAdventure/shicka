@@ -5,13 +5,11 @@
 			"fr": "Barry",
 			"pt-BR": "Barry"
 		},
+		"diamond": 50,
 		"gold": 75,
 		"level": 0,
-		"outfits": [
-			0,
-			1,
-			2
-		]
+		"outfits": [],
+		"variations": []
 	},
 	{
 		"name": {
@@ -19,12 +17,16 @@
 			"fr": "Tommy",
 			"pt-BR": "Tommy"
 		},
+		"diamond": 12,
 		"gold": 20,
 		"level": 0,
 		"outfits": [
-			6,
-			38,
-			2
+			1,
+			33
+		],
+		"variations": [
+			0,
+			0
 		]
 	},
 	{
@@ -33,12 +35,14 @@
 			"fr": "Blackbeard",
 			"pt-BR": "Blackbeard"
 		},
+		"diamond": 16,
 		"gold": 25,
 		"level": 0,
 		"outfits": [
-			31,
-			1,
-			2
+			26
+		],
+		"variations": [
+			0
 		]
 	},
 	{
@@ -47,12 +51,16 @@
 			"fr": "Stéphane",
 			"pt-BR": "Stéphane"
 		},
+		"diamond": 170,
 		"gold": 360,
 		"level": 0,
 		"outfits": [
-			11,
-			92,
-			2
+			6,
+			86
+		],
+		"variations": [
+			0,
+			1
 		]
 	},
 	{
@@ -61,26 +69,42 @@
 			"fr": "Dr Christopher",
 			"pt-BR": "Dr. Christopher"
 		},
+		"diamond": 15,
 		"gold": 25,
 		"level": 0,
 		"outfits": [
-			27,
-			21,
-			78
+			16,
+			22,
+			73
+		],
+		"variations": [
+			0,
+			0,
+			0
 		]
 	},
 	{
 		"name": {
-			"en-US": "Pierre",
-			"fr": "Pierre",
-			"pt-BR": "Pierre"
+			"en-US": "DJ Pierre",
+			"fr": "DJ Pierre",
+			"pt-BR": "DJ Pierre"
 		},
+		"diamond": 12,
 		"gold": 20,
 		"level": 0,
 		"outfits": [
-			7,
-			79,
-			78
+			10,
+			117,
+			120,
+			133,
+			134
+		],
+		"variations": [
+			0,
+			0,
+			0,
+			0,
+			0
 		]
 	},
 	{
@@ -89,12 +113,20 @@
 			"fr": "Bob",
 			"pt-BR": "Bob"
 		},
+		"diamond": 20,
 		"gold": 35,
 		"level": 0,
 		"outfits": [
-			69,
-			70,
-			77
+			14,
+			64,
+			65,
+			72
+		],
+		"variations": [
+			0,
+			0,
+			0,
+			0
 		]
 	},
 	{
@@ -103,12 +135,14 @@
 			"fr": "Madeline",
 			"pt-BR": "Madeline"
 		},
+		"diamond": 18,
 		"gold": 30,
 		"level": 0,
 		"outfits": [
-			15,
-			1,
-			2
+			10
+		],
+		"variations": [
+			0
 		]
 	},
 	{
@@ -117,12 +151,14 @@
 			"fr": "Polaris",
 			"pt-BR": "Polaris"
 		},
-		"gold": 120,
+		"diamond": 115,
+		"gold": 130,
 		"level": 1,
 		"outfits": [
-			0,
-			1,
-			18
+			13
+		],
+		"variations": [
+			0
 		]
 	},
 	{
@@ -131,12 +167,18 @@
 			"fr": "Flake",
 			"pt-BR": "Flake"
 		},
+		"diamond": 17,
 		"gold": 30,
 		"level": 1,
 		"outfits": [
-			66,
-			100,
-			18
+			13,
+			61,
+			95
+		],
+		"variations": [
+			0,
+			0,
+			0
 		]
 	},
 	{
@@ -145,12 +187,18 @@
 			"fr": "Rodolphe",
 			"pt-BR": "Rodolph"
 		},
+		"diamond": 13,
 		"gold": 25,
 		"level": 1,
 		"outfits": [
-			17,
-			19,
-			18
+			12,
+			13,
+			14
+		],
+		"variations": [
+			0,
+			0,
+			0
 		]
 	},
 	{
@@ -159,12 +207,18 @@
 			"fr": "Frosty",
 			"pt-BR": "Frosty"
 		},
+		"diamond": 165,
 		"gold": 300,
 		"level": 1,
 		"outfits": [
-			34,
-			57,
-			18
+			13,
+			29,
+			52
+		],
+		"variations": [
+			0,
+			0,
+			0
 		]
 	},
 	{
@@ -173,12 +227,18 @@
 			"fr": "Alix",
 			"pt-BR": "Alix"
 		},
+		"diamond": 17,
 		"gold": 35,
 		"level": 1,
 		"outfits": [
-			27,
-			37,
-			18
+			13,
+			22,
+			32
+		],
+		"variations": [
+			0,
+			0,
+			0
 		]
 	},
 	{
@@ -187,12 +247,18 @@
 			"fr": "Vladimir",
 			"pt-BR": "Vladimir"
 		},
+		"diamond": 10,
 		"gold": 15,
 		"level": 1,
 		"outfits": [
-			7,
-			99,
-			18
+			2,
+			13,
+			94
+		],
+		"variations": [
+			1,
+			0,
+			0
 		]
 	},
 	{
@@ -201,12 +267,16 @@
 			"fr": "Skia",
 			"pt-BR": "Skia"
 		},
+		"diamond": 16,
 		"gold": 25,
 		"level": 1,
 		"outfits": [
-			48,
-			1,
-			18
+			13,
+			43
+		],
+		"variations": [
+			0,
+			0
 		]
 	},
 	{
@@ -215,12 +285,16 @@
 			"fr": "Jon",
 			"pt-BR": "Jon"
 		},
+		"diamond": 22,
 		"gold": 40,
 		"level": 1,
 		"outfits": [
-			15,
-			1,
-			18
+			13,
+			30
+		],
+		"variations": [
+			0,
+			0
 		]
 	},
 	{
@@ -229,12 +303,14 @@
 			"fr": "Sand",
 			"pt-BR": "Sand"
 		},
+		"diamond": 76,
 		"gold": 115,
 		"level": 2,
 		"outfits": [
-			0,
-			1,
-			43
+			38
+		],
+		"variations": [
+			0
 		]
 	},
 	{
@@ -243,12 +319,16 @@
 			"fr": "Amos",
 			"pt-BR": "Amos"
 		},
+		"diamond": 20,
 		"gold": 35,
 		"level": 2,
 		"outfits": [
-			9,
-			1,
-			43
+			4,
+			38
+		],
+		"variations": [
+			0,
+			0
 		]
 	},
 	{
@@ -257,12 +337,16 @@
 			"fr": "Alexandre",
 			"pt-BR": "Alexander"
 		},
+		"diamond": 19,
 		"gold": 35,
 		"level": 2,
 		"outfits": [
+			38,
+			86
+		],
+		"variations": [
 			0,
-			91,
-			43
+			0
 		]
 	},
 	{
@@ -271,12 +355,18 @@
 			"fr": "Zéphyr",
 			"pt-BR": "Zephyr"
 		},
+		"diamond": 320,
 		"gold": 570,
 		"level": 2,
 		"outfits": [
-			61,
-			56,
-			18
+			13,
+			51,
+			56
+		],
+		"variations": [
+			0,
+			0,
+			0
 		]
 	},
 	{
@@ -285,12 +375,18 @@
 			"fr": "Grumble",
 			"pt-BR": "Grumble"
 		},
+		"diamond": 27,
 		"gold": 45,
 		"level": 2,
 		"outfits": [
-			16,
-			37,
-			43
+			11,
+			32,
+			38
+		],
+		"variations": [
+			0,
+			0,
+			0
 		]
 	},
 	{
@@ -299,12 +395,16 @@
 			"fr": "Numérobis",
 			"pt-BR": "Numerobis"
 		},
+		"diamond": 24,
 		"gold": 40,
 		"level": 2,
 		"outfits": [
-			10,
-			1,
-			43
+			5,
+			38
+		],
+		"variations": [
+			0,
+			0
 		]
 	},
 	{
@@ -313,12 +413,20 @@
 			"fr": "Cléo",
 			"pt-BR": "Cleo"
 		},
+		"diamond": 18,
 		"gold": 25,
 		"level": 2,
 		"outfits": [
-			14,
+			9,
+			10,
+			38,
+			120
+		],
+		"variations": [
+			0,
 			1,
-			43
+			0,
+			0
 		]
 	},
 	{
@@ -327,12 +435,18 @@
 			"fr": "Ramsès",
 			"pt-BR": "Ramses"
 		},
+		"diamond": 41,
 		"gold": 55,
 		"level": 2,
 		"outfits": [
-			5,
-			20,
-			43
+			0,
+			15,
+			38
+		],
+		"variations": [
+			0,
+			0,
+			0
 		]
 	},
 	{
@@ -341,12 +455,16 @@
 			"fr": "Viper",
 			"pt-BR": "Viper"
 		},
+		"diamond": 180,
 		"gold": 195,
 		"level": 3,
 		"outfits": [
-			69,
-			70,
-			2
+			64,
+			65
+		],
+		"variations": [
+			0,
+			0
 		]
 	},
 	{
@@ -355,12 +473,18 @@
 			"fr": "Blossom",
 			"pt-BR": "Blossom"
 		},
+		"diamond": 68,
 		"gold": 105,
 		"level": 3,
 		"outfits": [
-			69,
-			70,
-			26
+			21,
+			64,
+			65
+		],
+		"variations": [
+			0,
+			0,
+			0
 		]
 	},
 	{
@@ -369,12 +493,18 @@
 			"fr": "Joseph",
 			"pt-BR": "Joseph"
 		},
+		"diamond": 26,
 		"gold": 45,
 		"level": 3,
 		"outfits": [
-			69,
-			28,
-			18
+			13,
+			64,
+			23
+		],
+		"variations": [
+			0,
+			0,
+			0
 		]
 	},
 	{
@@ -383,12 +513,18 @@
 			"fr": "Toast",
 			"pt-BR": "Toast"
 		},
+		"diamond": 310,
 		"gold": 540,
 		"level": 3,
 		"outfits": [
-			69,
-			70,
-			78
+			64,
+			65,
+			73
+		],
+		"variations": [
+			0,
+			0,
+			0
 		]
 	},
 	{
@@ -397,12 +533,16 @@
 			"fr": "Maya",
 			"pt-BR": "Maya"
 		},
+		"diamond": 24,
 		"gold": 35,
 		"level": 3,
 		"outfits": [
-			8,
-			70,
-			2
+			3,
+			65
+		],
+		"variations": [
+			0,
+			0
 		]
 	},
 	{
@@ -411,12 +551,18 @@
 			"fr": "Junior",
 			"pt-BR": "Junior"
 		},
+		"diamond": 26,
 		"gold": 50,
 		"level": 3,
 		"outfits": [
-			69,
-			70,
-			43
+			38,
+			64,
+			65
+		],
+		"variations": [
+			0,
+			0,
+			0
 		]
 	},
 	{
@@ -425,12 +571,18 @@
 			"fr": "Claptrap",
 			"pt-BR": "Claptrap"
 		},
+		"diamond": 23,
 		"gold": 35,
 		"level": 3,
 		"outfits": [
-			69,
-			70,
-			75
+			64,
+			65,
+			70
+		],
+		"variations": [
+			0,
+			0,
+			0
 		]
 	},
 	{
@@ -439,12 +591,18 @@
 			"fr": "Félix",
 			"pt-BR": "Felix"
 		},
+		"diamond": 28,
 		"gold": 40,
 		"level": 3,
 		"outfits": [
-			69,
-			70,
-			39
+			34,
+			64,
+			65
+		],
+		"variations": [
+			0,
+			0,
+			0
 		]
 	},
 	{
@@ -453,12 +611,14 @@
 			"fr": "Frère de Baaren",
 			"pt-BR": "Irmão do Baaren"
 		},
+		"diamond": 270,
 		"gold": 360,
 		"level": 4,
 		"outfits": [
-			0,
-			1,
-			105
+			100
+		],
+		"variations": [
+			0
 		]
 	}
 ]

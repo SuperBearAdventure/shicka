@@ -20,6 +20,8 @@ import {bear as bearCompilation} from "../compilations.js";
 import {bear as bearDefinition} from "../definitions.js";
 import {composeAll, localize, nearest, resolve} from "../utils/string.js";
 type HelpGroups = BearDependency["help"];
+type VariableOutfitGroups = BearDependency["variableOutfit"];
+type InvariableOutfitGroups = BearDependency["invariableOutfit"];
 type BossGoalGroups = BearDependency["bossGoal"];
 type CoinsGoalGroups = BearDependency["coinsGoal"];
 type TimeGoalGroups = BearDependency["timeGoal"];
@@ -32,6 +34,8 @@ const {
 const {
 	help: helpLocalizations,
 	reply: replyLocalizations,
+	variableOutfit: variableOutfitLocalizations,
+	invariableOutfit: invariableOutfitLocalizations,
 	noOutfit: noOutfitLocalizations,
 	bossGoal: bossGoalLocalizations,
 	coinsWithBossGoal: coinsWithBossGoalLocalizations,
@@ -94,12 +98,33 @@ const bearCommand: Command = {
 		const bear: Bear = bears[id];
 		const {gold, name}: Bear = bear;
 		const level: Level = levels[bear.level];
-		const bearOutfits: Outfit[] = bear.outfits.filter((outfit: number): boolean => {
-			const {name}: Outfit = outfits[outfit];
-			return name["en-US"] !== "Default";
-		}).map<Outfit>((outfit: number): Outfit => {
-			return outfits[outfit];
+		const outfitsAndVariations: [Outfit, number][] = bear.outfits.map<[Outfit, number]>((outfit: number, index: number): [Outfit, number] => {
+			return [
+				outfits[outfit],
+				bear.variations[index],
+			];
 		});
+		const outfitNames: Localized<(groups: {}) => string>[] = outfitsAndVariations.map<Localized<(groups: {}) => string>>((outfitAndVariation: [Outfit, number]): Localized<(groups: {}) => string> => {
+			const [outfit, variation]: [Outfit, number] = outfitAndVariation;
+			return outfit.variations !== 1 ? composeAll<VariableOutfitGroups, {}>(variableOutfitLocalizations, localize<VariableOutfitGroups>((locale: Locale): VariableOutfitGroups => {
+				const ordinalFormat: Intl.NumberFormat = new Intl.NumberFormat(locale);
+				return {
+					outfit: (): string => {
+						return escapeMarkdown(outfit.name[locale]);
+					},
+					variation: (): string => {
+						return escapeMarkdown(ordinalFormat.format(variation + 1));
+					},
+				};
+			})) : composeAll<InvariableOutfitGroups, {}>(invariableOutfitLocalizations, localize<InvariableOutfitGroups>((locale: Locale): InvariableOutfitGroups => {
+				return {
+					outfit: (): string => {
+						return escapeMarkdown(outfit.name[locale]);
+					},
+				};
+			}));
+		});
+
 		const boss: Localized<string> | null = bear.id % 8 === 0 ? levels[bear.level].boss : null;
 		const coins: number | null = bear.id % 8 === 3 ? levels[bear.level].coins - 25 : 0;
 		const bossGoal: Localized<(groups: {}) => string> | null = boss != null ? composeAll<BossGoalGroups, {}>(bossGoalLocalizations, localize<BossGoalGroups>((locale: Locale): BossGoalGroups => {
@@ -144,8 +169,8 @@ const bearCommand: Command = {
 					return escapeMarkdown(level.name[locale]);
 				},
 				outfitNameConjunction: (): string => {
-					return bearOutfits.length !== 0 ? conjunctionFormat.format(bearOutfits.map<string>((outfit: Outfit): string => {
-						return `*${escapeMarkdown(outfit.name[locale])}*`;
+					return outfitNames.length !== 0 ? conjunctionFormat.format(outfitNames.map<string>((outfitName: Localized<(groups: {}) => string>): string => {
+						return outfitName[locale]({});
 					})) : escapeMarkdown(noOutfitLocalizations[locale]({}));
 				},
 				goalConjunction: (): string => {

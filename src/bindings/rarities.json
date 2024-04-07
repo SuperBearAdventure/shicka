@@ -1,25 +1,22 @@
 [
 	{
 		"name": {
-			"en-US": "Default",
-			"fr": "Défaut",
-			"pt-BR": "Padrão"
-		},
-		"cost": 0,
-		"payoff": 0,
-		"probability": 0,
-		"slots": 0
-	},
-	{
-		"name": {
 			"en-US": "Common",
 			"fr": "Commun",
 			"pt-BR": "Comum"
 		},
 		"cost": 100,
-		"payoff": -50,
-		"probability": 0.7,
-		"slots": 4
+		"payoffs": [
+			-30,
+			-25,
+			-180
+		],
+		"probabilities": [
+			0.7,
+			0.7,
+			0.35
+		],
+		"slots": 6
 	},
 	{
 		"name": {
@@ -27,10 +24,18 @@
 			"fr": "Rare",
 			"pt-BR": "Raro"
 		},
-		"cost": 300,
-		"payoff": 25,
-		"probability": 0.25,
-		"slots": 2
+		"cost": 250,
+		"payoffs": [
+			0,
+			5,
+			-150
+		],
+		"probabilities": [
+			0.27,
+			0.27,
+			0.45
+		],
+		"slots": 6
 	},
 	{
 		"name": {
@@ -38,10 +43,18 @@
 			"fr": "Épique",
 			"pt-BR": "Épico"
 		},
-		"cost": 1500,
-		"payoff": 175,
-		"probability": 0.05,
-		"slots": 1
+		"cost": 1000,
+		"payoffs": [
+			150,
+			155,
+			0
+		],
+		"probabilities": [
+			0.03,
+			0.03,
+			0.2
+		],
+		"slots": 3
 	},
 	{
 		"name": {
@@ -50,9 +63,17 @@
 			"pt-BR": "Tristopio"
 		},
 		"cost": 0,
-		"payoff": 0,
-		"probability": 0,
-		"slots": 1
+		"payoffs": [
+			0,
+			0,
+			0
+		],
+		"probabilities": [
+			0,
+			0,
+			0
+		],
+		"slots": 2
 	},
 	{
 		"name": {
@@ -60,20 +81,55 @@
 			"fr": "Légendaire",
 			"pt-BR": "Lendário"
 		},
+		"cost": 2500,
+		"payoffs": [
+			0,
+			0,
+			0
+		],
+		"probabilities": [
+			0,
+			0,
+			0
+		],
+		"slots": 1
+	},
+	{
+		"name": {
+			"en-US": "The Hive",
+			"fr": "La Ruche",
+			"pt-BR": "A Colmeia"
+		},
 		"cost": 0,
-		"payoff": 0,
-		"probability": 0,
+		"payoffs": [
+			0,
+			0,
+			0
+		],
+		"probabilities": [
+			0,
+			0,
+			0
+		],
 		"slots": 0
 	},
 	{
 		"name": {
-			"en-US": "Maybee",
-			"fr": "Isabeille",
-			"pt-BR": "Maybee"
+			"en-US": "PMK Vol.1",
+			"fr": "PMK Vol.1",
+			"pt-BR": "PMK Vol.1"
 		},
 		"cost": 0,
-		"payoff": 0,
-		"probability": 0,
+		"payoffs": [
+			0,
+			0,
+			0
+		],
+		"probabilities": [
+			0,
+			0,
+			0
+		],
 		"slots": 0
 	}
 ]
