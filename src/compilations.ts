@@ -11,6 +11,7 @@ import departureCompilation from "./compilations/departure.js";
 import emojiCompilation from "./compilations/emoji.js";
 import gateCompilation from "./compilations/gate.js";
 import helpCompilation from "./compilations/help.js";
+import hyperlinkCompilation from "./compilations/hyperlink.js";
 import leaderboardCompilation from "./compilations/leaderboard.js";
 import missionCompilation from "./compilations/mission.js";
 import outfitCompilation from "./compilations/outfit.js";
@@ -43,6 +44,7 @@ type Departure = typeof departureCompilation;
 type Emoji = typeof emojiCompilation;
 type Gate = typeof gateCompilation;
 type Help = typeof helpCompilation;
+type Hyperlink = typeof hyperlinkCompilation;
 type Leaderboard = typeof leaderboardCompilation;
 type Mission = typeof missionCompilation;
 type Outfit = typeof outfitCompilation;
@@ -62,7 +64,7 @@ type Trailer = typeof trailerCompilation;
 type Update = typeof updateCompilation;
 type Verification = typeof verificationCompilation;
 type Verify = typeof verifyCompilation;
-type Compilation = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Leaderboard | Mission | Outfit | Patch | Patching | Posting | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
+type Compilation = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Hyperlink | Leaderboard | Mission | Outfit | Patch | Patching | Posting | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
 const about: About = aboutCompilation;
 const application: Application = applicationCompilation;
 const apply: Apply = applyCompilation;
@@ -76,6 +78,7 @@ const departure: Departure = departureCompilation;
 const emoji: Emoji = emojiCompilation;
 const gate: Gate = gateCompilation;
 const help: Help = helpCompilation;
+const hyperlink: Hyperlink = hyperlinkCompilation;
 const leaderboard: Leaderboard = leaderboardCompilation;
 const mission: Mission = missionCompilation;
 const outfit: Outfit = outfitCompilation;
@@ -110,6 +113,7 @@ export type {
 	Emoji,
 	Gate,
 	Help,
+	Hyperlink,
 	Leaderboard,
 	Mission,
 	Outfit,
@@ -144,6 +148,7 @@ export {
 	emoji,
 	gate,
 	help,
+	hyperlink,
 	leaderboard,
 	mission,
 	outfit,

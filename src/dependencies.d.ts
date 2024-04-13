@@ -11,6 +11,7 @@ import type DepartureDependency from "./dependencies/departure.js";
 import type EmojiDependency from "./dependencies/emoji.js";
 import type GateDependency from "./dependencies/gate.js";
 import type HelpDependency from "./dependencies/help.js";
+import type HyperlinkDependency from "./dependencies/hyperlink.js";
 import type LeaderboardDependency from "./dependencies/leaderboard.js";
 import type MissionDependency from "./dependencies/mission.js";
 import type OutfitDependency from "./dependencies/outfit.js";
@@ -43,6 +44,7 @@ type Departure = DepartureDependency;
 type Emoji = EmojiDependency;
 type Gate = GateDependency;
 type Help = HelpDependency;
+type Hyperlink = HyperlinkDependency;
 type Leaderboard = LeaderboardDependency;
 type Mission = MissionDependency;
 type Outfit = OutfitDependency;
@@ -62,7 +64,7 @@ type Trailer = TrailerDependency;
 type Update = UpdateDependency;
 type Verification = VerificationDependency;
 type Verify = VerifyDependency;
-type Dependency = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Leaderboard | Mission | Outfit | Patch | Patching | Posting | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
+type Dependency = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Hyperlink | Leaderboard | Mission | Outfit | Patch | Patching | Posting | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
 export type {Dependency as default};
 export type {
 	About,
@@ -78,6 +80,7 @@ export type {
 	Emoji,
 	Gate,
 	Help,
+	Hyperlink,
 	Leaderboard,
 	Mission,
 	Outfit,

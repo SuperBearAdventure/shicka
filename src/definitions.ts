@@ -12,6 +12,7 @@ import departureDefinition from "./definitions/departure.json" assert {type: "js
 import emojiDefinition from "./definitions/emoji.json" assert {type: "json"};
 import gateDefinition from "./definitions/gate.json" assert {type: "json"};
 import helpDefinition from "./definitions/help.json" assert {type: "json"};
+import hyperlinkDefinition from "./definitions/hyperlink.json" assert {type: "json"};
 import leaderboardDefinition from "./definitions/leaderboard.json" assert {type: "json"};
 import missionDefinition from "./definitions/mission.json" assert {type: "json"};
 import outfitDefinition from "./definitions/outfit.json" assert {type: "json"};
@@ -164,6 +165,12 @@ type Help = {
 	commandDescription: Localized<string>,
 	help: Localized<string>,
 	reply: Localized<string>,
+};
+type Hyperlink = {
+	ruleName: string,
+	ruleReason: string,
+	helpWithChannels: Localized<string>,
+	helpWithoutChannels: Localized<string>,
 };
 type Leaderboard = {
 	commandName: string,
@@ -320,7 +327,7 @@ type Verify = {
 	reply: Localized<string>,
 	noPermissionReply: Localized<string>,
 };
-type Definition = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Leaderboard | Mission | Outfit | Patch | Patching | Posting | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
+type Definition = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Hyperlink | Leaderboard | Mission | Outfit | Patch | Patching | Posting | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
 const about: About = aboutDefinition;
 const application: Application = applicationDefinition;
 const apply: Apply = applyDefinition;
@@ -334,6 +341,7 @@ const departure: Departure = departureDefinition;
 const emoji: Emoji = emojiDefinition;
 const gate: Gate = gateDefinition;
 const help: Help = helpDefinition;
+const hyperlink: Hyperlink = hyperlinkDefinition;
 const leaderboard: Leaderboard = leaderboardDefinition;
 const mission: Mission = missionDefinition;
 const outfit: Outfit = outfitDefinition;
@@ -368,6 +376,7 @@ export type {
 	Emoji,
 	Gate,
 	Help,
+	Hyperlink,
 	Leaderboard,
 	Mission,
 	Outfit,
@@ -402,6 +411,7 @@ export {
 	emoji,
 	gate,
 	help,
+	hyperlink,
 	leaderboard,
 	mission,
 	outfit,

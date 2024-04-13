@@ -10,9 +10,9 @@ import type {
 	ThreadChannel,
 } from "discord.js";
 import type {Canvas, CanvasRenderingContext2D, Image} from "canvas";
-import type {Rule7 as Rule7Compilation} from "../compilations.js";
-import type {Rule7 as Rule7Definition} from "../definitions.js";
-import type {Rule7 as Rule7Dependency} from "../dependencies.js";
+import type {Hyperlink as HyperlinkCompilation} from "../compilations.js";
+import type {Hyperlink as HyperlinkDefinition} from "../definitions.js";
+import type {Hyperlink as HyperlinkDependency} from "../dependencies.js";
 import type Rule from "../rules.js";
 import type {AutoModerationActionExecution, AutoModerationRule, AutoModerationRuleData} from "../rules.js";
 import type {Locale, Localized} from "../utils/string.js";
@@ -23,34 +23,41 @@ import {
 	ChannelType,
 } from "discord.js";
 import canvas from "canvas";
-import {rule7 as rule7Compilation} from "../compilations.js";
-import {rule7 as rule7Definition} from "../definitions.js";
+import {hyperlink as hyperlinkCompilation} from "../compilations.js";
+import {hyperlink as hyperlinkDefinition} from "../definitions.js";
 import {composeAll, localize} from "../utils/string.js";
-type HelpWithChannelsGroups = Rule7Dependency["helpWithChannels"];
+type HelpWithChannelsGroups = HyperlinkDependency["helpWithChannels"];
 const {
 	ruleName,
 	ruleReason,
-}: Rule7Definition = rule7Definition;
+}: HyperlinkDefinition = hyperlinkDefinition;
 const {
 	helpWithChannels: helpWithChannelsLocalizations,
 	helpWithoutChannels: helpWithoutChannelsLocalizations,
-}: Rule7Compilation = rule7Compilation;
+}: HyperlinkCompilation = hyperlinkCompilation;
 const {
-	SHICKA_RULE7_DEFAULT_ALERT_ACTION_CHANNEL,
-	SHICKA_RULE7_DEFAULT_EXEMPT_CHANNELS,
-	SHICKA_RULE7_DEFAULT_EXEMPT_ROLES,
-	SHICKA_RULE7_REACTION_EMOJI,
-	SHICKA_RULE7_OVERRIDE_RULES_CHANNEL,
+	SHICKA_HYPERLINK_DEFAULT_ALERT_ACTION_CHANNEL,
+	SHICKA_HYPERLINK_DEFAULT_EXEMPT_CHANNELS,
+	SHICKA_HYPERLINK_DEFAULT_EXEMPT_ROLES,
+	SHICKA_HYPERLINK_REACTION_EMOJI,
+	SHICKA_HYPERLINK_OVERRIDE_RULES_CHANNEL,
 }: NodeJS.ProcessEnv = process.env;
 const {createCanvas, loadImage}: any = canvas;
-const ruleTriggerRegexPattern: string = "\\bco-?op(?:erati(?:ons?|ve))?\\b|\\bmulti(?:-?player)?\\b|\\bonline\\b|\\bpc\\b|\\bplaystation\\b|\\bps[456]\\b|\\bsteam\\b|\\bxbox\\b";
-const ruleAlertActionChannel: string = SHICKA_RULE7_DEFAULT_ALERT_ACTION_CHANNEL ?? "";
-const ruleExemptChannels: string[] | null = SHICKA_RULE7_DEFAULT_EXEMPT_CHANNELS != null ? SHICKA_RULE7_DEFAULT_EXEMPT_CHANNELS.split("\n") : null;
-const ruleExemptRoles: string[] | null = SHICKA_RULE7_DEFAULT_EXEMPT_ROLES != null ? SHICKA_RULE7_DEFAULT_EXEMPT_ROLES.split("\n") : null;
-const ruleReactionEmoji: string = SHICKA_RULE7_REACTION_EMOJI ?? "";
-const ruleRulesChannel: string | null = SHICKA_RULE7_OVERRIDE_RULES_CHANNEL ?? null;
+const ruleTriggerRegexPatterns: string[] = [
+	"<#\\d+>",
+	"</[-_\\p{L}\\p{N}\\p{sc=Deva}\\p{sc=Thai}]+( [-_\\p{L}\\p{N}\\p{sc=Deva}\\p{sc=Thai}]+){0,2}:\\d+>",
+	"<@!?\\d+>",
+	"<@&\\d+>",
+	"<id:(browse|customize|guide)>",
+	"https?:///*\\S+",
+];
+const ruleAlertActionChannel: string = SHICKA_HYPERLINK_DEFAULT_ALERT_ACTION_CHANNEL ?? "";
+const ruleExemptChannels: string[] | null = SHICKA_HYPERLINK_DEFAULT_EXEMPT_CHANNELS != null ? SHICKA_HYPERLINK_DEFAULT_EXEMPT_CHANNELS.split("\n") : null;
+const ruleExemptRoles: string[] | null = SHICKA_HYPERLINK_DEFAULT_EXEMPT_ROLES != null ? SHICKA_HYPERLINK_DEFAULT_EXEMPT_ROLES.split("\n") : null;
+const ruleRulesChannel: string | null = SHICKA_HYPERLINK_OVERRIDE_RULES_CHANNEL ?? null;
+const ruleReactionEmoji: string = SHICKA_HYPERLINK_REACTION_EMOJI ?? "";
 const ruleAvatar: string = await (async (): Promise<string> => {
-	const url: string = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 64 64" width="256" height="256"><symbol id="letter-R" viewBox="0 0 24 32"><path d="M6,26L6,6L12,6Q18,6,18,12Q18,18,12,18L6,18M12,18L18,26"/></symbol><symbol id="letter-u" viewBox="0 0 20 32"><path d="M14,10L14,22Q14,26,10,26Q6,26,6,22L6,10M14,22L14,26"/></symbol><symbol id="letter-l" viewBox="0 0 14 32"><path d="M8,26Q6,26,6,24L6,6"/></symbol><symbol id="letter-e" viewBox="0 0 20 32"><path d="M14,22Q14,26,10,26Q6,26,6,22L6,14Q6,10,10,10Q14,10,14,14Q14,18,10,18Q6,18,6,22"/></symbol><symbol id="letter-7" viewBox="0 0 20 32"><path d="M6,10L6,6L14,6L14,10L10,26"/></symbol><symbol id="rule7" viewBox="0 0 68 32"><use href="#letter-R" x="0" y="0" width="24" height="32"/><use href="#letter-u" x="17" y="0" width="20" height="32"/><use href="#letter-l" x="30" y="0" width="14" height="32"/><use href="#letter-e" x="36" y="0" width="20" height="32"/><use href="#letter-7" x="48" y="0" width="20" height="32"/></symbol><circle cx="16" cy="16" r="24" fill="#ccc"/><use href="#rule7" x="-1" y="8" width="34" height="16" fill="none" stroke="#333" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+	const url: string = `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 64 64" width="256" height="256"><symbol id="letter-H" viewBox="0 0 24 32"><path d="M6,26L6,6M6,18L18,18M18,6L18,26"/></symbol><symbol id="letter-y" viewBox="0 0 20 40"><path d="M14,10L14,22Q14,26,10,26Q6,26,6,22L6,10M14,22L14,30Q14,34,10,34Q6,34,6,30"/></symbol><symbol id="letter-p" viewBox="0 0 20 40"><path d="M6,14Q6,10,10,10Q14,10,14,14L14,22Q14,26,10,26Q6,26,6,22L6,14M6,14L6,10M6,22L6,34"/></symbol><symbol id="letter-e" viewBox="0 0 20 32"><path d="M14,22Q14,26,10,26Q6,26,6,22L6,14Q6,10,10,10Q14,10,14,14Q14,18,10,18Q6,18,6,22"/></symbol><symbol id="letter-r" viewBox="0 0 20 32"><path d="M6,26L6,14Q6,10,10,10Q14,10,14,14M6,14L6,10"/></symbol><symbol id="letter-l" viewBox="0 0 14 32"><path d="M8,26Q6,26,6,24L6,6"/></symbol><symbol id="letter-i" viewBox="0 0 12 32"><path d="M6,26L6,11M6,6L6,6"/></symbol><symbol id="letter-n" viewBox="0 0 20 32"><path d="M14,26L14,14Q14,10,10,10Q6,10,6,14L6,26M6,14L6,10"/></symbol><symbol id="letter-k" viewBox="0 0 20 32"><path d="M6,26L6,6M6,18L8,18M14,10L8,18L14,26"/></symbol><symbol id="hyper" viewBox="0 0 76 40"><use href="#letter-H" x="0" y="0" width="24" height="32"/><use href="#letter-y" x="17" y="0" width="20" height="40"/><use href="#letter-p" x="30" y="0" width="20" height="40"/><use href="#letter-e" x="43" y="0" width="20" height="32"/><use href="#letter-r" x="56" y="0" width="20" height="32"/></symbol><symbol id="link" viewBox="0 0 45 32"><use href="#letter-l" x="0" y="0" width="14" height="32"/><use href="#letter-i" x="7" y="0" width="12" height="32"/><use href="#letter-n" x="12" y="0" width="20" height="32"/><use href="#letter-k" x="25" y="0" width="20" height="32"/></symbol><circle cx="16" cy="16" r="24" fill="#ccc"/><use href="#hyper" x="-3" y="0" width="38" height="20" fill="none" stroke="#333" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><use href="#link" x="4.75" y="16" width="22.5" height="16" fill="none" stroke="#333" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 	const image: Image = await loadImage(url);
 	const canvas: Canvas = createCanvas(256, 256);
 	const context: CanvasRenderingContext2D = canvas.getContext("2d");
@@ -58,7 +65,7 @@ const ruleAvatar: string = await (async (): Promise<string> => {
 	const data: string = canvas.toDataURL();
 	return data;
 })();
-const rule7Rule: Rule = {
+const hyperlinkRule: Rule = {
 	register(): AutoModerationRuleData {
 		return {
 			name: ruleName,
@@ -66,7 +73,7 @@ const rule7Rule: Rule = {
 			eventType: AutoModerationRuleEventType.MessageSend,
 			triggerType: AutoModerationRuleTriggerType.Keyword,
 			triggerMetadata: {
-				regexPatterns: [ruleTriggerRegexPattern],
+				regexPatterns: ruleTriggerRegexPatterns,
 			},
 			...(ruleExemptChannels != null ? {exemptChannels: ruleExemptChannels} : {}),
 			...(ruleExemptRoles != null ? {exemptRoles: ruleExemptRoles} : {}),
@@ -141,11 +148,15 @@ const rule7Rule: Rule = {
 			}
 		} catch {}
 		try {
-			await message.react("🇷");
-			await message.react("🇺");
-			await message.react("🇱");
+			await message.react("🇭");
+			await message.react("🇾");
+			await message.react("🇵");
 			await message.react("🇪");
-			await message.react("7️⃣");
+			await message.react("🇷");
+			await message.react("🇱");
+			await message.react("🇮");
+			await message.react("🇳");
+			await message.react("🇰");
 			if (emoji != null) {
 				await message.react(emoji);
 			}
@@ -181,4 +192,4 @@ const rule7Rule: Rule = {
 		})) : helpWithoutChannelsLocalizations;
 	},
 };
-export default rule7Rule;
+export default hyperlinkRule;
