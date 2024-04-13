@@ -1,0 +1,14 @@
+{
+	"ruleName": "hyperlink",
+	"ruleReason": "Flags messages which contain a hyperlink as such in the given channels",
+	"helpWithChannels": {
+		"en-US": "I flag messages which contain a hyperlink as such in $<channelMentions>",
+		"fr": "Je signale les messages qui contiennent un hyperlien comme tels dans $<channelMentions>",
+		"pt-BR": "Eu sinalizo mensagens que contêm um hiperligação por fazerem isso em $<channelMentions>"
+	},
+	"helpWithoutChannels": {
+		"en-US": "I flag messages which contain a hyperlink as such",
+		"fr": "Je signale les messages qui contiennent un hyperlien comme tels",
+		"pt-BR": "Eu sinalizo mensagens que contêm um hiperligação por fazerem isso"
+	}
+}

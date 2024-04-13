@@ -6,6 +6,7 @@ import type {
 	AutoModerationRuleCreateOptions,
 } from "discord.js";
 import type {Localized} from "./utils/string.js";
+import hyperlinkRule from "./rules/hyperlink.js";
 import rule7Rule from "./rules/rule7.js";
 type AutoModerationRuleData = Omit<AutoModerationRuleCreateOptions, "exemptChannels" | "exemptRoles" | "actions"> & {
 	exemptChannels?: string[],
@@ -23,6 +24,7 @@ type Rule = {
 	execute(execution: AutoModerationActionExecution): Promise<void>;
 	describe(autoModerationRule: AutoModerationRule): Localized<(groups: {}) => string>;
 };
+const hyperlink: Rule = hyperlinkRule;
 const rule7: Rule = rule7Rule;
 export type {Rule as default};
 export type {
@@ -31,5 +33,6 @@ export type {
 	AutoModerationRuleData,
 };
 export {
+	hyperlink,
 	rule7,
 };
