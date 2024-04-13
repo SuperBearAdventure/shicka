@@ -20,11 +20,11 @@ $ export SHICKA_RECORD_DEFAULT_CHANNEL=<your-record-default-channel-here>
 $ export SHICKA_REFUSAL_DEFAULT_CHANNEL=<your-refusal-default-channel-here>
 $ export SHICKA_VERIFICATION_DEFAULT_CHANNEL=<your-verification-default-channel-here>
 $ export SHICKA_VERIFICATION_VERIFIED_ROLE=<your-verfication-verified-role-here>
-$ export SHICKA_HYPERLINK_DEFAULT_ALERT_ACTION_CHANNEL=<your-hyperlink-default-alert-action-channel-here>
-$ export SHICKA_HYPERLINK_DEFAULT_EXEMPT_CHANNELS=<your-hyperlink-default-exempt-channels-here>
-$ export SHICKA_HYPERLINK_DEFAULT_EXEMPT_ROLES=<your-hyperlink-default-exempt-roles-here>
-$ export SHICKA_HYPERLINK_REACTION_EMOJI=<your-hyperlink-reaction-emoji-here>
-$ export SHICKA_HYPERLINK_OVERRIDE_RULES_CHANNEL=<your-hyperlink-override-rules-channel-here>
+$ export SHICKA_LINK_DEFAULT_ALERT_ACTION_CHANNEL=<your-link-default-alert-action-channel-here>
+$ export SHICKA_LINK_DEFAULT_EXEMPT_CHANNELS=<your-link-default-exempt-channels-here>
+$ export SHICKA_LINK_DEFAULT_EXEMPT_ROLES=<your-link-default-exempt-roles-here>
+$ export SHICKA_LINK_REACTION_EMOJI=<your-link-reaction-emoji-here>
+$ export SHICKA_LINK_OVERRIDE_RULES_CHANNEL=<your-link-override-rules-channel-here>
 $ export SHICKA_RULE7_DEFAULT_ALERT_ACTION_CHANNEL=<your-rule7-default-alert-action-channel-here>
 $ export SHICKA_RULE7_DEFAULT_EXEMPT_CHANNELS=<your-rule7-default-exempt-channels-here>
 $ export SHICKA_RULE7_DEFAULT_EXEMPT_ROLES=<your-rule7-default-exempt-roles-here>
@@ -132,6 +132,6 @@ $ npm start
 
 ### Rules
 
-- `hyperlink` flags messages which contain a hyperlink as such in the given channel (set to `$SHICKA_HYPERLINK_DEFAULT_ALERT_ACTION_CHANNEL` by default) except when posted in any of the given exempted channels (set to `$SHICKA_HYPERLINK_DEFAULT_EXEMPT_CHANNELS` by default), when posted by non-administrator members having any of the given exempted roles (set to `$SHICKA_HYPERLINK_DEFAULT_EXEMPT_ROLES` by default) or when posted by administrator members
+- `link` flags messages which contain a hyperlink as such in the given channel (set to `$SHICKA_LINK_DEFAULT_ALERT_ACTION_CHANNEL` by default) except when posted in any of the given exempted channels (set to `$SHICKA_LINK_DEFAULT_EXEMPT_CHANNELS` by default), when posted by non-administrator members having any of the given exempted roles (set to `$SHICKA_LINK_DEFAULT_EXEMPT_ROLES` by default) or when posted by administrator members
 
 - `rule7` flags messages which violate the rule 7 as such in the given channel (set to `$SHICKA_RULE7_DEFAULT_ALERT_ACTION_CHANNEL` by default) except when posted in any of the given exempted channels (set to `$SHICKA_RULE7_DEFAULT_EXEMPT_CHANNELS` by default), when posted by non-administrator members having any of the given exempted roles (set to `$SHICKA_RULE7_DEFAULT_EXEMPT_ROLES` by default) or when posted by administrator members
