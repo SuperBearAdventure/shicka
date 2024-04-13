@@ -2,8 +2,8 @@ type HelpWithChannelsGroups = {
 	channelMentions: () => string,
 };
 type HelpWithoutChannelsGroups = {};
-type HyperlinkDependency = {
+type LinkDependency = {
 	helpWithChannels: HelpWithChannelsGroups,
 	helpWithoutChannels: HelpWithoutChannelsGroups,
 };
-export type {HyperlinkDependency as default};
+export type {LinkDependency as default};

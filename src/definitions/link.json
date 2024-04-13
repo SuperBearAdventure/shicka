@@ -1,5 +1,5 @@
 {
-	"ruleName": "hyperlink",
+	"ruleName": "link",
 	"ruleReason": "Flags messages which contain a hyperlink as such in the given channels",
 	"helpWithChannels": {
 		"en-US": "I flag messages which contain a hyperlink as such in $<channelMentions>",
