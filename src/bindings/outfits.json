@@ -558,7 +558,7 @@
 		"cost": 0,
 		"rarity": 1,
 		"update": 24,
-		"variations": 1
+		"variations": 3
 	},
 	{
 		"name": {
@@ -907,7 +907,7 @@
 			"fr": "Chapeau de football",
 			"pt-BR": "Chapéu de futebol"
 		},
-		"cost": 5,
+		"cost": 4,
 		"rarity": 3,
 		"update": 53,
 		"variations": 1
@@ -995,7 +995,7 @@
 			"fr": "Dé",
 			"pt-BR": "Dado"
 		},
-		"cost": 4,
+		"cost": 1,
 		"rarity": 3,
 		"update": 59,
 		"variations": 1
@@ -1127,7 +1127,7 @@
 			"fr": "Tête de chat",
 			"pt-BR": "Cabeça de gato"
 		},
-		"cost": 2,
+		"cost": 4,
 		"rarity": 3,
 		"update": 76,
 		"variations": 1
@@ -1479,7 +1479,7 @@
 			"fr": "Lunettes écran",
 			"pt-BR": "Óculos de tela"
 		},
-		"cost": 1,
+		"cost": 3,
 		"rarity": 3,
 		"update": 92,
 		"variations": 1

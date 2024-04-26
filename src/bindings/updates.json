@@ -1103,5 +1103,27 @@
 			"Added Pierre Music Kit Vol.1: new DLC with unique outfits and songs",
 			"New speedrun features and boss changes"
 		]
+	},
+	{
+		"name": "11.0.1",
+		"date": {
+			"android": "2024-04-05",
+			"ios": "2024-04-05",
+			"switch": null
+		},
+		"notes": []
+	},
+	{
+		"name": "11.1.0",
+		"date": {
+			"android": "2024-04-23",
+			"ios": "2024-04-24",
+			"switch": null
+		},
+		"notes": [
+			"Added functional pirate ship in the desert",
+			"Added sleeping animation to the player",
+			"Many bug fixes"
+		]
 	}
 ]
