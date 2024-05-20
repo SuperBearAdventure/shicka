@@ -237,8 +237,6 @@ type Raw = {
 	identifierOptionName: string,
 	identifierOptionDescription: Localized<string>,
 	help: Localized<string>,
-	noTypeReply: Localized<string>,
-	noIdentifierReply: Localized<string>,
 };
 type Record = {
 	hookName: string,

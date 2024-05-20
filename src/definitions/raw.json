@@ -21,15 +21,5 @@
 		"en-US": "Type $<commandMention> `$<typeOptionDescription> $<identifierOptionDescription>` to know what is the datum of `$<typeOptionDescription>` with `$<identifierOptionDescription>`",
 		"fr": "Tape $<commandMention> `$<typeOptionDescription> $<identifierOptionDescription>` pour savoir quel est la donnée d'`$<typeOptionDescription>` avec `$<identifierOptionDescription>`",
 		"pt-BR": "Digite $<commandMention> `$<typeOptionDescription> $<identifierOptionDescription>` pra saber qual é o Datum de `$<typeOptionDescription>` com `$<identifierOptionDescription>`"
-	},
-	"noTypeReply": {
-		"en-US": "I do not know any datum with this name.\nPlease give me a type among $<typeConjunction> instead.",
-		"fr": "Je ne connais aucune donnée avec ce nom.\nMerci de me donner un type parmi $<typeConjunction> à la place.",
-		"pt-BR": "Eu não conheço nenhum Datum com esse nome.\nPor favor, me dê um tipo entre $<typeConjunction> em vez disso."
-	},
-	"noIdentifierReply": {
-		"en-US": "I do not know any datum with this identifier.\nPlease give me an identifier between `0` and `$<max>` instead.",
-		"fr": "Je ne connais aucune donnée avec cet identifiant.\nMerci de me donner un identifiant entre `0` et `$<max>` à la place.",
-		"pt-BR": "Eu não conheço nenhum Datum com esse nome.\nPor favor, me dê um tipo entre `0` e `$<max>` em vez disso."
 	}
 }
