@@ -1,18 +1,34 @@
 {
 	"commandName": "help",
 	"commandDescription": {
-		"en-US": "Tells you what are the features I offer",
-		"fr": "Te dit quelles sont les fonctionnalités que je propose",
-		"pt-BR": "Te diz quais recursos eu apresento"
+		"en-US": "Tells you what are the features I offer or what they do",
+		"fr": "Te dit quelles sont les fonctionnalités que je propose ou ce qu'elles font",
+		"pt-BR": "Te diz quais recursos eu apresento ou o que eles fazem"
+	},
+	"featureOptionName": "feature",
+	"featureOptionDescription": {
+		"en-US": "Some feature",
+		"fr": "Une fonctionnalité",
+		"pt-BR": "Algum recurso"
 	},
 	"help": {
-		"en-US": "Type $<commandMention> to know what are the features I offer",
-		"fr": "Tape $<commandMention> pour savoir quelles sont les fonctionnalités que je propose",
-		"pt-BR": "Digite $<commandMention> pra saber quais são os recursos que apresento"
+		"en-US": "Type $<commandMention> to know what are the features I offer\nType $<commandMention> `$<featureOptionDescription>` to know what `$<featureOptionDescription>` does",
+		"fr": "Tape $<commandMention> pour savoir quelles sont les fonctionnalités que je propose\nTape $<commandMention> `$<featureOptionDescription>` pour savoir ce qu'`$<featureOptionDescription>` fait",
+		"pt-BR": "Digite $<commandMention> pra saber quais são os recursos que apresento\nDigite $<commandMention> `$<featureOptionDescription>` pra saber o que `$<featureOptionDescription>` faz"
 	},
 	"reply": {
+		"en-US": "Hey $<memberMention>, there you are!\nI can give you some advice about this feature:\n$<featureList>",
+		"fr": "Ah $<memberMention>, tu es là !\nJe peux te donner des conseils sur cette fonctionnalité :\n$<featureList>",
+		"pt-BR": "Opa $<memberMention>, aí está você!\nEu posso te dar algumas dicas sobre esse recurso:\n$<featureList>"
+	},
+	"bareReply": {
 		"en-US": "Hey $<memberMention>, there you are!\nI can give you some advice about the server:\n$<featureList>",
 		"fr": "Ah $<memberMention>, tu es là !\nJe peux te donner des conseils sur le serveur :\n$<featureList>",
 		"pt-BR": "Opa $<memberMention>, aí está você!\nEu posso te dar algumas dicas sobre o servidor:\n$<featureList>"
+	},
+	"noFeatureReply": {
+		"en-US": "Hey $<memberMention>, there you are!\nI can not give you any advice about this feature.",
+		"fr": "Ah $<memberMention>, tu es là !\nJe ne peux te donner aucun conseil sur cette fonctionnalité.",
+		"pt-BR": "Opa $<memberMention>, aí está você!\nEu não posso te dar nenhuma dica sobre esse recurso."
 	}
 }

@@ -263,7 +263,7 @@ const client: Client<boolean> = new Client({
 	},
 });
 client.once("ready", async (client: Client<true>): Promise<void> => {
-	const commandRegistry: ApplicationCommandData[] = Object.keys(commands).map<ApplicationCommandData>((commandName: string): ApplicationCommandData => {
+	const commandRegistry: ApplicationCommandData[] = Object.getOwnPropertyNames(commands).map<ApplicationCommandData>((commandName: string): ApplicationCommandData => {
 		const command: Command = commands[commandName as keyof typeof commands];
 		return command.register();
 	});
@@ -277,7 +277,7 @@ client.once("ready", async (client: Client<true>): Promise<void> => {
 			console.error(error);
 		}
 	}
-	const hookRegistry: WebhookCreateOptionsResolvable[] = Object.keys(hooks).map<WebhookData>((hookName: string): WebhookData => {
+	const hookRegistry: WebhookCreateOptionsResolvable[] = Object.getOwnPropertyNames(hooks).map<WebhookData>((hookName: string): WebhookData => {
 		const hook: Hook = hooks[hookName as keyof typeof hooks];
 		return hook.register();
 	}).map<WebhookCreateOptionsResolvable>((webhookData: WebhookData): WebhookCreateOptionsResolvable => {
@@ -382,7 +382,7 @@ client.once("ready", async (client: Client<true>): Promise<void> => {
 			console.error(error);
 		}
 	}
-	const ruleRegistry: AutoModerationRuleCreateOptionsResolvable[] = Object.keys(rules).map<AutoModerationRuleCreateOptionsResolvable>((ruleName: string): AutoModerationRuleCreateOptionsResolvable => {
+	const ruleRegistry: AutoModerationRuleCreateOptionsResolvable[] = Object.getOwnPropertyNames(rules).map<AutoModerationRuleCreateOptionsResolvable>((ruleName: string): AutoModerationRuleCreateOptionsResolvable => {
 		const rule: Rule = rules[ruleName as keyof typeof rules];
 		return rule.register();
 	});

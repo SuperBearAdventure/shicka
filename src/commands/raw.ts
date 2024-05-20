@@ -44,7 +44,7 @@ const rawCommand: Command = {
 					description: typeOptionDescription["en-US"],
 					descriptionLocalizations: typeOptionDescription,
 					required: true,
-					choices: Object.keys(bindings).map<[string, Binding]>((bindingName: string): [string, Binding] => {
+					choices: Object.getOwnPropertyNames(bindings).map<[string, Binding]>((bindingName: string): [string, Binding] => {
 						const binding: Binding = bindings[bindingName as keyof typeof bindings];
 						return [bindingName, binding];
 					}).filter(([bindingName, binding]: [string, Binding]): boolean => {
@@ -82,7 +82,7 @@ const rawCommand: Command = {
 			await interaction.reply({
 				content: noTypeReplyLocalizations[resolvedLocale]({
 					typeConjunction: (): string => {
-						return conjunctionFormat.format(Object.keys(bindings).map<string>((bindingName: string): string => {
+						return conjunctionFormat.format(Object.getOwnPropertyNames(bindings).map<string>((bindingName: string): string => {
 							return `\`${escapeMarkdown(bindingName)}\``;
 						}));
 					},

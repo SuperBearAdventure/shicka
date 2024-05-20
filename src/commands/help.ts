@@ -1,16 +1,19 @@
 import type {
+	ApplicationCommandOptionChoiceData,
 	ApplicationCommandPermissions,
 	AutoModerationAction,
 	AutoModerationActionMetadata,
 	AutoModerationRule,
+	AutocompleteFocusedOption,
+	AutocompleteInteraction,
 	ChatInputCommandInteraction,
 	Client,
 	ClientApplication,
-	Collection,
 	GuildBasedChannel,
 	GuildMember,
 	NewsChannel,
 	Role,
+	Snowflake,
 	TextChannel,
 	Webhook,
 } from "discord.js";
@@ -23,8 +26,10 @@ import type Hook from "../hooks.js";
 import type Rule from "../rules.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {
+	ApplicationCommandOptionType,
 	ApplicationCommandPermissionType,
 	ApplicationCommandType,
+	Collection,
 	PermissionsBitField,
 } from "discord.js";
 import * as commands from "../commands.js";
@@ -32,16 +37,54 @@ import {help as helpCompilation} from "../compilations.js";
 import {help as helpDefinition} from "../definitions.js";
 import * as hooks from "../hooks.js";
 import * as rules from "../rules.js";
-import {composeAll, list, localize, resolve} from "../utils/string.js";
+import {composeAll, list, localize, nearest, resolve} from "../utils/string.js";
 type HelpGroups = HelpDependency["help"];
+type Feature = {
+	id: number,
+	type: "command" | "hook" | "rule",
+	name: string,
+};
 const {
 	commandName,
 	commandDescription,
+	featureOptionName,
+	featureOptionDescription,
 }: HelpDefinition = helpDefinition;
 const {
 	help: helpLocalizations,
 	reply: replyLocalizations,
+	bareReply: bareReplyLocalizations,
+	noFeatureReply: noFeatureReplyLocalizations,
 }: HelpCompilation = helpCompilation;
+const commandCount: number = Object.getOwnPropertyNames(commands).length;
+const hookCount: number = Object.getOwnPropertyNames(hooks).length;
+const features: Feature[] = [
+	...Object.getOwnPropertyNames(commands).map<Feature>((commandName: string, commandIndex: number): Feature => {
+		return {
+			id: commandIndex,
+			type: "command",
+			name: commandName,
+		};
+	}),
+	...Object.getOwnPropertyNames(hooks).map<Feature>((hookName: string, hookIndex: number): Feature => {
+		return {
+			id: commandCount + hookIndex,
+			type: "hook",
+			name: hookName,
+		};
+	}),
+	...Object.getOwnPropertyNames(rules).map<Feature>((ruleName: string, ruleIndex: number): Feature => {
+		return {
+			id: commandCount + hookCount + ruleIndex,
+			type: "rule",
+			name: ruleName,
+		};
+	}),
+];
+const guildFetchedTimestamps: Collection<Snowflake, number> = new Collection<Snowflake, number>();
+const guildApplicationCommandPermissions: Collection<Snowflake, Collection<string, ApplicationCommandPermissions[]> | undefined> = new Collection<Snowflake, Collection<string, ApplicationCommandPermissions[]> | undefined>();
+const guildWebhooks: Collection<Snowflake, Collection<Snowflake, Webhook> | undefined> = new Collection<Snowflake, Collection<Snowflake, Webhook> | undefined>();
+const guildAutoModerationRules: Collection<Snowflake, Collection<Snowflake, AutoModerationRule> | undefined> = new Collection<Snowflake, Collection<Snowflake, AutoModerationRule> | undefined>();
 function naiveStream(content: string): string[] {
 	content = content.replace(/^\n+|\n+$/g, "").replace(/\n+/g, "\n");
 	if (content.length === 0) {
@@ -183,16 +226,69 @@ const helpCommand: Command = {
 			name: commandName,
 			description: commandDescription["en-US"],
 			descriptionLocalizations: commandDescription,
+			options: [
+				{
+					type: ApplicationCommandOptionType.Integer,
+					name: featureOptionName,
+					description: featureOptionDescription["en-US"],
+					descriptionLocalizations: featureOptionDescription,
+					minValue: 0,
+					maxValue: features.length - 1,
+					autocomplete: true,
+				},
+			],
 		};
 	},
 	async interact(interaction: ApplicationUserInteraction): Promise<void> {
-		if (!interaction.isChatInputCommand()) {
+		const {client, createdTimestamp, member, guild}: ApplicationUserInteraction = interaction;
+		const fetchedTimestamp: number = guildFetchedTimestamps.get(guild.id) ?? Number.NEGATIVE_INFINITY;
+		const elapsedTime: number = createdTimestamp - fetchedTimestamp;
+		const forceFetch: boolean = elapsedTime >= 60000;
+		if (forceFetch) {
+			guildFetchedTimestamps.set(guild.id, createdTimestamp);
+		}
+		const applicationCommands: Collection<string, ApplicationCommand> = guild.commands.cache;
+		const permissions: Collection<string, ApplicationCommandPermissions[]> | undefined = await (async (): Promise<Collection<string, ApplicationCommandPermissions[]> | undefined> => {
+			if (forceFetch) {
+				try {
+					guildApplicationCommandPermissions.set(guild.id, await guild.commands.permissions.fetch({}));
+				} catch {
+					guildApplicationCommandPermissions.delete(guild.id);
+				}
+			}
+			return guildApplicationCommandPermissions.get(guild.id);
+		})();
+		if (permissions == null) {
 			return;
 		}
-		const {client, guild, locale, member}: ChatInputCommandInteraction<"cached"> = interaction;
-		const resolvedLocale: Locale = resolve(locale);
+		const webhooks: Collection<string, Webhook> | undefined = await (async (): Promise<Collection<string, Webhook> | undefined> => {
+			if (forceFetch) {
+				try {
+					guildWebhooks.set(guild.id, await guild.fetchWebhooks());
+				} catch {
+					guildWebhooks.delete(guild.id);
+				}
+			}
+			return guildWebhooks.get(guild.id);
+		})();
+		if (webhooks == null) {
+			return;
+		}
+		const autoModerationRules: Collection<string, AutoModerationRule> | undefined = await (async (): Promise<Collection<string, AutoModerationRule> | undefined> => {
+			if (forceFetch) {
+				try {
+					guildAutoModerationRules.set(guild.id, await guild.autoModerationRules.fetch());
+				} catch {
+					guildAutoModerationRules.delete(guild.id);
+				}
+			}
+			return guildAutoModerationRules.get(guild.id);
+		})();
+		if (autoModerationRules == null) {
+			return;
+		}
 		const channel: GuildBasedChannel | null = ((): GuildBasedChannel | null => {
-			const {channel}: ChatInputCommandInteraction<"cached"> = interaction;
+			const {channel}: ApplicationUserInteraction = interaction;
 			if (channel == null) {
 				return null;
 			}
@@ -204,121 +300,383 @@ const helpCommand: Command = {
 		if (channel == null) {
 			return;
 		}
-		const applicationCommands: Collection<string, ApplicationCommand> = guild.commands.cache;
-		const permissions: Collection<string, ApplicationCommandPermissions[]> | undefined = await (async (): Promise<Collection<string, ApplicationCommandPermissions[]> | undefined> => {
-			try {
-				return await guild.commands.permissions.fetch({});
-			} catch {}
-		})();
-		if (permissions == null) {
-			return;
-		}
-		const webhooks: Collection<string, Webhook> | undefined = await (async (): Promise<Collection<string, Webhook> | undefined> => {
-			try {
-				return await guild.fetchWebhooks();
-			} catch {}
-		})();
-		if (webhooks == null) {
-			return;
-		}
-		const autoModerationRules: Collection<string, AutoModerationRule> | undefined = await (async (): Promise<Collection<string, AutoModerationRule> | undefined> => {
-			try {
-				return await guild.autoModerationRules.fetch();
-			} catch {}
-		})();
-		if (autoModerationRules == null) {
-			return;
-		}
 		const {user}: Client<true> = client;
-		const descriptions: Localized<(groups: {}) => string>[] = [
-			Object.keys(commands).map<Localized<(groups: {}) => string> | null>((commandName: string): Localized<(groups: {}) => string> | null => {
-				const command: Command = commands[commandName as keyof typeof commands];
-				const applicationCommand: ApplicationCommand | undefined = applicationCommands.find((applicationCommand: ApplicationCommand): boolean => {
-					return applicationCommand.name === commandName;
-				});
-				if (applicationCommand == null) {
-					return null;
+		if (interaction.isAutocomplete()) {
+			const {locale, options}: AutocompleteInteraction<"cached"> = interaction;
+			const resolvedLocale: Locale = resolve(locale);
+			const {name, value}: AutocompleteFocusedOption = options.getFocused(true);
+			if (name !== featureOptionName) {
+				await interaction.respond([]);
+				return;
+			}
+			const results: Feature[] = nearest<Feature>(value.toLocaleLowerCase(resolvedLocale), features, 7, (feature: Feature): string => {
+				const {name}: Feature = feature;
+				return name.toLocaleLowerCase(resolvedLocale);
+			});
+			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData<number> | null>((feature: Feature): ApplicationCommandOptionChoiceData<number> | null => {
+				const {id, type, name}: Feature = feature;
+				const featureName: string = `${name} (${type})`;
+				switch (type) {
+					case "command": {
+						const commandName: string = name;
+						const applicationCommand: ApplicationCommand | undefined = applicationCommands.find((applicationCommand: ApplicationCommand): boolean => {
+							return applicationCommand.name === commandName;
+						});
+						if (applicationCommand == null) {
+							return null;
+						}
+						if (applicationCommand.guild == null) {
+							return null;
+						}
+						if (applicationCommand.type !== ApplicationCommandType.ChatInput && applicationCommand.type !== ApplicationCommandType.Message) {
+							return null;
+						}
+						if (applicationCommand.applicationId !== user.id) {
+							return null;
+						}
+						if (!hasPermission(permissions, applicationCommand.client.application, applicationCommand, channel, member)) {
+							return null;
+						}
+						break;
+					}
+					case "hook": {
+						const hookName: string = name;
+						const webhook: Webhook | undefined = webhooks.find((webhook: Webhook): boolean => {
+							return webhook.name === hookName;
+						});
+						if (webhook == null) {
+							return null;
+						}
+						if (!webhook.isIncoming()) {
+							return null;
+						}
+						const {channel, owner}: Webhook = webhook;
+						if (owner == null || owner.id !== user.id) {
+							return null;
+						}
+						if (channel == null || !hasManageWebhooksPermission(channel, member)) {
+							return null;
+						}
+						break;
+					}
+					case "rule": {
+						const ruleName: string = feature.name;
+						const autoModerationRule: AutoModerationRule | undefined = autoModerationRules.find((autoModerationRule: AutoModerationRule): boolean => {
+							return autoModerationRule.name === ruleName;
+						});
+						if (autoModerationRule == null) {
+							return null;
+						}
+						if (!autoModerationRule.enabled) {
+							return null;
+						}
+						if (autoModerationRule.creatorId !== user.id) {
+							return null;
+						}
+						const channels: (TextChannel | NewsChannel)[] = autoModerationRule.actions.map<TextChannel | NewsChannel | null>((action: AutoModerationAction): TextChannel | NewsChannel | null => {
+							const {metadata}: AutoModerationAction = action;
+							const {channelId}: AutoModerationActionMetadata = metadata;
+							if (channelId == null) {
+								return null;
+							}
+							const channel: GuildBasedChannel | undefined = autoModerationRule.guild.channels.cache.get(channelId);
+							if (channel == null || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {
+								return null;
+							}
+							return channel;
+						}).filter<TextChannel | NewsChannel>((channel: TextChannel | NewsChannel | null): channel is TextChannel | NewsChannel => {
+							return channel != null;
+						});
+						if (channels.length === 0 || channels.some((channel: TextChannel | NewsChannel): boolean => {
+							return !hasManageAutoModerationRulesPermission(channel, member);
+						})) {
+							return null;
+						}
+						break;
+					}
 				}
-				if (applicationCommand.guild == null) {
-					return null;
-				}
-				if (applicationCommand.type !== ApplicationCommandType.ChatInput && applicationCommand.type !== ApplicationCommandType.Message) {
-					return null;
-				}
-				if (applicationCommand.applicationId !== user.id) {
-					return null;
-				}
-				if (!hasPermission(permissions, applicationCommand.client.application, applicationCommand, channel, member)) {
-					return null;
-				}
-				const description: Localized<(groups: {}) => string> | null = command.describe(applicationCommand);
-				return description;
-			}),
-			Object.keys(hooks).map<Localized<(groups: {}) => string> | null>((hookName: string): Localized<(groups: {}) => string> | null => {
-				const hook: Hook = hooks[hookName as keyof typeof hooks];
-				const webhook: Webhook | undefined = webhooks.find((webhook: Webhook): boolean => {
-					return webhook.name === hookName;
-				});
-				if (webhook == null) {
-					return null;
-				}
-				if (!webhook.isIncoming()) {
-					return null;
-				}
-				const {channel, owner}: Webhook = webhook;
-				if (owner == null || owner.id !== user.id) {
-					return null;
-				}
-				if (channel == null || !hasManageWebhooksPermission(channel, member)) {
-					return null;
-				}
-				const description: Localized<(groups: {}) => string> | null = hook.describe(webhook);
-				return description;
-			}),
-			Object.keys(rules).map<Localized<(groups: {}) => string> | null>((ruleName: string): Localized<(groups: {}) => string> | null => {
-				const rule: Rule = rules[ruleName as keyof typeof rules];
-				const autoModerationRule: AutoModerationRule | undefined = autoModerationRules.find((autoModerationRule: AutoModerationRule): boolean => {
-					return autoModerationRule.name === ruleName;
-				});
-				if (autoModerationRule == null) {
-					return null;
-				}
-				if (!autoModerationRule.enabled) {
-					return null;
-				}
-				if (autoModerationRule.creatorId !== user.id) {
-					return null;
-				}
-				const channels: (TextChannel | NewsChannel)[] = autoModerationRule.actions.map<TextChannel | NewsChannel | null>((action: AutoModerationAction): TextChannel | NewsChannel | null => {
-					const {metadata}: AutoModerationAction = action;
-					const {channelId}: AutoModerationActionMetadata = metadata;
-					if (channelId == null) {
+				return {
+					name: featureName,
+					value: id,
+				};
+			}).filter<ApplicationCommandOptionChoiceData<number>>((suggestion: ApplicationCommandOptionChoiceData<number> | null): suggestion is ApplicationCommandOptionChoiceData<number> => {
+				return suggestion != null;
+			});
+			await interaction.respond(suggestions);
+			return;
+		}
+		if (!interaction.isChatInputCommand()) {
+			return;
+		}
+		const {locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
+		const resolvedLocale: Locale = resolve(locale);
+		const id: number | null = options.getInteger(featureOptionName);
+		if (id == null) {
+		const descriptions: Localized<(groups: {}) => string>[] = features.map<Localized<(groups: {}) => string> | null>((feature: Feature): Localized<(groups: {}) => string> | null => {
+			switch (feature.type) {
+				case "command": {
+					const commandName: string = feature.name;
+					const command: Command = commands[commandName as keyof typeof commands];
+					const applicationCommand: ApplicationCommand | undefined = applicationCommands.find((applicationCommand: ApplicationCommand): boolean => {
+						return applicationCommand.name === commandName;
+					});
+					if (applicationCommand == null) {
 						return null;
 					}
-					const channel: GuildBasedChannel | undefined = autoModerationRule.guild.channels.cache.get(channelId);
-					if (channel == null || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {
+					if (applicationCommand.guild == null) {
 						return null;
 					}
-					return channel;
-				}).filter<TextChannel | NewsChannel>((channel: TextChannel | NewsChannel | null): channel is TextChannel | NewsChannel => {
-					return channel != null;
-				});
-				if (channels.length === 0 || channels.some((channel: TextChannel | NewsChannel): boolean => {
-					return !hasManageAutoModerationRulesPermission(channel, member);
-				})) {
-					return null;
+					if (applicationCommand.type !== ApplicationCommandType.ChatInput && applicationCommand.type !== ApplicationCommandType.Message) {
+						return null;
+					}
+					if (applicationCommand.applicationId !== user.id) {
+						return null;
+					}
+					if (!hasPermission(permissions, applicationCommand.client.application, applicationCommand, channel, member)) {
+						return null;
+					}
+					const description: Localized<(groups: {}) => string> | null = command.describe(applicationCommand);
+					return description;
 				}
-				const description: Localized<(groups: {}) => string> = rule.describe(autoModerationRule);
-				return description;
-			}),
-		].flat<(Localized<(groups: {}) => string> | null)[][]>().filter<Localized<(groups: {}) => string>>((description: Localized<(groups: {}) => string> | null): description is Localized<(groups: {}) => string> => {
+				case "hook": {
+					const hookName: string = feature.name;
+					const hook: Hook = hooks[hookName as keyof typeof hooks];
+					const webhook: Webhook | undefined = webhooks.find((webhook: Webhook): boolean => {
+						return webhook.name === hookName;
+					});
+					if (webhook == null) {
+						return null;
+					}
+					if (!webhook.isIncoming()) {
+						return null;
+					}
+					const {channel, owner}: Webhook = webhook;
+					if (owner == null || owner.id !== user.id) {
+						return null;
+					}
+					if (channel == null || !hasManageWebhooksPermission(channel, member)) {
+						return null;
+					}
+					const description: Localized<(groups: {}) => string> | null = hook.describe(webhook);
+					return description;
+				}
+				case "rule": {
+					const ruleName: string = feature.name;
+					const rule: Rule = rules[ruleName as keyof typeof rules];
+					const autoModerationRule: AutoModerationRule | undefined = autoModerationRules.find((autoModerationRule: AutoModerationRule): boolean => {
+						return autoModerationRule.name === ruleName;
+					});
+					if (autoModerationRule == null) {
+						return null;
+					}
+					if (!autoModerationRule.enabled) {
+						return null;
+					}
+					if (autoModerationRule.creatorId !== user.id) {
+						return null;
+					}
+					const channels: (TextChannel | NewsChannel)[] = autoModerationRule.actions.map<TextChannel | NewsChannel | null>((action: AutoModerationAction): TextChannel | NewsChannel | null => {
+						const {metadata}: AutoModerationAction = action;
+						const {channelId}: AutoModerationActionMetadata = metadata;
+						if (channelId == null) {
+							return null;
+						}
+						const channel: GuildBasedChannel | undefined = autoModerationRule.guild.channels.cache.get(channelId);
+						if (channel == null || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {
+							return null;
+						}
+						return channel;
+					}).filter<TextChannel | NewsChannel>((channel: TextChannel | NewsChannel | null): channel is TextChannel | NewsChannel => {
+						return channel != null;
+					});
+					if (channels.length === 0 || channels.some((channel: TextChannel | NewsChannel): boolean => {
+						return !hasManageAutoModerationRulesPermission(channel, member);
+					})) {
+						return null;
+					}
+					const description: Localized<(groups: {}) => string> = rule.describe(autoModerationRule);
+					return description;
+				}
+			}
+		}).filter<Localized<(groups: {}) => string>>((description: Localized<(groups: {}) => string> | null): description is Localized<(groups: {}) => string> => {
 			return description != null;
 		});
-		const features: Localized<(groups: {}) => string[]> = localize<(groups: {}) => string[]>((locale: Locale): (groups: {}) => string[] => {
+		const subfeatures: Localized<(groups: {}) => string[]> = localize<(groups: {}) => string[]>((locale: Locale): (groups: {}) => string[] => {
 			return (groups: {}): string[] => {
 				return descriptions.map<string[]>((description: Localized<(groups: {}) => string>): string[] => {
 					return description[locale](groups).split("\n");
 				}).flat<string[][]>();
+			};
+		});
+		function formatMessage(locale: Locale): string {
+			return bareReplyLocalizations[locale]({
+				memberMention: (): string => {
+					return `<@${member.id}>`;
+				},
+				featureList: (): string => {
+					return list(subfeatures[locale]({}));
+				},
+			});
+		}
+		const persistentContent: string = formatMessage("en-US");
+		const persistentContentChunks: string[] = naiveStream(persistentContent);
+		let replied: boolean = false;
+		for (const chunk of persistentContentChunks) {
+			if (!replied) {
+				await interaction.reply({
+					content: chunk,
+					allowedMentions: {
+						users: [],
+					},
+				});
+				replied = true;
+				continue;
+			}
+			await interaction.followUp({
+				content: chunk,
+				allowedMentions: {
+					users: [],
+				},
+			});
+		}
+		if (resolvedLocale === "en-US") {
+			return;
+		}
+		const ephemeralContent: string = formatMessage(resolvedLocale);
+		const ephemeralContentChunks: string[] = naiveStream(ephemeralContent);
+		for (const chunk of ephemeralContentChunks) {
+			if (!replied) {
+				await interaction.reply({
+					content: chunk,
+					ephemeral: true,
+					allowedMentions: {
+						users: [],
+					},
+				});
+				replied = true;
+				continue;
+			}
+			await interaction.followUp({
+				content: chunk,
+				ephemeral: true,
+				allowedMentions: {
+					users: [],
+				},
+			});
+		}
+		return;
+		}
+		const description: Localized<(groups: {}) => string> | null = ((): Localized<(groups: {}) => string> | null => {
+			const feature: Feature = features[id];
+			switch (feature.type) {
+				case "command": {
+					const commandName: string = feature.name;
+					const command: Command = commands[commandName as keyof typeof commands];
+					const applicationCommand: ApplicationCommand | undefined = applicationCommands.find((applicationCommand: ApplicationCommand): boolean => {
+						return applicationCommand.name === commandName;
+					});
+					if (applicationCommand == null) {
+						return null;
+					}
+					if (applicationCommand.guild == null) {
+						return null;
+					}
+					if (applicationCommand.type !== ApplicationCommandType.ChatInput && applicationCommand.type !== ApplicationCommandType.Message) {
+						return null;
+					}
+					if (applicationCommand.applicationId !== user.id) {
+						return null;
+					}
+					if (!hasPermission(permissions, applicationCommand.client.application, applicationCommand, channel, member)) {
+						return null;
+					}
+					const description: Localized<(groups: {}) => string> | null = command.describe(applicationCommand);
+					return description;
+				}
+				case "hook": {
+					const hookName: string = feature.name;
+					const hook: Hook = hooks[hookName as keyof typeof hooks];
+					const webhook: Webhook | undefined = webhooks.find((webhook: Webhook): boolean => {
+						return webhook.name === hookName;
+					});
+					if (webhook == null) {
+						return null;
+					}
+					if (!webhook.isIncoming()) {
+						return null;
+					}
+					const {channel, owner}: Webhook = webhook;
+					if (owner == null || owner.id !== user.id) {
+						return null;
+					}
+					if (channel == null || !hasManageWebhooksPermission(channel, member)) {
+						return null;
+					}
+					const description: Localized<(groups: {}) => string> | null = hook.describe(webhook);
+					return description;
+				}
+				case "rule": {
+					const ruleName: string = feature.name;
+					const rule: Rule = rules[ruleName as keyof typeof rules];
+					const autoModerationRule: AutoModerationRule | undefined = autoModerationRules.find((autoModerationRule: AutoModerationRule): boolean => {
+						return autoModerationRule.name === ruleName;
+					});
+					if (autoModerationRule == null) {
+						return null;
+					}
+					if (!autoModerationRule.enabled) {
+						return null;
+					}
+					if (autoModerationRule.creatorId !== user.id) {
+						return null;
+					}
+					const channels: (TextChannel | NewsChannel)[] = autoModerationRule.actions.map<TextChannel | NewsChannel | null>((action: AutoModerationAction): TextChannel | NewsChannel | null => {
+						const {metadata}: AutoModerationAction = action;
+						const {channelId}: AutoModerationActionMetadata = metadata;
+						if (channelId == null) {
+							return null;
+						}
+						const channel: GuildBasedChannel | undefined = autoModerationRule.guild.channels.cache.get(channelId);
+						if (channel == null || channel.isThread() || channel.isVoiceBased() || !channel.isTextBased()) {
+							return null;
+						}
+						return channel;
+					}).filter<TextChannel | NewsChannel>((channel: TextChannel | NewsChannel | null): channel is TextChannel | NewsChannel => {
+						return channel != null;
+					});
+					if (channels.length === 0 || channels.some((channel: TextChannel | NewsChannel): boolean => {
+						return !hasManageAutoModerationRulesPermission(channel, member);
+					})) {
+						return null;
+					}
+					const description: Localized<(groups: {}) => string> = rule.describe(autoModerationRule);
+					return description;
+				}
+			}
+		})();
+		if (description == null) {
+			function formatMessage(locale: Locale): string {
+				return noFeatureReplyLocalizations[locale]({
+					memberMention: (): string => {
+						return `<@${member.id}>`;
+					},
+				});
+			}
+			await interaction.reply({
+				content: formatMessage("en-US"),
+			});
+			if (resolvedLocale === "en-US") {
+				return;
+			}
+			await interaction.followUp({
+				content: formatMessage(resolvedLocale),
+				ephemeral: true,
+			});
+			return;
+		}
+		const subfeatures: Localized<(groups: {}) => string[]> = localize<(groups: {}) => string[]>((locale: Locale): (groups: {}) => string[] => {
+			return (groups: {}): string[] => {
+				return description[locale](groups).split("\n");
 			};
 		});
 		function formatMessage(locale: Locale): string {
@@ -327,7 +685,7 @@ const helpCommand: Command = {
 					return `<@${member.id}>`;
 				},
 				featureList: (): string => {
-					return list(features[locale]({}));
+					return list(subfeatures[locale]({}));
 				},
 			});
 		}
@@ -379,10 +737,13 @@ const helpCommand: Command = {
 		}
 	},
 	describe(applicationCommand: ApplicationCommand): Localized<(groups: {}) => string> {
-		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((): HelpGroups => {
+		return composeAll<HelpGroups, {}>(helpLocalizations, localize<HelpGroups>((locale: Locale): HelpGroups => {
 			return {
 				commandMention: (): string => {
 					return `</${commandName}:${applicationCommand.id}>`;
+				},
+				featureOptionDescription: (): string => {
+					return featureOptionDescription[locale];
 				},
 			};
 		}));

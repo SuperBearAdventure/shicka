@@ -163,8 +163,12 @@ type Gate = {
 type Help = {
 	commandName: string,
 	commandDescription: Localized<string>,
+	featureOptionName: string,
+	featureOptionDescription: Localized<string>,
 	help: Localized<string>,
 	reply: Localized<string>,
+	bareReply: Localized<string>,
+	noFeatureReply: Localized<string>,
 };
 type Leaderboard = {
 	commandName: string,

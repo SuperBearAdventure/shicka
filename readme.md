@@ -80,6 +80,8 @@ $ npm start
 
 - `help` gives the feature list of this bot
 
+- `help <feature>` gives the description of the given feature of this bot
+
 - `leaderboard` gives the links to the speedrun leaderboards of the game on `www.speedrun.com`
 
 - `mission` gives the schedule of the next three missions in the shop
