@@ -29,7 +29,15 @@ import trackerCommand from "./commands/tracker.js";
 import trailerCommand from "./commands/trailer.js";
 import updateCommand from "./commands/update.js";
 import verifyCommand from "./commands/verify.js";
-type ApplicationCommandData = ChatInputApplicationCommandData | MessageApplicationCommandData;
+type ApplicationCommandData = (ChatInputApplicationCommandData | MessageApplicationCommandData) & (
+	{
+		default_permission?: true,
+		dmPermission: false,
+		global: true;
+	} | {
+		global?: false;
+	}
+);
 type ApplicationUserInteraction = AutocompleteInteraction<"cached"> | ChatInputCommandInteraction<"cached"> | MessageContextMenuCommandInteraction<"cached">;
 type Command = {
 	register(): ApplicationCommandData;

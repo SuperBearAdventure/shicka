@@ -38,7 +38,6 @@ const verifyCommand: Command = {
 			description: commandDescription["en-US"],
 			descriptionLocalizations: commandDescription,
 			defaultMemberPermissions: [],
-			dmPermission: false,
 		};
 	},
 	async interact(interaction: ApplicationUserInteraction): Promise<void> {

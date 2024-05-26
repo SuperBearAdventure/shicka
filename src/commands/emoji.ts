@@ -92,7 +92,6 @@ const emojiCommand: Command = {
 				}).flat<ApplicationCommandOptionData[][]>(),
 			],
 			defaultMemberPermissions: [],
-			dmPermission: false,
 		};
 	},
 	async interact(interaction: ApplicationUserInteraction): Promise<void> {

@@ -1,7 +1,9 @@
 import type {
+	ApplicationCommandDataResolvable,
 	AutoModerationActionMetadataOptions,
 	AutoModerationActionOptions,
 	AutoModerationRuleCreateOptions,
+	ClientApplication,
 	ClientEvents,
 	Collection,
 	ForumChannel,
@@ -35,6 +37,9 @@ import schedule from "node-schedule";
 import * as commands from "./commands.js";
 import * as hooks from "./hooks.js";
 import * as rules from "./rules.js";
+type ApplicationCommandCreateOptionsResolvable = ApplicationCommandData;
+type GlobalApplicationCommandCreateOptionsResolvable = ApplicationCommandCreateOptionsResolvable & {global: true};
+type GuildApplicationCommandCreateOptionsResolvable = ApplicationCommandCreateOptionsResolvable & {global?: false};
 type WebhookCreateOptionsResolvable = WebhookData["hookOptions"];
 type WebjobEvent = WebjobInvocation["event"];
 type AutoModerationRuleCreateOptionsResolvable = AutoModerationRuleData;
@@ -42,9 +47,16 @@ const {
 	SHICKA_DISCORD_TOKEN,
 }: NodeJS.ProcessEnv = process.env;
 const discordToken: string = SHICKA_DISCORD_TOKEN ?? "";
-async function submitGuildCommands(guild: Guild, commandRegistry: ApplicationCommandData[]): Promise<boolean> {
+async function submitCommands(applicationOrGuild: ClientApplication | Guild, globalOrGuildCommandRegistry: ApplicationCommandCreateOptionsResolvable[]): Promise<boolean> {
+	const commandRegistry: ApplicationCommandDataResolvable[] = globalOrGuildCommandRegistry.map<ApplicationCommandDataResolvable>((commandOptionsResolvable: ApplicationCommandCreateOptionsResolvable): ApplicationCommandDataResolvable => {
+		const {
+			global,
+			...commandOptions
+		}: ApplicationCommandCreateOptionsResolvable = commandOptionsResolvable;
+		return commandOptions;
+	})
 	try {
-		await guild.commands.set(commandRegistry);
+		await applicationOrGuild.commands.set(commandRegistry);
 	} catch (error: unknown) {
 		console.warn(error);
 		return false;
@@ -267,9 +279,23 @@ client.once("ready", async (client: Client<true>): Promise<void> => {
 		const command: Command = commands[commandName as keyof typeof commands];
 		return command.register();
 	});
+	const globalCommandRegistry: GlobalApplicationCommandCreateOptionsResolvable[] = commandRegistry.filter<GlobalApplicationCommandCreateOptionsResolvable>((commandData: ApplicationCommandData): commandData is GlobalApplicationCommandCreateOptionsResolvable => {
+		return commandData.global ?? false;
+	});
+	try {
+		const submitted: boolean = await submitCommands(client.application, globalCommandRegistry);
+		if (submitted == false) {
+			throw new Error();
+		}
+	} catch (error: unknown) {
+		console.error(error);
+	}
+	const guildCommandRegistry: GuildApplicationCommandCreateOptionsResolvable[] = commandRegistry.filter<GuildApplicationCommandCreateOptionsResolvable>((commandData: ApplicationCommandData): commandData is GuildApplicationCommandCreateOptionsResolvable => {
+		return !(commandData.global ?? false);
+	});
 	for (const guild of client.guilds.cache.values()) {
 		try {
-			const submitted: boolean = await submitGuildCommands(guild, commandRegistry);
+			const submitted: boolean = await submitCommands(guild, guildCommandRegistry);
 			if (submitted == false) {
 				throw new Error();
 			}
@@ -431,9 +457,6 @@ client.on("interactionCreate", async (interaction: Interaction): Promise<void> =
 	}
 	const {command}: ApplicationUserInteraction = interaction;
 	if (command == null) {
-		return;
-	}
-	if (command.guild == null) {
 		return;
 	}
 	if (command.type !== ApplicationCommandType.ChatInput && command.type !== ApplicationCommandType.Message) {
