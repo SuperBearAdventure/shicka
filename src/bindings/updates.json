@@ -1125,5 +1125,14 @@
 			"Added sleeping animation to the player",
 			"Many bug fixes"
 		]
+	},
+	{
+		"name": "11.1.1",
+		"date": {
+			"android": "2024-04-30",
+			"ios": "2024-05-01",
+			"switch": "2024-05-15"
+		},
+		"notes": []
 	}
 ]
