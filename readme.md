@@ -88,7 +88,7 @@ $ npm start
 
 - `mission <mission>` gives the schedule of at least the next two occurences of the given mission in the shop
 
-- `outfit` gives the schedule of the next six sets of outfits in the shop
+- `outfit` gives the schedule of the next five sets of outfits in the shop
 
 - `outfit <outfit>` gives the schedule of at least the next two occurrences of the given outfit in the shop
 
