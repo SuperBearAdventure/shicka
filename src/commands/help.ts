@@ -81,10 +81,12 @@ const features: Feature[] = [
 		};
 	}),
 ];
+let globalFetchedTimestamp: number = Number.NEGATIVE_INFINITY;
+let globalApplicationCommandPermissions: Collection<string, ApplicationCommandPermissions[]> | null = null;
 const guildFetchedTimestamps: Collection<Snowflake, number> = new Collection<Snowflake, number>();
-const guildApplicationCommandPermissions: Collection<Snowflake, Collection<string, ApplicationCommandPermissions[]> | undefined> = new Collection<Snowflake, Collection<string, ApplicationCommandPermissions[]> | undefined>();
-const guildWebhooks: Collection<Snowflake, Collection<Snowflake, Webhook> | undefined> = new Collection<Snowflake, Collection<Snowflake, Webhook> | undefined>();
-const guildAutoModerationRules: Collection<Snowflake, Collection<Snowflake, AutoModerationRule> | undefined> = new Collection<Snowflake, Collection<Snowflake, AutoModerationRule> | undefined>();
+const guildApplicationCommandPermissions: Collection<Snowflake, Collection<string, ApplicationCommandPermissions[]>> = new Collection<Snowflake, Collection<string, ApplicationCommandPermissions[]>>();
+const guildWebhooks: Collection<Snowflake, Collection<Snowflake, Webhook>> = new Collection<Snowflake, Collection<Snowflake, Webhook>>();
+const guildAutoModerationRules: Collection<Snowflake, Collection<Snowflake, AutoModerationRule>> = new Collection<Snowflake, Collection<Snowflake, AutoModerationRule>>();
 function naiveStream(content: string): string[] {
 	content = content.replace(/^\n+|\n+$/g, "").replace(/\n+/g, "\n");
 	if (content.length === 0) {
@@ -237,19 +239,43 @@ const helpCommand: Command = {
 					autocomplete: true,
 				},
 			],
+			dmPermission: false,
+			global: true,
 		};
 	},
 	async interact(interaction: ApplicationUserInteraction): Promise<void> {
 		const {client, createdTimestamp, member, guild}: ApplicationUserInteraction = interaction;
-		const fetchedTimestamp: number = guildFetchedTimestamps.get(guild.id) ?? Number.NEGATIVE_INFINITY;
-		const elapsedTime: number = createdTimestamp - fetchedTimestamp;
-		const forceFetch: boolean = elapsedTime >= 60000;
-		if (forceFetch) {
+		const globalElapsedTime: number = createdTimestamp - globalFetchedTimestamp;
+		const globalForceFetch: boolean = globalElapsedTime >= 60000;
+		if (globalForceFetch) {
+			globalFetchedTimestamp = createdTimestamp;
+		}
+		const guildFetchedTimestamp: number = guildFetchedTimestamps.get(guild.id) ?? Number.NEGATIVE_INFINITY;
+		const guildElapsedTime: number = createdTimestamp - guildFetchedTimestamp;
+		const guildForceFetch: boolean = guildElapsedTime >= 60000;
+		if (guildForceFetch) {
 			guildFetchedTimestamps.set(guild.id, createdTimestamp);
 		}
-		const applicationCommands: Collection<string, ApplicationCommand> = guild.commands.cache;
-		const permissions: Collection<string, ApplicationCommandPermissions[]> | undefined = await (async (): Promise<Collection<string, ApplicationCommandPermissions[]> | undefined> => {
-			if (forceFetch) {
+		const globalApplicationCommands: Collection<string, ApplicationCommand> = client.application.commands.cache;
+		const guildApplicationCommands: Collection<string, ApplicationCommand> = guild.commands.cache;
+		const applicationCommands: Collection<string, ApplicationCommand> = globalApplicationCommands.concat(guildApplicationCommands);
+		const globalPermissions: Collection<string, ApplicationCommandPermissions[]> | null = await (async (): Promise<Collection<string, ApplicationCommandPermissions[]> | null> => {
+			if (globalForceFetch) {
+				try {
+					globalApplicationCommandPermissions = await client.application.commands.permissions.fetch({
+						guild,
+					});
+				} catch {
+					globalApplicationCommandPermissions = null;
+				}
+			}
+			return globalApplicationCommandPermissions;
+		})();
+		if (globalPermissions == null) {
+			return;
+		}
+		const guildPermissions: Collection<string, ApplicationCommandPermissions[]> | undefined = await (async (): Promise<Collection<string, ApplicationCommandPermissions[]> | undefined> => {
+			if (guildForceFetch) {
 				try {
 					guildApplicationCommandPermissions.set(guild.id, await guild.commands.permissions.fetch({}));
 				} catch {
@@ -258,11 +284,12 @@ const helpCommand: Command = {
 			}
 			return guildApplicationCommandPermissions.get(guild.id);
 		})();
-		if (permissions == null) {
+		if (guildPermissions == null) {
 			return;
 		}
+		const permissions: Collection<string, ApplicationCommandPermissions[]> = globalPermissions.concat(guildPermissions);
 		const webhooks: Collection<string, Webhook> | undefined = await (async (): Promise<Collection<string, Webhook> | undefined> => {
-			if (forceFetch) {
+			if (guildForceFetch) {
 				try {
 					guildWebhooks.set(guild.id, await guild.fetchWebhooks());
 				} catch {
@@ -275,7 +302,7 @@ const helpCommand: Command = {
 			return;
 		}
 		const autoModerationRules: Collection<string, AutoModerationRule> | undefined = await (async (): Promise<Collection<string, AutoModerationRule> | undefined> => {
-			if (forceFetch) {
+			if (guildForceFetch) {
 				try {
 					guildAutoModerationRules.set(guild.id, await guild.autoModerationRules.fetch());
 				} catch {
@@ -309,7 +336,7 @@ const helpCommand: Command = {
 				await interaction.respond([]);
 				return;
 			}
-			const results: Feature[] = nearest<Feature>(value.toLocaleLowerCase(resolvedLocale), features, 7, (feature: Feature): string => {
+			const results: Feature[] = nearest<Feature>(value.replace(/ \((command|hook|rule)\)$/u, "").toLocaleLowerCase(resolvedLocale), features, 7, (feature: Feature): string => {
 				const {name}: Feature = feature;
 				return name.toLocaleLowerCase(resolvedLocale);
 			});
@@ -323,9 +350,6 @@ const helpCommand: Command = {
 							return applicationCommand.name === commandName;
 						});
 						if (applicationCommand == null) {
-							return null;
-						}
-						if (applicationCommand.guild == null) {
 							return null;
 						}
 						if (applicationCommand.type !== ApplicationCommandType.ChatInput && applicationCommand.type !== ApplicationCommandType.Message) {
@@ -421,9 +445,6 @@ const helpCommand: Command = {
 						return applicationCommand.name === commandName;
 					});
 					if (applicationCommand == null) {
-						return null;
-					}
-					if (applicationCommand.guild == null) {
 						return null;
 					}
 					if (applicationCommand.type !== ApplicationCommandType.ChatInput && applicationCommand.type !== ApplicationCommandType.Message) {
@@ -578,9 +599,6 @@ const helpCommand: Command = {
 					if (applicationCommand == null) {
 						return null;
 					}
-					if (applicationCommand.guild == null) {
-						return null;
-					}
 					if (applicationCommand.type !== ApplicationCommandType.ChatInput && applicationCommand.type !== ApplicationCommandType.Message) {
 						return null;
 					}
@@ -664,6 +682,9 @@ const helpCommand: Command = {
 			}
 			await interaction.reply({
 				content: formatMessage("en-US"),
+				allowedMentions: {
+					users: [],
+				},
 			});
 			if (resolvedLocale === "en-US") {
 				return;
@@ -671,6 +692,9 @@ const helpCommand: Command = {
 			await interaction.followUp({
 				content: formatMessage(resolvedLocale),
 				ephemeral: true,
+				allowedMentions: {
+					users: [],
+				},
 			});
 			return;
 		}

@@ -113,7 +113,6 @@ const gateCommand: Command = {
 				},
 			],
 			defaultMemberPermissions: [],
-			dmPermission: false,
 		};
 	},
 	async interact(interaction: ApplicationUserInteraction): Promise<void> {

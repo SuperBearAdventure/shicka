@@ -37,7 +37,6 @@ const patchCommand: Command = {
 			name: commandName,
 			nameLocalizations: commandDescription,
 			defaultMemberPermissions: [],
-			dmPermission: false,
 		};
 	},
 	async interact(interaction: ApplicationUserInteraction): Promise<void> {
