@@ -1134,5 +1134,30 @@
 			"switch": "2024-05-15"
 		},
 		"notes": []
+	},
+	{
+		"name": "11.1.2",
+		"date": {
+			"android": "2024-08-02",
+			"ios": null,
+			"switch": null
+		},
+		"notes": [
+			"This tiny update fixes some issues related to Android APIs, but doesn't contain any gameplay change or new content.",
+			"We are currently working on the next major update for the game: THE MULTIPLAYER UPDATE, so stay tuned!"
+		]
+	},
+	{
+		"name": "11.1.3",
+		"date": {
+			"android": "2024-08-30",
+			"ios": null,
+			"switch": null
+		},
+		"notes": [
+			"Fixed muscle car spawning bug introduced in the previous update",
+			"Added new cosmetic items",
+			"We are currently working on the next major update for the game: THE MULTIPLAYER UPDATE, so stay tuned!"
+		]
 	}
 ]

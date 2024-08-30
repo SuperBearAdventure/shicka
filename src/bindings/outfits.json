@@ -569,7 +569,7 @@
 		"cost": 0,
 		"rarity": 0,
 		"update": 24,
-		"variations": 1
+		"variations": 2
 	},
 	{
 		"name": {
@@ -624,7 +624,7 @@
 		"cost": 0,
 		"rarity": 0,
 		"update": 24,
-		"variations": 1
+		"variations": 3
 	},
 	{
 		"name": {
@@ -1526,6 +1526,50 @@
 		"cost": 0,
 		"rarity": 1,
 		"update": 92,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Head bow",
+			"fr": "Nœud",
+			"pt-BR": "Tiara"
+		},
+		"cost": 0,
+		"rarity": 0,
+		"update": 98,
+		"variations": 4
+	},
+	{
+		"name": {
+			"en-US": "Knight helmet",
+			"fr": "Heaume",
+			"pt-BR": "Capacete de cavaleiro"
+		},
+		"cost": 0,
+		"rarity": 2,
+		"update": 98,
+		"variations": 4
+	},
+	{
+		"name": {
+			"en-US": "Child head",
+			"fr": "Tête d'enfant",
+			"pt-BR": "Cabeça de criança"
+		},
+		"cost": 0,
+		"rarity": 0,
+		"update": 98,
+		"variations": 1
+	},
+	{
+		"name": {
+			"en-US": "Feminine eyes",
+			"fr": "Yeux féminins",
+			"pt-BR": "Olhos femininos"
+		},
+		"cost": 0,
+		"rarity": 0,
+		"update": 98,
 		"variations": 1
 	}
 ]
