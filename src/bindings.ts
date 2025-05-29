@@ -4,6 +4,7 @@ import challengesBinding from "./bindings/challenges.json" assert {type: "json"}
 import levelsBinding from "./bindings/levels.json" assert {type: "json"};
 import missionsBinding from "./bindings/missions.json" assert {type: "json"};
 import outfitsBinding from "./bindings/outfits.json" assert {type: "json"};
+import racesBinding from "./bindings/races.json" assert {type: "json"};
 import raritiesBinding from "./bindings/rarities.json" assert {type: "json"};
 import updatesBinding from "./bindings/updates.json" assert {type: "json"};
 type Bear = {
@@ -39,6 +40,10 @@ type Outfit = {
 	update: number,
 	variations: number,
 };
+type Race = {
+	id: number,
+	name: Localized<string>,
+};
 type Rarity = {
 	id: number,
 	name: Localized<string>,
@@ -57,7 +62,7 @@ type Update = {
 	},
 	notes: string[],
 };
-type Binding = (Bear | Challenge | Level | Mission | Outfit | Rarity | Update)[];
+type Binding = (Bear | Challenge | Level | Mission | Outfit | Race | Rarity | Update)[];
 function bind<Type>(array: Type[]): (Type & {id: number})[] {
 	const binding: (Type & {id: number})[] = [];
 	for (const [key, value] of array.entries()) {
@@ -70,6 +75,7 @@ const challenges: Challenge[] = bind<Omit<Challenge, "id">>(challengesBinding);
 const levels: Level[] = bind<Omit<Level, "id">>(levelsBinding);
 const missions: Mission[] = bind<Omit<Mission, "id">>(missionsBinding);
 const outfits: Outfit[] = bind<Omit<Outfit, "id">>(outfitsBinding);
+const races: Race[] = bind<Omit<Race, "id">>(racesBinding);
 const rarities: Rarity[] = bind<Omit<Rarity, "id">>(raritiesBinding);
 const updates: Update[] = bind<Omit<Update, "id">>(updatesBinding);
 export type {Binding as default};
@@ -79,6 +85,7 @@ export type {
 	Level,
 	Mission,
 	Outfit,
+	Race,
 	Rarity,
 	Update,
 };
@@ -88,6 +95,7 @@ export {
 	levels,
 	missions,
 	outfits,
+	races,
 	rarities,
 	updates,
 };

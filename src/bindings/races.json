@@ -1,0 +1,30 @@
+[
+	{
+		"name": {
+			"en-US": "Classic",
+			"fr": "Classique",
+			"pt-BR": "Clássico"
+		}
+	},
+	{
+		"name": {
+			"en-US": "Looping",
+			"fr": "Looping",
+			"pt-BR": "Looping"
+		}
+	},
+	{
+		"name": {
+			"en-US": "Desert",
+			"fr": "Désert",
+			"pt-BR": "Deserto"
+		}
+	},
+	{
+		"name": {
+			"en-US": "Tubes",
+			"fr": "Tubes",
+			"pt-BR": "Tubos"
+		}
+	}
+]

@@ -4,6 +4,7 @@ import type {
 	Level,
 	Mission,
 	Outfit,
+	Race,
 	Rarity,
 	Update,
 } from "./bindings.js";
@@ -13,10 +14,11 @@ import {
 	levels,
 	missions,
 	outfits,
+	// races,
 	rarities,
 	updates,
 } from "./bindings.js";
-type Index = (Bear | Challenge | Level | Mission | Outfit | Rarity | Update)[][];
+type Index = (Bear | Challenge | Level | Mission | Outfit | Race | Rarity | Update)[][];
 function indexBy<Left extends {[k in Key]: number}, Right, Key extends string>(leftArray: Left[], rightArray: Right[], key: Key): Left[][] {
 	const index: Left[][] = Array.from<Right, Left[]>(rightArray, (): Left[] => {
 		return [];
