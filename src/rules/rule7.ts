@@ -43,7 +43,7 @@ const {
 	SHICKA_RULE7_OVERRIDE_RULES_CHANNEL,
 }: NodeJS.ProcessEnv = process.env;
 const {createCanvas, loadImage}: any = canvas;
-const ruleTriggerRegexPattern: string = "\\bco-?op(?:erati(?:ons?|ve))?\\b|\\bmulti(?:-?player)?\\b|\\bonline\\b|\\bpc\\b|\\bplaystation\\b|\\bps[456]\\b|\\bsteam\\b|\\bxbox\\b";
+const ruleTriggerRegexPattern: string = "\\bpc\\b|\\bplaystation\\b|\\bps[456]\\b|\\bsteam\\b|\\bxbox\\b";
 const ruleAlertActionChannel: string = SHICKA_RULE7_DEFAULT_ALERT_ACTION_CHANNEL ?? "";
 const ruleExemptChannels: string[] | null = SHICKA_RULE7_DEFAULT_EXEMPT_CHANNELS != null ? SHICKA_RULE7_DEFAULT_EXEMPT_CHANNELS.split("\n") : null;
 const ruleExemptRoles: string[] | null = SHICKA_RULE7_DEFAULT_EXEMPT_ROLES != null ? SHICKA_RULE7_DEFAULT_EXEMPT_ROLES.split("\n") : null;
