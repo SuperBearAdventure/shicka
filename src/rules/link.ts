@@ -45,10 +45,12 @@ const {
 const {createCanvas, loadImage}: any = canvas;
 const ruleTriggerRegexPatterns: string[] = [
 	"<#\\d+>",
-	"</[-_\\p{L}\\p{N}\\p{sc=Deva}\\p{sc=Thai}]+( [-_\\p{L}\\p{N}\\p{sc=Deva}\\p{sc=Thai}]+){0,2}:\\d+>",
+	"</['-_\\p{L}\\p{N}\\p{sc=Deva}\\p{sc=Thai}]+( ['-_\\p{L}\\p{N}\\p{sc=Deva}\\p{sc=Thai}]+){0,2}:\\d+>",
 	"<@!?\\d+>",
 	"<@&\\d+>",
-	"<id:(browse|customize|guide)>",
+	"<id:(browse|customize|guide|linked-roles(:\\d+)?)>",
+	"<(mailto:[^<>@\\s]*|[^<>@\\s]+)@[^<>@\\s]+\.[^<>@\\s]+>",
+	"<(tel:|\\+)(\\(\\d+\\)|\\d)( ?(\\(\\d+\\)|\\d))+>",
 	"\\bhttps?:///*\\S+",
 	"\\bdiscord.gg/\\S+",
 ];
