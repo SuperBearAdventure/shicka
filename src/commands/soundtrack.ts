@@ -15,7 +15,7 @@ import {JSDOM, VirtualConsole} from "jsdom";
 import fetch from "node-fetch";
 import {soundtrack as soundtrackCompilation} from "../compilations.js";
 import {soundtrack as soundtrackDefinition} from "../definitions.js";
-import {composeAll, list, localize, resolve} from "../utils/string.js";
+import {composeAll, list, localize, naiveStream, resolve} from "../utils/string.js";
 type HelpGroups = SoundtrackDependency["help"];
 type LinkGroups = SoundtrackDependency["link"];
 type Data = {
@@ -137,16 +137,40 @@ const soundtrackCommand: Command = {
 					},
 				});
 			}
-			await interaction.reply({
-				content: formatMessage("en-US"),
-			});
+			const persistentContent: string = formatMessage("en-US");
+			const persistentContentChunks: string[] = naiveStream(persistentContent);
+			let replied: boolean = false;
+			for (const chunk of persistentContentChunks) {
+				if (!replied) {
+					await interaction.reply({
+						content: chunk,
+					});
+					replied = true;
+					continue;
+				}
+				await interaction.followUp({
+					content: chunk,
+				});
+			}
 			if (resolvedLocale === "en-US") {
 				return;
 			}
-			await interaction.followUp({
-				content: formatMessage(resolvedLocale),
-				ephemeral: true,
-			});
+			const ephemeralContent: string = formatMessage(resolvedLocale);
+			const ephemeralContentChunks: string[] = naiveStream(ephemeralContent);
+			for (const chunk of ephemeralContentChunks) {
+				if (!replied) {
+					await interaction.reply({
+						content: chunk,
+						ephemeral: true,
+					});
+					replied = true;
+					continue;
+				}
+				await interaction.followUp({
+					content: chunk,
+					ephemeral: true,
+				});
+			}
 		} catch (error: unknown) {
 			console.warn(error);
 			const linkList: string = list(links);
