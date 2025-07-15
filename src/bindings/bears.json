@@ -8,8 +8,7 @@
 		"diamond": 50,
 		"gold": 75,
 		"level": 0,
-		"outfits": [],
-		"variations": []
+		"outfits": {}
 	},
 	{
 		"name": {
@@ -20,14 +19,10 @@
 		"diamond": 12,
 		"gold": 20,
 		"level": 0,
-		"outfits": [
-			1,
-			33
-		],
-		"variations": [
-			0,
-			0
-		]
+		"outfits": {
+			"hatCapClassic": 0,
+			"shirtNumber": 0
+		}
 	},
 	{
 		"name": {
@@ -38,12 +33,9 @@
 		"diamond": 16,
 		"gold": 25,
 		"level": 0,
-		"outfits": [
-			26
-		],
-		"variations": [
-			0
-		]
+		"outfits": {
+			"beard": 0
+		}
 	},
 	{
 		"name": {
@@ -54,14 +46,10 @@
 		"diamond": 170,
 		"gold": 360,
 		"level": 0,
-		"outfits": [
-			6,
-			86
-		],
-		"variations": [
-			0,
-			1
-		]
+		"outfits": {
+			"hatCrown": 0,
+			"cape": 1
+		}
 	},
 	{
 		"name": {
@@ -72,16 +60,11 @@
 		"diamond": 15,
 		"gold": 25,
 		"level": 0,
-		"outfits": [
-			16,
-			22,
-			73
-		],
-		"variations": [
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"bowtie": 0,
+			"glassesSimple": 0,
+			"skinDark": 0
+		}
 	},
 	{
 		"name": {
@@ -92,20 +75,13 @@
 		"diamond": 12,
 		"gold": 20,
 		"level": 0,
-		"outfits": [
-			10,
-			117,
-			120,
-			133,
-			134
-		],
-		"variations": [
-			0,
-			0,
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"hairLong": 0,
+			"jacketNight": 0,
+			"shoesFlipflop": 0,
+			"headsetDj": 0,
+			"glassesScreen": 0
+		}
 	},
 	{
 		"name": {
@@ -116,18 +92,12 @@
 		"diamond": 20,
 		"gold": 35,
 		"level": 0,
-		"outfits": [
-			14,
-			64,
-			65,
-			72
-		],
-		"variations": [
-			0,
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"bodyFat": 0,
+			"pacifier": 0,
+			"diaper": 0,
+			"skinBlack": 0
+		}
 	},
 	{
 		"name": {
@@ -138,16 +108,11 @@
 		"diamond": 18,
 		"gold": 30,
 		"level": 0,
-		"outfits": [
-			10,
-			139,
-			142
-		],
-		"variations": [
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"hairLong": 0,
+			"headbow": 0,
+			"eyesFeminine": 0
+		}
 	},
 	{
 		"name": {
@@ -158,12 +123,9 @@
 		"diamond": 115,
 		"gold": 130,
 		"level": 1,
-		"outfits": [
-			13
-		],
-		"variations": [
-			0
-		]
+		"outfits": {
+			"skinPolar": 0
+		}
 	},
 	{
 		"name": {
@@ -174,18 +136,12 @@
 		"diamond": 17,
 		"gold": 30,
 		"level": 1,
-		"outfits": [
-			13,
-			61,
-			95,
-			142
-		],
-		"variations": [
-			0,
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"skinPolar": 0,
+			"eggFried": 0,
+			"bandana": 0,
+			"eyesFeminine": 0
+		}
 	},
 	{
 		"name": {
@@ -196,16 +152,11 @@
 		"diamond": 13,
 		"gold": 25,
 		"level": 1,
-		"outfits": [
-			12,
-			13,
-			14
-		],
-		"variations": [
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"headSwollen": 0,
+			"skinPolar": 0,
+			"bodyFat": 0
+		}
 	},
 	{
 		"name": {
@@ -216,16 +167,11 @@
 		"diamond": 165,
 		"gold": 300,
 		"level": 1,
-		"outfits": [
-			13,
-			29,
-			52
-		],
-		"variations": [
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"skinPolar": 0,
+			"mustache": 0,
+			"shirtSpooky": 0
+		}
 	},
 	{
 		"name": {
@@ -236,16 +182,11 @@
 		"diamond": 17,
 		"gold": 35,
 		"level": 1,
-		"outfits": [
-			13,
-			22,
-			32
-		],
-		"variations": [
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"skinPolar": 0,
+			"glassesSimple": 0,
+			"suitBusiness": 0
+		}
 	},
 	{
 		"name": {
@@ -256,16 +197,11 @@
 		"diamond": 10,
 		"gold": 15,
 		"level": 1,
-		"outfits": [
-			2,
-			13,
-			94
-		],
-		"variations": [
-			1,
-			0,
-			0
-		]
+		"outfits": {
+			"hatCapModern": 1,
+			"skinPolar": 0,
+			"scarf": 0
+		}
 	},
 	{
 		"name": {
@@ -276,14 +212,10 @@
 		"diamond": 16,
 		"gold": 25,
 		"level": 1,
-		"outfits": [
-			13,
-			43
-		],
-		"variations": [
-			0,
-			0
-		]
+		"outfits": {
+			"skinPolar": 0,
+			"maskRealistic": 0
+		}
 	},
 	{
 		"name": {
@@ -294,14 +226,10 @@
 		"diamond": 22,
 		"gold": 40,
 		"level": 1,
-		"outfits": [
-			13,
-			30
-		],
-		"variations": [
-			0,
-			0
-		]
+		"outfits": {
+			"skinPolar": 0,
+			"hairShort": 0
+		}
 	},
 	{
 		"name": {
@@ -312,12 +240,9 @@
 		"diamond": 76,
 		"gold": 115,
 		"level": 2,
-		"outfits": [
-			38
-		],
-		"variations": [
-			0
-		]
+		"outfits": {
+			"skinDesert": 0
+		}
 	},
 	{
 		"name": {
@@ -328,14 +253,10 @@
 		"diamond": 20,
 		"gold": 35,
 		"level": 2,
-		"outfits": [
-			4,
-			38
-		],
-		"variations": [
-			0,
-			0
-		]
+		"outfits": {
+			"hairPunk": 0,
+			"skinDesert": 0
+		}
 	},
 	{
 		"name": {
@@ -346,14 +267,10 @@
 		"diamond": 19,
 		"gold": 35,
 		"level": 2,
-		"outfits": [
-			38,
-			86
-		],
-		"variations": [
-			0,
-			0
-		]
+		"outfits": {
+			"skinDesert": 0,
+			"cape": 0
+		}
 	},
 	{
 		"name": {
@@ -364,16 +281,11 @@
 		"diamond": 320,
 		"gold": 570,
 		"level": 2,
-		"outfits": [
-			13,
-			51,
-			56
-		],
-		"variations": [
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"skinPolar": 0,
+			"bodySkeleton": 0,
+			"headSkull": 0
+		}
 	},
 	{
 		"name": {
@@ -384,16 +296,11 @@
 		"diamond": 27,
 		"gold": 45,
 		"level": 2,
-		"outfits": [
-			11,
-			32,
-			38
-		],
-		"variations": [
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"maskGas": 0,
+			"suitBusiness": 0,
+			"skinDesert": 0
+		}
 	},
 	{
 		"name": {
@@ -404,14 +311,10 @@
 		"diamond": 24,
 		"gold": 40,
 		"level": 2,
-		"outfits": [
-			5,
-			38
-		],
-		"variations": [
-			0,
-			0
-		]
+		"outfits": {
+			"hatFez": 0,
+			"skinDesert": 0
+		}
 	},
 	{
 		"name": {
@@ -422,20 +325,13 @@
 		"diamond": 18,
 		"gold": 25,
 		"level": 2,
-		"outfits": [
-			9,
-			10,
-			38,
-			120,
-			142
-		],
-		"variations": [
-			0,
-			1,
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"earsBig": 0,
+			"hairLong": 1,
+			"skinDesert": 0,
+			"shoesFlipflop": 0,
+			"eyesFeminine": 0
+		}
 	},
 	{
 		"name": {
@@ -446,16 +342,11 @@
 		"diamond": 41,
 		"gold": 55,
 		"level": 2,
-		"outfits": [
-			0,
-			15,
-			38
-		],
-		"variations": [
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"maskBandit": 0,
+			"bodyMuscular": 0,
+			"skinDesert": 0
+		}
 	},
 	{
 		"name": {
@@ -466,16 +357,11 @@
 		"diamond": 180,
 		"gold": 195,
 		"level": 3,
-		"outfits": [
-			64,
-			65,
-			141
-		],
-		"variations": [
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"pacifier": 0,
+			"diaper": 0,
+			"headChild": 0
+		}
 	},
 	{
 		"name": {
@@ -486,20 +372,13 @@
 		"diamond": 68,
 		"gold": 105,
 		"level": 3,
-		"outfits": [
-			21,
-			64,
-			65,
-			141,
-			142
-		],
-		"variations": [
-			0,
-			0,
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"skinPink": 0,
+			"pacifier": 0,
+			"diaper": 0,
+			"headChild": 0,
+			"eyesFeminine": 0
+		}
 	},
 	{
 		"name": {
@@ -510,18 +389,12 @@
 		"diamond": 26,
 		"gold": 45,
 		"level": 3,
-		"outfits": [
-			13,
-			64,
-			23,
-			141
-		],
-		"variations": [
-			0,
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"skinPolar": 0,
+			"suitCapitalus": 0,
+			"pacifier": 0,
+			"headChild": 0
+		}
 	},
 	{
 		"name": {
@@ -532,18 +405,12 @@
 		"diamond": 310,
 		"gold": 540,
 		"level": 3,
-		"outfits": [
-			64,
-			65,
-			73,
-			141
-		],
-		"variations": [
-			0,
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"pacifier": 0,
+			"diaper": 0,
+			"skinDark": 0,
+			"headChild": 0
+		}
 	},
 	{
 		"name": {
@@ -554,18 +421,12 @@
 		"diamond": 24,
 		"gold": 35,
 		"level": 3,
-		"outfits": [
-			3,
-			65,
-			141,
-			142
-		],
-		"variations": [
-			0,
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"hatUnicorn": 0,
+			"diaper": 0,
+			"headChild": 0,
+			"eyesFeminine": 0
+		}
 	},
 	{
 		"name": {
@@ -576,18 +437,12 @@
 		"diamond": 26,
 		"gold": 50,
 		"level": 3,
-		"outfits": [
-			38,
-			64,
-			65,
-			141
-		],
-		"variations": [
-			0,
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"skinDesert": 0,
+			"pacifier": 0,
+			"diaper": 0,
+			"headChild": 0
+		}
 	},
 	{
 		"name": {
@@ -598,18 +453,12 @@
 		"diamond": 23,
 		"gold": 35,
 		"level": 3,
-		"outfits": [
-			64,
-			65,
-			70,
-			141
-		],
-		"variations": [
-			0,
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"pacifier": 0,
+			"diaper": 0,
+			"skinSackbear": 0,
+			"headChild": 0
+		}
 	},
 	{
 		"name": {
@@ -620,18 +469,12 @@
 		"diamond": 28,
 		"gold": 40,
 		"level": 3,
-		"outfits": [
-			34,
-			64,
-			65,
-			141
-		],
-		"variations": [
-			0,
-			0,
-			0,
-			0
-		]
+		"outfits": {
+			"skinGrayscale": 0,
+			"pacifier": 0,
+			"diaper": 0,
+			"headChild": 0
+		}
 	},
 	{
 		"name": {
@@ -642,11 +485,8 @@
 		"diamond": 270,
 		"gold": 360,
 		"level": 4,
-		"outfits": [
-			100
-		],
-		"variations": [
-			0
-		]
+		"outfits": {
+			"skinPurple": 0
+		}
 	}
 ]

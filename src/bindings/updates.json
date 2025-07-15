@@ -1159,5 +1159,119 @@
 			"Added new cosmetic items",
 			"We are currently working on the next major update for the game: THE MULTIPLAYER UPDATE, so stay tuned!"
 		]
+	},
+	{
+		"name": "12.0.0b1",
+		"date": {
+			"android": "2025-04-23",
+			"ios": null,
+			"switch": null
+		},
+		"notes": []
+	},
+	{
+		"name": "12.0.0b2",
+		"date": {
+			"android": "2025-04-24",
+			"ios": null,
+			"switch": null
+		},
+		"notes": []
+	},
+	{
+		"name": "12.0.0b3",
+		"date": {
+			"android": "2025-04-30",
+			"ios": null,
+			"switch": null
+		},
+		"notes": []
+	},
+	{
+		"name": "12.0.0b4",
+		"date": {
+			"android": "2025-05-19",
+			"ios": null,
+			"switch": null
+		},
+		"notes": []
+	},
+	{
+		"name": "12.0.0b5",
+		"date": {
+			"android": "2025-05-20",
+			"ios": null,
+			"switch": null
+		},
+		"notes": []
+	},
+	{
+		"name": "12.0.0b6",
+		"date": {
+			"android": "2025-05-29",
+			"ios": null,
+			"switch": null
+		},
+		"notes": []
+	},
+	{
+		"name": "12.0.0b7",
+		"date": {
+			"android": "2025-06-05",
+			"ios": null,
+			"switch": null
+		},
+		"notes": []
+	},
+	{
+		"name": "12.0.0b8",
+		"date": {
+			"android": "2025-06-06",
+			"ios": null,
+			"switch": null
+		},
+		"notes": []
+	},
+	{
+		"name": "12.0.0b9",
+		"date": {
+			"android": "2025-06-13",
+			"ios": null,
+			"switch": null
+		},
+		"notes": []
+	},
+	{
+		"name": "12.0.0b10",
+		"date": {
+			"android": "2025-06-20",
+			"ios": null,
+			"switch": null
+		},
+		"notes": []
+	},
+	{
+		"name": "12.0.0",
+		"date": {
+			"android": "2025-07-01",
+			"ios": "2025-07-02",
+			"switch": null
+		},
+		"notes": [
+			"Added multiplayer mode",
+			"Added 2 new bonus levels",
+			"Many more surprises!"
+		]
+	},
+	{
+		"name": "12.0.1",
+		"date": {
+			"android": "2025-07-09",
+			"ios": "2025-07-11",
+			"switch": null
+		},
+		"notes": [
+			"Fixed various issues"
+		]
 	}
 ]

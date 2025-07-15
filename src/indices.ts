@@ -6,6 +6,7 @@ import type {
 	Outfit,
 	Race,
 	Rarity,
+	Sublevel,
 	Update,
 } from "./bindings.js";
 import {
@@ -16,9 +17,10 @@ import {
 	outfits,
 	// races,
 	rarities,
+	sublevels,
 	updates,
 } from "./bindings.js";
-type Index = (Bear | Challenge | Level | Mission | Outfit | Race | Rarity | Update)[][];
+type Index = (Bear | Challenge | Level | Mission | Outfit | Race | Rarity | Sublevel | Update)[][];
 function indexBy<Left extends {[k in Key]: number}, Right, Key extends string>(leftArray: Left[], rightArray: Right[], key: Key): Left[][] {
 	const index: Left[][] = Array.from<Right, Left[]>(rightArray, (): Left[] => {
 		return [];
@@ -43,16 +45,21 @@ function indexOutfitsByRarity(outfits: Outfit[], rarities: Rarity[]): Outfit[][]
 function indexOutfitsByUpdate(outfits: Outfit[], updates: Update[]): Outfit[][] {
 	return indexBy<Outfit, Update, "update">(outfits, updates, "update");
 }
+function indexSublevelsByLevel(sublevels: Sublevel[], levels: Level[]): Sublevel[][] {
+	return indexBy<Sublevel, Level, "level">(sublevels, levels, "level");
+}
 const bearsByLevel: Bear[][] = indexBearsByLevel(bears, levels);
 const missionsByChallenge: Mission[][] = indexMissionsByChallenge(missions, challenges);
 const missionsByLevel: Mission[][] = indexMissionsByLevel(missions, levels);
 const outfitsByRarity: Outfit[][] = indexOutfitsByRarity(outfits, rarities);
 const outfitsByUpdate: Outfit[][] = indexOutfitsByUpdate(outfits, updates);
+const sublevelsByLevel: Sublevel[][] = indexSublevelsByLevel(sublevels, levels);
 export type {Index as default};
 export type {
 	Bear,
 	Mission,
 	Outfit,
+	Sublevel,
 };
 export {
 	bearsByLevel,
@@ -60,4 +67,5 @@ export {
 	missionsByLevel,
 	outfitsByRarity,
 	outfitsByUpdate,
+	sublevelsByLevel,
 };

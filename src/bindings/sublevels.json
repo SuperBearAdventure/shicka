@@ -1,0 +1,24 @@
+[
+	{
+		"name": {
+			"en-US": "The Mole Mines",
+			"fr": "La Mine des Taupes",
+			"pt-BR": "As Minas das Toupeiras"
+		},
+		"coins": 150,
+		"diamond": 135,
+		"gold": 165,
+		"level": 1
+	},
+	{
+		"name": {
+			"en-US": "The Astral Temple",
+			"fr": "Le Temple Astral",
+			"pt-BR": "O Templo Astral"
+		},
+		"coins": 150,
+		"diamond": 210,
+		"gold": 240,
+		"level": 2
+	}
+]
