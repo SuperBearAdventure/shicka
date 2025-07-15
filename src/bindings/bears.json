@@ -120,8 +120,8 @@
 			"fr": "Polaris",
 			"pt-BR": "Polaris"
 		},
-		"diamond": 115,
-		"gold": 130,
+		"diamond": 96,
+		"gold": 105,
 		"level": 1,
 		"outfits": {
 			"skinPolar": 0
@@ -354,8 +354,8 @@
 			"fr": "Viper",
 			"pt-BR": "Viper"
 		},
-		"diamond": 180,
-		"gold": 195,
+		"diamond": 162,
+		"gold": 180,
 		"level": 3,
 		"outfits": {
 			"pacifier": 0,
