@@ -131,5 +131,24 @@
 			0
 		],
 		"slots": 0
+	},
+	{
+		"name": {
+			"en-US": "Mole",
+			"fr": "Taupe",
+			"pt-BR": "Toupeira"
+		},
+		"cost": 0,
+		"payoffs": [
+			0,
+			0,
+			0
+		],
+		"probabilities": [
+			0,
+			0,
+			0
+		],
+		"slots": 0
 	}
 ]
