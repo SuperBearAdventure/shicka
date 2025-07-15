@@ -37,7 +37,7 @@ import {help as helpCompilation} from "../compilations.js";
 import {help as helpDefinition} from "../definitions.js";
 import * as hooks from "../hooks.js";
 import * as rules from "../rules.js";
-import {composeAll, list, localize, nearest, resolve} from "../utils/string.js";
+import {composeAll, list, localize, naiveStream, nearest, resolve} from "../utils/string.js";
 type HelpGroups = HelpDependency["help"];
 type Feature = {
 	id: number,
@@ -87,38 +87,6 @@ const guildFetchedTimestamps: Collection<Snowflake, number> = new Collection<Sno
 const guildApplicationCommandPermissions: Collection<Snowflake, Collection<string, ApplicationCommandPermissions[]>> = new Collection<Snowflake, Collection<string, ApplicationCommandPermissions[]>>();
 const guildWebhooks: Collection<Snowflake, Collection<Snowflake, Webhook>> = new Collection<Snowflake, Collection<Snowflake, Webhook>>();
 const guildAutoModerationRules: Collection<Snowflake, Collection<Snowflake, AutoModerationRule>> = new Collection<Snowflake, Collection<Snowflake, AutoModerationRule>>();
-function naiveStream(content: string): string[] {
-	content = content.replace(/^\n+|\n+$/g, "").replace(/\n+/g, "\n");
-	if (content.length === 0) {
-		return [];
-	}
-	if (content[content.length - 1] !== "\n") {
-		content = `${content}\n`;
-	}
-	const lines: string[] = content.split(/(?<=\n)/);
-	const chunks: string[] = [];
-	const chunk: string[] = [];
-	let length: number = 0;
-	for (const line of lines) {
-		if (length > 0 && length + line.length > 2000) {
-			chunks.push(chunk.join(""));
-			chunk.length = 0;
-			length = 0;
-		}
-		const spans: string[] = line.slice(0, -1).match(/[^]{1,1999}/g) ?? [];
-		const firstSpans: string[] = spans.slice(0, -1);
-		for (const span of firstSpans) {
-			chunks.push(`${span}\n`);
-		}
-		const lastSpan: string = spans[spans.length - 1];
-		chunk.push(`${lastSpan}\n`);
-		length += lastSpan.length + 1;
-	}
-	if (length > 0) {
-		chunks.push(chunk.join(""));
-	}
-	return chunks;
-}
 function hasAdministratorPermission(channel: GuildBasedChannel, member: GuildMember): boolean {
 	if (channel.guild.ownerId === member.id) {
 		return true;
