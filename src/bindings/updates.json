@@ -1273,5 +1273,16 @@
 		"notes": [
 			"Fixed various issues"
 		]
+	},
+	{
+		"name": "12.0.2",
+		"date": {
+			"android": "2025-07-21",
+			"ios": "2025-07-22",
+			"switch": null
+		},
+		"notes": [
+			"Various bug fixes and gameplay improvements"
+		]
 	}
 ]
