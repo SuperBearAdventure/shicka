@@ -3,7 +3,6 @@ import type {
 	Message,
 } from "discord.js";
 import type {Canvas, CanvasRenderingContext2D, Image} from "canvas";
-import type {Response} from "node-fetch";
 import type {Record as RecordCompilation} from "../compilations.js";
 import type {Record as RecordDefinition} from "../definitions.js";
 import type {Record as RecordDependency} from "../dependencies.js";
@@ -14,7 +13,6 @@ import {
 	escapeMarkdown,
 } from "discord.js";
 import canvas from "canvas";
-import fetch from "node-fetch";
 import {record as recordCompilation} from "../compilations.js";
 import {record as recordDefinition} from "../definitions.js";
 import {composeAll, localize} from "../utils/string.js";
@@ -213,7 +211,7 @@ const recordHook: Hook = {
 			for (const item of data) {
 				const record: string = item.content;
 				const category: string = item.title;
-				const message: Message<boolean> = await webhook.send({
+				const message: Message<true> = await webhook.send({
 					content: record,
 					username: applicationName,
 					avatarURL: applicationIcon,

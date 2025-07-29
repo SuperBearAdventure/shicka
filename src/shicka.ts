@@ -274,7 +274,7 @@ const client: Client<boolean> = new Client({
 		status: "online",
 	},
 });
-client.once("ready", async (client: Client<true>): Promise<void> => {
+client.once("clientReady", async (client: Client<true>): Promise<void> => {
 	const commandRegistry: ApplicationCommandData[] = Object.getOwnPropertyNames(commands).map<ApplicationCommandData>((commandName: string): ApplicationCommandData => {
 		const command: Command = commands[commandName as keyof typeof commands];
 		return command.register();

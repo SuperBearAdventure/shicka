@@ -109,7 +109,7 @@ const approvalHook: Hook = {
 			const {channel}: Webhook = webhook;
 			const approval: string = greeting;
 			const welcome: string = "New member approval in the server";
-			const message: Message<boolean> = await webhook.send({
+			const message: Message<true> = await webhook.send({
 				content: approval,
 				username: applicationName,
 				avatarURL: applicationIcon,

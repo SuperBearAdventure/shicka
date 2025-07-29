@@ -1,7 +1,6 @@
 import type {
 	ChatInputCommandInteraction,
 } from "discord.js";
-import type {Response} from "node-fetch";
 import type Command from "../commands.js";
 import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Trailer as TrailerCompilation} from "../compilations.js";
@@ -12,7 +11,6 @@ import {
 	escapeMarkdown,
 } from "discord.js";
 import {JSDOM, VirtualConsole} from "jsdom";
-import fetch from "node-fetch";
 import {trailer as trailerCompilation} from "../compilations.js";
 import {trailer as trailerDefinition} from "../definitions.js";
 import {composeAll, list, localize, resolve} from "../utils/string.js";

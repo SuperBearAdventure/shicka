@@ -4,32 +4,31 @@
   "description": "Bot for the official Super Bear Adventure Discord server",
   "main": "shicka.js",
   "scripts": {
-    "start": "node bin/shicka.js",
-    "build": "npx tsc && ln -fnrs src/emojis bin/emojis",
-    "lint": "npx eslint . --ext .ts"
+    "lint": "npx eslint src && npx tsc --noEmit",
+    "build": "npx tsc --noCheck && ln -fnrs src/emojis bin/emojis",
+    "start": "node bin/shicka.js"
   },
   "repository": "https://github.com/SuperBearAdventure/shicka",
   "author": "Tristan LE GODAIS",
   "license": "MIT",
   "type": "module",
   "devDependencies": {
-    "@types/jsdom": "^21.1.5",
-    "@types/node-schedule": "^2.1.3",
+    "@types/jsdom": "^27.0.0",
+    "@types/node": "^20.19.20",
+    "@types/node-schedule": "^2.1.8",
     "@types/w3c-xmlserializer": "^2.0.4",
-    "@typescript-eslint/eslint-plugin": "^6.12.0",
-    "@typescript-eslint/parser": "^6.12.0",
-    "eslint": "^8.54.0",
-    "typescript": "~5.2.2"
+    "eslint": "^9.37.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.0"
   },
   "dependencies": {
-    "canvas": "^2.11.2",
-    "discord.js": "^14.14.1",
-    "jsdom": "^22.1.0",
-    "node-fetch": "^3.3.2",
+    "canvas": "^3.2.0",
+    "discord.js": "^14.23.2",
+    "jsdom": "^27.0.0",
     "node-schedule": "^2.1.1",
     "w3c-xmlserializer": "^5.0.0"
   },
   "engines": {
-    "node": "^18.17.0"
+    "node": "^20.19.5"
   }
 }

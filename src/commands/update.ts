@@ -1,7 +1,6 @@
 import type {
 	ChatInputCommandInteraction,
 } from "discord.js";
-import type {Response} from "node-fetch";
 import type Command from "../commands.js";
 import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Update as UpdateCompilation} from "../compilations.js";
@@ -12,7 +11,6 @@ import {
 	escapeMarkdown,
 } from "discord.js";
 import {JSDOM, VirtualConsole} from "jsdom";
-import fetch from "node-fetch";
 import {update as updateCompilation} from "../compilations.js";
 import {update as updateDefinition} from "../definitions.js";
 import {compareDates, compareVersions, composeAll, list, localize, parseVersion, resolve, stringifyVersion} from "../utils/string.js";
