@@ -75,7 +75,7 @@ const departureHook: Hook = {
 			const {channel}: Webhook = webhook;
 			const departure: string = greeting;
 			const farewell: string = "New member departure from the server";
-			const message: Message<boolean> = await webhook.send({
+			const message: Message<true> = await webhook.send({
 				content: departure,
 				username: applicationName,
 				avatarURL: applicationIcon,

@@ -109,7 +109,7 @@ const refusalHook: Hook = {
 			const {channel}: Webhook = webhook;
 			const refusal: string = greeting;
 			const farewell: string = "New member refusal in the server";
-			const message: Message<boolean> = await webhook.send({
+			const message: Message<true> = await webhook.send({
 				content: refusal,
 				username: applicationName,
 				avatarURL: applicationIcon,

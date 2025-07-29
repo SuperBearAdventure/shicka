@@ -1,13 +1,13 @@
 import type {Localized} from "./utils/string.js";
-import bearsBinding from "./bindings/bears.json" assert {type: "json"};
-import challengesBinding from "./bindings/challenges.json" assert {type: "json"};
-import levelsBinding from "./bindings/levels.json" assert {type: "json"};
-import missionsBinding from "./bindings/missions.json" assert {type: "json"};
-import outfitsBinding from "./bindings/outfits.json" assert {type: "json"};
-import racesBinding from "./bindings/races.json" assert {type: "json"};
-import raritiesBinding from "./bindings/rarities.json" assert {type: "json"};
-import sublevelsBinding from "./bindings/sublevels.json" assert {type: "json"};
-import updatesBinding from "./bindings/updates.json" assert {type: "json"};
+import bearsBinding from "./bindings/bears.json" with {type: "json"};
+import challengesBinding from "./bindings/challenges.json" with {type: "json"};
+import levelsBinding from "./bindings/levels.json" with {type: "json"};
+import missionsBinding from "./bindings/missions.json" with {type: "json"};
+import outfitsBinding from "./bindings/outfits.json" with {type: "json"};
+import racesBinding from "./bindings/races.json" with {type: "json"};
+import raritiesBinding from "./bindings/rarities.json" with {type: "json"};
+import sublevelsBinding from "./bindings/sublevels.json" with {type: "json"};
+import updatesBinding from "./bindings/updates.json" with {type: "json"};
 type Bear = {
 	id: number,
 	name: Localized<string>,

@@ -81,7 +81,7 @@ const arrivalHook: Hook = {
 			const {channel}: Webhook = webhook;
 			const arrival: string = `${greeting}${counting}`;
 			const welcome: string = "New member arrival to the server";
-			const message: Message<boolean> = await webhook.send({
+			const message: Message<true> = await webhook.send({
 				content: arrival,
 				username: applicationName,
 				avatarURL: applicationIcon,

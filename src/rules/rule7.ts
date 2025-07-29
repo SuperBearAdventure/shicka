@@ -111,9 +111,9 @@ const rule7Rule: Rule = {
 		const {guild}: AutoModerationActionExecution = execution;
 		const emoji: GuildEmoji | null = ((): GuildEmoji | null => {
 			const emoji: GuildEmoji | undefined = guild.emojis.cache.find((emoji: GuildEmoji): boolean => {
-				return (emoji.name ?? "") === ruleReactionEmoji;
+				return emoji.name === ruleReactionEmoji;
 			});
-			if (emoji == null || (emoji.animated ?? true)) {
+			if (emoji == null || emoji.animated) {
 				return null;
 			}
 			return emoji;

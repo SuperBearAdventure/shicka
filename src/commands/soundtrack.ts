@@ -1,7 +1,6 @@
 import type {
 	ChatInputCommandInteraction,
 } from "discord.js";
-import type {Response} from "node-fetch";
 import type Command from "../commands.js";
 import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
 import type {Soundtrack as SoundtrackCompilation} from "../compilations.js";
@@ -12,7 +11,6 @@ import {
 	escapeMarkdown,
 } from "discord.js";
 import {JSDOM, VirtualConsole} from "jsdom";
-import fetch from "node-fetch";
 import {soundtrack as soundtrackCompilation} from "../compilations.js";
 import {soundtrack as soundtrackDefinition} from "../definitions.js";
 import {composeAll, list, localize, naiveStream, resolve} from "../utils/string.js";

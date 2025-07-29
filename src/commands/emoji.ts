@@ -34,8 +34,6 @@ const {
 	help: helpLocalizations,
 }: EmojiCompilation = emojiCompilation;
 const {createCanvas, loadImage}: any = canvas;
-const here: string = import.meta.url;
-const root: string = here.slice(0, here.lastIndexOf("/"));
 const bases: Set<"baaren" | "shicka" | "baaren-outlined" | "shicka-outlined" | "baaren-discord" | "shicka-discord"> = new Set<"baaren" | "shicka" | "baaren-outlined" | "shicka-outlined" | "baaren-discord" | "shicka-discord">(["baaren", "shicka", "baaren-outlined", "shicka-outlined", "baaren-discord", "shicka-discord"]);
 const paints: Set<"fill" | "stroke"> = new Set<"fill" | "stroke">(["fill", "stroke"]);
 const layers: Set<"background" | "foreground" | "marker"> = new Set<"background" | "foreground" | "marker">(["background", "foreground", "marker"]);
@@ -100,7 +98,7 @@ const emojiCommand: Command = {
 		}
 		const {options}: ChatInputCommandInteraction<"cached"> = interaction;
 		const base: string = options.getString(baseOptionName, true);
-		const wrapper: Element = new JSDOM(`<div xmlns="http://www.w3.org/1999/xhtml">${await readFile(fileURLToPath(`${root}/../emojis/${base}.svg`))}</div>`, {
+		const wrapper: Element = new JSDOM(`<div xmlns="http://www.w3.org/1999/xhtml">${await readFile(fileURLToPath(import.meta.resolve(`../emojis/${base}.svg`)))}</div>`, {
 			contentType: "application/xhtml+xml",
 		}).window.document.documentElement;
 		const svg: Element | null = wrapper.firstElementChild;

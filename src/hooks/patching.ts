@@ -87,7 +87,7 @@ const patchingHook: Hook = {
 			const {channel}: Webhook = webhook;
 			const patching: string = status;
 			const title: string = "New message patch on the server";
-			const message: Message<boolean> = await webhook.send({
+			const message: Message<true> = await webhook.send({
 				content: patching,
 				username: applicationName,
 				avatarURL: applicationIcon,
@@ -97,7 +97,7 @@ const patchingHook: Hook = {
 				},
 			});
 			try {
-				const replyMessage: Message<boolean> = await message.reply({
+				const replyMessage: Message<true> = await message.reply({
 					content: "Here is the old message:",
 				});
 				await replyMessage.reply({
