@@ -49,10 +49,10 @@ const ruleTriggerRegexPatterns: string[] = [
 	"<@!?\\d+>",
 	"<@&\\d+>",
 	"<id:(browse|customize|guide|linked-roles(:\\d+)?)>",
-	"<(mailto:[^<>@\\s]*|[^<>@\\s]+)@[^<>@\\s]+\.[^<>@\\s]+>",
+	"<(mailto:[^<>@\\s]*|[^<>@\\s]+)@[^<>@\\s]+\\.[^<>@\\s]+>",
 	"<(tel:|\\+)(\\(\\d+\\)|\\d)( ?(\\(\\d+\\)|\\d))+>",
 	"\\bhttps?:///*\\S+",
-	"\\bdiscord.gg/\\S+",
+	"\\bdiscord(\\.gg|\\.com/invite|app\\.com/invite)/\\S+",
 ];
 const ruleAlertActionChannel: string = SHICKA_LINK_DEFAULT_ALERT_ACTION_CHANNEL ?? "";
 const ruleExemptChannels: string[] | null = SHICKA_LINK_DEFAULT_EXEMPT_CHANNELS != null ? SHICKA_LINK_DEFAULT_EXEMPT_CHANNELS.split("\n") : null;
