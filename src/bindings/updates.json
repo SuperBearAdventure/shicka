@@ -1284,5 +1284,29 @@
 		"notes": [
 			"Various bug fixes and gameplay improvements"
 		]
+	},
+	{
+		"name": "12.0.3",
+		"date": {
+			"android": "2025-08-16",
+			"ios": null,
+			"switch": null
+		},
+		"notes": [
+			"Improved behaviour of grabbable objects",
+			"Bug fixes, particularly related to speedrunning"
+		]
+	},
+	{
+		"name": "12.0.4",
+		"date": {
+			"android": "2025-08-19",
+			"ios": "2025-08-20",
+			"switch": null
+		},
+		"notes": [
+			"Improved visibility of enemies in some situations",
+			"Various bug fixes"
+		]
 	}
 ]
