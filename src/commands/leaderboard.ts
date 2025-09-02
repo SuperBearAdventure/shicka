@@ -58,6 +58,14 @@ const data: Data[] = [
 		link: "https://www.speedrun.com/sbace?x=l_gdr5onk9",
 	},
 	{
+		title: "The Mole Mines",
+		link: "https://www.speedrun.com/sbace?x=l_dy1gjkkd",
+	},
+	{
+		title: "The Astral Temple",
+		link: "https://www.speedrun.com/sbace?x=l_drpxgo6w",
+	},
+	{
 		title: "Missions",
 		link: "https://www.speedrun.com/sbace?x=l_r9gnozkd",
 	},
