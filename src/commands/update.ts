@@ -105,10 +105,9 @@ async function fetchSwitchData(): Promise<Data | null> {
 			return {
 				title: "Switch",
 				link: "https://www.nintendo.com/store/products/super-bear-adventure-switch/",
-				version: parseVersion("11.1.1"),
-				date: new Date(result.initialApolloState[`StoreProduct:${JSON.stringify({
+				version: parseVersion("10.5.0"),
+				date: new Date(result.initialApolloState[`Product:${JSON.stringify({
 					sku: result.analytics.product.sku,
-					locale: "en_US",
 				})}`].releaseDate),
 			};
 		} catch {}

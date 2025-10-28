@@ -151,12 +151,12 @@ export function parseVersion(value: string): number[] {
 	return value.split(".").map((part: string): number => {
 		return Number(part);
 	});
-};
+}
 export function stringifyVersion(value: number[]): string {
 	return value.map((part: number): string => {
 		return `${part}`;
 	}).join(".");
-};
+}
 function filter<K extends string, T, U extends T>(input: {[k in K]: T}, callback: (value: T, key: K, input: {[k in K]: T}) => value is U): {[k in K]: U} {
 	return Object.assign<{[k in K]: U}, {[k in K]: U}>(Object.create(null), Object.fromEntries<T>(Object.entries<T>(input).filter<[K, U]>((entry: [string, T]): entry is [K, U] => {
 		const [key, value]: [K, T] = entry as [K, T];
