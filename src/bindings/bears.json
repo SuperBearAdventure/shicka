@@ -5,6 +5,12 @@
 			"fr": "Barry",
 			"pt-BR": "Barry"
 		},
+		"boss": {
+			"en-US": "The Turtle Golem",
+			"fr": "Le Golem Tortue",
+			"pt-BR": "O Golem Tartaruga"
+		},
+		"coins": 0,
 		"diamond": 50,
 		"gold": 75,
 		"level": 0,
@@ -16,6 +22,8 @@
 			"fr": "Tommy",
 			"pt-BR": "Tommy"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 12,
 		"gold": 20,
 		"level": 0,
@@ -30,6 +38,8 @@
 			"fr": "Blackbeard",
 			"pt-BR": "Blackbeard"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 16,
 		"gold": 25,
 		"level": 0,
@@ -43,6 +53,8 @@
 			"fr": "Stéphane",
 			"pt-BR": "Stéphane"
 		},
+		"boss": null,
+		"coins": 125,
 		"diamond": 170,
 		"gold": 360,
 		"level": 0,
@@ -57,6 +69,8 @@
 			"fr": "Dr Christopher",
 			"pt-BR": "Dr. Christopher"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 15,
 		"gold": 25,
 		"level": 0,
@@ -72,6 +86,8 @@
 			"fr": "DJ Pierre",
 			"pt-BR": "DJ Pierre"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 12,
 		"gold": 20,
 		"level": 0,
@@ -89,6 +105,8 @@
 			"fr": "Bob",
 			"pt-BR": "Bob"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 20,
 		"gold": 35,
 		"level": 0,
@@ -105,6 +123,8 @@
 			"fr": "Madeline",
 			"pt-BR": "Madeline"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 18,
 		"gold": 30,
 		"level": 0,
@@ -120,6 +140,12 @@
 			"fr": "Polaris",
 			"pt-BR": "Polaris"
 		},
+		"boss": {
+			"en-US": "The Yeti",
+			"fr": "Le Yéti",
+			"pt-BR": "O Yeti"
+		},
+		"coins": 0,
 		"diamond": 96,
 		"gold": 105,
 		"level": 1,
@@ -133,6 +159,8 @@
 			"fr": "Flake",
 			"pt-BR": "Flake"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 17,
 		"gold": 30,
 		"level": 1,
@@ -149,6 +177,8 @@
 			"fr": "Rodolphe",
 			"pt-BR": "Rodolph"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 13,
 		"gold": 25,
 		"level": 1,
@@ -164,6 +194,8 @@
 			"fr": "Frosty",
 			"pt-BR": "Frosty"
 		},
+		"boss": null,
+		"coins": 125,
 		"diamond": 165,
 		"gold": 300,
 		"level": 1,
@@ -179,6 +211,8 @@
 			"fr": "Alix",
 			"pt-BR": "Alix"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 17,
 		"gold": 35,
 		"level": 1,
@@ -194,6 +228,8 @@
 			"fr": "Vladimir",
 			"pt-BR": "Vladimir"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 10,
 		"gold": 15,
 		"level": 1,
@@ -209,6 +245,8 @@
 			"fr": "Skia",
 			"pt-BR": "Skia"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 16,
 		"gold": 25,
 		"level": 1,
@@ -223,6 +261,8 @@
 			"fr": "Jon",
 			"pt-BR": "Jon"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 22,
 		"gold": 40,
 		"level": 1,
@@ -237,6 +277,12 @@
 			"fr": "Sand",
 			"pt-BR": "Sand"
 		},
+		"boss": {
+			"en-US": "The Guardian",
+			"fr": "Le Gardien",
+			"pt-BR": "O Guardião"
+		},
+		"coins": 0,
 		"diamond": 76,
 		"gold": 115,
 		"level": 2,
@@ -250,6 +296,8 @@
 			"fr": "Amos",
 			"pt-BR": "Amos"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 20,
 		"gold": 35,
 		"level": 2,
@@ -264,6 +312,8 @@
 			"fr": "Alexandre",
 			"pt-BR": "Alexander"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 19,
 		"gold": 35,
 		"level": 2,
@@ -278,6 +328,8 @@
 			"fr": "Zéphyr",
 			"pt-BR": "Zephyr"
 		},
+		"boss": null,
+		"coins": 125,
 		"diamond": 320,
 		"gold": 570,
 		"level": 2,
@@ -293,6 +345,8 @@
 			"fr": "Grumble",
 			"pt-BR": "Grumble"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 27,
 		"gold": 45,
 		"level": 2,
@@ -308,6 +362,8 @@
 			"fr": "Numérobis",
 			"pt-BR": "Numerobis"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 24,
 		"gold": 40,
 		"level": 2,
@@ -322,6 +378,8 @@
 			"fr": "Cléo",
 			"pt-BR": "Cleo"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 18,
 		"gold": 25,
 		"level": 2,
@@ -339,6 +397,8 @@
 			"fr": "Ramsès",
 			"pt-BR": "Ramses"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 41,
 		"gold": 55,
 		"level": 2,
@@ -354,6 +414,12 @@
 			"fr": "Viper",
 			"pt-BR": "Viper"
 		},
+		"boss": {
+			"en-US": "Test Subject no. 1706",
+			"fr": "Sujet de Test no 1706",
+			"pt-BR": "Cobaia de Testes nº 1706"
+		},
+		"coins": 0,
 		"diamond": 162,
 		"gold": 180,
 		"level": 3,
@@ -369,6 +435,8 @@
 			"fr": "Blossom",
 			"pt-BR": "Blossom"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 68,
 		"gold": 105,
 		"level": 3,
@@ -386,6 +454,8 @@
 			"fr": "Joseph",
 			"pt-BR": "Joseph"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 26,
 		"gold": 45,
 		"level": 3,
@@ -402,6 +472,8 @@
 			"fr": "Toast",
 			"pt-BR": "Toast"
 		},
+		"boss": null,
+		"coins": 175,
 		"diamond": 310,
 		"gold": 540,
 		"level": 3,
@@ -418,6 +490,8 @@
 			"fr": "Maya",
 			"pt-BR": "Maya"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 24,
 		"gold": 35,
 		"level": 3,
@@ -434,6 +508,8 @@
 			"fr": "Junior",
 			"pt-BR": "Junior"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 26,
 		"gold": 50,
 		"level": 3,
@@ -450,6 +526,8 @@
 			"fr": "Claptrap",
 			"pt-BR": "Claptrap"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 23,
 		"gold": 35,
 		"level": 3,
@@ -466,6 +544,8 @@
 			"fr": "Félix",
 			"pt-BR": "Felix"
 		},
+		"boss": null,
+		"coins": 0,
 		"diamond": 28,
 		"gold": 40,
 		"level": 3,
@@ -482,6 +562,12 @@
 			"fr": "Frère de Baaren",
 			"pt-BR": "Irmão do Baaren"
 		},
+		"boss": {
+			"en-US": "Queen Beeatrice",
+			"fr": "Reine Mirabeille",
+			"pt-BR": "Rainha Belhatriz"
+		},
+		"coins": 0,
 		"diamond": 270,
 		"gold": 360,
 		"level": 4,

@@ -33,6 +33,9 @@ function indexBy<Left extends {[k in Key]: number}, Right, Key extends string>(l
 function indexBearsByLevel(bears: Bear[], levels: Level[]): Bear[][] {
 	return indexBy<Bear, Level, "level">(bears, levels, "level");
 }
+function indexLevelsByLevel(leftLevels: Level[], rightLevels: Level[]): Level[][] {
+	return indexBy<Level, Level, "level">(leftLevels, rightLevels, "level");
+}
 function indexMissionsByChallenge(missions: Mission[], challenges: Challenge[]): Mission[][] {
 	return indexBy<Mission, Challenge, "challenge">(missions, challenges, "challenge");
 }
@@ -49,6 +52,7 @@ function indexSublevelsByLevel(sublevels: Sublevel[], levels: Level[]): Sublevel
 	return indexBy<Sublevel, Level, "level">(sublevels, levels, "level");
 }
 const bearsByLevel: Bear[][] = indexBearsByLevel(bears, levels);
+const levelsByLevel: Level[][] = indexLevelsByLevel(levels, levels);
 const missionsByChallenge: Mission[][] = indexMissionsByChallenge(missions, challenges);
 const missionsByLevel: Mission[][] = indexMissionsByLevel(missions, levels);
 const outfitsByRarity: Outfit[][] = indexOutfitsByRarity(outfits, rarities);
@@ -57,12 +61,14 @@ const sublevelsByLevel: Sublevel[][] = indexSublevelsByLevel(sublevels, levels);
 export type {Index as default};
 export type {
 	Bear,
+	Level,
 	Mission,
 	Outfit,
 	Sublevel,
 };
 export {
 	bearsByLevel,
+	levelsByLevel,
 	missionsByChallenge,
 	missionsByLevel,
 	outfitsByRarity,
