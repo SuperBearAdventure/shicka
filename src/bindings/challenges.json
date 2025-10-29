@@ -1,6 +1,13 @@
 [
 	{
 		"name": {
+			"en-US": "Soccer",
+			"fr": "Tirs au but",
+			"pt-BR": "Pênaltis"
+		}
+	},
+	{
+		"name": {
 			"en-US": "Floor is lava",
 			"fr": "Le sol est en lave",
 			"pt-BR": "O Chão é Lava"
@@ -32,6 +39,20 @@
 			"en-US": "Electricity issue",
 			"fr": "Problème électrique",
 			"pt-BR": "Problema Elétrico"
+		}
+	},
+	{
+		"name": {
+			"en-US": "Karting",
+			"fr": "Karting",
+			"pt-BR": "Karting"
+		}
+	},
+	{
+		"name": {
+			"en-US": "Sleeping moles",
+			"fr": "Taupes endormies",
+			"pt-BR": "Toupeiras Dorminhocas"
 		}
 	},
 	{

@@ -1,17 +1,47 @@
 [
 	{
 		"name": {
+			"en-US": "Bear Village",
+			"fr": "Village Ours",
+			"pt-BR": "Vila dos Ursos"
+		},
+		"chests": 2,
+		"coins": 0,
+		"stickers": 0,
+		"level": 0
+	},
+	{
+		"name": {
+			"en-US": "Backrooms",
+			"fr": "Backrooms",
+			"pt-BR": "Backrooms"
+		},
+		"chests": 1,
+		"coins": 0,
+		"stickers": 0,
+		"level": 0
+	},
+	{
+		"name": {
 			"en-US": "Turtletown",
 			"fr": "Tortibourg",
 			"pt-BR": "Aldeia das Tartarugas"
 		},
-		"boss": {
-			"en-US": "The Turtle Golem",
-			"fr": "Le Golem Tortue",
-			"pt-BR": "O Golem Tartaruga"
-		},
+		"chests": 2,
 		"coins": 150,
-		"stickers": 3
+		"stickers": 3,
+		"level": 0
+	},
+	{
+		"name": {
+			"en-US": "Arcade World",
+			"fr": "Monde Arcade",
+			"pt-BR": "Mundo Fliperama"
+		},
+		"chests": 3,
+		"coins": 0,
+		"stickers": 0,
+		"level": 0
 	},
 	{
 		"name": {
@@ -19,13 +49,10 @@
 			"fr": "Vallée des Neiges",
 			"pt-BR": "Vale Nevado"
 		},
-		"boss": {
-			"en-US": "The Yeti",
-			"fr": "Le Yéti",
-			"pt-BR": "O Yeti"
-		},
+		"chests": 2,
 		"coins": 150,
-		"stickers": 3
+		"stickers": 3,
+		"level": 0
 	},
 	{
 		"name": {
@@ -33,13 +60,10 @@
 			"fr": "Désert Beemothep",
 			"pt-BR": "Deserto Beemothep"
 		},
-		"boss": {
-			"en-US": "The Guardian",
-			"fr": "Le Gardien",
-			"pt-BR": "O Guardião"
-		},
+		"chests": 1,
 		"coins": 150,
-		"stickers": 3
+		"stickers": 3,
+		"level": 0
 	},
 	{
 		"name": {
@@ -47,13 +71,10 @@
 			"fr": "Maison Géante",
 			"pt-BR": "Casa Gigante"
 		},
-		"boss": {
-			"en-US": "Test Subject no. 1706",
-			"fr": "Sujet de Test no 1706",
-			"pt-BR": "Cobaia de Testes nº 1706"
-		},
+		"chests": 2,
 		"coins": 200,
-		"stickers": 3
+		"stickers": 3,
+		"level": 0
 	},
 	{
 		"name": {
@@ -61,12 +82,31 @@
 			"fr": "La Ruche",
 			"pt-BR": "A Colmeia"
 		},
-		"boss": {
-			"en-US": "Queen Beeatrice",
-			"fr": "Reine Mirabeille",
-			"pt-BR": "Rainha Belhatriz"
-		},
+		"chests": 2,
 		"coins": 120,
-		"stickers": 3
+		"stickers": 3,
+		"level": 0
+	},
+	{
+		"name": {
+			"en-US": "The Mole Mines",
+			"fr": "La Mine des Taupes",
+			"pt-BR": "As Minas das Toupeiras"
+		},
+		"chests": 8,
+		"coins": 150,
+		"stickers": 0,
+		"level": 4
+	},
+	{
+		"name": {
+			"en-US": "The Astral Temple",
+			"fr": "Le Temple Astral",
+			"pt-BR": "O Templo Astral"
+		},
+		"chests": 8,
+		"coins": 150,
+		"stickers": 0,
+		"level": 5
 	}
 ]

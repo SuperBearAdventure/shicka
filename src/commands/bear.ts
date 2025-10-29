@@ -96,7 +96,7 @@ const bearCommand: Command = {
 		const resolvedLocale: Locale = resolve(locale);
 		const id: number = options.getInteger(bearOptionName, true);
 		const bear: Bear = bears[id];
-		const {gold, name}: Bear = bear;
+		const {boss, coins, gold, name}: Bear = bear;
 		const level: Level = levels[bear.level];
 		const outfitsAndVariations: [Outfit, number][] = bear.outfits.map<[Outfit, number]>((outfit: number, index: number): [Outfit, number] => {
 			return [
@@ -124,9 +124,6 @@ const bearCommand: Command = {
 				};
 			}));
 		});
-
-		const boss: Localized<string> | null = bear.id % 8 === 0 ? levels[bear.level].boss : null;
-		const coins: number | null = bear.id % 8 === 3 ? levels[bear.level].coins - 25 : 0;
 		const bossGoal: Localized<(groups: {}) => string> | null = boss != null ? composeAll<BossGoalGroups, {}>(bossGoalLocalizations, localize<BossGoalGroups>((locale: Locale): BossGoalGroups => {
 			return {
 				boss: (): string => {

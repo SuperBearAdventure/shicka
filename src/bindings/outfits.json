@@ -131,17 +131,6 @@
 		"update": 109,
 		"variations": 3
 	},
-	"maskPapercraft": {
-		"name": {
-			"en-US": "Paper bag mask",
-			"fr": "Masque en papier",
-			"pt-BR": "Máscara de saco de papel"
-		},
-		"cost": 0,
-		"rarity": 1,
-		"update": 109,
-		"variations": 1
-	},
 	"hornsReindeer": {
 		"name": {
 			"en-US": "Moose antlers",
@@ -405,6 +394,17 @@
 		"rarity": 2,
 		"update": 109,
 		"variations": 3
+	},
+	"maskPapercraft": {
+		"name": {
+			"en-US": "Paper bag mask",
+			"fr": "Masque en papier",
+			"pt-BR": "Máscara de saco de papel"
+		},
+		"cost": 0,
+		"rarity": 1,
+		"update": 109,
+		"variations": 1
 	},
 	"headsetVr": {
 		"name": {
@@ -866,6 +866,17 @@
 		"cost": 0,
 		"rarity": 5,
 		"update": 74,
+		"variations": 1
+	},
+	"headSnowman": {
+		"name": {
+			"en-US": "Snowman head",
+			"fr": "Tête de bonhomme de neige",
+			"pt-BR": "Cabeça de boneco de neve"
+		},
+		"cost": 0,
+		"rarity": 7,
+		"update": 109,
 		"variations": 1
 	},
 	"jacket": {

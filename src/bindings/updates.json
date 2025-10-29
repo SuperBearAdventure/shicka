@@ -1308,5 +1308,41 @@
 			"Improved visibility of enemies in some situations",
 			"Various bug fixes"
 		]
+	},
+	{
+		"name": "12.1.0b",
+		"date": {
+			"android": "2025-10-04",
+			"ios": null,
+			"switch": null
+		},
+		"notes": []
+	},
+	{
+		"name": "12.1.0",
+		"date": {
+			"android": "2025-10-16",
+			"ios": "2025-10-18",
+			"switch": null
+		},
+		"notes": [
+			"Added new emote features (group emotes, UI categories, playing emotes in Lobby)",
+			"Added new minigame in the Arcade World",
+			"Added 3 new daily missions",
+			"New sound effects in The Hive",
+			"Bug fixes"
+		]
+	},
+	{
+		"name": "12.1.1",
+		"date": {
+			"android": "2025-10-24",
+			"ios": "2025-10-27",
+			"switch": null
+		},
+		"notes": [
+			"Improved visuals and audio at DJ Pierre's set",
+			"Bug fixes"
+		]
 	}
 ]

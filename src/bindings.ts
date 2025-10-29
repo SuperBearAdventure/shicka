@@ -11,11 +11,13 @@ import updatesBinding from "./bindings/updates.json" with {type: "json"};
 type Bear = {
 	id: number,
 	name: Localized<string>,
+	boss: Localized<string> | null,
+	coins: number,
 	diamond: number,
 	gold: number,
 	level: number,
 	outfits: number[],
-	variations: number[]
+	variations: number[],
 };
 type Challenge = {
 	id: number,
@@ -24,9 +26,10 @@ type Challenge = {
 type Level = {
 	id: number,
 	name: Localized<string>,
-	boss: Localized<string>,
+	chests: number,
 	coins: number,
 	stickers: number,
+	level: number,
 };
 type Mission = {
 	id: number,
@@ -55,8 +58,6 @@ type Rarity = {
 };
 type Sublevel = {
 	id: number,
-	name: Localized<string>,
-	coins: number,
 	diamond: number,
 	gold: number,
 	level: number,
