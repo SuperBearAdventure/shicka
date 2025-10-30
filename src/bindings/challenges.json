@@ -1,13 +1,6 @@
 [
 	{
 		"name": {
-			"en-US": "Soccer",
-			"fr": "Tirs au but",
-			"pt-BR": "Pênaltis"
-		}
-	},
-	{
-		"name": {
 			"en-US": "Floor is lava",
 			"fr": "Le sol est en lave",
 			"pt-BR": "O Chão é Lava"
@@ -25,6 +18,13 @@
 			"en-US": "Egg hunt",
 			"fr": "Chasse aux œufs",
 			"pt-BR": "Caça aos Ovos"
+		}
+	},
+	{
+		"name": {
+			"en-US": "Sleeping moles",
+			"fr": "Taupes endormies",
+			"pt-BR": "Toupeiras Dorminhocas"
 		}
 	},
 	{
@@ -50,13 +50,6 @@
 	},
 	{
 		"name": {
-			"en-US": "Sleeping moles",
-			"fr": "Taupes endormies",
-			"pt-BR": "Toupeiras Dorminhocas"
-		}
-	},
-	{
-		"name": {
 			"en-US": "Flooding",
 			"fr": "Inondation",
 			"pt-BR": "Inundação"
@@ -67,6 +60,13 @@
 			"en-US": "Rally",
 			"fr": "Rallye",
 			"pt-BR": "Rali"
+		}
+	},
+	{
+		"name": {
+			"en-US": "Soccer",
+			"fr": "Tirs au but",
+			"pt-BR": "Pênaltis"
 		}
 	}
 ]

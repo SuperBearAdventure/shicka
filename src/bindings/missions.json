@@ -1,19 +1,19 @@
 [
 	{
 		"challenge": 0,
-		"level": 0
-	},
-	{
-		"challenge": 1,
 		"level": 2
 	},
 	{
-		"challenge": 2,
+		"challenge": 1,
 		"level": 5
 	},
 	{
-		"challenge": 3,
+		"challenge": 2,
 		"level": 4
+	},
+	{
+		"challenge": 3,
+		"level": 8
 	},
 	{
 		"challenge": 4,
@@ -24,7 +24,7 @@
 		"level": 6
 	},
 	{
-		"challenge": 1,
+		"challenge": 0,
 		"level": 4
 	},
 	{
@@ -32,19 +32,15 @@
 		"level": 6
 	},
 	{
-		"challenge": 7,
-		"level": 8
-	},
-	{
-		"challenge": 3,
+		"challenge": 2,
 		"level": 2
 	},
 	{
-		"challenge": 8,
+		"challenge": 7,
 		"level": 5
 	},
 	{
-		"challenge": 2,
+		"challenge": 1,
 		"level": 6
 	},
 	{
@@ -52,7 +48,11 @@
 		"level": 4
 	},
 	{
-		"challenge": 9,
+		"challenge": 8,
 		"level": 5
+	},
+	{
+		"challenge": 9,
+		"level": 0
 	}
 ]
