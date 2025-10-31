@@ -13,7 +13,7 @@
 		"coins": 0,
 		"diamond": 50,
 		"gold": 75,
-		"level": 0,
+		"level": 2,
 		"outfits": {}
 	},
 	{
@@ -26,7 +26,7 @@
 		"coins": 0,
 		"diamond": 12,
 		"gold": 20,
-		"level": 0,
+		"level": 2,
 		"outfits": {
 			"hatCapClassic": 0,
 			"shirtNumber": 0
@@ -42,7 +42,7 @@
 		"coins": 0,
 		"diamond": 16,
 		"gold": 25,
-		"level": 0,
+		"level": 2,
 		"outfits": {
 			"beard": 0
 		}
@@ -57,7 +57,7 @@
 		"coins": 125,
 		"diamond": 170,
 		"gold": 360,
-		"level": 0,
+		"level": 2,
 		"outfits": {
 			"hatCrown": 0,
 			"cape": 1
@@ -73,7 +73,7 @@
 		"coins": 0,
 		"diamond": 15,
 		"gold": 25,
-		"level": 0,
+		"level": 2,
 		"outfits": {
 			"bowtie": 0,
 			"glassesSimple": 0,
@@ -90,7 +90,7 @@
 		"coins": 0,
 		"diamond": 12,
 		"gold": 20,
-		"level": 0,
+		"level": 2,
 		"outfits": {
 			"hairLong": 0,
 			"jacketNight": 0,
@@ -109,7 +109,7 @@
 		"coins": 0,
 		"diamond": 20,
 		"gold": 35,
-		"level": 0,
+		"level": 2,
 		"outfits": {
 			"bodyFat": 0,
 			"pacifier": 0,
@@ -127,7 +127,7 @@
 		"coins": 0,
 		"diamond": 18,
 		"gold": 30,
-		"level": 0,
+		"level": 2,
 		"outfits": {
 			"hairLong": 0,
 			"headbow": 0,
@@ -148,7 +148,7 @@
 		"coins": 0,
 		"diamond": 96,
 		"gold": 105,
-		"level": 1,
+		"level": 4,
 		"outfits": {
 			"skinPolar": 0
 		}
@@ -163,7 +163,7 @@
 		"coins": 0,
 		"diamond": 17,
 		"gold": 30,
-		"level": 1,
+		"level": 4,
 		"outfits": {
 			"skinPolar": 0,
 			"eggFried": 0,
@@ -181,7 +181,7 @@
 		"coins": 0,
 		"diamond": 13,
 		"gold": 25,
-		"level": 1,
+		"level": 4,
 		"outfits": {
 			"headSwollen": 0,
 			"skinPolar": 0,
@@ -198,7 +198,7 @@
 		"coins": 125,
 		"diamond": 165,
 		"gold": 300,
-		"level": 1,
+		"level": 4,
 		"outfits": {
 			"skinPolar": 0,
 			"mustache": 0,
@@ -215,7 +215,7 @@
 		"coins": 0,
 		"diamond": 17,
 		"gold": 35,
-		"level": 1,
+		"level": 4,
 		"outfits": {
 			"skinPolar": 0,
 			"glassesSimple": 0,
@@ -232,7 +232,7 @@
 		"coins": 0,
 		"diamond": 10,
 		"gold": 15,
-		"level": 1,
+		"level": 4,
 		"outfits": {
 			"hatCapModern": 1,
 			"skinPolar": 0,
@@ -249,7 +249,7 @@
 		"coins": 0,
 		"diamond": 16,
 		"gold": 25,
-		"level": 1,
+		"level": 4,
 		"outfits": {
 			"skinPolar": 0,
 			"maskRealistic": 0
@@ -265,7 +265,7 @@
 		"coins": 0,
 		"diamond": 22,
 		"gold": 40,
-		"level": 1,
+		"level": 4,
 		"outfits": {
 			"skinPolar": 0,
 			"hairShort": 0
@@ -285,7 +285,7 @@
 		"coins": 0,
 		"diamond": 76,
 		"gold": 115,
-		"level": 2,
+		"level": 5,
 		"outfits": {
 			"skinDesert": 0
 		}
@@ -300,7 +300,7 @@
 		"coins": 0,
 		"diamond": 20,
 		"gold": 35,
-		"level": 2,
+		"level": 5,
 		"outfits": {
 			"hairPunk": 0,
 			"skinDesert": 0
@@ -316,7 +316,7 @@
 		"coins": 0,
 		"diamond": 19,
 		"gold": 35,
-		"level": 2,
+		"level": 5,
 		"outfits": {
 			"skinDesert": 0,
 			"cape": 0
@@ -332,7 +332,7 @@
 		"coins": 125,
 		"diamond": 320,
 		"gold": 570,
-		"level": 2,
+		"level": 5,
 		"outfits": {
 			"skinPolar": 0,
 			"bodySkeleton": 0,
@@ -349,7 +349,7 @@
 		"coins": 0,
 		"diamond": 27,
 		"gold": 45,
-		"level": 2,
+		"level": 5,
 		"outfits": {
 			"maskGas": 0,
 			"suitBusiness": 0,
@@ -366,7 +366,7 @@
 		"coins": 0,
 		"diamond": 24,
 		"gold": 40,
-		"level": 2,
+		"level": 5,
 		"outfits": {
 			"hatFez": 0,
 			"skinDesert": 0
@@ -382,7 +382,7 @@
 		"coins": 0,
 		"diamond": 18,
 		"gold": 25,
-		"level": 2,
+		"level": 5,
 		"outfits": {
 			"earsBig": 0,
 			"hairLong": 1,
@@ -401,7 +401,7 @@
 		"coins": 0,
 		"diamond": 41,
 		"gold": 55,
-		"level": 2,
+		"level": 5,
 		"outfits": {
 			"maskBandit": 0,
 			"bodyMuscular": 0,
@@ -422,7 +422,7 @@
 		"coins": 0,
 		"diamond": 162,
 		"gold": 180,
-		"level": 3,
+		"level": 6,
 		"outfits": {
 			"pacifier": 0,
 			"diaper": 0,
@@ -439,7 +439,7 @@
 		"coins": 0,
 		"diamond": 68,
 		"gold": 105,
-		"level": 3,
+		"level": 6,
 		"outfits": {
 			"skinPink": 0,
 			"pacifier": 0,
@@ -458,7 +458,7 @@
 		"coins": 0,
 		"diamond": 26,
 		"gold": 45,
-		"level": 3,
+		"level": 6,
 		"outfits": {
 			"skinPolar": 0,
 			"suitCapitalus": 0,
@@ -476,7 +476,7 @@
 		"coins": 175,
 		"diamond": 310,
 		"gold": 540,
-		"level": 3,
+		"level": 6,
 		"outfits": {
 			"pacifier": 0,
 			"diaper": 0,
@@ -494,7 +494,7 @@
 		"coins": 0,
 		"diamond": 24,
 		"gold": 35,
-		"level": 3,
+		"level": 6,
 		"outfits": {
 			"hatUnicorn": 0,
 			"diaper": 0,
@@ -512,7 +512,7 @@
 		"coins": 0,
 		"diamond": 26,
 		"gold": 50,
-		"level": 3,
+		"level": 6,
 		"outfits": {
 			"skinDesert": 0,
 			"pacifier": 0,
@@ -530,7 +530,7 @@
 		"coins": 0,
 		"diamond": 23,
 		"gold": 35,
-		"level": 3,
+		"level": 6,
 		"outfits": {
 			"pacifier": 0,
 			"diaper": 0,
@@ -548,7 +548,7 @@
 		"coins": 0,
 		"diamond": 28,
 		"gold": 40,
-		"level": 3,
+		"level": 6,
 		"outfits": {
 			"skinGrayscale": 0,
 			"pacifier": 0,
@@ -570,7 +570,7 @@
 		"coins": 0,
 		"diamond": 270,
 		"gold": 360,
-		"level": 4,
+		"level": 7,
 		"outfits": {
 			"skinPurple": 0
 		}
