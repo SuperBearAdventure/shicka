@@ -71,21 +71,19 @@ async function fetchAndroidData(): Promise<Data | null> {
 async function fetchIosData(): Promise<Data | null> {
 	const response: Response = await fetch("https://apps.apple.com/app/id1531842415");
 	const {window}: JSDOM = new JSDOM(await response.text());
-	const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("body > script")];
+	const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("body script")];
 	for (const {textContent} of scripts) {
-		if (textContent == null || !textContent.startsWith("{\"") || !textContent.endsWith("}")) {
+		if (textContent == null || !textContent.startsWith("[") || !textContent.endsWith("]")) {
 			continue;
 		}
 		try {
-			const json: string = `${Object.entries(JSON.parse(textContent)).filter((entry: [string, any]): boolean => {
-				return entry[0].includes("1531842415");
-			})[0][1]}`;
+			const json: string = textContent;
 			const result: any = JSON.parse(json);
 			return {
 				title: "iOS",
 				link: "https://apps.apple.com/app/id1531842415",
-				version: parseVersion(result.d[0].attributes.platformAttributes.ios.versionHistory[0].versionDisplay),
-				date: new Date(result.d[0].attributes.platformAttributes.ios.versionHistory[0].releaseTimestamp),
+				version: parseVersion(result[0].data.shelfMapping.mostRecentVersion.seeAllAction.pageData.shelves[0].items[0].primarySubtitle),
+				date: new Date(result[0].data.shelfMapping.mostRecentVersion.seeAllAction.pageData.shelves[0].items[0].secondarySubtitle),
 			};
 		} catch {}
 	}
@@ -100,7 +98,7 @@ async function fetchSwitchData(): Promise<Data | null> {
 			continue;
 		}
 		try {
-			const json: string =  textContent.slice(textContent.indexOf("{\"pageProps\":") + 13, textContent.lastIndexOf(",\"__N_SSP\":"));
+			const json: string = textContent.slice(textContent.indexOf("{\"pageProps\":") + 13, textContent.lastIndexOf(",\"__N_SSP\":"));
 			const result: any = JSON.parse(json);
 			return {
 				title: "Switch",
