@@ -1344,5 +1344,27 @@
 			"Improved visuals and audio at DJ Pierre's set",
 			"Bug fixes"
 		]
+	},
+	{
+		"name": "12.1.2",
+		"date": {
+			"android": "2025-11-17",
+			"ios": null,
+			"switch": null
+		},
+		"notes": [
+			"Bug fixes"
+		]
+	},
+	{
+		"name": "12.1.3",
+		"date": {
+			"android": "2025-11-26",
+			"ios": "2025-11-28",
+			"switch": null
+		},
+		"notes": [
+			"Bug fixes"
+		]
 	}
 ]
