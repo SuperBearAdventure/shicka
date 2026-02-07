@@ -45,12 +45,13 @@ function compareData(a: Data, b: Data): number {
 	const dateComparison: number = compareDates(a.date, b.date);
 	return dateComparison;
 }
-async function fetchAndroidData(): Promise<Data | null> {
+async function fetchAndroidData(): Promise<Data> {
 	const response: Response = await fetch("https://play.google.com/store/apps/details?id=com.Earthkwak.Platformer");
 	const {window}: JSDOM = new JSDOM(await response.text(), {
 		virtualConsole: new VirtualConsole(),
 	});
 	const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("body > script")];
+	const errors: unknown[] = [];
 	for (const {textContent} of scripts) {
 		if (textContent == null || !textContent.startsWith("AF_initDataCallback({") || !textContent.endsWith("});")) {
 			continue;
@@ -64,16 +65,21 @@ async function fetchAndroidData(): Promise<Data | null> {
 				version: parseVersion(result[1][2][140][0][0][0]),
 				date: new Date(result[1][2][145][0][1][0] * 1000),
 			};
-		} catch {}
+		} catch (error: unknown) {
+			errors.push(error);
+		}
 	}
-	return null;
+	throw new AggregateError(errors);
 }
-async function fetchIosData(): Promise<Data | null> {
+async function fetchIosData(): Promise<Data> {
 	const response: Response = await fetch("https://apps.apple.com/app/id1531842415");
-	const {window}: JSDOM = new JSDOM(await response.text());
+	const {window}: JSDOM = new JSDOM(await response.text(), {
+		virtualConsole: new VirtualConsole(),
+	});
 	const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("body script")];
+	const errors: unknown[] = [];
 	for (const {textContent} of scripts) {
-		if (textContent == null || !textContent.startsWith("[") || !textContent.endsWith("]")) {
+		if (textContent == null || !textContent.startsWith("{") || !textContent.endsWith("}")) {
 			continue;
 		}
 		try {
@@ -82,17 +88,22 @@ async function fetchIosData(): Promise<Data | null> {
 			return {
 				title: "iOS",
 				link: "https://apps.apple.com/app/id1531842415",
-				version: parseVersion(result[0].data.shelfMapping.mostRecentVersion.seeAllAction.pageData.shelves[0].items[0].primarySubtitle),
-				date: new Date(result[0].data.shelfMapping.mostRecentVersion.seeAllAction.pageData.shelves[0].items[0].secondarySubtitle),
+				version: parseVersion(result.data[0].data.shelfMapping.mostRecentVersion.seeAllAction.pageData.shelves[0].items[0].primarySubtitle),
+				date: new Date(result.data[0].data.shelfMapping.mostRecentVersion.seeAllAction.pageData.shelves[0].items[0].secondarySubtitle),
 			};
-		} catch {}
+		} catch (error: unknown) {
+			errors.push(error);
+		}
 	}
-	return null;
+	throw new AggregateError(errors);
 }
-async function fetchSwitchData(): Promise<Data | null> {
+async function fetchSwitchData(): Promise<Data> {
 	const response: Response = await fetch("https://www.nintendo.com/store/products/super-bear-adventure-switch/");
-	const {window}: JSDOM = new JSDOM(await response.text());
+	const {window}: JSDOM = new JSDOM(await response.text(), {
+		virtualConsole: new VirtualConsole(),
+	});
 	const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("body > script")];
+	const errors: unknown[] = [];
 	for (const {textContent} of scripts) {
 		if (textContent == null || !textContent.startsWith("{\"props\":") || !textContent.endsWith("}")) {
 			continue;
@@ -108,11 +119,17 @@ async function fetchSwitchData(): Promise<Data | null> {
 					sku: result.analytics.product.sku,
 				})}`].releaseDate),
 			};
-		} catch {}
+		} catch (error: unknown) {
+			errors.push(error);
+		}
 	}
-	return null;
+	throw new AggregateError(errors);
 }
-async function fetchTentativeData(): Promise<[androidData: Data, iosData: Data, switchData: Data]> {
+async function fetchAuthoritativeData(): Promise<{androidData: Data, iosData: Data, switchData: Data}> {
+	const [androidData, iosData, switchData]: [Data, Data, Data] = await Promise.all<[Promise<Data>, Promise<Data>, Promise<Data>]>([fetchAndroidData(), fetchIosData(), fetchSwitchData()]);
+	return {androidData, iosData, switchData};
+}
+async function fetchTentativeData(): Promise<{androidData: Data, iosData: Data, switchData: Data}> {
 	const response: Response = await fetch("https://superbearadventure.com/game-version.json");
 	const result: any = await response.json();
 	const androidData: Data = {
@@ -133,7 +150,7 @@ async function fetchTentativeData(): Promise<[androidData: Data, iosData: Data, 
 		version: parseVersion(result.switch.version),
 		date: new Date(result.switch.date),
 	};
-	return [androidData, iosData, switchData];
+	return {androidData, iosData, switchData};
 }
 const updateCommand: Command = {
 	register(): ApplicationCommandData {
@@ -150,23 +167,12 @@ const updateCommand: Command = {
 		const {locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		try {
-			const androidData: Data | null = await fetchAndroidData();
-			if (androidData == null) {
-				throw new Error();
-			}
-			const iosData: Data | null = await fetchIosData();
-			if (iosData == null) {
-				throw new Error();
-			}
-			const switchData: Data | null = await fetchSwitchData();
-			if (switchData == null) {
-				throw new Error();
-			}
-			const tentativeData: [androidData: Data, iosData: Data, switchData: Data] = await fetchTentativeData();
+			const authoritativeData: {androidData: Data, iosData: Data, switchData: Data} = await fetchAuthoritativeData();
+			const tentativeData: {androidData: Data, iosData: Data, switchData: Data} = await fetchTentativeData();
 			const data: Data[] = [
-				androidData,
-				iosData,
-				compareData(tentativeData[2], switchData) >= 0 ? tentativeData[2] : switchData,
+				authoritativeData.androidData,
+				authoritativeData.iosData,
+				compareData(tentativeData.switchData, authoritativeData.switchData) >= 0 ? tentativeData.switchData : authoritativeData.switchData,
 			];
 			const links: Localized<(groups: {}) => string>[] = [];
 			for (const item of data) {

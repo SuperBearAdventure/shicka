@@ -61,7 +61,7 @@ const conjunctionFormat: Intl.ListFormat = new Intl.ListFormat("en-US", {
 	style: "long",
 	type: "conjunction",
 });
-async function fetchData(start: number, end: number): Promise<Data[] | null> {
+async function fetchData(start: number, end: number): Promise<Data[]> {
 	try {
 		const records: Data[] = [];
 		for (const gameId of games) {
@@ -171,8 +171,9 @@ async function fetchData(start: number, end: number): Promise<Data[] | null> {
 			}
 		}
 		return records;
-	} catch {}
-	return null;
+	} catch (error: unknown) {
+		throw error;
+	}
 };
 const recordHook: Hook = {
 	register(): WebhookData {
@@ -198,10 +199,7 @@ const recordHook: Hook = {
 		const middle: number = Math.floor(timestamp.getTime() / 21600000) * 21600000;
 		const start: number = middle - 10800000;
 		const end: number = middle + 10800000;
-		const data: Data[] | null = await fetchData(start, end);
-		if (data == null) {
-			throw new Error();
-		}
+		const data: Data[] = await fetchData(start, end);
 		const {client, webhooks}: WebjobInvocation = invocation;
 		const {user}: Client<true> = client;
 		const applicationName: string = user.username;
