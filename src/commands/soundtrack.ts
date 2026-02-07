@@ -50,12 +50,13 @@ function patch(text: string, table: Patch): string {
 	}
 	return table[text];
 }
-async function fetchData(link: string): Promise<Data[] | null> {
+async function fetchData(link: string): Promise<Data[]> {
 	const response: Response = await fetch(link);
 	const {window}: JSDOM = new JSDOM(await response.text(), {
 		virtualConsole: new VirtualConsole(),
 	});
 	const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("script")];
+	const errors: unknown[] = [];
 	for (const {textContent} of scripts) {
 		if (textContent == null || !textContent.startsWith("var ytInitialData = ") || !textContent.endsWith(";")) {
 			continue;
@@ -70,16 +71,18 @@ async function fetchData(link: string): Promise<Data[] | null> {
 					views: patch(item.playlistVideoRenderer.videoInfo.runs[0].text, viewsPatch).replace(viewsPattern, "$1"),
 				};
 			});
-		} catch {}
+		} catch (error: unknown) {
+			errors.push(error);
+		}
 	}
-	return null;
+	throw new AggregateError(errors);
 }
-async function fetchOriginalSoundtrackData(): Promise<Data[] | null> {
-	const result: Data[] | null = await fetchData("https://www.youtube.com/playlist?list=PLDF2V3x1AdQBnalWW0q69H5LF1-wgAxN8");
+async function fetchOriginalSoundtrackData(): Promise<Data[]> {
+	const result: Data[] = await fetchData("https://www.youtube.com/playlist?list=PLDF2V3x1AdQBnalWW0q69H5LF1-wgAxN8");
 	return result;
 }
-async function fetchPierreMusicKitVolume1Data(): Promise<Data[] | null> {
-	const result: Data[] | null = await fetchData("https://www.youtube.com/playlist?list=PLDF2V3x1AdQARk2uRTdyEBRfQgeNIfFcZ");
+async function fetchPierreMusicKitVolume1Data(): Promise<Data[]> {
+	const result: Data[] = await fetchData("https://www.youtube.com/playlist?list=PLDF2V3x1AdQARk2uRTdyEBRfQgeNIfFcZ");
 	return result;
 }
 const soundtrackCommand: Command = {
@@ -97,14 +100,8 @@ const soundtrackCommand: Command = {
 		const {locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		try {
-			const originalSoundtrackData: Data[] | null = await fetchOriginalSoundtrackData();
-			if (originalSoundtrackData == null) {
-				throw new Error();
-			}
-			const pierreMusicKitVolume1Data: Data[] | null = await fetchPierreMusicKitVolume1Data();
-			if (pierreMusicKitVolume1Data == null) {
-				throw new Error();
-			}
+			const originalSoundtrackData: Data[] = await fetchOriginalSoundtrackData();
+			const pierreMusicKitVolume1Data: Data[] = await fetchPierreMusicKitVolume1Data();
 			const data: Data[] = [
 				...originalSoundtrackData,
 				...pierreMusicKitVolume1Data,

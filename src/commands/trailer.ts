@@ -50,12 +50,13 @@ function patch(text: string, table: Patch): string {
 	}
 	return table[text];
 }
-async function fetchData(): Promise<Data[] | null> {
+async function fetchData(): Promise<Data[]> {
 	const response: Response = await fetch("https://www.youtube.com/playlist?list=PLEJBkn30KcVVuA8Z0s_NLruYrbvzV5ieK");
 	const {window}: JSDOM = new JSDOM(await response.text(), {
 		virtualConsole: new VirtualConsole(),
 	});
 	const scripts: HTMLElement[] = [...window.document.querySelectorAll<HTMLElement>("script")];
+	const errors: unknown[] = [];
 	for (const {textContent} of scripts) {
 		if (textContent == null || !textContent.startsWith("var ytInitialData = ") || !textContent.endsWith(";")) {
 			continue;
@@ -70,9 +71,11 @@ async function fetchData(): Promise<Data[] | null> {
 					views: patch(item.playlistVideoRenderer.videoInfo.runs[0].text, viewsPatch).replace(viewsPattern, "$1"),
 				};
 			});
-		} catch {}
+		} catch (error: unknown) {
+			errors.push(error);
+		}
 	}
-	return null;
+	throw new AggregateError(errors);
 }
 const trailerCommand: Command = {
 	register(): ApplicationCommandData {
@@ -89,10 +92,7 @@ const trailerCommand: Command = {
 		const {locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		try {
-			const data: Data[] | null = await fetchData();
-			if (data == null) {
-				throw new Error();
-			}
+			const data: Data[] = await fetchData();
 			const links: Localized<(groups: {}) => string>[] = [];
 			for (const item of data) {
 				const link: Localized<(groups: {}) => string> = composeAll<LinkGroups, {}>(linkLocalizations, localize<LinkGroups>((): LinkGroups => {
