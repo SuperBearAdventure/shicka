@@ -24,7 +24,7 @@
 			"fr": "Rare",
 			"pt-BR": "Raro"
 		},
-		"cost": 250,
+		"cost": 300,
 		"payoffs": [
 			0,
 			5,
