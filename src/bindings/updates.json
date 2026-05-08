@@ -1366,5 +1366,29 @@
 		"notes": [
 			"Bug fixes"
 		]
+	},
+	{
+		"name": "12.1.4",
+		"date": {
+			"android": "2026-04-21",
+			"ios": "2026-04-28",
+			"switch": "2026-04-28"
+		},
+		"notes": [
+			"Updated multiplayer invite code format",
+			"Fixed an issue were the save file could sometimes become corrupted, causing the loss of all progress",
+			"Fixed the game not able to start when the save file is corrupted"
+		]
+	},
+	{
+		"name": "12.1.5",
+		"date": {
+			"android": "2026-04-29",
+			"ios": "2026-04-30",
+			"switch": null
+		},
+		"notes": [
+			"Fixed issue with multiplayer invite codes"
+		]
 	}
 ]
