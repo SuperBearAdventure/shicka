@@ -16,7 +16,8 @@
 			0.7,
 			0.35
 		],
-		"slots": 6
+		"slots": 6,
+		"color": "#e6ffff"
 	},
 	{
 		"name": {
@@ -35,7 +36,8 @@
 			0.27,
 			0.45
 		],
-		"slots": 6
+		"slots": 6,
+		"color": "#0094ff"
 	},
 	{
 		"name": {
@@ -54,7 +56,8 @@
 			0.03,
 			0.2
 		],
-		"slots": 3
+		"slots": 3,
+		"color": "#db0096"
 	},
 	{
 		"name": {
@@ -73,7 +76,8 @@
 			0,
 			0
 		],
-		"slots": 2
+		"slots": 2,
+		"color": "#ff96fe"
 	},
 	{
 		"name": {
@@ -92,7 +96,8 @@
 			0,
 			0
 		],
-		"slots": 1
+		"slots": 1,
+		"color": "#ffaf00"
 	},
 	{
 		"name": {
@@ -111,7 +116,8 @@
 			0,
 			0
 		],
-		"slots": 0
+		"slots": 0,
+		"color": "#8002ff"
 	},
 	{
 		"name": {
@@ -130,7 +136,8 @@
 			0,
 			0
 		],
-		"slots": 0
+		"slots": 0,
+		"color": "#ff91a9"
 	},
 	{
 		"name": {
@@ -149,6 +156,7 @@
 			0,
 			0
 		],
-		"slots": 0
+		"slots": 0,
+		"color": "#ff0000"
 	}
 ]
