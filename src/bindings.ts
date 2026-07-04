@@ -43,6 +43,7 @@ type Outfit = {
 	rarity: number,
 	update: number,
 	variations: number,
+	slug: string,
 };
 type Race = {
 	id: number,
@@ -55,6 +56,7 @@ type Rarity = {
 	payoffs: number[],
 	probabilities: number[],
 	slots: number,
+	color: string,
 };
 type Sublevel = {
 	id: number,
@@ -83,7 +85,14 @@ function bind<Type>(array: Type[]): (Type & {id: number})[] {
 const outfitsMapping: {[k in string]: number} = Object.fromEntries(Object.keys(outfitsBinding).map<[string, number]>((key: string, index: number): [string, number] => {
 	return [key, index];
 }));
-const outfitsBindingAsArray: Omit<Outfit, "id">[] = Object.values(outfitsBinding);
+const outfitsBindingAsArray: Omit<Outfit, "id">[] = Object.entries(outfitsBinding).map(([id, outfit]: [string, Omit<Outfit, "slug" | "id">]): Omit<Outfit, "id"> => {
+	return {
+		...outfit,
+		slug: id.replaceAll(/[0-9A-Z]/g, ($0: string): string => {
+			return `-${$0.toLowerCase()}`;
+		}),
+	};
+});
 const bearsBindingAsArray: Omit<Bear, "id">[] = bearsBinding.map<Omit<Bear, "id">>((bear: Omit<Bear, "outfits" | "variations" | "id"> & {"outfits": {[k in string]: number}}): Omit<Bear, "id"> => {
 	return {
 		...bear,

@@ -1,9 +1,11 @@
 import type {
 	ApplicationCommandOptionChoiceData,
+	AttachmentPayload,
 	AutocompleteFocusedOption,
 	AutocompleteInteraction,
 	ChatInputCommandInteraction,
 } from "discord.js";
+import type {Canvas, CanvasRenderingContext2D, Image} from "canvas";
 import type {Outfit, Rarity} from "../bindings.js";
 import type Command from "../commands.js";
 import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
@@ -11,10 +13,12 @@ import type {Outfit as OutfitCompilation} from "../compilations.js";
 import type {Outfit as OutfitDefinition} from "../definitions.js";
 import type {Outfit as OutfitDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
+import {fileURLToPath} from "node:url";
 import {
 	ApplicationCommandOptionType,
 	escapeMarkdown,
 } from "discord.js";
+import canvas from "canvas";
 import {outfits, rarities} from "../bindings.js";
 import {outfit as outfitCompilation} from "../compilations.js";
 import {outfit as outfitDefinition} from "../definitions.js";
@@ -25,6 +29,11 @@ type TokensCostGroups = OutfitDependency["tokensCost"];
 type CoinsCostGroups = OutfitDependency["coinsCost"];
 type ScheduleGroups = OutfitDependency["schedule"];
 type BareScheduleGroups = OutfitDependency["bareSchedule"];
+type Schedule = {
+	content: Localized<(groups: {}) => string>,
+	attachment: Buffer<ArrayBufferLike>,
+	name: string,
+};
 const {
 	commandName,
 	commandDescription,
@@ -42,6 +51,7 @@ const {
 	schedule: scheduleLocalizations,
 	bareSchedule: bareScheduleLocalizations,
 }: OutfitCompilation = outfitCompilation;
+const {createCanvas, loadImage}: any = canvas;
 const {
 	SHICKA_OUTFIT_GENERATOR_SALT,
 }: NodeJS.ProcessEnv = process.env;
@@ -163,7 +173,7 @@ const outfitCommand: Command = {
 		const now: number = Math.floor(interaction.createdTimestamp / 28800000);
 		const id: number | null = options.getInteger(outfitOptionName);
 		if (id == null) {
-		const schedules: Localized<(groups: {}) => string>[] = [];
+		const schedules: Schedule[] = [];
 		for (let k: number = -2; k < 3; ++k) {
 			const day: number = now + k;
 			const seed: number = Math.floor(day / slicesPerRarity);
@@ -183,6 +193,19 @@ const outfitCommand: Command = {
 			const scheduleOutfits: Outfit[] = slicesByRarity.map<Outfit[]>((slices: Outfit[][]): Outfit[] => {
 				return slices[index];
 			}).flat<Outfit[][]>();
+			const width: number = rarities[0].slots;
+			const height: number = Math.ceil(scheduleOutfits.length / width);
+			const canvas: Canvas = createCanvas(60 * width, 60 * height);
+			const context: CanvasRenderingContext2D = canvas.getContext("2d");
+			for (const [slot, outfit] of scheduleOutfits.entries()) {
+				const image: Image = await loadImage(fileURLToPath(import.meta.resolve(`../outfits/${outfit.slug}.png`)));
+				context.drawImage(image, 60 * (slot % width) + 6, 60 * Math.floor(slot / width) + 6, 48, 48);
+				context.lineWidth = 3;
+				context.strokeStyle = rarities[outfit.rarity].color;
+				context.beginPath();
+				context.roundRect(60 * (slot % width) + 4.5, 60 * Math.floor(slot / width) + 4.5, 51, 51, 6);
+				context.stroke();
+			}
 			const dayDateTime: Date = new Date(day * 28800000);
 			const schedule: Localized<(groups: {}) => string> = composeAll<BareScheduleGroups, {}>(bareScheduleLocalizations, localize<BareScheduleGroups>((locale: Locale): BareScheduleGroups => {
 				const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
@@ -205,19 +228,29 @@ const outfitCommand: Command = {
 					},
 				};
 			}));
-			schedules.push(schedule);
+			schedules.push({
+				content: schedule,
+				attachment: canvas.toBuffer(),
+				name: `${day}.png`,
+			});
 		}
 		function formatMessage(locale: Locale): string {
 			return bareReplyLocalizations[locale]({
 				scheduleList: (): string => {
-					return list(schedules.map<string>((schedule: Localized<(groups: {}) => string>): string => {
-						return schedule[locale]({});
+					return list(schedules.map<string>((schedule: Schedule): string => {
+						return schedule.content[locale]({});
 					}));
 				},
 			});
 		}
 		await interaction.reply({
 			content: formatMessage("en-US"),
+			files: schedules.map<AttachmentPayload>((schedule: Schedule): AttachmentPayload => {
+				return {
+					attachment: schedule.attachment,
+					name: schedule.name,
+				};
+			})
 		});
 		if (resolvedLocale === "en-US") {
 			return;
@@ -229,6 +262,15 @@ const outfitCommand: Command = {
 		return;
 		}
 		const outfit: Outfit = outfits[id];
+		const canvas: Canvas = createCanvas(320, 320);
+		const context: CanvasRenderingContext2D = canvas.getContext("2d");
+		const image: Image = await loadImage(fileURLToPath(import.meta.resolve(`../outfits/${outfit.slug}.png`)));
+		context.drawImage(image, 32, 32, 256, 256);
+		context.lineWidth = 16;
+		context.strokeStyle = rarities[outfit.rarity].color;
+		context.beginPath();
+		context.roundRect(24, 24, 272, 272, 32);
+		context.stroke();
 		if (rarities[outfit.rarity].slots === 0) {
 			function formatMessage(locale: Locale): string {
 				return noSlotReplyLocalizations[locale]({
@@ -239,6 +281,12 @@ const outfitCommand: Command = {
 			}
 			await interaction.reply({
 				content: formatMessage("en-US"),
+				files: [
+					{
+						attachment: canvas.toBuffer(),
+						name: `${outfit.slug}.png`,
+					},
+				],
 			});
 			if (resolvedLocale === "en-US") {
 				return;
@@ -324,6 +372,12 @@ const outfitCommand: Command = {
 		}
 		await interaction.reply({
 			content: formatMessage("en-US"),
+			files: [
+				{
+					attachment: canvas.toBuffer(),
+					name: `${outfit.slug}.png`,
+				},
+			],
 		});
 		if (resolvedLocale === "en-US") {
 			return;
