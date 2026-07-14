@@ -51,7 +51,7 @@ const {
 	schedule: scheduleLocalizations,
 	bareSchedule: bareScheduleLocalizations,
 }: OutfitCompilation = outfitCompilation;
-const {createCanvas, loadImage}: any = canvas;
+const {createCanvas, deregisterAllFonts, loadImage, registerFont}: any = canvas;
 const {
 	SHICKA_OUTFIT_GENERATOR_SALT,
 }: NodeJS.ProcessEnv = process.env;
@@ -195,17 +195,35 @@ const outfitCommand: Command = {
 			}).flat<Outfit[][]>();
 			const width: number = rarities["rarity_common"].slots;
 			const height: number = Math.ceil(scheduleOutfits.length / width);
-			const canvas: Canvas = createCanvas(60 * width, 60 * height);
+			registerFont(fileURLToPath(import.meta.resolve(`../fonts/milky-nice-clean.ttf`)), {
+				family: "MilkyNice",
+			});
+			const canvas: Canvas = createCanvas((96 + 8) * width, (96 + 8 + 24) * height);
 			const context: CanvasRenderingContext2D = canvas.getContext("2d");
 			for (const [slot, outfit] of scheduleOutfits.entries()) {
-				const image: Image = await loadImage(fileURLToPath(import.meta.resolve(`../outfits/${outfit.key}.png`)));
-				context.drawImage(image, 60 * (slot % width) + 6, 60 * Math.floor(slot / width) + 6, 48, 48);
-				context.lineWidth = 3;
-				context.strokeStyle = rarities[outfit.rarity].color;
+				context.fillStyle = rarities[outfit.rarity].color;
 				context.beginPath();
-				context.roundRect(60 * (slot % width) + 4.5, 60 * Math.floor(slot / width) + 4.5, 51, 51, 6);
-				context.stroke();
+				context.roundRect((96 + 8) * (slot % width) + 8 / 2, (96 + 8 + 24) * Math.floor(slot / width) + 8 / 2, 96, 96 + 24, 12);
+				context.fill();
+				const image: Image = await loadImage(fileURLToPath(import.meta.resolve(`../outfits/${outfit.key}.png`)));
+				context.drawImage(image, (96 + 8) * (slot % width) + 8 / 2, (96 + 8 + 24) * Math.floor(slot / width) + 8 / 2, 96, 96);
+				context.fillStyle = "#3333";
+				context.beginPath();
+				context.roundRect((96 + 8) * (slot % width) + 8 / 2, (96 + 8 + 24) * Math.floor(slot / width) + 96 + 8 / 2, 96, 24, [0, 0, 12, 12]);
+				context.fill();
+				context.lineWidth = 2;
+				context.lineCap = "round";
+				context.lineJoin = "round";
+				context.textAlign = "center";
+				context.textBaseline = "middle";
+				context.font = `bold ${24}px / 1.25 "MilkyNice"`;
+				context.strokeStyle = "#000";
+				context.strokeText(outfit.name["en-US"], (96 + 8) * (slot % width) + 96 / 2 + 8 / 2, (96 + 8 + 24) * Math.floor(slot / width) + 96 + 8 / 2 + 24 / 2, 96);
+				context.strokeText(outfit.name["en-US"], (96 + 8) * (slot % width) + 96 / 2 + 8 / 2, (96 + 8 + 24) * Math.floor(slot / width) + 96 + 8 / 2 + 24 / 2 + 2 / 2, 96);
+				context.fillStyle = "#fff";
+				context.fillText(outfit.name["en-US"], (96 + 8) * (slot % width) + 96 / 2 + 8 / 2, (96 + 8 + 24) * Math.floor(slot / width) + 96 + 8 / 2 + 24 / 2, 96);
 			}
+			deregisterAllFonts();
 			const dayDateTime: Date = new Date(day * 28800000);
 			const schedule: Localized<(groups: {}) => string> = composeAll<BareScheduleGroups, {}>(bareScheduleLocalizations, localize<BareScheduleGroups>((locale: Locale): BareScheduleGroups => {
 				const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
@@ -262,15 +280,29 @@ const outfitCommand: Command = {
 		return;
 		}
 		const outfit: Outfit = Object.values(outfits)[index];
-		const canvas: Canvas = createCanvas(320, 320);
+		const canvas: Canvas = createCanvas(256 + 32, 256 + 32 + 64);
 		const context: CanvasRenderingContext2D = canvas.getContext("2d");
-		const image: Image = await loadImage(fileURLToPath(import.meta.resolve(`../outfits/${outfit.key}.png`)));
-		context.drawImage(image, 32, 32, 256, 256);
-		context.lineWidth = 16;
-		context.strokeStyle = rarities[outfit.rarity].color;
+		context.fillStyle = rarities[outfit.rarity].color;
 		context.beginPath();
-		context.roundRect(24, 24, 272, 272, 32);
-		context.stroke();
+		context.roundRect(32 / 2, 32 / 2, 256, 256 + 64, 32);
+		context.fill();
+		const image: Image = await loadImage(fileURLToPath(import.meta.resolve(`../outfits/${outfit.key}.png`)));
+		context.drawImage(image, 32 / 2, 32 / 2, 256, 256);
+		context.fillStyle = "#3333";
+		context.beginPath();
+		context.roundRect(32 / 2, 256 + 32 / 2, 256, 64, [0, 0, 32, 32]);
+		context.fill();
+		context.lineWidth = 6;
+		context.lineCap = "round";
+		context.lineJoin = "round";
+		context.textAlign = "center";
+		context.textBaseline = "middle";
+		context.font = `bold ${64}px / 1.25 "MilkyNice"`;
+		context.strokeStyle = "#000";
+		context.strokeText(outfit.name["en-US"], 256 / 2 + 32 / 2, 256 + 32 / 2 + 64 / 2, 256);
+		context.strokeText(outfit.name["en-US"], 256 / 2 + 32 / 2, 256 + 32 / 2 + 64 / 2 + 6 / 2, 256);
+		context.fillStyle = "#fff";
+		context.fillText(outfit.name["en-US"], 256 / 2 + 32 / 2, 256 + 32 / 2 + 64 / 2, 256);
 		if (rarities[outfit.rarity].slots === 0) {
 			function formatMessage(locale: Locale): string {
 				return noSlotReplyLocalizations[locale]({
