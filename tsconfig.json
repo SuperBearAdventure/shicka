@@ -1,18 +1,14 @@
 {
   "compilerOptions": {
     "exactOptionalPropertyTypes": true,
-    "isolatedModules": true,
     "lib": ["esnext"],
-    "module": "node20",
-    "moduleDetection": "auto",
+    "module": "nodenext",
+    "moduleDetection": "force",
     "noUncheckedIndexedAccess": false,
-    "noUncheckedSideEffectImports": true,
     "outDir": "bin",
     "rootDir": "src",
     "skipLibCheck": true,
-    "strict": true,
     "target": "esnext",
-    "types": [],
     "verbatimModuleSyntax": true
   }
 }
