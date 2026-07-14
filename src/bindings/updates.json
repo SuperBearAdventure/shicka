@@ -1269,5 +1269,54 @@
 		"notes": [
 			"Fixed issue with multiplayer invite codes"
 		]
+	},
+	"13.0.0b1": {
+		"date": {
+			"android": "2026-06-26",
+			"ios": null,
+			"switch": null
+		},
+		"notes": []
+	},
+	"13.0.0b2": {
+		"date": {
+			"android": "2026-06-30",
+			"ios": null,
+			"switch": null
+		},
+		"notes": []
+	},
+	"13.0.0b3": {
+		"date": {
+			"android": "2026-07-09",
+			"ios": null,
+			"switch": null
+		},
+		"notes": []
+	},
+	"13.0.0": {
+		"date": {
+			"android": "2026-07-17",
+			"ios": "2026-07-21",
+			"switch": null
+		},
+		"notes": [
+			"Added new mole level for Turtletown: The Crystalline Lagoon",
+			"Added new gamemode for every level: Hardcore mode",
+			"Added 150+ new items, as well as a lot of new levels for existing items",
+			"Added cosmetic bundles: new collections of paid items",
+			"Reworked the bear customization area",
+			"Added new arcade machine in the Arcade World"
+		]
+	},
+	"13.0.1": {
+		"date": {
+			"android": "2026-07-22",
+			"ios": null,
+			"switch": null
+		},
+		"notes": [
+			"Bug fixes"
+		]
 	}
 }

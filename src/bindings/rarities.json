@@ -158,5 +158,25 @@
 		],
 		"slots": 0,
 		"color": "#ff0000"
+	},
+	"cosmetic_default": {
+		"name": {
+			"en-US": "Default",
+			"fr": "Défaut",
+			"pt-BR": "Padrão"
+		},
+		"cost": 0,
+		"payoffs": [
+			0,
+			0,
+			0
+		],
+		"probabilities": [
+			0,
+			0,
+			0
+		],
+		"slots": 0,
+		"color": "#ffffff"
 	}
 }
