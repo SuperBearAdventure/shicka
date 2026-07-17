@@ -1,72 +1,72 @@
-[
-	{
+{
+	"mission_lava": {
 		"name": {
 			"en-US": "Floor is lava",
 			"fr": "Le sol est en lave",
 			"pt-BR": "O Chão é Lava"
 		}
 	},
-	{
+	"mission_airplane": {
 		"name": {
 			"en-US": "Paper plane flight",
 			"fr": "Voltige",
 			"pt-BR": "Voo com Avião de Papel"
 		}
 	},
-	{
+	"mission_egg": {
 		"name": {
 			"en-US": "Egg hunt",
 			"fr": "Chasse aux œufs",
 			"pt-BR": "Caça aos Ovos"
 		}
 	},
-	{
+	"mission_sleeping_moles": {
 		"name": {
 			"en-US": "Sleeping moles",
 			"fr": "Taupes endormies",
 			"pt-BR": "Toupeiras Dorminhocas"
 		}
 	},
-	{
+	"mission_parkour": {
 		"name": {
 			"en-US": "Parkour",
 			"fr": "Parkour",
 			"pt-BR": "Parkour"
 		}
 	},
-	{
+	"mission_electricity": {
 		"name": {
 			"en-US": "Electricity issue",
 			"fr": "Problème électrique",
 			"pt-BR": "Problema Elétrico"
 		}
 	},
-	{
+	"mission_kart": {
 		"name": {
 			"en-US": "Karting",
 			"fr": "Karting",
 			"pt-BR": "Karting"
 		}
 	},
-	{
+	"mission_flooding": {
 		"name": {
 			"en-US": "Flooding",
 			"fr": "Inondation",
 			"pt-BR": "Inundação"
 		}
 	},
-	{
+	"mission_race": {
 		"name": {
 			"en-US": "Rally",
 			"fr": "Rallye",
 			"pt-BR": "Rali"
 		}
 	},
-	{
+	"mission_penalty": {
 		"name": {
 			"en-US": "Soccer",
 			"fr": "Tirs au but",
 			"pt-BR": "Pênaltis"
 		}
 	}
-]
+}

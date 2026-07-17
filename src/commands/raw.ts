@@ -48,7 +48,7 @@ const rawCommand: Command = {
 						const binding: Binding = bindings[bindingName as keyof typeof bindings];
 						return [bindingName, binding];
 					}).filter(([bindingName, binding]: [string, Binding]): boolean => {
-						return binding.length !== 0;
+						return Object.keys(binding).length !== 0;
 					}).map<ApplicationCommandOptionChoiceData<string>>(([bindingName, binding]: [string, Binding]): ApplicationCommandOptionChoiceData<string> => {
 						return {
 							name: bindingName,
@@ -93,8 +93,8 @@ const rawCommand: Command = {
 		}
 		const binding: Binding = bindings[bindingName as keyof typeof bindings];
 		const identifier: number = options.getInteger(identifierOptionName, true);
-		if (identifier < 0 || identifier >= binding.length) {
-			const max: number = binding.length - 1;
+		if (identifier < 0 || identifier >= Object.keys(binding).length) {
+			const max: number = Object.keys(binding).length - 1;
 			await interaction.reply({
 				content: noIdentifierReplyLocalizations[resolvedLocale]({
 					max: (): string => {
@@ -105,7 +105,7 @@ const rawCommand: Command = {
 			});
 			return;
 		}
-		const datum: string = JSON.stringify(binding[identifier], null, "\t");
+		const datum: string = JSON.stringify(Object.values(binding)[identifier], null, "\t");
 		await interaction.reply({
 			content: `\`\`\`json\n${escapeMarkdown(datum)}\n\`\`\``,
 		});

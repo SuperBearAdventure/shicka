@@ -58,7 +58,7 @@ const bearCommand: Command = {
 					descriptionLocalizations: bearOptionDescription,
 					required: true,
 					minValue: 0,
-					maxValue: bears.length - 1,
+					maxValue: Object.keys(bears).length - 1,
 					autocomplete: true,
 				},
 			],
@@ -73,17 +73,17 @@ const bearCommand: Command = {
 				await interaction.respond([]);
 				return;
 			}
-			const results: Bear[] = nearest<Bear>(value.toLocaleLowerCase(resolvedLocale), bears, 7, (bear: Bear): string => {
+			const results: Bear[] = nearest<Bear>(value.toLocaleLowerCase(resolvedLocale), Object.values(bears), 7, (bear: Bear): string => {
 				const {name}: Bear = bear;
 				const bearName: string = name[resolvedLocale];
 				return bearName.toLocaleLowerCase(resolvedLocale);
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData<number>>((bear: Bear): ApplicationCommandOptionChoiceData<number> => {
-				const {id, name}: Bear = bear;
+				const {index, name}: Bear = bear;
 				const bearName: string = name[resolvedLocale];
 				return {
 					name: bearName,
-					value: id,
+					value: index,
 				};
 			});
 			await interaction.respond(suggestions);
@@ -94,14 +94,14 @@ const bearCommand: Command = {
 		}
 		const {locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
-		const id: number = options.getInteger(bearOptionName, true);
-		const bear: Bear = bears[id];
+		const index: number = options.getInteger(bearOptionName, true);
+		const bear: Bear = Object.values(bears)[index];
 		const {boss, coins, gold, name}: Bear = bear;
 		const level: Level = levels[bear.level];
-		const outfitsAndVariations: [Outfit, number][] = bear.outfits.map<[Outfit, number]>((outfit: number, index: number): [Outfit, number] => {
+		const outfitsAndVariations: [Outfit, number][] = (Object.entries(bear.outfits) as [keyof typeof outfits, number][]).map<[Outfit, number]>(([outfit, variation]: [keyof typeof outfits, number]): [Outfit, number] => {
 			return [
 				outfits[outfit],
-				bear.variations[index],
+				variation,
 			];
 		});
 		const outfitNames: Localized<(groups: {}) => string>[] = outfitsAndVariations.map<Localized<(groups: {}) => string>>((outfitAndVariation: [Outfit, number]): Localized<(groups: {}) => string> => {

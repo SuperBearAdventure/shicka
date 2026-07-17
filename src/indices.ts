@@ -1,13 +1,9 @@
 import type {
 	Bear,
-	Challenge,
 	Level,
 	Mission,
 	Outfit,
-	Race,
-	Rarity,
 	Sublevel,
-	Update,
 } from "./bindings.js";
 import {
 	bears,
@@ -15,49 +11,49 @@ import {
 	levels,
 	missions,
 	outfits,
-	// races,
 	rarities,
 	sublevels,
 	updates,
 } from "./bindings.js";
-type Index = (Bear | Challenge | Level | Mission | Outfit | Race | Rarity | Sublevel | Update)[][];
-function indexBy<Left extends {[k in Key]: number}, Right, Key extends string>(leftArray: Left[], rightArray: Right[], key: Key): Left[][] {
-	const index: Left[][] = Array.from<Right, Left[]>(rightArray, (): Left[] => {
-		return [];
-	});
-	for (const value of leftArray) {
-		index[value[key]].push(value);
+type BearKey = keyof typeof bears;
+type ChallengeKey = keyof typeof challenges;
+type LevelKey = keyof typeof levels;
+type MissionKey = keyof typeof missions;
+type OutfitKey = keyof typeof outfits;
+type RarityKey = keyof typeof rarities;
+type SublevelKey = keyof typeof sublevels;
+type UpdateKey = keyof typeof updates;
+type IndexEntries<OtherKey extends string, OwnKey extends string, Value extends object> = {
+	[k in OtherKey]?: {
+		[k in OwnKey]?: Value
+	}
+};
+type BearByLevelEntries = IndexEntries<LevelKey, BearKey, Bear>;
+type LevelByLevelEntries = IndexEntries<LevelKey, LevelKey, Level>;
+type MissionByChallengeEntries = IndexEntries<ChallengeKey, MissionKey, Mission>;
+type MissionByLevelEntries = IndexEntries<LevelKey, MissionKey, Mission>;
+type OutfitByRarityEntries = IndexEntries<RarityKey, OutfitKey, Outfit>;
+type OutfitByUpdateEntries = IndexEntries<UpdateKey, OutfitKey, Outfit>;
+type SublevelByLevelEntries = IndexEntries<LevelKey, SublevelKey, Sublevel>;
+type Index = BearByLevelEntries | LevelByLevelEntries | MissionByChallengeEntries | MissionByLevelEntries | OutfitByRarityEntries | OutfitByUpdateEntries | SublevelByLevelEntries;
+function indexBy<OtherKey extends string, OwnKey extends string, Value extends {[k in IndexKey]: OtherKey | null}, IndexKey extends string>(object: {[k in OwnKey]: Value}, indexKey: IndexKey): IndexEntries<OtherKey, OwnKey, Value> {
+	const index: IndexEntries<OtherKey, OwnKey, Value> = Object.create(null);
+	for (const [ownKey, value] of Object.entries(object) as [OwnKey, Value][]) {
+		const otherKey: OtherKey | null = value[indexKey];
+		if (otherKey == null) {
+			continue;
+		}
+		(index[otherKey] ??= Object.create(null))[ownKey] = value;
 	}
 	return index;
 }
-function indexBearsByLevel(bears: Bear[], levels: Level[]): Bear[][] {
-	return indexBy<Bear, Level, "level">(bears, levels, "level");
-}
-function indexLevelsByLevel(leftLevels: Level[], rightLevels: Level[]): Level[][] {
-	return indexBy<Level, Level, "level">(leftLevels, rightLevels, "level");
-}
-function indexMissionsByChallenge(missions: Mission[], challenges: Challenge[]): Mission[][] {
-	return indexBy<Mission, Challenge, "challenge">(missions, challenges, "challenge");
-}
-function indexMissionsByLevel(missions: Mission[], levels: Level[]): Mission[][] {
-	return indexBy<Mission, Level, "level">(missions, levels, "level");
-}
-function indexOutfitsByRarity(outfits: Outfit[], rarities: Rarity[]): Outfit[][] {
-	return indexBy<Outfit, Rarity, "rarity">(outfits, rarities, "rarity");
-}
-function indexOutfitsByUpdate(outfits: Outfit[], updates: Update[]): Outfit[][] {
-	return indexBy<Outfit, Update, "update">(outfits, updates, "update");
-}
-function indexSublevelsByLevel(sublevels: Sublevel[], levels: Level[]): Sublevel[][] {
-	return indexBy<Sublevel, Level, "level">(sublevels, levels, "level");
-}
-const bearsByLevel: Bear[][] = indexBearsByLevel(bears, levels);
-const levelsByLevel: Level[][] = indexLevelsByLevel(levels, levels);
-const missionsByChallenge: Mission[][] = indexMissionsByChallenge(missions, challenges);
-const missionsByLevel: Mission[][] = indexMissionsByLevel(missions, levels);
-const outfitsByRarity: Outfit[][] = indexOutfitsByRarity(outfits, rarities);
-const outfitsByUpdate: Outfit[][] = indexOutfitsByUpdate(outfits, updates);
-const sublevelsByLevel: Sublevel[][] = indexSublevelsByLevel(sublevels, levels);
+const bearsByLevel: BearByLevelEntries = indexBy<LevelKey, BearKey, Bear, "level">(bears, "level");
+const levelsByLevel: LevelByLevelEntries = indexBy<LevelKey, LevelKey, Level, "level">(levels, "level");
+const missionsByChallenge: MissionByChallengeEntries = indexBy<ChallengeKey, MissionKey, Mission, "challenge">(missions, "challenge");
+const missionsByLevel: MissionByLevelEntries = indexBy<LevelKey, MissionKey, Mission, "level">(missions, "level");
+const outfitsByRarity: OutfitByRarityEntries = indexBy<RarityKey, OutfitKey, Outfit, "rarity">(outfits, "rarity");
+const outfitsByUpdate: OutfitByUpdateEntries = indexBy<UpdateKey, OutfitKey, Outfit, "update">(outfits, "update");
+const sublevelsByLevel: SublevelByLevelEntries = indexBy<LevelKey, SublevelKey, Sublevel, "level">(sublevels, "level");
 export type {Index as default};
 export type {
 	Bear,

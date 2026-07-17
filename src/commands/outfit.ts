@@ -127,7 +127,7 @@ const outfitCommand: Command = {
 					description: outfitOptionDescription["en-US"],
 					descriptionLocalizations: outfitOptionDescription,
 					minValue: 0,
-					maxValue: outfits.length - 1,
+					maxValue: Object.keys(outfits).length - 1,
 					autocomplete: true,
 				},
 			],
@@ -142,17 +142,17 @@ const outfitCommand: Command = {
 				await interaction.respond([]);
 				return;
 			}
-			const results: Outfit[] = nearest<Outfit>(value.toLocaleLowerCase(resolvedLocale), outfits, 7, (outfit: Outfit): string => {
+			const results: Outfit[] = nearest<Outfit>(value.toLocaleLowerCase(resolvedLocale), Object.values(outfits), 7, (outfit: Outfit): string => {
 				const {name}: Outfit = outfit;
 				const outfitName: string = name[resolvedLocale];
 				return outfitName.toLocaleLowerCase(resolvedLocale);
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData<number>>((outfit: Outfit): ApplicationCommandOptionChoiceData<number> => {
-				const {id, name}: Outfit = outfit;
+				const {index, name}: Outfit = outfit;
 				const outfitName: string = name[resolvedLocale];
 				return {
 					name: outfitName,
-					value: id,
+					value: index,
 				};
 			});
 			await interaction.respond(suggestions);
@@ -164,41 +164,41 @@ const outfitCommand: Command = {
 		const {locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const slicesByRarityBySeed: {[k in string]: Outfit[][][]} = Object.create(null);
-		const slicesPerRarity: number = Math.ceil(Math.max(...rarities.map<number>((rarity: Rarity): number => {
+		const slicesPerRarity: number = Math.ceil(Math.max(...Object.values(rarities).map<number>((rarity: Rarity): number => {
 			if (rarity.slots === 0) {
 				return 0;
 			}
-			return outfitsByRarity[rarity.id].length / rarity.slots;
+			return Object.keys(outfitsByRarity[rarity.key] ?? Object.create(null)).length / rarity.slots;
 		})));
 		const now: number = Math.floor(interaction.createdTimestamp / 28800000);
-		const id: number | null = options.getInteger(outfitOptionName);
-		if (id == null) {
+		const index: number | null = options.getInteger(outfitOptionName);
+		if (index == null) {
 		const schedules: Schedule[] = [];
 		for (let k: number = -2; k < 3; ++k) {
 			const day: number = now + k;
 			const seed: number = Math.floor(day / slicesPerRarity);
 			const slicesByRarity: Outfit[][][] = slicesByRarityBySeed[seed] ??= ((): Outfit[][][] => {
 				const generator: Iterator<bigint> = xorShift32(knuth(BigInt(seed) + BigInt(commandGeneratorSalt)) || BigInt(commandGeneratorSalt));
-				return rarities.map<Outfit[][]>((rarity: Rarity): Outfit[][] => {
+				return Object.values(rarities).map<Outfit[][]>((rarity: Rarity): Outfit[][] => {
 					if (rarity.slots === 0) {
 						const length: number = slicesPerRarity;
 						return Array.from<undefined, Outfit[]>({length}, (): Outfit[] => {
 							return [];
 						});
 					}
-					return sliceOutfits(generator, outfitsByRarity[rarity.id], rarity.slots, slicesPerRarity);
+					return sliceOutfits(generator, Object.values(outfitsByRarity[rarity.key] ?? Object.create(null)), rarity.slots, slicesPerRarity);
 				});
 			})();
 			const index: number = day - seed * slicesPerRarity;
 			const scheduleOutfits: Outfit[] = slicesByRarity.map<Outfit[]>((slices: Outfit[][]): Outfit[] => {
 				return slices[index];
 			}).flat<Outfit[][]>();
-			const width: number = rarities[0].slots;
+			const width: number = rarities["rarity_common"].slots;
 			const height: number = Math.ceil(scheduleOutfits.length / width);
 			const canvas: Canvas = createCanvas(60 * width, 60 * height);
 			const context: CanvasRenderingContext2D = canvas.getContext("2d");
 			for (const [slot, outfit] of scheduleOutfits.entries()) {
-				const image: Image = await loadImage(fileURLToPath(import.meta.resolve(`../outfits/${outfit.slug}.png`)));
+				const image: Image = await loadImage(fileURLToPath(import.meta.resolve(`../outfits/${outfit.key}.png`)));
 				context.drawImage(image, 60 * (slot % width) + 6, 60 * Math.floor(slot / width) + 6, 48, 48);
 				context.lineWidth = 3;
 				context.strokeStyle = rarities[outfit.rarity].color;
@@ -261,10 +261,10 @@ const outfitCommand: Command = {
 		});
 		return;
 		}
-		const outfit: Outfit = outfits[id];
+		const outfit: Outfit = Object.values(outfits)[index];
 		const canvas: Canvas = createCanvas(320, 320);
 		const context: CanvasRenderingContext2D = canvas.getContext("2d");
-		const image: Image = await loadImage(fileURLToPath(import.meta.resolve(`../outfits/${outfit.slug}.png`)));
+		const image: Image = await loadImage(fileURLToPath(import.meta.resolve(`../outfits/${outfit.key}.png`)));
 		context.drawImage(image, 32, 32, 256, 256);
 		context.lineWidth = 16;
 		context.strokeStyle = rarities[outfit.rarity].color;
@@ -284,7 +284,7 @@ const outfitCommand: Command = {
 				files: [
 					{
 						attachment: canvas.toBuffer(),
-						name: `${outfit.slug}.png`,
+						name: `${outfit.key}.png`,
 					},
 				],
 			});
@@ -303,15 +303,15 @@ const outfitCommand: Command = {
 			const seed: number = Math.floor(day / slicesPerRarity);
 			const slicesByRarity: Outfit[][][] = slicesByRarityBySeed[seed] ??= ((): Outfit[][][] => {
 				const generator: Iterator<bigint> = xorShift32(knuth(BigInt(seed) + BigInt(commandGeneratorSalt)) || BigInt(commandGeneratorSalt));
-				return rarities.map<Outfit[][]>((rarity: Rarity): Outfit[][] => {
+				return Object.values(rarities).map<Outfit[][]>((rarity: Rarity): Outfit[][] => {
 					if (rarity.slots === 0) {
 						return [];
 					}
-					return sliceOutfits(generator, outfitsByRarity[rarity.id], rarity.slots, slicesPerRarity);
+					return sliceOutfits(generator, Object.values(outfitsByRarity[rarity.key] ?? Object.create(null)), rarity.slots, slicesPerRarity);
 				});
 			})();
 			const index: number = day - seed * slicesPerRarity;
-			if (slicesByRarity[outfit.rarity][index].includes(outfit)) {
+			if (slicesByRarity[rarities[outfit.rarity].index][index].includes(outfit)) {
 				const dayDateTime: Date = new Date(day * 28800000);
 				const schedule: Localized<(groups: {}) => string> = composeAll<ScheduleGroups, {}>(scheduleLocalizations, localize<ScheduleGroups>((locale: Locale): ScheduleGroups => {
 					const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
@@ -375,7 +375,7 @@ const outfitCommand: Command = {
 			files: [
 				{
 					attachment: canvas.toBuffer(),
-					name: `${outfit.slug}.png`,
+					name: `${outfit.key}.png`,
 				},
 			],
 		});

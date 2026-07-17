@@ -1,12 +1,12 @@
-[
-	{
+{
+	"ui_level_mole2": {
 		"diamond": 135,
 		"gold": 165,
-		"level": 8
+		"level": "ui_level_mole2"
 	},
-	{
+	"ui_level_mole3": {
 		"diamond": 210,
 		"gold": 240,
-		"level": 9
+		"level": "ui_level_mole3"
 	}
-]
+}
