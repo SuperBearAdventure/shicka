@@ -1,30 +1,30 @@
-[
-	{
+{
+	"arcade_race_1": {
 		"name": {
 			"en-US": "Classic",
 			"fr": "Classique",
 			"pt-BR": "Clássico"
 		}
 	},
-	{
+	"arcade_race_2": {
 		"name": {
 			"en-US": "Looping",
 			"fr": "Looping",
 			"pt-BR": "Looping"
 		}
 	},
-	{
+	"arcade_race_3": {
 		"name": {
 			"en-US": "Desert",
 			"fr": "Désert",
 			"pt-BR": "Deserto"
 		}
 	},
-	{
+	"arcade_race_4": {
 		"name": {
 			"en-US": "Tubes",
 			"fr": "Tubes",
 			"pt-BR": "Tubos"
 		}
 	}
-]
+}

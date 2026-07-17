@@ -1,5 +1,5 @@
-[
-	{
+{
+	"bear_01": {
 		"name": {
 			"en-US": "Barry",
 			"fr": "Barry",
@@ -13,10 +13,10 @@
 		"coins": 0,
 		"diamond": 50,
 		"gold": 75,
-		"level": 2,
+		"level": "ui_level1",
 		"outfits": {}
 	},
-	{
+	"bear_02": {
 		"name": {
 			"en-US": "Tommy",
 			"fr": "Tommy",
@@ -26,13 +26,13 @@
 		"coins": 0,
 		"diamond": 12,
 		"gold": 20,
-		"level": 2,
+		"level": "ui_level1",
 		"outfits": {
-			"hatCapClassic": 0,
-			"shirtNumber": 0
+			"cosmetic_hat_cap_classic": 0,
+			"cosmetic_shirt_number": 0
 		}
 	},
-	{
+	"bear_03": {
 		"name": {
 			"en-US": "Blackbeard",
 			"fr": "Blackbeard",
@@ -42,12 +42,12 @@
 		"coins": 0,
 		"diamond": 16,
 		"gold": 25,
-		"level": 2,
+		"level": "ui_level1",
 		"outfits": {
-			"beard": 0
+			"cosmetic_beard": 0
 		}
 	},
-	{
+	"bear_04": {
 		"name": {
 			"en-US": "Stéphane",
 			"fr": "Stéphane",
@@ -57,13 +57,13 @@
 		"coins": 125,
 		"diamond": 170,
 		"gold": 360,
-		"level": 2,
+		"level": "ui_level1",
 		"outfits": {
-			"hatCrown": 0,
-			"cape": 1
+			"cosmetic_hat_crown": 0,
+			"cosmetic_cape": 1
 		}
 	},
-	{
+	"bear_05": {
 		"name": {
 			"en-US": "Dr Christopher",
 			"fr": "Dr Christopher",
@@ -73,14 +73,14 @@
 		"coins": 0,
 		"diamond": 15,
 		"gold": 25,
-		"level": 2,
+		"level": "ui_level1",
 		"outfits": {
-			"bowtie": 0,
-			"glassesSimple": 0,
-			"skinDark": 0
+			"cosmetic_bowtie": 0,
+			"cosmetic_glasses_simple": 0,
+			"cosmetic_skin_dark": 0
 		}
 	},
-	{
+	"bear_06": {
 		"name": {
 			"en-US": "DJ Pierre",
 			"fr": "DJ Pierre",
@@ -90,16 +90,16 @@
 		"coins": 0,
 		"diamond": 12,
 		"gold": 20,
-		"level": 2,
+		"level": "ui_level1",
 		"outfits": {
-			"hairLong": 0,
-			"jacketNight": 0,
-			"shoesFlipflop": 0,
-			"headsetDj": 0,
-			"glassesScreen": 0
+			"cosmetic_hair_long": 0,
+			"cosmetic_jacket_night": 0,
+			"cosmetic_shoes_flipflop": 0,
+			"cosmetic_headset_dj": 0,
+			"cosmetic_glasses_screen": 0
 		}
 	},
-	{
+	"bear_07": {
 		"name": {
 			"en-US": "Bob",
 			"fr": "Bob",
@@ -109,15 +109,15 @@
 		"coins": 0,
 		"diamond": 20,
 		"gold": 35,
-		"level": 2,
+		"level": "ui_level1",
 		"outfits": {
-			"bodyFat": 0,
-			"pacifier": 0,
-			"diaper": 0,
-			"skinBlack": 0
+			"cosmetic_body_fat": 0,
+			"cosmetic_pacifier": 0,
+			"cosmetic_diaper": 0,
+			"cosmetic_skin_black": 0
 		}
 	},
-	{
+	"bear_08": {
 		"name": {
 			"en-US": "Madeline",
 			"fr": "Madeline",
@@ -127,14 +127,14 @@
 		"coins": 0,
 		"diamond": 18,
 		"gold": 30,
-		"level": 2,
+		"level": "ui_level1",
 		"outfits": {
-			"hairLong": 0,
-			"headbow": 0,
-			"eyesFeminine": 0
+			"cosmetic_hair_long": 0,
+			"cosmetic_headbow": 0,
+			"cosmetic_eyes_feminine": 0
 		}
 	},
-	{
+	"bear_09": {
 		"name": {
 			"en-US": "Polaris",
 			"fr": "Polaris",
@@ -148,12 +148,12 @@
 		"coins": 0,
 		"diamond": 96,
 		"gold": 105,
-		"level": 4,
+		"level": "ui_level2",
 		"outfits": {
-			"skinPolar": 0
+			"cosmetic_skin_polar": 0
 		}
 	},
-	{
+	"bear_10": {
 		"name": {
 			"en-US": "Flake",
 			"fr": "Flake",
@@ -163,15 +163,15 @@
 		"coins": 0,
 		"diamond": 17,
 		"gold": 30,
-		"level": 4,
+		"level": "ui_level2",
 		"outfits": {
-			"skinPolar": 0,
-			"eggFried": 0,
-			"bandana": 0,
-			"eyesFeminine": 0
+			"cosmetic_skin_polar": 0,
+			"cosmetic_egg_fried": 0,
+			"cosmetic_bandana": 0,
+			"cosmetic_eyes_feminine": 0
 		}
 	},
-	{
+	"bear_11": {
 		"name": {
 			"en-US": "Rodolph",
 			"fr": "Rodolphe",
@@ -181,14 +181,14 @@
 		"coins": 0,
 		"diamond": 13,
 		"gold": 25,
-		"level": 4,
+		"level": "ui_level2",
 		"outfits": {
-			"headSwollen": 0,
-			"skinPolar": 0,
-			"bodyFat": 0
+			"cosmetic_head_swollen": 0,
+			"cosmetic_skin_polar": 0,
+			"cosmetic_body_fat": 0
 		}
 	},
-	{
+	"bear_12": {
 		"name": {
 			"en-US": "Frosty",
 			"fr": "Frosty",
@@ -198,14 +198,14 @@
 		"coins": 125,
 		"diamond": 165,
 		"gold": 300,
-		"level": 4,
+		"level": "ui_level2",
 		"outfits": {
-			"skinPolar": 0,
-			"mustache": 0,
-			"shirtSpooky": 0
+			"cosmetic_skin_polar": 0,
+			"cosmetic_mustache": 0,
+			"cosmetic_shirt_spooky": 0
 		}
 	},
-	{
+	"bear_13": {
 		"name": {
 			"en-US": "Alix",
 			"fr": "Alix",
@@ -215,14 +215,14 @@
 		"coins": 0,
 		"diamond": 17,
 		"gold": 35,
-		"level": 4,
+		"level": "ui_level2",
 		"outfits": {
-			"skinPolar": 0,
-			"glassesSimple": 0,
-			"suitBusiness": 0
+			"cosmetic_skin_polar": 0,
+			"cosmetic_glasses_simple": 0,
+			"cosmetic_suit_business": 0
 		}
 	},
-	{
+	"bear_14": {
 		"name": {
 			"en-US": "Vladimir",
 			"fr": "Vladimir",
@@ -232,14 +232,14 @@
 		"coins": 0,
 		"diamond": 10,
 		"gold": 15,
-		"level": 4,
+		"level": "ui_level2",
 		"outfits": {
-			"hatCapModern": 1,
-			"skinPolar": 0,
-			"scarf": 0
+			"cosmetic_hat_cap_modern": 1,
+			"cosmetic_skin_polar": 0,
+			"cosmetic_scarf": 0
 		}
 	},
-	{
+	"bear_15": {
 		"name": {
 			"en-US": "Skia",
 			"fr": "Skia",
@@ -249,13 +249,13 @@
 		"coins": 0,
 		"diamond": 16,
 		"gold": 25,
-		"level": 4,
+		"level": "ui_level2",
 		"outfits": {
-			"skinPolar": 0,
-			"maskRealistic": 0
+			"cosmetic_skin_polar": 0,
+			"cosmetic_mask_realistic": 0
 		}
 	},
-	{
+	"bear_16": {
 		"name": {
 			"en-US": "Jon",
 			"fr": "Jon",
@@ -265,13 +265,13 @@
 		"coins": 0,
 		"diamond": 22,
 		"gold": 40,
-		"level": 4,
+		"level": "ui_level2",
 		"outfits": {
-			"skinPolar": 0,
-			"hairShort": 0
+			"cosmetic_skin_polar": 0,
+			"cosmetic_hair_short": 0
 		}
 	},
-	{
+	"bear_17": {
 		"name": {
 			"en-US": "Sand",
 			"fr": "Sand",
@@ -285,12 +285,12 @@
 		"coins": 0,
 		"diamond": 76,
 		"gold": 115,
-		"level": 5,
+		"level": "ui_level3",
 		"outfits": {
-			"skinDesert": 0
+			"cosmetic_skin_desert": 0
 		}
 	},
-	{
+	"bear_18": {
 		"name": {
 			"en-US": "Amos",
 			"fr": "Amos",
@@ -300,13 +300,13 @@
 		"coins": 0,
 		"diamond": 20,
 		"gold": 35,
-		"level": 5,
+		"level": "ui_level3",
 		"outfits": {
-			"hairPunk": 0,
-			"skinDesert": 0
+			"cosmetic_hair_punk": 0,
+			"cosmetic_skin_desert": 0
 		}
 	},
-	{
+	"bear_19": {
 		"name": {
 			"en-US": "Alexander",
 			"fr": "Alexandre",
@@ -316,13 +316,13 @@
 		"coins": 0,
 		"diamond": 19,
 		"gold": 35,
-		"level": 5,
+		"level": "ui_level3",
 		"outfits": {
-			"skinDesert": 0,
-			"cape": 0
+			"cosmetic_skin_desert": 0,
+			"cosmetic_cape": 0
 		}
 	},
-	{
+	"bear_20": {
 		"name": {
 			"en-US": "Zephyr",
 			"fr": "Zéphyr",
@@ -332,14 +332,14 @@
 		"coins": 125,
 		"diamond": 320,
 		"gold": 570,
-		"level": 5,
+		"level": "ui_level3",
 		"outfits": {
-			"skinPolar": 0,
-			"bodySkeleton": 0,
-			"headSkull": 0
+			"cosmetic_skin_polar": 0,
+			"cosmetic_body_skeleton": 0,
+			"cosmetic_head_skull": 0
 		}
 	},
-	{
+	"bear_21": {
 		"name": {
 			"en-US": "Grumble",
 			"fr": "Grumble",
@@ -349,14 +349,14 @@
 		"coins": 0,
 		"diamond": 27,
 		"gold": 45,
-		"level": 5,
+		"level": "ui_level3",
 		"outfits": {
-			"maskGas": 0,
-			"suitBusiness": 0,
-			"skinDesert": 0
+			"cosmetic_mask_gas": 0,
+			"cosmetic_suit_business": 0,
+			"cosmetic_skin_desert": 0
 		}
 	},
-	{
+	"bear_22": {
 		"name": {
 			"en-US": "Numerobis",
 			"fr": "Numérobis",
@@ -366,13 +366,13 @@
 		"coins": 0,
 		"diamond": 24,
 		"gold": 40,
-		"level": 5,
+		"level": "ui_level3",
 		"outfits": {
-			"hatFez": 0,
-			"skinDesert": 0
+			"cosmetic_hat_fez": 0,
+			"cosmetic_skin_desert": 0
 		}
 	},
-	{
+	"bear_23": {
 		"name": {
 			"en-US": "Cleo",
 			"fr": "Cléo",
@@ -382,16 +382,16 @@
 		"coins": 0,
 		"diamond": 18,
 		"gold": 25,
-		"level": 5,
+		"level": "ui_level3",
 		"outfits": {
-			"earsBig": 0,
-			"hairLong": 1,
-			"skinDesert": 0,
-			"shoesFlipflop": 0,
-			"eyesFeminine": 0
+			"cosmetic_ears_big": 0,
+			"cosmetic_hair_long": 1,
+			"cosmetic_skin_desert": 0,
+			"cosmetic_shoes_flipflop": 0,
+			"cosmetic_eyes_feminine": 0
 		}
 	},
-	{
+	"bear_24": {
 		"name": {
 			"en-US": "Ramses",
 			"fr": "Ramsès",
@@ -401,14 +401,14 @@
 		"coins": 0,
 		"diamond": 41,
 		"gold": 55,
-		"level": 5,
+		"level": "ui_level3",
 		"outfits": {
-			"maskBandit": 0,
-			"bodyMuscular": 0,
-			"skinDesert": 0
+			"cosmetic_mask_bandit": 0,
+			"cosmetic_body_muscular": 0,
+			"cosmetic_skin_desert": 0
 		}
 	},
-	{
+	"bear_25": {
 		"name": {
 			"en-US": "Viper",
 			"fr": "Viper",
@@ -422,14 +422,14 @@
 		"coins": 0,
 		"diamond": 162,
 		"gold": 180,
-		"level": 6,
+		"level": "ui_level4",
 		"outfits": {
-			"pacifier": 0,
-			"diaper": 0,
-			"headChild": 0
+			"cosmetic_pacifier": 0,
+			"cosmetic_diaper": 0,
+			"cosmetic_head_child": 0
 		}
 	},
-	{
+	"bear_26": {
 		"name": {
 			"en-US": "Blossom",
 			"fr": "Blossom",
@@ -439,16 +439,16 @@
 		"coins": 0,
 		"diamond": 68,
 		"gold": 105,
-		"level": 6,
+		"level": "ui_level4",
 		"outfits": {
-			"skinPink": 0,
-			"pacifier": 0,
-			"diaper": 0,
-			"headChild": 0,
-			"eyesFeminine": 0
+			"cosmetic_skin_pink": 0,
+			"cosmetic_pacifier": 0,
+			"cosmetic_diaper": 0,
+			"cosmetic_head_child": 0,
+			"cosmetic_eyes_feminine": 0
 		}
 	},
-	{
+	"bear_27": {
 		"name": {
 			"en-US": "Joseph",
 			"fr": "Joseph",
@@ -458,15 +458,15 @@
 		"coins": 0,
 		"diamond": 26,
 		"gold": 45,
-		"level": 6,
+		"level": "ui_level4",
 		"outfits": {
-			"skinPolar": 0,
-			"suitCapitalus": 0,
-			"pacifier": 0,
-			"headChild": 0
+			"cosmetic_skin_polar": 0,
+			"cosmetic_suit_capitalus": 0,
+			"cosmetic_pacifier": 0,
+			"cosmetic_head_child": 0
 		}
 	},
-	{
+	"bear_28": {
 		"name": {
 			"en-US": "Toast",
 			"fr": "Toast",
@@ -476,15 +476,15 @@
 		"coins": 175,
 		"diamond": 310,
 		"gold": 540,
-		"level": 6,
+		"level": "ui_level4",
 		"outfits": {
-			"pacifier": 0,
-			"diaper": 0,
-			"skinDark": 0,
-			"headChild": 0
+			"cosmetic_pacifier": 0,
+			"cosmetic_diaper": 0,
+			"cosmetic_skin_dark": 0,
+			"cosmetic_head_child": 0
 		}
 	},
-	{
+	"bear_29": {
 		"name": {
 			"en-US": "Maya",
 			"fr": "Maya",
@@ -494,15 +494,15 @@
 		"coins": 0,
 		"diamond": 24,
 		"gold": 35,
-		"level": 6,
+		"level": "ui_level4",
 		"outfits": {
-			"hatUnicorn": 0,
-			"diaper": 0,
-			"headChild": 0,
-			"eyesFeminine": 0
+			"cosmetic_hat_unicorn": 0,
+			"cosmetic_diaper": 0,
+			"cosmetic_head_child": 0,
+			"cosmetic_eyes_feminine": 0
 		}
 	},
-	{
+	"bear_30": {
 		"name": {
 			"en-US": "Junior",
 			"fr": "Junior",
@@ -512,15 +512,15 @@
 		"coins": 0,
 		"diamond": 26,
 		"gold": 50,
-		"level": 6,
+		"level": "ui_level4",
 		"outfits": {
-			"skinDesert": 0,
-			"pacifier": 0,
-			"diaper": 0,
-			"headChild": 0
+			"cosmetic_skin_desert": 0,
+			"cosmetic_pacifier": 0,
+			"cosmetic_diaper": 0,
+			"cosmetic_head_child": 0
 		}
 	},
-	{
+	"bear_31": {
 		"name": {
 			"en-US": "Claptrap",
 			"fr": "Claptrap",
@@ -530,15 +530,15 @@
 		"coins": 0,
 		"diamond": 23,
 		"gold": 35,
-		"level": 6,
+		"level": "ui_level4",
 		"outfits": {
-			"pacifier": 0,
-			"diaper": 0,
-			"skinSackbear": 0,
-			"headChild": 0
+			"cosmetic_pacifier": 0,
+			"cosmetic_diaper": 0,
+			"cosmetic_skin_sackbear": 0,
+			"cosmetic_head_child": 0
 		}
 	},
-	{
+	"bear_32": {
 		"name": {
 			"en-US": "Felix",
 			"fr": "Félix",
@@ -548,15 +548,15 @@
 		"coins": 0,
 		"diamond": 28,
 		"gold": 40,
-		"level": 6,
+		"level": "ui_level4",
 		"outfits": {
-			"skinGrayscale": 0,
-			"pacifier": 0,
-			"diaper": 0,
-			"headChild": 0
+			"cosmetic_skin_grayscale": 0,
+			"cosmetic_pacifier": 0,
+			"cosmetic_diaper": 0,
+			"cosmetic_head_child": 0
 		}
 	},
-	{
+	"char_brother": {
 		"name": {
 			"en-US": "Baaren's Brother",
 			"fr": "Frère de Baaren",
@@ -570,9 +570,9 @@
 		"coins": 0,
 		"diamond": 270,
 		"gold": 360,
-		"level": 7,
+		"level": "ui_hive",
 		"outfits": {
-			"skinPurple": 0
+			"cosmetic_skin_purple": 0
 		}
 	}
-]
+}

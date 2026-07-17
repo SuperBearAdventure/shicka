@@ -50,7 +50,7 @@ const missionCommand: Command = {
 					description: missionOptionDescription["en-US"],
 					descriptionLocalizations: missionOptionDescription,
 					minValue: 0,
-					maxValue: missions.length - 1,
+					maxValue: Object.keys(missions).length - 1,
 					autocomplete: true,
 				},
 			],
@@ -65,7 +65,7 @@ const missionCommand: Command = {
 				await interaction.respond([]);
 				return;
 			}
-			const results: Mission[] = nearest<Mission>(value.toLocaleLowerCase(resolvedLocale), missions, 7, (mission: Mission): string => {
+			const results: Mission[] = nearest<Mission>(value.toLocaleLowerCase(resolvedLocale), Object.values(missions), 7, (mission: Mission): string => {
 				const challenge: Challenge = challenges[mission.challenge];
 				const level: Level = levels[mission.level];
 				const missionName: string = missionNameLocalizations[resolvedLocale]({
@@ -79,7 +79,7 @@ const missionCommand: Command = {
 				return missionName.toLocaleLowerCase(resolvedLocale);
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData<number>>((mission: Mission): ApplicationCommandOptionChoiceData<number> => {
-				const {id}: Mission = mission;
+				const {index}: Mission = mission;
 				const challenge: Challenge = challenges[mission.challenge];
 				const level: Level = levels[mission.level];
 				const missionName: string = missionNameLocalizations[resolvedLocale]({
@@ -92,7 +92,7 @@ const missionCommand: Command = {
 				});
 				return {
 					name: missionName,
-					value: id,
+					value: index,
 				};
 			});
 			await interaction.respond(suggestions);
@@ -103,15 +103,15 @@ const missionCommand: Command = {
 		}
 		const {locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
-		const missionCount: number = missions.length;
+		const missionCount: number = Object.keys(missions).length;
 		const now: number = Math.floor((interaction.createdTimestamp + 7200000) / 86400000);
-		const id: number | null = options.getInteger(missionOptionName);
-		if (id == null) {
+		const index: number | null = options.getInteger(missionOptionName);
+		if (index == null) {
 		const schedules: Localized<(groups: {}) => string>[] = [];
 		for (let k: number = -1; k < 2; ++k) {
 			const day: number = now + k;
 			const seed: number = (day % missionCount + missionCount) % missionCount;
-			const mission: Mission = missions[seed];
+			const mission: Mission = Object.values(missions)[seed];
 			const challenge: Challenge = challenges[mission.challenge];
 			const level: Level = levels[mission.level];
 			const dayDate: Date = new Date(day * 86400000);
@@ -162,12 +162,12 @@ const missionCommand: Command = {
 		});
 		return;
 		}
-		const mission: Mission = missions[id];
+		const mission: Mission = Object.values(missions)[index];
 		const schedules: Localized<(groups: {}) => string>[] = [];
 		for (let k: number = -1; k < 2 || schedules.length < 2; ++k) {
 			const day: number = now + k;
 			const seed: number = (day % missionCount + missionCount) % missionCount;
-			if (missions[seed] === mission) {
+			if (Object.values(missions)[seed] === mission) {
 				const dayDateTime: Date = new Date(day * 86400000 + 36000000);
 				const schedule: Localized<(groups: {}) => string> = composeAll<ScheduleGroups, {}>(scheduleLocalizations, localize<ScheduleGroups>((locale: Locale): ScheduleGroups => {
 					const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {

@@ -1,58 +1,58 @@
-[
-	{
-		"challenge": 0,
-		"level": 2
+{
+	"_mission_lava_ui_level1": {
+		"challenge": "mission_lava",
+		"level": "ui_level1"
 	},
-	{
-		"challenge": 1,
-		"level": 5
+	"_mission_airplane_ui_level3": {
+		"challenge": "mission_airplane",
+		"level": "ui_level3"
 	},
-	{
-		"challenge": 2,
-		"level": 4
+	"_mission_egg_ui_level2": {
+		"challenge": "mission_egg",
+		"level": "ui_level2"
 	},
-	{
-		"challenge": 3,
-		"level": 8
+	"_mission_sleeping_moles_ui_level_mole2": {
+		"challenge": "mission_sleeping_moles",
+		"level": "ui_level_mole2"
 	},
-	{
-		"challenge": 4,
-		"level": 5
+	"_mission_parkour_ui_level3": {
+		"challenge": "mission_parkour",
+		"level": "ui_level3"
 	},
-	{
-		"challenge": 5,
-		"level": 6
+	"_mission_electricity_ui_level4": {
+		"challenge": "mission_electricity",
+		"level": "ui_level4"
 	},
-	{
-		"challenge": 0,
-		"level": 4
+	"_mission_lava_ui_level2": {
+		"challenge": "mission_lava",
+		"level": "ui_level2"
 	},
-	{
-		"challenge": 6,
-		"level": 6
+	"_mission_kart_ui_level4": {
+		"challenge": "mission_kart",
+		"level": "ui_level4"
 	},
-	{
-		"challenge": 2,
-		"level": 2
+	"_mission_egg_ui_level1": {
+		"challenge": "mission_egg",
+		"level": "ui_level1"
 	},
-	{
-		"challenge": 7,
-		"level": 5
+	"_mission_flooding_ui_level3": {
+		"challenge": "mission_flooding",
+		"level": "ui_level3"
 	},
-	{
-		"challenge": 1,
-		"level": 6
+	"_mission_airplane_ui_level4": {
+		"challenge": "mission_airplane",
+		"level": "ui_level4"
 	},
-	{
-		"challenge": 4,
-		"level": 4
+	"_mission_parkour_ui_level2": {
+		"challenge": "mission_parkour",
+		"level": "ui_level2"
 	},
-	{
-		"challenge": 8,
-		"level": 5
+	"_mission_race_ui_level3": {
+		"challenge": "mission_race",
+		"level": "ui_level3"
 	},
-	{
-		"challenge": 9,
-		"level": 0
+	"_mission_penalty_ui_hub": {
+		"challenge": "mission_penalty",
+		"level": "ui_hub"
 	}
-]
+}

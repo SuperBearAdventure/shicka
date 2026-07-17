@@ -1,5 +1,5 @@
-[
-	{
+{
+	"ui_hub": {
 		"name": {
 			"en-US": "Bear Village",
 			"fr": "Village Ours",
@@ -8,9 +8,9 @@
 		"chests": 2,
 		"coins": 0,
 		"stickers": 0,
-		"level": 0
+		"level": null
 	},
-	{
+	"_backrooms": {
 		"name": {
 			"en-US": "Backrooms",
 			"fr": "Backrooms",
@@ -19,9 +19,9 @@
 		"chests": 1,
 		"coins": 0,
 		"stickers": 0,
-		"level": 0
+		"level": "ui_hub"
 	},
-	{
+	"ui_level1": {
 		"name": {
 			"en-US": "Turtletown",
 			"fr": "Tortibourg",
@@ -30,9 +30,9 @@
 		"chests": 2,
 		"coins": 150,
 		"stickers": 3,
-		"level": 0
+		"level": "ui_hub"
 	},
-	{
+	"ui_arcadeWorld": {
 		"name": {
 			"en-US": "Arcade World",
 			"fr": "Monde Arcade",
@@ -41,9 +41,9 @@
 		"chests": 3,
 		"coins": 0,
 		"stickers": 0,
-		"level": 0
+		"level": "ui_hub"
 	},
-	{
+	"ui_level2": {
 		"name": {
 			"en-US": "Snow Valley",
 			"fr": "Vallée des Neiges",
@@ -52,9 +52,9 @@
 		"chests": 2,
 		"coins": 150,
 		"stickers": 3,
-		"level": 0
+		"level": "ui_hub"
 	},
-	{
+	"ui_level3": {
 		"name": {
 			"en-US": "Beemothep Desert",
 			"fr": "Désert Beemothep",
@@ -63,9 +63,9 @@
 		"chests": 1,
 		"coins": 150,
 		"stickers": 3,
-		"level": 0
+		"level": "ui_hub"
 	},
-	{
+	"ui_level4": {
 		"name": {
 			"en-US": "Giant House",
 			"fr": "Maison Géante",
@@ -74,9 +74,9 @@
 		"chests": 2,
 		"coins": 200,
 		"stickers": 3,
-		"level": 0
+		"level": "ui_hub"
 	},
-	{
+	"ui_hive": {
 		"name": {
 			"en-US": "The Hive",
 			"fr": "La Ruche",
@@ -85,9 +85,9 @@
 		"chests": 2,
 		"coins": 120,
 		"stickers": 3,
-		"level": 0
+		"level": "ui_hub"
 	},
-	{
+	"ui_level_mole2": {
 		"name": {
 			"en-US": "The Mole Mines",
 			"fr": "La Mine des Taupes",
@@ -96,9 +96,9 @@
 		"chests": 8,
 		"coins": 150,
 		"stickers": 0,
-		"level": 4
+		"level": "ui_level2"
 	},
-	{
+	"ui_level_mole3": {
 		"name": {
 			"en-US": "The Astral Temple",
 			"fr": "Le Temple Astral",
@@ -107,6 +107,6 @@
 		"chests": 8,
 		"coins": 150,
 		"stickers": 0,
-		"level": 5
+		"level": "ui_level3"
 	}
-]
+}
