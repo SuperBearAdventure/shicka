@@ -37,7 +37,7 @@ const {
 const titlePatch: Patch = {
 	"Super Bear Adventure - Old Game Trailer": "Super Bear Adventure - Graphics Update Trailer"
 };
-const titlePattern: RegExp = /^Super Bear Adventure - (.*) Trailer$/su;
+const titlePattern: RegExp = /^Super Bear Adventure - (.*?) Trailer$/su;
 const viewsPatch: Patch = {
 	"No views": "0 views",
 	"1 view": "1 views",
@@ -64,11 +64,11 @@ async function fetchData(): Promise<Data[]> {
 		try {
 			const json: string = textContent.slice(textContent.indexOf("var ytInitialData = ") + 20, textContent.lastIndexOf(";"));
 			const result: any = JSON.parse(json);
-			return result.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].playlistVideoListRenderer.contents.map((item: any): Data => {
+			return result.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents.map((item: any): Data => {
 				return {
-					title: patch(item.playlistVideoRenderer.title.runs[0].text, titlePatch).replace(titlePattern, "$1"),
-					link: `https://www.youtube.com/watch?v=${item.playlistVideoRenderer.videoId}`,
-					views: patch(item.playlistVideoRenderer.videoInfo.runs[0].text, viewsPatch).replace(viewsPattern, "$1"),
+					title: patch(item.lockupViewModel.metadata.lockupMetadataViewModel.title.content, titlePatch).replace(titlePattern, "$1"),
+					link: `https://www.youtube.com/watch?v=${item.lockupViewModel.contentId}`,
+					views: patch(item.lockupViewModel.metadata.lockupMetadataViewModel.metadata.contentMetadataViewModel.metadataRows[1].metadataParts[0].text.content, viewsPatch).replace(viewsPattern, "$1"),
 				};
 			});
 		} catch (error: unknown) {
