@@ -22,7 +22,7 @@
     "typescript-eslint": "^8.64.0"
   },
   "dependencies": {
-    "canvas": "^3.2.3",
+    "canvas": "4.0.0-rc1",
     "discord.js": "^14.27.0",
     "jsdom": "^29.1.1",
     "node-schedule": "^2.1.1",
