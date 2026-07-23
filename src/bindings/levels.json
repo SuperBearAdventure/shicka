@@ -32,7 +32,7 @@
 		"stickers": 3,
 		"level": "ui_hub"
 	},
-	"ui_arcadeWorld": {
+	"ui_arcade_world": {
 		"name": {
 			"en-US": "Arcade World",
 			"fr": "Monde Arcade",
