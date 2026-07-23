@@ -58,6 +58,10 @@ const data: Data[] = [
 		link: "https://www.speedrun.com/sbace?x=l_gdr5onk9",
 	},
 	{
+		title: "The Crystalline Lagoon",
+		link: "https://www.speedrun.com/sbace?x=l_98rzp0gd",
+	},
+	{
 		title: "The Mole Mines",
 		link: "https://www.speedrun.com/sbace?x=l_dy1gjkkd",
 	},

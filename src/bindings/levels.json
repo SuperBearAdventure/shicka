@@ -87,6 +87,17 @@
 		"stickers": 3,
 		"level": "ui_hub"
 	},
+	"ui_level_mole1": {
+		"name": {
+			"en-US": "Crystalline Lagoon",
+			"fr": "Lagon Cristallin",
+			"pt-BR": "Lagoa Cristalina"
+		},
+		"chests": 12,
+		"coins": 150,
+		"stickers": 0,
+		"level": "ui_level1"
+	},
 	"ui_level_mole2": {
 		"name": {
 			"en-US": "The Mole Mines",
