@@ -51,7 +51,7 @@ const {
 	schedule: scheduleLocalizations,
 	bareSchedule: bareScheduleLocalizations,
 }: OutfitCompilation = outfitCompilation;
-const {createCanvas, deregisterAllFonts, loadImage, registerFont}: any = canvas;
+const {FontFace, createCanvas, loadImage, fonts}: any = canvas;
 const {
 	SHICKA_OUTFIT_GENERATOR_SALT,
 }: NodeJS.ProcessEnv = process.env;
@@ -195,9 +195,8 @@ const outfitCommand: Command = {
 			}).flat<Outfit[][]>();
 			const width: number = rarities["rarity_common"].slots;
 			const height: number = Math.ceil(scheduleOutfits.length / width);
-			registerFont(fileURLToPath(import.meta.resolve(`../fonts/milky-nice-clean.ttf`)), {
-				family: "MilkyNice",
-			});
+			const font: FontFace = new FontFace("MilkyNice", fileURLToPath(import.meta.resolve(`../fonts/milky-nice-clean.ttf`)));
+			fonts.add(font);
 			const canvas: Canvas = createCanvas((96 + 8) * width, (96 + 8 + 24) * height);
 			const context: CanvasRenderingContext2D = canvas.getContext("2d");
 			for (const [slot, outfit] of scheduleOutfits.entries()) {
@@ -223,7 +222,7 @@ const outfitCommand: Command = {
 				context.fillStyle = "#fff";
 				context.fillText(outfit.name["en-US"], (96 + 8) * (slot % width) + 96 / 2 + 8 / 2, (96 + 8 + 24) * Math.floor(slot / width) + 96 + 8 / 2 + 24 / 2, 96);
 			}
-			deregisterAllFonts();
+			fonts.delete(font);
 			const dayDateTime: Date = new Date(day * 28800000);
 			const schedule: Localized<(groups: {}) => string> = composeAll<BareScheduleGroups, {}>(bareScheduleLocalizations, localize<BareScheduleGroups>((locale: Locale): BareScheduleGroups => {
 				const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, {
@@ -280,6 +279,8 @@ const outfitCommand: Command = {
 		return;
 		}
 		const outfit: Outfit = Object.values(outfits)[index];
+		const font: FontFace = new FontFace("MilkyNice", fileURLToPath(import.meta.resolve(`../fonts/milky-nice-clean.ttf`)));
+		fonts.add(font);
 		const canvas: Canvas = createCanvas(256 + 32, 256 + 32 + 64);
 		const context: CanvasRenderingContext2D = canvas.getContext("2d");
 		context.fillStyle = rarities[outfit.rarity].color;
@@ -303,6 +304,7 @@ const outfitCommand: Command = {
 		context.strokeText(outfit.name["en-US"], 256 / 2 + 32 / 2, 256 + 32 / 2 + 64 / 2 + 6 / 2, 256);
 		context.fillStyle = "#fff";
 		context.fillText(outfit.name["en-US"], 256 / 2 + 32 / 2, 256 + 32 / 2 + 64 / 2, 256);
+		fonts.delete(font);
 		if (rarities[outfit.rarity].slots === 0) {
 			function formatMessage(locale: Locale): string {
 				return noSlotReplyLocalizations[locale]({
