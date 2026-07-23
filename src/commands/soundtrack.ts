@@ -34,7 +34,7 @@ const {
 	defaultReply: defaultReplyLocalizations,
 	link: linkLocalizations,
 }: SoundtrackCompilation = soundtrackCompilation;
-const titlePattern: RegExp = /^Super Bear Adventure - (.*) \((?:Original Soundtrack|Visualizer)\)$/su;
+const titlePattern: RegExp = /^Super Bear Adventure - (.*?) \((?:Original Soundtrack|Visualizer)\)$/su;
 const viewsPatch: Patch = {
 	"No views": "0 views",
 	"1 view": "1 views",
@@ -64,11 +64,11 @@ async function fetchData(link: string): Promise<Data[]> {
 		try {
 			const json: string = textContent.slice(textContent.indexOf("var ytInitialData = ") + 20, textContent.lastIndexOf(";"));
 			const result: any = JSON.parse(json);
-			return result.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].playlistVideoListRenderer.contents.map((item: any): Data => {
+			return result.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents.map((item: any): Data => {
 				return {
-					title: item.playlistVideoRenderer.title.runs[0].text.replace(titlePattern, "$1"),
-					link: `https://www.youtube.com/watch?v=${item.playlistVideoRenderer.videoId}`,
-					views: patch(item.playlistVideoRenderer.videoInfo.runs[0].text, viewsPatch).replace(viewsPattern, "$1"),
+					title: item.lockupViewModel.metadata.lockupMetadataViewModel.title.content.replace(titlePattern, "$1"),
+					link: `https://www.youtube.com/watch?v=${item.lockupViewModel.contentId}`,
+					views: patch(item.lockupViewModel.metadata.lockupMetadataViewModel.metadata.contentMetadataViewModel.metadataRows[1].metadataParts[0].text.content, viewsPatch).replace(viewsPattern, "$1"),
 				};
 			});
 		} catch (error: unknown) {
