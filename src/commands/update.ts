@@ -166,6 +166,7 @@ const updateCommand: Command = {
 		}
 		const {locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
+		await interaction.deferReply();
 		try {
 			const authoritativeData: {androidData: Data, iosData: Data, switchData: Data} = await fetchAuthoritativeData();
 			const tentativeData: {androidData: Data, iosData: Data, switchData: Data} = await fetchTentativeData();
@@ -207,7 +208,7 @@ const updateCommand: Command = {
 					},
 				});
 			}
-			await interaction.reply({
+			await interaction.editReply({
 				content: formatMessage("en-US"),
 			});
 			if (resolvedLocale === "en-US") {
@@ -227,7 +228,7 @@ const updateCommand: Command = {
 					},
 				});
 			}
-			await interaction.reply({
+			await interaction.editReply({
 				content: formatMessage("en-US"),
 			});
 			if (resolvedLocale === "en-US") {

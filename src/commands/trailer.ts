@@ -91,6 +91,7 @@ const trailerCommand: Command = {
 		}
 		const {locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
+		await interaction.deferReply();
 		try {
 			const data: Data[] = await fetchData();
 			const links: Localized<(groups: {}) => string>[] = [];
@@ -119,7 +120,7 @@ const trailerCommand: Command = {
 					},
 				});
 			}
-			await interaction.reply({
+			await interaction.editReply({
 				content: formatMessage("en-US"),
 			});
 			if (resolvedLocale === "en-US") {
@@ -138,7 +139,7 @@ const trailerCommand: Command = {
 					},
 				});
 			}
-			await interaction.reply({
+			await interaction.editReply({
 				content: formatMessage("en-US"),
 			});
 			if (resolvedLocale === "en-US") {
