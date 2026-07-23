@@ -99,6 +99,7 @@ const soundtrackCommand: Command = {
 		}
 		const {locale}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
+		await interaction.deferReply();
 		try {
 			const originalSoundtrackData: Data[] = await fetchOriginalSoundtrackData();
 			const pierreMusicKitVolume1Data: Data[] = await fetchPierreMusicKitVolume1Data();
@@ -137,7 +138,7 @@ const soundtrackCommand: Command = {
 			let replied: boolean = false;
 			for (const chunk of persistentContentChunks) {
 				if (!replied) {
-					await interaction.reply({
+					await interaction.editReply({
 						content: chunk,
 					});
 					replied = true;
@@ -153,14 +154,6 @@ const soundtrackCommand: Command = {
 			const ephemeralContent: string = formatMessage(resolvedLocale);
 			const ephemeralContentChunks: string[] = naiveStream(ephemeralContent);
 			for (const chunk of ephemeralContentChunks) {
-				if (!replied) {
-					await interaction.reply({
-						content: chunk,
-						ephemeral: true,
-					});
-					replied = true;
-					continue;
-				}
 				await interaction.followUp({
 					content: chunk,
 					ephemeral: true,
@@ -176,7 +169,7 @@ const soundtrackCommand: Command = {
 					},
 				});
 			}
-			await interaction.reply({
+			await interaction.editReply({
 				content: formatMessage("en-US"),
 			});
 			if (resolvedLocale === "en-US") {

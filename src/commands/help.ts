@@ -534,17 +534,6 @@ const helpCommand: Command = {
 		const ephemeralContent: string = formatMessage(resolvedLocale);
 		const ephemeralContentChunks: string[] = naiveStream(ephemeralContent);
 		for (const chunk of ephemeralContentChunks) {
-			if (!replied) {
-				await interaction.reply({
-					content: chunk,
-					ephemeral: true,
-					allowedMentions: {
-						users: [],
-					},
-				});
-				replied = true;
-				continue;
-			}
 			await interaction.followUp({
 				content: chunk,
 				ephemeral: true,
