@@ -1,5 +1,5 @@
 {
-	"bear_01": {
+	"char_bear_01": {
 		"name": {
 			"en-US": "Barry",
 			"fr": "Barry",
@@ -16,7 +16,7 @@
 		"level": "ui_level1",
 		"outfits": {}
 	},
-	"bear_02": {
+	"char_bear_02": {
 		"name": {
 			"en-US": "Tommy",
 			"fr": "Tommy",
@@ -32,7 +32,7 @@
 			"cosmetic_shirt_number": 0
 		}
 	},
-	"bear_03": {
+	"char_bear_03": {
 		"name": {
 			"en-US": "Blackbeard",
 			"fr": "Blackbeard",
@@ -47,7 +47,7 @@
 			"cosmetic_beard": 0
 		}
 	},
-	"bear_04": {
+	"char_bear_04": {
 		"name": {
 			"en-US": "Stéphane",
 			"fr": "Stéphane",
@@ -63,7 +63,7 @@
 			"cosmetic_cape": 1
 		}
 	},
-	"bear_05": {
+	"char_bear_05": {
 		"name": {
 			"en-US": "Dr Christopher",
 			"fr": "Dr Christopher",
@@ -80,7 +80,7 @@
 			"cosmetic_skin_dark": 0
 		}
 	},
-	"bear_06": {
+	"char_bear_06": {
 		"name": {
 			"en-US": "DJ Pierre",
 			"fr": "DJ Pierre",
@@ -99,7 +99,7 @@
 			"cosmetic_glasses_screen": 0
 		}
 	},
-	"bear_07": {
+	"char_bear_07": {
 		"name": {
 			"en-US": "Bob",
 			"fr": "Bob",
@@ -117,7 +117,7 @@
 			"cosmetic_skin_black": 0
 		}
 	},
-	"bear_08": {
+	"char_bear_08": {
 		"name": {
 			"en-US": "Madeline",
 			"fr": "Madeline",
@@ -134,7 +134,7 @@
 			"cosmetic_eyes_feminine": 0
 		}
 	},
-	"bear_09": {
+	"char_bear_09": {
 		"name": {
 			"en-US": "Polaris",
 			"fr": "Polaris",
@@ -153,7 +153,7 @@
 			"cosmetic_skin_polar": 0
 		}
 	},
-	"bear_10": {
+	"char_bear_10": {
 		"name": {
 			"en-US": "Flake",
 			"fr": "Flake",
@@ -171,7 +171,7 @@
 			"cosmetic_eyes_feminine": 0
 		}
 	},
-	"bear_11": {
+	"char_bear_11": {
 		"name": {
 			"en-US": "Rodolph",
 			"fr": "Rodolphe",
@@ -188,7 +188,7 @@
 			"cosmetic_body_fat": 0
 		}
 	},
-	"bear_12": {
+	"char_bear_12": {
 		"name": {
 			"en-US": "Frosty",
 			"fr": "Frosty",
@@ -205,7 +205,7 @@
 			"cosmetic_shirt_spooky": 0
 		}
 	},
-	"bear_13": {
+	"char_bear_13": {
 		"name": {
 			"en-US": "Alix",
 			"fr": "Alix",
@@ -222,7 +222,7 @@
 			"cosmetic_suit_business": 0
 		}
 	},
-	"bear_14": {
+	"char_bear_14": {
 		"name": {
 			"en-US": "Vladimir",
 			"fr": "Vladimir",
@@ -239,7 +239,7 @@
 			"cosmetic_scarf": 0
 		}
 	},
-	"bear_15": {
+	"char_bear_15": {
 		"name": {
 			"en-US": "Skia",
 			"fr": "Skia",
@@ -255,7 +255,7 @@
 			"cosmetic_mask_realistic": 0
 		}
 	},
-	"bear_16": {
+	"char_bear_16": {
 		"name": {
 			"en-US": "Jon",
 			"fr": "Jon",
@@ -271,7 +271,7 @@
 			"cosmetic_hair_short": 0
 		}
 	},
-	"bear_17": {
+	"char_bear_17": {
 		"name": {
 			"en-US": "Sand",
 			"fr": "Sand",
@@ -290,7 +290,7 @@
 			"cosmetic_skin_desert": 0
 		}
 	},
-	"bear_18": {
+	"char_bear_18": {
 		"name": {
 			"en-US": "Amos",
 			"fr": "Amos",
@@ -306,7 +306,7 @@
 			"cosmetic_skin_desert": 0
 		}
 	},
-	"bear_19": {
+	"char_bear_19": {
 		"name": {
 			"en-US": "Alexander",
 			"fr": "Alexandre",
@@ -322,7 +322,7 @@
 			"cosmetic_cape": 0
 		}
 	},
-	"bear_20": {
+	"char_bear_20": {
 		"name": {
 			"en-US": "Zephyr",
 			"fr": "Zéphyr",
@@ -339,7 +339,7 @@
 			"cosmetic_head_skull": 0
 		}
 	},
-	"bear_21": {
+	"char_bear_21": {
 		"name": {
 			"en-US": "Grumble",
 			"fr": "Grumble",
@@ -356,7 +356,7 @@
 			"cosmetic_skin_desert": 0
 		}
 	},
-	"bear_22": {
+	"char_bear_22": {
 		"name": {
 			"en-US": "Numerobis",
 			"fr": "Numérobis",
@@ -372,7 +372,7 @@
 			"cosmetic_skin_desert": 0
 		}
 	},
-	"bear_23": {
+	"char_bear_23": {
 		"name": {
 			"en-US": "Cleo",
 			"fr": "Cléo",
@@ -391,7 +391,7 @@
 			"cosmetic_eyes_feminine": 0
 		}
 	},
-	"bear_24": {
+	"char_bear_24": {
 		"name": {
 			"en-US": "Ramses",
 			"fr": "Ramsès",
@@ -408,7 +408,7 @@
 			"cosmetic_skin_desert": 0
 		}
 	},
-	"bear_25": {
+	"char_bear_25": {
 		"name": {
 			"en-US": "Viper",
 			"fr": "Viper",
@@ -429,7 +429,7 @@
 			"cosmetic_head_child": 0
 		}
 	},
-	"bear_26": {
+	"char_bear_26": {
 		"name": {
 			"en-US": "Blossom",
 			"fr": "Blossom",
@@ -448,7 +448,7 @@
 			"cosmetic_eyes_feminine": 0
 		}
 	},
-	"bear_27": {
+	"char_bear_27": {
 		"name": {
 			"en-US": "Joseph",
 			"fr": "Joseph",
@@ -466,7 +466,7 @@
 			"cosmetic_head_child": 0
 		}
 	},
-	"bear_28": {
+	"char_bear_28": {
 		"name": {
 			"en-US": "Toast",
 			"fr": "Toast",
@@ -484,7 +484,7 @@
 			"cosmetic_head_child": 0
 		}
 	},
-	"bear_29": {
+	"char_bear_29": {
 		"name": {
 			"en-US": "Maya",
 			"fr": "Maya",
@@ -502,7 +502,7 @@
 			"cosmetic_eyes_feminine": 0
 		}
 	},
-	"bear_30": {
+	"char_bear_30": {
 		"name": {
 			"en-US": "Junior",
 			"fr": "Junior",
@@ -520,7 +520,7 @@
 			"cosmetic_head_child": 0
 		}
 	},
-	"bear_31": {
+	"char_bear_31": {
 		"name": {
 			"en-US": "Claptrap",
 			"fr": "Claptrap",
@@ -538,7 +538,7 @@
 			"cosmetic_head_child": 0
 		}
 	},
-	"bear_32": {
+	"char_bear_32": {
 		"name": {
 			"en-US": "Felix",
 			"fr": "Félix",
