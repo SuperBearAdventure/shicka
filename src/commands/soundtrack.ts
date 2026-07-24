@@ -34,7 +34,7 @@ const {
 	defaultReply: defaultReplyLocalizations,
 	link: linkLocalizations,
 }: SoundtrackCompilation = soundtrackCompilation;
-const titlePattern: RegExp = /^Super Bear Adventure - (.*?) \((?:Original Soundtrack|Visualizer)\)$/su;
+const titlePattern: RegExp = /^Super Bear Adventure - (.*?)(?: \((?:Original Soundtrack|Visualizer|Official Soundtrack)\))?$/su;
 const viewsPatch: Patch = {
 	"No views": "0 views",
 	"1 view": "1 views",
@@ -42,7 +42,8 @@ const viewsPatch: Patch = {
 const viewsPattern: RegExp = /^(.*) views$/su;
 const links: string[] = [
 	"[*Original Soundtrack*](<https://www.youtube.com/playlist?list=PLDF2V3x1AdQBnalWW0q69H5LF1-wgAxN8>)",
-	"[*Pierre Music Kit, Vol. 1*](<https://www.youtube.com/watch?playlist?list=PLDF2V3x1AdQARk2uRTdyEBRfQgeNIfFcZ>)"
+	"[*Pierre Music Kit, Vol. 1*](<https://www.youtube.com/playlist?list=PLDF2V3x1AdQARk2uRTdyEBRfQgeNIfFcZ>)",
+	"[*Bundles update*](<https://www.youtube.com/playlist?list=PLBKE4fHNf4qk>)"
 ];
 function patch(text: string, table: Patch): string {
 	if (!(text in table)) {
@@ -85,6 +86,10 @@ async function fetchPierreMusicKitVolume1Data(): Promise<Data[]> {
 	const result: Data[] = await fetchData("https://www.youtube.com/playlist?list=PLDF2V3x1AdQARk2uRTdyEBRfQgeNIfFcZ");
 	return result;
 }
+async function fetchBundleUpdateData(): Promise<Data[]> {
+	const result: Data[] = await fetchData("https://www.youtube.com/playlist?list=PLBKE4fHNf4qk");
+	return result;
+}
 const soundtrackCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
@@ -103,9 +108,11 @@ const soundtrackCommand: Command = {
 		try {
 			const originalSoundtrackData: Data[] = await fetchOriginalSoundtrackData();
 			const pierreMusicKitVolume1Data: Data[] = await fetchPierreMusicKitVolume1Data();
+			const bundleUpdateData: Data[] = await fetchBundleUpdateData();
 			const data: Data[] = [
 				...originalSoundtrackData,
 				...pierreMusicKitVolume1Data,
+				...bundleUpdateData,
 			];
 			const links: Localized<(groups: {}) => string>[] = [];
 			for (const item of data) {

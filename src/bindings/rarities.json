@@ -119,11 +119,11 @@
 		"slots": 0,
 		"color": "#8002ff"
 	},
-	"pmk_title": {
+	"bundles_title": {
 		"name": {
-			"en-US": "Pierre Music Kit (PMK) Volume 1",
-			"fr": "Pierre Music Kit (PMK) Volume 1",
-			"pt-BR": "Pierre Music Kit (PMK) Volume 1"
+			"en-US": "Bundles",
+			"fr": "Collections",
+			"pt-BR": "Pacotes"
 		},
 		"cost": 0,
 		"payoffs": [
@@ -158,5 +158,25 @@
 		],
 		"slots": 0,
 		"color": "#ff0000"
+	},
+	"cosmetic_default": {
+		"name": {
+			"en-US": "Default",
+			"fr": "Défaut",
+			"pt-BR": "Padrão"
+		},
+		"cost": 0,
+		"payoffs": [
+			0,
+			0,
+			0
+		],
+		"probabilities": [
+			0,
+			0,
+			0
+		],
+		"slots": 0,
+		"color": "#ffffff"
 	}
 }
