@@ -1,4 +1,9 @@
 {
+	"ui_level_mole1": {
+		"diamond": 270,
+		"gold": 360,
+		"level": "ui_level_mole1"
+	},
 	"ui_level_mole2": {
 		"diamond": 135,
 		"gold": 165,

@@ -32,6 +32,17 @@
 		"update": "1.6.2",
 		"variations": 1
 	},
+	"cosmetic_beanie": {
+		"name": {
+			"en-US": "Beanie",
+			"fr": "Bonnet",
+			"pt-BR": "Gorro"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 5
+	},
 	"cosmetic_hat_egg": {
 		"name": {
 			"en-US": "Egg hat",
@@ -76,6 +87,17 @@
 		"update": "11.1.3",
 		"variations": 4
 	},
+	"cosmetic_party_hat": {
+		"name": {
+			"en-US": "Party hat",
+			"fr": "Chapeau de fête",
+			"pt-BR": "Chapéu de festa"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 4
+	},
 	"cosmetic_angel_halo": {
 		"name": {
 			"en-US": "Angel halo",
@@ -102,11 +124,33 @@
 		"name": {
 			"en-US": "Birthday cake",
 			"fr": "Gâteau d'anniversaire",
-			"pt-BR": "Bolo de Aniversário"
+			"pt-BR": "Bolo de aniversário"
 		},
 		"cost": 0,
 		"rarity": "rarity_rare",
 		"update": "10.3.0",
+		"variations": 1
+	},
+	"cosmetic_chapka": {
+		"name": {
+			"en-US": "Chapka",
+			"fr": "Chapka",
+			"pt-BR": "Ushanka"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
+		"variations": 2
+	},
+	"cosmetic_chef_toque": {
+		"name": {
+			"en-US": "Chef's toque",
+			"fr": "Toque du Chef",
+			"pt-BR": "Chapéu de chef"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
 		"variations": 1
 	},
 	"cosmetic_egg_fried": {
@@ -153,6 +197,28 @@
 		"update": "1.3.0",
 		"variations": 1
 	},
+	"cosmetic_shemagh": {
+		"name": {
+			"en-US": "Shemagh",
+			"fr": "Shemagh",
+			"pt-BR": "Shemagh"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
+		"variations": 2
+	},
+	"cosmetic_hat_straw": {
+		"name": {
+			"en-US": "Straw hat",
+			"fr": "Chapeau de paille",
+			"pt-BR": "Chapéu de palha"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
+		"variations": 1
+	},
 	"cosmetic_hat_hanoi": {
 		"name": {
 			"en-US": "Tower of Hanoi",
@@ -162,6 +228,17 @@
 		"cost": 0,
 		"rarity": "rarity_rare",
 		"update": "1.8.2",
+		"variations": 1
+	},
+	"cosmetic_hat_traffic_cone": {
+		"name": {
+			"en-US": "Traffic cone",
+			"fr": "Cône de signalisation",
+			"pt-BR": "Cone de trânsito"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
 		"variations": 1
 	},
 	"cosmetic_hat_unicorn": {
@@ -228,6 +305,39 @@
 		"cost": 0,
 		"rarity": "rarity_epic",
 		"update": "1.9.4",
+		"variations": 4
+	},
+	"cosmetic_helmet_go_cam": {
+		"name": {
+			"en-US": "GoCam helmet",
+			"fr": "Casque GoCam",
+			"pt-BR": "Capacete GoCam"
+		},
+		"cost": 20,
+		"rarity": "char_tristopio",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_jester_hat": {
+		"name": {
+			"en-US": "Jester hat",
+			"fr": "Chapeau de bouffon",
+			"pt-BR": "Chapéu de bobo da corte"
+		},
+		"cost": 2,
+		"rarity": "char_tristopio",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_small_earring": {
+		"name": {
+			"en-US": "Small earring",
+			"fr": "Petite boucle d'oreille",
+			"pt-BR": "Brinco pequeno"
+		},
+		"cost": 1,
+		"rarity": "char_tristopio",
+		"update": "13.0.0",
 		"variations": 1
 	},
 	"cosmetic_cap_soccer": {
@@ -252,15 +362,125 @@
 		"update": "1.6.2",
 		"variations": 1
 	},
+	"cosmetic_hat_adventurer": {
+		"name": {
+			"en-US": "Adventurer hat",
+			"fr": "Chapeau d'aventurier",
+			"pt-BR": "Chapéu de aventureiro"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_hat_beret": {
+		"name": {
+			"en-US": "Beret",
+			"fr": "Béret",
+			"pt-BR": "Boina"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
 	"cosmetic_hat_cowboy": {
 		"name": {
 			"en-US": "Cowboy hat",
 			"fr": "Chapeau de cowboy",
-			"pt-BR": "Chapéu de Cowboy"
+			"pt-BR": "Chapéu de cowboy"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
+		"variations": 3
+	},
+	"cosmetic_ears_ring_large": {
+		"name": {
+			"en-US": "Large rings",
+			"fr": "Grandes boucles d'oreille",
+			"pt-BR": "Brincos grandes"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_hat_explorer": {
+		"name": {
+			"en-US": "Explorer hat",
+			"fr": "Chapeau d'explorateur",
+			"pt-BR": "Chapéu de explorador"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_hat_flower": {
+		"name": {
+			"en-US": "Flower",
+			"fr": "Fleur",
+			"pt-BR": "Flor"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_bandana_pirate": {
+		"name": {
+			"en-US": "Pirate bandana",
+			"fr": "Bandana de pirate",
+			"pt-BR": "Bandana pirata"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 2
+	},
+	"cosmetic_hat_pirate": {
+		"name": {
+			"en-US": "Pirate hat",
+			"fr": "Chapeau de pirate",
+			"pt-BR": "Chapéu de pirata"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_hat_robot": {
+		"name": {
+			"en-US": "Robot hat",
+			"fr": "Chapeau de robot",
+			"pt-BR": "Chapéu de robô"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_hat_sombrero": {
+		"name": {
+			"en-US": "Sombrero",
+			"fr": "Sombréro",
+			"pt-BR": "Sombrero"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_hat_crab": {
+		"name": {
+			"en-US": "Kenny the crab",
+			"fr": "Kenny le crabe",
+			"pt-BR": "Kenny, o caranguejo"
+		},
+		"cost": 2,
+		"rarity": "char_mole",
+		"update": "13.0.0",
 		"variations": 1
 	},
 	"cosmetic_ears_ring": {
@@ -285,6 +505,17 @@
 		"update": "12.0.0",
 		"variations": 1
 	},
+	"cosmetic_hat_crown_water": {
+		"name": {
+			"en-US": "Ocean tiara",
+			"fr": "Tiare des océans",
+			"pt-BR": "Tiara do oceano"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 2
+	},
 	"cosmetic_hair_long": {
 		"name": {
 			"en-US": "Long hair",
@@ -306,6 +537,28 @@
 		"rarity": "rarity_common",
 		"update": "10.5.3",
 		"variations": 4
+	},
+	"cosmetic_hair_side_part": {
+		"name": {
+			"en-US": "Soft side part",
+			"fr": "Coupe sur le côté",
+			"pt-BR": "Penteado de lado"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_hair_braids": {
+		"name": {
+			"en-US": "Braids",
+			"fr": "Tresses",
+			"pt-BR": "Tranças"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 5
 	},
 	"cosmetic_hair_punk": {
 		"name": {
@@ -340,6 +593,50 @@
 		"update": "12.0.0",
 		"variations": 3
 	},
+	"cosmetic_hair_slick_back": {
+		"name": {
+			"en-US": "Slick back haircut",
+			"fr": "Coupe plaquée",
+			"pt-BR": "Cabelo penteado para trás"
+		},
+		"cost": 0,
+		"rarity": "rarity_epic",
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_hair_banana": {
+		"name": {
+			"en-US": "Pompadour",
+			"fr": "Coupe banane",
+			"pt-BR": "Pompadour"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_hair_cosmic": {
+		"name": {
+			"en-US": "Cosmic haircut",
+			"fr": "Coupe cosmique",
+			"pt-BR": "Corte cósmico"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_hair_cosmic_strand": {
+		"name": {
+			"en-US": "Hair strand",
+			"fr": "Mèche de cheveux",
+			"pt-BR": "Mecha de cabelo"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
 	"cosmetic_mask_gas": {
 		"name": {
 			"en-US": "Gas mask",
@@ -360,6 +657,28 @@
 		"cost": 0,
 		"rarity": "rarity_common",
 		"update": "1.6.0",
+		"variations": 1
+	},
+	"cosmetic_glasses_mechanic": {
+		"name": {
+			"en-US": "Mechanic glasses",
+			"fr": "Lunettes de mécanicien",
+			"pt-BR": "Óculos de mecânico"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_mask_papercraft": {
+		"name": {
+			"en-US": "Paper bag mask",
+			"fr": "Masque en papier",
+			"pt-BR": "Máscara de saco de papel"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "12.0.0",
 		"variations": 1
 	},
 	"cosmetic_mask_pumpkin": {
@@ -395,22 +714,11 @@
 		"update": "12.0.0",
 		"variations": 3
 	},
-	"cosmetic_mask_papercraft": {
-		"name": {
-			"en-US": "Paper bag mask",
-			"fr": "Masque en papier",
-			"pt-BR": "Máscara de saco de papel"
-		},
-		"cost": 0,
-		"rarity": "rarity_rare",
-		"update": "12.0.0",
-		"variations": 1
-	},
 	"cosmetic_headset_vr": {
 		"name": {
 			"en-US": "VR headset",
 			"fr": "Casque de RV",
-			"pt-BR": "Óculos RV"
+			"pt-BR": "Óculos VR"
 		},
 		"cost": 0,
 		"rarity": "rarity_epic",
@@ -427,6 +735,61 @@
 		"rarity": "rarity_epic",
 		"update": "12.0.0",
 		"variations": 2
+	},
+	"cosmetic_hat_fish": {
+		"name": {
+			"en-US": "Fish hat",
+			"fr": "Chapeau poisson",
+			"pt-BR": "Chapéu de peixe"
+		},
+		"cost": 5,
+		"rarity": "char_tristopio",
+		"update": "13.0.0",
+		"variations": 2
+	},
+	"cosmetic_cosmic_headband": {
+		"name": {
+			"en-US": "Mechanic headband",
+			"fr": "Bandeau de mécanicien",
+			"pt-BR": "Faixa de mecânico"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_cosmic_tiara": {
+		"name": {
+			"en-US": "Cosmic tiara",
+			"fr": "Diadème cosmique",
+			"pt-BR": "Tiara cósmica"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_helmet_aquarium": {
+		"name": {
+			"en-US": "Aquarium",
+			"fr": "Aquarium",
+			"pt-BR": "Aquário"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_diving_suit": {
+		"name": {
+			"en-US": "Diving suit",
+			"fr": "Scaphandre",
+			"pt-BR": "Roupa de mergulho"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 1
 	},
 	"cosmetic_mask_sandstorm": {
 		"name": {
@@ -483,6 +846,50 @@
 		"update": "1.3.0",
 		"variations": 1
 	},
+	"cosmetic_eyes_happy_feminine": {
+		"name": {
+			"en-US": "Happy eyes",
+			"fr": "Regard joyeux",
+			"pt-BR": "Olhos felizes"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_eyes_jaded": {
+		"name": {
+			"en-US": "Jaded eyes",
+			"fr": "Regard blasé",
+			"pt-BR": "Olhos cansados"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_glasses_round": {
+		"name": {
+			"en-US": "Round glasses",
+			"fr": "Lunettes rondes",
+			"pt-BR": "Óculos redondos"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 5
+	},
+	"cosmetic_eyes_shinning": {
+		"name": {
+			"en-US": "Shinning eyes",
+			"fr": "Yeux brillants",
+			"pt-BR": "Olhos brilhantes"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 1
+	},
 	"cosmetic_eyes_white": {
 		"name": {
 			"en-US": "White eyes",
@@ -516,11 +923,22 @@
 		"update": "1.9.1",
 		"variations": 1
 	},
+	"cosmetic_eyes_fines": {
+		"name": {
+			"en-US": "Almond eyes",
+			"fr": "Yeux en amande",
+			"pt-BR": "Olhos amendoados"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
+		"variations": 1
+	},
 	"cosmetic_eyes_manga": {
 		"name": {
 			"en-US": "Anime eyes",
 			"fr": "Yeux de manga",
-			"pt-BR": "Olhos de Anime"
+			"pt-BR": "Olhos de anime"
 		},
 		"cost": 0,
 		"rarity": "rarity_rare",
@@ -537,6 +955,17 @@
 		"rarity": "rarity_rare",
 		"update": "12.0.0",
 		"variations": 3
+	},
+	"cosmetic_glasses_ski": {
+		"name": {
+			"en-US": "Ski goggles",
+			"fr": "Lunettes de ski",
+			"pt-BR": "Óculos de esqui"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
+		"variations": 1
 	},
 	"cosmetic_glasses_dealwithit": {
 		"name": {
@@ -560,6 +989,17 @@
 		"update": "1.9.4",
 		"variations": 1
 	},
+	"cosmetic_eyes_cat": {
+		"name": {
+			"en-US": "Cat eyes",
+			"fr": "Yeux de chat",
+			"pt-BR": "Olhos de gato"
+		},
+		"cost": 1,
+		"rarity": "char_tristopio",
+		"update": "13.0.0",
+		"variations": 4
+	},
 	"cosmetic_glasses_imabear": {
 		"name": {
 			"en-US": "IMABEAR",
@@ -582,6 +1022,72 @@
 		"update": "10.5.3",
 		"variations": 1
 	},
+	"cosmetic_eyes_tristopio": {
+		"name": {
+			"en-US": "Tristopio's eyes",
+			"fr": "Yeux de Tristopio",
+			"pt-BR": "Olhos do Tristopio"
+		},
+		"cost": 3,
+		"rarity": "char_tristopio",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_adventurer_glasses": {
+		"name": {
+			"en-US": "Explorer glasses",
+			"fr": "Lunettes d'explorateur",
+			"pt-BR": "Óculos de explorador"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 2
+	},
+	"cosmetic_glasses_cosmic": {
+		"name": {
+			"en-US": "Cosmic glasses",
+			"fr": "Lunettes cosmiques",
+			"pt-BR": "Óculos cósmicos"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_eyes_scar": {
+		"name": {
+			"en-US": "Scarred eye",
+			"fr": "Cicatrice à l'œil",
+			"pt-BR": "Olho com cicatriz"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_monocle": {
+		"name": {
+			"en-US": "Monocle",
+			"fr": "Monocle",
+			"pt-BR": "Monóculo"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_eyes_pirate": {
+		"name": {
+			"en-US": "Eye patch",
+			"fr": "Cache-Œil",
+			"pt-BR": "Tapa-olho"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
 	"cosmetic_glasses_shutter": {
 		"name": {
 			"en-US": "Shutter glasses",
@@ -589,9 +1095,9 @@
 			"pt-BR": "Óculos persiana"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
-		"variations": 1
+		"variations": 2
 	},
 	"cosmetic_glasses_sunset": {
 		"name": {
@@ -600,9 +1106,9 @@
 			"pt-BR": "Óculos de pôr do sol"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
-		"variations": 1
+		"variations": 2
 	},
 	"cosmetic_glasses_miner": {
 		"name": {
@@ -614,6 +1120,17 @@
 		"rarity": "char_mole",
 		"update": "12.0.0",
 		"variations": 1
+	},
+	"cosmetic_water_goggles": {
+		"name": {
+			"en-US": "Water goggles",
+			"fr": "Lunettes de plongée",
+			"pt-BR": "Óculos de natação"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 5
 	},
 	"cosmetic_beard": {
 		"name": {
@@ -636,6 +1153,28 @@
 		"rarity": "rarity_common",
 		"update": "10.5.3",
 		"variations": 5
+	},
+	"cosmetic_mustache_short": {
+		"name": {
+			"en-US": "Short mustache",
+			"fr": "Petite moustache",
+			"pt-BR": "Bigode curto"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 5
+	},
+	"cosmetic_opened_mouth": {
+		"name": {
+			"en-US": "Open mouth",
+			"fr": "Bouche ouverte",
+			"pt-BR": "Boca aberta"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 1
 	},
 	"cosmetic_pacifier": {
 		"name": {
@@ -670,6 +1209,28 @@
 		"update": "12.0.0",
 		"variations": 1
 	},
+	"cosmetic_nose_piercing": {
+		"name": {
+			"en-US": "Nose piercing",
+			"fr": "Septum",
+			"pt-BR": "Piercing de nariz"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_mustache_large": {
+		"name": {
+			"en-US": "Large mustache",
+			"fr": "Grosse moustache",
+			"pt-BR": "Bigodão"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 5
+	},
 	"cosmetic_toothpick": {
 		"name": {
 			"en-US": "Toothpick",
@@ -677,7 +1238,7 @@
 			"pt-BR": "Palito de dente"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
 		"variations": 1
 	},
@@ -795,7 +1356,7 @@
 		"name": {
 			"en-US": "Reversed head",
 			"fr": "Tête à l'envers",
-			"pt-BR": "De ponta-cabeça"
+			"pt-BR": "Ponta-cabeça"
 		},
 		"cost": 0,
 		"rarity": "rarity_rare",
@@ -813,11 +1374,22 @@
 		"update": "1.6.6",
 		"variations": 1
 	},
+	"cosmetic_head__fennec_skull": {
+		"name": {
+			"en-US": "Fennec skull",
+			"fr": "Crâne de fennec",
+			"pt-BR": "Crânio de feneco"
+		},
+		"cost": 0,
+		"rarity": "rarity_epic",
+		"update": "13.0.0",
+		"variations": 3
+	},
 	"cosmetic_head_bobble": {
 		"name": {
 			"en-US": "Bobble head",
 			"fr": "Tête à ressort",
-			"pt-BR": "Cabeça bobble"
+			"pt-BR": "Bobblehead"
 		},
 		"cost": 1,
 		"rarity": "char_tristopio",
@@ -855,17 +1427,127 @@
 		"cost": 0,
 		"rarity": "rarity_legendary",
 		"update": "1.6.2",
-		"variations": 1
+		"variations": 2
 	},
 	"cosmetic_mask_yeti": {
 		"name": {
 			"en-US": "Yeti mask",
 			"fr": "Masque de Yéti",
-			"pt-BR": "Máscara de Yeti"
+			"pt-BR": "Máscara do Yeti"
 		},
 		"cost": 0,
 		"rarity": "ui_hive",
 		"update": "10.0.0",
+		"variations": 1
+	},
+	"cosmetic_head_alien": {
+		"name": {
+			"en-US": "Alien head",
+			"fr": "Tête d'extraterrestre",
+			"pt-BR": "Cabeça de alien"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_head_boar": {
+		"name": {
+			"en-US": "Boar head",
+			"fr": "Tête de sanglier",
+			"pt-BR": "Cabeça de javali"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_head_cosmic_bear": {
+		"name": {
+			"en-US": "Cosmic bear head",
+			"fr": "Tête d'ours cosmique",
+			"pt-BR": "Cabeça de urso cósmico"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_mexican_fennec_skull": {
+		"name": {
+			"en-US": "Mexican fennec skull",
+			"fr": "Crâne de fennec mexicain",
+			"pt-BR": "Crânio de feneco mexicano"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_head_mexican_skull": {
+		"name": {
+			"en-US": "Mexican skull",
+			"fr": "Crâne mexicain",
+			"pt-BR": "Crânio mexicano"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_head_pelican": {
+		"name": {
+			"en-US": "Pelican head",
+			"fr": "Tête de pélican",
+			"pt-BR": "Cabeça de pelicano"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_head_croco_robot": {
+		"name": {
+			"en-US": "Robot croc head",
+			"fr": "Tête de robot croco",
+			"pt-BR": "Cabeça de crocodilo robô"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_head_fennec_robot": {
+		"name": {
+			"en-US": "Robot fennec head",
+			"fr": "Tête de robot fennec",
+			"pt-BR": "Cabeça de feneco robô"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_head_robot": {
+		"name": {
+			"en-US": "Robot head",
+			"fr": "Tête de robot",
+			"pt-BR": "Cabeça de robô"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_aquabear_head": {
+		"name": {
+			"en-US": "Aquabear head",
+			"fr": "Tête d'Aqua-Ours",
+			"pt-BR": "Cabeça do Aquabear"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
 		"variations": 1
 	},
 	"cosmetic_head_snowman": {
@@ -877,6 +1559,83 @@
 		"cost": 0,
 		"rarity": "char_mole",
 		"update": "12.0.0",
+		"variations": 1
+	},
+	"cosmetic_head_toy": {
+		"name": {
+			"en-US": "Toy head",
+			"fr": "Tête de jouet",
+			"pt-BR": "Cabeça de brinquedo"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_mask_yeti_young": {
+		"name": {
+			"en-US": "Young Yeti mask",
+			"fr": "Masque de jeune yéti",
+			"pt-BR": "Máscara do Jovem Yeti"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_voice_alien": {
+		"name": {
+			"en-US": "Alien voice",
+			"fr": "Voix d'extraterrestre",
+			"pt-BR": "Voz de alien"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_voice_brute": {
+		"name": {
+			"en-US": "Brute voice",
+			"fr": "Voix de brute",
+			"pt-BR": "Voz bruta"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_voice_robot": {
+		"name": {
+			"en-US": "Robot voice",
+			"fr": "Voix de robot",
+			"pt-BR": "Voz de robô"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_voice_feminine": {
+		"name": {
+			"en-US": "Feminine voice",
+			"fr": "Voix féminine",
+			"pt-BR": "Voz feminina"
+		},
+		"cost": 0,
+		"rarity": "cosmetic_default",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_voice_silent": {
+		"name": {
+			"en-US": "Quiet voice",
+			"fr": "Voix silencieuse",
+			"pt-BR": "Voz calma"
+		},
+		"cost": 0,
+		"rarity": "cosmetic_default",
+		"update": "13.0.0",
 		"variations": 1
 	},
 	"cosmetic_jacket": {
@@ -899,18 +1658,29 @@
 		"cost": 0,
 		"rarity": "rarity_common",
 		"update": "1.3.0",
-		"variations": 1
+		"variations": 3
 	},
-	"cosmetic_body_chocolate": {
+	"cosmetic_chef_jacket": {
 		"name": {
-			"en-US": "Chocolate body",
-			"fr": "Corps en chocolat",
-			"pt-BR": "Corpo de chocolate"
+			"en-US": "Chef's jacket",
+			"fr": "Veste de chef",
+			"pt-BR": "Jaqueta do chef"
 		},
 		"cost": 0,
 		"rarity": "rarity_common",
-		"update": "1.6.6",
-		"variations": 1
+		"update": "13.0.0",
+		"variations": 2
+	},
+	"cosmetic_christmas_sweater": {
+		"name": {
+			"en-US": "Christmas sweater",
+			"fr": "Pull de Noël",
+			"pt-BR": "Suéter natalino"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 4
 	},
 	"cosmetic_coat_lab": {
 		"name": {
@@ -923,6 +1693,28 @@
 		"update": "1.7.0",
 		"variations": 1
 	},
+	"cosmetic_overalls": {
+		"name": {
+			"en-US": "Overalls",
+			"fr": "Salopette",
+			"pt-BR": "Macacão"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_shirt_like_a_boss": {
+		"name": {
+			"en-US": "Stylish shirt",
+			"fr": "T-shirt stylé",
+			"pt-BR": "Camisa estilosa"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 1
+	},
 	"cosmetic_shirt_number": {
 		"name": {
 			"en-US": "Shirt",
@@ -932,18 +1724,51 @@
 		"cost": 0,
 		"rarity": "rarity_common",
 		"update": "1.3.0",
-		"variations": 1
+		"variations": 4
 	},
-	"cosmetic_body_skeleton": {
+	"cosmetic_dress_simple": {
 		"name": {
-			"en-US": "Skeleton body",
-			"fr": "Corps squelette",
-			"pt-BR": "Corpo de esqueleto"
+			"en-US": "Sundress",
+			"fr": "Robe estivale",
+			"pt-BR": "Vestido de verão"
 		},
 		"cost": 0,
 		"rarity": "rarity_common",
-		"update": "1.6.2",
-		"variations": 2
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_tanktop": {
+		"name": {
+			"en-US": "Tanktop",
+			"fr": "Débardeur",
+			"pt-BR": "Regata"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_shirt_crop": {
+		"name": {
+			"en-US": "Shrunken shirt",
+			"fr": "T-shirt rétréci",
+			"pt-BR": "Camisa encolhida"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 6
+	},
+	"cosmetic_turtleneck_sweater": {
+		"name": {
+			"en-US": "Turtleneck sweater",
+			"fr": "Col roulé",
+			"pt-BR": "Suéter de gola alta"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 5
 	},
 	"cosmetic_diaper": {
 		"name": {
@@ -987,7 +1812,40 @@
 		"cost": 0,
 		"rarity": "rarity_rare",
 		"update": "1.3.0",
+		"variations": 2
+	},
+	"cosmetic_shirt_lumberjack": {
+		"name": {
+			"en-US": "Lumberjack shirt",
+			"fr": "Chemise de bûcheron",
+			"pt-BR": "Camisa de lenhador"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_shirt_ninja": {
+		"name": {
+			"en-US": "Ninja shirt",
+			"fr": "Tenue de ninja",
+			"pt-BR": "Camisa de ninja"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
 		"variations": 1
+	},
+	"cosmetic_parka": {
+		"name": {
+			"en-US": "Parka",
+			"fr": "Parka",
+			"pt-BR": "Parka"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
+		"variations": 2
 	},
 	"cosmetic_suit_santa": {
 		"name": {
@@ -1011,6 +1869,17 @@
 		"update": "1.6.2",
 		"variations": 1
 	},
+	"cosmetic_jester_collar": {
+		"name": {
+			"en-US": "Jester outfit",
+			"fr": "Costume de bouffon",
+			"pt-BR": "Roupa de bobo da corte"
+		},
+		"cost": 2,
+		"rarity": "char_tristopio",
+		"update": "13.0.0",
+		"variations": 3
+	},
 	"cosmetic_coat_rain": {
 		"name": {
 			"en-US": "Raincoat",
@@ -1020,6 +1889,17 @@
 		"cost": 2,
 		"rarity": "char_tristopio",
 		"update": "12.0.0",
+		"variations": 1
+	},
+	"cosmetic_jacket_punk": {
+		"name": {
+			"en-US": "Punk jacket",
+			"fr": "Veste punk",
+			"pt-BR": "Jaqueta punk"
+		},
+		"cost": 0,
+		"rarity": "rarity_legendary",
+		"update": "13.0.0",
 		"variations": 1
 	},
 	"cosmetic_shirt_sba": {
@@ -1033,16 +1913,115 @@
 		"update": "1.6.2",
 		"variations": 1
 	},
+	"cosmetic_soccer_shirt_latino": {
+		"name": {
+			"en-US": "Sunshine soccer shirt",
+			"fr": "Maillot de foot Baindsoleil",
+			"pt-BR": "Camisa de futebol Ilha do Sol"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_soccer_shorts_latino": {
+		"name": {
+			"en-US": "Sunshine soccer shorts",
+			"fr": "Short de foot Baindsoleil",
+			"pt-BR": "Bermuda de futebol Ilha do Sol"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_jacket_adventurer": {
+		"name": {
+			"en-US": "Adventurer jacket",
+			"fr": "Veste d'aventurier",
+			"pt-BR": "Jaqueta de aventureiro"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_suit_charro": {
+		"name": {
+			"en-US": "Charro outfit",
+			"fr": "Tenue de charro",
+			"pt-BR": "Traje de charro"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_coconuts": {
+		"name": {
+			"en-US": "Coconuts",
+			"fr": "Noix de coco",
+			"pt-BR": "Cocos"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_dress_colombian": {
+		"name": {
+			"en-US": "Colombian dress",
+			"fr": "Robe colombienne",
+			"pt-BR": "Vestido colombiano"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_cosmic_armor": {
+		"name": {
+			"en-US": "Cosmic armor",
+			"fr": "Armure cosmique",
+			"pt-BR": "Armadura cósmica"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_cosmic_belt": {
+		"name": {
+			"en-US": "Mechanic belt",
+			"fr": "Ceinture de mécanicien",
+			"pt-BR": "Cinto de mecânico"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
 	"cosmetic_jacket_cowboy": {
 		"name": {
 			"en-US": "Cowboy jacket",
 			"fr": "Veste de cowboy",
-			"pt-BR": "Jaqueta de Cowboy"
+			"pt-BR": "Jaqueta de cowboy"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
-		"variations": 1
+		"variations": 3
+	},
+	"cosmetic_poncho_festive": {
+		"name": {
+			"en-US": "Festive poncho",
+			"fr": "Poncho festif",
+			"pt-BR": "Poncho festivo"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
 	},
 	"cosmetic_shirt_hawaiian": {
 		"name": {
@@ -1051,9 +2030,9 @@
 			"pt-BR": "Camisa havaiana"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
-		"variations": 1
+		"variations": 3
 	},
 	"cosmetic_hoodie_rapper": {
 		"name": {
@@ -1062,9 +2041,9 @@
 			"pt-BR": "Moletom"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
-		"variations": 1
+		"variations": 2
 	},
 	"cosmetic_jacket_night": {
 		"name": {
@@ -1073,9 +2052,53 @@
 			"pt-BR": "Jaqueta do Night Bear"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
+		"variations": 2
+	},
+	"cosmetic_dress_peruvian": {
+		"name": {
+			"en-US": "Peruvian dress",
+			"fr": "Robe péruvienne",
+			"pt-BR": "Vestido peruano"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 2
+	},
+	"cosmetic_coat_pirate": {
+		"name": {
+			"en-US": "Pirate coat",
+			"fr": "Manteau de pirate",
+			"pt-BR": "Casaco de pirata"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_skirt_pirate": {
+		"name": {
+			"en-US": "Pirate skirt",
+			"fr": "Jupe de pirate",
+			"pt-BR": "Saia de pirata"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
 		"variations": 1
+	},
+	"cosmetic_aquabear_suit": {
+		"name": {
+			"en-US": "Aquabear suit",
+			"fr": "Costume Aqua-Ours",
+			"pt-BR": "Roupa do Aquabear"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 2
 	},
 	"cosmetic_poncho": {
 		"name": {
@@ -1119,7 +2142,7 @@
 		"cost": 0,
 		"rarity": "rarity_common",
 		"update": "10.5.3",
-		"variations": 1
+		"variations": 4
 	},
 	"cosmetic_bowtie": {
 		"name": {
@@ -1130,6 +2153,50 @@
 		"cost": 0,
 		"rarity": "rarity_common",
 		"update": "1.3.0",
+		"variations": 1
+	},
+	"cosmetic_jabot_tie": {
+		"name": {
+			"en-US": "Jabot",
+			"fr": "Jabot",
+			"pt-BR": "Jabô"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_miner_straps": {
+		"name": {
+			"en-US": "Miner straps",
+			"fr": "Bretelles de mineur",
+			"pt-BR": "Alças de mineiro"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_shoulder_strap": {
+		"name": {
+			"en-US": "Shoulder strap",
+			"fr": "Bandoulière",
+			"pt-BR": "Alça de ombro"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_cape_vampire": {
+		"name": {
+			"en-US": "Vampire cape",
+			"fr": "Cape de vampire",
+			"pt-BR": "Capa de vampiro"
+		},
+		"cost": 0,
+		"rarity": "rarity_epic",
+		"update": "13.0.0",
 		"variations": 1
 	},
 	"cosmetic_cape": {
@@ -1143,6 +2210,72 @@
 		"update": "1.9.1",
 		"variations": 2
 	},
+	"cosmetic_honey_pot": {
+		"name": {
+			"en-US": "Honey pot",
+			"fr": "Pot de miel",
+			"pt-BR": "Pote de mel"
+		},
+		"cost": 2,
+		"rarity": "char_tristopio",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_cosmic_cape": {
+		"name": {
+			"en-US": "Cosmic cape",
+			"fr": "Cape cosmique",
+			"pt-BR": "Capa cósmica"
+		},
+		"cost": 2,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_cosmic_large_cape": {
+		"name": {
+			"en-US": "Large cosmic cape",
+			"fr": "Longue cape cosmique",
+			"pt-BR": "Capa cósmica larga"
+		},
+		"cost": 2,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_backpack": {
+		"name": {
+			"en-US": "Backpack",
+			"fr": "Sac à dos",
+			"pt-BR": "Mochila"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_cosmic_short_cape": {
+		"name": {
+			"en-US": "Short cosmic cape",
+			"fr": "Petite cape cosmique",
+			"pt-BR": "Capa cósmica pequena"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_bandana_cosmic": {
+		"name": {
+			"en-US": "Cosmic bandana",
+			"fr": "Bandana cosmique",
+			"pt-BR": "Bandana cósmica"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
 	"cosmetic_necklace_dollar": {
 		"name": {
 			"en-US": "Dollar necklace",
@@ -1150,9 +2283,31 @@
 			"pt-BR": "Cordão de dólar"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
 		"variations": 1
+	},
+	"cosmetic_jetpack": {
+		"name": {
+			"en-US": "Jetpack",
+			"fr": "Jetpack",
+			"pt-BR": "Jetpack"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_necklace_pearl": {
+		"name": {
+			"en-US": "Pearl necklace",
+			"fr": "Collier de perles",
+			"pt-BR": "Colar de pérolas"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
 	},
 	"cosmetic_necklace_shark": {
 		"name": {
@@ -1161,8 +2316,52 @@
 			"pt-BR": "Cordão de dente de tubarão"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
+		"variations": 1
+	},
+	"cosmetic_cape_beemothep": {
+		"name": {
+			"en-US": "Beemothep cape",
+			"fr": "Cape de Beemothep",
+			"pt-BR": "Capa de Beemothep"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_cape_giant_house": {
+		"name": {
+			"en-US": "Giant House cape",
+			"fr": "Cape de la maison géante",
+			"pt-BR": "Capa da Casa Gigante"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_cape_snow_valley": {
+		"name": {
+			"en-US": "Snow Valley cape",
+			"fr": "Cape de la Vallée des Neiges",
+			"pt-BR": "Capa do Vale Nevado"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_cape_turtle_town": {
+		"name": {
+			"en-US": "Turtletown cape",
+			"fr": "Cape de Tortibourg",
+			"pt-BR": "Capa da Aldeia das Tartarugas"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
 		"variations": 1
 	},
 	"cosmetic_cape_damaged": {
@@ -1198,6 +2397,39 @@
 		"update": "10.5.3",
 		"variations": 1
 	},
+	"cosmetic_gloves_ninja": {
+		"name": {
+			"en-US": "Ninja gloves",
+			"fr": "Gants de ninja",
+			"pt-BR": "Luvas de ninja"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_japanese_sandals": {
+		"name": {
+			"en-US": "Geta sandals",
+			"fr": "Sandales geta",
+			"pt-BR": "Sandálias geta"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_shoes_cool": {
+		"name": {
+			"en-US": "Cool shoes",
+			"fr": "Chaussures cool",
+			"pt-BR": "Sapatos daora"
+		},
+		"cost": 0,
+		"rarity": "rarity_epic",
+		"update": "13.0.0",
+		"variations": 3
+	},
 	"cosmetic_balloon": {
 		"name": {
 			"en-US": "Balloon",
@@ -1209,6 +2441,72 @@
 		"update": "10.5.3",
 		"variations": 4
 	},
+	"cosmetic_hands_alien": {
+		"name": {
+			"en-US": "Alien hands",
+			"fr": "Mains d'extraterrestre",
+			"pt-BR": "Mãos de alien"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_hands_cosmic_armor": {
+		"name": {
+			"en-US": "Cosmic gauntlet",
+			"fr": "Gantelets cosmiques",
+			"pt-BR": "Manopla cósmica"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_hands_cosmic_worker": {
+		"name": {
+			"en-US": "Cosmic gloves",
+			"fr": "Gants cosmiques",
+			"pt-BR": "Luvas cósmicas"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_hands_maracas": {
+		"name": {
+			"en-US": "Maracas",
+			"fr": "Maracas",
+			"pt-BR": "Maracas"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 2
+	},
+	"cosmetic_hands_robot": {
+		"name": {
+			"en-US": "Robot hands",
+			"fr": "Mains de robot",
+			"pt-BR": "Mãos de robô"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_hands_torch": {
+		"name": {
+			"en-US": "Torch",
+			"fr": "Torche",
+			"pt-BR": "Tocha"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
 	"cosmetic_watch_golden": {
 		"name": {
 			"en-US": "Golden watch",
@@ -1216,7 +2514,7 @@
 			"pt-BR": "Relógio dourado"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
 		"variations": 1
 	},
@@ -1227,7 +2525,7 @@
 			"pt-BR": "Luvas sem dedos"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
 		"variations": 1
 	},
@@ -1238,19 +2536,85 @@
 			"pt-BR": "Chinelos"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
+		"variations": 2
+	},
+	"cosmetic_feet_adventurer": {
+		"name": {
+			"en-US": "Adventurer boots",
+			"fr": "Bottes d'aventurier",
+			"pt-BR": "Botas de aventureiro"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_feet_alien": {
+		"name": {
+			"en-US": "Alien feet",
+			"fr": "Pieds d'extraterrestre",
+			"pt-BR": "Pés de alien"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
 		"variations": 1
+	},
+	"cosmetic_feet_cosmic_armor": {
+		"name": {
+			"en-US": "Cosmic boots",
+			"fr": "Bottes cosmiques",
+			"pt-BR": "Botas cósmicas"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
 	},
 	"cosmetic_shoes_cowboy": {
 		"name": {
 			"en-US": "Cowboy boots",
 			"fr": "Bottes de cowboy",
-			"pt-BR": "Botas de Cowboy"
+			"pt-BR": "Botas de cowboy"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
+		"variations": 3
+	},
+	"cosmetic_feet_robot": {
+		"name": {
+			"en-US": "Robot feet",
+			"fr": "Pieds de robot",
+			"pt-BR": "Pés de robô"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_feet_wetsuit_palm": {
+		"name": {
+			"en-US": "Flippers",
+			"fr": "Palmes",
+			"pt-BR": "Nadadeiras"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_body_chocolate": {
+		"name": {
+			"en-US": "Chocolate body",
+			"fr": "Corps en chocolat",
+			"pt-BR": "Corpo de chocolate"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "1.6.6",
 		"variations": 1
 	},
 	"cosmetic_body_fat": {
@@ -1275,6 +2639,17 @@
 		"update": "1.3.0",
 		"variations": 1
 	},
+	"cosmetic_body_skeleton": {
+		"name": {
+			"en-US": "Skeleton body",
+			"fr": "Corps squelette",
+			"pt-BR": "Corpo de esqueleto"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "1.6.2",
+		"variations": 2
+	},
 	"cosmetic_body_turtle": {
 		"name": {
 			"en-US": "Turtle shell",
@@ -1286,11 +2661,33 @@
 		"update": "10.0.0",
 		"variations": 1
 	},
+	"cosmetic_body_robot": {
+		"name": {
+			"en-US": "Robot body",
+			"fr": "Corps de robot",
+			"pt-BR": "Corpo de robô"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_body_turtle_spikes": {
+		"name": {
+			"en-US": "Spiky shell",
+			"fr": "Carapace à pointes",
+			"pt-BR": "Casca espinhosa"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 2
+	},
 	"cosmetic_skin_black": {
 		"name": {
 			"en-US": "Black bear",
 			"fr": "Ours noir",
-			"pt-BR": "Urso pelagem escura"
+			"pt-BR": "Urso pelagem negra"
 		},
 		"cost": 0,
 		"rarity": "rarity_common",
@@ -1312,7 +2709,7 @@
 		"name": {
 			"en-US": "Dark bear",
 			"fr": "Ours sombre",
-			"pt-BR": "Urso pelagem negra"
+			"pt-BR": "Urso pelagem escura"
 		},
 		"cost": 0,
 		"rarity": "rarity_common",
@@ -1323,7 +2720,7 @@
 		"name": {
 			"en-US": "Desert bear",
 			"fr": "Ours du désert",
-			"pt-BR": "Urso desértico"
+			"pt-BR": "Urso do deserto"
 		},
 		"cost": 0,
 		"rarity": "rarity_common",
@@ -1362,17 +2759,6 @@
 		"rarity": "rarity_rare",
 		"update": "10.5.3",
 		"variations": 4
-	},
-	"cosmetic_outline": {
-		"name": {
-			"en-US": "Outline",
-			"fr": "Contour",
-			"pt-BR": "Contorno"
-		},
-		"cost": 0,
-		"rarity": "rarity_rare",
-		"update": "1.6.2",
-		"variations": 3
 	},
 	"cosmetic_skin_badger": {
 		"name": {
@@ -1444,11 +2830,22 @@
 		"name": {
 			"en-US": "Spectacled bear",
 			"fr": "Ours à lunettes",
-			"pt-BR": "Urso marcado"
+			"pt-BR": "Urso-de-óculos"
 		},
 		"cost": 0,
 		"rarity": "rarity_rare",
 		"update": "12.0.0",
+		"variations": 1
+	},
+	"cosmetic_skin_yellow": {
+		"name": {
+			"en-US": "Yellow bear",
+			"fr": "Ours jaune",
+			"pt-BR": "Urso amarelo"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
 		"variations": 1
 	},
 	"cosmetic_skin_red": {
@@ -1499,18 +2896,18 @@
 		"name": {
 			"en-US": "Shicka bear",
 			"fr": "Ours Shicka",
-			"pt-BR": "Shicka urso"
+			"pt-BR": "Urso Shicka"
 		},
 		"cost": 0,
 		"rarity": "rarity_epic",
 		"update": "1.8.4",
 		"variations": 1
 	},
-	"cosmetic_skin_cosmic": {
+	"cosmetic_skin_galaxy": {
 		"name": {
-			"en-US": "Cosmic bear",
-			"fr": "Ours cosmique",
-			"pt-BR": "Urso cósmico"
+			"en-US": "Galactic bear",
+			"fr": "Ours galactique",
+			"pt-BR": "Urso galático"
 		},
 		"cost": 3,
 		"rarity": "char_tristopio",
@@ -1539,6 +2936,72 @@
 		"update": "10.0.0",
 		"variations": 1
 	},
+	"cosmetic_skin_alien": {
+		"name": {
+			"en-US": "Alien",
+			"fr": "Extraterrestre",
+			"pt-BR": "Alien"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_skin_boar": {
+		"name": {
+			"en-US": "Boar",
+			"fr": "Sanglier",
+			"pt-BR": "Javali"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_skin_cosmic_bear": {
+		"name": {
+			"en-US": "Cosmic bear",
+			"fr": "Ours cosmique",
+			"pt-BR": "Urso cósmico"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_skin_cosmic_rabbit": {
+		"name": {
+			"en-US": "Cosmic rabbit",
+			"fr": "Lapin cosmique",
+			"pt-BR": "Coelho cósmico"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_skin_devil": {
+		"name": {
+			"en-US": "Devil bear",
+			"fr": "Ours diabolique",
+			"pt-BR": "Urso diabólico"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_skin_iced": {
+		"name": {
+			"en-US": "Ice bear",
+			"fr": "Ours givré",
+			"pt-BR": "Urso de gelo"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 1
+	},
 	"cosmetic_shicka_green": {
 		"name": {
 			"en-US": "Green Shicka",
@@ -1561,6 +3024,17 @@
 		"update": "1.7.0",
 		"variations": 1
 	},
+	"cosmetic_shicka_purple": {
+		"name": {
+			"en-US": "Purple Shicka",
+			"fr": "Shicka violette",
+			"pt-BR": "Shicka roxa"
+		},
+		"cost": 0,
+		"rarity": "rarity_common",
+		"update": "13.0.0",
+		"variations": 1
+	},
 	"cosmetic_shicka_red": {
 		"name": {
 			"en-US": "Red Shicka",
@@ -1576,7 +3050,7 @@
 		"name": {
 			"en-US": "Bear Shicka",
 			"fr": "Shicka ours",
-			"pt-BR": "Urso Shicka"
+			"pt-BR": "Shicka Urso"
 		},
 		"cost": 0,
 		"rarity": "rarity_rare",
@@ -1605,15 +3079,48 @@
 		"update": "1.4.0",
 		"variations": 1
 	},
+	"cosmetic_shicka_magic": {
+		"name": {
+			"en-US": "Magic Shicka",
+			"fr": "Shicka magique",
+			"pt-BR": "Shicka mágica"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_shicka_magma": {
+		"name": {
+			"en-US": "Magmatic Shicka",
+			"fr": "Shicka magmatique",
+			"pt-BR": "Shicka magmática"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
+		"variations": 1
+	},
 	"cosmetic_shicka_penguin": {
 		"name": {
 			"en-US": "Penguin Shicka",
 			"fr": "Shicka manchot",
-			"pt-BR": "Shicka Pinguim"
+			"pt-BR": "Shicka pinguim"
 		},
 		"cost": 0,
 		"rarity": "rarity_rare",
 		"update": "1.8.4",
+		"variations": 1
+	},
+	"cosmetic_shicka_plum": {
+		"name": {
+			"en-US": "Plum Shicka",
+			"fr": "Shicka prune",
+			"pt-BR": "Shicka ameixa"
+		},
+		"cost": 0,
+		"rarity": "rarity_rare",
+		"update": "13.0.0",
 		"variations": 1
 	},
 	"cosmetic_shicka_retro": {
@@ -1660,22 +3167,33 @@
 		"update": "1.7.2",
 		"variations": 1
 	},
-	"cosmetic_shicka_cosmic": {
+	"cosmetic_shicka_galaxy": {
 		"name": {
-			"en-US": "Cosmic Shicka",
-			"fr": "Shicka cosmique",
-			"pt-BR": "Shicka cósmica"
+			"en-US": "Galactic Shicka",
+			"fr": "Shicka galactique",
+			"pt-BR": "Shicka galática"
 		},
 		"cost": 2,
 		"rarity": "char_tristopio",
 		"update": "1.9.7",
 		"variations": 1
 	},
+	"cosmetic_shicka_bear": {
+		"name": {
+			"en-US": "Shicka bear",
+			"fr": "Shicka ours",
+			"pt-BR": "Shicka ursinho"
+		},
+		"cost": 0,
+		"rarity": "rarity_legendary",
+		"update": "13.0.0",
+		"variations": 1
+	},
 	"cosmetic_shicka_frog": {
 		"name": {
 			"en-US": "Larry the frog",
 			"fr": "Larry la grenouille",
-			"pt-BR": "Larry o sapo"
+			"pt-BR": "Larry, o sapo"
 		},
 		"cost": 0,
 		"rarity": "rarity_legendary",
@@ -1686,7 +3204,7 @@
 		"name": {
 			"en-US": "Koko the koala",
 			"fr": "Koko le koala",
-			"pt-BR": "Koko o coala"
+			"pt-BR": "Koko, o coala"
 		},
 		"cost": 0,
 		"rarity": "rarity_legendary",
@@ -1697,18 +3215,106 @@
 		"name": {
 			"en-US": "Oscar the mini pig",
 			"fr": "Oscar le cochon nain",
-			"pt-BR": "Oscar o mini porco"
+			"pt-BR": "Oscar, o miniporco"
 		},
 		"cost": 0,
 		"rarity": "rarity_legendary",
 		"update": "12.0.0",
 		"variations": 1
 	},
+	"cosmetic_shicken": {
+		"name": {
+			"en-US": "Shicken",
+			"fr": "Shicocotte",
+			"pt-BR": "Shicken"
+		},
+		"cost": 0,
+		"rarity": "rarity_legendary",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_shicka_alien": {
+		"name": {
+			"en-US": "Zicka",
+			"fr": "Zicka",
+			"pt-BR": "Zicka"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_shicka_caiman": {
+		"name": {
+			"en-US": "Camilo the caiman",
+			"fr": "Camilo le caïman",
+			"pt-BR": "Camilo, o caimão"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_shicka_narwhal": {
+		"name": {
+			"en-US": "Marvin the narwhal",
+			"fr": "Marvin le narval",
+			"pt-BR": "Marvin, o narval"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_shicka_robot": {
+		"name": {
+			"en-US": "Robotic Shicka",
+			"fr": "Shicka robotique",
+			"pt-BR": "Shicka robótica"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_shicka_seagull": {
+		"name": {
+			"en-US": "Steven the seagull",
+			"fr": "Steven la mouette",
+			"pt-BR": "Steven, a gaivota"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_shicka_fish": {
+		"name": {
+			"en-US": "Sasha the fish",
+			"fr": "Sacha le poisson",
+			"pt-BR": "Sasha, o peixe"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_shicka_kestrel": {
+		"name": {
+			"en-US": "Falco the kestrel",
+			"fr": "Falco la crécerelle",
+			"pt-BR": "Falco, o falcão"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 2
+	},
 	"cosmetic_shicka_bobble": {
 		"name": {
 			"en-US": "Bobble Shicka",
 			"fr": "Shicka à ressort",
-			"pt-BR": "Shicka bobble"
+			"pt-BR": "BobbleShicka"
 		},
 		"cost": 1,
 		"rarity": "char_tristopio",
@@ -1726,6 +3332,28 @@
 		"update": "10.5.3",
 		"variations": 1
 	},
+	"cosmetic_shicka_miner": {
+		"name": {
+			"en-US": "Miner Shicka",
+			"fr": "Shicka mineuse",
+			"pt-BR": "Shicka mineira"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_shicka_mummy": {
+		"name": {
+			"en-US": "Mummy Shicka",
+			"fr": "Shicka momie",
+			"pt-BR": "Shicka múmia"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 1
+	},
 	"cosmetic_shicka_pickaxe": {
 		"name": {
 			"en-US": "Pickaxe",
@@ -1735,6 +3363,28 @@
 		"cost": 0,
 		"rarity": "char_mole",
 		"update": "12.0.0",
+		"variations": 1
+	},
+	"cosmetic_shicka_trident": {
+		"name": {
+			"en-US": "Trident",
+			"fr": "Trident",
+			"pt-BR": "Tridente"
+		},
+		"cost": 0,
+		"rarity": "char_mole",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_footstep_magical": {
+		"name": {
+			"en-US": "Magical footsteps",
+			"fr": "Empreintes magiques",
+			"pt-BR": "Pegadas mágicas"
+		},
+		"cost": 0,
+		"rarity": "rarity_legendary",
+		"update": "10.2.0",
 		"variations": 1
 	},
 	"cosmetic_trail_rainbow": {
@@ -1781,6 +3431,83 @@
 		"update": "10.2.0",
 		"variations": 1
 	},
+	"cosmetic_pet_cosmic_bot": {
+		"name": {
+			"en-US": "Cosmic robot pet",
+			"fr": "Robot cosmique de compagnie",
+			"pt-BR": "Robô cósmico pet"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
+	},
+	"cosmetic_pet_monkey": {
+		"name": {
+			"en-US": "Monkey pet",
+			"fr": "Singe apprivoisé",
+			"pt-BR": "Macaco pet"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 2
+	},
+	"cosmetic_pet_parrot": {
+		"name": {
+			"en-US": "Parrot pet",
+			"fr": "Perroquet apprivoisé",
+			"pt-BR": "Papagaio pet"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 2
+	},
+	"cosmetic_pet_robot": {
+		"name": {
+			"en-US": "Robot pet",
+			"fr": "Robot de compagnie",
+			"pt-BR": "Robô pet"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 3
+	},
+	"cosmetic_music_cosmic": {
+		"name": {
+			"en-US": "Cosmic Crew music disc",
+			"fr": "Disque du Cosmic Crew",
+			"pt-BR": "Disco de música da Tripulação Cósmica"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_music_fast": {
+		"name": {
+			"en-US": "Speed up music disc",
+			"fr": "Accélérateur de musique",
+			"pt-BR": "Aumentar a velocidade do disco de música"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_music_slow": {
+		"name": {
+			"en-US": "Slow down music disc",
+			"fr": "Ralentisseur de musique",
+			"pt-BR": "Diminuir a velocidade do disco de música"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
 	"cosmetic_music_night": {
 		"name": {
 			"en-US": "Night Bear music disk",
@@ -1788,7 +3515,7 @@
 			"pt-BR": "Disco de música do Night Bear"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
 		"variations": 1
 	},
@@ -1799,7 +3526,7 @@
 			"pt-BR": "Disco de música do Rapper Bear"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
 		"variations": 1
 	},
@@ -1810,7 +3537,7 @@
 			"pt-BR": "Disco de música do Sheriff Bear"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
 		"variations": 1
 	},
@@ -1821,7 +3548,7 @@
 			"pt-BR": "Disco de música do Summer Bear"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
 		"variations": 1
 	},
@@ -1829,7 +3556,7 @@
 		"name": {
 			"en-US": "Brittany cloud",
 			"fr": "Nuage breton",
-			"pt-BR": "Chapéu Bretânhico"
+			"pt-BR": "Toró d'Água"
 		},
 		"cost": 2,
 		"rarity": "char_tristopio",
@@ -1854,7 +3581,7 @@
 			"pt-BR": "Céu Synthwave"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
 		"variations": 1
 	},
@@ -1865,26 +3592,26 @@
 			"pt-BR": "Bola de feno"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
 		"variations": 1
 	},
-	"cosmetic_footstep_magical": {
+	"cosmetic_outline": {
 		"name": {
-			"en-US": "Magical footsteps",
-			"fr": "Empreintes magiques",
-			"pt-BR": "Pegadas mágicas"
+			"en-US": "Outline",
+			"fr": "Contour",
+			"pt-BR": "Contorno"
 		},
 		"cost": 0,
-		"rarity": "rarity_legendary",
-		"update": "10.2.0",
-		"variations": 1
+		"rarity": "rarity_rare",
+		"update": "1.6.2",
+		"variations": 3
 	},
 	"cosmetic_filter_noire": {
 		"name": {
 			"en-US": "Noire vision",
 			"fr": "Vision noire",
-			"pt-BR": "Visão Nóir"
+			"pt-BR": "Visão Noir"
 		},
 		"cost": 0,
 		"rarity": "rarity_legendary",
@@ -1909,9 +3636,31 @@
 			"pt-BR": "Carro esportivo"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
 		"variations": 1
+	},
+	"cosmetic_car_pirate": {
+		"name": {
+			"en-US": "Pirate car",
+			"fr": "Voiture pirate",
+			"pt-BR": "Carro pirata"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"cosmetic_plane_spaceship": {
+		"name": {
+			"en-US": "Spaceship",
+			"fr": "Vaisseau spatial",
+			"pt-BR": "Nave espacial"
+		},
+		"cost": 0,
+		"rarity": "bundles_title",
+		"update": "13.0.0",
+		"variations": 4
 	},
 	"cosmetic_surfboard": {
 		"name": {
@@ -1920,7 +3669,7 @@
 			"pt-BR": "Prancha de surf"
 		},
 		"cost": 0,
-		"rarity": "pmk_title",
+		"rarity": "bundles_title",
 		"update": "10.5.3",
 		"variations": 1
 	}
