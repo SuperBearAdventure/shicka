@@ -159,6 +159,26 @@
 		"slots": 0,
 		"color": "#ff0000"
 	},
+	"_hidden": {
+		"name": {
+			"en-US": "Hidden",
+			"fr": "Caché",
+			"pt-BR": "Oculto"
+		},
+		"cost": 0,
+		"payoffs": [
+			0,
+			0,
+			0
+		],
+		"probabilities": [
+			0,
+			0,
+			0
+		],
+		"slots": 0,
+		"color": "#808080"
+	},
 	"cosmetic_default": {
 		"name": {
 			"en-US": "Default",

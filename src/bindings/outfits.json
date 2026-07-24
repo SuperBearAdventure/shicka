@@ -813,6 +813,28 @@
 		"update": "12.0.0",
 		"variations": 1
 	},
+	"_cosmetic_commentator_headset": {
+		"name": {
+			"en-US": "",
+			"fr": "",
+			"pt-BR": ""
+		},
+		"cost": 0,
+		"rarity": "_hidden",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"_cosmetic_ocean_bubble": {
+		"name": {
+			"en-US": "",
+			"fr": "",
+			"pt-BR": ""
+		},
+		"cost": 0,
+		"rarity": "_hidden",
+		"update": "13.0.0",
+		"variations": 1
+	},
 	"cosmetic_mask_bandit": {
 		"name": {
 			"en-US": "Bandit mask",
@@ -2122,6 +2144,72 @@
 		"update": "12.0.0",
 		"variations": 1
 	},
+	"_cosmetic_blue_soccer_shorts": {
+		"name": {
+			"en-US": "",
+			"fr": "",
+			"pt-BR": ""
+		},
+		"cost": 0,
+		"rarity": "_hidden",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"_cosmetic_red_soccer_shorts": {
+		"name": {
+			"en-US": "",
+			"fr": "",
+			"pt-BR": ""
+		},
+		"cost": 0,
+		"rarity": "_hidden",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"_cosmetic_ekg_hoodie": {
+		"name": {
+			"en-US": "",
+			"fr": "",
+			"pt-BR": ""
+		},
+		"cost": 0,
+		"rarity": "_hidden",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"_cosmetic_samurai_armor": {
+		"name": {
+			"en-US": "",
+			"fr": "",
+			"pt-BR": ""
+		},
+		"cost": 0,
+		"rarity": "_hidden",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"_cosmetic_blue_soccer_shirt": {
+		"name": {
+			"en-US": "",
+			"fr": "",
+			"pt-BR": ""
+		},
+		"cost": 0,
+		"rarity": "_hidden",
+		"update": "13.0.0",
+		"variations": 1
+	},
+	"_cosmetic_red_soccer_shirt": {
+		"name": {
+			"en-US": "",
+			"fr": "",
+			"pt-BR": ""
+		},
+		"cost": 0,
+		"rarity": "_hidden",
+		"update": "13.0.0",
+		"variations": 1
+	},
 	"cosmetic_scarf": {
 		"name": {
 			"en-US": "Scarf",
@@ -2384,6 +2472,17 @@
 		"cost": 0,
 		"rarity": "char_mole",
 		"update": "12.0.0",
+		"variations": 1
+	},
+	"_cosmetic_cape_hive": {
+		"name": {
+			"en-US": "",
+			"fr": "",
+			"pt-BR": ""
+		},
+		"cost": 0,
+		"rarity": "_hidden",
+		"update": "13.0.0",
 		"variations": 1
 	},
 	"cosmetic_gloves_boxing": {
@@ -3002,6 +3101,17 @@
 		"update": "13.0.0",
 		"variations": 1
 	},
+	"_cosmetic_tag": {
+		"name": {
+			"en-US": "",
+			"fr": "",
+			"pt-BR": ""
+		},
+		"cost": 0,
+		"rarity": "_hidden",
+		"update": "13.0.0",
+		"variations": 2
+	},
 	"cosmetic_shicka_green": {
 		"name": {
 			"en-US": "Green Shicka",
@@ -3409,6 +3519,17 @@
 		"update": "10.0.0",
 		"variations": 1
 	},
+	"_cosmetic_trail_bubbles": {
+		"name": {
+			"en-US": "",
+			"fr": "",
+			"pt-BR": ""
+		},
+		"cost": 0,
+		"rarity": "_hidden",
+		"update": "13.0.0",
+		"variations": 1
+	},
 	"cosmetic_pet_bird": {
 		"name": {
 			"en-US": "Pet bird",
@@ -3594,6 +3715,17 @@
 		"cost": 0,
 		"rarity": "bundles_title",
 		"update": "10.5.3",
+		"variations": 1
+	},
+	"_cosmetic_fx_confettis": {
+		"name": {
+			"en-US": "",
+			"fr": "",
+			"pt-BR": ""
+		},
+		"cost": 0,
+		"rarity": "_hidden",
+		"update": "13.0.0",
 		"variations": 1
 	},
 	"cosmetic_outline": {

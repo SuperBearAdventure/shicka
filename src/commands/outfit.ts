@@ -144,12 +144,12 @@ const outfitCommand: Command = {
 			}
 			const results: Outfit[] = nearest<Outfit>(value.toLocaleLowerCase(resolvedLocale), Object.values(outfits), 7, (outfit: Outfit): string => {
 				const {name}: Outfit = outfit;
-				const outfitName: string = name[resolvedLocale];
+				const outfitName: string = name[resolvedLocale] || outfit.key;
 				return outfitName.toLocaleLowerCase(resolvedLocale);
 			});
 			const suggestions: ApplicationCommandOptionChoiceData[] = results.map<ApplicationCommandOptionChoiceData<number>>((outfit: Outfit): ApplicationCommandOptionChoiceData<number> => {
 				const {index, name}: Outfit = outfit;
-				const outfitName: string = name[resolvedLocale];
+				const outfitName: string = name[resolvedLocale] || outfit.key;
 				return {
 					name: outfitName,
 					value: index,
@@ -198,8 +198,10 @@ const outfitCommand: Command = {
 			const canvas: Canvas = createCanvas(60 * width, 60 * height);
 			const context: CanvasRenderingContext2D = canvas.getContext("2d");
 			for (const [slot, outfit] of scheduleOutfits.entries()) {
-				const image: Image = await loadImage(fileURLToPath(import.meta.resolve(`../outfits/${outfit.key}.png`)));
-				context.drawImage(image, 60 * (slot % width) + 6, 60 * Math.floor(slot / width) + 6, 48, 48);
+				if (!outfit.key.startsWith("_")) {
+					const image: Image = await loadImage(fileURLToPath(import.meta.resolve(`../outfits/${outfit.key}.png`)));
+					context.drawImage(image, 60 * (slot % width) + 6, 60 * Math.floor(slot / width) + 6, 48, 48);
+				}
 				context.lineWidth = 3;
 				context.strokeStyle = rarities[outfit.rarity].color;
 				context.beginPath();
@@ -223,7 +225,7 @@ const outfitCommand: Command = {
 					},
 					outfitNameConjunction: (): string => {
 						return conjunctionFormat.format(scheduleOutfits.map<string>((outfit: Outfit): string => {
-							return `**${escapeMarkdown(outfit.name[locale])}**`;
+							return `**${escapeMarkdown(outfit.name[locale] || outfit.key)}**`;
 						}));
 					},
 				};
@@ -264,8 +266,10 @@ const outfitCommand: Command = {
 		const outfit: Outfit = Object.values(outfits)[index];
 		const canvas: Canvas = createCanvas(320, 320);
 		const context: CanvasRenderingContext2D = canvas.getContext("2d");
-		const image: Image = await loadImage(fileURLToPath(import.meta.resolve(`../outfits/${outfit.key}.png`)));
-		context.drawImage(image, 32, 32, 256, 256);
+		if (!outfit.key.startsWith("_")) {
+			const image: Image = await loadImage(fileURLToPath(import.meta.resolve(`../outfits/${outfit.key}.png`)));
+			context.drawImage(image, 32, 32, 256, 256);
+		}
 		context.lineWidth = 16;
 		context.strokeStyle = rarities[outfit.rarity].color;
 		context.beginPath();
@@ -275,7 +279,7 @@ const outfitCommand: Command = {
 			function formatMessage(locale: Locale): string {
 				return noSlotReplyLocalizations[locale]({
 					outfitName: (): string => {
-						return escapeMarkdown(outfit.name[locale]);
+						return escapeMarkdown(outfit.name[locale] || outfit.key);
 					},
 				});
 			}
