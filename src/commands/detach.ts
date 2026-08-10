@@ -1,4 +1,5 @@
 import type {
+	APISelectMenuOption,
 	Attachment,
 	Client,
 	Message,
@@ -7,35 +8,35 @@ import type {
 } from "discord.js";
 import type Command from "../commands.js";
 import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
-import type {Patch as PatchCompilation} from "../compilations.js";
-import type {Patch as PatchDefinition} from "../definitions.js";
-import type {Patch as PatchDependency} from "../dependencies.js";
+import type {Detach as DetachCompilation} from "../compilations.js";
+import type {Detach as DetachDefinition} from "../definitions.js";
+import type {Detach as DetachDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {
 	ApplicationCommandType,
 	ComponentType,
 	MessageType,
-	TextInputStyle,
 } from "discord.js";
-import {patch as patchCompilation} from "../compilations.js";
-import {patch as patchDefinition} from "../definitions.js";
+import {detach as detachCompilation} from "../compilations.js";
+import {detach as detachDefinition} from "../definitions.js";
 import {composeAll, localize, resolve} from "../utils/string.js";
-type HelpGroups = PatchDependency["help"];
+type HelpGroups = DetachDependency["help"];
 const {
 	commandName,
 	commandDescription,
-	contentOptionName,
-	contentOptionDescription,
-}: PatchDefinition = patchDefinition;
+	attachmentsOptionName,
+	attachmentsOptionDescription,
+}: DetachDefinition = detachDefinition;
 const {
 	help: helpLocalizations,
 	reply: replyLocalizations,
 	noAuthorReply: noAuthorReplyLocalizations,
 	noInteractionReply: noInteractionReplyLocalizations,
 	noReplyReply: noReplyReplyLocalizations,
+	tooFewAttachmentsReply: tooFewAttachmentsReplyLocalizations,
 	noPermissionReply: noPermissionReplyLocalizations,
-}: PatchCompilation = patchCompilation;
-const patchCommand: Command = {
+}: DetachCompilation = detachCompilation;
+const detachCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			type: ApplicationCommandType.Message,
@@ -75,22 +76,31 @@ const patchCommand: Command = {
 		}
 		const targetContent: string = targetMessage.content;
 		const targetAttachments: Attachment[] = [...targetMessage.attachments.values()];
+		if (targetAttachments.length === 0 || targetContent === "" && targetAttachments.length === 1) {
+			await interaction.reply({
+				content: tooFewAttachmentsReplyLocalizations[resolvedLocale]({}),
+				ephemeral: true,
+			});
+			return;
+		}
 		await interaction.showModal({
 			customId: interaction.id,
 			title: commandDescription[resolvedLocale],
 			components: [
 				{
 					type: ComponentType.Label,
-					label: contentOptionDescription[resolvedLocale],
+					label: attachmentsOptionDescription[resolvedLocale],
 					component: {
-						type: ComponentType.TextInput,
-						style: TextInputStyle.Paragraph,
-						customId: contentOptionName,
-						...{} as {label: string},
-						required: targetAttachments.length === 0,
-						value: targetContent,
-						minLength: 0,
-						maxLength: 2000,
+						type: ComponentType.StringSelect,
+						customId: attachmentsOptionName,
+						options: targetAttachments.map<APISelectMenuOption>((attachment: Attachment, index: number): APISelectMenuOption => {
+							return {
+								label: attachment.name.length > 40 ? `${attachment.name.slice(0, 40)}...` : attachment.name,
+								value: `${index}`,
+							};
+						}),
+						minValues: 1,
+						maxValues: targetContent !== "" ? targetAttachments.length : targetAttachments.length - 1,
 					},
 				},
 			],
@@ -104,9 +114,16 @@ const patchCommand: Command = {
 		await modalSubmitInteraction.deferReply({
 			ephemeral: true,
 		});
-		const content: string | null = modalSubmitInteraction.fields.getTextInputValue(contentOptionName) || null;
+		const indices: Set<number> = new Set(modalSubmitInteraction.fields.getStringSelectValues(attachmentsOptionName).map<number>((index: string): number => {
+			return Number(index);
+		}));
+		const files: Attachment[] = targetAttachments.map<Attachment | null>((attachment: Attachment, index: number): Attachment | null => {
+			return !indices.has(index) ? attachment : null;
+		}).filter<Attachment>((attachment: Attachment | null): attachment is Attachment => {
+			return attachment != null;
+		});
 		try {
-			await targetMessage.edit({content});
+			await targetMessage.edit({files});
 		} catch {
 			await modalSubmitInteraction.editReply({
 				content: noPermissionReplyLocalizations[resolvedLocale]({}),
@@ -137,4 +154,4 @@ const patchCommand: Command = {
 		}));
 	},
 };
-export default patchCommand;
+export default detachCommand;

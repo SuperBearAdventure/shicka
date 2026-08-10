@@ -1,20 +1,20 @@
 {
-	"commandName": "patch",
+	"commandName": "detach",
 	"commandDescription": {
-		"en-US": "Rewrites this message",
-		"fr": "Réécrit ce message",
-		"pt-BR": "Reescreve esta mensagem"
+		"en-US": "Removes attachments",
+		"fr": "Retire des pièces jointes",
+		"pt-BR": "Remove anexos"
 	},
-	"contentOptionName": "content",
-	"contentOptionDescription": {
-		"en-US": "Some content",
-		"fr": "Un contenu",
-		"pt-BR": "Algum conteúdo"
+	"attachmentsOptionName": "attachments",
+	"attachmentsOptionDescription": {
+		"en-US": "Some attachments",
+		"fr": "Des pièce jointes",
+		"pt-BR": "Alguns anexos"
 	},
 	"help": {
-		"en-US": "Press **$<commandMention>** to rewrite the content of a message",
-		"fr": "Appuie sur **$<commandMention>** pour réécrire le contenu d'un message",
-		"pt-BR": "Pressione **$<commandMention>** pra reescrever o conteúdo de uma mensagem"
+		"en-US": "Press **$<commandMention>** to remove attachments from a message",
+		"fr": "Appuie sur **$<commandMention>** pour retirer des pièces jointes d'un message",
+		"pt-BR": "Pressione **$<commandMention>** pra remover anexos de uma mensagem"
 	},
 	"reply": {
 		"en-US": "I have edited the message.",
@@ -28,13 +28,18 @@
 	},
 	"noInteractionReply": {
 		"en-US": "I can not edit interaction replies or follow-ups.",
-		"fr": "Je ne peux pas modifier de réponses ou de suites aux interactions.",
+		"fr": "Je ne peux pas modifier de réponses ou de suites à des interactions.",
 		"pt-BR": "Eu não posso editar respostas de interação ou acompanhamentos."
 	},
 	"noReplyReply": {
 		"en-US": "I can not edit message replies.",
 		"fr": "Je ne peux pas modifier de réponses à des messages.",
 		"pt-BR": "Eu não posso editar respostas das mensagens."
+	},
+	"tooFewAttachmentsReply": {
+		"en-US": "This message can not have fewer attachments.",
+		"fr": "Ce message ne peut pas avoir moins de pièces jointes.",
+		"pt-BR": "Esta mensagem não pode ter menos anexos."
 	},
 	"noPermissionReply": {
 		"en-US": "I do not have the rights to edit this message.",

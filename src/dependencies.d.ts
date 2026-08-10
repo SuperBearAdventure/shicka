@@ -4,10 +4,12 @@ import type ApplyDependency from "./dependencies/apply.js";
 import type ApprovalDependency from "./dependencies/approval.js";
 import type ApproveDependency from "./dependencies/approve.js";
 import type ArrivalDependency from "./dependencies/arrival.js";
+import type AttachDependency from "./dependencies/attach.js";
 import type BearDependency from "./dependencies/bear.js";
 import type ChatDependency from "./dependencies/chat.js";
 import type CountDependency from "./dependencies/count.js";
 import type DepartureDependency from "./dependencies/departure.js";
+import type DetachDependency from "./dependencies/detach.js";
 import type EmojiDependency from "./dependencies/emoji.js";
 import type GateDependency from "./dependencies/gate.js";
 import type HelpDependency from "./dependencies/help.js";
@@ -37,10 +39,12 @@ type Apply = ApplyDependency;
 type Approval = ApprovalDependency;
 type Approve = ApproveDependency;
 type Arrival = ArrivalDependency;
+type Attach = AttachDependency;
 type Bear = BearDependency;
 type Chat = ChatDependency;
 type Count = CountDependency;
 type Departure = DepartureDependency;
+type Detach = DetachDependency;
 type Emoji = EmojiDependency;
 type Gate = GateDependency;
 type Help = HelpDependency;
@@ -64,7 +68,7 @@ type Trailer = TrailerDependency;
 type Update = UpdateDependency;
 type Verification = VerificationDependency;
 type Verify = VerifyDependency;
-type Dependency = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Leaderboard | Link | Mission | Outfit | Patch | Patching | Posting | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
+type Dependency = About | Application | Apply | Approval | Approve | Arrival | Attach | Bear | Chat | Count | Departure | Detach | Emoji | Gate | Help | Leaderboard | Link | Mission | Outfit | Patch | Patching | Posting | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
 export type {Dependency as default};
 export type {
 	About,
@@ -73,10 +77,12 @@ export type {
 	Approval,
 	Approve,
 	Arrival,
+	Attach,
 	Bear,
 	Chat,
 	Count,
 	Departure,
+	Detach,
 	Emoji,
 	Gate,
 	Help,

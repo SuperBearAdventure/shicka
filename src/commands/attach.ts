@@ -1,4 +1,5 @@
 import type {
+	APISelectMenuOption,
 	Attachment,
 	Client,
 	Message,
@@ -7,35 +8,41 @@ import type {
 } from "discord.js";
 import type Command from "../commands.js";
 import type {ApplicationCommand, ApplicationCommandData, ApplicationUserInteraction} from "../commands.js";
-import type {Patch as PatchCompilation} from "../compilations.js";
-import type {Patch as PatchDefinition} from "../definitions.js";
-import type {Patch as PatchDependency} from "../dependencies.js";
+import type {Attach as AttachCompilation} from "../compilations.js";
+import type {Attach as AttachDefinition} from "../definitions.js";
+import type {Attach as AttachDependency} from "../dependencies.js";
 import type {Locale, Localized} from "../utils/string.js";
 import {
 	ApplicationCommandType,
 	ComponentType,
 	MessageType,
-	TextInputStyle,
 } from "discord.js";
-import {patch as patchCompilation} from "../compilations.js";
-import {patch as patchDefinition} from "../definitions.js";
+import {attach as attachCompilation} from "../compilations.js";
+import {attach as attachDefinition} from "../definitions.js";
 import {composeAll, localize, resolve} from "../utils/string.js";
-type HelpGroups = PatchDependency["help"];
+type HelpGroups = AttachDependency["help"];
+type InBetweenPositionGroups = AttachDependency["inBetweenPosition"];
 const {
 	commandName,
 	commandDescription,
-	contentOptionName,
-	contentOptionDescription,
-}: PatchDefinition = patchDefinition;
+	positionOptionName,
+	positionOptionDescription,
+	attachmentsOptionName,
+	attachmentsOptionDescription,
+}: AttachDefinition = attachDefinition;
 const {
 	help: helpLocalizations,
 	reply: replyLocalizations,
 	noAuthorReply: noAuthorReplyLocalizations,
 	noInteractionReply: noInteractionReplyLocalizations,
 	noReplyReply: noReplyReplyLocalizations,
+	tooManyAttachmentsReply: tooManyAttachmentsReplyLocalizations,
 	noPermissionReply: noPermissionReplyLocalizations,
-}: PatchCompilation = patchCompilation;
-const patchCommand: Command = {
+	startPosition: startPositionLocalizations,
+	inBetweenPosition: inBetweenPositionLocalizations,
+	endPosition: endPositionLocalizations,
+}: AttachCompilation = attachCompilation;
+const attachCommand: Command = {
 	register(): ApplicationCommandData {
 		return {
 			type: ApplicationCommandType.Message,
@@ -73,24 +80,57 @@ const patchCommand: Command = {
 			});
 			return;
 		}
-		const targetContent: string = targetMessage.content;
 		const targetAttachments: Attachment[] = [...targetMessage.attachments.values()];
+		if (targetAttachments.length === 10) {
+			await interaction.reply({
+				content: tooManyAttachmentsReplyLocalizations[resolvedLocale]({}),
+				ephemeral: true,
+			});
+			return;
+		}
 		await interaction.showModal({
 			customId: interaction.id,
 			title: commandDescription[resolvedLocale],
 			components: [
 				{
 					type: ComponentType.Label,
-					label: contentOptionDescription[resolvedLocale],
+					label: positionOptionDescription[resolvedLocale],
 					component: {
-						type: ComponentType.TextInput,
-						style: TextInputStyle.Paragraph,
-						customId: contentOptionName,
-						...{} as {label: string},
-						required: targetAttachments.length === 0,
-						value: targetContent,
-						minLength: 0,
-						maxLength: 2000,
+						type: ComponentType.StringSelect,
+						customId: positionOptionName,
+						options: [
+							...targetAttachments.map<APISelectMenuOption>((attachment: Attachment, index: number): APISelectMenuOption => {
+								return {
+									label: index === 0 ? startPositionLocalizations[resolvedLocale]({}) : composeAll<InBetweenPositionGroups, {}>(inBetweenPositionLocalizations, localize<InBetweenPositionGroups>((): InBetweenPositionGroups => {
+										const previousAttachment: Attachment = targetAttachments[index - 1];
+										const nextAttachment: Attachment = attachment;
+										return {
+											previousAttachmentMention: (): string => {
+												return previousAttachment.name.length > 40 ? `${previousAttachment.name.slice(0, 40)}...` : previousAttachment.name;
+											},
+											nextAttachmentMention: (): string => {
+												return nextAttachment.name.length > 40 ? `${nextAttachment.name.slice(0, 40)}...` : nextAttachment.name;
+											},
+										};
+									}))[resolvedLocale]({}),
+									value: `${index}`,
+								};
+							}),
+							{
+								label: endPositionLocalizations[resolvedLocale]({}),
+								value: `${targetAttachments.length}`,
+							},
+						],
+					},
+				},
+				{
+					type: ComponentType.Label,
+					label: attachmentsOptionDescription[resolvedLocale],
+					component: {
+						type: ComponentType.FileUpload,
+						customId: attachmentsOptionName,
+						minValues: 1,
+						maxValues: 10 - targetAttachments.length,
 					},
 				},
 			],
@@ -104,9 +144,10 @@ const patchCommand: Command = {
 		await modalSubmitInteraction.deferReply({
 			ephemeral: true,
 		});
-		const content: string | null = modalSubmitInteraction.fields.getTextInputValue(contentOptionName) || null;
+		const index: number = Number(modalSubmitInteraction.fields.getStringSelectValues(positionOptionName)[0]);
+		const files: Attachment[] = [...targetAttachments.slice(0, index), ...modalSubmitInteraction.fields.getUploadedFiles(attachmentsOptionName, true).values(), ...targetAttachments.slice(index)];
 		try {
-			await targetMessage.edit({content});
+			await targetMessage.edit({files});
 		} catch {
 			await modalSubmitInteraction.editReply({
 				content: noPermissionReplyLocalizations[resolvedLocale]({}),
@@ -137,4 +178,4 @@ const patchCommand: Command = {
 		}));
 	},
 };
-export default patchCommand;
+export default attachCommand;

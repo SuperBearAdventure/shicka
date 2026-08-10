@@ -1,0 +1,70 @@
+{
+	"commandName": "attach",
+	"commandDescription": {
+		"en-US": "Adds attachments",
+		"fr": "Ajoute des pièces jointes",
+		"pt-BR": "Adiciona anexos"
+	},
+	"positionOptionName": "position",
+	"positionOptionDescription": {
+		"en-US": "Some position",
+		"fr": "Une position",
+		"pt-BR": "Alguma posição"
+	},
+	"attachmentsOptionName": "attachments",
+	"attachmentsOptionDescription": {
+		"en-US": "Some attachments",
+		"fr": "Des pièce jointes",
+		"pt-BR": "Alguns anexos"
+	},
+	"help": {
+		"en-US": "Press **$<commandMention>** to add at a position attachments to a message",
+		"fr": "Appuie sur **$<commandMention>** pour ajouter à une position des pièces jointes à un message",
+		"pt-BR": "Pressione **$<commandMention>** pra adicionar em uma posição anexos a uma mensagem"
+	},
+	"reply": {
+		"en-US": "I have edited the message.",
+		"fr": "J'ai modifié le message.",
+		"pt-BR": "Editei a mensagem."
+	},
+	"noAuthorReply": {
+		"en-US": "I can not edit messages I am not the authoress of.",
+		"fr": "Je ne peux pas modifier de messages dont je ne suis pas l'autrice.",
+		"pt-BR": "Eu não posso editar mensagens das quais não sou a autora."
+	},
+	"noInteractionReply": {
+		"en-US": "I can not edit interaction replies or follow-ups.",
+		"fr": "Je ne peux pas modifier de réponses ou de suites à des interactions.",
+		"pt-BR": "Eu não posso editar respostas de interação ou acompanhamentos."
+	},
+	"noReplyReply": {
+		"en-US": "I can not edit message replies.",
+		"fr": "Je ne peux pas modifier de réponses à des messages.",
+		"pt-BR": "Eu não posso editar respostas das mensagens."
+	},
+	"tooManyAttachmentsReply": {
+		"en-US": "This message can not have more attachments.",
+		"fr": "Ce message ne peut pas avoir plus  de pièces jointes.",
+		"pt-BR": "Esta mensagem não pode ter mais anexos."
+	},
+	"noPermissionReply": {
+		"en-US": "I do not have the rights to edit this message.",
+		"fr": "Je n'ai pas les droits pour modifier ce message.",
+		"pt-BR": "Eu não tenho as permissões pra editar essa mensagem."
+	},
+	"startPosition": {
+		"en-US": "At the start",
+		"fr": "Au début",
+		"pt-BR": "No início"
+	},
+	"inBetweenPosition": {
+		"en-US": "Between $<previousAttachmentMention> and $<nextAttachmentMention>",
+		"fr": "Entre $<previousAttachmentMention> et $<nextAttachmentMention>",
+		"pt-BR": "Entre $<previousAttachmentMention> e $<nextAttachmentMention>"
+	},
+	"endPosition": {
+		"en-US": "At the end",
+		"fr": "À la fin",
+		"pt-BR": "No final"
+	}
+}

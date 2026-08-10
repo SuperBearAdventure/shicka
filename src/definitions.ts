@@ -5,10 +5,12 @@ import applyDefinition from "./definitions/apply.json" with {type: "json"};
 import approvalDefinition from "./definitions/approval.json" with {type: "json"};
 import approveDefinition from "./definitions/approve.json" with {type: "json"};
 import arrivalDefinition from "./definitions/arrival.json" with {type: "json"};
+import attachDefinition from "./definitions/attach.json" with {type: "json"};
 import bearDefinition from "./definitions/bear.json" with {type: "json"};
 import chatDefinition from "./definitions/chat.json" with {type: "json"};
 import countDefinition from "./definitions/count.json" with {type: "json"};
 import departureDefinition from "./definitions/departure.json" with {type: "json"};
+import detachDefinition from "./definitions/detach.json" with {type: "json"};
 import emojiDefinition from "./definitions/emoji.json" with {type: "json"};
 import gateDefinition from "./definitions/gate.json" with {type: "json"};
 import helpDefinition from "./definitions/help.json" with {type: "json"};
@@ -72,6 +74,24 @@ type Arrival = {
 	helpWithoutChannel: Localized<string>,
 	greetings: string[],
 };
+type Attach = {
+	commandName: string,
+	commandDescription: Localized<string>,
+	positionOptionName: string,
+	positionOptionDescription: Localized<string>,
+	attachmentsOptionName: string,
+	attachmentsOptionDescription: Localized<string>,
+	help: Localized<string>,
+	reply: Localized<string>,
+	noAuthorReply: Localized<string>,
+	noInteractionReply: Localized<string>,
+	noReplyReply: Localized<string>,
+	tooManyAttachmentsReply: Localized<string>,
+	noPermissionReply: Localized<string>,
+	startPosition: Localized<string>,
+	inBetweenPosition: Localized<string>,
+	endPosition: Localized<string>,
+};
 type Bear = {
 	commandName: string,
 	commandDescription: Localized<string>,
@@ -106,22 +126,14 @@ type Chat = {
 	messageOptionDescription: Localized<string>,
 	contentOptionName: string,
 	contentOptionDescription: Localized<string>,
-	positionOptionName: string,
-	positionOptionDescription: Localized<string>,
-	attachmentOptionName: string,
-	attachmentOptionDescription: Localized<string>,
+	attachmentsOptionName: string,
+	attachmentsOptionDescription: Localized<string>,
 	help: Localized<string>,
 	reply: Localized<string>,
-	bareReply: Localized<string>,
 	noChannelReply: Localized<string>,
 	noMessageReply: Localized<string>,
-	noPositionReply: Localized<string>,
-	noAuthorReply: Localized<string>,
-	noInteractionReply: Localized<string>,
-	noReplyReply: Localized<string>,
 	noContentOrAttachmentReply: Localized<string>,
-	noPatchPermissionReply: Localized<string>,
-	noPostPermissionReply: Localized<string>,
+	noPermissionReply: Localized<string>,
 };
 type Count = {
 	commandName: string,
@@ -135,6 +147,19 @@ type Departure = {
 	helpWithChannel: Localized<string>,
 	helpWithoutChannel: Localized<string>,
 	greetings: string[],
+};
+type Detach = {
+	commandName: string,
+	commandDescription: Localized<string>,
+	attachmentsOptionName: string,
+	attachmentsOptionDescription: Localized<string>,
+	help: Localized<string>,
+	reply: Localized<string>,
+	noAuthorReply: Localized<string>,
+	noInteractionReply: Localized<string>,
+	noReplyReply: Localized<string>,
+	tooFewAttachmentsReply: Localized<string>,
+	noPermissionReply: Localized<string>,
 };
 type Emoji = {
 	commandName: string,
@@ -217,8 +242,9 @@ type Patch = {
 	contentOptionDescription: Localized<string>,
 	help: Localized<string>,
 	reply: Localized<string>,
+	noAuthorReply: Localized<string>,
 	noInteractionReply: Localized<string>,
-	noContentOrAttachmentReply: Localized<string>,
+	noReplyReply: Localized<string>,
 	noPermissionReply: Localized<string>,
 };
 type Patching = {
@@ -331,17 +357,19 @@ type Verify = {
 	reply: Localized<string>,
 	noPermissionReply: Localized<string>,
 };
-type Definition = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Leaderboard | Link | Mission | Outfit | Patch | Patching | Posting | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
+type Definition = About | Application | Apply | Approval | Approve | Arrival | Attach | Bear | Chat | Count | Departure | Detach | Emoji | Gate | Help | Leaderboard | Link | Mission | Outfit | Patch | Patching | Posting | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
 const about: About = aboutDefinition;
 const application: Application = applicationDefinition;
 const apply: Apply = applyDefinition;
 const approval: Approval = approvalDefinition;
 const approve: Approve = approveDefinition;
 const arrival: Arrival = arrivalDefinition;
+const attach: Attach = attachDefinition;
 const bear: Bear = bearDefinition;
 const chat: Chat = chatDefinition;
 const count: Count = countDefinition;
 const departure: Departure = departureDefinition;
+const detach: Detach = detachDefinition;
 const emoji: Emoji = emojiDefinition;
 const gate: Gate = gateDefinition;
 const help: Help = helpDefinition;
@@ -373,10 +401,12 @@ export type {
 	Approval,
 	Approve,
 	Arrival,
+	Attach,
 	Bear,
 	Chat,
 	Count,
 	Departure,
+	Detach,
 	Emoji,
 	Gate,
 	Help,
@@ -408,10 +438,12 @@ export {
 	approval,
 	approve,
 	arrival,
+	attach,
 	bear,
 	chat,
 	count,
 	departure,
+	detach,
 	emoji,
 	gate,
 	help,

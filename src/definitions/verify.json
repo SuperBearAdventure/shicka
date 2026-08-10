@@ -8,7 +8,7 @@
 	"help": {
 		"en-US": "Type $<commandMention> to exit the waiting room",
 		"fr": "Tape $<commandMention> pour sortir de la salle d'attente",
-		"pt-BR": "Digite $<commandMention> para sair da sala de espera"
+		"pt-BR": "Digite $<commandMention> pra sair da sala de espera"
 	},
 	"reply": {
 		"en-US": "I have handled your verification. Welcome to the official *$<name>* *Discord* server!",

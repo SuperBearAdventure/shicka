@@ -10,9 +10,11 @@ import type {Localized} from "./utils/string.js";
 import aboutCommand from "./commands/about.js";
 import applyCommand from "./commands/apply.js";
 import approveCommand from "./commands/approve.js";
+import attachCommand from "./commands/attach.js";
 import bearCommand from "./commands/bear.js";
 import chatCommand from "./commands/chat.js";
 import countCommand from "./commands/count.js";
+import detachCommand from "./commands/detach.js";
 import emojiCommand from "./commands/emoji.js";
 import gateCommand from "./commands/gate.js";
 import helpCommand from "./commands/help.js";
@@ -47,9 +49,11 @@ type Command = {
 const about: Command = aboutCommand;
 const apply: Command = applyCommand;
 const approve: Command = approveCommand;
+const attach: Command = attachCommand;
 const bear: Command = bearCommand;
 const chat: Command = chatCommand;
 const count: Command = countCommand;
+const detach: Command = detachCommand;
 const emoji: Command = emojiCommand;
 const gate: Command = gateCommand;
 const help: Command = helpCommand;
@@ -76,9 +80,11 @@ export {
 	about,
 	apply,
 	approve,
+	attach,
 	bear,
 	chat,
 	count,
+	detach,
 	emoji,
 	gate,
 	help,

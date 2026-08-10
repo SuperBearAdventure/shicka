@@ -60,17 +60,21 @@ $ npm start
 
 - `approve` is a shortcut for `gate approve <channel> <message>` (only available to administrator members by default)
 
+- `attach <position> <attachments>` is a shortcut for `chat attach <channel> <message> <position> <attachments>` (only available to administrator members by default)
+
 - `bear <bear>` gives the gold time, the location, and the outfits of the given bear
 
-- `chat post <channel> <content>` sends the given content in the given channel (only available to administrator members by default)
+- `chat post <channel> <content> <attachments>` sends the given content and the given attachments in the given channel (only available to administrator members by default)
 
-- `chat patch <channel> <message> <content>` edits the given message with the given content in the given channel (only available to administrator members by default)
+- `chat patch <channel> <message> <content>` rewrites the given message with the given content in the given channel (only available to administrator members by default)
 
-- `chat attach <channel> <message> <position> <attachment>` adds at the given position the given attachment to the given message in the given channel (only available to administrator members by default)
+- `chat attach <channel> <message> <position> <attachments>` adds at the given position the given attachments to the given message in the given channel (only available to administrator members by default)
 
-- `chat detach <channel> <message> <position>` removes at the given position the attachment from the given message in the given channel (only available to administrator members by default)
+- `chat detach <channel> <message> <attachments>` removes the given attachments from the given message in the given channel (only available to administrator members by default)
 
 - `count` gives the number of members of the guild
+
+- `detach <attachments>` is a shortcut for `chat detach <channel> <message> <attachments>` (only available to administrator members by default)
 
 - `emoji <base> <style>{6}` draws the given base emoji with the given styles (only available to administrator members by default)
 
