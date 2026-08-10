@@ -79,6 +79,9 @@ const patchingHook: Hook = {
 		if (newMessage.type !== MessageType.Default) {
 			return;
 		}
+		if (newMessage.content === oldMessage.content && newMessage.attachments.size === oldMessage.attachments.size) {
+			return;
+		}
 		const messageMention: string = `https://discord.com/channels/${newMessage.guildId}/${newMessage.channelId}/${newMessage.id}`;
 		const status: string = `${messageMention} has been edited.`;
 		const applicationName: string = user.username;
