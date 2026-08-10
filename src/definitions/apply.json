@@ -8,7 +8,7 @@
 	"help": {
 		"en-US": "Type $<commandMention> to enter the waiting room",
 		"fr": "Tape $<commandMention> pour entrer dans la salle d'attente",
-		"pt-BR": "Digite $<commandMention> para entrar na sala de espera"
+		"pt-BR": "Digite $<commandMention> pra entrar na sala de espera"
 	},
 	"reply": {
 		"en-US": "I will process your application once all the verification steps have been completed.",

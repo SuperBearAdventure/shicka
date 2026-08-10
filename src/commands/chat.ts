@@ -1,7 +1,6 @@
 import type {
 	Attachment,
 	ChatInputCommandInteraction,
-	Client,
 	GuildBasedChannel,
 	Message,
 	ModalSubmitInteraction,
@@ -18,11 +17,9 @@ import {
 	ApplicationCommandType,
 	ChannelType,
 	ComponentType,
-	MessageType,
 	TextInputStyle,
-	escapeMarkdown,
 } from "discord.js";
-import {patch as patchCommand} from "../commands.js";
+import {attach as attachCommand, detach as detachCommand, patch as patchCommand} from "../commands.js";
 import {chat as chatCompilation} from "../compilations.js";
 import {chat as chatDefinition} from "../definitions.js";
 import {composeAll, localize, resolve} from "../utils/string.js";
@@ -44,24 +41,16 @@ const {
 	messageOptionDescription,
 	contentOptionName,
 	contentOptionDescription,
-	positionOptionName,
-	positionOptionDescription,
-	attachmentOptionName,
-	attachmentOptionDescription,
+	attachmentsOptionName,
+	attachmentsOptionDescription,
 }: ChatDefinition = chatDefinition;
 const {
 	help: helpLocalizations,
 	reply: replyLocalizations,
-	bareReply: bareReplyLocalizations,
 	noChannelReply: noChannelReplyLocalizations,
 	noMessageReply: noMessageReplyLocalizations,
-	noPositionReply: noPositionReplyLocalizations,
-	noAuthorReply: noAuthorReplyLocalizations,
-	noInteractionReply: noInteractionReplyLocalizations,
-	noReplyReply: noReplyReplyLocalizations,
 	noContentOrAttachmentReply: noContentOrAttachmentReplyLocalizations,
-	noPatchPermissionReply: noPatchPermissionReplyLocalizations,
-	noPostPermissionReply: noPostPermissionReplyLocalizations,
+	noPermissionReply: noPermissionReplyLocalizations,
 }: ChatCompilation = chatCompilation;
 const messagePattern: RegExp = /^(?:0|[1-9]\d*)$/;
 const chatCommand: Command = {
@@ -82,7 +71,7 @@ const chatCommand: Command = {
 							name: channelOptionName,
 							description: channelOptionDescription["en-US"],
 							descriptionLocalizations: channelOptionDescription,
-							required: true,
+							required: false,
 							channelTypes: [
 								ChannelType.GuildText,
 								ChannelType.GuildVoice,
@@ -161,21 +150,6 @@ const chatCommand: Command = {
 							descriptionLocalizations: messageOptionDescription,
 							required: true,
 						},
-						{
-							type: ApplicationCommandOptionType.Integer,
-							name: positionOptionName,
-							description: positionOptionDescription["en-US"],
-							descriptionLocalizations: positionOptionDescription,
-							required: true,
-							minValue: 0,
-						},
-						{
-							type: ApplicationCommandOptionType.Attachment,
-							name: attachmentOptionName,
-							description: attachmentOptionDescription["en-US"],
-							descriptionLocalizations: attachmentOptionDescription,
-							required: true,
-						},
 					],
 				},
 				{
@@ -209,14 +183,6 @@ const chatCommand: Command = {
 							descriptionLocalizations: messageOptionDescription,
 							required: true,
 						},
-						{
-							type: ApplicationCommandOptionType.Integer,
-							name: positionOptionName,
-							description: positionOptionDescription["en-US"],
-							descriptionLocalizations: positionOptionDescription,
-							required: true,
-							minValue: 0,
-						},
 					],
 				},
 			],
@@ -227,9 +193,107 @@ const chatCommand: Command = {
 		if (!interaction.isChatInputCommand()) {
 			return;
 		}
-		const {client, locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
+		const {locale, options}: ChatInputCommandInteraction<"cached"> = interaction;
 		const resolvedLocale: Locale = resolve(locale);
 		const subCommandName: string = options.getSubcommand(true);
+		if (subCommandName === postSubCommandName) {
+			const channel: GuildBasedChannel | null = options.getChannel(channelOptionName, false, [
+				ChannelType.GuildText,
+				ChannelType.GuildVoice,
+				ChannelType.GuildAnnouncement,
+				ChannelType.AnnouncementThread,
+				ChannelType.PublicThread,
+				ChannelType.PrivateThread,
+				ChannelType.GuildStageVoice,
+				ChannelType.GuildForum,
+				ChannelType.GuildMedia,
+			]) ?? interaction.channel;
+			if (channel == null) {
+				await interaction.reply({
+					content: noChannelReplyLocalizations[resolvedLocale]({}),
+					ephemeral: true,
+				});
+				return;
+			}
+			await interaction.showModal({
+				customId: interaction.id,
+				title: postSubCommandDescription[resolvedLocale],
+				components: [
+					{
+						type: ComponentType.Label,
+						label: contentOptionDescription[resolvedLocale],
+						component: {
+							type: ComponentType.TextInput,
+							style: TextInputStyle.Paragraph,
+							customId: contentOptionName,
+							...{} as {label: string},
+							value: "",
+							required: false,
+							minLength: 0,
+							maxLength: 2000,
+						},
+					},
+					{
+						type: ComponentType.Label,
+						label: attachmentsOptionDescription[resolvedLocale],
+						component: {
+							type: ComponentType.FileUpload,
+							customId: attachmentsOptionName,
+							required: false,
+							minValues: 0,
+							maxValues: 10,
+						},
+					},
+				],
+			});
+			const modalSubmitInteraction: ModalSubmitInteraction<"cached"> = await interaction.awaitModalSubmit({
+				filter: (modalSubmitInteraction: ModalSubmitInteraction): boolean => {
+					return modalSubmitInteraction.customId === interaction.id;
+				},
+				time: 900000,
+			});
+			await modalSubmitInteraction.deferReply({
+				ephemeral: true,
+			});
+			const content: string = modalSubmitInteraction.fields.getTextInputValue(contentOptionName);
+			const files: Attachment[] = [...modalSubmitInteraction.fields.getUploadedFiles(attachmentsOptionName, false)?.values() ?? []];
+			if (content === "" && files.length === 0) {
+				await modalSubmitInteraction.editReply({
+					content: noContentOrAttachmentReplyLocalizations[resolvedLocale]({}),
+				});
+				return;
+			}
+			try {
+				if (channel.isThreadOnly()) {
+					const name: string = "New post";
+					await channel.threads.create({
+						name,
+						message: {content, files},
+					});
+				} else {
+					await channel.send({content, files});
+				}
+			} catch {
+				await modalSubmitInteraction.editReply({
+					content: noPermissionReplyLocalizations[resolvedLocale]({}),
+				});
+				return;
+			}
+			function formatMessage(locale: Locale): string {
+				return replyLocalizations[locale]({});
+			}
+			await modalSubmitInteraction.editReply({
+				content: formatMessage("en-US"),
+			});
+			if (resolvedLocale === "en-US") {
+				return;
+			}
+			await modalSubmitInteraction.followUp({
+				content: formatMessage(resolvedLocale),
+				ephemeral: true,
+			});
+			return;
+		}
 		const channel: GuildBasedChannel = options.getChannel(channelOptionName, true, [
 			ChannelType.GuildText,
 			ChannelType.GuildVoice,
@@ -244,68 +308,6 @@ const chatCommand: Command = {
 		if (channel == null) {
 			await interaction.reply({
 				content: noChannelReplyLocalizations[resolvedLocale]({}),
-				ephemeral: true,
-			});
-			return;
-		}
-		if (subCommandName === postSubCommandName) {
-			await interaction.showModal({
-				customId: interaction.id,
-				title: contentOptionDescription[resolvedLocale],
-				components: [
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.TextInput,
-								style: TextInputStyle.Paragraph,
-								customId: contentOptionName,
-								label: contentOptionName,
-								required: true,
-								value: "",
-								minLength: 0,
-								maxLength: 2000,
-							},
-						],
-					},
-				],
-			});
-			const modalSubmitInteraction: ModalSubmitInteraction<"cached"> = await interaction.awaitModalSubmit({
-				filter: (modalSubmitInteraction: ModalSubmitInteraction): boolean => {
-					return modalSubmitInteraction.customId === interaction.id;
-				},
-				time: 900000,
-			});
-			const content: string = modalSubmitInteraction.fields.getTextInputValue(contentOptionName);
-			try {
-				if (channel.isThreadOnly()) {
-					const name: string = "New post";
-					await channel.threads.create({
-						name,
-						message: {content},
-					});
-				} else {
-					await channel.send({content});
-				}
-			} catch {
-				await modalSubmitInteraction.reply({
-					content: noPostPermissionReplyLocalizations[resolvedLocale]({}),
-					ephemeral: true,
-				});
-				return;
-			}
-			function formatMessage(locale: Locale): string {
-				return bareReplyLocalizations[locale]({});
-			}
-			await modalSubmitInteraction.reply({
-				content: formatMessage("en-US"),
-				ephemeral: true,
-			});
-			if (resolvedLocale === "en-US") {
-				return;
-			}
-			await modalSubmitInteraction.followUp({
-				content: formatMessage(resolvedLocale),
 				ephemeral: true,
 			});
 			return;
@@ -345,29 +347,6 @@ const chatCommand: Command = {
 			});
 			return;
 		}
-		const {author}: Message<true> = message;
-		const {user}: Client<true> = client;
-		if (author.id !== user.id) {
-			await interaction.reply({
-				content: noAuthorReplyLocalizations[resolvedLocale]({}),
-				ephemeral: true,
-			});
-			return;
-		}
-		if (message.interaction != null) {
-			await interaction.reply({
-				content: noInteractionReplyLocalizations[resolvedLocale]({}),
-				ephemeral: true,
-			});
-			return;
-		}
-		if (message.type !== MessageType.Default) {
-			await interaction.reply({
-				content: noReplyReplyLocalizations[resolvedLocale]({}),
-				ephemeral: true,
-			});
-			return;
-		}
 		if (subCommandName === patchSubCommandName) {
 			await patchCommand.interact(Object.assign(Object.create(interaction), {
 				commandType: ApplicationCommandType.Message,
@@ -378,95 +357,21 @@ const chatCommand: Command = {
 			return;
 		}
 		if (subCommandName === attachSubCommandName) {
-			const content: string = message.content;
-			const attachments: Attachment[] = [...message.attachments.values()];
-			const position: number = options.getInteger(positionOptionName, true);
-			if (position < 0 || position >= attachments.length + 1) {
-				const max: number = attachments.length;
-				await interaction.reply({
-					content: noPositionReplyLocalizations[resolvedLocale]({
-						max: (): string => {
-							return escapeMarkdown(`${max}`);
-						},
-					}),
-					ephemeral: true,
-				});
-				return;
-			}
-			const attachment: Attachment = options.getAttachment(attachmentOptionName, true);
-			const files: Attachment[] = [...attachments.slice(0, position), attachment, ...attachments.slice(position)];
-			try {
-				await message.edit({content, files});
-			} catch {
-				await interaction.reply({
-					content: noPatchPermissionReplyLocalizations[resolvedLocale]({}),
-					ephemeral: true,
-				});
-				return;
-			}
-			function formatMessage(locale: Locale): string {
-				return replyLocalizations[locale]({});
-			}
-			await interaction.reply({
-				content: formatMessage("en-US"),
-				ephemeral: true,
-			});
-			if (resolvedLocale === "en-US") {
-				return;
-			}
-			await interaction.followUp({
-				content: formatMessage(resolvedLocale),
-				ephemeral: true,
-			});
+			await attachCommand.interact(Object.assign(Object.create(interaction), {
+				commandType: ApplicationCommandType.Message,
+				get targetMessage(): Message<true> {
+					return message;
+				},
+			}));
 			return;
 		}
 		if (subCommandName === detachSubCommandName) {
-			const content: string = message.content;
-			const attachments: Attachment[] = [...message.attachments.values()];
-			const position: number = options.getInteger(positionOptionName, true);
-			if (position < 0 || position >= attachments.length) {
-				const max: number = attachments.length - 1;
-				await interaction.reply({
-					content: noPositionReplyLocalizations[resolvedLocale]({
-						max: (): string => {
-							return escapeMarkdown(`${max}`);
-						},
-					}),
-					ephemeral: true,
-				});
-				return;
-			}
-			if (content === "" && attachments.length === 1) {
-				await interaction.reply({
-					content: noContentOrAttachmentReplyLocalizations[resolvedLocale]({}),
-					ephemeral: true,
-				});
-				return;
-			}
-			const files: Attachment[] = [...attachments.slice(0, position), ...attachments.slice(position + 1)];
-			try {
-				await message.edit({content, files});
-			} catch {
-				await interaction.reply({
-					content: noPatchPermissionReplyLocalizations[resolvedLocale]({}),
-					ephemeral: true,
-				});
-				return;
-			}
-			function formatMessage(locale: Locale): string {
-				return replyLocalizations[locale]({});
-			}
-			await interaction.reply({
-				content: formatMessage("en-US"),
-				ephemeral: true,
-			});
-			if (resolvedLocale === "en-US") {
-				return;
-			}
-			await interaction.followUp({
-				content: formatMessage(resolvedLocale),
-				ephemeral: true,
-			});
+			await detachCommand.interact(Object.assign(Object.create(interaction), {
+				commandType: ApplicationCommandType.Message,
+				get targetMessage(): Message<true> {
+					return message;
+				},
+			}));
 			return;
 		}
 	},
@@ -490,15 +395,6 @@ const chatCommand: Command = {
 				},
 				messageOptionDescription: (): string => {
 					return messageOptionDescription[locale];
-				},
-				contentOptionDescription: (): string => {
-					return contentOptionDescription[locale];
-				},
-				positionOptionDescription: (): string => {
-					return positionOptionDescription[locale];
-				},
-				attachmentOptionDescription: (): string => {
-					return attachmentOptionDescription[locale];
 				},
 			};
 		}));

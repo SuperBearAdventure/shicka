@@ -4,10 +4,12 @@ import applyCompilation from "./compilations/apply.js";
 import approvalCompilation from "./compilations/approval.js";
 import approveCompilation from "./compilations/approve.js";
 import arrivalCompilation from "./compilations/arrival.js";
+import attachCompilation from "./compilations/attach.js";
 import bearCompilation from "./compilations/bear.js";
 import chatCompilation from "./compilations/chat.js";
 import countCompilation from "./compilations/count.js";
 import departureCompilation from "./compilations/departure.js";
+import detachCompilation from "./compilations/detach.js";
 import emojiCompilation from "./compilations/emoji.js";
 import gateCompilation from "./compilations/gate.js";
 import helpCompilation from "./compilations/help.js";
@@ -37,10 +39,12 @@ type Apply = typeof applyCompilation;
 type Approval = typeof approvalCompilation;
 type Approve = typeof approveCompilation;
 type Arrival = typeof arrivalCompilation;
+type Attach = typeof attachCompilation;
 type Bear = typeof bearCompilation;
 type Chat = typeof chatCompilation;
 type Count = typeof countCompilation;
 type Departure = typeof departureCompilation;
+type Detach = typeof detachCompilation;
 type Emoji = typeof emojiCompilation;
 type Gate = typeof gateCompilation;
 type Help = typeof helpCompilation;
@@ -64,17 +68,19 @@ type Trailer = typeof trailerCompilation;
 type Update = typeof updateCompilation;
 type Verification = typeof verificationCompilation;
 type Verify = typeof verifyCompilation;
-type Compilation = About | Application | Apply | Approval | Approve | Arrival | Bear | Chat | Count | Departure | Emoji | Gate | Help | Leaderboard | Link | Mission | Outfit | Patch | Patching | Posting | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
+type Compilation = About | Application | Apply | Approval | Approve | Arrival | Attach | Bear | Chat | Count | Departure | Detach | Emoji | Gate | Help | Leaderboard | Link | Mission | Outfit | Patch | Patching | Posting | Raw | Record | Refusal | Refuse | Roadmap | Rule7 | Soundtrack | Store | Tracker | Trailer | Update | Verification | Verify;
 const about: About = aboutCompilation;
 const application: Application = applicationCompilation;
 const apply: Apply = applyCompilation;
 const approval: Approval = approvalCompilation;
 const approve: Approve = approveCompilation;
 const arrival: Arrival = arrivalCompilation;
+const attach: Attach = attachCompilation;
 const bear: Bear = bearCompilation;
 const chat: Chat = chatCompilation;
 const count: Count = countCompilation;
 const departure: Departure = departureCompilation;
+const detach: Detach = detachCompilation;
 const emoji: Emoji = emojiCompilation;
 const gate: Gate = gateCompilation;
 const help: Help = helpCompilation;
@@ -106,10 +112,12 @@ export type {
 	Approval,
 	Approve,
 	Arrival,
+	Attach,
 	Bear,
 	Chat,
 	Count,
 	Departure,
+	Detach,
 	Emoji,
 	Gate,
 	Help,
@@ -141,10 +149,12 @@ export {
 	approval,
 	approve,
 	arrival,
+	attach,
 	bear,
 	chat,
 	count,
 	departure,
+	detach,
 	emoji,
 	gate,
 	help,

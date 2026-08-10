@@ -42,6 +42,6 @@
 	"noMessageReply": {
 		"en-US": "I do not know any message with this identifier in this channel.",
 		"fr": "Je ne connais aucun message avec cet identifiant dans ce salon.",
-		"pt-BR": "Não sei nenhuma mensagem com essa identificação nesse canal."
+		"pt-BR": "Não sei nenhuma mensagem com essa identificação neste canal."
 	}
 }
