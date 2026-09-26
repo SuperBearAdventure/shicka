@@ -1,6 +1,7 @@
 import type {Localized} from "./utils/string.js";
 import bearsBinding from "./bindings/bears.json" with {type: "json"};
 import challengesBinding from "./bindings/challenges.json" with {type: "json"};
+import hardmodesBinding from "./bindings/hardmodes.json" with {type: "json"};
 import levelsBinding from "./bindings/levels.json" with {type: "json"};
 import missionsBinding from "./bindings/missions.json" with {type: "json"};
 import outfitsBinding from "./bindings/outfits.json" with {type: "json"};
@@ -10,6 +11,7 @@ import sublevelsBinding from "./bindings/sublevels.json" with {type: "json"};
 import updatesBinding from "./bindings/updates.json" with {type: "json"};
 type BearKey = keyof typeof bearsBinding;
 type ChallengeKey = keyof typeof challengesBinding;
+type HardmodeKey = keyof typeof hardmodesBinding;
 type LevelKey = keyof typeof levelsBinding;
 type MissionKey = keyof typeof missionsBinding;
 type OutfitKey = keyof typeof outfitsBinding;
@@ -30,6 +32,11 @@ type BearValue = {
 };
 type ChallengeValue = {
 	name: Localized<string>,
+};
+type HardmodeValue = {
+	diamond: number,
+	gold: number,
+	level: LevelKey,
 };
 type LevelValue = {
 	name: Localized<string>,
@@ -81,6 +88,7 @@ type BindingEntries<Key extends string, Value extends object> = {
 };
 type BearEntries = BindingEntries<BearKey, BearValue>;
 type ChallengeEntries = BindingEntries<ChallengeKey, ChallengeValue>;
+type HardmodeEntries = BindingEntries<HardmodeKey, HardmodeValue>;
 type LevelEntries = BindingEntries<LevelKey, LevelValue>;
 type MissionEntries = BindingEntries<MissionKey, MissionValue>;
 type OutfitEntries = BindingEntries<OutfitKey, OutfitValue>;
@@ -91,13 +99,14 @@ type UpdateEntries = BindingEntries<UpdateKey, UpdateValue>;
 type Mission = MissionEntries[MissionKey];
 type Level = LevelEntries[LevelKey];
 type Bear = BearEntries[BearKey];
+type Hardmode = HardmodeEntries[HardmodeKey];
 type Challenge = ChallengeEntries[ChallengeKey];
 type Outfit = OutfitEntries[OutfitKey];
 type Race = RaceEntries[RaceKey];
 type Rarity = RarityEntries[RarityKey];
 type Sublevel = SublevelEntries[SublevelKey];
 type Update = UpdateEntries[UpdateKey];
-type Binding = BearEntries | ChallengeEntries | LevelEntries | MissionEntries | OutfitEntries | RaceEntries | RarityEntries | SublevelEntries | UpdateEntries;
+type Binding = BearEntries | ChallengeEntries | HardmodeEntries | LevelEntries | MissionEntries | OutfitEntries | RaceEntries | RarityEntries | SublevelEntries | UpdateEntries;
 function bind<Key extends string, Value extends object>(object: {[k in Key]: Value}): BindingEntries<Key, Value> {
 	const binding: BindingEntries<Key, Value> = Object.fromEntries([...(Object.entries(object) as [Key, Value][]).entries()].map<[Key, BindingEntries<Key, Value>[Key]]>(([index, [key, value]]: [number, [Key, Value]]): [Key, BindingEntries<Key, Value>[Key]] => {
 		return [key, {...value, index, key}];
@@ -106,6 +115,7 @@ function bind<Key extends string, Value extends object>(object: {[k in Key]: Val
 }
 const bears: BearEntries = bind<BearKey, BearValue>(bearsBinding as {[k in BearKey]: BearValue});
 const challenges: ChallengeEntries = bind<ChallengeKey, ChallengeValue>(challengesBinding as {[k in ChallengeKey]: ChallengeValue});
+const hardmodes: HardmodeEntries = bind<HardmodeKey, HardmodeValue>(hardmodesBinding as {[k in HardmodeKey]: HardmodeValue});
 const levels: LevelEntries = bind<LevelKey, LevelValue>(levelsBinding as {[k in LevelKey]: LevelValue});
 const missions: MissionEntries = bind<MissionKey, MissionValue>(missionsBinding as {[k in MissionKey]: MissionValue});
 const outfits: OutfitEntries = bind<OutfitKey, OutfitValue>(outfitsBinding as {[k in OutfitKey]: OutfitValue});
@@ -117,6 +127,7 @@ export type {Binding as default};
 export type {
 	Bear,
 	Challenge,
+	Hardmode,
 	Level,
 	Mission,
 	Outfit,
@@ -128,6 +139,7 @@ export type {
 export {
 	bears,
 	challenges,
+	hardmodes,
 	levels,
 	missions,
 	outfits,

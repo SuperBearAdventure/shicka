@@ -1,5 +1,6 @@
 import type {
 	Bear,
+	Hardmode,
 	Level,
 	Mission,
 	Outfit,
@@ -8,6 +9,7 @@ import type {
 import {
 	bears,
 	challenges,
+	hardmodes,
 	levels,
 	missions,
 	outfits,
@@ -17,6 +19,7 @@ import {
 } from "./bindings.js";
 type BearKey = keyof typeof bears;
 type ChallengeKey = keyof typeof challenges;
+type HardmodeKey = keyof typeof hardmodes;
 type LevelKey = keyof typeof levels;
 type MissionKey = keyof typeof missions;
 type OutfitKey = keyof typeof outfits;
@@ -29,13 +32,14 @@ type IndexEntries<OtherKey extends string, OwnKey extends string, Value extends 
 	}
 };
 type BearByLevelEntries = IndexEntries<LevelKey, BearKey, Bear>;
+type HardmodeByLevelEntries = IndexEntries<LevelKey, HardmodeKey, Hardmode>;
 type LevelByLevelEntries = IndexEntries<LevelKey, LevelKey, Level>;
 type MissionByChallengeEntries = IndexEntries<ChallengeKey, MissionKey, Mission>;
 type MissionByLevelEntries = IndexEntries<LevelKey, MissionKey, Mission>;
 type OutfitByRarityEntries = IndexEntries<RarityKey, OutfitKey, Outfit>;
 type OutfitByUpdateEntries = IndexEntries<UpdateKey, OutfitKey, Outfit>;
 type SublevelByLevelEntries = IndexEntries<LevelKey, SublevelKey, Sublevel>;
-type Index = BearByLevelEntries | LevelByLevelEntries | MissionByChallengeEntries | MissionByLevelEntries | OutfitByRarityEntries | OutfitByUpdateEntries | SublevelByLevelEntries;
+type Index = BearByLevelEntries | HardmodeByLevelEntries | LevelByLevelEntries | MissionByChallengeEntries | MissionByLevelEntries | OutfitByRarityEntries | OutfitByUpdateEntries | SublevelByLevelEntries;
 function indexBy<OtherKey extends string, OwnKey extends string, Value extends {[k in IndexKey]: OtherKey | null}, IndexKey extends string>(object: {[k in OwnKey]: Value}, indexKey: IndexKey): IndexEntries<OtherKey, OwnKey, Value> {
 	const index: IndexEntries<OtherKey, OwnKey, Value> = Object.create(null);
 	for (const [ownKey, value] of Object.entries(object) as [OwnKey, Value][]) {
@@ -48,6 +52,7 @@ function indexBy<OtherKey extends string, OwnKey extends string, Value extends {
 	return index;
 }
 const bearsByLevel: BearByLevelEntries = indexBy<LevelKey, BearKey, Bear, "level">(bears, "level");
+const hardmodesByLevel: HardmodeByLevelEntries = indexBy<LevelKey, HardmodeKey, Hardmode, "level">(hardmodes, "level");
 const levelsByLevel: LevelByLevelEntries = indexBy<LevelKey, LevelKey, Level, "level">(levels, "level");
 const missionsByChallenge: MissionByChallengeEntries = indexBy<ChallengeKey, MissionKey, Mission, "challenge">(missions, "challenge");
 const missionsByLevel: MissionByLevelEntries = indexBy<LevelKey, MissionKey, Mission, "level">(missions, "level");
@@ -57,6 +62,7 @@ const sublevelsByLevel: SublevelByLevelEntries = indexBy<LevelKey, SublevelKey, 
 export type {Index as default};
 export type {
 	Bear,
+	Hardmode,
 	Level,
 	Mission,
 	Outfit,
@@ -64,6 +70,7 @@ export type {
 };
 export {
 	bearsByLevel,
+	hardmodesByLevel,
 	levelsByLevel,
 	missionsByChallenge,
 	missionsByLevel,

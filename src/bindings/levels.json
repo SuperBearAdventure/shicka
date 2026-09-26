@@ -104,7 +104,7 @@
 			"fr": "La Mine des Taupes",
 			"pt-BR": "As Minas das Toupeiras"
 		},
-		"chests": 8,
+		"chests": 9,
 		"coins": 150,
 		"stickers": 0,
 		"level": "ui_level2"
@@ -115,7 +115,7 @@
 			"fr": "Le Temple Astral",
 			"pt-BR": "O Templo Astral"
 		},
-		"chests": 8,
+		"chests": 9,
 		"coins": 150,
 		"stickers": 0,
 		"level": "ui_level3"
