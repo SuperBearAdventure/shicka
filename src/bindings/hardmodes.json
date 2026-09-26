@@ -1,0 +1,22 @@
+{
+	"ui_level1": {
+		"diamond": 190,
+		"gold": 225,
+		"level": "ui_level1"
+	},
+	"ui_level2": {
+		"diamond": 230,
+		"gold": 260,
+		"level": "ui_level2"
+	},
+	"ui_level3": {
+		"diamond": 360,
+		"gold": 420,
+		"level": "ui_level3"
+	},
+	"ui_level4": {
+		"diamond": 330,
+		"gold": 390,
+		"level": "ui_level4"
+	}
+}

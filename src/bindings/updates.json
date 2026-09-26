@@ -1322,7 +1322,27 @@
 	"13.0.2": {
 		"date": {
 			"android": "2026-07-24",
+			"ios": "2026-07-28",
+			"switch": null
+		},
+		"notes": [
+			"Bug fixes"
+		]
+	},
+	"13.0.3": {
+		"date": {
+			"android": "2026-07-31",
 			"ios": null,
+			"switch": null
+		},
+		"notes": [
+			"Bug fixes"
+		]
+	},
+	"13.0.4": {
+		"date": {
+			"android": "2026-08-07",
+			"ios": "2026-08-14",
 			"switch": null
 		},
 		"notes": [
