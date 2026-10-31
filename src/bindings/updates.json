@@ -1368,5 +1368,25 @@
 		"notes": [
 			"Fix crash on iOS 27"
 		]
+	},
+	"13.0.7": {
+		"date": {
+			"android": "2026-10-03",
+			"ios": "2026-10-04",
+			"switch": null
+		},
+		"notes": [
+			"Bug fixes"
+		]
+	},
+	"13.0.8": {
+		"date": {
+			"android": "2026-10-05",
+			"ios": "2026-10-05",
+			"switch": "2026-10-13"
+		},
+		"notes": [
+			"Fixed issues related to physics"
+		]
 	}
 }
